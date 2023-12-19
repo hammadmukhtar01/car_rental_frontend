@@ -1,0 +1,53 @@
+.crsl {
+  /* width: 1100px; */
+  margin: auto;
+}
+
+.carousel-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.booking-wishlist-button {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.stm-icon-whatsapp {
+  padding-right: 20px;
+}
+.whatsapp-container {
+  border-radius: 5px;
+}
+
+.whatsapp-container:hover {
+  background-color: whitesmoke;
+}
+
+.booking-price-evaluation {
+  /* width: 300px; */
+  margin: auto;
+  /* margin-top: 20px; */
+  padding: 10px;
+}
+
+.price-row, .total-price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.price-label {
+  font-weight: bold;
+}
+
+.price-value {
+  color: #cc6119;
+}
+.price-booking-button-div {
+  margin-top: 50px;
+  border: 1px solid rgb(233, 233, 233);
+  border-radius: 6px;
+  padding-bottom: 20px;
+}
+
