@@ -4,6 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./vehicleDetails.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { Link } from "react-router-dom";
 
 const VehicleDetailsPage = () => {
   const latitude = 25.177236;
@@ -111,6 +112,8 @@ const VehicleDetailsPage = () => {
     },
   ];
 
+  const buttonShown = "available";
+
   return (
     <div>
       <div
@@ -216,39 +219,23 @@ const VehicleDetailsPage = () => {
                           </div>
 
                           <div className="booking-wishlist-button">
-                            <div className="col-lg-12 col-md-12">
-                              <button
-                                className="booking-button"
-                                style={{
-                                  backgroundColor: "#cc6119",
-                                  color: "#fff",
-                                  marginTop: "10px",
-                                  cursor: "pointer",
-                                }}
-                                onClick={() => {
-                                  console.log("Start Booking clicked!");
-                                }}
-                              >
-                                Start Booking
-                              </button>
-                            </div>
-
-                            <div className="col-lg-12 col-md-12">
-                              <button
-                                className="wishlist-button"
-                                style={{
-                                  backgroundColor: "#cc6119",
-                                  color: "#fff",
-                                  marginTop: "10px",
-                                  cursor: "pointer",
-                                }}
-                                onClick={() => {
-                                  console.log("Add to Wishlist clicked!");
-                                }}
-                              >
-                                Add to Wishlist
-                              </button>
-                            </div>
+                            {buttonShown === "available" ? (
+                              <div className="col-lg-12 col-md-12">
+                                <Link to="/booking" className="btn btn-primary">
+                                  <b>Started Booking</b>{" "}
+                                  <span className="fas fa-arrow-right ps-2"></span>
+                                </Link>
+                              </div>
+                            ) : (
+                              <div className="col-lg-12 col-md-12">
+                                <Link
+                                  to="/wishlist"
+                                  className="btn btn-primary"
+                                >
+                                  <b>Add to Wishlist</b>
+                                </Link>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>

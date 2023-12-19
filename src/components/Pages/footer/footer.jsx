@@ -179,7 +179,7 @@ const Footer = () => {
                       <figure className="gallery-item">
                         <div className="gallery-icon landscape">
                           <a
-                            href="nissan-kicks-detail.html"
+                            href="vehicleDetails"
                             className="external"
                             rel="nofollow"
                           >
@@ -206,7 +206,7 @@ const Footer = () => {
                       <figure className="gallery-item">
                         <div className="gallery-icon landscape">
                           <a
-                            href="kia-k5-detail.html"
+                            href="/vehicleDetails"
                             className="external"
                             rel="nofollow"
                           >

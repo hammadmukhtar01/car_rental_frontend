@@ -182,7 +182,7 @@ const HomePage = () => {
                         <div className="row row-4 car-listing-row">
                           <div className="col-md-4 col-sm-4 col-xs-12 col-xxs-12 stm-template-front-loop">
                             <a
-                              href="kia-k5-detail.html"
+                              href="/vehicleDetails"
                               className="rmv_txt_drctn xx"
                             >
                               <div className="image">
@@ -259,7 +259,7 @@ const HomePage = () => {
                           <div className="col-md-2 col-sm-2 col-xs-12 col-xxs-12 stm-template-front-loop"></div>
                           <div className="col-md-4 col-sm-4 col-xs-12 col-xxs-12 stm-template-front-loop">
                             <a
-                              href="nissan-kicks-detail.html"
+                              href="vehicleDetails"
                               className="rmv_txt_drctn xx"
                             >
                               <div className="image">

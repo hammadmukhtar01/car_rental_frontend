@@ -42,7 +42,7 @@ const VehiclesPage = () => {
           className="listing-list-loop stm-listing-directory-list-loop stm-isotope-listing-item"
         >
           <div className="image">
-            <a href="details.html" className="rmv_txt_drctn">
+            <a href="/vehicleDetails" className="rmv_txt_drctn">
               <div className="image-inner interactive-hoverable">
                 <div className="hoverable-wrap">
                   <div className="hoverable-unit active">
@@ -71,7 +71,7 @@ const VehiclesPage = () => {
                 </div>
               </div>
               <div className="title heading-font">
-                <a href="details.html" className="rmv_txt_drctn">
+                <a href="/vehicleDetails" className="rmv_txt_drctn">
                   {car.carName}
                 </a>
               </div>

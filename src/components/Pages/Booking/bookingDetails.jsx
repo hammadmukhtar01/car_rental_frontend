@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const BookingDetails = () => {
   // Sample response from backend API
@@ -32,12 +33,9 @@ const BookingDetails = () => {
       className="booking-details-container"
       style={{ display: "flex", flexDirection: "column", padding: "30px" }}
     >
-      <div
-        className="row"
-        style={{ gap: "16px" }}
-      >
+      <div className="row" style={{ gap: "16px" }}>
         {/* Left Side - Col-9 */}
-        <div className="col-lg-9 col-md-12">
+        <div className="col-lg-9 col-md-6">
           <div className="booking-form">
             <div className="row">
               <div className="col-lg-6">
@@ -153,8 +151,15 @@ const BookingDetails = () => {
         </div>
 
         {/* Right Side - Col-3 */}
-        <br/>
-        <div className="col-lg-3 col-md-12" style={{ border: "1px solid rgb(233, 233, 233)", borderRadius: "6px", marginTop: "10px"}}>
+        <br />
+        <div
+          className="col-lg-3 col-md-6"
+          style={{
+            border: "1px solid rgb(233, 233, 233)",
+            borderRadius: "6px",
+            marginTop: "10px",
+          }}
+        >
           <div className="booking-price-evaluation">
             <div className="price-row" style={{ lineHeight: "300%" }}>
               <span className="price-label">Actual Price:</span>
@@ -175,12 +180,14 @@ const BookingDetails = () => {
           </div>
         </div>
       </div>
-      <br/>
+      <br />
       <div className="prebooking-button">
-        <div className="col-lg-3 col-md-12">
-          <div className="btn btn-primary">
-            {" "}
-            Continue to Payment <span className="fas fa-arrow-right ps-2"></span>
+        <div className="col-lg-3 col-md-6">
+          <div >
+            <Link to="/payment" className="btn btn-primary">
+              Continue to Payment{" "}
+              <span className="fas fa-arrow-right ps-2"></span>
+            </Link>
           </div>
         </div>
       </div>

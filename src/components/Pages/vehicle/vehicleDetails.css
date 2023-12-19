@@ -13,6 +13,14 @@
   text-align: center;
 }
 
+.btn.btn-primary {
+  border-radius: 4px;
+}
+
+.btn.btn-primary:hover {
+  background-color: #df6412;
+}
+
 .stm-icon-whatsapp {
   padding-right: 20px;
 }
