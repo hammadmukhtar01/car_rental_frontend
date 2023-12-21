@@ -80,7 +80,7 @@ const SignupPage = () => {
                       type="submit"
                       className="form-control btn btn-primary login-button submit px-3"
                     >
-                      Sign Up In
+                      Sign Up
                     </button>
                   </div>
                   <div className="form-group d-md-flex">

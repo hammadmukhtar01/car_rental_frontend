@@ -5,6 +5,7 @@ import "./vehicleDetails.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Link } from "react-router-dom";
+import Review from "../review/review";
 
 const VehicleDetailsPage = () => {
   const latitude = 25.177236;
@@ -175,6 +176,7 @@ const VehicleDetailsPage = () => {
                           <Carousel className="crsl">
                             {images.map((image) => (
                               <img
+                              key={image.id}
                                 src={image.download_url}
                                 alt={image.author}
                               ></img>
@@ -390,6 +392,7 @@ const VehicleDetailsPage = () => {
           </section>
         </div>
       </div>
+      <Review/>
     </div>
   );
 };

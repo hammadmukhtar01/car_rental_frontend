@@ -40,7 +40,6 @@ const Navbar = () => {
     { id: "signup", label: "Sign Up", link: "/signup" },
   ];
 
-
   return (
     <div>
       <div id="header">
@@ -67,9 +66,9 @@ const Navbar = () => {
               </div>
               <div className="mobile-menu-holder">
                 <ul className="header-menu clearfix">
-                  {smallScreenMenuItems.map((item) => (
+                  {smallScreenMenuItems.map((item, index) => (
                     <li
-                      key={item.id}
+                      key={index}
                       className={`menu-item menu-item-type-custom menu-item-object-custom `}
                     >
                       <a href={item.link}>{item.label}</a>
@@ -77,6 +76,7 @@ const Navbar = () => {
                   ))}
                 </ul>
               </div>
+
               <div className="top-info-wrap">
                 <div className="header-top-info">
                   <div className="clearfix">
@@ -149,44 +149,50 @@ const Navbar = () => {
           </div>
         </div>
         <div id="header-nav-holder" className="hidden-sm hidden-xs">
-      <div className="header-nav header-nav-transparent header-nav-fixed">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8">
-              <div className="main-menu">
-                <ul className="header-menu clearfix float-left" id="navbar-home">
-                  {largeScreenMenuItems.map((item) => (
-                    <li
-                      key={item.id}
-                      className={`menu-item menu-item-type-custom menu-item-object-custom menu-item-${item.id}`}
-                      id={item.id}
+          <div className="header-nav header-nav-transparent header-nav-fixed">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-8">
+                  <div className="main-menu">
+                    <ul
+                      className="header-menu clearfix float-left"
+                      id="navbar-home"
                     >
-                      <a href={item.link}>{item.label}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+                      {largeScreenMenuItems.map((item) => (
+                        <li
+                          key={item.id}
+                          className={`menu-item menu-item-type-custom menu-item-object-custom menu-item-${item.id}`}
+                          id={item.id}
+                        >
+                          <a href={item.link}>{item.label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
 
-            <div className="col-lg-4">
-              <div className="main-menu">
-                <ul className="header-menu clearfix float-right" id="navbar-home">
-                  {authMenuItems.map((item) => (
-                    <li
-                      key={item.id}
-                      className={`menu-item menu-item-type-custom menu-item-object-custom menu-item-${item.id}`}
-                      id={item.id}
+                <div className="col-lg-4">
+                  <div className="main-menu">
+                    <ul
+                      className="header-menu clearfix float-right"
+                      id="navbar-home"
                     >
-                      <a href={item.link}>{item.label}</a>
-                    </li>
-                  ))}
-                </ul>
+                      {authMenuItems.map((item) => (
+                        <li
+                          key={item.id}
+                          className={`menu-item menu-item-type-custom menu-item-object-custom menu-item-${item.id}`}
+                          id={item.id}
+                        >
+                          <a href={item.link}>{item.label}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
       </div>
     </div>
   );

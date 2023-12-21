@@ -181,9 +181,9 @@ const BookingDetails = () => {
         </div>
       </div>
       <br />
-      <div className="prebooking-button">
+      <div className="">
         <div className="col-lg-3 col-md-6">
-          <div >
+          <div className="prebooking-button">
             <Link to="/payment" className="btn btn-primary">
               Continue to Payment{" "}
               <span className="fas fa-arrow-right ps-2"></span>
