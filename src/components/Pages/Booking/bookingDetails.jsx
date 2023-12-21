@@ -33,6 +33,18 @@ const BookingDetails = () => {
       className="booking-details-container"
       style={{ display: "flex", flexDirection: "column", padding: "30px" }}
     >
+        <div className="elementor-widget-container">
+          <div className="motors-elementor-widget car-listing-tabs-unit ">
+            <div className="car-listing-top-part">
+              <div className="found-cars-cloned found-cars-51281 position-right hide-on-mobile"></div>
+              <div className="title text-center">
+                <h2>
+                  <span style={{ color: "#cc6118" }}>Booking Details</span>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
       <div className="row" style={{ gap: "16px" }}>
         {/* Left Side - Col-9 */}
         <div className="col-lg-9 col-md-6">

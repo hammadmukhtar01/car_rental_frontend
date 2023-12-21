@@ -1,7 +1,26 @@
 /* eslint-disable react/style-prop-object */
 import React from "react";
+import VehiclesPage from "../vehicle/vehiclesPage";
 
 const HomePage = () => {
+  const slidesData = [
+    {
+      key: "rs-1",
+      thumb: "https://milelecarrental.com/Sliders/B1.png",
+      image: "Sliders/B1.png",
+      alt: "(LHD) HYUNDAI ACCENT 1.4P AT MY2023 - WHITE",
+      duration: 3000,
+    },
+    {
+      key: "rs-2",
+      thumb: "Sliders/B2.png",
+      image: "Sliders/B2.png",
+      alt: "(LHD) KIA PICANTO 1.2P AT MY2023 – SPARKLING SILVER",
+      duration: 4000,
+    },
+    // Add more slide data as needed
+  ];
+
   return (
     <div>
       <div id="main">
@@ -35,119 +54,49 @@ const HomePage = () => {
                           <rs-module-wrap
                             id="rev_slider_1_1_wrapper"
                             data-source="gallery"
-                            style={{visibility:"hidden", background:"transparent", padding:0, margin:"0px auto", marginTop:0, marginBottom:0}}
+                            style={{
+                              visibility: "hidden",
+                              background: "transparent",
+                              padding: 0,
+                              margin: "0px",
+                              marginBottom: 0,
+                            }}
                           >
                             <rs-module
                               id="rev_slider_1_1"
                               style={{}}
                               data-version="6.6.14"
                             >
-                              <rs-slides style={{overflow: "hidden", position: "absolute"}}>
-                                <rs-slide
-                                  className="responsiveClass"
-                                  style={{position: "absolute"}}
-                                  data-key="rs-1"
-                                  data-title="Slide"
-                                  data-thumb="https://milelecarrental.com/Sliders/B1.png"
-                                  data-duration="3000ms"
-                                  data-in="o:0;"
-                                  data-out="a:false;"
-                                >
-                                  <img
-                                    decoding="async"
-                                    src="Sliders/B1.png"
-                                    alt="(LHD) HYUNDAI ACCENT 1.4P AT MY2023 - WHITE"
-                                    title="Home"
-                                    className="rev-slidebg tp-rs-img rs-lazyload"
-                                    data-lazyload="Sliders/B1.png"
-                                    data-panzoom="d:10000;ss:100;se:120%;"
-                                    data-no-retina
-                                  />
-                                </rs-slide>
-                                <rs-slide
-                                  className="responsiveClass"
-                                  style={{position: "absolute"}}
-                                  data-key="rs-2"
-                                  data-title="Slide"
-                                  data-thumb="Sliders/B2.png"
-                                  data-duration="4000ms"
-                                  data-in="o:0;"
-                                  data-out="a:false;"
-                                >
-                                  <img
-                                    decoding="async"
-                                    src="Sliders/B2.png"
-                                    alt="(LHD) KIA PICANTO 1.2P AT MY2023 – SPARKLING SILVER"
-                                    title="Home"
-                                    className="rev-slidebg tp-rs-img rs-lazyload"
-                                    data-lazyload="Sliders/B2.png"
-                                    data-panzoom="d:10000;ss:100%;se:120%;"
-                                    data-no-retina
-                                  />
-                                </rs-slide>
-                                <rs-slide
-                                  className="responsiveClass"
-                                  style={{position: "absolute"}}
-                                  data-key="rs-3"
-                                  data-title="Slide"
-                                  data-thumb="Sliders/B3.png"
-                                  data-duration="4000ms"
-                                  data-in="o:0;"
-                                  data-out="a:false;"
-                                >
-                                  <img
-                                    decoding="async"
-                                    src="Sliders/B3.png"
-                                    alt="(LHD) KIA K5 2.0P AT MY2023 – WHITE"
-                                    title="Home"
-                                    className="rev-slidebg tp-rs-img rs-lazyload"
-                                    data-lazyload="Sliders/B3.png"
-                                    data-panzoom="d:10000;ss:100%;se:120%;"
-                                    data-no-retina
-                                  />
-                                </rs-slide>
-                                <rs-slide
-                                  className="responsiveClass"
-                                  style={{position: "absolute"}}
-                                  data-key="rs-4"
-                                  data-title="Slide"
-                                  data-thumb="Sliders/B4.png"
-                                  data-duration="4000ms"
-                                  data-in="o:0;"
-                                  data-out="a:false;"
-                                >
-                                  <img
-                                    decoding="async"
-                                    src="Sliders/B4.png"
-                                    alt="(LHD) NISSAN KICKS 1.6P AT MY2022 - BLACK"
-                                    title="Home"
-                                    className="rev-slidebg tp-rs-img rs-lazyload"
-                                    data-lazyload="Sliders/B4.png"
-                                    data-panzoom="d:10000;ss:100%;se:120%;"
-                                    data-no-retina
-                                  />
-                                </rs-slide>
-                                <rs-slide
-                                  className="responsiveClass"
-                                  style={{position: "absolute"}}
-                                  data-key="rs-5"
-                                  data-title="Slide"
-                                  data-thumb="Sliders/B5.png"
-                                  data-duration="4000ms"
-                                  data-in="o:0;"
-                                  data-out="a:false;"
-                                >
-                                  <img
-                                    decoding="async"
-                                    src="Sliders/B5.png"
-                                    alt="(LHD) CHEVROLET CAPTIVA PREMIER 7-SEATER 1.5P AT MY2023"
-                                    title="Home"
-                                    className="rev-slidebg tp-rs-img rs-lazyload"
-                                    data-lazyload="Sliders/B5.png"
-                                    data-panzoom="d:10000;ss:100%;se:120%;"
-                                    data-no-retina
-                                  />
-                                </rs-slide>
+                              <rs-slides
+                                style={{
+                                  overflow: "hidden",
+                                  position: "absolute",
+                                }}
+                              >
+                                {slidesData.map((slide) => (
+                                  <rs-slide
+                                    key={slide.key}
+                                    className="responsiveClass"
+                                    style={{ position: "absolute" }}
+                                    data-key={slide.key}
+                                    data-title="Slide"
+                                    data-thumb={slide.thumb}
+                                    data-duration={`${slide.duration}ms`}
+                                    data-in="o:0;"
+                                    data-out="a:false;"
+                                  >
+                                    <img
+                                      decoding="async"
+                                      src={slide.image}
+                                      alt={slide.alt}
+                                      title="Home"
+                                      className="rev-slidebg tp-rs-img rs-lazyload"
+                                      data-lazyload={slide.image}
+                                      data-panzoom="d:10000;ss:100%;se:120%;"
+                                      data-no-retina
+                                    />
+                                  </rs-slide>
+                                ))}
                               </rs-slides>
                             </rs-module>
                           </rs-module-wrap>
@@ -158,163 +107,7 @@ const HomePage = () => {
                 </div>
               </div>
             </section>
-            <section className="elementor-section elementor-top-section  elementor-element">
-              <div className="elementor-container elementor-column-gap-no">
-                <div className="elementor-column ">
-                  <div className="elementor-widget-wrap elementor-element-populated">
-                    <div className="elementor-element elementor-element-0cca101 elementor-widget elementor-widget-motors-car-listing-tabs">
-                      <div className="elementor-widget-container">
-                        <div className="motors-elementor-widget car-listing-tabs-unit ">
-                          <div className="car-listing-top-part">
-                            <div className="found-cars-cloned found-cars-51281 position-right hide-on-mobile"></div>
-                            <div className="title text-center">
-                              <h2>
-                                <span style={{color: "#cc6118"}}>VEHICLES</span>
-                              </h2>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        id="car-listing-main-part"
-                        style={{marginTop: "40px", marginBottom: "40px"}}
-                      >
-                        <div className="row row-4 car-listing-row">
-                          <div className="col-md-4 col-sm-4 col-xs-12 col-xxs-12 stm-template-front-loop">
-                            <a
-                              href="/vehicleDetails"
-                              className="rmv_txt_drctn xx"
-                            >
-                              <div className="image">
-                                <img
-                                  width="350"
-                                  height="135"
-                                  src="Thumbnails/TN%20-%20K5.jpg"
-                                  className="attachment-stm-img-350-135 size-stm-img-350-135"
-                                  alt="(LHD) KIA K5 2.0P AT MY2023 – WHITE"
-                                  decoding="async"
-                                  data-retina="https://milelecarrental.com/Thumbnails/TN - K5.jpg"
-                                  srcSet="https://milelecarrental.com/Thumbnails/TN - K5.jpg 350w, https://milelecarrental.com/Thumbnails/TN - K5.jpg 510w"
-                                  sizes="(max-width: 350px) 100vw, 350px"
-                                />
-                              </div>
-                              <div className="listing-car-item-meta">
-                                <div className="car-meta-top heading-font clearfix">
-                                  <div className="car-title">KIA K5</div>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="col-md-4 col-sm-4 col-xs-12 col-xxs-12 stm-template-front-loop">
-                            <a
-                              href="picantodetails.html"
-                              className="rmv_txt_drctn xx"
-                            >
-                              <div className="image">
-                                <img
-                                  loading="lazy"
-                                  width="350"
-                                  height="135"
-                                  src="Thumbnails/TN%20-%20PICANTO.jpg"
-                                  className="attachment-stm-img-350-135 size-stm-img-350-135"
-                                  alt="(LHD) KIA PICANTO 1.2P AT MY2023 – SPARKLING SILVER"
-                                  decoding="async"
-                                  data-retina="https://milelecarrental.com/Thumbnails/TN - PICANTO.jpg"
-                                  srcSet="https://milelecarrental.com/Thumbnails/TN - PICANTO.jpg 350w, https://milelecarrental.com/Thumbnails/TN - PICANTO.jpg 510w"
-                                  sizes="(max-width: 255px) 100vw, 255px"
-                                />
-                              </div>
-                              <div className="listing-car-item-meta">
-                                <div className="car-meta-top heading-font clearfix">
-                                  <div className="car-title">KIA PICANTO</div>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="col-md-4 col-sm-4 col-xs-12 col-xxs-12 stm-template-front-loop">
-                            <a href="details.html" className="rmv_txt_drctn xx">
-                              <div className="image">
-                                <img
-                                  loading="lazy"
-                                  width="350"
-                                  height="135"
-                                  src="Thumbnails/TN%20-%20ACCENT.jpg"
-                                  className="attachment-stm-img-350-135 size-stm-img-350-135"
-                                  alt="(LHD) HYUNDAI ACCENT 1.4P AT MY2023 - WHITE"
-                                  decoding="async"
-                                  data-retina="https://milelecarrental.com/Thumbnails/TN - ACCENT.jpg"
-                                  srcSet="https://milelecarrental.com/Thumbnails/TN - ACCENT.jpg 350w, https://milelecarrental.com/Thumbnails/TN - ACCENT.jpg 510w"
-                                  sizes="(max-width: 350px) 100vw, 350px"
-                                />
-                              </div>
-                              <div className="listing-car-item-meta">
-                                <div className="car-meta-top heading-font clearfix">
-                                  <div className="car-title">HYUNDAI ACCENT</div>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                        </div>
-                        <div className="row row-4 car-listing-row">
-                          <div className="col-md-2 col-sm-2 col-xs-12 col-xxs-12 stm-template-front-loop"></div>
-                          <div className="col-md-4 col-sm-4 col-xs-12 col-xxs-12 stm-template-front-loop">
-                            <a
-                              href="vehicleDetails"
-                              className="rmv_txt_drctn xx"
-                            >
-                              <div className="image">
-                                <img
-                                  width="350"
-                                  height="135"
-                                  src="Thumbnails/TN%20-%20KICKS.jpg"
-                                  className="attachment-stm-img-350-135 size-stm-img-350-135"
-                                  alt="(LHD) NISSAN KICKS 1.6P AT MY2022 - BLACK"
-                                  decoding="async"
-                                  data-retina="https://milelecarrental.com/Thumbnails/TN - KICKS.jpg"
-                                  srcSet="https://milelecarrental.com/Thumbnails/TN - KICKS.jpg 350w, https://milelecarrental.com/Thumbnails/TN - KICKS.jpg 510w"
-                                  sizes="(max-width: 350px) 100vw, 350px"
-                                />
-                              </div>
-                              <div className="listing-car-item-meta">
-                                <div className="car-meta-top heading-font clearfix">
-                                  <div className="car-title">NISSAN KICKS</div>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="col-md-4 col-sm-4 col-xs-12 col-xxs-12 stm-template-front-loop">
-                            <a
-                              href="chevroletdetails.html"
-                              className="rmv_txt_drctn xx"
-                            >
-                              <div className="image">
-                                <img
-                                  width="350"
-                                  height="135"
-                                  src="Thumbnails/TN%20-%20CAPTIVA.jpg"
-                                  className="attachment-stm-img-350-135 size-stm-img-350-135"
-                                  alt="(LHD) Chevrolet Captiva Premier 7-Seater 1.5P AT MY2023"
-                                  decoding="async"
-                                  data-retina="https://milelecarrental.com/Thumbnails/TN - CAPTIVA.jpg"
-                                  srcSet="https://milelecarrental.com/Thumbnails/TN - CAPTIVA.jpg 350w, https://milelecarrental.com/Thumbnails/TN - CAPTIVA.jpg 510w"
-                                  sizes="(max-width: 350px) 100vw, 350px"
-                                />
-                              </div>
-                              <div className="listing-car-item-meta">
-                                <div className="car-meta-top heading-font clearfix">
-                                  <div className="car-title">Chevrolet Captiva</div>
-                                </div>
-                              </div>
-                            </a>
-                          </div>
-                          <div className="col-md-2 col-sm-2 col-xs-12 col-xxs-12 stm-template-front-loop"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <VehiclesPage />
             <section
               className="elementor-section elementor-top-section elementor-element elementor-element-64ac772 elementor-section-full_width elementor-section-stretched elementor-section-height-default elementor-section-height-default"
               data-id="64ac772"
@@ -342,11 +135,11 @@ const HomePage = () => {
                             <div className="last-short stm-base-background-color"></div>
                           </div>
                           <div
-                            style={{color:"white"}}
+                            style={{ color: "white" }}
                             className="listing-car-items-units swiper-container items-per-view-3"
                             id="selc-24085"
                           >
-                            <span style={{color: "#cc761a"}}>MILELE</span> Car
+                            <span style={{ color: "#cc761a" }}>MILELE</span> Car
                             Rental company strives to offer clients affordable
                             corporate and individual long term lease solutions,
                             which takes away all the administrative hassles. No

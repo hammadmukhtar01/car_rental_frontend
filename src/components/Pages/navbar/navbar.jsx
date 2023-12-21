@@ -21,11 +21,11 @@ const Navbar = () => {
   ];
 
   const smallScreenMenuItems = [
-    { label: "Home", link: "home.html" },
-    { label: "Vehicles", link: "vehicles.html" },
-    { label: "About Us", link: "about-us.html" },
-    { label: "FAQ", link: "faq.html" },
-    { label: "Contact Us", link: "contact-us.html" },
+    {label: "Home", link: "/" },
+    {label: "Vehicles", link: "/vehicles" },
+    {label: "About Us", link: "/aboutus" },
+    {label: "FAQ", link: "/faqs" },
+    {label: "Contact Us", link: "/contactus" },
   ];
 
   const largeScreenMenuItems = [
@@ -77,7 +77,7 @@ const Navbar = () => {
                 </ul>
               </div>
 
-              <div className="top-info-wrap">
+              <div className="top-info-wrap" >
                 <div className="header-top-info">
                   <div className="clearfix">
                     <div className="pull-right">
@@ -148,8 +148,8 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div id="header-nav-holder" className="hidden-sm hidden-xs">
-          <div className="header-nav header-nav-transparent header-nav-fixed">
+        <div id="header-nav-holder" className="hidden-sm hidden-xs" >
+          <div className="header-nav header-nav-transparent header-nav-fixed"  style={{padding: "0px 20px"}}>
             <div className="container">
               <div className="row">
                 <div className="col-lg-8">

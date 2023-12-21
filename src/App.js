@@ -9,17 +9,16 @@ import HomePage from './components/Pages/homePage/homePage';
 import VehicleDetailsPage from './components/Pages/vehicle/vehicleDetailsPage';
 import VehiclesPage from './components/Pages/vehicle/vehiclesPage';
 import LoginPage from './components/authentication/loginPage';
-import AboutusPage from './components/Pages/OtherPages/aboutusPage';
 import FaqsPage from './components/Pages/OtherPages/faqsPage';
 import ContactusPage from './components/Pages/OtherPages/contactusPage';
 import SignupPage from './components/authentication/signupPage';
+import AboutusPage from './components/Pages/OtherPages/aboutusPage';
 
 function App() {
   return (
     <>
       <div className="App">
         <Navbar />
-        <div style={{ marginTop: '80px' }}></div>
         <Routes>
           <Route path="/" exact element={<HomePage/>} />
           <Route path="/vehicles" element={<VehiclesPage/>} />

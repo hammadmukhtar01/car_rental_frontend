@@ -445,7 +445,8 @@ body {
 
 .container {
     width: auto;
-    max-width: 1140px;
+    /* max-width: 1140px; */
+    /* padding: 0px 0px; */
 }
 
 #wrapper {
@@ -1287,7 +1288,7 @@ body {
 
 .container {
     width: auto;
-    max-width: 1140px;
+    /* max-width: 1140px; */
 }
 
 #wrapper {
@@ -3323,7 +3324,7 @@ body {
 
 .container {
     width: auto;
-    max-width: 1140px;
+    /* max-width: 1140px; */
 }
 
 #wrapper {
@@ -15781,7 +15782,7 @@ div.radio,
 div.uploader {
     display: -moz-inline-box;
     display: inline-block;
-    *display: inline;
+    /* *display: inline; */
     zoom: 1;
     vertical-align: middle;
   /* Keeping this as :focus to remove browser styles */
@@ -15928,7 +15929,7 @@ div.checker, div.checker span, div.checker input {
 div.checker span {
     display: -moz-inline-box;
     display: inline-block;
-    *display: inline;
+    /* *display: inline; */
     zoom: 1;
     text-align: center;
     background-position: 0 0;
@@ -15946,7 +15947,7 @@ div.checker input {
     background: none;
     display: -moz-inline-box;
     display: inline-block;
-    *display: inline;
+    /* *display: inline; */
     zoom: 1;
 }
 
@@ -15963,7 +15964,7 @@ div.radio, div.radio span, div.radio input {
 div.radio span {
     display: -moz-inline-box;
     display: inline-block;
-    *display: inline;
+    /* *display: inline; */
     zoom: 1;
     text-align: center;
     background-position: 0 10px;
@@ -15981,7 +15982,7 @@ div.radio input {
     background: none;
     display: -moz-inline-box;
     display: inline-block;
-    *display: inline;
+    display: inline;
     zoom: 1;
     text-align: center;
 }
@@ -16117,7 +16118,7 @@ div.button a, div.button button, div.button input {
 div.button span {
     display: -moz-inline-box;
     display: inline-block;
-    *display: inline;
+    /* *display: inline; */
     zoom: 1;
     line-height: 30px;
     text-align: center;
@@ -24449,7 +24450,7 @@ body {
 
 .container {
     width: auto;
-    max-width: 1140px;
+    /* max-width: 1140px; */
 }
 
 #wrapper {
@@ -25291,7 +25292,7 @@ body {
 
 .container {
     width: auto;
-    max-width: 1140px;
+    /* max-width: 1140px; */
 }
 
 #wrapper {

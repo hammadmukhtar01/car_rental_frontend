@@ -608,7 +608,7 @@
 }
 
 .stm-layout-header-car_dealer .header-nav.header-nav-transparent {
-    position: absolute;
+    /* position: absolute; */
     top: 100%;
     left: 0;
     right: 0;

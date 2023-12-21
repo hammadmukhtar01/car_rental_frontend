@@ -116,7 +116,7 @@ const VehicleDetailsPage = () => {
   const buttonShown = "available";
 
   return (
-    <div>
+    <div >
       <div
         className="stm-single-car-page single-listings-template"
         style={{ backgroundPosition: "0px 200px" }}
@@ -129,9 +129,9 @@ const VehicleDetailsPage = () => {
                   <div className="wpb_wrapper">
                     <div className="row">
                       <div className="col-lg-6 col-md-6 col-sm-6">
-                        <h1 className="title stm_listing_title  vc_custom_1686213543067">
+                        <h2 className="title stm_listing_title  vc_custom_1686213543067">
                           KIA PICANTO - 2023
-                        </h1>
+                        </h2>
                       </div>
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <div
@@ -140,8 +140,8 @@ const VehicleDetailsPage = () => {
                             width: "51%",
                             float: "right",
                             paddingRight: "0px!important",
-                            marginTop: "1px!important",
-                            marginBottom: "10px!important",
+                            marginTop: "1px !important",
+                            marginBottom: "10px !important",
                             border: "1px solid #edecec",
                             padding: "10px",
                           }}
@@ -169,14 +169,14 @@ const VehicleDetailsPage = () => {
                         </div>
                       </div>
                     </div>
-
+                    <br />
                     <div className="row">
                       <div className="col-lg-9 col-md-12">
                         <div className="carousel-container">
                           <Carousel className="crsl">
                             {images.map((image) => (
                               <img
-                              key={image.id}
+                                key={image.id}
                                 src={image.download_url}
                                 alt={image.author}
                               ></img>
@@ -392,7 +392,7 @@ const VehicleDetailsPage = () => {
           </section>
         </div>
       </div>
-      <Review/>
+      <Review />
     </div>
   );
 };

@@ -3,6 +3,17 @@
   margin: auto;
 }
 
+.vehiclePage-container {
+  background-color: rgb(237, 237, 237);
+}
+.csontainer {
+  padding: 0px !important;
+}
+
+.price-day-main-div{
+  padding: 0px 10px;
+}
+
 .carousel-container {
   max-width: 100%;
   overflow: hidden;
@@ -171,11 +182,13 @@
   border-radius: 20px;
   padding: 15px 10px;
   margin: 15px 1px;
+  background-color: white;
+  /* box-shadow: 8px 8px 4px #eadcd4; */
 }
 
-.rating-div, .car-title-div {
+.rating-div,
+.car-title-div {
   color: "#cc6119";
-  padding: "5px 0px";
   padding: 12px 10px 4px 10px;
 }
 
@@ -188,10 +201,17 @@
   padding: 4px 8px;
   border-radius: 10px;
 }
-/* .price-day-div:hover {
-  cursor: pointer;
-} */
 
 div.col-lg-4.col-md-4 {
   padding: 0px 8px;
+}
+
+.all-cars-img-div {
+  display: flex;
+  justify-content: center;
+}
+
+img.all-cars-img {
+  width: 330px;
+  height: 320px;
 }
