@@ -6,6 +6,14 @@
   box-sizing: border-box;
 }
 
+.booking-details-container{
+  background-color: #dedede;
+}
+
+.booking-price-evaluation-main-div {
+  background-color: white;
+}
+
 .form-control {
   height: 25px;
   width: 150px;
@@ -25,6 +33,11 @@
   box-shadow: none;
   border-bottom: 2px solid #ccc;
   background-color: transparent;
+}
+.additional-comments{
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
 }
 
 .form-control2 {
@@ -69,9 +82,6 @@
   background-color: transparent;
 }
 
-p {
-  margin: 0;
-}
 
 .col-12.p-5 img {
   width: 80%;
@@ -135,3 +145,15 @@ h5,
 .payment-text {
   margin: 15px 0px;
 }
+
+
+
+
+
+
+
+
+
+
+
+

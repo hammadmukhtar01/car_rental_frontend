@@ -215,3 +215,8 @@ img.all-cars-img {
   width: 330px;
   height: 320px;
 }
+
+.car-detail-price-main-div {
+  padding-top: 50px;
+  padding-bottom: 30px;
+}

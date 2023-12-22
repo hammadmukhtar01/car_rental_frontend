@@ -1,13 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
-import FacebookIcon from "../images/fbIcon.png";
-import MailIcon from "../images/googleIcon.png";
 import "./authentication.css";
 
 const SignupPage = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [cityName, setCityName] = useState("");
   const navigate = "useNavigate()";
 
   useEffect(() => {
@@ -17,11 +19,11 @@ const SignupPage = () => {
     }
   }, [navigate]);
 
-  const handleLogin = async () => {
+  const handleSignUp = async () => {
     // console.warn("Data: ", user, password);
-    let data = { email, password };
+    let data = { name, email, password, passwordConfirm, phoneNumber, cityName };
 
-    let result = await fetch("http://localhost:8000/api/v1/login", {
+    let result = await fetch("http://localhost:8000/api/v1/customer/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,79 +52,182 @@ const SignupPage = () => {
       <section className="ftco-section">
         <div className="container">
           <div className="login-row justify-content-center">
-            <div className="col-md-6 col-lg-5">
-              <div className="login-wrap p-0">
-                <h3 className="mb-4 text-center">SignUp Page</h3>
-                <form action="#" className="signin-form">
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Username"
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      id="password-field"
-                      type="password"
-                      className="form-control"
-                      placeholder="Password"
-                      required
-                    />
-                    <span
-                      toggle="#password-field"
-                      className="fa fa-fw fa-eye field-icon toggle-password"
-                    ></span>
-                  </div>
-                  <div className="form-group">
-                    <button
-                      type="submit"
-                      className="form-control btn btn-primary login-button submit px-3"
+            <div className="col-lg-6 signup-wrap ">
+              <div className="">
+                <p className="text-center have-account-text">SignUp Page</p>
+                <form action="#" className="signup-form">
+                  <div className="form-group row">
+                    <label
+                      htmlFor="phoneNum"
+                      className="col-lg-5 col-form-label"
                     >
-                      Sign Up
-                    </button>
+                      Full Name
+                    </label>
+                    <div className="col-lg-6">
+                      <input
+                        className="form-control"
+                        id="username"
+                        name="username"
+                        type="text"
+                        autoComplete="username"
+                        required
+                        placeholder="username"
+                        value={name}
+                        onChange={(e) => {
+                          setName(e.target.value);
+                        }}
+                      />
+                    </div>
                   </div>
-                  <div className="form-group d-md-flex">
-                    <div className="w-50 text-md-right ">
-                      <a href="#" style={{ color: "#fff" }}>
-                        <div className="forgot-password">
-                          {" "}
-                          Forgot Password ?
-                        </div>
-                      </a>
+
+                  <div className="form-group row">
+                    <label htmlFor="city" className="col-lg-5 col-form-label">
+                      Email
+                    </label>
+                    <div className="col-lg-6">
+                      <input
+                        className="form-control"
+                        id="email"
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        required
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group row">
+                    <label
+                      htmlFor="phoneNum"
+                      className="col-lg-5 col-form-label"
+                    >
+                      Password
+                    </label>
+                    <div className="col-lg-6">
+                      <input
+                        className="form-control"
+                        id="password"
+                        name="password"
+                        type="password"
+                        autoComplete="current-password"
+                        required
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                        }}
+                      />
+                      <span
+                        toggle="#password-field"
+                        className="fa fa-fw  field-icon toggle-password"
+                      ></span>
+                    </div>
+                  </div>
+
+                  <div className="form-group row">
+                    <label htmlFor="city" className="col-lg-5 col-form-label">
+                      Confirm password
+                    </label>
+                    <div className="col-lg-6">
+                      <input
+                        className="form-control"
+                        id="passwordConfirm"
+                        name="passwordConfirm"
+                        type="password"
+                        autoComplete="confirm-password"
+                        required
+                        placeholder="Confirm Password"
+                        value={passwordConfirm}
+                        onChange={(e) => {
+                          setPasswordConfirm(e.target.value);
+                        }}
+                      />
+                      <span
+                        toggle="#password-field"
+                        className="fa fa-fw  field-icon toggle-password"
+                      ></span>
+                    </div>
+                  </div>
+
+                  <div className="form-group row">
+                    <label
+                      htmlFor="phoneNum"
+                      className="col-lg-5 col-form-label"
+                    >
+                      Phone Number
+                    </label>
+                    <div className="col-lg-6">
+                      <input
+                        className="form-control"
+                        id="phoneNum"
+                        name="phoneNum"
+                        type="tel"
+                        autoComplete="Phone-Number"
+                        required
+                        placeholder="Phone Number"
+                        value={phoneNumber}
+                        onChange={(e) => {
+                          setPhoneNumber(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group row">
+                    <label htmlFor="city" className="col-lg-5 col-form-label">
+                      City
+                    </label>
+                    <div className="col-lg-6">
+                      <input
+                        className="form-control"
+                        id="city"
+                        name="city"
+                        type="text"
+                        autoComplete="city"
+                        required
+                        placeholder="City"
+                        value={cityName}
+                        onChange={(e) => {
+                          setCityName(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group-2">
+                    <div className="col-lg-12">
+                      <p className="mt-2 text-center">
+                        Already have an account?{" "}
+                        <a href="/login" className="click-here ms-1">
+                          Click here
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                  <br />
+                  <div className="form-group-3 col-lg-12">
+                    <div className="col-lg-6">
+                      <p></p>
+                      <button
+                        type="submit"
+                        className="createAccount-form-control btn btn-primary submit px-3"
+                        onClick={(e) => handleSignUp(e)}
+                      >
+                        Create Account{" "}
+                        <span className="fas fa-arrow-right ps-2"></span>
+                      </button>
                     </div>
                   </div>
                 </form>
-                <p className="w-100 text-center">
-                  &mdash; Or Sign In With &mdash;
-                </p>
-                <br />
-
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="social text-center">
-                        <div class="">
-                          <a href="#" class="rounded gmail-login">
-                            <span class="fab fa-google"></span>{" "}
-                            G-Mail
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="social text-center">
-                          <a href="#" class="rounded facebook-login">
-                            <span class="fab fa-facebook-f "></span> Twitter
-                          </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
+
         </div>
       </section>
     </>

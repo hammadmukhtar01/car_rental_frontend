@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./vehicleDetails.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import { Link } from "react-router-dom";
 import Review from "../review/review";
@@ -10,15 +11,34 @@ import Review from "../review/review";
 const VehicleDetailsPage = () => {
   const latitude = 25.177236;
   const longitude = 55.376324;
+  const durations = ["Day", "Week", "Month"];
+  const durationValues = [1, 7, 30];
+  const [data, setData] = useState([]);
 
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/v1/car/getSingleCar/657d3c7272b1793cf0640f17"
+        );
+        console.log("Vehicles Page data is: ", response.data);
+        setData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching car data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const images = [
     {
       id: "8",
       author: "Alejandro Escamilla",
-      width: 5000,
-      height: 3333,
+      width: 50,
+      height: 33,
       url: "https://unsplash.com/photos/xII7efH1G6o",
       download_url: "https://picsum.photos/id/8/5000/3333",
     },
@@ -49,8 +69,8 @@ const VehicleDetailsPage = () => {
     {
       id: "12",
       author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
+      width: 250,
+      height: 167,
       url: "https://unsplash.com/photos/I_9ILwtsl_k",
       download_url: "https://picsum.photos/id/12/2500/1667",
     },
@@ -116,7 +136,7 @@ const VehicleDetailsPage = () => {
   const buttonShown = "available";
 
   return (
-    <div >
+    <div>
       <div
         className="stm-single-car-page single-listings-template"
         style={{ backgroundPosition: "0px 200px" }}
@@ -184,7 +204,42 @@ const VehicleDetailsPage = () => {
                           </Carousel>
                         </div>
                       </div>
-
+                      <div className="col-lg-3 car-detail-price-main-div">
+                        <div className="">
+                          {durations.map((duration, index) => (
+                            <div
+                              key={index}
+                              className="col-lg-4 col-md-4 col-sm-4 single-price-div-carDetails"
+                            >
+                              <div className="card">
+                                <div className="card-body price-day-div">
+                                  <div className="card-text">
+                                    <p style={{ color: "gray" }}>
+                                      Per {duration}
+                                    </p>
+                                    <del
+                                      style={{
+                                        textDecorationColor: "red",
+                                        color: "#cc6119",
+                                      }}
+                                    >
+                                      {data.originalPrice *
+                                        durationValues[index]}{" "}
+                                      AED
+                                    </del>{" "}
+                                    <p style={{ color: "green" }}>
+                                      {data.salePrice *
+                                        durationValues[index]}{" "}
+                                      AED{" "}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <br />
                       <div className="price-booking-button-div col-lg-3 col-md-12">
                         <div className="">
                           <div className="booking-price-evaluation">

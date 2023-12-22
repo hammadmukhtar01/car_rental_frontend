@@ -1,8 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const auth = localStorage.getItem("user");
+  const user_info = JSON.parse(auth);
+
+  console.log("Auth in local storage is: ", user_info);
 
   const socialLinks = [
     { iconClass: "fa fa-phone", href: "tel:971544519432" },
@@ -21,11 +26,11 @@ const Navbar = () => {
   ];
 
   const smallScreenMenuItems = [
-    {label: "Home", link: "/" },
-    {label: "Vehicles", link: "/vehicles" },
-    {label: "About Us", link: "/aboutus" },
-    {label: "FAQ", link: "/faqs" },
-    {label: "Contact Us", link: "/contactus" },
+    { label: "Home", link: "/" },
+    { label: "Vehicles", link: "/vehicles" },
+    { label: "About Us", link: "/aboutus" },
+    { label: "FAQ", link: "/faqs" },
+    { label: "Contact Us", link: "/contactus" },
   ];
 
   const largeScreenMenuItems = [
@@ -39,6 +44,16 @@ const Navbar = () => {
     { id: "login", label: "Log In", link: "/login" },
     { id: "signup", label: "Sign Up", link: "/signup" },
   ];
+
+  const logoutMenuItems = [
+    { id: "logout-menu", label: "Log Out", link: "/" },
+    { id: "user-profile", label: "User", link: "#" },
+  ];
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate(`/`);
+  };
 
   return (
     <div>
@@ -69,15 +84,17 @@ const Navbar = () => {
                   {smallScreenMenuItems.map((item, index) => (
                     <li
                       key={index}
-                      className={`menu-item menu-item-type-custom menu-item-object-custom `}
+                      className={`menu-items menu-item-type-custom menu-item-object-custom `}
                     >
-                      <a href={item.link}>{item.label}</a>
+                      <a href={item.link}>
+                        <text>{item.label}</text>
+                      </a>{" "}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="top-info-wrap" >
+              <div className="top-info-wrap">
                 <div className="header-top-info">
                   <div className="clearfix">
                     <div className="pull-right">
@@ -148,8 +165,11 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div id="header-nav-holder" className="hidden-sm hidden-xs" >
-          <div className="header-nav header-nav-transparent header-nav-fixed"  style={{padding: "0px 20px"}}>
+        <div id="header-nav-holder">
+          <div
+            className=" "
+            style={{ padding: "0px 20px" }}
+          >
             <div className="container">
               <div className="row">
                 <div className="col-lg-8">
@@ -161,34 +181,97 @@ const Navbar = () => {
                       {largeScreenMenuItems.map((item) => (
                         <li
                           key={item.id}
-                          className={`menu-item menu-item-type-custom menu-item-object-custom menu-item-${item.id}`}
+                          className={`menu-items menu-item-type-custom menu-item-object-custom menu-item-${
+                            item.id
+                          } ${location.pathname === item.link ? "active" : ""}`}
                           id={item.id}
                         >
-                          <a href={item.link}>{item.label}</a>
+                          <a href={item.link}>
+                            <text>{item.label}</text>
+                          </a>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
 
-                <div className="col-lg-4">
-                  <div className="main-menu">
-                    <ul
-                      className="header-menu clearfix float-right"
-                      id="navbar-home"
-                    >
-                      {authMenuItems.map((item) => (
-                        <li
-                          key={item.id}
-                          className={`menu-item menu-item-type-custom menu-item-object-custom menu-item-${item.id}`}
-                          id={item.id}
+                {auth ? (
+                  auth.status === "success" ? (
+                    <div className="col-lg-4">
+                      <div className="main-menu">
+                        <ul
+                          className="header-menu clearfix float-right"
+                          id="navbar-home"
                         >
-                          <a href={item.link}>{item.label}</a>
-                        </li>
-                      ))}
-                    </ul>
+                          {authMenuItems.map((item) => (
+                            <li
+                              key={item.id}
+                              className={`menu-items menu-item-type-custom menu-item-object-custom menu-item-${item.id}`}
+                              id={item.id}
+                            >
+                              <a href={item.link}>
+                                <text>{item.label}</text>
+                              </a>{" "}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="col-lg-4">
+                      <div className="main-menu">
+                        <ul
+                          className="header-menu clearfix float-right"
+                          id="navbar-home"
+                        >
+                          {logoutMenuItems.map((item) => (
+                            <li
+                              key={item.id}
+                              className={`menu-items menu-item-type-custom menu-item-object-custom menu-item-${
+                                item.id
+                              } ${
+                                location.pathname === item.link ? "active" : ""
+                              }`}
+                              id={item.id}
+                              onClick={
+                                item.id === "logout-menu" ? handleLogout : null
+                              }
+                            >
+                              <a href={item.link}>
+                                <text>{item.label}</text>
+                              </a>{" "}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )
+                ) : (
+                  <div className="col-lg-4">
+                    <div className="main-menu">
+                      <ul
+                        className="header-menu clearfix float-right"
+                        id="navbar-home"
+                      >
+                        {authMenuItems.map((item) => (
+                          <li
+                            key={item.id}
+                            className={`menu-items menu-item-type-custom menu-item-object-custom menu-item-${
+                              item.id
+                            } ${
+                              location.pathname === item.link ? "active" : ""
+                            }`}
+                            id={item.id}
+                          >
+                            <a href={item.link}>
+                              <text>{item.label}</text>
+                            </a>{" "}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
