@@ -5,10 +5,18 @@ import "./vehicleDetails.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Review from "../review/review";
 
 const VehicleDetailsPage = () => {
+  const { id } = useParams();
+  const [carsData, setCarsData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [simpleFeaturesIcons, setSimpleFeaturesIcons] = useState([]);
+  const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
+  const navigate = useNavigate();
+  console.log("Props in VehicleDetailsPage:", id);
   const latitude = 25.177236;
   const longitude = 55.376324;
   const durations = ["Day", "Week", "Month"];
@@ -17,55 +25,63 @@ const VehicleDetailsPage = () => {
 
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
 
+  const fetchSimpleFeaturesIcons = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/simpleFeature/all"
+      );
+      console.log("Simple Icons Data : ", response.data);
+      setSimpleFeaturesIcons(response.data.simpleFeaturesData);
+    } catch (error) {
+      console.error("Error fetching simple features icons:", error);
+    }
+  };
+
+  const fetchComplexFeaturesIcons = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/complexFeature/all"
+      );
+      console.log("Complex Icons Data : ", response.data);
+      setComplexFeaturesIcons(response.data.complexFeaturesData);
+    } catch (error) {
+      console.error("Error fetching complex features icons:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/v1/car/getSingleCar/657d3c7272b1793cf0640f17"
+          `http://localhost:8000/api/v1/car/getSingleCar/${id}`
         );
         console.log("Vehicles Page data is: ", response.data);
         setData(response.data.data);
+        fetchSimpleFeaturesIcons();
+        fetchComplexFeaturesIcons();
       } catch (error) {
         console.error("Error fetching car data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [id]);
+
+  const calculateTotalPrice = () => {
+    if (data && data.additionalCharges) {
+      return data.additionalCharges.reduce(
+        (total, charge) => total + charge.value,
+        0
+      );
+    }
+    return 0;
+  };
+
+  const handleBooking = (id) => {
+    navigate(`/booking/${id}`);
+  };
 
   const images = [
-    {
-      id: "8",
-      author: "Alejandro Escamilla",
-      width: 50,
-      height: 33,
-      url: "https://unsplash.com/photos/xII7efH1G6o",
-      download_url: "https://picsum.photos/id/8/5000/3333",
-    },
-    {
-      id: "9",
-      author: "Alejandro Escamilla",
-      width: 5000,
-      height: 3269,
-      url: "https://unsplash.com/photos/ABDTiLqDhJA",
-      download_url: "https://picsum.photos/id/9/5000/3269",
-    },
-    {
-      id: "10",
-      author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
-      url: "https://unsplash.com/photos/6J--NXulQCs",
-      download_url: "https://picsum.photos/id/10/2500/1667",
-    },
-    {
-      id: "11",
-      author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
-      url: "https://unsplash.com/photos/Cm7oKel-X2Q",
-      download_url: "https://picsum.photos/id/11/2500/1667",
-    },
     {
       id: "12",
       author: "Paul Jarvis",
@@ -115,22 +131,6 @@ const VehicleDetailsPage = () => {
       url: "https://unsplash.com/photos/IQ1kOQTJrOQ",
       download_url: "https://picsum.photos/id/14/2500/1667",
     },
-    {
-      id: "15",
-      author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
-      url: "https://unsplash.com/photos/NYDo21ssGao",
-      download_url: "https://picsum.photos/id/15/2500/1667",
-    },
-    {
-      id: "14",
-      author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
-      url: "https://unsplash.com/photos/IQ1kOQTJrOQ",
-      download_url: "https://picsum.photos/id/14/2500/1667",
-    },
   ];
 
   const buttonShown = "available";
@@ -150,7 +150,7 @@ const VehicleDetailsPage = () => {
                     <div className="row">
                       <div className="col-lg-6 col-md-6 col-sm-6">
                         <h2 className="title stm_listing_title  vc_custom_1686213543067">
-                          KIA PICANTO - 2023
+                          {data.carName}
                         </h2>
                       </div>
                       <div className="col-lg-6 col-md-6 col-sm-6">
@@ -228,8 +228,7 @@ const VehicleDetailsPage = () => {
                                       AED
                                     </del>{" "}
                                     <p style={{ color: "green" }}>
-                                      {data.salePrice *
-                                        durationValues[index]}{" "}
+                                      {data.salePrice * durationValues[index]}{" "}
                                       AED{" "}
                                     </p>
                                   </div>
@@ -240,36 +239,36 @@ const VehicleDetailsPage = () => {
                         </div>
                       </div>
                       <br />
+
                       <div className="price-booking-button-div col-lg-3 col-md-12">
                         <div className="">
                           <div className="booking-price-evaluation">
-                            <div
-                              className="price-row"
-                              style={{ lineHeight: "300%" }}
-                            >
-                              <span className="price-label">Actual Price:</span>
-                              <span className="price-value">$100</span>{" "}
-                            </div>
-
-                            <div
-                              className="price-row"
-                              style={{ lineHeight: "300%" }}
-                            >
-                              <span className="price-label">
-                                Discount Price:
-                              </span>
-                              <span className="price-value">$80</span>{" "}
-                            </div>
-
-                            <hr />
-
+                            {data && data.additionalCharges && (
+                              <>
+                                {data.additionalCharges.map((charge) => (
+                                  <div
+                                    key={charge._id}
+                                    className="price-row"
+                                    style={{ lineHeight: "300%" }}
+                                  >
+                                    <span className="price-label">
+                                      {charge.name}:
+                                    </span>
+                                    <span className="price-value">
+                                      AED | {`${charge.value}`}
+                                    </span>
+                                  </div>
+                                ))}
+                                <hr />
+                              </>
+                            )}
                             <div
                               className="total-price-row"
                               style={{ lineHeight: "100%", fontSize: "16px" }}
                             >
                               <span className="price-label">Total Price:</span>
                               <span className="price-value">
-                                <b>$80</b>
+                                <b>AED | {calculateTotalPrice()}</b>
                               </span>{" "}
                             </div>
                             <hr />
@@ -278,10 +277,13 @@ const VehicleDetailsPage = () => {
                           <div className="booking-wishlist-button">
                             {buttonShown === "available" ? (
                               <div className="col-lg-12 col-md-12">
-                                <Link to="/booking" className="btn btn-primary">
+                                <button
+                                  className="btn btn-primary"
+                                  onClick={() => handleBooking(data.id)}
+                                >
                                   <b>Started Booking</b>{" "}
                                   <span className="fas fa-arrow-right ps-2"></span>
-                                </Link>
+                                </button>
                               </div>
                             ) : (
                               <div className="col-lg-12 col-md-12">
@@ -319,105 +321,90 @@ const VehicleDetailsPage = () => {
                             FEATURES
                           </h4>
                           <div className="wpb_text_column wpb_content_element ">
-                            <div className="wpb_wrapper">
-                              <div className="lists-inline">
-                                <ul
-                                  className="list-style-2"
-                                  style={{ fontSize: "13px" }}
-                                >
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Abs
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Metal Paint
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      USB (1 Port)
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Chrome Coating
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Radio+ Rds (Compact)
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Rear Type ; Separated
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Seat Back Pocket (Passenger)
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Ash Tray; Front 1Ea (Portable)
-                                    </span>
-                                  </li>
-                                </ul>
-                                <ul
-                                  className="list-style-2"
-                                  style={{ fontSize: "13px" }}
-                                >
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Net
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Luggage Board
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Outside Mirror
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Halogen Lamps(2Mfr)
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Manual Tilt (Lower)
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Front Type; Projection
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Depowered(Driver & Passenger)
-                                    </span>
-                                  </li>
-                                  <li>
-                                    <span style={{ color: "#232628" }}>
-                                      Vanity Mirror (Driver) - Glass
-                                    </span>
-                                  </li>
-                                </ul>
+                            <div className="simple-icon-main-div">
+                              <div className="row">
+                                {simpleFeaturesIcons.map(
+                                  (simple_icon, index) => (
+                                    <div
+                                      key={index}
+                                      className="col-lg-4 col-md-6 col-sm-12"
+                                    >
+                                      <div className="d-flex align-items-center mb-3">
+                                        <div className="col-lg-2 col-md-6 ">
+                                          <img
+                                            src={`data:${
+                                              simple_icon.icon.contentType
+                                            };base64,${btoa(
+                                              String.fromCharCode(
+                                                ...new Uint8Array(
+                                                  simple_icon.icon.iconData.data
+                                                )
+                                              )
+                                            )}`}
+                                            alt={simple_icon.icon.filename}
+                                            className="features-icon-detailPage"
+                                          />
+                                        </div>
+                                        <div className="col-lg-8 col-md-6">
+                                          <p
+                                            style={{ color: "gray", margin: 0 }}
+                                          >
+                                            {simple_icon.name}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )
+                                )}
+                              </div>
+                            </div>
+
+                            <br />
+                            <br />
+
+                            <div className="complex-icon-main-div">
+                              <div className="row">
+                                {complexFeaturesIcons.map(
+                                  (complex_icon, index) => (
+                                    <div
+                                      key={index}
+                                      className="col-lg-4 col-md-6 col-sm-12"
+                                    >
+                                      <div className="d-flex align-items-center mb-3">
+                                        <div className="col-lg-2 col-md-6">
+                                          <img
+                                            src={`data:${
+                                              complex_icon.icon.contentType
+                                            };base64,${btoa(
+                                              String.fromCharCode(
+                                                ...new Uint8Array(
+                                                  complex_icon.icon.iconData.data
+                                                )
+                                              )
+                                            )}`}
+                                            alt={complex_icon.icon.filename}
+                                            className="features-icon-detailPage"
+                                          />
+                                        </div>
+                                        <div className="col-lg-8 col-md-6">
+                                          <p
+                                            style={{ color: "gray", margin: 0 }}
+                                          >
+                                            {complex_icon.value}{" "}
+                                            {complex_icon.name}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )
+                                )}
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-
+<br />
                     <div>
                       <h2>Location</h2>
                       <a

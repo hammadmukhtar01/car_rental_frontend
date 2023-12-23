@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const BookingDetails = () => {
+  const { id } = useParams();
+  const [data, setData] = useState([]);
   const [customerId, setCustomerId] = useState("");
   const [carId, setCarId] = useState("");
-  const [additionalCharges, setAdditionalCharges] = useState([
-    { name: "", value: 0 },
-    { name: "", value: 0 },
-  ]);
-  const [noOfBookingDays, setNoOfBookingDays] = useState(0);
-  const [discountPrice, setDiscountPrice] = useState(0);
+  const [noOfBookingDays, setNoOfBookingDays] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [pickupDateTime, setPickupDateTime] = useState("");
   const [pickupLocation, setPickupLocation] = useState("");
@@ -21,56 +19,111 @@ const BookingDetails = () => {
   const [driverName, setDriverName] = useState("");
   const [drivingLisence, setDrivingLisence] = useState("");
   const [comments, setComments] = useState("");
+  const navigate = useNavigate();
 
-  // Sample response from backend API
-  const bookingData = {
-    customerId: "657ff352a0533d6f8bfef3cc",
-    carId: "6579bc2a5e77ac6bfceae492",
-    additionalCharges: [
-      { name: "22222", value: 100 },
-      { name: "2222", value: 50 },
-    ],
-    discountPrice: 22,
-    totalPrice: 2222,
-    pickupCarDetails: {
-      pickupDateTime: "2023-12-31T12:00:00.000Z",
-      pickupLocation: "Some Pickup Location",
-    },
-    returnCarDetails: {
-      returnDateTime: "2024-01-07T15:30:00.000Z",
-      returnLocation: "Some Return Location",
-    },
-    arrivalTime: "2023-12-31T10:30:00.000Z",
-    returnTime: "2024-01-07T17:00:00.000Z",
-    flightNumber: "ABC123",
-    driverName: "John Doe",
-    drivingLisence: "XYZ789",
-    comments: "Some additional comments",
+  const customer_info = JSON.parse(localStorage.getItem("user"));
+  const customer_token = customer_info.token
+  const customer_id = customer_info.data._id
+  console.log(
+    "User info of local storage in Booking details page is",
+   customer_info
+  );
+
+  const car_id = id;
+  console.log("Car ID in Booking details page is", car_id);
+  const actualPrice = data.originalPrice * noOfBookingDays;
+  const discountedPrice =
+    (data.originalPrice - data.salePrice) * noOfBookingDays;
+  const totalPriceValue =
+    isNaN(actualPrice) || isNaN(discountedPrice)
+      ? 0
+      : actualPrice - discountedPrice;
+
+  const calculateTotalAdditionalPrice = () => {
+    if (data && data.additionalCharges) {
+      return data.additionalCharges.reduce(
+        (total, charge) => total + charge.value,
+        0
+      );
+    }
+    return 0;
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/car/getSingleCar/${id}`
+        );
+        console.log("Vehicles Page data is: ", response.data);
+        setData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching car data:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const handleBookingDetails = async (e) => {
     console.warn("Data: ");
-    let data = {};
+    e.preventDefault();
+   
+      const data1 = {
+        customerId: customer_id,
+        carId: car_id,
+        noOfBookingDays: noOfBookingDays,
+        totalPrice: totalPriceValue,
+        pickupCarDetails: {
+          pickupDateTime: pickupDateTime,
+          pickupLocation: pickupLocation,
+        },
+        returnCarDetails: {
+          returnDateTime: returnDateTime,
+          returnLocation: returnLocation,
+        },
+        arrivalTime: arrivalTime,
+        returnTime: returnTime,
+        flightNumber: flightNumber,
+        driverName: driverName,
+        drivingLisence: drivingLisence,
+        comments: comments,
+      };
 
-    let result = await fetch("http://localhost:8000/api/v1/customer/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      try {
 
-      body: JSON.stringify(data),
-    });
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/additionalBooking/createadditionalBooking",
+        data1,
+        {
+          headers: {
+            "Content-Type": "application/json", 
+            Authorization: "Bearer " + customer_token,
+          },
+        }
+      );
 
-    result = await result.json();
-    console.warn("Result", result);
+      console.log("Booking created successfully:", response.data);
+      const bookingDetailsId = response.data.additionalBookingDetails.additionalBookings._id ;
+      console.log(`Booking details id is : ${bookingDetailsId}`);
+      if (response.status === 201) {
+        console.log("Product created successfully");
+        alert("Booking in Progress. Please procceed with payment");
+        navigate(`/payment/${bookingDetailsId}`);
+      } else {
+        console.log("Product creation failed");
+        alert("Product creation failed");
+      }
+    } catch (error) {
+      console.error(`API error: ${error}`);
+    }
+    
   };
 
   return (
     <div
       className="booking-details-container"
-      style={{ display: "flex", flexDirection: "column", padding: "30px" }}
+      style={{ display: "flex", flexDirection: "column", padding: "0px 30px" }}
     >
       <div className="elementor-widget-container">
         <div className="motors-elementor-widget car-listing-tabs-unit ">
@@ -84,6 +137,7 @@ const BookingDetails = () => {
           </div>
         </div>
       </div>
+      <br />
       <div className="row" style={{ gap: "16px" }}>
         {/* Left Side - Col-9 */}
 
@@ -96,13 +150,12 @@ const BookingDetails = () => {
                 </label>
                 <div className="col-lg-6">
                   <input
-                    className="form-control"
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    className="form-control-date"
+                    id="pickupDateTime"
+                    name="pickupDateTime"
+                    type="datetime-local"
                     required
-                    placeholder="Email"
+                    placeholder="PickUp Time"
                     value={pickupDateTime}
                     onChange={(e) => {
                       setPickupDateTime(e.target.value);
@@ -117,13 +170,12 @@ const BookingDetails = () => {
                 </label>
                 <div className="col-lg-6">
                   <input
-                    className="form-control"
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
+                    className="form-control-date"
+                    id="dropoffDateTime"
+                    name="dropoffDateTime"
+                    type="datetime-local"
                     required
-                    placeholder="Password"
+                    placeholder="PickUp Time"
                     value={returnDateTime}
                     onChange={(e) => {
                       setReturnDateTime(e.target.value);
@@ -143,8 +195,7 @@ const BookingDetails = () => {
                     className="form-control"
                     id="email"
                     name="email"
-                    type="email"
-                    autoComplete="email"
+                    type="text"
                     required
                     placeholder="Email"
                     value={pickupLocation}
@@ -164,13 +215,12 @@ const BookingDetails = () => {
                     className="form-control"
                     id="email"
                     name="email"
-                    type="email"
-                    autoComplete="email"
+                    type="text"
                     required
                     placeholder="Email"
                     value={returnLocation}
                     onChange={(e) => {
-                      setReturnDateTime(e.target.value);
+                      setReturnLocation(e.target.value);
                     }}
                   />
                 </div>
@@ -184,13 +234,12 @@ const BookingDetails = () => {
                 </label>
                 <div className="col-lg-6">
                   <input
-                    className="form-control"
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    className="form-control-date"
+                    id="flightArrivalDateTime"
+                    name="flightArrivalDateTime"
+                    type="datetime-local"
                     required
-                    placeholder="Email"
+                    placeholder="Arrival Time"
                     value={arrivalTime}
                     onChange={(e) => {
                       setArrivalTime(e.target.value);
@@ -205,16 +254,15 @@ const BookingDetails = () => {
                 </label>
                 <div className="col-lg-6">
                   <input
-                    className="form-control"
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    className="form-control-date"
+                    id="flightReturnDateTime"
+                    name="flightReturnDateTime"
+                    type="datetime-local"
                     required
-                    placeholder="Email"
-                    value={returnDateTime}
+                    placeholder="Return Time"
+                    value={returnTime}
                     onChange={(e) => {
-                      setReturnDateTime(e.target.value);
+                      setReturnTime(e.target.value);
                     }}
                   />
                 </div>
@@ -229,12 +277,11 @@ const BookingDetails = () => {
                 <div className="col-lg-6">
                   <input
                     className="form-control"
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="flightNum"
+                    name="flightNum"
+                    type="text"
                     required
-                    placeholder="Email"
+                    placeholder="flight number"
                     value={flightNumber}
                     onChange={(e) => {
                       setFlightNumber(e.target.value);
@@ -250,12 +297,11 @@ const BookingDetails = () => {
                 <div className="col-lg-6">
                   <input
                     className="form-control"
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="driverName"
+                    name="driverName"
+                    type="text"
                     required
-                    placeholder="Email"
+                    placeholder="driver name"
                     value={driverName}
                     onChange={(e) => {
                       setDriverName(e.target.value);
@@ -273,12 +319,11 @@ const BookingDetails = () => {
                 <div className="col-lg-6">
                   <input
                     className="form-control"
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="drivingLisense"
+                    name="drivingLisense"
+                    type="text"
                     required
-                    placeholder="Email"
+                    placeholder="driving lisense"
                     value={drivingLisence}
                     onChange={(e) => {
                       setDrivingLisence(e.target.value);
@@ -294,12 +339,12 @@ const BookingDetails = () => {
                 <div className="col-lg-6">
                   <input
                     className="form-control"
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="numOfDays"
+                    name="numOfDays"
+                    type="number"
+                    min={1}
                     required
-                    placeholder="Email"
+                    placeholder="days"
                     value={noOfBookingDays}
                     onChange={(e) => {
                       setNoOfBookingDays(e.target.value);
@@ -309,38 +354,39 @@ const BookingDetails = () => {
               </div>
             </div>
 
-             <div className="form-group row">
+            <div className="form-group row">
               <div className="col-lg-12">
                 <label htmlFor="comments" className="col-lg-3 col-form-label">
-                Additional Comments
-              </label>
-              <div className="col-lg-9">
-                <textarea
-                className="additional-comments"
-                  id="comments"
-                  name="comments"
-                 rows={4}
-                //  cols={25}
-                  required
-                  placeholder="Additional Comments"
-                  value={comments}
-                  onChange={(e) => {
-                    setComments(e.target.value);
-                  }}
-                />
+                  Additional Comments
+                </label>
+                <div className="col-lg-9">
+                  <textarea
+                    className="additional-comments"
+                    id="comments"
+                    name="comments"
+                    rows={4}
+                    //  cols={25}
+                    required
+                    placeholder="Additional Comments"
+                    value={comments}
+                    onChange={(e) => {
+                      setComments(e.target.value);
+                    }}
+                  />
+                </div>
               </div>
-              </div>
-
             </div>
-
 
             <div className="row">
               <div className="col-lg-3 col-md-6">
                 <div className="prebooking-button">
-                  <Link to="/payment" className="btn btn-primary">
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleBookingDetails}
+                  >
                     Continue to Payment{" "}
                     <span className="fas fa-arrow-right ps-2"></span>
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -360,17 +406,35 @@ const BookingDetails = () => {
           <div className="booking-price-evaluation">
             <div className="price-row" style={{ lineHeight: "300%" }}>
               <span className="price-label">Actual Price:</span>
-              <span className="price-value">$100</span>{" "}
+              <span className="price-value">
+                {" "}
+                {data.originalPrice} * {noOfBookingDays} ={" "}
+                {data.originalPrice * noOfBookingDays} | AED
+              </span>{" "}
             </div>
             <div className="price-row" style={{ lineHeight: "300%" }}>
               <span className="price-label">Discount Price:</span>
-              <span className="price-value">$80</span>{" "}
+              <span className="price-value">
+                {" "}
+                {discountedPrice} * {noOfBookingDays} ={" "}
+                {discountedPrice * noOfBookingDays} | AED
+              </span>{" "}
             </div>
             <hr />
+            <div className="price-row" style={{ lineHeight: "300%" }}>
+              <span className="price-label">Additional Charges:</span>
+              <span className="price-value">
+                {" "}
+                {calculateTotalAdditionalPrice()} | AED
+              </span>{" "}
+            </div>
+            <hr />
+
             <div className="total-price-row" style={{ lineHeight: "100%" }}>
               <span className="price-label">Total Price:</span>
               <span className="price-value">
-                <b>$80</b>
+                {" "}
+                <b>{totalPriceValue}</b> | AED
               </span>{" "}
             </div>
             <hr />

@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./authentication.css";
-import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -39,22 +37,12 @@ const LoginPage = () => {
       // const userId = result.data.data.user._id;
       // console.warn("User Id: " + userId);
       localStorage.setItem("user", JSON.stringify(result));
-      navigate("/vehicleDetails");
+      navigate("/vehicles");
     } else if (result.message === "Account or password is not correct") {
       alert("Email or Password is missing.");
     } else {
       alert("Please enter a correct data");
     }
-  };
-
-  const responseGoogle = (response) => {
-    console.log(response);
-    // Handle Google login response
-  };
-
-  const responseFacebook = (response) => {
-    console.log(response);
-    // Handle Facebook login response
   };
 
   return (
@@ -151,23 +139,23 @@ const LoginPage = () => {
                   </p>
                   <br />
                   <div className="form-group-3 social-media-icons">
-                    {/* <button className="custom-button">
+                    <button className="custom-button">
                       {" "}
                       <span className="fab fa-google"></span> G-Mail
                     </button>
                     <button className="custom-button">
                       {" "}
                       <span className="fab fa-facebook-f "></span> facebook
-                    </button> */}
+                    </button>
                   {/* </div> */}
-                  <GoogleLogin
+                  {/* <GoogleLogin
             clientId="YOUR_GOOGLE_CLIENT_ID"
             buttonText="Login with Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
-          />
-          <FacebookLogin
+          /> */}
+          {/* <FacebookLogin
             appId="YOUR_FACEBOOK_APP_ID"
             autoLoad={false}
             fields="name,email,picture"
@@ -180,7 +168,7 @@ const LoginPage = () => {
                 Login with Facebook
               </button>
             )}
-          />
+          /> */}
         </div>
                 </div>
               </div>

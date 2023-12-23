@@ -34,6 +34,18 @@
   border-bottom: 2px solid #ccc;
   background-color: transparent;
 }
+
+.form-control-date {
+  height: 45px;
+  /* width: 150px; */
+  border: 1px solid rgb(184, 184, 184) !important;
+  border-radius: 6px;
+  padding: 10px 10px;
+  box-shadow: none ;
+  font-size: 14px;
+  background-color: white !important;
+}
+
 .additional-comments{
   border: 1px solid #ccc;
   border-radius: 8px;

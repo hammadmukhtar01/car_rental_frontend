@@ -87,7 +87,7 @@ const Navbar = () => {
                       className={`menu-items menu-item-type-custom menu-item-object-custom `}
                     >
                       <a href={item.link}>
-                        <text>{item.label}</text>
+                        <span>{item.label}</span>
                       </a>{" "}
                     </li>
                   ))}
@@ -187,7 +187,7 @@ const Navbar = () => {
                           id={item.id}
                         >
                           <a href={item.link}>
-                            <text>{item.label}</text>
+                            <span>{item.label}</span>
                           </a>
                         </li>
                       ))}
@@ -210,7 +210,7 @@ const Navbar = () => {
                               id={item.id}
                             >
                               <a href={item.link}>
-                                <text>{item.label}</text>
+                                <span>{item.label}</span>
                               </a>{" "}
                             </li>
                           ))}
@@ -238,7 +238,7 @@ const Navbar = () => {
                               }
                             >
                               <a href={item.link}>
-                                <text>{item.label}</text>
+                                <span>{item.label}</span>
                               </a>{" "}
                             </li>
                           ))}
@@ -264,7 +264,7 @@ const Navbar = () => {
                             id={item.id}
                           >
                             <a href={item.link}>
-                              <text>{item.label}</text>
+                              <span>{item.label}</span>
                             </a>{" "}
                           </li>
                         ))}

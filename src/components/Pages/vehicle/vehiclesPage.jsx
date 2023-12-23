@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Pagination from "./pagination";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import "../../../index.css";
 
 const PageSize = 6;
 
-const VehiclesPage = () => {
+const VehiclesPage = ({}) => {
   const [carsData, setCarsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const durations = ["Day", "Week", "Month"];
@@ -14,6 +15,7 @@ const VehiclesPage = () => {
 
   const [simpleFeaturesIcons, setSimpleFeaturesIcons] = useState([]);
   const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
+  const navigate = useNavigate();
 
   const fetchSimpleFeaturesIcons = async () => {
     try {
@@ -75,6 +77,14 @@ const VehiclesPage = () => {
     return stars;
   };
 
+  const handleBooking = (id) => {
+    navigate(`/booking/${id}`);
+  };
+
+  const handleDetails = (id) => {
+    navigate(`/vehicleDetails/${id}`);
+  };
+
   return (
     <>
       <div className="vehiclePage-container">
@@ -95,18 +105,21 @@ const VehiclesPage = () => {
             {currentTableData.map((car) => (
               <div key={car.id} className="col-lg-4 col-md-6 col-sm-6 mb-4">
                 <div className="card one-car-card">
-                    <div className="all-cars-img-div">
-                  <a href="/vehicleDetails" className="vehicle-img-tag">
-                    <img
-                      data-src="https://milelecarrental.com/Thumbnails/TN - ACCENT.jpg"
-                      srcSet="https://milelecarrental.com/Thumbnails/TN - ACCENT.jpg 1x,
+                  <div className="all-cars-img-div">
+                    <a
+                      href={`/vehicleDetails/${car.id}`}
+                      className="vehicle-img-tag"
+                    >
+                      <img
+                        data-src="https://milelecarrental.com/Thumbnails/TN - ACCENT.jpg"
+                        srcSet="https://milelecarrental.com/Thumbnails/TN - ACCENT.jpg 1x,
                         https://milelecarrental.com/Thumbnails/TN - ACCENT.jpg 2x"
-                      src="Thumbnails/TN%20-%20ACCENT.jpg"
-                      className="all-cars-img"
-                      alt="(LHD) HYUNDAI ACCENT 1.4P AT MY2023 - WHITE"
-                    />
-                  </a>
-                    </div>
+                        src="Thumbnails/TN%20-%20ACCENT.jpg"
+                        className="all-cars-img"
+                        alt="(LHD) HYUNDAI ACCENT 1.4P AT MY2023 - WHITE"
+                      />
+                    </a>
+                  </div>
                   <div className="card-body">
                     <div className="row">
                       <div className="col-lg-6 col-md-6 col-sm-6">
@@ -133,7 +146,7 @@ const VehiclesPage = () => {
                             className="col-lg-6 col-md-6 col-sm-12"
                           >
                             <div className="d-flex align-items-center mb-3">
-                              <div className="col-lg-4 col-md-6 ">
+                              <div className="col-lg-3 col-md-6 ">
                                 <img
                                   src={`data:${
                                     simple_icon.icon.contentType
@@ -166,10 +179,10 @@ const VehiclesPage = () => {
                         {complexFeaturesIcons.map((complex_icon, index) => (
                           <div
                             key={index}
-                            className="col-lg-6 col-md-6 col-sm-12" 
+                            className="col-lg-6 col-md-6 col-sm-12"
                           >
-                            <div className="d-flex align-items-center mb-3"  >
-                              <div className="col-lg-4 col-md-6" >
+                            <div className="d-flex align-items-center mb-3">
+                              <div className="col-lg-3 col-md-6">
                                 <img
                                   src={`data:${
                                     complex_icon.icon.contentType
@@ -195,7 +208,6 @@ const VehiclesPage = () => {
                       </div>
                     </div>
 
-                    
                     <div className="price-day-main-div">
                       <div className="row">
                         {durations.map((duration, index) => (
@@ -233,16 +245,22 @@ const VehiclesPage = () => {
                     <br />
                     <div className="row">
                       <div className="col-lg-6 col-md-6 col-sm-6">
-                        <a href="/vehicleDetails" className="btn btn-primary">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => handleDetails(car.id)}
+                        >
                           More Details{" "}
                           <span className="fas fa-arrow-right ps-2"></span>
-                        </a>
+                        </button>
                       </div>
                       <div className="col-lg-6 col-md-6 col-sm-6">
-                        <a href="/booking" className="btn btn-primary">
+                        <button
+                          className="btn btn-primary booking-button"
+                          onClick={() => handleBooking(car.id)}
+                        >
                           Start Booking{" "}
                           <span className="fas fa-arrow-right ps-2"></span>
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>

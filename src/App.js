@@ -22,9 +22,9 @@ function App() {
         <Routes>
           <Route path="/" exact element={<HomePage/>} />
           <Route path="/vehicles" element={<VehiclesPage/>} />
-          <Route path="/vehicleDetails" element={<VehicleDetailsPage/>} />
-          <Route path="/booking" element={<BookingDetails/>} />
-          <Route path="/payment" element={<PaymentPage/>} />
+          <Route path="/vehicleDetails/:id" element={<VehicleDetailsPage/>} />
+          <Route path="/booking/:id" element={<BookingDetails/>} />
+          <Route path="/payment/:id" element={<PaymentPage/>} />
           <Route path="/aboutus" element={<AboutusPage/>} />
           <Route path="/faqs" element={<FaqsPage/>} />
           <Route path="/contactus" element={<ContactusPage/>} />

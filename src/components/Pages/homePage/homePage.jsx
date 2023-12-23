@@ -30,7 +30,7 @@ const HomePage = () => {
             data-elementor-id="3091"
             className="elementor elementor-3091"
           >
-            <section
+            {/* <section
               className="elementor-section elementor-top-section elementor-element elementor-element-c31469c elementor-section-boxed elementor-section-height-default elementor-section-height-default"
               data-id="c31469c"
               data-element_type="section"
@@ -106,7 +106,7 @@ const HomePage = () => {
                   </div>
                 </div>
               </div>
-            </section>
+            </section> */}
             <VehiclesPage />
             <section
               className="elementor-section elementor-top-section elementor-element elementor-element-64ac772 elementor-section-full_width elementor-section-stretched elementor-section-height-default elementor-section-height-default"

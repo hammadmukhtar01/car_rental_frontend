@@ -66,6 +66,7 @@
 
 .price-value {
   color: #cc6119;
+  float: right !important;
 }
 .price-booking-button-div {
   margin-top: 50px;
@@ -219,4 +220,17 @@ img.all-cars-img {
 .car-detail-price-main-div {
   padding-top: 50px;
   padding-bottom: 30px;
+}
+
+.booking-button {
+  background-color: rgb(90, 201, 211) !important;
+}
+
+.booking-button:hover{
+  background-color: white !important;
+  color: black !important;
+}
+
+.features-icon-detailPage {
+  max-width: 50%;
 }

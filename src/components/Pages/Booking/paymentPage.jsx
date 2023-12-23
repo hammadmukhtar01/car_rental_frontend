@@ -1,10 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./bookingDetails.css";
 
 const PaymentPage = () => {
+  const { id } = useParams();
+  const bookingDetailsId = id;
+
+  const [cardNumber, setCardNumber] = useState("");
+  const [expMonth, setExpMonth] = useState("");
+  const [expYear, setExpYear] = useState("");
+  const [cvc, setCvc] = useState("");
+  const [cardholderName, setCardholderName] = useState("");
+  const navigate = useNavigate;
+
+  const customer_info = JSON.parse(localStorage.getItem("user"));
+  const customer_token = customer_info.token
+
+  const handlePurchase = async () => {
+    const paymentData = {
+      cardNumber: cardNumber.replace(/\s/g, ""),
+      expMonth,
+      expYear,
+      cvc,
+      cardholderName,
+      additionalBookingDetailsId: bookingDetailsId,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/booking/create",
+        paymentData,
+        {
+          headers: {
+            "Content-Type": "application/json", 
+            Authorization: "Bearer " + customer_token,
+          },
+        }
+      );
+
+      console.log("Payment of Booking done successfully:", response.data);
+
+      if (response.status === 201) {
+        console.log("Booking created successfully");
+        alert("Payment Done successfully");
+        navigate("/");
+      } else {
+        console.log("Booking creation failed");
+        alert("Booking creation failed");
+      }
+    } catch (error) {
+      console.error("API error:", error);
+    }
+  };
+
   return (
     <>
-      <div className="container"  style={{padding: "50px"}}>
+      <div className="container" style={{ padding: "0px 50px 20px 50px" }}>
         <div className="elementor-widget-container">
           <div className="motors-elementor-widget car-listing-tabs-unit ">
             <div className="car-listing-top-part">
@@ -92,58 +144,127 @@ const PaymentPage = () => {
                   <div className="col-12 px-4 my-4">
                     <h4 className="fw-bold">Payment Detail:</h4>
                   </div>
-                  <div className="col-12 px-4">
-                    <div className="d-flex  mb-4">
-                      <span className="">
-                        <p className="payment-text">Card number</p>
-                        <input
-                          className="form-control"
-                          type="text"
-                          value="4485 6888 2359 1498"
-                          placeholder="1234 5678 9012 3456"
-                        />
-                      </span>
-                      <div className=" w-100 d-flex flex-column align-items-end">
-                        <p className="payment-text">Expires</p>
-                        <input
-                          className="form-control2"
-                          type="text"
-                          value="01/2020"
-                          placeholder="MM/YYYY"
-                        />
+                  <br />
+                  <div className="col-12">
+
+
+                    <div className="form-group row">
+                      <div className="col-lg-12">
+                        <label
+                          htmlFor="city"
+                          className="col-lg-4 col-form-label"
+                        >
+                          Card number
+                        </label>
+                        <div className="col-lg-8">
+                          <input
+                            className="form-control"
+                            id="cardnumber"
+                            name="cardnumber"
+                            type="text"
+                            required
+                            placeholder="1234 5678 9012 3456"
+                            value={cardNumber}
+                            onChange={(e) => setCardNumber(e.target.value)}
+                          />
+                        </div>
                       </div>
                     </div>
-                    <div className="d-flex mb-5">
-                      <span>
-                        <p className="payment-text">Cardholder Name</p>
-                        <input
-                          className="form-control"
-                          type="text"
-                          value="David J.Frias"
-                          placeholder="Name"
-                        />
-                      </span>
-                      <div className="w-100 d-flex flex-column align-items-end">
-                        <p className="payment-text">CVC</p>
-                        <input
-                          className="form-control3"
-                          type="text"
-                          value="630"
-                          placeholder="XXX"
-                        />
+
+                    <div className="form-group row">
+                      <div className="col-lg-12">
+                        <label
+                          htmlFor="city"
+                          className="col-lg-4 col-form-label"
+                        >
+                          Expires
+                        </label>
+                        <div className="col-lg-3">
+                          <input
+                            className="form-control"
+                            id="expMonth"
+                            name="expMonth"
+                            type="number"
+                            required
+                            placeholder="mm"
+                            min={1}
+                            max={12}
+                            value={expMonth}
+                            onChange={(e) => setExpMonth(e.target.value)}
+                          />{" "}
+                        </div>
+
+                        <div className="col-lg-3">
+                          <input
+                            className="form-control"
+                            id="expYear"
+                            name="expYear"
+                            type="number"
+                            required
+                            placeholder="yy"
+                            value={expYear}
+                            onChange={(e) => setExpYear(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <div className="col-lg-12">
+                        <label
+                          htmlFor="city"
+                          className="col-lg-4 col-form-label"
+                        >
+                          Cardholder Name
+                        </label>
+                        <div className="col-lg-8">
+                          <input
+                            className="form-control"
+                            id="cardholderName"
+                            name="cardholderName"
+                            type="text"
+                            required
+                            placeholder="Card Holder Full Name"
+                            value={cardholderName}
+                            onChange={(e) => setCardholderName(e.target.value)}
+                          />
+                        </div>
+                      </div>{" "}
+                    </div>
+
+                    <div className="form-group row">
+                      <div className="col-lg-12">
+                        <label
+                          htmlFor="city"
+                          className="col-lg-4 col-form-label"
+                        >
+                          CVC
+                        </label>
+                        <div className="col-lg-8">
+                          <input
+                            className="form-control"
+                            id="cvc"
+                            name="cvc"
+                            type="text"
+                            required
+                            placeholder="###"
+                            value={cvc}
+                            onChange={(e) => setCvc(e.target.value)}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <br />
-                <div className="row m-0">
-                  <div className="col-12  mb-4 p-0">
-                    <div className="btn btn-primary">
+                  <div className="row col-lg-6 col-md-6">
+                    <button
+                      className="btn btn-primary"
+                      onClick={handlePurchase}
+                    >
                       {" "}
                       Purchase <span className="fas fa-arrow-right ps-2"></span>
-                    </div>
+                    </button>
                   </div>
-                </div>
                 <br />
               </div>
             </div>
