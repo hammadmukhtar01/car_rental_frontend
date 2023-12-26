@@ -3,6 +3,10 @@
   margin: auto;
 }
 
+.vehicelDetail-main-container {
+  padding-top: 16px;
+}
+
 .vehiclePage-container {
   background-color: rgb(237, 237, 237);
 }
@@ -218,8 +222,7 @@ img.all-cars-img {
 }
 
 .car-detail-price-main-div {
-  padding-top: 50px;
-  padding-bottom: 30px;
+  padding: 50px 0px 30px 10px;
 }
 
 .booking-button {

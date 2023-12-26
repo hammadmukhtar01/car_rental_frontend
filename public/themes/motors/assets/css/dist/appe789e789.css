@@ -2925,7 +2925,7 @@ button,
     line-height: 14px;
     font-weight: 700;
     letter-spacing: 0.3px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: #fff;
     border-radius: 3px;
     background-color: #6c98e1;
@@ -21846,9 +21846,9 @@ html body .button:hover,
         margin: 0 -55px;
     }
 
-    .stm-vc-single-car-content-left {
+    /* .stm-vc-single-car-content-left {
         padding-right: 42px !important;
-    }
+    } */
 
     .stm-vc-single-car-content-right {
         padding-left: 42px !important;

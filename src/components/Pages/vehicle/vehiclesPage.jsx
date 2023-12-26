@@ -7,7 +7,7 @@ import "../../../index.css";
 
 const PageSize = 6;
 
-const VehiclesPage = ({}) => {
+const VehiclesPage = () => {
   const [carsData, setCarsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const durations = ["Day", "Week", "Month"];
@@ -87,7 +87,7 @@ const VehiclesPage = ({}) => {
 
   return (
     <>
-      <div className="vehiclePage-container">
+      <div className="vehiclePage-container space-after-navbar">
         <div className="container">
           <div className="elementor-widget-container">
             <div className="motors-elementor-widget car-listing-tabs-unit ">

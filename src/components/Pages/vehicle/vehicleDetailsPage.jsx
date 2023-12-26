@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -138,8 +139,7 @@ const VehicleDetailsPage = () => {
   return (
     <div>
       <div
-        className="stm-single-car-page single-listings-template"
-        style={{ backgroundPosition: "0px 200px" }}
+        className="vehicelDetail-main-container"
       >
         <div className="container">
           <section className="wpb-content-wrapper">
