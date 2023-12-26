@@ -95,7 +95,7 @@ const Review = () => {
 
   return (
     <div>
-      <div className="container">
+      <div className="review-container p-4">
         <div className="row">
           <div className="col-sm-4">
             <div className="rating-block">
@@ -181,7 +181,7 @@ const Review = () => {
           </div>
         </div>
 
-        <div className="container">
+        <div className="enter-review-container p-3">
           <div className="row" style={{ padding: "1px" }}>
             <div className="col-12">
               <hr />
@@ -204,7 +204,7 @@ const Review = () => {
             </div>
             <br />
             <div className="col-lg-3 offset-lg-4">
-              <div className="row m-0">
+              <div className="row m-0 pt-4">
                 <button
                   type="button"
                   className="btn btn-primary btn-block"

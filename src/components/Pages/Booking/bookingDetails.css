@@ -1,22 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Work+Sans:wght@800&display=swap");
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
 .booking-details-container{
   background-color: #dedede;
 }
 
-.booking-price-evaluation-main-div {
+.booking-price-evaluation {
+  margin: auto;
+  /* margin-top: 20px; */
+  padding: 15px;
+  border: 1px solid rgb(233, 233, 233);
   background-color: white;
+  border-radius: 6px;
+
+}
+
+.booking-price-evaluation-main-div {
+  margin: 10px 0px 5px 0px;
+  padding: 15px 15px 15px 5px;
 }
 
 .form-control {
   height: 25px;
-  width: 150px;
+  width: 210px !important;
   border: none;
   border-radius: 0;
   font-weight: 800;
@@ -37,7 +42,7 @@
 
 .form-control-date {
   height: 45px;
-  /* width: 150px; */
+  /* width: 215px; */
   border: 1px solid rgb(184, 184, 184) !important;
   border-radius: 6px;
   padding: 10px 10px;
@@ -94,6 +99,9 @@
   background-color: transparent;
 }
 
+.form-control-payment {
+  width: 100% !important;
+}
 
 .col-12.p-5 img {
   width: 80%;
@@ -157,8 +165,6 @@ h5,
 .payment-text {
   margin: 15px 0px;
 }
-
-
 
 
 

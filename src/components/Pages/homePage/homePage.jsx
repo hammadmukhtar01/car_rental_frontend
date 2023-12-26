@@ -8,13 +8,13 @@ const HomePage = () => {
   return (
     <div>
       <div id="main">
-        <div className="container homepage-leasing-container">
+        <div className="homepage-leasing-container">
           <div
             data-elementor-type="wp-page"
             data-elementor-id="3091"
             className="elementor elementor-3091"
           >
-            <VehiclesAnimation />
+            {/* <VehiclesAnimation /> */}
             
             <VehiclesPage />
             <section
@@ -38,7 +38,7 @@ const HomePage = () => {
                     >
                       <div className="elementor-widget-container">
                         <div className="stm-elementor_listings_carousel view_type_carousel style_1">
-                          <div className="title heading-font">LEASING</div>
+                          <div className="leasing-title heading-font">LEASING</div>
                           <div className="colored-separator">
                             <div className="first-long stm-base-background-color"></div>
                             <div className="last-short stm-base-background-color"></div>

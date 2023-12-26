@@ -124,7 +124,7 @@ const BookingDetails = () => {
   return (
     <div
       className="booking-details-container"
-      style={{ display: "flex", flexDirection: "column", padding: "0px 30px" }}
+      style={{ display: "flex", flexDirection: "column", padding: "10px 10px" }}
     >
       <div className="elementor-widget-container">
         <div className="motors-elementor-widget car-listing-tabs-unit ">
@@ -139,7 +139,7 @@ const BookingDetails = () => {
         </div>
       </div>
       <br />
-      <div className="row" style={{ gap: "16px" }}>
+      <div className="row" >
         {/* Left Side - Col-9 */}
 
         <div className="col-lg-9 col-md-6">
@@ -395,14 +395,8 @@ const BookingDetails = () => {
         </div>
 
         {/* Right Side - Col-3 */}
-        <br />
         <div
           className="col-lg-3 col-md-6 booking-price-evaluation-main-div"
-          style={{
-            border: "1px solid rgb(233, 233, 233)",
-            borderRadius: "6px",
-            marginTop: "10px",
-          }}
         >
           <div className="booking-price-evaluation">
             <div className="price-row" style={{ lineHeight: "300%" }}>
@@ -432,13 +426,12 @@ const BookingDetails = () => {
             <hr />
 
             <div className="total-price-row" style={{ lineHeight: "100%" }}>
-              <span className="price-label">Total Price:</span>
+              <span className="price-label"><b>Total Price:</b></span>
               <span className="price-value">
                 {" "}
                 <b>{totalPriceValue}</b> | AED
               </span>{" "}
             </div>
-            <hr />
           </div>
         </div>
       </div>

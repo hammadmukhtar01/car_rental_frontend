@@ -1,0 +1,23 @@
+.elementor-accordion-item{
+    border: 1px solid rgb(224, 224, 224);
+}
+
+.elementor-accordion-title {
+    font-weight: 600 !important;
+}
+
+.elementor-clearfix {
+    padding: 0px 20px;
+}
+
+.tab-item {
+    padding: 8px;
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 6px;
+}
+
+.contactUs-heading-font {
+    font-size: 20px;
+}
+
+

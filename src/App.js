@@ -13,12 +13,16 @@ import FaqsPage from './components/Pages/OtherPages/faqsPage';
 import ContactusPage from './components/Pages/OtherPages/contactusPage';
 import SignupPage from './components/authentication/signupPage';
 import AboutusPage from './components/Pages/OtherPages/aboutusPage';
+import MainNavbar from './components/Pages/navbar/mainNavbar';
+import CustomerBookingPage from './components/customerDashboard/bookingPage';
+import CustomerProfilePage from './components/customerDashboard/myProfilePage';
 
 function App() {
   return (
     <>
       <div className="App">
         <Navbar />
+        <MainNavbar/>
         <Routes>
           <Route path="/" exact element={<HomePage/>} />
           <Route path="/vehicles" element={<VehiclesPage/>} />
@@ -28,6 +32,8 @@ function App() {
           <Route path="/aboutus" element={<AboutusPage/>} />
           <Route path="/faqs" element={<FaqsPage/>} />
           <Route path="/contactus" element={<ContactusPage/>} />
+          <Route path="/myProfile/:id" element={<CustomerProfilePage/>} />
+          <Route path="/myBookings/:id" element={<CustomerBookingPage/>} />
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/signup" element={<SignupPage/>} />
         </Routes>

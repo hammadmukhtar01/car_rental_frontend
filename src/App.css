@@ -1,3 +1,44 @@
 .space-after-navbar {
-    padding: 20px;
+  padding: 20px;
+}
+
+.navbar-all-menus.active {
+  background-color: #cc6119 !important;
+  color: white !important;
+}
+
+
+#user-nav-dropdown, .welcome-text {
+    padding: 7px 20px;
+}
+
+#user-nav-dropdown {
+    color: black;
+    border: 1px solid rgb(189, 189, 189);
+    /* border-radius: 10px; */
+}
+
+.welcome-text {
+  color: black !important;
+}
+
+.navbar-all-menus {
+  color: black;
+  /* border: 1px solid rgb(189, 189, 189); */
+  /* border-radius: 10px; */
+  margin: 0px 1px;
+  padding: 10px 25px !important;
+}
+.navbar-all-menus:hover, #user-nav-dropdown:hover {
+  background-color: #cc6119;
+  color: white !important;
+}
+
+.container.navabr-main-container {
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0,0,0);
 }

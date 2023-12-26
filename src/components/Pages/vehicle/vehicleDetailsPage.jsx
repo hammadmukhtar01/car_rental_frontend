@@ -141,7 +141,7 @@ const VehicleDetailsPage = () => {
       <div
         className="vehicelDetail-main-container"
       >
-        <div className="container">
+        <div className="main-container p-4">
           <section className="wpb-content-wrapper">
             <div className="row">
               <div className="stm-vc-single-car-content-left wpb_column vc_column_container col-lg-12 col-md-12 col-sm-12">
@@ -191,7 +191,7 @@ const VehicleDetailsPage = () => {
                     </div>
                     <br />
                     <div className="row">
-                      <div className="col-lg-9 col-md-12">
+                      <div className="col-lg-8 col-md-12">
                         <div className="carousel-container">
                           <Carousel className="crsl">
                             {images.map((image) => (
@@ -204,7 +204,7 @@ const VehicleDetailsPage = () => {
                           </Carousel>
                         </div>
                       </div>
-                      <div className="col-lg-3 car-detail-price-main-div">
+                      <div className="col-lg-4 car-detail-price-main-div">
                         <div className="">
                           {durations.map((duration, index) => (
                             <div
@@ -237,10 +237,13 @@ const VehicleDetailsPage = () => {
                             </div>
                           ))}
                         </div>
-                      </div>
-                      <br />
 
-                      <div className="price-booking-button-div col-lg-3 col-md-12">
+
+
+
+
+
+                        <div className="price-booking-button-div col-lg-12">
                         <div className="">
                           <div className="booking-price-evaluation">
                             {data && data.additionalCharges && (
@@ -281,7 +284,7 @@ const VehicleDetailsPage = () => {
                                   className="btn btn-primary"
                                   onClick={() => handleBooking(data.id)}
                                 >
-                                  <b>Started Booking</b>{" "}
+                                 Started Booking{" "}
                                   <span className="fas fa-arrow-right ps-2"></span>
                                 </button>
                               </div>
@@ -298,6 +301,13 @@ const VehicleDetailsPage = () => {
                           </div>
                         </div>
                       </div>
+
+
+                        
+                      </div>
+                      <br />
+
+                     
                     </div>
 
                     <div

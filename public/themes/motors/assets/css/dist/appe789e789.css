@@ -22037,10 +22037,10 @@ html body .button:hover,
         font-size: 18px;
     }
 
-    .classic-filter-row .sidebar-entry-header {
+    /* .classic-filter-row .sidebar-entry-header {
         padding: 26px 40px 21px 108px;
         margin: 0 -40px 25px;
-    }
+    } */
 
     .classic-filter-row .filter-sidebar {
         padding-right: 40px;

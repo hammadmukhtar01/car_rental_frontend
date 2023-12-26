@@ -56,14 +56,14 @@ const PaymentPage = () => {
 
   return (
     <>
-      <div className="container" style={{ padding: "0px 50px 20px 50px" }}>
+      <div className="payment-container" style={{ padding: "20px 50px 20px 50px" }}>
         <div className="elementor-widget-container">
           <div className="motors-elementor-widget car-listing-tabs-unit ">
             <div className="car-listing-top-part">
               <div className="found-cars-cloned found-cars-51281 position-right hide-on-mobile"></div>
               <div className="title text-center">
                 <h2>
-                  <span style={{ color: "#cc6118" }}>VEHICLES</span>
+                  <span style={{ color: "#cc6118" }}>Payment Page</span>
                 </h2>
               </div>
             </div>
@@ -158,7 +158,7 @@ const PaymentPage = () => {
                         </label>
                         <div className="col-lg-8">
                           <input
-                            className="form-control"
+                            className="form-control form-control-payment"
                             id="cardnumber"
                             name="cardnumber"
                             type="text"
@@ -181,7 +181,7 @@ const PaymentPage = () => {
                         </label>
                         <div className="col-lg-3">
                           <input
-                            className="form-control"
+                            className="form-control form-control-payment"
                             id="expMonth"
                             name="expMonth"
                             type="number"
@@ -196,7 +196,7 @@ const PaymentPage = () => {
 
                         <div className="col-lg-3">
                           <input
-                            className="form-control"
+                            className="form-control form-control-payment"
                             id="expYear"
                             name="expYear"
                             type="number"
@@ -218,7 +218,7 @@ const PaymentPage = () => {
                         </label>
                         <div className="col-lg-8">
                           <input
-                            className="form-control"
+                            className="form-control form-control-payment"
                             id="cardholderName"
                             name="cardholderName"
                             type="text"
@@ -241,7 +241,7 @@ const PaymentPage = () => {
                         </label>
                         <div className="col-lg-8">
                           <input
-                            className="form-control"
+                            className="form-control form-control-payment"
                             id="cvc"
                             name="cvc"
                             type="text"

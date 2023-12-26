@@ -110,8 +110,9 @@ ul.header-menu  {
   padding: 0px 14px 0px 5px;
 }
 
-.title.heading-font, .colored-separator {
-padding: 0px 14px;
+.leasing-title.heading-font, .colored-separator {
+padding: 0px 14px 5px 14px;
+color: white;
 }
 
 .swiper-container.items-per-view-3 {
@@ -120,7 +121,7 @@ padding: 0px 14px;
 
 
 .homepage-leasing-container {
-  padding: 0px;
+  padding: 0px !important;
 }
 
 

@@ -1273,9 +1273,9 @@ rs-arrow 					{	display:block; pointer-events: all;}
 
 /*rs-layer {	font-size:20px; line-height: 25px; padding:0px; margin:0px; border-radius:0px; max-width: none;min-width:none; max-height: none; min-height: none}*/
 
-.tp-thumbs.navbar,
+/* .tp-thumbs.navbar,
 .tp-bullets.navbar,
-.tp-tabs.navbar					{	border:none; min-height: 0; margin:0; border-radius: 0; }
+.tp-tabs.navbar					{	border:none; min-height: 0; margin:0; border-radius: 0; } */
 
 .tp-tabs,
 .tp-thumbs,

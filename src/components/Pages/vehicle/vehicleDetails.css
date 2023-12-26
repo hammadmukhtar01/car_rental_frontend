@@ -50,12 +50,6 @@
   background-color: white;
 }
 
-.booking-price-evaluation {
-  /* width: 300px; */
-  margin: auto;
-  /* margin-top: 20px; */
-  padding: 10px;
-}
 
 .price-row,
 .total-price-row {
@@ -65,7 +59,7 @@
 }
 
 .price-label {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .price-value {
@@ -202,7 +196,6 @@
 }
 
 .price-day-div {
-  border: 1px solid rgb(208, 208, 208);
   padding: 4px 8px;
   border-radius: 10px;
 }
