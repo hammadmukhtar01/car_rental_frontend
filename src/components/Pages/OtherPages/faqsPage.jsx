@@ -116,7 +116,7 @@ const FaqsPage = () => {
 
   return (
     <>
-      <div id="main" className="mt-4">
+      <div id="main" className="mt-4 pb-5">
         <div className="container">
           <div
             data-elementor-type="wp-page"

@@ -283,7 +283,7 @@ const ContactusPage = () => {
                                 >
                                   <span className="tab-item">
                                     <span className="elementor-contact-title-text">
-                                      Renting{" "}
+                                      <b>Renting</b>{" "}
                                     </span>
                                   </span>
                                 </li>

@@ -33,6 +33,13 @@
   border: 1px solid white;
 }
 
+.btn.btn-primary:focus {
+  background-color: white !important;
+  color: #cc6119 !important;
+  border: 1px solid #cc6119 !important;
+  box-shadow: none !important
+}
+
 .btn.btn-primary:hover {
   background-color: white;
   color: #cc6119;

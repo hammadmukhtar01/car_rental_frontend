@@ -14,8 +14,7 @@ import ContactusPage from './components/Pages/OtherPages/contactusPage';
 import SignupPage from './components/authentication/signupPage';
 import AboutusPage from './components/Pages/OtherPages/aboutusPage';
 import MainNavbar from './components/Pages/navbar/mainNavbar';
-import CustomerBookingPage from './components/customerDashboard/bookingPage';
-import CustomerProfilePage from './components/customerDashboard/myProfilePage';
+import CustomerBookingPage from './components/customerDashboard/myBookingDetails';
 
 function App() {
   return (
@@ -32,7 +31,7 @@ function App() {
           <Route path="/aboutus" element={<AboutusPage/>} />
           <Route path="/faqs" element={<FaqsPage/>} />
           <Route path="/contactus" element={<ContactusPage/>} />
-          <Route path="/myProfile/:id" element={<CustomerProfilePage/>} />
+          <Route path="/myProfile/:id" element={<ContactusPage/>} />
           <Route path="/myBookings/:id" element={<CustomerBookingPage/>} />
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/signup" element={<SignupPage/>} />

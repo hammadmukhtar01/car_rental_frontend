@@ -1,0 +1,46 @@
+.booking-details-button {
+  background-color: #c75000;
+  color: white;
+  padding: 8px;
+  box-shadow: none;
+  border-radius: 6px;
+}
+
+.booking-details-button:hover {
+  background-color: #cc6119;
+  /* color: white; */
+}
+
+.customer-bookings-status-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table th {
+  font-size: 16px;
+  text-transform: capitalize;
+  background-color: #cc6119;
+  color: white;
+  padding: 15px 2px;
+}
+
+.table td,
+.table th {
+  text-align: center;
+  font-size: 14px
+}
+
+.card-section {
+  text-align: left;
+}
+
+.customer-booking-status,
+.customer-payment-status {
+  border: 1px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  background-color: #c75000;
+  color: white;
+  opacity: 0.9;
+}
