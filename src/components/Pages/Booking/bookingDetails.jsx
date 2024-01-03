@@ -386,7 +386,7 @@ const BookingDetails = () => {
                     onClick={handleBookingDetails}
                   >
                     Continue to Payment{" "}
-                    <span className="fas fa-arrow-right ps-2"></span>
+                    
                   </button>
                 </div>
               </div>

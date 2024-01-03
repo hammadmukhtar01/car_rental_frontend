@@ -225,7 +225,6 @@ const ContactusPage = () => {
                                               }
                                             >
                                               Submit{" "}
-                                              <span className="fas fa-arrow-right ps-2"></span>
                                             </button>
                                           </div>
                                         </div>

@@ -14,7 +14,8 @@ const HomePage = () => {
             data-elementor-id="3091"
             className="elementor elementor-3091"
           >
-            {/* <VehiclesAnimation /> */}
+            <VehiclesAnimation />
+            
             
             <VehiclesPage />
             <section

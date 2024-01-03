@@ -219,7 +219,7 @@ const SignupPage = () => {
                         onClick={(e) => handleSignUp(e)}
                       >
                         Create Account{" "}
-                        <span className="fas fa-arrow-right ps-2"></span>
+                       
                       </button>
                     </div>
                   </div>

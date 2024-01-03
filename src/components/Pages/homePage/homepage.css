@@ -1,0 +1,19 @@
+/* 
+  .container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #b24592;
+    background: linear-gradient(to right, #f15f79, #b24592);
+  }
+  
+  */
+
+.slider-item {
+    width: 100%; 
+    height: auto; 
+    max-height: 400px; 
+    object-fit: cover; 
+  }
+  

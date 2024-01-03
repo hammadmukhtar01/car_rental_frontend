@@ -211,7 +211,6 @@ const Review = () => {
                   onClick={handleSubmit}
                 >
                   Submit Review{" "}
-                  <span className="fas fa-arrow-right ps-2"></span>
                 </button>
               </div>
             </div>

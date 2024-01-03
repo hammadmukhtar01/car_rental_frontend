@@ -262,7 +262,7 @@ const PaymentPage = () => {
                       onClick={handlePurchase}
                     >
                       {" "}
-                      Purchase <span className="fas fa-arrow-right ps-2"></span>
+                      Purchase 
                     </button>
                   </div>
                 <br />

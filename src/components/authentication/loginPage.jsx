@@ -113,7 +113,7 @@ const LoginPage = () => {
                         className="login-form-control btn btn-primary submit"
                         onClick={(e) => handleLogin(e)}
                       >
-                        Log In <span className="fas fa-arrow-right ps-2"></span>
+                        Log In
                       </button>
                     </div>
                   </div>

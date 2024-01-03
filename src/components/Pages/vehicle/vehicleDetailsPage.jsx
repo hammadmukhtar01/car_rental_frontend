@@ -285,7 +285,6 @@ const VehicleDetailsPage = () => {
                                   onClick={() => handleBooking(data.id)}
                                 >
                                  Started Booking{" "}
-                                  <span className="fas fa-arrow-right ps-2"></span>
                                 </button>
                               </div>
                             ) : (

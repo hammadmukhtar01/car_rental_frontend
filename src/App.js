@@ -4,7 +4,6 @@ import './App.css';
 import BookingDetails from './components/Pages/Booking/bookingDetails';
 import PaymentPage from './components/Pages/Booking/paymentPage';
 import Footer from './components/Pages/footer/footer';
-import Navbar from './components/Pages/navbar/navbar';
 import HomePage from './components/Pages/homePage/homePage';
 import VehicleDetailsPage from './components/Pages/vehicle/vehicleDetailsPage';
 import VehiclesPage from './components/Pages/vehicle/vehiclesPage';
@@ -20,7 +19,7 @@ function App() {
   return (
     <>
       <div className="App">
-        <Navbar />
+        
         <MainNavbar/>
         <Routes>
           <Route path="/" exact element={<HomePage/>} />

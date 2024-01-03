@@ -87,7 +87,7 @@ const VehiclesPage = () => {
 
   return (
     <>
-      <div className="vehiclePage-container space-after-navbar">
+      <div className="vehiclePage-container space-after-navbar pt-5">
         <div className="container22">
           <div className="elementor-widget-container">
             <div className="motors-elementor-widget car-listing-tabs-unit ">
@@ -250,7 +250,6 @@ const VehiclesPage = () => {
                           onClick={() => handleDetails(car.id)}
                         >
                           More Details{" "}
-                          <span className="fas fa-arrow-right"></span>
                         </button>
                       </div>
                       <div className="col-lg-6 col-md-6 col-sm-6">
@@ -259,7 +258,6 @@ const VehiclesPage = () => {
                           onClick={() => handleBooking(car.id)}
                         >
                           Start Booking{" "}
-                          <span className="fas fa-arrow-right "></span>
                         </button>
                       </div>
                     </div>
