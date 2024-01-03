@@ -7,13 +7,185 @@
     background: #b24592;
     background: linear-gradient(to right, #f15f79, #b24592);
   }
-  
   */
 
+.leasing-milele-car-heading {
+  background-color: rgb(66, 66, 66);
+  padding: 20px;
+}
+
+.date-label,
+.location-label {
+  padding: 15px 1px 5px 1px;
+}
+
 .slider-item {
-    width: 100%; 
-    height: auto; 
-    max-height: 400px; 
-    object-fit: cover; 
-  }
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.styled-label {
+  color: #cc6119;
+}
+
+.search-box-container {
+  border: 1px solid rgb(184, 184, 184);
+  border-radius: 6px;
+  padding: 20px;
+  background-color: rgb(239, 238, 235);
+}
+
+.bg-img-container {
+  position: relative;
+  z-index: 1;
+  background-color: rgb(211, 211, 211);
+}
+
+.bg-img {
+  background-image: url("https://www.freeiconspng.com/uploads/audi-car-png-image-side-view-7.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 70vh;
+  margin: 0;
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.form-control-location {
+  height: 45px;
+  /* width: 215px; */
+  border: 1px solid rgb(184, 184, 184) !important;
+  border-radius: 6px;
+  padding: 10px 10px;
+  box-shadow: none;
+  font-size: 14px;
+  background-color: white !important;
+}
+
+/* Car cards CSS  */
+
+.offer-car-main-section {
+  position: relative;
+  /* height: 70vh; */
+  margin: 0;
+}
+
+.offer-car-main-section {
+  content: "";
+  /* background-image: url("https://th.bing.com/th/id/OIP.l5yt1Xzv-BhPgCSCF3KunAAAAA?rs=1&pid=ImgDetMain"); */
+  background-repeat: no-repeat;
+  background-color: aquamarine;
+  background-size: cover;
+  background-position: center;
+  /* opacity: 0.3; */
+  height: 100%;
+  width: 100%;
+  /* position: absolute; */
+  /* top: 0;
+  left: 0; */
+  /* z-index: -1;  */
+}
+
+.car-image-container {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.car-image {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+}
+
+.offer-car-item {
+  border: none;
+  border-radius: 6px;
+  box-shadow: 1px 4px 10px 3px rgba(85, 68, 68, 0.35);
+  position: relative;
+  background-color: rgb(244, 244, 244);
+}
+
+/* .car-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 80%;
+  background-image: url("../../images/milelercicon.ico");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   
+} */
+
+.offer-heading {
+  color: #cc6119;
+  font-weight: 800;
+}
+
+.offers-car-container-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.offer-car-item {
+  border: none;
+  border-radius: 6px;
+  box-shadow: 1px 4px 10px 3px rgba(85, 68, 68, 0.35);
+}
+
+.discount-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.discount-line {
+  width: 100%;
+  padding: 0px;
+  margin: px 0px;
+  border: 2px solid #ba4b01;
+}
+
+.discount-percent {
+  background-color: white;
+  padding: 0 10px;
+}
+
+#hr-value-tag-1 {
+  transform: rotate(135deg);
+  width: 52px;
+  position: absolute;
+  border-bottom: 2px solid #cc6119;
+  height: 100px;
+  top: 3px;
+  left: 27px;
+}
+
+#hr-value-tag-2 {
+  transform: rotate(135deg);
+  width: 116px;
+  position: absolute;
+  border-bottom: 2px solid #cc6119;
+  height: 100px;
+  top: 26px;
+  left: 18px;
+}
+
+.tilted-car-price {
+  position: absolute;
+  transform: rotate(-45deg);
+  top: 19px;
+  left: 0px;
+}

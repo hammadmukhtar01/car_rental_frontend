@@ -2,24 +2,26 @@
 /* eslint-disable react/style-prop-object */
 import React from "react";
 import VehiclesPage from "../vehicle/vehiclesPage";
-import VehiclesAnimation from "./vehiclesAnimation";
+import SearchBox from "./searchBox";
+import HomePageBanner from "./homePageBanner";
+import CarCards from "./carCards";
 
 const HomePage = () => {
   return (
     <div>
       <div id="main">
-        <div className="homepage-leasing-container">
+        <div className="homepage-main">
           <div
-            data-elementor-type="wp-page"
-            data-elementor-id="3091"
-            className="elementor elementor-3091"
+            className="search-box-home-page"
           >
-            <VehiclesAnimation />
+            <SearchBox />
+            <CarCards/>
+            {/* <HomePageBanner/> */}
             
-            
-            <VehiclesPage />
+            {/* <VehiclesPage /> */}
+
             <section
-              className=" elementor-element elementor-element-64ac772  "
+              className=" elementor-element elementor-element-64ac772 leasing-milele-car-heading"
               data-id="64ac772"
               data-element_type="section"
               data-settings='{"stretch_section":"section-stretched","background_background":"classic"}'
