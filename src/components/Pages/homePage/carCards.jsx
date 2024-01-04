@@ -49,7 +49,6 @@ const CarCards = () => {
                     />
                     <div className="car-image-overlay"></div>
                   </div>
-                  <div className="hr-value">{`Value ${index + 1}`}</div>
                   <hr className="discount-line" />
                   <div className="car-details">
                     <p className="car-name">
@@ -57,7 +56,6 @@ const CarCards = () => {
                       <b>{car.name}</b>{" "}
                     </p>
                     <div className="discount-container">
-                      {/* <span className="discount-percent">{car.discount}% off</span> */}
                     </div>
                   </div>
                   <div className="col-lg-10">

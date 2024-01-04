@@ -5,19 +5,20 @@ import VehiclesPage from "../vehicle/vehiclesPage";
 import SearchBox from "./searchBox";
 import HomePageBanner from "./homePageBanner";
 import CarCards from "./carCards";
+import AnimatedCarSection from "./animatedCarSection";
 
 const HomePage = () => {
   return (
     <div>
       <div id="main">
         <div className="homepage-main">
-          <div
-            className="search-box-home-page"
-          >
+          <div className="search-box-home-page">
             <SearchBox />
-            <CarCards/>
+            <CarCards />
+
+            <AnimatedCarSection/>
             {/* <HomePageBanner/> */}
-            
+
             {/* <VehiclesPage /> */}
 
             <section
@@ -41,7 +42,9 @@ const HomePage = () => {
                     >
                       <div className="elementor-widget-container">
                         <div className="stm-elementor_listings_carousel view_type_carousel style_1">
-                          <div className="leasing-title heading-font">LEASING</div>
+                          <div className="leasing-title heading-font">
+                            LEASING
+                          </div>
                           <div className="colored-separator">
                             <div className="first-long stm-base-background-color"></div>
                             <div className="last-short stm-base-background-color"></div>
