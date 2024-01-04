@@ -14,7 +14,7 @@
   padding: 0px !important;
 }
 
-.price-day-main-div{
+.price-day-main-div {
   padding: 0px 10px;
 }
 
@@ -37,7 +37,7 @@
   background-color: white !important;
   color: #cc6119 !important;
   border: 1px solid #cc6119 !important;
-  box-shadow: none !important
+  box-shadow: none !important;
 }
 
 .btn.btn-primary:hover {
@@ -56,7 +56,6 @@
 .whatsapp-container:hover {
   background-color: white;
 }
-
 
 .price-row,
 .total-price-row {
@@ -183,6 +182,7 @@
 .all-cars-details {
   padding: 2px;
 }
+
 .one-car-card {
   border: 1px solid #e0e0e0;
   border-radius: 20px;
@@ -229,11 +229,94 @@ img.all-cars-img {
   background-color: rgb(90, 201, 211) !important;
 }
 
-.booking-button:hover{
+.booking-button:hover {
   background-color: white !important;
   color: black !important;
 }
 
 .features-icon-detailPage {
   max-width: 50%;
+}
+
+span.select2-selection_arrow b {
+  display: contents !important;
+}
+
+.select2-container .select2-selection--single {
+  height: 39px !important;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  line-height: 38px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow { 
+  height: 40px !important;
+}
+
+.min-max-price-hypen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#formMinMaxPrice {
+  width: 100% !important;
+}
+
+.all-cars-section {
+  border: 1px solid rgb(184, 184, 184);
+  border-radius: 6px;
+  padding: 10px 20px;
+  background-color: rgb(231, 231, 231);
+}
+
+.all-offer-cars {
+  border: 1px solid rgb(217, 217, 217);
+  border-radius: 4px;
+  background-color: white;
+}
+
+
+#hr-value-allcars-1 {
+  transform: rotate(135deg);
+  width: 45px;
+  position: absolute;
+  border-bottom: 2px solid #cc6119;
+  height: 64px;
+  top: 6px;
+  left: 27px;
+}
+
+#hr-value-allcars-2 {
+  transform: rotate(135deg);
+  width: 101px;
+  position: absolute;
+  border-bottom: 2px solid #cc6119;
+  height: 59px;
+  top: 27px;
+  left: 18px;
+}
+
+.offer-car-price {
+  position: absolute;
+  transform: rotate(-45deg);
+  top: 16px;
+  left: 7px;
+}
+
+.sort-by-dropdown {
+  display: flex;
+  flex-direction: row-reverse
+}
+
+
+
+
+@media screen and (max-width: 575px) {
+  .max-price-input {
+    padding-top: 10px;
+  }
 }

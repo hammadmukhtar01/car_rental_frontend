@@ -15350,6 +15350,7 @@ body .vc_col-has-fill > .vc_column-inner, body .vc_row-has-fill + .vc_row-full-w
 
 .select2-container--default .select2-selection--single .select2-selection__arrow b:before {
     content: "\f107";
+    display: none;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow b.stm-preloader {
