@@ -2,10 +2,10 @@ import React from 'react';
 import { Route, Routes } from "react-router-dom";
 import './App.css';
 import BookingDetails from './components/Pages/Booking/bookingDetails';
-import PaymentPage from './components/Pages/Booking/paymentPage';
+import PaymentPage from './components/Pages/multipleStepsForm/paymentPage';
 import Footer from './components/Pages/footer/footer';
 import HomePage from './components/Pages/homePage/homePage';
-import VehicleDetailsPage from './components/Pages/vehicle/vehicleDetailsPage';
+import VehicleDetailsPage from './components/Pages/vehicle/oldVehicleDetailsPage';
 import VehiclesPage from './components/Pages/vehicle/vehiclesPage';
 import LoginPage from './components/authentication/loginPage';
 import FaqsPage from './components/Pages/OtherPages/faqsPage';
@@ -14,6 +14,8 @@ import SignupPage from './components/authentication/signupPage';
 import AboutusPage from './components/Pages/OtherPages/aboutusPage';
 import MainNavbar from './components/Pages/navbar/mainNavbar';
 import CustomerBookingPage from './components/customerDashboard/myBookingDetails';
+// import VehicleDetails from './components/Pages/multipleStepsForm/vehicleDetails';
+import VerificationForm from './components/Pages/multipleStepsForm/multipleStepsForm';
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
           <Route path="/myBookings/:id" element={<CustomerBookingPage/>} />
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/signup" element={<SignupPage/>} />
+          <Route path="/test" element={<VerificationForm/>} />
         </Routes>
         <Footer />
       </div>

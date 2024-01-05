@@ -312,11 +312,14 @@ span.select2-selection_arrow b {
   flex-direction: row-reverse
 }
 
-
+.car-name-div {
+  display: flex;
+    flex-direction: row-reverse;
+}
 
 
 @media screen and (max-width: 575px) {
-  .max-price-input {
-    padding-top: 10px;
+  .pay-now-value {
+    font-size: 14px;
   }
 }

@@ -7,7 +7,7 @@ import "../../../index.css";
 
 const PageSize = 6;
 
-const VehiclesPage = () => {
+const OldVehiclesPage = () => {
   const [carsData, setCarsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const durations = ["Day", "Week", "Month"];
@@ -280,4 +280,4 @@ const VehiclesPage = () => {
   );
 };
 
-export default VehiclesPage;
+export default OldVehiclesPage;

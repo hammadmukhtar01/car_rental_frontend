@@ -87,7 +87,7 @@
   content: "";
   /* background-image: url("https://th.bing.com/th/id/OIP.l5yt1Xzv-BhPgCSCF3KunAAAAA?rs=1&pid=ImgDetMain"); */
   background-repeat: no-repeat;
-  background-color: aquamarine;
+  background: linear-gradient(to bottom, #f1dc77, #ffd500);
   background-size: cover;
   background-position: center;
   /* opacity: 0.3; */
@@ -103,7 +103,6 @@
   position: relative;
   height: 300px;
   overflow: hidden;
-  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;

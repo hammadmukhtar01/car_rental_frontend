@@ -41,6 +41,10 @@ function CollapsibleExample() {
       menuName: "Contact Us",
       navigateTo: "/contactus",
     },
+    {
+      menuName: "Test",
+      navigateTo: "/test",
+    },
   ];
 
   const renderSeparator = (index, length) => {
