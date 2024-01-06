@@ -58,13 +58,13 @@
 }
 
 .price-row,
-.total-price-row {
+.total-price-row, .coupon-main-div {
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
 }
 
-.price-label {
+.price-label, .coupon-label {
   font-weight: 500;
 }
 

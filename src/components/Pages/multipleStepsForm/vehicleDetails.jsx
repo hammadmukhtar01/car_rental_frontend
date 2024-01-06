@@ -1,9 +1,44 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const VehicleDetails = ({ nextStep }) => {
+  const [couponCode, setCouponCode] = useState("");
+  const [isCouponApplied, setIsCouponApplied] = useState(false);
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+
+  const couponsData = [
+    {
+      name: "ABC123",
+      value: 20,
+    },
+
+    {
+      name: "NEW40",
+      value: 40,
+    },
+  ];
+
+  const applyCoupon = (e) => {
+    e.preventDefault(); 
+  
+    const foundCoupon = couponsData.find((coupon) => coupon.name === couponCode);
+  
+    if (foundCoupon) {
+      setAppliedCoupon(foundCoupon);
+      setIsCouponApplied(true);
+    }
+  };
+  
+
+  const removeCoupon = (e) => {
+    setAppliedCoupon(null);
+    setIsCouponApplied(false);
+    e.preventDefault(); 
+
+  };
+
   const additionalCharges = [
     {
       _id: 1,
@@ -95,17 +130,17 @@ const VehicleDetails = ({ nextStep }) => {
   return (
     <div>
       <div className="vehicle-details-location-main-div">
-        <Container fluid>
+        <Container fluid className="pt-4">
           <>
             <div className="step1-car-location-details-container">
-              <div className="step1-location-details">
+              <div className="step1-location-details pt-3">
                 <Row>
                   <Col lg={6} md={6} sm={12} xs={12}>
                     <div className="pickup-location-div">
                       <span className="location-heading">Pickup Location</span>
-                      <h4 className="location-value">
+                      <h5 className="location-value">
                         Sharja Airport - Terminal 1
-                      </h4>
+                      </h5>
                       <span className="city-name">City name</span>
                       <div>
                         <span className="pickup-location-value">
@@ -117,9 +152,9 @@ const VehicleDetails = ({ nextStep }) => {
                   <Col lg={6} md={6} sm={12} xs={12}>
                     <div className="dropoff-location-div">
                       <span className="location-heading">Pickup Location</span>
-                      <h4 className="location-value">
+                      <h5 className="location-value">
                         Sharja Airport - Terminal 1
-                      </h4>
+                      </h5>
                       <span className="city-name">City name</span>
                       <div>
                         <span className="dropoff-location-value">
@@ -135,11 +170,11 @@ const VehicleDetails = ({ nextStep }) => {
                 <Row>
                   <h4 className="step1-car-name">Car Name</h4>
                   <span className="step1-car-type ">Car Type </span>
-                  <Col lg={6} md={12} sm={12} xs={12}>
+                  <Col lg={7} md={12} sm={12} xs={12}>
                     <div className="car-imgs-details-container">
                       <div className="car-img-container">
                         <Row>
-                          <Col lg={8} md={8} sm={12} xs={12}>
+                          <Col lg={9} md={9} sm={12} xs={12}>
                             <div className="pt-3">
                               <div className="carousel-container">
                                 <Carousel className="crsl">
@@ -155,49 +190,92 @@ const VehicleDetails = ({ nextStep }) => {
                             </div>
                           </Col>
 
-                          <Col lg={4} md={4} sm={12} xs={12}>
-                            <div className="car-features-main-container">
-                              Features Icons:
-                              <div className="car-features-div">
-                                <Container fluid>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
-                                  <div>Feature 1</div>
+                          <Col lg={3} md={3} sm={12} xs={12}>
+                            <div className="car-features-main-container ">
+                              <span className="features-icons-heading">
+                                <b>Features Icons:</b>
+                              </span>
+                              <hr className="hr-line-heading-scroll" />
+                              <div className="car-features-div mt-2">
+                                <Container
+                                  fluid
+                                  className="features-scroll-container"
+                                >
+                                  {Array.from({ length: 27 }, (_, index) => (
+                                    <Row>
+                                      <Col lg={12} md={12} sm={12} xs={12}>
+                                        <div
+                                          key={index}
+                                          className="features-values"
+                                        >
+                                          Feature {index < 9 && 0}
+                                          {index + 1}
+                                        </div>
+                                      </Col>
+                                    </Row>
+                                  ))}
                                 </Container>
                               </div>
                             </div>
                           </Col>
                         </Row>
+                        <hr />
+
+                        <div className="car-features-description-main-div2 p-2">
+                          <div className="features-sub-div">
+                            <span className="car-features-div2-heading">
+                              Car Features:{" "}
+                            </span>
+                            <div className="car-features-text-2">
+                              Air Condtioner, Central Lock, Power Windows, Power
+                              Steering, Radio
+                            </div>
+                          </div>
+                          <br />
+                          <div className="car-description-div">
+                            <div className="car-description-div2-heading m-2">
+                              Description:{" "}
+                            </div>
+                            <hr className="hr-line-heading-scroll" />
+
+                            <div>
+                              <div className="car-description-text-2">
+                                Complete Description of Car. Lorem ipsum dolor
+                                sit amet consectetur adipisicing elit. A
+                                sapiente ducimus qui aliquam in quibusdam
+                                quisquam neque illum incidunt. Nostrum pariatur
+                                in sed ipsam ad nisi dolores possimus corrupti
+                                asperiores? Lorem ipsum dolor sit amet
+                                consectetur adipisicing elit. Dolores hic cumque
+                                eum accusantium debitis corrupti dicta
+                                cupiditate quibusdam officia? Vitae quod vero
+                                autem laudantium neque! Qui sint quisquam
+                                asperiores dolore! Lorem, ipsum dolor sit amet
+                                consectetur adipisicing elit. Molestias suscipit
+                                vitae maiores animi dignissimos quam labore
+                                neque accusamus possimus quo ipsum maxime illo
+                                quisquam, reiciendis rerum nemo aspernatur
+                                deserunt! Ipsa? Lorem ipsum dolor sit amet
+                                consectetur, adipisicing elit. Eos maiores qui
+                                ullam vel rem veniam accusantium animi fuga,
+                                obcaecati quaerat nisi, sint, omnis reiciendis
+                                numquam ratione repellat error tempore expedita!
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Exercitationem dolores magnam
+                                eligendi, repellendus mollitia fuga nam aperiam
+                                odit fugit est corporis, odio aut perferendis,
+                                amet hic. Obcaecati laboriosam pariatur
+                                consequuntur.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </Col>
-                  <div className="vl"></div>
-                  <Col lg={6} md={12} sm={12} xs={12}>
-                    <div className="car-prices-details-container">
+                  <div className="vertical-line-car-details-page"></div>
+                  <Col lg={5} md={12} sm={12} xs={12}>
+                    <div className="car-prices-details-container p-3">
                       <h4>
                         <b>Prices:</b>
                       </h4>
@@ -207,7 +285,7 @@ const VehicleDetails = ({ nextStep }) => {
                       </div>
                       <div className="total-days-div">
                         <div className="price-details-div col-lg-12">
-                          <div className="booking-price-evaluation">
+                          <div className="booking-charges-evaluation-step1">
                             <div className="booking-detail-heading">
                               Booking Details:
                             </div>
@@ -231,47 +309,139 @@ const VehicleDetails = ({ nextStep }) => {
                               <hr />
                             </>
                             {/* )} */}
-                            <div
-                              className="total-price-row p-1"
-                              style={{ lineHeight: "100%", fontSize: "16px" }}
-                            >
-                              <span className="sub-total-price-label">
-                                Sub Total
-                              </span>
-                              <div className="">
-                                AED{" "}
-                                <span className="sub-total-price-value pl-1">
-                                  {" "}
-                                  234
-                                </span>
-                              </div>
-                            </div>
-                            <div
-                              className="total-price-row p-1"
-                              style={{ lineHeight: "100%", fontSize: "16px" }}
-                            >
-                              <div>
+                            <div className="charges-section-2">
+                              <div
+                                className="total-price-row p-1"
+                                style={{ lineHeight: "100%", fontSize: "16px" }}
+                              >
                                 <span className="sub-total-price-label">
-                                  Tax Total
-                                </span>{" "}
-                                (5% of 234)
-                              </div>
-                              <div className="">
-                                AED{" "}
-                                <span className="sub-total-price-value pl-1">
-                                  {" "}
-                                  56
+                                  Sub Total
                                 </span>
+                                <div className="">
+                                  AED{" "}
+                                  <span className="sub-total-price-value pl-1">
+                                    {" "}
+                                    234
+                                  </span>
+                                </div>
+                              </div>
+                              <div
+                                className="total-price-row p-1"
+                                style={{ lineHeight: "100%", fontSize: "16px" }}
+                              >
+                                <div>
+                                  <span className="sub-total-price-label">
+                                    Tax Total
+                                  </span>{" "}
+                                </div>
+                                <div className="">
+                                  AED{" "}
+                                  <span className="sub-total-price-value pl-1">
+                                    {" "}
+                                    56
+                                  </span>
+                                </div>
+                              </div>
+                              <span> (5% of 234)</span>
+                              <div className="coupon-main-div pt-3">
+                                <Row>
+                                  <Col xs={12} className="coupon-label-div">
+                                    <span className="coupon-label">
+                                      Coupon:
+                                    </span>
+                                  </Col>
+                                </Row>
+                                <Row className="coupon-input-fields-div">
+                                  <Col lg={7} md={8} sm={7} xs={10}>
+                                    <input
+                                      type="text"
+                                      placeholder="Coupon Code"
+                                      className="form-control"
+                                      value={couponCode}
+                                      onChange={(e) =>
+                                        setCouponCode(e.target.value)
+                                      }
+                                    />
+                                  </Col>
+                                  <Col
+                                    lg={4}
+                                    md={4}
+                                    sm={4}
+                                    xs={12}
+                                    className="coupon-apply-button-div"
+                                  >
+                                    {isCouponApplied ? (
+                                      <>
+                                        <button
+                                          className="ml-2 btn btn-danger"
+                                          onClick={removeCoupon}
+                                        >
+                                          Remove
+                                        </button>
+                                      </>
+                                    ) : (
+                                      <button
+                                        className="ml-2 btn btn-success"
+                                        onClick={applyCoupon}
+                                      >
+                                        Apply
+                                      </button>
+                                    )}
+                                  </Col>
+                                </Row>
                               </div>
                             </div>
                             <hr />
 
+                            {isCouponApplied && appliedCoupon && (
+                              <div className="coupon-discount-main-div-container">
+                                <div
+                                  className="total-price-row p-1"
+                                  style={{
+                                    lineHeight: "100%",
+                                    fontSize: "16px",
+                                  }}
+                                >
+                                  <span className="grand-total-price-label">
+                                    Grand Total
+                                  </span>
+                                  <div className="del-value-main-div pb-3">
+                                    AED{" "}
+                                    <span className="coupon-discount-value">
+                                      -{appliedCoupon.value}%
+                                    </span>
+                                    <span className="deleted-grand-total-price-value pl-1">
+                                      {" "}
+                                      310
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  className="total-price-row p-1"
+                                  style={{
+                                    lineHeight: "100%",
+                                    fontSize: "16px",
+                                  }}
+                                >
+                                  <span className="discount-price-label">
+                                    Total Discount
+                                  </span>
+                                  <div className="del-value-main-div pb-3">
+                                    AED{" "}
+                                    <span className="discounted-value">
+                                      {appliedCoupon.value}
+                                    </span>
+                                  </div>
+                                </div>
+                                <hr />
+                              </div>
+                            )}
                             <div
                               className="total-price-row p-1"
                               style={{ lineHeight: "100%", fontSize: "16px" }}
                             >
                               <span className="grand-total-price-label">
-                                Grand Total
+                                Grand Total Price
                               </span>
                               <div className="">
                                 AED{" "}
@@ -281,6 +451,7 @@ const VehicleDetails = ({ nextStep }) => {
                                 </span>
                               </div>
                             </div>
+
                             <hr />
                           </div>
                         </div>
@@ -288,17 +459,21 @@ const VehicleDetails = ({ nextStep }) => {
                     </div>
                   </Col>
                 </Row>
+                <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2">
+                  <Col lg={3} md={4} sm={6} xs={8}>
+                    <Button
+                      variant="primary"
+                      className="booking-text next"
+                      onClick={nextStep}
+                    >
+                      Start Booking
+                    </Button>
+                  </Col>
+                </div>
               </div>
             </div>
           </>
         </Container>
-        {/* <button
-          type="button"
-          className="action-button next mt-5"
-          onClick={nextStep}
-        >
-          Continue
-        </button> */}
       </div>
     </div>
   );

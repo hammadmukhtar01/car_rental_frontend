@@ -20,7 +20,7 @@
 
 .form-control {
   height: 25px;
-  width: 210px !important;
+  /* width: 210px !important; */
   border: none;
   border-radius: 0;
   font-weight: 800;
