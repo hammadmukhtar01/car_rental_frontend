@@ -37,10 +37,10 @@ function CollapsibleExample() {
       menuName: "FAQs",
       navigateTo: "/faqs",
     },
-    {
-      menuName: "Contact Us",
-      navigateTo: "/contactus",
-    },
+    // {
+    //   menuName: "Contact Us",
+    //   navigateTo: "/contactus",
+    // },
     {
       menuName: "Test",
       navigateTo: "/test",

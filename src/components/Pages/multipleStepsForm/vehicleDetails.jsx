@@ -21,22 +21,22 @@ const VehicleDetails = ({ nextStep }) => {
   ];
 
   const applyCoupon = (e) => {
-    e.preventDefault(); 
-  
-    const foundCoupon = couponsData.find((coupon) => coupon.name === couponCode);
-  
+    e.preventDefault();
+
+    const foundCoupon = couponsData.find(
+      (coupon) => coupon.name === couponCode
+    );
+
     if (foundCoupon) {
       setAppliedCoupon(foundCoupon);
       setIsCouponApplied(true);
     }
   };
-  
 
   const removeCoupon = (e) => {
     setAppliedCoupon(null);
     setIsCouponApplied(false);
-    e.preventDefault(); 
-
+    e.preventDefault();
   };
 
   const additionalCharges = [
@@ -50,12 +50,6 @@ const VehicleDetails = ({ nextStep }) => {
       _id: 2,
       name: "Charge 2",
       value: 70,
-    },
-
-    {
-      _id: 3,
-      name: "Charge 3",
-      value: 100,
     },
   ];
 
@@ -127,13 +121,44 @@ const VehicleDetails = ({ nextStep }) => {
     },
   ];
 
+  const totalDays = 3;
+  const totalPrice = 90;
+  const totalCharges = totalDays * totalPrice;
+
+  const calculateTotalPrice = () => {
+    if (additionalCharges) {
+      return additionalCharges.reduce(
+        (total, charge) => total + charge.value,
+        0
+      );
+    }
+    return 0;
+  };
+
+  const subTotalValue = calculateTotalPrice() + totalCharges;
+  const taxTotal = Math.floor((5 * subTotalValue) / 100);
+  const grandTotalPrice = subTotalValue + taxTotal;
+
+  const grandTotalDiscountedValue = () => {
+    if (appliedCoupon) {
+      const discountedValue = Math.ceil(
+        (appliedCoupon.value * grandTotalPrice) / 100
+      );
+      return discountedValue;
+    }
+    return 0;
+  };
+
+  const grandTotalPriceWithDiscount =
+    grandTotalPrice - grandTotalDiscountedValue();
+
   return (
     <div>
-      <div className="vehicle-details-location-main-div">
+      <div className="vehicle-details-location-main-div p-3">
         <Container fluid className="pt-4">
           <>
             <div className="step1-car-location-details-container">
-              <div className="step1-location-details pt-3">
+              <div className="step1-location-details p-3">
                 <Row>
                   <Col lg={6} md={6} sm={12} xs={12}>
                     <div className="pickup-location-div">
@@ -166,7 +191,7 @@ const VehicleDetails = ({ nextStep }) => {
                 </Row>
               </div>
               <br />
-              <div className="step1-car-details">
+              <div className="step1-car-details p-4">
                 <Row>
                   <h4 className="step1-car-name">Car Name</h4>
                   <span className="step1-car-type ">Car Type </span>
@@ -275,7 +300,7 @@ const VehicleDetails = ({ nextStep }) => {
                   </Col>
                   <div className="vertical-line-car-details-page"></div>
                   <Col lg={5} md={12} sm={12} xs={12}>
-                    <div className="car-prices-details-container p-3">
+                    <div className="car-prices-details-container p-5">
                       <h4>
                         <b>Prices:</b>
                       </h4>
@@ -288,6 +313,20 @@ const VehicleDetails = ({ nextStep }) => {
                           <div className="booking-charges-evaluation-step1">
                             <div className="booking-detail-heading">
                               Booking Details:
+                            </div>
+                            <div
+                              className="price-row p-1"
+                              style={{ lineHeight: "300%" }}
+                            >
+                              <span className="price-label">
+                                Rental Charges / {totalDays} days
+                              </span>
+                              <div className="">
+                                AED{" "}
+                                <span className="charges-value pl-1">
+                                  {totalCharges}
+                                </span>
+                              </div>
                             </div>
                             {/* {data && data.additionalCharges && ( */}
                             <>
@@ -321,7 +360,7 @@ const VehicleDetails = ({ nextStep }) => {
                                   AED{" "}
                                   <span className="sub-total-price-value pl-1">
                                     {" "}
-                                    234
+                                    {subTotalValue}
                                   </span>
                                 </div>
                               </div>
@@ -338,11 +377,11 @@ const VehicleDetails = ({ nextStep }) => {
                                   AED{" "}
                                   <span className="sub-total-price-value pl-1">
                                     {" "}
-                                    56
+                                    {taxTotal}
                                   </span>
                                 </div>
                               </div>
-                              <span> (5% of 234)</span>
+                              <span> (5% of {subTotalValue})</span>
                               <div className="coupon-main-div pt-3">
                                 <Row>
                                   <Col xs={12} className="coupon-label-div">
@@ -412,7 +451,7 @@ const VehicleDetails = ({ nextStep }) => {
                                     </span>
                                     <span className="deleted-grand-total-price-value pl-1">
                                       {" "}
-                                      310
+                                      {grandTotalPrice}
                                     </span>
                                   </div>
                                 </div>
@@ -429,7 +468,7 @@ const VehicleDetails = ({ nextStep }) => {
                                   <div className="del-value-main-div pb-3">
                                     AED{" "}
                                     <span className="discounted-value">
-                                      {appliedCoupon.value}
+                                      -{grandTotalDiscountedValue()}
                                     </span>
                                   </div>
                                 </div>
@@ -447,7 +486,7 @@ const VehicleDetails = ({ nextStep }) => {
                                 AED{" "}
                                 <span className="grand-total-price-value pl-1">
                                   {" "}
-                                  310
+                                  {grandTotalPriceWithDiscount}
                                 </span>
                               </div>
                             </div>
