@@ -5,8 +5,11 @@ import {
   BsGeoAlt,
   BsCalendar2Check,
   BsCalendar4Week,
- BsCarFrontFill, BsCalendarEvent, BsJustify, BsTags, BsStar,
-
+  BsCarFrontFill,
+  BsCalendarEvent,
+  BsJustify,
+  BsTags,
+  BsStar,
 } from "react-icons/bs";
 import $ from "jquery";
 import "./vehicleDetails.css";
@@ -22,10 +25,7 @@ const VehiclesPage = () => {
   // const [selectedCarYear, setSelectedCarYear] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [withOffersFilter, setWithOffersFilter] = useState(false);
-  const [withoutOffersFilter, setWithoutOffersFilter] = useState(false);
   const [selectedCarModel, setSelectedCarModel] = useState("");
-  const [selectedCarYear, setSelectedCarYear] = useState("");
   const [selectedCarType, setSelectedCarType] = useState("");
   const [sortBy, setSortBy] = useState("Recommended");
   const durations = ["Day", "Week", "Month"];
@@ -41,7 +41,7 @@ const VehiclesPage = () => {
       image: Car1,
       discount: 90,
       originalPrice: 300,
-      days: 3,
+      days: 0,
       carType: "Intermediate",
     },
     {
@@ -50,7 +50,7 @@ const VehiclesPage = () => {
         "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
       discount: 0,
       originalPrice: 200,
-      days: 5,
+      days: 0,
       carType: "Family",
     },
     {
@@ -67,7 +67,7 @@ const VehiclesPage = () => {
       image: Car1,
       discount: 90,
       originalPrice: 975,
-      days: 12,
+      days: 0,
       carType: "Small",
     },
     {
@@ -93,7 +93,7 @@ const VehiclesPage = () => {
         "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
       discount: 15,
       originalPrice: 79,
-      days: 8,
+      days: 0,
       carType: "Intermediate",
     },
   ];
@@ -129,12 +129,6 @@ const VehiclesPage = () => {
     $("#carModelSelect").select2({
       placeholder: "Select Model",
       data: carModels.map((model) => ({ id: model, text: model })),
-    });
-
-    // For Car Year dropdown
-    $("#carYearSelect").select2({
-      placeholder: "Select Year",
-      data: carYears.map((year) => ({ id: year, text: year })),
     });
 
     // For Car Type dropdown
@@ -237,12 +231,13 @@ const VehiclesPage = () => {
 
                             <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                               <Form.Group controlId="formCarModel">
-                                  <div className="location-label">
-                                    <label className="styled-label mt-2">
-                                      <BsCarFrontFill className="mr-2" />
-                                      <b>Car Model</b>
-                                    </label>
-                                  </div>                                <select
+                                <div className="location-label">
+                                  <label className="styled-label mt-2">
+                                    <BsCarFrontFill className="mr-2" />
+                                    <b>Car Model</b>
+                                  </label>
+                                </div>{" "}
+                                <select
                                   id="carModelSelect"
                                   className="form-select"
                                   value={selectedCarModel}
@@ -262,14 +257,14 @@ const VehiclesPage = () => {
                               </Form.Group>
                             </Col>
 
-                            <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
+                            {/* <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                               <Form.Group controlId="formCarYear">
-                                  <div className="location-label mt-2">
-                                    <label className="styled-label">
-                                      <BsCalendarEvent className="mr-2" />
-                                      <b>Car Year</b>
-                                    </label>
-                                  </div>
+                                <div className="location-label mt-2">
+                                  <label className="styled-label">
+                                    <BsCalendarEvent className="mr-2" />
+                                    <b>Car Year</b>
+                                  </label>
+                                </div>
                                 <select
                                   id="carYearSelect"
                                   className="form-select"
@@ -288,16 +283,16 @@ const VehiclesPage = () => {
                                   ))}
                                 </select>
                               </Form.Group>
-                            </Col>
+                            </Col> */}
 
                             <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                               <Form.Group controlId="formCarType">
-                                  <div className="location-label">
-                                    <label className="styled-label mt-2">
-                                      <BsJustify className="mr-2" />
-                                      <b>Car Type</b>
-                                    </label>
-                                  </div>
+                                <div className="location-label">
+                                  <label className="styled-label mt-2">
+                                    <BsJustify className="mr-2" />
+                                    <b>Car Type</b>
+                                  </label>
+                                </div>
                                 <select
                                   id="carTypeSelect"
                                   className="form-select"
@@ -372,40 +367,6 @@ const VehiclesPage = () => {
                               </Form.Group>
                             </Col>
 
-                            <Col xxl={3} lg={5} md={6} sm={6} xs={12}>
-                              <Form.Group controlId="formOffersFilter">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <BsStar className="mr-2" />
-                                    <b>Offers</b>
-                                  </label>
-                                </div>
-                                <Row>
-                                  <Col xxl={6} lg={6} md={6} sm={12} xs={12}>
-                                    <Form.Check
-                                      type="checkbox"
-                                      label="With Offers"
-                                      checked={withOffersFilter}
-                                      onChange={() =>
-                                        setWithOffersFilter(!withOffersFilter)
-                                      }
-                                    />
-                                  </Col>
-                                  <Col xxl={6} lg={6} md={6} sm={12} xs={12}>
-                                    <Form.Check
-                                      type="checkbox"
-                                      label="Without Offers"
-                                      checked={withoutOffersFilter}
-                                      onChange={() =>
-                                        setWithoutOffersFilter(
-                                          !withoutOffersFilter
-                                        )
-                                      }
-                                    />
-                                  </Col>
-                                </Row>
-                              </Form.Group>
-                            </Col>
                           </Row>
                         </Col>
                         <Col lg={2} md={3} sm={6} xs={12} className="p-4">
@@ -481,10 +442,10 @@ const VehiclesPage = () => {
                                 <div id={`hr-value-allcars-2`}></div>
                               </>
                             )}
-                             <div className="car-name-div">
+                            <div className="car-name-div">
                               <span className="car-name">
                                 {" "}
-                                <b>{car.name} | </b>( {car.carType} ) {" "}
+                                <b>{car.name} | </b>( {car.carType} ){" "}
                               </span>
                             </div>
                             <div className="car-image-container ">
@@ -496,7 +457,7 @@ const VehiclesPage = () => {
                               <div className="car-image-overlay"></div>
                             </div>
                             <hr className="discount-line" />
-                           
+
                             {car.days <= 0 && (
                               <>
                                 <div className="price-day-main-div">

@@ -1,6 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
+import "owl.carousel/dist/assets/owl.carousel.min.css";
+import "owl.carousel/dist/assets/owl.theme.default.min.css";
+import "owl.carousel/dist/owl.carousel.min.js";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
+import "owl.carousel/dist/assets/owl.theme.green.css";
+import 'owl.carousel';
 
 const AnimatedCarSection = () => {
+  useEffect(() => {
+
+    window.$(".owl-carousel").owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      autoplay: true,
+      autoplayTimeout: 3000,
+      autoplayHoverPause: true,
+      center: true,
+      navText: [
+        "<i class='fa fa-angle-left'></i>",
+        "<i class='fa fa-angle-right'></i>",
+      ],
+      responsive: {
+        0: {
+          items: 1,
+        },
+        600: {
+          items: 3,
+        },
+        1000: {
+          items: 5,
+        },
+      },
+    });
+
+   
+  }, []);
+
   const imagesData = [
     { url: "https://th.bing.com/th/id/R.272d670b7d1630746a2b7e462b2ce0fd?rik=PJL2qomwCTIveA&riu=http%3a%2f%2fwww.car-revs-daily.com%2fwp-content%2fuploads%2f2015%2f11%2f2017-Lamborghini-Huracan-LP580-2-5.jpg&ehk=E8NDHruM3yujOmrD7hoWEVSjSIy3c7Bly%2b77bI7%2fJpI%3d&risl=&pid=ImgRaw&r=0", type: "Family Car" },
     { url: "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg", type: "Type 2" },
@@ -11,28 +48,28 @@ const AnimatedCarSection = () => {
 
   return (
     <div>
-      <section id="slider" className="pt-5">
+    <section id="slider" className="pt-5">
       <h2 className="offer-heading pl-3">OUR FLEET CARS: </h2>
-        <div className="container">
-          <div className="slider">
-            <div className="owl-carousel">
-              {imagesData.map((data, index) => (
-                <div className="slider-card" key={index}>
-                  <h2 className="text-center pt-3">{data.type}</h2>
-                  <div className="d-flex justify-content-center align-items-center mb-4">
-                    <img
-                      src={data.url}
-                      alt={`Slide ${index + 1}`}
-                      className="img-fluid slider-item"
-                    />
-                  </div>
+      <div className="container">
+        <div className="slider">
+          <div className="owl-carousel">
+            {imagesData.map((data, index) => (
+              <div className="slider-card" key={index}>
+                <h2 className="text-center pt-3">{data.type}</h2>
+                <div className="d-flex justify-content-center align-items-center mb-4">
+                  <img
+                    src={data.url}
+                    alt={`Slide ${index + 1}`}
+                    className="img-fluid slider-item"
+                  />
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+  </div>
   );
 };
 

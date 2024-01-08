@@ -59,32 +59,40 @@ const VehicleDetails = ({ nextStep }) => {
       author: "Paul Jarvis",
       width: 250,
       height: 167,
-      url: "https://unsplash.com/photos/I_9ILwtsl_k",
-      download_url: "https://picsum.photos/id/12/2500/1667",
+
+      url: "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
+      download_url:
+        "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
     },
     {
       id: "13",
       author: "Paul Jarvis",
       width: 2500,
       height: 1667,
-      url: "https://unsplash.com/photos/3MtiSMdnoCo",
-      download_url: "https://picsum.photos/id/13/2500/1667",
+      url: "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
+
+      download_url:
+        "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
     },
     {
       id: "14",
       author: "Paul Jarvis",
       width: 2500,
       height: 1667,
-      url: "https://unsplash.com/photos/IQ1kOQTJrOQ",
-      download_url: "https://picsum.photos/id/14/2500/1667",
+      url:         "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
+
+      download_url:         "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
+
     },
     {
       id: "15",
       author: "Paul Jarvis",
       width: 2500,
       height: 1667,
-      url: "https://unsplash.com/photos/NYDo21ssGao",
-      download_url: "https://picsum.photos/id/15/2500/1667",
+      url:         "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
+
+      download_url:         "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
+
     },
 
     {
@@ -92,16 +100,20 @@ const VehicleDetails = ({ nextStep }) => {
       author: "Paul Jarvis",
       width: 2500,
       height: 1667,
-      url: "https://unsplash.com/photos/NYDo21ssGao",
-      download_url: "https://picsum.photos/id/15/2500/1667",
+      url:         "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
+
+      download_url:         "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
+
     },
     {
       id: "14",
       author: "Paul Jarvis",
       width: 2500,
       height: 1667,
-      url: "https://unsplash.com/photos/IQ1kOQTJrOQ",
-      download_url: "https://picsum.photos/id/14/2500/1667",
+      url:         "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
+
+      download_url:         "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
+
     },
     {
       id: "14",
@@ -216,7 +228,7 @@ const VehicleDetails = ({ nextStep }) => {
                           </Col>
 
                           <Col lg={3} md={3} sm={12} xs={12}>
-                            <div className="car-features-main-container ">
+                            <div className=" ">
                               <span className="features-icons-heading">
                                 <b>Features Icons:</b>
                               </span>
@@ -227,12 +239,9 @@ const VehicleDetails = ({ nextStep }) => {
                                   className="features-scroll-container"
                                 >
                                   {Array.from({ length: 27 }, (_, index) => (
-                                    <Row>
+                                    <Row key={index}>
                                       <Col lg={12} md={12} sm={12} xs={12}>
-                                        <div
-                                          key={index}
-                                          className="features-values"
-                                        >
+                                        <div className="features-values">
                                           Feature {index < 9 && 0}
                                           {index + 1}
                                         </div>
@@ -498,17 +507,17 @@ const VehicleDetails = ({ nextStep }) => {
                     </div>
                   </Col>
                 </Row>
-                <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2">
-                  <Col lg={3} md={4} sm={6} xs={8}>
-                    <Button
-                      variant="primary"
-                      className="booking-text next"
-                      onClick={nextStep}
-                    >
-                      Start Booking
-                    </Button>
-                  </Col>
-                </div>
+              </div>
+              <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
+                <Col lg={3} md={4} sm={6} xs={8}>
+                  <Button
+                    variant="primary"
+                    className="booking-text next"
+                    onClick={nextStep}
+                  >
+                    Start Booking
+                  </Button>
+                </Col>
               </div>
             </div>
           </>

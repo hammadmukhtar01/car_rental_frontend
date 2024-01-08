@@ -1,4 +1,6 @@
 import React from 'react';
+import './stepsStyling.css';
+import './multipleStepsForm.css'
 
 const ProgressBar = ({ step }) => {
   const steps = ['Car Details & Location', 'AddOns & Documents', 'Payments'];

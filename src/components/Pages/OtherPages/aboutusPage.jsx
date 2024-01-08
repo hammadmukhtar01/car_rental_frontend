@@ -4,7 +4,7 @@ const AboutusPage = () => {
   return (
     <>
       <div id="main">
-        <div className="container">
+        <div className="container mt-4">
           <div
             data-elementor-type="wp-page"
             data-elementor-id="3201"

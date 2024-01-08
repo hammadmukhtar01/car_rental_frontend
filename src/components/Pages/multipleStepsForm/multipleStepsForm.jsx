@@ -20,8 +20,8 @@ function VerificationForm() {
     switch (step) {
       case 1:
         return <VehicleDetails nextStep={nextStep} />;
-      case 2:
-        return <AddOnsDocuments prevStep={prevStep} nextStep={nextStep} />;
+        case 2:
+          return <AddOnsDocuments prevStep={prevStep} nextStep={nextStep} />;
       case 3:
         return <PaymentPage prevStep={prevStep} />;
       default:

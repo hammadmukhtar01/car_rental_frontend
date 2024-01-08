@@ -6,8 +6,10 @@ import SearchBox from "./searchBox";
 import HomePageBanner from "./homePageBanner";
 import CarCards from "./carCards";
 import AnimatedCarSection from "./animatedCarSection";
+import TestimonialSlider from "./testimonialSlider";
 
 const HomePage = () => {
+  
   return (
     <div>
       <div id="main">
@@ -75,6 +77,7 @@ const HomePage = () => {
                 </div>
               </div>
             </section>
+            <TestimonialSlider/>
             <hr />
           </div>
         </div>
