@@ -12,8 +12,10 @@ import CustomDropdown from "./pickupSearchBoxDropDown";
 const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
-  const [pickupDateTime, setPickupDateTime] = useState("");
-  const [dropoffDateTime, setDropoffDateTime] = useState("");
+  const [pickUpDate, setPickUpDate] = useState("");
+  const [pickUpTime, setPickUpTime] = useState("");
+  const [dropOffDate, setDropOffDate] = useState("");
+  const [dropOffTime, setDropOffTime] = useState("");
   const [numberOfDays, setNumberOfDays] = useState(0);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedCarModel, setSelectedCarModel] = useState("");
@@ -22,15 +24,15 @@ const SearchBox = () => {
   const cityNames = useMemo(() => ["Sharja", "Dubai", "Burjman"], []);
 
   useEffect(() => {
-    if (pickupDateTime && dropoffDateTime) {
-      const pickupDate = new Date(pickupDateTime);
-      const dropoffDate = new Date(dropoffDateTime);
+    if (pickUpDate && dropOffDate) {
+      const pickupDate = new Date(pickUpDate);
+      const dropoffDate = new Date(dropOffDate);
       const timeDifference = dropoffDate.getTime() - pickupDate.getTime();
       const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
       setNumberOfDays(daysDifference);
     }
-  }, [pickupDateTime, dropoffDateTime]);
+  }, [pickUpDate, dropOffDate]);
 
   const getCurrentDateTime = () => {
     const currentDate = new Date();
@@ -82,6 +84,74 @@ const SearchBox = () => {
                 </Form.Group>
               </Col>
 
+              <Col xxl={2} lg={3} md={5} sm={6} xs={12}>
+                <Form.Group controlId="formPickupDateTime">
+                  <div className="date-label">
+                    <label className="styled-label">
+                      <BsCalendar2Check className="mr-2" />
+                      <b>Pickup Date</b>
+                    </label>
+                  </div>
+                  <input
+                    className="form-control-date mt-2 col-12"
+                    type="date"
+                    min={getCurrentDateTime()}
+                    value={pickUpDate}
+                    onChange={(e) => setPickUpDate(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+              <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
+                <Form.Group controlId="formPickupDateTime">
+                  <div className="date-label">
+                    <label className="styled-label">
+                      <b>Pickup Time</b>
+                    </label>
+                  </div>
+                  <input
+                    className="form-control-date mt-2 col-12"
+                    type="time"
+                    min={getCurrentDateTime()}
+                    value={pickUpTime}
+                    onChange={(e) => setPickUpTime(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+
+              <Col xxl={2} lg={3} md={5} sm={6} xs={12}>
+                <Form.Group controlId="formDropoffDateTime">
+                  <div className="date-label">
+                    <label className="styled-label">
+                      <BsCalendar4Week className="mr-2" />
+                      <b>Dropoff Date</b>
+                    </label>
+                  </div>
+                  <input
+                    className="form-control-date mt-2 col-12"
+                    type="date"
+                    min={pickUpDate}
+                    value={dropOffDate}
+                    onChange={(e) => setDropOffDate(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+
+              <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
+                <Form.Group controlId="formDropoffDateTime">
+                  <div className="date-label">
+                    <label className="styled-label">
+                      <b>Dropoff Time</b>
+                    </label>
+                  </div>
+                  <input
+                    className="form-control-date mt-2 col-12"
+                    type="time"
+                    // min={pickUpTime}
+                    value={dropOffTime}
+                    onChange={(e) => setDropOffTime(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
               <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                 <Form.Group controlId="formLocation">
                   <div className="location-label">
@@ -96,41 +166,6 @@ const SearchBox = () => {
                     placeholder="Enter dropoff location"
                     value={dropoffLocation}
                     onChange={(e) => setDropoffLocation(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-              <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
-                <Form.Group controlId="formPickupDateTime">
-                  <div className="date-label">
-                    <label className="styled-label">
-                      <BsCalendar2Check className="mr-2" />
-                      <b>Pickup Date & Time</b>
-                    </label>
-                  </div>
-                  <input
-                    className="form-control-date mt-2 col-12"
-                    type="datetime-local"
-                    min={getCurrentDateTime()}
-                    value={pickupDateTime}
-                    onChange={(e) => setPickupDateTime(e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-
-              <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
-                <Form.Group controlId="formDropoffDateTime">
-                  <div className="date-label">
-                    <label className="styled-label">
-                      <BsCalendar4Week className="mr-2" />
-                      <b>Dropoff Date & Time</b>
-                    </label>
-                  </div>
-                  <input
-                    className="form-control-date mt-2 col-12"
-                    type="datetime-local"
-                    min={pickupDateTime}
-                    value={dropoffDateTime}
-                    onChange={(e) => setDropoffDateTime(e.target.value)}
                   />
                 </Form.Group>
               </Col>
