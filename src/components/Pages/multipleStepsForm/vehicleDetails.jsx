@@ -429,7 +429,7 @@ const VehicleDetails = ({ nextStep }) => {
                                       </>
                                     ) : (
                                       <button
-                                        className="ml-2 btn btn-success"
+                                        className="ml-2 btn btn-success apply-coupon-btn"
                                         onClick={applyCoupon}
                                       >
                                         Apply

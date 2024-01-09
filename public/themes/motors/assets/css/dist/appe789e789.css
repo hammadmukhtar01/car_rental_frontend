@@ -8148,8 +8148,20 @@ table.stm-working-days-table > tbody > tr td.day-value.day-closed {
 }
 
 select {
-    opacity: 0;
-    visibility: hidden;
+    opacity: 1;
+    padding: 10px !important;
+    margin: auto;
+    margin-top: 9px !important;
+    border-color: rgb(184, 184, 184) !important;
+}
+
+.form-select:focus {
+    box-shadow: none !important;
+}
+
+
+.form-select option {
+border: 1px solid red !important;
 }
 
 .stm-isotope-listing-item {
@@ -8162,9 +8174,9 @@ select {
     }
 }
 
-/*.select2-search {
-  display: none;
-}*/
+.select2-search {
+  display: block !important;
+}
 .select2-search input[type=search] {
     height: 34px;
 }

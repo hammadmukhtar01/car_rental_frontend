@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import {
   BsGeoAltFill,
@@ -7,6 +7,7 @@ import {
   BsCalendar4Week,
 } from "react-icons/bs";
 import "./homePage.css";
+import CustomDropdown from "./pickupSearchBoxDropDown";
 
 const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");
@@ -14,6 +15,11 @@ const SearchBox = () => {
   const [pickupDateTime, setPickupDateTime] = useState("");
   const [dropoffDateTime, setDropoffDateTime] = useState("");
   const [numberOfDays, setNumberOfDays] = useState(0);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedCarModel, setSelectedCarModel] = useState("");
+  const [selectedButton, setSelectedButton] = useState("Deliver");
+
+  const cityNames = useMemo(() => ["Sharja", "Dubai", "Burjman"], []);
 
   useEffect(() => {
     if (pickupDateTime && dropoffDateTime) {
@@ -31,6 +37,15 @@ const SearchBox = () => {
     const isoDateString = currentDate.toISOString().slice(0, -8);
     return isoDateString;
   };
+  const handleButtonClick = (option) => {
+    if (option === "Deliver") {
+      console.log("In delivery");
+    } else if (option === "Pick") {
+      console.log("In pick");
+    }
+    setShowDropdown(false);
+    setSelectedButton(option);
+  };
 
   return (
     <div className=" form-group bg-img-container pt-4">
@@ -46,15 +61,27 @@ const SearchBox = () => {
                       <b>Pickup Location</b>
                     </label>
                   </div>
-                  <input
-                    className="form-control-location mt-2 col-12"
-                    type="text"
-                    placeholder="Enter pickup location"
-                    value={pickupLocation}
-                    onChange={(e) => setPickupLocation(e.target.value)}
-                  />
+                  <div className="custom-dropdown-container">
+                    <input
+                      className="form-control-location mt-2 col-12"
+                      type="text"
+                      placeholder="Enter pickup location"
+                      defaultValue={pickupLocation}
+                      onClick={() => setShowDropdown(!showDropdown)}
+                    />
+                    <CustomDropdown
+                      show={showDropdown}
+                      handleButtonClick={handleButtonClick}
+                      cityNames={cityNames}
+                      selectedCarModel={selectedCarModel}
+                      setSelectedCarModel={setSelectedCarModel}
+                      setDropoffLocation={setDropoffLocation}
+                      selectedButton={selectedButton}
+                    />
+                  </div>
                 </Form.Group>
               </Col>
+
               <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                 <Form.Group controlId="formLocation">
                   <div className="location-label">
@@ -109,7 +136,7 @@ const SearchBox = () => {
               </Col>
             </Row>
           </Col>
-          <Col lg={2} md={3} sm={6} xs={6} className="p-4">
+          <Col lg={2} md={3} sm={6} xs={10} className="p-4">
             <Button variant="primary">Search</Button>
           </Col>
         </Row>

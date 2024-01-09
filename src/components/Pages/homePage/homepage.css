@@ -314,20 +314,105 @@ html {
   width: 50% !important;
 }
 
-@media screen and (max-width: 476px) {
+.carousel li.slide img {
+  width: 90% !important;
+}
+
+.carousel li.thumb img {
+  width: 98% !important;
+}
+
+
+.custom-dropdown-container {
+  position: relative;
+}
+
+.custom-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  padding: 8px;
+  width: 300%;
+}
+
+.custom-dropdown button {
+  display: block;
+  /* width: 40%; */
+  padding: 8px;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  font-size: small;
+}
+
+.custom-dropdown button:hover {
+  /* background-color: #f4f4f4; */
+}
+
+.btn.btn-success.pick-myself-button {
+  margin: 10px 0px;
+  /* padding: 6px 30px; */
+}
+
+option:disabled {
+  color: white !important;
+  background-color: #cc6119 !important;
+}
+
+.pickup-location-col-container {
+  display: flex;
+  align-items: center;
+}
+
+.pickup-location-text {
+  margin-top: 9px;
+  padding: 10px;
+  border: 1px solid rgb(197, 197, 197)
+}
+
+@media screen and (max-width: 576px) {
   .carousel-inner {
     height: 470px !important;
   }
+  .custom-dropdown {
+    width: 100%;
+  }
+  .submit-button {
+    margin-top: 15px;
+  }
+  .pickup-locations-button-col {
+    display: inline !important;
+  }
 }
-@media screen and (min-width: 476px) and (max-width: 767px) {
+@media screen and (min-width: 576px) and (max-width: 767px) {
   .carousel-inner {
     height: 520px !important;
   }
+  .custom-dropdown {
+    width: 209%;
+  }
+  .submit-button {
+    margin-top: 15px;
+  }
 }
 
-@media screen and (min-width: 768px) and (max-width: 991px) {
+@media screen and (min-width: 767px) and (max-width: 991px) {
+
+  .custom-dropdown {
+    width: 284%;
+  }
+}
+
+@media screen and (max-width: 991px) {
   .carousel-inner {
-    height: 610px !important;
+    height: 580px !important;
+  }
+  .owl-carousel .owl-item img {
+    width: 67% !important;
   }
 }
 
@@ -337,11 +422,8 @@ html {
   }
 }
 
-
 @media screen and (min-width: 1400px) {
   .carousel-inner {
     height: 520px;
   }
-
- 
 }

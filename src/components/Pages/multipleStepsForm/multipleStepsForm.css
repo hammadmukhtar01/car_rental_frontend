@@ -454,7 +454,7 @@ code {
   .deleted-grand-total-price-value {
     font-size: 18px;
   }
-  .btn.btn-success {
+  .btn.btn-success.apply-coupon-btn {
     margin: 10px;
     padding: 6px 30px;
   }

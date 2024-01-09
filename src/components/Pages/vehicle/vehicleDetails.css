@@ -38,7 +38,7 @@
 
 .btn.btn-primary {
   border-radius: 30px;
-  /* border: 1px solid white; */
+  border: 1px solid white;
 }
 
 .btn.btn-primary:focus {
@@ -51,7 +51,7 @@
 .btn.btn-primary:hover {
   background-color: white;
   color: #cc6119;
-  border: 1px solid #cc6119;
+  border-color: #cc6119 !important;
 }
 
 .stm-icon-whatsapp {

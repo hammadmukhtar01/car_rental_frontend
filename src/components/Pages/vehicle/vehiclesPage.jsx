@@ -6,10 +6,8 @@ import {
   BsCalendar2Check,
   BsCalendar4Week,
   BsCarFrontFill,
-  BsCalendarEvent,
   BsJustify,
   BsTags,
-  BsStar,
 } from "react-icons/bs";
 import $ from "jquery";
 import "./vehicleDetails.css";
@@ -21,7 +19,6 @@ const VehiclesPage = () => {
   const [pickupDateTime, setPickupDateTime] = useState("");
   const [dropoffDateTime, setDropoffDateTime] = useState("");
   const [numberOfDays, setNumberOfDays] = useState(0);
-  // const [selectedCarModel, setSelectedCarModel] = useState("");
   // const [selectedCarYear, setSelectedCarYear] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");

@@ -1,6 +1,12 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Work+Sans:wght@800&display=swap");
 
+img:hover {
+  transform: scale(0.9);
+  transition: transform 0.5s ease;
+}
+
+
 .booking-details-container{
   background-color: #dedede;
 }
@@ -134,8 +140,8 @@
 }
 
 .btn.btn-primary:hover .fas {
-  transform: translateX(10px);
-  transition: transform 0.5s ease;
+  /* transform: translateX(10px); */
+  /* transition: transform 0.5s ease; */
 }
 
 .fw-900 {
