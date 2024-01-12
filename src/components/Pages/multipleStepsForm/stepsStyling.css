@@ -105,9 +105,9 @@ h4 {
 
 .vertical-line-car-details-page {
   border-left: 1px solid rgb(233, 233, 233);
-  height: 820px;
+  height: 790px;
   position: absolute;
-  left: 59%;
+  left: 56%;
   /* top: 0; */
 }
 
@@ -118,6 +118,8 @@ h4 {
 .features-scroll-container {
   max-height: 350px;
   overflow-y: auto;
+  line-height: 35px;
+  color: gray
 }
 
 .features-values {

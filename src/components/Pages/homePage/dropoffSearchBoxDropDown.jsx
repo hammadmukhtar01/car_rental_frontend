@@ -2,21 +2,20 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Row, Col, Form } from "react-bootstrap";
 import $ from "jquery";
 
-const PickupLocationDropdown = ({
+const DropoffLocationDropdown = ({
   show,
   handleButtonClick,
   cityNames,
-  selectedPickupCityName,
-  setSelectedPickupCityName,
-  setPickupLocation,
+  selectedDropoffCityName,
+  setSelectedDropoffCityName,
+  setDropoffLocation,
 }) => {
-  const [selectedPickUpOptionButton, setSelectedPickUpOptionButton] =
-    useState("Deliver");
+  const [selectedButton, setSelectedButton] = useState("CompanyDropOff");
 
   useEffect(() => {
     if (show) {
       $("#deliverToCityNameSelect").select2({
-        placeholder: "Select City",
+        placeholder: "Choose City",
         data: cityNames.map((cityName) => ({ id: cityName, text: cityName })),
       });
 
@@ -27,11 +26,11 @@ const PickupLocationDropdown = ({
   }, [show, cityNames]);
 
   const handleButtonToggle = (button) => {
-    setSelectedPickUpOptionButton(button);
-  };
+    setSelectedButton(button);
+  }
 
-  const [selectedpickUpLocation, setSelectedpickUpLocation] = useState("");
-  const [pickupCityValue, setPickupCityValue] = useState("")
+  const [selecteddropOffLocation, setSelecteddropOffLocation] = useState("");
+  const [dropoffCityValue, setDropoffCityValue] = useState("")
 
   const mileleLocations = useMemo(
     () => [
@@ -51,7 +50,7 @@ const PickupLocationDropdown = ({
   );
 
   useEffect(() => {
-    $("#pickupSelfLocationNameSelect").select2({
+    $("#dropoffSelfLocationNameSelect").select2({
       placeholder: "Select Location",
       data: mileleLocations.map((locations) => ({
         id: locations.locationName,
@@ -61,7 +60,7 @@ const PickupLocationDropdown = ({
     });
 
     return () => {
-      $("#pickupSelfLocationNameSelect").select2("destroy");
+      $("#dropoffSelfLocationNameSelect").select2("destroy");
     };
   }, [mileleLocations]);
 
@@ -70,40 +69,38 @@ const PickupLocationDropdown = ({
       <div className="custom-dropdown p-4">
         <>
           <Row>
-            <Col className="d-flex align-items-center pickup-locations-button-col">
+            <Col className="d-flex align-items-center dropoff-locations-button-col">
               <div className="pr-3">
                 <button
                   className="btn btn-danger"
-                  onClick={() => handleButtonToggle("Deliver")}
+                  onClick={() => handleButtonToggle("CompanyDropOff")}
                 >
-                  Deliver to Me
+                  Dropoff By Company
                 </button>
               </div>{" "}
               <div>
                 <button
                   className="btn btn-success pick-drop-myself-button"
-                  onClick={() => handleButtonToggle("Pick")}
+                  onClick={() => handleButtonToggle("SelfDropOff")}
                 >
-                  Pick Myself
+                  Dropoff By Self
                 </button>
               </div>
             </Col>
           </Row>
           <br />
-          {selectedPickUpOptionButton === "Deliver" && (
-            <div className="deliver-to-me-main-container">
+          {selectedButton === "CompanyDropOff" && (
+            <div className="drop-off-by-company-main-container">
               <Row>
-                <div className="deliver-to-me-container">
+                <div className="drop-off-by-company-container">
                   <Row>
                     <Col xxl={3} lg={3} md={3} sm={5} xs={12}>
                       <Form.Group controlId="formCarModel">
                         <select
-                          id="deliverToLocationSelect"
+                          id="CompanyDropOffLocationSelect"
                           className="form-select"
-                          value={selectedPickupCityName}
-                          onChange={(e) =>
-                            setSelectedPickupCityName(e.target.value)
-                          }
+                          value={selectedDropoffCityName}
+                          onChange={(e) => setSelectedDropoffCityName(e.target.value)}
                         >
                           <option
                             value=""
@@ -125,8 +122,9 @@ const PickupLocationDropdown = ({
                         <input
                           className="form-control-location mt-2 col-12"
                           type="text"
-                          value={pickupCityValue}
-                          onChange={(e) => setPickupCityValue(e.target.value)}
+                          placeholder="Enter dropoff location"
+                          value={dropoffCityValue}
+                          onChange={(e) => setDropoffCityValue(e.target.value)}
                         />
                       </Form.Group>
                     </Col>
@@ -141,7 +139,7 @@ const PickupLocationDropdown = ({
                     >
                       <button
                         className="btn btn-primary"
-                        onClick={() => handleButtonClick("Pick")}
+                        onClick={() => handleButtonClick("SelfDropOff")}
                       >
                         <span className="d-block text-center">Submit</span>
                       </button>
@@ -151,19 +149,19 @@ const PickupLocationDropdown = ({
               </Row>
             </div>
           )}
-          {selectedPickUpOptionButton === "Pick" && (
-            <div className="pickup-myself-main-container">
+          {selectedButton === "SelfDropOff" && (
+            <div className="dropoff-myself-main-container">
               <Row>
-                <div className="pickup-car-details-container">
+                <div className="dropoff-car-details-container">
                   <Row>
                     <Col xxl={3} lg={3} md={3} sm={5} xs={12}>
                       <Form.Group controlId="formCarModel">
                         <select
-                          id="deliverToLocationSelect"
+                          id="CompanyDropOffLocationSelect"
                           className="form-select"
-                          value={selectedpickUpLocation}
+                          value={selecteddropOffLocation}
                           onChange={(e) =>
-                            setSelectedpickUpLocation(e.target.value)
+                            setSelecteddropOffLocation(e.target.value)
                           }
                         >
                           <option
@@ -190,15 +188,15 @@ const PickupLocationDropdown = ({
                       md={6}
                       sm={7}
                       xs={12}
-                      className="pickup-location-col-container"
+                      className="dropoff-location-col-container"
                     >
-                      <div className="pickup-location-text bg-white">
-                        <span className="pickup-location-data">
-                          {selectedpickUpLocation
+                      <div className="dropoff-location-text bg-white">
+                        <span className="dropoff-location-data">
+                          {selecteddropOffLocation
                             ? mileleLocations.find(
                                 (location) =>
                                   location.locationName ===
-                                  selectedpickUpLocation
+                                  selecteddropOffLocation
                               )?.locationDetails
                             : "Please select location from drop down"}
                         </span>
@@ -215,7 +213,7 @@ const PickupLocationDropdown = ({
                     >
                       <button
                         className="btn btn-primary"
-                        onClick={() => handleButtonClick("Pick")}
+                        onClick={() => handleButtonClick("SelfDropOff")}
                       >
                         <span className="d-block text-center">Submit</span>
                       </button>
@@ -231,4 +229,4 @@ const PickupLocationDropdown = ({
   );
 };
 
-export default PickupLocationDropdown;
+export default DropoffLocationDropdown;

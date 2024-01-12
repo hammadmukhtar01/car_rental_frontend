@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./authentication.css";
+import MainNavbar from "../Pages/navbar/mainNavbar";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -47,13 +48,20 @@ const LoginPage = () => {
 
   return (
     <>
+      <div className="navbar-bg-img-container">
+        <div className="booking-page-banner-navbar">
+          {" "}
+          <MainNavbar />
+        </div>
+      </div>
       <section className="ftco-section">
-        <div className="container">
+        <div className="container pt-4">
           <div className="login-row justify-content-center">
             <div className="col-lg-6 ">
               <div className="login-wrap ">
+                <p className=" have-account-text">Log In </p>
                 <p className="text-center have-account-text">
-                  Have an account?
+                  Already have an account?
                 </p>
                 <form action="#" className="signin-form">
                   <div className="form-group row">
@@ -130,10 +138,10 @@ const LoginPage = () => {
                     </div>
                   </div>
                 </form>
-                
+
                 <br />
 
-                <div className="container">
+                {/* <div className="container">
                   <p className="text-center">
                     <b>&mdash; Or Sign In With &mdash;</b>
                   </p>
@@ -147,30 +155,29 @@ const LoginPage = () => {
                       {" "}
                       <span className="fab fa-facebook-f "></span> facebook
                     </button>
-                  {/* </div> */}
-                  {/* <GoogleLogin
-            clientId="YOUR_GOOGLE_CLIENT_ID"
-            buttonText="Login with Google"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-          /> */}
-          {/* <FacebookLogin
-            appId="YOUR_FACEBOOK_APP_ID"
-            autoLoad={false}
-            fields="name,email,picture"
-            callback={responseFacebook}
-            render={(renderProps) => (
-              <button
-                className="custom-button"
-                onClick={renderProps.onClick}
-              >
-                Login with Facebook
-              </button>
-            )}
-          /> */}
-        </div>
-                </div>
+                  </div>
+                  <GoogleLogin
+                    clientId="YOUR_GOOGLE_CLIENT_ID"
+                    buttonText="Login with Google"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={"single_host_origin"}
+                  />
+                  <FacebookLogin
+                    appId="YOUR_FACEBOOK_APP_ID"
+                    autoLoad={false}
+                    fields="name,email,picture"
+                    callback={responseFacebook}
+                    render={(renderProps) => (
+                      <button
+                        className="custom-button"
+                        onClick={renderProps.onClick}
+                      >
+                        Login with Facebook
+                      </button>
+                    )}
+                  />
+                </div> */}
               </div>
             </div>
           </div>

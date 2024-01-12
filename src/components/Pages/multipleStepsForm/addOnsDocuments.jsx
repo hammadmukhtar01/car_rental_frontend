@@ -29,6 +29,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [addOns, setAddOns] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedAddOn, setSelectedAddOn] = useState(null);
+  const [driverDrivingLicense, setDriverDrivingLicense] = useState("");
+  const [driverPassport, setDriverPassport] = useState("");
   // const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
 
   const nationalityValues = useMemo(
@@ -193,7 +195,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                         <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                           <Form.Group controlId="formKeyword">
                             <div className="location-label">
-                              <label className="styled-label mb-3">
+                              <label className="styled-label mb-2">
                                 <b>Nationality</b>
                               </label>
                             </div>
@@ -223,8 +225,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             </div>
                             <input
                               className="form-control-location mt-2 col-12"
-                              type="text"
-                              placeholder="Enter pickup location"
+                              type="number"
+                              placeholder="Enter age"
+                              min={1}
                               value={driversAge}
                               onChange={(e) => setDriversAge(e.target.value)}
                             />
@@ -240,7 +243,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <input
                               className="form-control-location mt-2 col-12"
                               type="text"
-                              placeholder="Enter pickup location"
+                              placeholder="Enter ticket number"
                               value={airlineTicketNum}
                               onChange={(e) =>
                                 setAirlineTicketNum(e.target.value)
@@ -314,9 +317,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                           className="form-check-input"
                                           type="checkbox"
                                           id={`flexSwitchCheckDefault_${AddOnsDataValues.id}`}
-                                          checked={
-                                            AddOnsDataValues.checkBoxValue === 1
-                                          }
+                                          // checked={
+                                          //   AddOnsDataValues.checkBoxValue === 1
+                                          // }
                                           onChange={() =>
                                             handleCheckBoxChange(
                                               AddOnsDataValues.id
@@ -380,15 +383,15 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>First Name</b>
+                                  <b>Driver's Driving Lisence</b>
                                 </label>
                               </div>
                               <input
                                 className="form-control-fname p-2 col-12"
                                 type="file"
-                                placeholder="First name"
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
+                                placeholder="driving license"
+                                value={driverDrivingLicense}
+                                onChange={(e) => setDriverDrivingLicense(e.target.value)}
                               />
                             </Form.Group>
                           </Col>
@@ -398,15 +401,15 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>Last Name</b>
+                                  <b>Driver's Passport</b>
                                 </label>
                               </div>
                               <input
                                 className="form-control-lname p-2 col-12"
                                 type="file"
-                                placeholder="Last name"
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
+                                placeholder="passport number"
+                                value={driverPassport}
+                                onChange={(e) => setDriverPassport(e.target.value)}
                               />
                             </Form.Group>
                           </Col>

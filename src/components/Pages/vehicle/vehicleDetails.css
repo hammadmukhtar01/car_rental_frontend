@@ -23,7 +23,8 @@
   overflow: hidden;
 }
 
-.carousel .thumb.selected, .carousel .thumb:hover {
+.carousel .thumb.selected,
+.carousel .thumb:hover {
   border: none !important;
 }
 
@@ -66,13 +67,15 @@
 }
 
 .price-row,
-.total-price-row, .coupon-main-div {
+.total-price-row,
+.coupon-main-div {
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
 }
 
-.price-label, .coupon-label {
+.price-label,
+.coupon-label {
   font-weight: 500;
 }
 
@@ -263,8 +266,26 @@ span.select2-selection_arrow b {
   color: #1c1c1c !important;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__arrow { 
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
   height: 47px !important;
+}
+
+.select2-container .select2-selection--multiple {
+  min-height: 40px !important;
+}
+.select2-selection--multiple {
+  padding: 8px ;
+}
+
+.car-model-label {
+  margin-bottom: 2px;
+}
+
+.select2-container .select2-search--inline .select2-search__field {
+  padding: 4px !important;
+
 }
 
 .min-max-price-hypen {
@@ -289,7 +310,6 @@ span.select2-selection_arrow b {
   border-radius: 4px;
   background-color: white;
 }
-
 
 #hr-value-allcars-1 {
   transform: rotate(135deg);
@@ -320,14 +340,32 @@ span.select2-selection_arrow b {
 
 .sort-by-dropdown {
   display: flex;
-  flex-direction: row-reverse
+  flex-direction: row-reverse;
 }
 
 .car-name-div {
   display: flex;
-    flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
+.filters-main-container {
+  padding: 5px 5px 20px 5px;
+  border: 1px solid #e1e1e1;
+  border-radius: 6px;
+  background-color: #eeeeee;
+}
+
+.filters-heading {
+  color: #cc6119;
+  font-weight: 500;
+  padding: 10px;
+}
+
+.all-cars-heading {
+  color: #cc6119;
+  font-weight: 600;
+  text-align: center;
+}
 
 @media screen and (max-width: 575px) {
   .pay-now-value {

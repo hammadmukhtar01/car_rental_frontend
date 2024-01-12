@@ -35,6 +35,13 @@
   border-radius: 6px;
   padding: 10px 20px;
   background-color: rgb(239, 238, 235);
+  margin: 10px 10px 300px 10px;
+}
+.all-cars-search-box-container{
+  border: 1px solid rgb(184, 184, 184);
+  border-radius: 6px;
+  padding: 10px 20px;
+  background-color: rgb(239, 238, 235);
 }
 
 .total-days {
@@ -42,25 +49,30 @@
   font-weight: 600;
 }
 
-.bg-img-container {
+.booking-page-banner-navbar {
+  background-image: url("https://img.sixt.com/1600/cd9947ef-d2e3-4c72-b224-7cbe379dfd16.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  /* height: 50vh; */
+}
+
+.search-box-home-page {
+  background-image: url("https://img.sixt.com/1600/cd9947ef-d2e3-4c72-b224-7cbe379dfd16.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  /* height: 890px; */
+}
+.bg-img-container, .navbar-container {
   position: relative;
   z-index: 1;
-  background-color: rgb(211, 211, 211);
-  padding: 0px 30px;
+  padding: 10px 30px;
 }
 
 .bg-img {
-  background-image: url("https://www.freeiconspng.com/uploads/audi-car-png-image-side-view-7.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  height: 60vh;
-  margin: 0;
-  /* position: absolute; */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: absolute;
+  /* height: 120vh;   */
 }
 
 .form-control-location {
@@ -86,7 +98,7 @@
   content: "";
   /* background-image: url("https://th.bing.com/th/id/OIP.l5yt1Xzv-BhPgCSCF3KunAAAAA?rs=1&pid=ImgDetMain"); */
   background-repeat: no-repeat;
-  background: linear-gradient(to bottom, #e3e3e3, #e8c5af, #e3e3e3);
+  background: linear-gradient(to bottom, #e3e3e3, #e4e3e3, #e3e3e3);
   background-size: cover;
   background-position: center;
   /* opacity: 0.3; */
@@ -111,6 +123,7 @@
   width: 100%;
   height: 80%;
   object-fit: cover;
+  border-radius: 6px;
 }
 
 .offer-car-item {
@@ -134,7 +147,8 @@
   
 } */
 
-.offer-heading {
+.offer-heading,
+.testimonial-heading {
   color: #cc6119;
   font-weight: 800;
 }
@@ -290,24 +304,21 @@ html {
 
 /* Testimonial Slider CSS */
 
-.carousel-inner {
-  height: 600px;
-}
 
 .carousel-control-prev {
   height: 50px;
-  left: unset !important;
-  top: 90%;
-  right: 50%;
+  top: 30%;
   color: gray !important;
+  left: unset !important;
+  right: 91% ;
 }
 
 .carousel-control-next {
   height: 50px;
-  right: unset !important;
-  top: 90%;
-  left: 50%;
+  top: 30%;
   color: gray !important;
+  /* right: unset !important; */
+  left: 91%;
 }
 
 .carousel img {
@@ -322,6 +333,9 @@ html {
   width: 98% !important;
 }
 
+.testimonial-main-dv {
+  padding: 25px 25px 0px 25px;
+}
 
 .custom-dropdown-container {
   position: relative;
@@ -332,7 +346,7 @@ html {
   top: 100%;
   left: 0;
   z-index: 1;
-  background-color: #fff;
+  background-color: #e1e1e1;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid #ccc;
   padding: 8px;
@@ -353,7 +367,7 @@ html {
   /* background-color: #f4f4f4; */
 }
 
-.btn.btn-success.pick-myself-button {
+.btn.btn-success.pick-drop-myself-button {
   margin: 10px 0px;
   /* padding: 6px 30px; */
 }
@@ -363,35 +377,33 @@ option:disabled {
   background-color: #cc6119 !important;
 }
 
-.pickup-location-col-container {
+.pickup-location-col-container,
+.dropoff-location-col-container {
   display: flex;
   align-items: center;
 }
 
-.pickup-location-text {
+.pickup-location-text,
+.dropoff-location-text {
   margin-top: 9px;
   padding: 10px;
-  border: 1px solid rgb(197, 197, 197)
+  border: 1px solid rgb(197, 197, 197);
 }
 
 @media screen and (max-width: 576px) {
-  .carousel-inner {
-    height: 470px !important;
-  }
+ 
   .custom-dropdown {
     width: 100%;
   }
   .submit-button {
     margin-top: 15px;
   }
-  .pickup-locations-button-col {
+  .pickup-locations-button-col,
+  .dropoff-locations-button-col {
     display: inline !important;
   }
 }
 @media screen and (min-width: 576px) and (max-width: 767px) {
-  .carousel-inner {
-    height: 520px !important;
-  }
   .custom-dropdown {
     width: 209%;
   }
@@ -401,29 +413,31 @@ option:disabled {
 }
 
 @media screen and (min-width: 767px) and (max-width: 991px) {
-
   .custom-dropdown {
     width: 284%;
   }
 }
 
-@media screen and (max-width: 991px) {
-  .carousel-inner {
-    height: 580px !important;
+@media screen and (max-width: 576px) {
+  .search-box-home-page {
+    /* height: auto; */
   }
+}
+
+@media screen and (max-width: 991px) {
   .owl-carousel .owl-item img {
     width: 67% !important;
   }
 }
 
 @media screen and (min-width: 992px) and (max-width: 1399px) {
-  .carousel-inner {
-    height: 470px !important;
+  .bg-img-container {
+    /* padding: 10px 100px; */
   }
 }
 
 @media screen and (min-width: 1400px) {
-  .carousel-inner {
-    height: 520px;
+  .bg-img-container {
+    /* padding: 10px 200px; */
   }
 }

@@ -445,8 +445,8 @@ body {
 
 .container {
     width: auto;
-    /* max-width: 1140px; */
-    /* padding: 0px 0px; */
+    max-width: 1140px;
+    padding: 0px 0px;
 }
 
 #wrapper {
@@ -1288,7 +1288,7 @@ body {
 
 .container {
     width: auto;
-    /* max-width: 1140px; */
+    max-width: 1140px;
 }
 
 #wrapper {
@@ -2593,7 +2593,7 @@ body.automanager-listing-page .wpb_tabs br {
     }
 }
 /*Multiple select*/
-.stm-multiple-select {
+/* .stm-multiple-select {
     padding-top: 4px;
     margin-bottom: 15px;
     overflow: hidden;
@@ -2615,7 +2615,7 @@ body.automanager-listing-page .wpb_tabs br {
     text-overflow: ellipsis;
     overflow: hidden;
     background-color: transparent;
-    border: 0;
+     border: 0;
     box-shadow: 0 1px 3px rgba(59, 62, 68, 0.5);
 }
 
@@ -2628,7 +2628,7 @@ body.automanager-listing-page .wpb_tabs br {
     margin: 5px 0 0 5px;
     height: 20px;
     line-height: 20px;
-}
+} */
 
 .woocommerce div.product div.images {
     margin-bottom: 2em;
@@ -3324,7 +3324,7 @@ body {
 
 .container {
     width: auto;
-    /* max-width: 1140px; */
+    max-width: 1140px;
 }
 
 #wrapper {
@@ -16376,9 +16376,9 @@ div.radio span.checked, div.radio span.checked {
     font-weight: 700;
 }
 
-.select2-container--default .select2-selection--multiple {
+/* .select2-container--default .select2-selection--multiple {
     border: 1px solid #eceff3 !important;
-}
+} */
 
 .bookly-form select {
     opacity: 1;
@@ -24463,7 +24463,7 @@ body {
 
 .container {
     width: auto;
-    /* max-width: 1140px; */
+    max-width: 1140px;
 }
 
 #wrapper {
@@ -25305,7 +25305,7 @@ body {
 
 .container {
     width: auto;
-    /* max-width: 1140px; */
+    max-width: 1140px;
 }
 
 #wrapper {
@@ -26610,7 +26610,7 @@ body.automanager-listing-page .wpb_tabs br {
     }
 }
 /*Multiple select*/
-.stm-multiple-select {
+/* .stm-multiple-select {
     padding-top: 4px;
     margin-bottom: 15px;
     overflow: hidden;
@@ -26821,7 +26821,7 @@ button.pswp__button--zoom:hover {
     font-size: 15px;
     text-transform: uppercase;
     text-align: center;
-}
+} */
 
 /* fix for Font Awesome family being overriden by IcoMoon generated custom font family declaration */
 body i.fa,

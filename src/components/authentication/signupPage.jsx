@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import "./authentication.css";
+import MainNavbar from "../Pages/navbar/mainNavbar";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
@@ -21,7 +22,14 @@ const SignupPage = () => {
 
   const handleSignUp = async () => {
     // console.warn("Data: ", user, password);
-    let data = { name, email, password, passwordConfirm, phoneNumber, cityName };
+    let data = {
+      name,
+      email,
+      password,
+      passwordConfirm,
+      phoneNumber,
+      cityName,
+    };
 
     let result = await fetch("http://localhost:8000/api/v1/customer/create", {
       method: "POST",
@@ -49,6 +57,12 @@ const SignupPage = () => {
   };
   return (
     <>
+        <div className="navbar-bg-img-container">
+          <div className="booking-page-banner-navbar">
+            {" "}
+            <MainNavbar />
+          </div>
+        </div>
       <section className="ftco-section">
         <div className="container">
           <div className="login-row justify-content-center">
@@ -219,7 +233,6 @@ const SignupPage = () => {
                         onClick={(e) => handleSignUp(e)}
                       >
                         Create Account{" "}
-                       
                       </button>
                     </div>
                   </div>
@@ -227,7 +240,6 @@ const SignupPage = () => {
               </div>
             </div>
           </div>
-
         </div>
       </section>
     </>

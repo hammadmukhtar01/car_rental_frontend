@@ -5,7 +5,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink, useNavigate } from "react-router-dom";
 import React from "react";
 import Image from "react-bootstrap/Image";
-import logo from "../../images/car_rental_logo.png";
+import logo from "../../images/car_rental_logo_old.png";
 
 function CollapsibleExample() {
   const navigate = useNavigate();
@@ -68,9 +68,9 @@ function CollapsibleExample() {
     <Navbar
       collapseOnSelect
       expand="lg"
-      className="bg-body-tertiary p-0 shadow"
+      className=" p-0"
     >
-      <Container className="navabr-main-container">
+      <div className="navabr-main-container container">
         <div className="d-flex align-items-center col-lg-2 col-sm-10">
           <Navbar.Brand>
             <div className="main-logo">
@@ -156,7 +156,7 @@ function CollapsibleExample() {
             )}
           </Nav>
         </Navbar.Collapse>
-      </Container>
+      </div>
     </Navbar>
   );
 }

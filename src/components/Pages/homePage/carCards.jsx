@@ -25,9 +25,9 @@ const CarCards = () => {
 
   return (
     <div className="p-4 offer-car-main-section">
-      <h2 className="offer-heading">OFFERS</h2>
       <div className="offers-car-container">
         <Container>
+      <h2 className="offer-heading">OFFERS</h2>
           <Row className="offers-car-container-row">
             {cars.map((car, index) => (
               <Col
@@ -39,7 +39,9 @@ const CarCards = () => {
               >
                 <div className="offer-car-item p-3">
                   <div id={`hr-value-tag-1`}></div>
-                  <div className="tilted-car-price"><b>{car.discount}% Off</b></div>
+                  <div className="tilted-car-price">
+                    <b>{car.discount}% Off</b>
+                  </div>
                   <div id={`hr-value-tag-2`}></div>
                   <div className="car-image-container ">
                     <img
@@ -55,13 +57,14 @@ const CarCards = () => {
                       {" "}
                       <b>{car.name}</b>{" "}
                     </p>
-                    <div className="discount-container">
-                    </div>
+                    <div className="discount-container"></div>
                   </div>
-                  <div className="col-lg-10">
-                    <Button variant="primary" className="offer-button">
-                      Book Now
-                    </Button>
+                  <div className="car-offers-container-submit-button d-flex justify-content-center">
+                    <div className="col-lg-10">
+                      <Button variant="primary" className="offer-button">
+                        Book Now
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </Col>

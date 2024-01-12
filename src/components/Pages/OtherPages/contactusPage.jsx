@@ -1,4 +1,5 @@
 import React from "react";
+import MainNavbar from '../navbar/mainNavbar';
 
 const ContactusPage = () => {
   const handleContactUsSubmitButton = () => {
@@ -7,6 +8,12 @@ const ContactusPage = () => {
   return (
     <>
       <div id="main" className="">
+      <div className="navbar-bg-img-container">
+          <div className="booking-page-banner-navbar">
+            {" "}
+            <MainNavbar />
+          </div>
+        </div>
         <div className="contactUs-container">
           <div
             data-elementor-type="wp-page"

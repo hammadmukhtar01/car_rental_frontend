@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./otherPages.css";
+import MainNavbar from '../navbar/mainNavbar';
 
 const FaqsPage = () => {
 
@@ -116,8 +117,14 @@ const FaqsPage = () => {
 
   return (
     <>
-      <div id="main" className="mt-4 pb-5">
-        <div className="container">
+      <div id="main" className="pb-5">
+      <div className="navbar-bg-img-container">
+          <div className="booking-page-banner-navbar">
+            {" "}
+            <MainNavbar />
+          </div>
+        </div>
+        <div className="container mt-4">
           <div
             data-elementor-type="wp-page"
             data-elementor-id="986"

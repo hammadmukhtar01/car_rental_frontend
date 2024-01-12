@@ -49,8 +49,8 @@ const AnimatedCarSection = () => {
   return (
     <div>
     <section id="slider" className="pt-5">
-      <h2 className="offer-heading pl-3">OUR FLEET CARS: </h2>
       <div className="container">
+      <h2 className="offer-heading pl-3">OUR FLEET CARS: </h2>
         <div className="slider">
           <div className="owl-carousel">
             {imagesData.map((data, index) => (
