@@ -6,11 +6,7 @@ import {
   Button,
   Form,
   Modal,
-  ToggleButton,
-  ToggleButtonGroup,
 } from "react-bootstrap";
-import axios from "axios";
-
 import {
   BsPersonCircle,
   BsFillShieldLockFill,
@@ -26,6 +22,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [nationality, setNationality] = useState("");
   const [driversAge, setDriversAge] = useState("");
   const [airlineTicketNum, setAirlineTicketNum] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [addOns, setAddOns] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedAddOn, setSelectedAddOn] = useState(null);
@@ -110,11 +107,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   return (
     <div>
-      <div className="vehicle-details-location-main-div p-3">
+      <div className="vehicle-details-location-main-div pt-3 pb-3">
         <Container fluid className="pt-4">
           <>
             <div className="step1-car-location-details-container">
-              <div className="step1-location-details p-3">
+              <div className="step1-location-details pb-3 pt-3">
                 <div className="location-label">
                   <div className="styled-label">
                     <BsPersonCircle className="mr-2 heading-icon" />

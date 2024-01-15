@@ -1,4 +1,3 @@
-import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -37,13 +36,9 @@ function CollapsibleExample() {
       menuName: "FAQs",
       navigateTo: "/faqs",
     },
-    // {
-    //   menuName: "Contact Us",
-    //   navigateTo: "/contactus",
-    // },
     {
-      menuName: "Test",
-      navigateTo: "/test",
+      menuName: "Contact Us",
+      navigateTo: "/contactus",
     },
   ];
 
@@ -74,7 +69,9 @@ function CollapsibleExample() {
         <div className="d-flex align-items-center col-lg-2 col-sm-10">
           <Navbar.Brand>
             <div className="main-logo">
+              <a href="/home">
               <Image src={logo} alt="Main Logo" fluid />
+              </a>
             </div>
           </Navbar.Brand>
           <Navbar.Toggle
@@ -99,6 +96,7 @@ function CollapsibleExample() {
                 >
                   {navbarMenu.menuName}
                 </Nav.Link>
+                
 
                 {renderSeparator(index, navbarMenus.length)}
               </React.Fragment>

@@ -7,7 +7,7 @@ const ContactusPage = () => {
   };
   return (
     <>
-      <div id="main" className="">
+      <div id="main" className="container">
       <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}

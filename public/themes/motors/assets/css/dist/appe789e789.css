@@ -8175,7 +8175,8 @@ border: 1px solid red !important;
 }
 
 .select2-search {
-  display: block !important;
+  /* display: none !important; */
+
 }
 .select2-search input[type=search] {
     height: 34px;

@@ -202,11 +202,11 @@ const SearchBox = () => {
               </Col>
 
               <Col
-                xxl={3}
-                lg={3}
+                xxl={2}
+                lg={2}
                 md={4}
                 sm={6}
-                xs={10}
+                xs={6}
                 className="d-flex align-items-end mt-3"
               >
                 <Button variant="primary">Search</Button>

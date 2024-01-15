@@ -1,8 +1,11 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Car1 from "../../images/car1.jpg";
+import { useNavigate } from "react-router-dom";
 
 const CarCards = () => {
+  const navigate = useNavigate();
+
   const cars = [
     {
       name: "Car name 1",
@@ -23,11 +26,16 @@ const CarCards = () => {
     },
   ];
 
+  const offersPageBookNowButton = () => {
+    console.log("In offers page book now");
+    navigate("/vehicles");
+  };
+
   return (
-    <div className="p-4 offer-car-main-section">
+    <div className="pt-3 offer-car-main-section">
       <div className="offers-car-container">
         <Container>
-      <h2 className="offer-heading">OFFERS</h2>
+          <h2 className="offer-heading pt-2 pb-2">OFFERS</h2>
           <Row className="offers-car-container-row">
             {cars.map((car, index) => (
               <Col
@@ -44,11 +52,13 @@ const CarCards = () => {
                   </div>
                   <div id={`hr-value-tag-2`}></div>
                   <div className="car-image-container ">
-                    <img
-                      src={car.image}
-                      alt={`Car ${index + 1}`}
-                      className="car-image m-4"
-                    />
+                    <a href="/vehicles">
+                      <img
+                        src={car.image}
+                        alt={`Car ${index + 1}`}
+                        className="car-image m-4"
+                      />
+                    </a>
                     <div className="car-image-overlay"></div>
                   </div>
                   <hr className="discount-line" />
@@ -60,8 +70,12 @@ const CarCards = () => {
                     <div className="discount-container"></div>
                   </div>
                   <div className="car-offers-container-submit-button d-flex justify-content-center">
-                    <div className="col-lg-10">
-                      <Button variant="primary" className="offer-button">
+                    <div className="col-xxl-6 col-lg-10 col-md-8 col-sm-6 col-6">
+                      <Button
+                        variant="primary"
+                        className="offer-button"
+                        onClick={offersPageBookNowButton}
+                      >
                         Book Now
                       </Button>
                     </div>

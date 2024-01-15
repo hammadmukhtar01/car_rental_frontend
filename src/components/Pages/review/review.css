@@ -50,17 +50,6 @@
     background-color: #cc6119;
     color: white;
   }
-  
-  /* .btn.btn-primary {
-    border-radius: 30px;
-    border: 1px solid white;
-  }*/
-  
-  button.btn.btn-primary:hover {
-    background-color: white;
-    color: #cc6119 !important;
-    border: 1px solid #cc6119;
-    font-weight: bold;
-  } 
+
 
   

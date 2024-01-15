@@ -18,8 +18,8 @@ const VehicleDetailsPage = () => {
   const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
   const navigate = useNavigate();
   console.log("Props in VehicleDetailsPage:", id);
-  const latitude = 25.177236;
-  const longitude = 55.376324;
+  const latitude = 25.177316;
+  const longitude = 55.376264;
   const durations = ["Day", "Week", "Month"];
   const durationValues = [1, 7, 30];
   const [data, setData] = useState([]);

@@ -8,7 +8,12 @@ import {
   BsCarFrontFill,
   BsJustify,
   BsTags,
+  BsCpu,
+  BsPerson,
+  BsSuitcase,
 } from "react-icons/bs";
+import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
+import { LuSnowflake } from "react-icons/lu";
 import $ from "jquery";
 import "./vehicleDetails.css";
 import Car1 from "../../images/car1.jpg";
@@ -16,6 +21,7 @@ import PickupLocationDropdown from "../homePage/pickupSearchBoxDropDown";
 import DropoffLocationDropdown from "../homePage/dropoffSearchBoxDropDown";
 import Pagination from "./pagination";
 import MainNavbar from "../navbar/mainNavbar";
+import { useNavigate } from "react-router-dom";
 
 const PageSize = 6;
 
@@ -43,10 +49,47 @@ const VehiclesPage = () => {
     useState("Deliver");
   const [selectedDropOffOptionButton, setSelectedDropOffOptionButton] =
     useState("CompanyDropOff");
+  const navigate = useNavigate();
 
   useEffect(() => {
     $("#sortBySelect").select2();
   }, []);
+
+  const carFeaturesWithIcons = [
+    {
+      name: "Person Seats",
+      value: 4,
+      featureIcon: BsPerson,
+    },
+
+    {
+      name: "Doors",
+      value: 5,
+      featureIcon: GiCarDoor,
+    },
+    {
+      name: "Automatic",
+      value: "A",
+      featureIcon: GiGearStickPattern,
+    },
+
+    {
+      name: "Luggage Space",
+      value: 2,
+      featureIcon: BsSuitcase,
+    },
+    {
+      name: "L Engine",
+      value: 1.7,
+      featureIcon: BsCpu,
+    },
+
+    {
+      name: "AC",
+      value: "AC",
+      featureIcon: LuSnowflake,
+    },
+  ];
 
   const carsData = useMemo(
     () => [
@@ -90,7 +133,7 @@ const VehiclesPage = () => {
           "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
         discount: 15,
         originalPrice: 250,
-        days: 0,
+        days: 4,
         carType: "Family",
       },
       {
@@ -192,6 +235,10 @@ const VehiclesPage = () => {
     return carsData.slice(firstPageIndex, lastPageIndex);
   }, [carsData, currentPage]);
 
+  const allCarsBookingButton = () => {
+    console.log("All Cars Booking Button");
+    navigate("/bookingPage1");
+  };
   return (
     <div id="main" className="pb-2 ">
       <>
@@ -379,7 +426,7 @@ const VehiclesPage = () => {
                         <b>Filters:</b>
                       </span>
                       <Row>
-                        <Col xxl={6} lg={6}>
+                        <Col xxl={6} lg={6} md={6} sm={6}>
                           <Form.Group controlId="formCarModel">
                             <div className="location-label car-model-label">
                               <label className="styled-label mt-2">
@@ -408,7 +455,7 @@ const VehiclesPage = () => {
                           </Form.Group>
                         </Col>
 
-                        <Col xxl={6} lg={6}>
+                        <Col xxl={6} lg={6} md={6} sm={6}>
                           <Form.Group controlId="formCarType">
                             <div className="location-label">
                               <label className="styled-label mt-2">
@@ -535,7 +582,7 @@ const VehiclesPage = () => {
                           </>
                         )}
                         <div className="car-name-div">
-                          <span className="car-name">
+                          <span className="car-name text-end">
                             {" "}
                             <b>{car.name} | </b>( {car.carType} ){" "}
                           </span>
@@ -546,8 +593,26 @@ const VehiclesPage = () => {
                             alt={`Car ${index + 1}`}
                             className="car-image m-4"
                           />
-                          <div className="car-image-overlay"></div>
+                          {/* <div className="car-image-overlay"></div> */}
                         </div>
+                        <div className="all-vehicles-features-icons features-scroll-container text-center">
+                          {carFeaturesWithIcons.map(
+                            (carFeaturesIcons, index) => (
+                              <span key={index}>
+                                <span className="features-values">
+                                  <carFeaturesIcons.featureIcon className="" />{" "}
+                                  {carFeaturesIcons.value}{" "}
+                                  {index < carFeaturesWithIcons.length - 1 && (
+                                    <span className="car-features-vertical-line mr-2 ml-2">
+                                      |
+                                    </span>
+                                  )}
+                                </span>
+                              </span>
+                            )
+                          )}
+                        </div>
+
                         <hr className="discount-line" />
 
                         {car.days <= 0 && (
@@ -557,14 +622,15 @@ const VehiclesPage = () => {
                                 {durations.map((duration, index) => (
                                   <div
                                     key={index}
-                                    className="col-xxl-4 col-lg-4 col-md-6 col-sm-4 col-12 pt-2"
+                                    className="col-xxl-4 col-lg-6 col-md-6 col-sm-6 col-8 pt-2"
                                   >
                                     <div className="card">
                                       <div className="card-body price-day-div">
                                         <div className="card-text">
-                                          <p style={{ color: "gray" }}>
+                                          <span style={{ color: "gray" }}>
                                             Per {duration}
-                                          </p>
+                                          </span>
+                                          <br />
                                           {car.discount > 0 && (
                                             <>
                                               <del
@@ -575,8 +641,16 @@ const VehiclesPage = () => {
                                               >
                                                 {car.originalPrice *
                                                   durationValues[index]}{" "}
-                                                AED
                                               </del>{" "}
+                                              <span
+                                                className="AED"
+                                                style={{
+                                                  textDecorationColor: "red",
+                                                  color: "#cc6119",
+                                                }}
+                                              >
+                                                AED
+                                              </span>{" "}
                                             </>
                                           )}{" "}
                                           {car.discount <= 0 && (
@@ -601,7 +675,7 @@ const VehiclesPage = () => {
                             <br />
                           </>
                         )}
-                        <div className="col-xxl-12 col-lg-12 col-12">
+                        <div className="col-xxl-10 col-lg-9 col-md-12 col-sm-8 col-10">
                           {car.days > 0 ? (
                             <>
                               <Button
@@ -623,6 +697,7 @@ const VehiclesPage = () => {
                               <Button
                                 variant="primary"
                                 className="book-now-button"
+                                onClick={allCarsBookingButton}
                               >
                                 Book Now
                               </Button>

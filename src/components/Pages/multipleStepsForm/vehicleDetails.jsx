@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { BsCpu, BsPerson, BsSuitcase } from "react-icons/bs";
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
 import { LuSnowflake } from "react-icons/lu";
+import Modals from "./imageEnlarger";
 
 const VehicleDetails = ({ nextStep }) => {
   const [couponCode, setCouponCode] = useState("");
   const [isCouponApplied, setIsCouponApplied] = useState(false);
   const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const carFeaturesWithIcons = [
     {
@@ -95,86 +96,6 @@ const VehicleDetails = ({ nextStep }) => {
   const carImg =
     "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0";
 
-  const images = [
-    {
-      id: "12",
-      author: "Paul Jarvis",
-      width: 250,
-      height: 167,
-
-      url: "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
-      download_url:
-        "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
-    },
-    {
-      id: "13",
-      author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
-      url: "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
-
-      download_url:
-        "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
-    },
-    {
-      id: "14",
-      author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
-      url: "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
-
-      download_url:
-        "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
-    },
-    {
-      id: "15",
-      author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
-      url: "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
-
-      download_url:
-        "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
-    },
-
-    {
-      id: "15",
-      author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
-      url: "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
-
-      download_url:
-        "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
-    },
-    {
-      id: "14",
-      author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
-      url: "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
-
-      download_url:
-        "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
-    },
-    {
-      id: "14",
-      author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
-      url: "https://unsplash.com/photos/IQ1kOQTJrOQ",
-      download_url: "https://picsum.photos/id/14/2500/1667",
-    },
-    {
-      id: "14",
-      author: "Paul Jarvis",
-      width: 2500,
-      height: 1667,
-      url: "https://unsplash.com/photos/IQ1kOQTJrOQ",
-      download_url: "https://picsum.photos/id/14/2500/1667",
-    },
-  ];
-
   const totalDays = 3;
   const totalPrice = 90;
   const totalCharges = totalDays * totalPrice;
@@ -206,13 +127,21 @@ const VehicleDetails = ({ nextStep }) => {
   const grandTotalPriceWithDiscount =
     grandTotalPrice - grandTotalDiscountedValue();
 
+  const handleImageClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="">
-      <div className="vehicle-details-location-main-div p-3">
+      <div className="vehicle-details-location-main-div pb-3 pt-3">
         <Container fluid>
           <>
             <div className="step1-car-location-details-container">
-              <div className="step1-location-details p-3">
+              <div className="step1-location-details pb-3 pt-3">
                 <Row>
                   <Col lg={6} md={6} sm={12} xs={12}>
                     <div className="pickup-location-div">
@@ -245,16 +174,16 @@ const VehicleDetails = ({ nextStep }) => {
                 </Row>
               </div>
               <br />
-              <div className="step1-car-details p-4">
+              <div className="step1-car-details">
                 <Row>
-                  <h4 className="step1-car-name">Car Name</h4>
-                  <span className="step1-car-type ">Car Type </span>
+                  <h4 className="step1-car-name pl-3">Car Name</h4>
+                  <span className="step1-car-type pl-3">Car Type </span>
                   <Col lg={7} md={12} sm={12} xs={12}>
                     <div className="car-imgs-details-container">
                       <div className="car-img-container">
                         <Row>
-                          <Col lg={8} md={9} sm={12} xs={12}>
-                            <div className="pt-3">
+                          <Col lg={8} md={12} sm={12} xs={12} className="pl-3 pb-2">
+                            <div className="pt-3 text-center">
                               <div className="carousel-container">
                                 {/* <Carousel className="crsl">
                                   {images.map((image) => (
@@ -269,15 +198,16 @@ const VehicleDetails = ({ nextStep }) => {
                                 <img
                                   src={carImg}
                                   alt={`Car-1`}
-                                  className="car-image m-4"
+                                  className="car-image"
+                                  onClick={handleImageClick}
                                 />
                               </div>
                             </div>
                           </Col>
 
-                          <Col lg={4} md={3} sm={12} xs={12}>
+                          <Col lg={4} md={12} sm={12} xs={12}>
                             <div className=" ">
-                              <span className="features-icons-heading">
+                              <span className="features-icons-heading pl-2">
                                 <b>Features Icons:</b>
                               </span>
                               <hr className="hr-line-heading-scroll" />
@@ -360,7 +290,7 @@ const VehicleDetails = ({ nextStep }) => {
                   </Col>
                   {/* <div className="vertical-line-car-details-page"></div> */}
                   <Col lg={5} md={12} sm={12} xs={12}>
-                    <div className="car-prices-details-container p-5">
+                    <div className="car-prices-details-container p-3">
                       <h4>
                         <b>Prices:</b>
                       </h4>
@@ -571,6 +501,12 @@ const VehicleDetails = ({ nextStep }) => {
                 </Col>
               </div>
             </div>
+            <Modals
+              isOpen={isModalOpen}
+              onClose={handleCloseModal}
+              imageSrc={carImg}
+              alt="Car-1"
+            />
           </>
         </Container>
       </div>

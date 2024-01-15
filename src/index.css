@@ -12,6 +12,45 @@ code {
     monospace;
 }
 
+ul.elementor-contact-tabs-list {
+  background-color: #cc6119 !important;
+  list-style: none;
+}
+
+.contact-buttons-container {
+  position: fixed;
+  bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-button {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 18px;
+  border: 1px solid #cc6119; 
+  border-radius: 2px; 
+  text-decoration: none;
+  color: #a1490f; 
+  text-align: center;
+  background-color: #fff; 
+}
+
+.contact-button:hover {
+  color: #e17227; 
+}
+
+.contact-button:focus {
+  color: #cc6119; 
+}
+
+.contact-button svg {
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+
 .all-vehicles-container {
   padding: 2rem 4rem 1rem 6rem;
 }

@@ -411,9 +411,9 @@ code {
   .progress-bar-div {
     display: none;
   }
-  .features-values {
+  /* .features-values {
     padding: 0px 40px;
-  }
+  } */
 
   .features-scroll-container {
     display: flex;
@@ -434,17 +434,13 @@ code {
 }
 
 @media screen and (max-width: 576px) {
-  .features-values {
+  /* .features-values {
     padding: 0px 40px;
-  }
+  } */
   .coupon-apply-button-div {
     display: contents;
   }
-  .features-scroll-container {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
+  
   .total-days-row {
     padding: 6px 10px;
   }

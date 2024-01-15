@@ -20,7 +20,7 @@
 
 .carousel-container {
   max-width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .carousel .thumb.selected,
@@ -35,24 +35,6 @@
 .booking-wishlist-button {
   margin-top: 20px;
   text-align: center;
-}
-
-.btn.btn-primary {
-  border-radius: 30px;
-  border: 1px solid white;
-}
-
-.btn.btn-primary:focus {
-  background-color: white !important;
-  color: #cc6119 !important;
-  border: 1px solid #cc6119 !important;
-  box-shadow: none !important;
-}
-
-.btn.btn-primary:hover {
-  background-color: white;
-  color: #cc6119;
-  border-color: #cc6119 !important;
 }
 
 .stm-icon-whatsapp {
@@ -284,8 +266,9 @@ span.select2-selection_arrow b {
 }
 
 .select2-container .select2-search--inline .select2-search__field {
-  padding: 4px !important;
-
+  /* padding: 4px !important; */
+  height: 20px !important;
+  margin-top: 1px !important;
 }
 
 .min-max-price-hypen {
@@ -365,6 +348,10 @@ span.select2-selection_arrow b {
   color: #cc6119;
   font-weight: 600;
   text-align: center;
+}
+
+.car-features-vertical-line {
+  color: #d0d0d0;
 }
 
 @media screen and (max-width: 575px) {

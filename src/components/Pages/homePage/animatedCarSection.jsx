@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
+import 'owl.carousel';
 import "owl.carousel/dist/assets/owl.carousel.min.css";
 import "owl.carousel/dist/assets/owl.theme.default.min.css";
 import "owl.carousel/dist/owl.carousel.min.js";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "owl.carousel/dist/assets/owl.theme.green.css";
-import 'owl.carousel';
 
 const AnimatedCarSection = () => {
   useEffect(() => {
@@ -17,6 +17,7 @@ const AnimatedCarSection = () => {
       autoplay: true,
       autoplayTimeout: 3000,
       autoplayHoverPause: true,
+      autoplaySpeed: 3000,
       center: true,
       navText: [
         "<i class='fa fa-angle-left'></i>",
@@ -30,7 +31,7 @@ const AnimatedCarSection = () => {
           items: 3,
         },
         1000: {
-          items: 5,
+          items: 3,
         },
       },
     });
@@ -57,11 +58,13 @@ const AnimatedCarSection = () => {
               <div className="slider-card" key={index}>
                 <h2 className="text-center pt-3">{data.type}</h2>
                 <div className="d-flex justify-content-center align-items-center mb-4">
-                  <img
+                 <a href="/vehicles">
+                 <img
                     src={data.url}
                     alt={`Slide ${index + 1}`}
                     className="img-fluid slider-item"
                   />
+                 </a>
                 </div>
               </div>
             ))}

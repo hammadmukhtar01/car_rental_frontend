@@ -14,6 +14,7 @@ import SignupPage from "./components/authentication/signupPage";
 import AboutusPage from "./components/Pages/OtherPages/aboutusPage";
 import CustomerBookingPage from "./components/customerDashboard/myBookingDetails";
 import VerificationForm from "./components/Pages/multipleStepsForm/multipleStepsForm";
+import FixedNumLocButtons from "./components/Pages/navbar/locationNumberIcons";
 
 function App() {
   return (
@@ -37,9 +38,10 @@ function App() {
           <Route path="/myBookings/:id" element={<CustomerBookingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/test" element={<VerificationForm />} />
+          <Route path="/bookingPage1" element={<VerificationForm />} />
         </Routes>
         <Footer />
+        <FixedNumLocButtons/>
       </div>
     </>
   );
