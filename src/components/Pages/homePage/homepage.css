@@ -1,13 +1,153 @@
-/* 
-  .container {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #b24592;
-    background: linear-gradient(to right, #f15f79, #b24592);
+/* .animate-logos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+}
+
+.animated-img {
+  width: 100px;
+  height: 100px;
+}
+
+.logo1 {
+  color: rgb(217, 78, 78);
+}
+.x1 {
+  animation: x1 15.6s linear infinite alternate;
+}
+
+.y1 {
+  animation: y1 13.8s linear infinite alternate;
+}
+
+@keyframes x1 {
+  0% {
+    transform: translateX(calc(98vw - 100px));
   }
-  */
+}
+
+@keyframes y1 {
+  50% {
+    transform: translateY(calc(70vh - 100px));
+  }
+}
+
+.logo2 {
+  color: rgb(28, 179, 96);
+}
+.x2 {
+  animation: x2 18.6s linear infinite alternate;
+}
+
+.y2 {
+  animation: y2 18.8s linear infinite alternate;
+}
+
+@keyframes x2 {
+  40% {
+    transform: translateX(calc(98vw - 100px));
+  }
+}
+
+@keyframes y2 {
+  85% {
+    transform: translateY(calc(70vh - 100px));
+  }
+}
+
+.logo3 {
+  color: rgb(236, 77, 183);
+}
+.x3 {
+  animation: x3 11.1s linear infinite alternate;
+}
+
+.y3 {
+  animation: y3 14.2s linear infinite alternate;
+}
+
+@keyframes x3 {
+  70% {
+    transform: translateX(calc(98vw - 100px));
+  }
+}
+
+@keyframes y3 {
+  0% {
+    transform: translateY(calc(70vh - 100px));
+  }
+}
+
+.logo4 {
+  color: rgb(210, 232, 140);
+}
+.x4 {
+  animation: x4 19.6s linear infinite alternate;
+}
+
+.y4 {
+  animation: y4 14.8s linear infinite alternate;
+}
+
+@keyframes y4 {
+  90% {
+    transform: translateX(calc(98vw - 100px));
+  }
+}
+
+@keyframes x4 {
+  98% {
+    transform: translateY(calc(70vh - 100px));
+  }
+} */
+
+/* Car Brands Icons CSS  */
+
+.car-brands-slider-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.car-brands-slider {
+  display: flex;
+  justify-content: space-evenly;
+  animation: slide infinite linear 13s;
+}
+
+.car-brands-slider.paused {
+  animation-play-state: paused;
+}
+
+.car-brand {
+  width: 180px; 
+  height: 100px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 10px;
+  padding: 12px;
+  color: #cc6119;
+  background-color: white;
+  font-size: 40px;
+}
+
+.car-brands-icons-container {
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+  background-color: #fafafa;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
 
 .leasing-milele-car-heading {
   background-color: rgb(66, 66, 66);
@@ -50,7 +190,9 @@
 }
 
 .booking-page-banner-navbar {
-  background-image: url("https://img.sixt.com/1600/cd9947ef-d2e3-4c72-b224-7cbe379dfd16.jpg");
+  /* background-image: url("https://img.sixt.com/1600/cd9947ef-d2e3-4c72-b224-7cbe379dfd16.jpg"); */
+  background-image: url("../../images/bgImg1.jpg");
+
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -58,7 +200,8 @@
 }
 
 .search-box-home-page {
-  background-image: url("https://img.sixt.com/1600/cd9947ef-d2e3-4c72-b224-7cbe379dfd16.jpg");
+  /* background-image: url("https://img.sixt.com/1600/cd9947ef-d2e3-4c72-b224-7cbe379dfd16.jpg"); */
+  background-image: url("../../images/bgImg1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

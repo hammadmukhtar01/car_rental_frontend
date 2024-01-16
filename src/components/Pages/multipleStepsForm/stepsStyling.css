@@ -14,7 +14,7 @@ h4 {
 
 .location-value,
 .step1-car-name {
-  font-weight: 700;
+  font-weight: bold;
 }
 
 .city-name,
@@ -85,7 +85,7 @@ h4 {
 
 .sub-total-price-label {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .grand-total-price-label {
@@ -165,15 +165,15 @@ h4 {
 
 .car-description-div {
   border: 1px solid rgb(235, 235, 235);
-  box-shadow: 1px 1px 4px #aaaaaa;
-  border-radius: 6px;
+  /* box-shadow: 1px 1px 4px #aaaaaa; */
+  /* border-radius: 6px; */
 }
 
 .car-description-text-2 {
   font-size: 13px;
   padding: 10px;
-  max-height: 110px;
-  overflow-y: auto;
+  /* max-height: 110px; */
+  /* overflow-y: auto; */
 }
 
 .hr-line-heading-scroll {

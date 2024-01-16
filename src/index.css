@@ -7,6 +7,71 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.contact-buttons-container {
+  position: fixed;
+  bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  right: 15px;
+  z-index: 999;
+
+}
+
+.contact-button {
+  display: flex;
+  align-items: center;
+  margin-bottom: 11px;
+  padding: 18px;
+  border-radius: 50px;
+  text-decoration: none;
+  text-align: center;
+  color: white !important;
+  position: relative;
+}
+
+.contact-button::before {
+  content: "";
+  /* display: none; */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0;
+}
+
+.contact-button:hover::before {
+  left: 0;
+  animation: identifier 1s ease-out infinite;
+  border-radius: 50px;
+  background: inherit;
+}
+
+@keyframes identifier {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+.phone-call-link,
+.map-link {
+  background-color: #cc6119;
+}
+
+.whatsapp-link {
+  background-color: green;
+}
+
+.contact-button svg {
+  margin-right: 0px;
+  font-size: 26px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -17,11 +82,12 @@ ul.elementor-contact-tabs-list {
   list-style: none;
 }
 
-.contact-buttons-container {
+/* .contact-buttons-container {
   position: fixed;
   bottom: 30px;
   display: flex;
   flex-direction: column;
+  left: 94%;
 }
 
 .contact-button {
@@ -29,27 +95,54 @@ ul.elementor-contact-tabs-list {
   align-items: center;
   margin-bottom: 10px;
   padding: 18px;
-  border: 1px solid #cc6119; 
-  border-radius: 2px; 
+  border-radius: 50px;
   text-decoration: none;
-  color: #a1490f; 
   text-align: center;
-  background-color: #fff; 
+  color: white !important;
 }
 
-.contact-button:hover {
-  color: #e17227; 
+.phone-call-link,
+.map-link {
+  background-color: #cc6119;
 }
 
-.contact-button:focus {
-  color: #cc6119; 
+.whatsapp-link {
+  background-color: green;
+}
+.whatsapp-link:hover {
+  background-color: greenyellow;
+}
+
+.whatsapp-link::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 30%;
+  z-index: -1;
+  opacity: 0;
+}
+
+.whatsapp-link::before {
+  left: 0;
+  animation: identifier 1s ease-out infinite;
+  border-radius: 50px;
+  background: inherit;
+}
+@keyframes identifier {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
 }
 
 .contact-button svg {
-  margin-right: 5px;
-  font-size: 20px;
-}
-
+  margin-right: 0px;
+  font-size: 25px;
+} */
 
 .all-vehicles-container {
   padding: 2rem 4rem 1rem 6rem;
@@ -95,11 +188,10 @@ ul.elementor-contact-tabs-list {
   margin: 7px;
   border-radius: 100px;
   background-color: rgb(59, 59, 59);
-
 }
 
 .header-main-socs .clearfix li a:hover {
- background-color: #cc6119; 
+  background-color: #cc6119;
 }
 
 .top-info-wrap {
@@ -107,9 +199,8 @@ ul.elementor-contact-tabs-list {
 }
 
 .send-enquiry-button button:hover {
-color: white !important;
+  color: white !important;
 }
-
 
 .header-menu.clearfix > li {
   padding: 12px 15px;
@@ -128,18 +219,19 @@ color: white !important;
   padding: 12px 15px;
 }
 
-.navbar-container, .row1, #header-nav-holder {
+.navbar-container,
+.row1,
+#header-nav-holder {
   background-color: rgb(187, 187, 187) !important;
 }
 
-ul.header-menu  {
+ul.header-menu {
   margin-bottom: 0px;
-} 
+}
 
 .row {
   margin: 0px 0px 0px -10px;
 }
-
 
 .header-menu {
   list-style: none;
@@ -149,20 +241,19 @@ ul.header-menu  {
   padding: 0px 14px 0px 5px;
 }
 
-.leasing-title.heading-font, .colored-separator {
-padding: 0px 14px 5px 14px;
-color: white;
+.leasing-title.heading-font,
+.colored-separator {
+  padding: 0px 14px 5px 14px;
+  color: white;
 }
 
 .swiper-container.items-per-view-3 {
   padding: 0px 30px;
-} 
-
+}
 
 .homepage-leasing-container {
   padding: 0px !important;
 }
-
 
 .menu-item-user-dropdown {
   list-style: none;
@@ -185,4 +276,16 @@ color: white;
 .menu-item-user-dropdown:hover .sub-menu {
   display: block;
   list-style: none;
+}
+
+@media screen and (max-width: 991px) {
+  .contact-button svg {
+    font-size: 22px;
+  }  
+}
+
+@media screen and (max-width: 567px) {
+  .contact-buttons-container {
+    display: none;
+  }
 }

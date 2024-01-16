@@ -153,7 +153,8 @@ img:hover {
   padding: 14px 0;
   background-color: #cc6119;
   font-weight: 400;
-  box-shadow: 2px 6px 14px #be633c;
+  /* box-shadow: 2px 6px 14px #be633c; */
+  box-shadow: none;
   border-radius: 8px;
   border: 1px solid #cc6119;
 }
@@ -162,7 +163,7 @@ img:hover {
   background-color: white !important;
   color: #cc6119 !important;
   border-color: #cc6119 !important;
-  box-shadow: none !important;
+  box-shadow: 2px 6px 14px #be633c !important;
 }
 
 .btn.btn-primary:hover {
@@ -170,6 +171,7 @@ img:hover {
   color: #cc6119;
   border-color: #cc6119 !important;
   border: 1px solid #cc6119;
+  box-shadow: 2px 6px 14px #be633c;
   font-weight: bold;
 }
 

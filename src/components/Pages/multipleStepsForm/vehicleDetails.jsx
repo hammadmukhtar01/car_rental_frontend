@@ -303,6 +303,7 @@ const VehicleDetails = ({ nextStep }) => {
                           <div className="booking-charges-evaluation-step1">
                             <div className="booking-detail-heading">
                               Booking Details:
+                              <hr style={{color: "black"}}/>
                             </div>
                             <div
                               className="price-row p-1"
@@ -324,7 +325,7 @@ const VehicleDetails = ({ nextStep }) => {
                                 <div
                                   key={charge._id}
                                   className="price-row p-1"
-                                  style={{ lineHeight: "300%" }}
+                                  style={{ lineHeight: "100%" }}
                                 >
                                   <span className="price-label">
                                     {charge.name}:
@@ -371,7 +372,7 @@ const VehicleDetails = ({ nextStep }) => {
                                   </span>
                                 </div>
                               </div>
-                              <span> (5% of {subTotalValue})</span>
+                              <span className="pl-2"> (5% of {subTotalValue})</span>
                               <div className="coupon-main-div pt-3">
                                 <Row>
                                   <Col xs={12} className="coupon-label-div">

@@ -3,24 +3,89 @@ import SearchBox from "./searchBox";
 import CarCards from "./carCards";
 import AnimatedCarSection from "./animatedCarSection";
 import TestimonialSlider from "./testimonialSlider";
+import NissanLogo from "../../images/nissanLogo.png";
+import PeugeotLogo from "../../images/peugeotLogo.jpg";
+import KiaLogo from "../../images/kiaLogo.png";
+import HyundaiLogo from "../../images/hyundaiLogo.jpg";
+import CheveroletLogo from "../../images/CheveroletLogo.png";
 
 const HomePage = () => {
+  const carBrands = [
+    { name: "hyundai", logo: HyundaiLogo },
+    { name: "chevrolet", logo: CheveroletLogo },
+    { name: "kia", logo: KiaLogo },
+    { name: "peugeot", logo: PeugeotLogo },
+    { name: "nissan", logo: NissanLogo },
+  ];
+
+  const handleMouseEnter = () => {
+    const slider = document.querySelector(".car-brands-slider");
+    slider.classList.add("paused");
+  };
+
+  const handleMouseLeave = () => {
+    const slider = document.querySelector(".car-brands-slider");
+    slider.classList.remove("paused");
+  };
+
   return (
     <div className="">
       <div id="main">
         <div className="homepage-main">
-          <div className="search-box-home-page">
-            <SearchBox />
+          <div className="search-box-home-page-container">
+            <div className="search-box-home-page">
+              <SearchBox />
+            </div>
+            {/* <div className="x1 animate-logos">
+              <SiBmw className="y1 animated-img logo1"/>
+            </div>
+            <div className="x2 animate-logos">
+              <SiBmw className="y2 animated-img logo2"/>
+            </div>
+            <div className="x3 animate-logos">
+              <SiBmw className="y3 animated-img logo3"/>
+            </div>
+            <div className="x4 animate-logos">
+              <SiBmw className="y4 animated-img logo4"/>
+            </div> */}
           </div>
-
-          <div className="tag-line-heading-home-page p-4">
-            <h1 className="tag-line-heading-text">
+          <div className="tag-line-heading-home-page">
+            <h1 className="tag-line-heading-text ">
               Drive Luxury Cars In Dubai
             </h1>
             <h1 className="tag-line-heading-text">Afforable Cars</h1>
           </div>
           <CarCards />
-
+          <div className="container pt-4 pb-4">
+            <div className="car-brands-icons-container p-3">
+              <h5>
+                <b>Our Top Brands:</b>
+              </h5>
+              <hr />
+              <div
+                className="car-brands-slider-container"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div className={`car-brands-slider`}>
+                  {carBrands.map((brand, index) => (
+                    <div
+                      key={index}
+                      className={`car-brand animated-logo`}
+                      style={{ background: "white" }}
+                    >
+                      <img
+                        src={brand.logo}
+                        className="brands-logo-images"
+                        title="brand-logos"
+                        alt="Logo"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
           <AnimatedCarSection />
 
           <section

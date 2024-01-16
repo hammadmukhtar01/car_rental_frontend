@@ -467,6 +467,7 @@ const VehiclesPage = () => {
                               id="carTypeSelect"
                               className="form-select"
                               value={selectedCarType}
+                              multiple
                               onChange={(e) =>
                                 setSelectedCarType(e.target.value)
                               }
@@ -675,7 +676,8 @@ const VehiclesPage = () => {
                             <br />
                           </>
                         )}
-                        <div className="col-xxl-10 col-lg-9 col-md-12 col-sm-8 col-10">
+                       <div className="d-flex justify-content-center">
+                       <div className="col-xxl-10 col-lg-9 col-md-12 col-sm-8 col-10">
                           {car.days > 0 ? (
                             <>
                               <Button
@@ -704,6 +706,7 @@ const VehiclesPage = () => {
                             </>
                           )}
                         </div>
+                       </div>
                       </div>
                     </Col>
                   ))}

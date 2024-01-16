@@ -9,8 +9,10 @@ import {
 import "./homePage.css";
 import PickupLocationDropdown from "./pickupSearchBoxDropDown";
 import DropoffLocationDropdown from "./dropoffSearchBoxDropDown";
-import MainNavbar from "../navbar/mainNavbar"
-
+import MainNavbar from "../navbar/mainNavbar";
+import {
+  SiBmw,
+} from "react-icons/si";
 const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
@@ -23,8 +25,10 @@ const SearchBox = () => {
   const [showDropoffDropdown, setShowDropoffDropdown] = useState(false);
   const [selectedPickupCityName, setSelectedPickupCityName] = useState("");
   const [selectedDropoffCityName, setSelectedDropoffCityName] = useState("");
-  const [selectedPickUpOptionButton, setSelectedPickUpOptionButton] = useState("Deliver");
-  const [selectedDropOffOptionButton, setSelectedDropOffOptionButton] = useState("CompanyDropOff");
+  const [selectedPickUpOptionButton, setSelectedPickUpOptionButton] =
+    useState("Deliver");
+  const [selectedDropOffOptionButton, setSelectedDropOffOptionButton] =
+    useState("CompanyDropOff");
 
   const cityNames = useMemo(() => ["Sharja", "Dubai", "Burjman"], []);
 
@@ -65,10 +69,11 @@ const SearchBox = () => {
   };
 
   return (
+   <>
     <div className="bg-img-container container">
-      <MainNavbar/>
+     
+      <MainNavbar />
       <div className="search-box-container">
-
         <Row>
           <Col>
             <Row>
@@ -211,23 +216,20 @@ const SearchBox = () => {
               >
                 <Button variant="primary">Search</Button>
               </Col>
+              <Col className="mt-2 d-flex align-items-end justify-content-end">
+                {numberOfDays > 0 && (
+                  <span className="rental-period-label">
+                    <span>Rental Period:</span>{" "}
+                    <span className="total-days">{numberOfDays}</span>
+                  </span>
+                )}
+              </Col>
             </Row>
           </Col>
         </Row>
-
-        <Row>
-          <Col className="mt-2">
-            {numberOfDays > 0 && (
-              <span className="fs-5">
-                Number of days:{" "}
-                <span className="total-days">{numberOfDays}</span>
-              </span>
-            )}
-          </Col>
-        </Row>
       </div>
-      <div className="bg-img"></div>
-    </div>
+     
+    </div></>
   );
 };
 
