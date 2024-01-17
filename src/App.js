@@ -23,6 +23,7 @@ function App() {
         <div className="top-page-horizontal-line">
           <span className="top-horizontal-line-text">22 years of successfull record</span>
         </div>
+        {/* <span class="loader"></span> */}
 
         <Routes>
           <Route path="/" exact element={<HomePage />} />

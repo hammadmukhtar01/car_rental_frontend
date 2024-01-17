@@ -417,309 +417,434 @@ const VehiclesPage = () => {
           </div>
 
           <Container fluid className="all-cars-container pb-4">
-            <div className="all-cars-section ">
-              <Row>
-                <Col xxl={8} lg={8}>
-                  <div className="filters-section">
-                    <div className="">
-                      <span className="filters-heading">
-                        <b>Filters:</b>
-                      </span>
-                      <Row>
-                        <Col xxl={6} lg={6} md={6} sm={6}>
-                          <Form.Group controlId="formCarModel">
-                            <div className="location-label car-model-label">
-                              <label className="styled-label mt-2">
-                                <BsCarFrontFill className="mr-2" />
-                                <b>Car Model</b>
-                              </label>
-                            </div>{" "}
-                            <select
-                              id="carModelSelect"
-                              className="form-select"
-                              value={selectedCarModel}
-                              multiple
-                              onChange={(e) =>
-                                setSelectedCarModel(e.target.value)
-                              }
-                            >
-                              <option value="" disabled>
-                                Choose Car Model
-                              </option>
-                              {carModels.map((model) => (
-                                <option key={model} value={model}>
-                                  {model}
-                                </option>
-                              ))}
-                            </select>
-                          </Form.Group>
-                        </Col>
-
-                        <Col xxl={6} lg={6} md={6} sm={6}>
-                          <Form.Group controlId="formCarType">
-                            <div className="location-label">
-                              <label className="styled-label mt-2">
-                                <BsJustify className="mr-2" />
-                                <b>Car Type</b>
-                              </label>
-                            </div>
-                            <select
-                              id="carTypeSelect"
-                              className="form-select"
-                              value={selectedCarType}
-                              multiple
-                              onChange={(e) =>
-                                setSelectedCarType(e.target.value)
-                              }
-                            >
-                              <option value="" disabled>
-                                Choose Car Type
-                              </option>
-                              {carTypes.map((type) => (
-                                <option key={type} value={type}>
-                                  {type}
-                                </option>
-                              ))}
-                            </select>
-                          </Form.Group>
-                        </Col>
-                      </Row>
-
-                      <Row>
-                        <Col xxl={6} lg={6}>
-                          <Form.Group controlId="formMinMaxPrice">
-                            <div className="location-label">
-                              <label className="styled-label">
-                                <BsTags className="mr-2" />
-                                <b>Price Range</b>
-                              </label>
-                            </div>
-                            <Row>
-                              <Col className="min-price-input">
-                                <Form.Control
-                                  type="number"
-                                  placeholder="Min Price"
-                                  min={1}
-                                  value={minPrice}
-                                  onChange={(e) => setMinPrice(e.target.value)}
-                                />
-                              </Col>{" "}
-                              <br />
-                              <Col className="max-price-input">
-                                <Form.Control
-                                  type="number"
-                                  placeholder="Max Price"
-                                  min={minPrice}
-                                  value={maxPrice}
-                                  onChange={(e) => {
-                                    if (
-                                      e.target.value >= minPrice ||
-                                      e.target.value === ""
-                                    ) {
-                                      setMaxPrice(e.target.value);
-                                    }
-                                  }}
-                                />
-                              </Col>
-                            </Row>
-                          </Form.Group>
-                        </Col>
-                      </Row>
+            <Row>
+              <Col xxl={3} lg={3} md={4} className="filters-section">
+                <h3 className="filters-heading text-center">
+                  <b>
+                    Filters: <hr />
+                  </b>
+                </h3>
+                <div className="card search-filters-card">
+                  <article className="card-group-item">
+                    <div className="location-label car-model-label">
+                      <header className="card-header styled-label">
+                        <BsCarFrontFill className="mr-2" />
+                        <b>Car Model</b>
+                      </header>
+                    </div>{" "}
+                    <div className="filter-content">
+                      <div className="card-body">
+                        <form>
+                          <label className="form-check">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              value=""
+                            />
+                            <span className="form-check-label">Mersedes Benz</span>
+                          </label>
+                          <label className="form-check">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              value=""
+                            />
+                            <span className="form-check-label">Nissan Altima</span>
+                          </label>
+                          <label className="form-check">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              value=""
+                            />
+                            <span className="form-check-label">Another Brand</span>
+                          </label>
+                        </form>
+                      </div>
                     </div>
-                  </div>
-                </Col>
-
-                <Col xxl={4} lg={4}>
-                  <div className="sort-by-dropdown">
-                    <Row className="sort-by-row justify-content-between align-items-center mb-4">
-                      <Col>
-                        <Form.Group controlId="formSortBy">
-                          <Form.Label className="styled-label mt-2">
-                            <h6>
-                              {" "}
-                              <b>Sort By:</b>
-                            </h6>
-                          </Form.Label>
-                          <select
-                            id="sortBySelect"
-                            className="form-select"
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value)}
-                          >
-                            <option value="LowToHigh">Low to High</option>
-                            <option value="HighToLow">High to Low</option>
-                            <option value="Recommended">Recommended</option>
-                          </select>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                  </div>
-                </Col>
-              </Row>
-
-              <>
-                <h4 className="pt-4 pb-2 all-cars-heading">
-                  All Cars
-                  <hr />
-                </h4>
-                <Row className="offers-car-container-row">
-                  {currentTableData.map((car, index) => (
-                    <Col
-                      key={index}
-                      xxl={4}
-                      lg={6}
-                      md={6}
-                      sm={12}
-                      className="offers-car-div pb-5"
-                    >
-                      <div className="all-offer-cars p-3">
-                        {car.discount > 0 && (
-                          <>
-                            <div id={`hr-value-allcars-1`}></div>
-                            <div className="offer-car-price">
-                              <b>{car.discount}% Off</b>
-                            </div>
-                            <div id={`hr-value-allcars-2`}></div>
-                          </>
-                        )}
-                        <div className="car-name-div">
-                          <span className="car-name text-end">
-                            {" "}
-                            <b>{car.name} | </b>( {car.carType} ){" "}
-                          </span>
+                  </article>
+                </div>
+                <div className="card search-filters-card">
+                  <article className="card-group-item">
+                    <div className="location-label">
+                      <header className="card-header styled-label title">
+                        <BsJustify className="mr-2" />
+                        <b>Car Type</b>
+                      </header>
+                    </div>
+                    <div className="filter-content">
+                      <div className="card-body">
+                        <form>
+                          <label className="form-check">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              value=""
+                            />
+                            <span className="form-check-label">Mersedes Benz</span>
+                          </label>
+                          <label className="form-check">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              value=""
+                            />
+                            <span className="form-check-label">Nissan Altima</span>
+                          </label>
+                          <label className="form-check">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              value=""
+                            />
+                            <span className="form-check-label">Another Brand</span>
+                          </label>
+                        </form>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+                <div className="card search-filters-card">
+                  <article className="card-group-item">
+                    <div className="location-label">
+                      <header className="card-header styled-label">
+                        <BsTags className="mr-2" />
+                        <b>Price Range</b>
+                      </header>
+                    </div>
+                    <div className="filter-content">
+                      <div className="card-body">
+                        <div className="form-row">
+                          <div className="form-group col-md-6">
+                            <input
+                              type="number"
+                              className="form-control"
+                              id="inputEmail4"
+                              placeholder="AED 0"
+                            />
+                          </div>
+                          <div className="form-group col-md-6 text-right">
+                            <input
+                              type="number"
+                              className="form-control"
+                              placeholder="AED 1,0000"
+                            />
+                          </div>
                         </div>
-                        <div className="car-image-container ">
-                          <img
-                            src={car.image}
-                            alt={`Car ${index + 1}`}
-                            className="car-image m-4"
-                          />
-                          {/* <div className="car-image-overlay"></div> */}
-                        </div>
-                        <div className="all-vehicles-features-icons features-scroll-container text-center">
-                          {carFeaturesWithIcons.map(
-                            (carFeaturesIcons, index) => (
-                              <span key={index}>
-                                <span className="features-values">
-                                  <carFeaturesIcons.featureIcon className="" />{" "}
-                                  {carFeaturesIcons.value}{" "}
-                                  {index < carFeaturesWithIcons.length - 1 && (
-                                    <span className="car-features-vertical-line mr-2 ml-2">
-                                      |
-                                    </span>
-                                  )}
-                                </span>
-                              </span>
-                            )
-                          )}
-                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </Col>
 
-                        <hr className="discount-line" />
-
-                        {car.days <= 0 && (
-                          <>
-                            <div className="price-day-main-div">
-                              <div className="row">
-                                {durations.map((duration, index) => (
-                                  <div
-                                    key={index}
-                                    className="col-xxl-4 col-lg-6 col-md-6 col-sm-6 col-8 pt-2"
-                                  >
-                                    <div className="card">
-                                      <div className="card-body price-day-div">
-                                        <div className="card-text">
-                                          <span style={{ color: "gray" }}>
-                                            Per {duration}
-                                          </span>
-                                          <br />
-                                          {car.discount > 0 && (
-                                            <>
-                                              <del
-                                                style={{
-                                                  textDecorationColor: "red",
-                                                  color: "#cc6119",
-                                                }}
-                                              >
-                                                {car.originalPrice *
-                                                  durationValues[index]}{" "}
-                                              </del>{" "}
-                                              <span
-                                                className="AED"
-                                                style={{
-                                                  textDecorationColor: "red",
-                                                  color: "#cc6119",
-                                                }}
-                                              >
-                                                AED
-                                              </span>{" "}
-                                            </>
-                                          )}{" "}
-                                          {car.discount <= 0 && (
-                                            <>
-                                              <span className="p-1"></span>
-                                            </>
-                                          )}
-                                          <p style={{ color: "green" }}>
-                                            {calculateSalePrice(
-                                              car.originalPrice,
-                                              car.discount
-                                            ) * durationValues[index]}{" "}
-                                            AED{" "}
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
+              <Col xxl={9} lg={9} md={8}>
+                <div className="all-cars-section ">
+                  <Row>
+                    <Col xxl={8} lg={8}>
+                      {/* <div className="">
+                        <Row>
+                          <Col xxl={6} lg={6} md={6} sm={6}>
+                            <Form.Group controlId="formCarModel">
+                              <div className="location-label car-model-label">
+                                <label className="styled-label mt-2">
+                                  <BsCarFrontFill className="mr-2" />
+                                  <b>Car Model</b>
+                                </label>
+                              </div>{" "}
+                              <select
+                                id="carModelSelect"
+                                className="form-select"
+                                value={selectedCarModel}
+                                multiple
+                                onChange={(e) =>
+                                  setSelectedCarModel(e.target.value)
+                                }
+                              >
+                                <option value="" disabled>
+                                  Choose Car Model
+                                </option>
+                                {carModels.map((model) => (
+                                  <option key={model} value={model}>
+                                    {model}
+                                  </option>
                                 ))}
+                              </select>
+                            </Form.Group>
+                          </Col>
+
+                          <Col xxl={6} lg={6} md={6} sm={6}>
+                            <Form.Group controlId="formCarType">
+                              <div className="location-label">
+                                <label className="styled-label mt-2">
+                                  <BsJustify className="mr-2" />
+                                  <b>Car Type</b>
+                                </label>
                               </div>
-                            </div>
-                            <br />
-                          </>
-                        )}
-                       <div className="d-flex justify-content-center">
-                       <div className="col-xxl-10 col-lg-9 col-md-12 col-sm-8 col-10">
-                          {car.days > 0 ? (
-                            <>
-                              <Button
-                                variant="primary"
-                                className="pay-now-button"
+                              <select
+                                id="carTypeSelect"
+                                className="form-select"
+                                value={selectedCarType}
+                                multiple
+                                onChange={(e) =>
+                                  setSelectedCarType(e.target.value)
+                                }
                               >
-                                <span className="pay-now-value">
-                                  Pay Now | AED:{" "}
-                                  {calculateSalePrice(
-                                    car.originalPrice,
-                                    car.discount
-                                  ) * car.days}{" "}
-                                  | {car.days} days
-                                </span>
-                              </Button>
-                            </>
-                          ) : (
-                            <>
-                              <Button
-                                variant="primary"
-                                className="book-now-button"
-                                onClick={allCarsBookingButton}
+                                <option value="" disabled>
+                                  Choose Car Type
+                                </option>
+                                {carTypes.map((type) => (
+                                  <option key={type} value={type}>
+                                    {type}
+                                  </option>
+                                ))}
+                              </select>
+                            </Form.Group>
+                          </Col>
+                        </Row>
+
+                        <Row>
+                          <Col xxl={6} lg={6}>
+                            <Form.Group controlId="formMinMaxPrice">
+                              <div className="location-label">
+                                <label className="styled-label">
+                                  <BsTags className="mr-2" />
+                                  <b>Price Range</b>
+                                </label>
+                              </div>
+                              <Row>
+                                <Col className="min-price-input">
+                                  <Form.Control
+                                    type="number"
+                                    placeholder="Min Price"
+                                    min={1}
+                                    value={minPrice}
+                                    onChange={(e) =>
+                                      setMinPrice(e.target.value)
+                                    }
+                                  />
+                                </Col>{" "}
+                                <br />
+                                <Col className="max-price-input">
+                                  <Form.Control
+                                    type="number"
+                                    placeholder="Max Price"
+                                    min={minPrice}
+                                    value={maxPrice}
+                                    onChange={(e) => {
+                                      if (
+                                        e.target.value >= minPrice ||
+                                        e.target.value === ""
+                                      ) {
+                                        setMaxPrice(e.target.value);
+                                      }
+                                    }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Row>
+                      </div> */}
+                    </Col>
+
+                    <Col xxl={4} lg={4}>
+                      <div className="sort-by-dropdown">
+                        <Row className="sort-by-row justify-content-between align-items-center mb-4">
+                          <Col>
+                            <Form.Group controlId="formSortBy">
+                              <Form.Label className="styled-label mt-2">
+                                <h6>
+                                  {" "}
+                                  <b>Sort By:</b>
+                                </h6>
+                              </Form.Label>
+                              <select
+                                id="sortBySelect"
+                                className="form-select"
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
                               >
-                                Book Now
-                              </Button>
-                            </>
-                          )}
-                        </div>
-                       </div>
+                                <option value="LowToHigh">Low to High</option>
+                                <option value="HighToLow">High to Low</option>
+                                <option value="Recommended">Recommended</option>
+                              </select>
+                            </Form.Group>
+                          </Col>
+                        </Row>
                       </div>
                     </Col>
-                  ))}
-                </Row>
-              </>
-              <Pagination
-                className="pagination-bar"
-                currentPage={currentPage}
-                totalCount={carsData.length}
-                pageSize={PageSize}
-                onPageChange={(page) => setCurrentPage(page)}
-              />
-            </div>
+                  </Row>
+
+                  <>
+                    <h4 className="pt-4 pb-2 all-cars-heading">
+                      All Cars
+                      <hr />
+                    </h4>
+                    <Row className="offers-car-container-row">
+                      {currentTableData.map((car, index) => (
+                        <Col
+                          key={index}
+                          xxl={4}
+                          lg={6}
+                          md={6}
+                          sm={12}
+                          className="offers-car-div pb-5"
+                        >
+                          <div className="all-offer-cars p-3">
+                            {car.discount > 0 && (
+                              <>
+                                <div id={`hr-value-allcars-1`}></div>
+                                <div className="offer-car-price">
+                                  <b>{car.discount}% Off</b>
+                                </div>
+                                <div id={`hr-value-allcars-2`}></div>
+                              </>
+                            )}
+                            <div className="car-name-div">
+                              <span className="car-name text-end">
+                                {" "}
+                                <b>{car.name} | </b>( {car.carType} ){" "}
+                              </span>
+                            </div>
+                            <div className="car-image-container ">
+                              <img
+                                src={car.image}
+                                alt={`Car ${index + 1}`}
+                                className="car-image m-4"
+                              />
+                              {/* <div className="car-image-overlay"></div> */}
+                            </div>
+                            <div className="all-vehicles-features-icons features-scroll-container text-center">
+                              {carFeaturesWithIcons.map(
+                                (carFeaturesIcons, index) => (
+                                  <span key={index}>
+                                    <span className="features-values">
+                                      <carFeaturesIcons.featureIcon className="" />{" "}
+                                      {carFeaturesIcons.value}{" "}
+                                      {index <
+                                        carFeaturesWithIcons.length - 1 && (
+                                        <span className="car-features-vertical-line mr-2 ml-2">
+                                          |
+                                        </span>
+                                      )}
+                                    </span>
+                                  </span>
+                                )
+                              )}
+                            </div>
+
+                            <hr className="discount-line" />
+
+                            {car.days <= 0 && (
+                              <>
+                                <div className="price-day-main-div">
+                                  <div className="row">
+                                    {durations.map((duration, index) => (
+                                      <div
+                                        key={index}
+                                        className="col-xxl-4 col-lg-6 col-md-6 col-sm-6 col-8 pt-2"
+                                      >
+                                        <div className="card">
+                                          <div className="card-body price-day-div">
+                                            <div className="card-text">
+                                              <span style={{ color: "gray" }}>
+                                                Per {duration}
+                                              </span>
+                                              <br />
+                                              {car.discount > 0 && (
+                                                <>
+                                                  <del
+                                                    style={{
+                                                      textDecorationColor:
+                                                        "red",
+                                                      color: "#cc6119",
+                                                    }}
+                                                  >
+                                                    {car.originalPrice *
+                                                      durationValues[
+                                                        index
+                                                      ]}{" "}
+                                                  </del>{" "}
+                                                  <span
+                                                    className="AED"
+                                                    style={{
+                                                      textDecorationColor:
+                                                        "red",
+                                                      color: "#cc6119",
+                                                    }}
+                                                  >
+                                                    AED
+                                                  </span>{" "}
+                                                </>
+                                              )}{" "}
+                                              {car.discount <= 0 && (
+                                                <>
+                                                  <span className="p-1"></span>
+                                                </>
+                                              )}
+                                              <p style={{ color: "green" }}>
+                                                {calculateSalePrice(
+                                                  car.originalPrice,
+                                                  car.discount
+                                                ) * durationValues[index]}{" "}
+                                                AED{" "}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                                <br />
+                              </>
+                            )}
+                            <div className="d-flex justify-content-center">
+                              <div className="col-xxl-10 col-lg-9 col-md-12 col-sm-8 col-10">
+                                {car.days > 0 ? (
+                                  <>
+                                    <Button
+                                      variant="primary"
+                                      className="pay-now-button"
+                                    >
+                                      <span className="pay-now-value">
+                                        Pay Now | AED:{" "}
+                                        {calculateSalePrice(
+                                          car.originalPrice,
+                                          car.discount
+                                        ) * car.days}{" "}
+                                        | {car.days} days
+                                      </span>
+                                    </Button>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Button
+                                      variant="primary"
+                                      className="book-now-button"
+                                      onClick={allCarsBookingButton}
+                                    >
+                                      Book Now
+                                    </Button>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </Col>
+                      ))}
+                    </Row>
+                  </>
+                  <Pagination
+                    className="pagination-bar"
+                    currentPage={currentPage}
+                    totalCount={carsData.length}
+                    pageSize={PageSize}
+                    onPageChange={(page) => setCurrentPage(page)}
+                  />
+                </div>
+              </Col>
+            </Row>
           </Container>
         </div>
       </>

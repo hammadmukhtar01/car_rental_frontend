@@ -36,6 +36,7 @@
     "react-transition-group": "^4.4.5",
     "select2": "^4.1.0-rc.0",
     "slick-carousel": "^1.8.1",
+    "tiny-slider": "^2.9.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

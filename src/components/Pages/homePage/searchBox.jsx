@@ -10,9 +10,7 @@ import "./homePage.css";
 import PickupLocationDropdown from "./pickupSearchBoxDropDown";
 import DropoffLocationDropdown from "./dropoffSearchBoxDropDown";
 import MainNavbar from "../navbar/mainNavbar";
-import {
-  SiBmw,
-} from "react-icons/si";
+
 const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
@@ -73,7 +71,7 @@ const SearchBox = () => {
     <div className="bg-img-container container">
      
       <MainNavbar />
-      <div className="search-box-container">
+      <div className="search-box-container pb-4">
         <Row>
           <Col>
             <Row>

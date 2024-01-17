@@ -8,6 +8,8 @@ import PeugeotLogo from "../../images/peugeotLogo.jpg";
 import KiaLogo from "../../images/kiaLogo.png";
 import HyundaiLogo from "../../images/hyundaiLogo.jpg";
 import CheveroletLogo from "../../images/CheveroletLogo.png";
+import OurBlogs from "../Blog/ourBlogs";
+import ClientLogoSection from "./ourClients";
 
 const HomePage = () => {
   const carBrands = [
@@ -35,6 +37,7 @@ const HomePage = () => {
           <div className="search-box-home-page-container">
             <div className="search-box-home-page">
               <SearchBox />
+              
             </div>
             {/* <div className="x1 animate-logos">
               <SiBmw className="y1 animated-img logo1"/>
@@ -58,9 +61,9 @@ const HomePage = () => {
           <CarCards />
           <div className="container pt-4 pb-4">
             <div className="car-brands-icons-container p-3">
-              <h5>
-                <b>Our Top Brands:</b>
-              </h5>
+              <h2 className="offer-heading">
+                <b>Collaborated Top Brands:</b>
+              </h2>
               <hr />
               <div
                 className="car-brands-slider-container"
@@ -86,6 +89,8 @@ const HomePage = () => {
               </div>
             </div>
           </div>
+
+          <ClientLogoSection />
           <AnimatedCarSection />
 
           <section
@@ -109,9 +114,13 @@ const HomePage = () => {
                   >
                     <div className="elementor-widget-container">
                       <div className="stm-elementor_listings_carousel view_type_carousel style_1">
-                        <div className="leasing-title heading-font">
+                        <h2 className="offer-heading">
                           LEASING
-                        </div>
+                          <hr
+                            className="col-2"
+                            style={{ border: "1px solid #cc6119" }}
+                          />
+                        </h2>
                         <div className="colored-separator">
                           <div className="first-long stm-base-background-color"></div>
                           <div className="last-short stm-base-background-color"></div>
@@ -142,6 +151,7 @@ const HomePage = () => {
               </div>
             </div>
           </section>
+          <OurBlogs />
           <TestimonialSlider />
           <hr />
         </div>

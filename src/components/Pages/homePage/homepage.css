@@ -113,7 +113,7 @@
 .car-brands-slider {
   display: flex;
   justify-content: space-evenly;
-  animation: slide infinite linear 13s;
+  animation: slide infinite linear 15s;
 }
 
 .car-brands-slider.paused {
@@ -121,8 +121,8 @@
 }
 
 .car-brand {
-  width: 180px; 
-  height: 100px; 
+  width: 180px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -171,12 +171,17 @@
 }
 
 .search-box-container {
-  border: 1px solid rgb(184, 184, 184);
+  /* border: 1px solid rgb(184, 184, 184); */
   border-radius: 6px;
   padding: 10px 20px;
-  background-color: rgb(239, 238, 235);
+  box-shadow: 3px 1px 9px #535353;
+  background-color: rgb(239, 238, 235, 0.4);
   margin: 10px 10px 300px 10px;
 }
+.search-box-container:hover  {
+  /* background-color: rgb(239, 238, 235, 0.5); */
+}
+
 .all-cars-search-box-container {
   border: 1px solid rgb(184, 184, 184);
   border-radius: 6px;
@@ -190,18 +195,15 @@
 }
 
 .booking-page-banner-navbar {
-  /* background-image: url("https://img.sixt.com/1600/cd9947ef-d2e3-4c72-b224-7cbe379dfd16.jpg"); */
   background-image: url("../../images/bgImg1.jpg");
-
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: top;
   /* height: 50vh; */
 }
 
 .search-box-home-page {
-  /* background-image: url("https://img.sixt.com/1600/cd9947ef-d2e3-4c72-b224-7cbe379dfd16.jpg"); */
-  background-image: url("../../images/bgImg1.jpg");
+  background-image: url("../../images/bgImg2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -451,35 +453,55 @@ html {
 
 /* Testimonial Slider CSS */
 
-.alice-carousel__prev-btn,
+.alice-carousel__prev-btn {
+  text-align: left !important;
+  width: 48% !important;
+}
+
 .alice-carousel__next-btn {
-  padding: 20px 30px !important;
+  text-align: right !important;
+  width: 48.5% !important;
 }
 
 .alice-carousel__prev-btn-item,
 .alice-carousel__next-btn-item {
-  font-size: 20px !important;
+  font-size: 22px !important;
   padding: 5px 15px !important;
-  border: 1px solid #cc6119 !important;
+  /* border: 1px solid #cc6119 !important; */
+  /* background-color: #cc6119 !important; */
   border-radius: 5px !important;
-  color: white !important;
-  background-color: #cc6119 !important;
+  color: black !important;
+  font-weight: 600;
+  position: absolute;
+  top: 45%;
 }
 
 .alice-carousel__prev-btn-item:hover,
 .alice-carousel__next-btn-item:hover {
   color: #cc6119 !important;
   background-color: white !important;
-  border: 1px solid #cc6119 !important;
+  box-shadow: 1px 1px 5px #cc6119;
 }
 
 .alice-carousel__prev-btn-item:active,
 .alice-carousel__next-btn-item:active {
-  border: 2px solid #cc6119 !important;
+  border: 1px solid #fcfcfc !important;
+  box-shadow: 1px 1px 5px #606060;
+}
+
+.alice-carousel__dots-item:not(.__custom):hover, .alice-carousel__dots-item:not(.__custom).__active {
+  background-color: #cc6119 !important;
+}
+
+.alice-carousel__dots-item:not(.__custom) {
+  background-color: rgb(255, 255, 255) !important;
+  width: 12px !important;
+  height: 12px !important;
 }
 
 .carousel img {
   width: 50% !important;
+
 }
 
 .carousel li.slide img {
@@ -574,10 +596,15 @@ option:disabled {
   .slider-card {
     padding: 5px 50px 0px 50px;
   }
+  .alice-carousel__next-btn {
+    text-align: right !important;
+    width: 42% !important;
+  }
 }
 
 @media screen and (max-width: 991px) {
-  /* .owl-carousel .owl-item img {
-    width: 67% !important;
-  } */
+  .alice-carousel__next-btn {
+    text-align: right !important;
+    width: 45% !important;
+  }
 }

@@ -1,6 +1,6 @@
-import React from 'react';
-import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/alice-carousel.css';
+import React from "react";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 import {
   MDBContainer,
   MDBRow,
@@ -36,7 +36,6 @@ const testimonials = [
     text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab hic tenetur.",
     rating: 2,
   },
-  // Add more testimonials as needed
 ];
 const responsive = {
   0: { items: 1 },
@@ -101,17 +100,21 @@ const Carousel = () => {
   return (
     <div className="testimonial-container pt-5">
       <div className="container">
-      <AliceCarousel
-      mouseTracking
-      items={testimonials.map(generateTestimonialItem)}
-      responsive={responsive}
-      controlsStrategy="alternate"
-      infinite
-      disableDotsControls
-      autoPlay
-      autoPlayInterval = "2000"
-      animationDuration = "1500"
-    />
+        <h2 className="offer-heading pb-1">
+          What Our Clients Say?
+          <hr className="col-3" style={{ border: "1px solid gray" }} />
+        </h2>
+        <AliceCarousel
+          mouseTracking
+          items={testimonials.map(generateTestimonialItem)}
+          responsive={responsive}
+          controlsStrategy="alternate"
+          infinite
+          disableDotsControls
+          autoPlay
+          autoPlayInterval="2000"
+          animationDuration="1500"
+        />
       </div>
     </div>
   );

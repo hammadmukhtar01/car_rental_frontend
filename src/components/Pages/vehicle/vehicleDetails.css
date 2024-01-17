@@ -81,7 +81,7 @@
 
 .pagination-item {
   padding: 0 20px;
-  height: 36px;
+  height: 45px;
   text-align: center;
   margin: auto 10px;
   color: rgba(0, 0, 0, 0.87);
@@ -89,10 +89,13 @@
   box-sizing: border-box;
   align-items: center;
   letter-spacing: 0.01071em;
-  border-radius: 6px;
+  border-radius: 50px;
   line-height: 1.43;
   font-size: 14px;
   min-width: 32px;
+  border-right: 0.12em solid white;
+  border-top: 0.12em solid white;
+  box-shadow: 1px 0px 3px #cc6119;
 }
 
 .pagination-item.dots:hover {
@@ -101,14 +104,15 @@
 }
 
 .pagination-item:hover {
-  background-color: #f18740;
-  color: white;
+  background-color: white;
+  color: black;
   cursor: pointer;
 }
 
 .pagination-item.selected {
   background-color: #cc6119;
   color: white;
+  box-shadow: none;
 }
 
 .pagination-item .arrow::before {
@@ -117,8 +121,8 @@
   display: inline-block;
   width: 0.4em;
   height: 0.4em;
-  border-right: 0.12em solid white;
-  border-top: 0.12em solid white;
+  border-right: 0.12em solid rgb(0, 0, 0);
+  border-top: 0.12em solid rgb(0, 0, 0);
 }
 
 .pagination-item .arrow.left {
@@ -131,11 +135,13 @@
 
 .pagination-item.disabled {
   pointer-events: none;
+  border-right: 0.12em solid white !important;
+  border-top: 0.12em solid white !important;
 }
 
 .pagination-item.disabled .arrow::before {
-  border-right: 0.12em solid white;
-  border-top: 0.12em solid white;
+  border-right: 0.12em solid rgb(169, 169, 169);
+  border-top: 0.12em solid rgb(169, 169, 169);
 }
 
 .pagination-item.disabled:hover {
@@ -149,27 +155,11 @@
 }
 
 .pagination-item.first {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border: 1px solid rgb(210, 210, 210);
-  /* background-color: #cc6119; */
-  background-color: rgb(140, 140, 140);
+  box-shadow: none;
 }
 
 .pagination-item.last {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border: 1px solid rgb(210, 210, 210);
-  /* background-color: #cc6119; */
-  background-color: rgb(140, 140, 140);
-}
-
-.pagination-item.first:hover {
-  background-color: #f18740;
-}
-
-.pagination-item.last:hover {
-  background-color: #f18740;
+  box-shadow: none;
 }
 
 .all-cars-details {
@@ -258,7 +248,7 @@ span.select2-selection_arrow b {
   min-height: 40px !important;
 }
 .select2-selection--multiple {
-  padding: 8px ;
+  padding: 8px;
 }
 
 .car-model-label {
@@ -338,16 +328,27 @@ span.select2-selection_arrow b {
   background-color: #eeeeee;
 }
 
+.filters-section {
+  padding: 5px 5px 20px 5px;
+  border: 1px solid #e1e1e1;
+  border-radius: 6px;
+  background-color: white;
+}
+
 .filters-heading {
   color: #cc6119;
   font-weight: 500;
-  padding: 10px;
+  padding: 6px;
 }
 
 .all-cars-heading {
   color: #cc6119;
   font-weight: 600;
   text-align: center;
+}
+
+.search-filters-card {
+  border: none;
 }
 
 .car-features-vertical-line {

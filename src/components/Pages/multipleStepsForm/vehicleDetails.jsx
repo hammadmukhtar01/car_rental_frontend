@@ -4,7 +4,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { BsCpu, BsPerson, BsSuitcase } from "react-icons/bs";
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
 import { LuSnowflake } from "react-icons/lu";
+import { TiTick } from "react-icons/ti";
 import Modals from "./imageEnlarger";
+import { RxCross2 } from "react-icons/rx";
 
 const VehicleDetails = ({ nextStep }) => {
   const [couponCode, setCouponCode] = useState("");
@@ -67,15 +69,24 @@ const VehicleDetails = ({ nextStep }) => {
       (coupon) => coupon.name === couponCode
     );
 
-    if (foundCoupon) {
-      setAppliedCoupon(foundCoupon);
-      setIsCouponApplied(true);
+    if (couponCode.trim() === "") {
+      alert("Please enter a coupon code.");
+      return;
     }
+
+    if (!foundCoupon) {
+      alert("Invalid coupon code. Please enter a valid coupon code.");
+      return;
+    }
+
+    setAppliedCoupon(foundCoupon);
+    setIsCouponApplied(true);
   };
 
   const removeCoupon = (e) => {
     setAppliedCoupon(null);
     setIsCouponApplied(false);
+    setCouponCode("");
     e.preventDefault();
   };
 
@@ -182,7 +193,13 @@ const VehicleDetails = ({ nextStep }) => {
                     <div className="car-imgs-details-container">
                       <div className="car-img-container">
                         <Row>
-                          <Col lg={8} md={12} sm={12} xs={12} className="pl-3 pb-2">
+                          <Col
+                            lg={8}
+                            md={12}
+                            sm={12}
+                            xs={12}
+                            className="pl-3 pb-2"
+                          >
                             <div className="pt-3 text-center">
                               <div className="carousel-container">
                                 {/* <Carousel className="crsl">
@@ -303,7 +320,7 @@ const VehicleDetails = ({ nextStep }) => {
                           <div className="booking-charges-evaluation-step1">
                             <div className="booking-detail-heading">
                               Booking Details:
-                              <hr style={{color: "black"}}/>
+                              <hr style={{ color: "black" }} />
                             </div>
                             <div
                               className="price-row p-1"
@@ -372,7 +389,10 @@ const VehicleDetails = ({ nextStep }) => {
                                   </span>
                                 </div>
                               </div>
-                              <span className="pl-2"> (5% of {subTotalValue})</span>
+                              <span className="pl-2">
+                                {" "}
+                                (5% of {subTotalValue})
+                              </span>
                               <div className="coupon-main-div pt-3">
                                 <Row>
                                   <Col xs={12} className="coupon-label-div">
@@ -382,41 +402,36 @@ const VehicleDetails = ({ nextStep }) => {
                                   </Col>
                                 </Row>
                                 <Row className="coupon-input-fields-div">
-                                  <Col lg={7} md={8} sm={7} xs={10}>
-                                    <input
-                                      type="text"
-                                      placeholder="Coupon Code"
-                                      className="form-control"
-                                      value={couponCode}
-                                      onChange={(e) =>
-                                        setCouponCode(e.target.value)
-                                      }
-                                    />
-                                  </Col>
-                                  <Col
-                                    lg={4}
-                                    md={4}
-                                    sm={4}
-                                    xs={12}
-                                    className="coupon-apply-button-div"
-                                  >
-                                    {isCouponApplied ? (
-                                      <>
+                                  <Col>
+                                    <div className="input-group">
+                                      <input
+                                        type="text"
+                                        placeholder="Coupon Code"
+                                        className="input form-control"
+                                        value={couponCode}
+                                        onChange={(e) =>
+                                          setCouponCode(e.target.value)
+                                        }
+                                      />
+
+                                      {isCouponApplied ? (
+                                        <>
+                                          <button
+                                            className="remove-coupon-btn button--submit"
+                                            onClick={removeCoupon}
+                                          >
+                                            <RxCross2 />
+                                          </button>
+                                        </>
+                                      ) : (
                                         <button
-                                          className="ml-2 btn btn-danger"
-                                          onClick={removeCoupon}
+                                          className="apply-coupon-btn button--submit"
+                                          onClick={applyCoupon}
                                         >
-                                          Remove
+                                          <TiTick />
                                         </button>
-                                      </>
-                                    ) : (
-                                      <button
-                                        className="ml-2 btn btn-success apply-coupon-btn"
-                                        onClick={applyCoupon}
-                                      >
-                                        Apply
-                                      </button>
-                                    )}
+                                      )}
+                                    </div>
                                   </Col>
                                 </Row>
                               </div>

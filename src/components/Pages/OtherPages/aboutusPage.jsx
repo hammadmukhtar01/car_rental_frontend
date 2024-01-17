@@ -25,7 +25,10 @@ const AboutusPage = () => {
               <div className="elementor-container elementor-column-gap-default"></div>
             </section>
             <center>
-              <h3>ABOUT US</h3>
+              <h2 className="offer-heading">
+                Why Choose US?
+                <hr className="col-2" style={{ border: "1px solid #cc6119" }} />
+              </h2>
             </center>
             <section
               className="elementor-section elementor-top-section elementor-element elementor-element-89359a9 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
