@@ -10,14 +10,14 @@
 /* Progress bar Css  */
 
 .multi_step_form {
-  background: #f6f9fb;
+  /* background: #f6f9fb; */
   display: block;
   overflow-x: hidden;
 }
 .multi_step_form #msform {
   position: relative;
   /* padding: 50px; */
-  background: #d0d0d0;
+  /* background: #d0d0d0; */
   z-index: 1;
 }
 .multi_step_form #msform .tittle {
@@ -204,7 +204,7 @@
   height: 50px;
   line-height: 50px;
   display: block;
-  background: #eaf0f4;
+  background: white;
   border-radius: 50%;
   margin: 0 auto 10px auto;
 }
@@ -212,7 +212,7 @@
   content: "";
   width: 100%;
   height: 10px;
-  background: #eaf0f4;
+  background: white;
   position: absolute;
   left: -50%;
   top: 21px;

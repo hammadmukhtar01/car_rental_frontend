@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import VehicleDetails from "./vehicleDetails";
 import AddOnsDocuments from "./addOnsDocuments";
 import PaymentPage from "./paymentPage";
@@ -29,6 +29,11 @@ function VerificationForm() {
         return null;
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [renderStep()]);
+
 
   return (
     <div className="multi_step_form">

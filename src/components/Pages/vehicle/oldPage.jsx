@@ -102,7 +102,6 @@ const OldVehiclesPage = () => {
             </div>
           </div>
           <div>
-            current date .ms haye 
           </div>
           <div className="row all-cars-details">
             {currentTableData.map((car) => (

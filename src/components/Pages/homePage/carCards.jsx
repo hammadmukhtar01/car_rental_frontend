@@ -1,16 +1,11 @@
 import React from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Car1 from "../../images/car1.jpg";
 import { useNavigate } from "react-router-dom";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBIcon,
-  MDBTypography,
-} from "mdb-react-ui-kit";
+import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
+import { BsPersonCircle } from "react-icons/bs";
 
 const cars = [
   {
@@ -59,7 +54,7 @@ const Carousel = () => {
 
   const responsive = {
     0: { items: 1 },
-    568: { items: 2 },
+    676: { items: 2 },
     1024: { items: 3 },
   };
 
@@ -79,7 +74,7 @@ const Carousel = () => {
                   <img
                     src={car.image}
                     alt={`${car.name} car`}
-                    className="car-image m-4"
+                    className="car-image"
                   />
                 </a>
                 <div className="car-image-overlay"></div>
@@ -111,13 +106,18 @@ const Carousel = () => {
   );
 
   return (
-    <div className="testimonial-container pt-2 offer-car-main-section">
+    <div className="testimonial-container pt-4 offer-car-main-section">
       <div className="offers-car-container">
         <div className="container">
-          <h2 className="offer-heading pt-3 pb-1">
-            OFFERS
-            <hr className="col-1" style={{border: "1px solid gray"}}/>
-          </h2>
+          <div className="styled-label">
+            <div className="heading-icon-container-div">
+              <BsPersonCircle className="mr-2 home-page-heading-icon" />
+              <span>
+                <b className="fs-3">Offers Cars:</b>
+              </span>
+            </div>
+            <hr className="home-page-heading-underline col-2" />
+          </div>
           <AliceCarousel
             mouseTracking
             items={cars.map(generateTestimonialItem)}

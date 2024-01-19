@@ -6,7 +6,7 @@ import React from "react";
 import Image from "react-bootstrap/Image";
 import logo from "../../images/car_rental_logo_old.png";
 
-function CollapsibleExample() {
+function MainNavbar () {
   const navigate = useNavigate();
   const auth = localStorage.getItem("user");
   const user_info = JSON.parse(auth);
@@ -159,4 +159,4 @@ function CollapsibleExample() {
   );
 }
 
-export default CollapsibleExample;
+export default MainNavbar;

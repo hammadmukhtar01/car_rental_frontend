@@ -294,7 +294,7 @@ h4 {
 }
 
 .modal-content {
-  max-width: 70%;
+  /* max-width: 70%; */
   max-height: 100%;
 }
 
@@ -304,6 +304,15 @@ h4 {
   object-fit: contain;
 }
 
+.btn.btn-secondary {
+  background-color: #cc6119;
+  border: none;
+  box-shadow: none;
+}
+
+.btn.btn-secondary:focus {
+  background-color: #d19268;
+}
 
 
     

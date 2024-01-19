@@ -15,16 +15,19 @@ import AboutusPage from "./components/Pages/OtherPages/aboutusPage";
 import CustomerBookingPage from "./components/customerDashboard/myBookingDetails";
 import VerificationForm from "./components/Pages/multipleStepsForm/multipleStepsForm";
 import FixedNumLocButtons from "./components/Pages/navbar/locationNumberIcons";
+import MainNavbar from "./components/Pages/navbar/mainNavbar";
 
 function App() {
   return (
     <>
       <div className="App">
         <div className="top-page-horizontal-line">
-          <span className="top-horizontal-line-text">22 years of successfull record</span>
+          <span className="top-horizontal-line-text">
+            22 years of successfull record
+          </span>
         </div>
         {/* <span class="loader"></span> */}
-
+        {/* <MainNavbar /> */}
         <Routes>
           <Route path="/" exact element={<HomePage />} />
           <Route path="/home" exact element={<HomePage />} />
@@ -42,7 +45,7 @@ function App() {
           <Route path="/bookingPage1" element={<VerificationForm />} />
         </Routes>
         <Footer />
-        <FixedNumLocButtons/>
+        <FixedNumLocButtons />
       </div>
     </>
   );

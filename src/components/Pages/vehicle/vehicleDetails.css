@@ -311,11 +311,6 @@ span.select2-selection_arrow b {
   left: 7px;
 }
 
-.sort-by-dropdown {
-  display: flex;
-  flex-direction: row-reverse;
-}
-
 .car-name-div {
   display: flex;
   flex-direction: row-reverse;
@@ -330,15 +325,16 @@ span.select2-selection_arrow b {
 
 .filters-section {
   padding: 5px 5px 20px 5px;
-  border: 1px solid #e1e1e1;
+  /* border: 1px solid #e1e1e1; */
   border-radius: 6px;
-  background-color: white;
+  /* background-color: white; */
+  height: fit-content;
 }
 
 .filters-heading {
   color: #cc6119;
   font-weight: 500;
-  padding: 6px;
+  padding-top: 6px;
 }
 
 .all-cars-heading {
@@ -348,7 +344,8 @@ span.select2-selection_arrow b {
 }
 
 .search-filters-card {
-  border: none;
+  border: 1px solid rgb(220, 220, 220);
+  border-radius: 0px;
 }
 
 .car-features-vertical-line {

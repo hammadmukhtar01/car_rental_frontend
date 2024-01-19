@@ -8,6 +8,7 @@ import {
   MDBIcon,
   MDBTypography,
 } from "mdb-react-ui-kit";
+import { BsPersonCircle } from "react-icons/bs";
 
 const testimonials = [
   {
@@ -43,16 +44,23 @@ const responsive = {
   1024: { items: 3 },
 };
 
+const handleTestimonialClick = (testimonial) => {
+  console.log(`Clicked on testimonial by ${testimonial.name}`);
+};
+
 const Carousel = () => {
   const generateTestimonialItem = (testimonial) => (
     <div key={testimonial.name} className="item">
       <MDBContainer>
-        <MDBRow className="text-center">
-          <MDBCol>
+        <MDBRow className="text-center" style={{ padding: "inherit" }}>
+          <MDBCol
+            className="one-testimonial-main-div"
+            onClick={() => handleTestimonialClick(testimonial)}
+          >
             <div className="d-flex justify-content-center mb-4">
               <img
                 src={testimonial.avatar}
-                className="rounded-circle shadow-1-strong"
+                className="rounded-circle shadow-1-strong testimonial-user-img mt-4"
                 width="150"
                 height="150"
                 alt={`Avatar of ${testimonial.name}`}
@@ -65,7 +73,7 @@ const Carousel = () => {
             </p>
             <MDBTypography
               listUnStyled
-              className="d-flex justify-content-center mb-0"
+              className="d-flex justify-content-center mb-0 review-stars-div mb-4"
             >
               {Array.from(
                 { length: Math.floor(testimonial.rating) },
@@ -100,20 +108,25 @@ const Carousel = () => {
   return (
     <div className="testimonial-container pt-5">
       <div className="container">
-        <h2 className="offer-heading pb-1">
-          What Our Clients Say?
-          <hr className="col-3" style={{ border: "1px solid gray" }} />
-        </h2>
+        <div className="styled-label">
+          <div className="heading-icon-container-div">
+            <BsPersonCircle className="mr-2 home-page-heading-icon" />
+            <span>
+              <b className="fs-3">Our Clients Say?</b>
+            </span>
+          </div>
+          <hr className="home-page-heading-underline col-3" />
+        </div>
         <AliceCarousel
           mouseTracking
           items={testimonials.map(generateTestimonialItem)}
           responsive={responsive}
           controlsStrategy="alternate"
-          infinite
+          // infinite
           disableDotsControls
-          autoPlay
-          autoPlayInterval="2000"
-          animationDuration="1500"
+          // autoPlay
+          // autoPlayInterval="2000"
+          // animationDuration="1500"
         />
       </div>
     </div>

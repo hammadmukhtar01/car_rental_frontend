@@ -10,6 +10,11 @@ import HyundaiLogo from "../../images/hyundaiLogo.jpg";
 import CheveroletLogo from "../../images/CheveroletLogo.png";
 import OurBlogs from "../Blog/ourBlogs";
 import ClientLogoSection from "./ourClients";
+import { SiBmw } from "react-icons/si";
+import AnimatedCarImg from "../../images/bgImg3-removebg-preview.png";
+import { BsPersonCircle } from "react-icons/bs";
+import AnimatedCarVideo from "../../images/animateVideo2.mp4";
+import VideoPlayer from "./videoPlayer";
 
 const HomePage = () => {
   const carBrands = [
@@ -37,34 +42,54 @@ const HomePage = () => {
           <div className="search-box-home-page-container">
             <div className="search-box-home-page">
               <SearchBox />
-              
             </div>
             {/* <div className="x1 animate-logos">
-              <SiBmw className="y1 animated-img logo1"/>
+              <SiBmw className="y1 animated-img logo1" />
             </div>
             <div className="x2 animate-logos">
-              <SiBmw className="y2 animated-img logo2"/>
+              <SiBmw className="y2 animated-img logo2" />
             </div>
             <div className="x3 animate-logos">
-              <SiBmw className="y3 animated-img logo3"/>
+              <SiBmw className="y3 animated-img logo3" />
             </div>
             <div className="x4 animate-logos">
-              <SiBmw className="y4 animated-img logo4"/>
+              <SiBmw className="y4 animated-img logo4" />
             </div> */}
           </div>
           <div className="tag-line-heading-home-page">
-            <h1 className="tag-line-heading-text ">
-              Drive Luxury Cars In Dubai
+            <h1 className="tag-line-heading-text">
+              Drive Luxury Cars In Dubai <br /> Afforable Cars
             </h1>
-            <h1 className="tag-line-heading-text">Afforable Cars</h1>
           </div>
+
+          {/* <div className="car-movement tag-line-heading-home-page">
+            <div className="car">
+              <img
+                src={AnimatedCarImg}
+                alt="aboutUs"
+                className="animated-car-banner"
+              />
+            </div>
+          </div> */}
+
+          <div className="">
+            {/* <VideoPlayer videoUrl={AnimatedCarVideo} /> */}
+          </div>
+
           <CarCards />
+
           <div className="container pt-4 pb-4">
             <div className="car-brands-icons-container p-3">
-              <h2 className="offer-heading">
-                <b>Collaborated Top Brands:</b>
-              </h2>
-              <hr />
+              <div className="styled-label">
+                <div className="heading-icon-container-div">
+                  <BsPersonCircle className="mr-2 home-page-heading-icon" />
+                  <span>
+                    <b className="fs-3">Collaborated Top Brands:</b>
+                  </span>
+                </div>
+                <hr className="home-page-heading-underline " />
+              </div>
+
               <div
                 className="car-brands-slider-container"
                 onMouseEnter={handleMouseEnter}
@@ -90,10 +115,10 @@ const HomePage = () => {
             </div>
           </div>
 
-          <ClientLogoSection />
+          {/* <ClientLogoSection /> */}
           <AnimatedCarSection />
 
-          <section
+          {/* <section
             className=" elementor-element elementor-element-64ac772 leasing-milele-car-heading"
             data-id="64ac772"
             data-element_type="section"
@@ -150,7 +175,7 @@ const HomePage = () => {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
           <OurBlogs />
           <TestimonialSlider />
           <hr />

@@ -1,15 +1,21 @@
 import React from "react";
 import "./blogPage.css";
+import { BsPersonCircle } from "react-icons/bs";
 
 const OurBlogs = () => {
   return (
     <div>
       <section className="blog-area mt-4">
         <div className="container">
-          <h2 className="offer-heading pb-1">
-            Our Blogs
-            <hr className="col-2" style={{ border: "1px solid gray" }} />
-          </h2>
+        <div className="styled-label">
+          <div className="heading-icon-container-div">
+            <BsPersonCircle className="mr-2 home-page-heading-icon" />
+            <span>
+              <b className="fs-3">Our Blogs</b>
+            </span>
+          </div>
+          <hr className="home-page-heading-underline col-2" />
+        </div>
           <div className="row justify-content-center all-blogs-container p-3">
             <div className="col-lg-4 col-md-8 col-sm-10">
               <div className="single-blog blog-style-one">
