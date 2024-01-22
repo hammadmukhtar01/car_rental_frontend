@@ -64,11 +64,11 @@ const Carousel = () => {
         <MDBRow className="text-center offers-car-container-row">
           <MDBCol className="offers-car-div pb-4">
             <div className="offer-car-item p-3">
-              <div id={`hr-value-tag-1`}></div>
+              {/* <div id={`hr-value-tag-1`}></div>
               <div className="tilted-car-price">
                 <b>{car.discount}% Off</b>
               </div>
-              <div id={`hr-value-tag-2`}></div>
+              <div id={`hr-value-tag-2`}></div> */}
               <div className="car-image-container ">
                 <a href="/vehicles">
                   <img
@@ -85,17 +85,19 @@ const Carousel = () => {
                   {" "}
                   <b>{car.name}</b>{" "}
                 </p>
-                <div className="discount-container"></div>
               </div>
-              <div className="car-offers-container-submit-button d-flex justify-content-center">
-                <div className="col-xxl-6 col-lg-10 col-md-8 col-sm-6 col-6">
-                  <Button
-                    variant="primary"
-                    className="offer-button"
+              <div className="col-12 d-flex justify-content-center">
+                <div className="button-container">
+                  <button
+                    className="animated-button"
                     onClick={offersPageBookNowButton}
                   >
-                    Book Now
-                  </Button>
+                    <span className="button-text-span">
+                      <span className="transition"></span>
+                      <span className="gradient"></span>
+                      <span className="label">Rent Now</span>
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>

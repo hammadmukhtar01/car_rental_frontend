@@ -8,7 +8,7 @@
 }
 
 .vehiclePage-container {
-  background-color: rgb(237, 237, 237);
+  /* background-color: rgb(237, 237, 237); */
 }
 .csontainer {
   padding: 0px !important;
@@ -80,7 +80,7 @@
 }
 
 .pagination-item {
-  padding: 0 20px;
+  padding: 0 18px;
   height: 45px;
   text-align: center;
   margin: auto 10px;
@@ -104,9 +104,10 @@
 }
 
 .pagination-item:hover {
-  background-color: white;
+  background-color: rgb(228, 228, 228);
   color: black;
   cursor: pointer;
+  transform: scale(1.1);
 }
 
 .pagination-item.selected {
@@ -188,6 +189,38 @@
 .price-day-div {
   padding: 4px 8px;
   border-radius: 10px;
+}
+
+.value-del-line {
+  text-decoration-color: red;
+  color: #cc6119;
+}
+
+.per-specificDay-heading {
+  color: gray;
+}
+
+.AED-text {
+  text-decoration-color: red;
+  color: #cc6119;
+}
+
+.final-discounted-value-span {
+  color: green;
+}
+
+.price-per-specificDay-container:hover {
+  background: #dfdfdf;
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: 0.4s ease-in-out;
+}
+
+.price-per-specificDay-container:hover
+  .price-day-div
+  .card-text
+  .per-specificDay-heading {
+  color: black;
 }
 
 div.col-lg-4.col-md-4 {
@@ -272,16 +305,15 @@ span.select2-selection_arrow b {
 }
 
 .all-cars-section {
-  border: 1px solid rgb(184, 184, 184);
   border-radius: 6px;
   padding: 10px 20px;
-  background-color: rgb(231, 231, 231);
+  background-color: white;
 }
 
 .all-offer-cars {
-  border: 1px solid rgb(217, 217, 217);
+  /* border: 1px solid rgb(217, 217, 217); */
   border-radius: 4px;
-  background-color: white;
+  box-shadow: 4px 3px 12px #d3d3d3;
 }
 
 #hr-value-allcars-1 {
@@ -325,16 +357,21 @@ span.select2-selection_arrow b {
 
 .filters-section {
   padding: 5px 5px 20px 5px;
-  /* border: 1px solid #e1e1e1; */
   border-radius: 6px;
-  /* background-color: white; */
   height: fit-content;
 }
 
 .filters-heading {
-  color: #cc6119;
+  color: white;
   font-weight: 500;
   padding-top: 6px;
+  background-color: #cc6119;
+}
+
+.form-check-input[type="checkbox"] {
+  border-radius: 0px;
+  border: 1px solid #a9a9a9;
+  cursor: pointer;
 }
 
 .all-cars-heading {
@@ -350,6 +387,10 @@ span.select2-selection_arrow b {
 
 .car-features-vertical-line {
   color: #d0d0d0;
+}
+
+.all-offer-cars {
+  background-color: #f3f3f3;
 }
 
 @media screen and (max-width: 575px) {

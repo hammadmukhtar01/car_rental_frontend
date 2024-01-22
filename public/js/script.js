@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // Owlcarousel
 $(document).ready(function () {
   $(".owl-carousel").owlCarousel({

@@ -7,6 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.btn-close {
+  border: 1px solid rgb(175, 175, 175) !important;
+}
+
 .contact-buttons-container {
   position: fixed;
   bottom: 30px;
@@ -45,6 +49,10 @@ body {
   animation: identifier 1s ease-out infinite;
   border-radius: 50px;
   background: inherit;
+}
+
+.location-link {
+  box-shadow: none;
 }
 
 @keyframes identifier {

@@ -14,7 +14,7 @@ const AnimatedCarSection = () => {
       loop: true,
       margin: 10,
       nav: true,
-      // autoplay: true,
+      autoplay: true,
       autoplayTimeout: 3000,
       autoplayHoverPause: true,
       autoplaySpeed: 3000,
@@ -64,34 +64,36 @@ const AnimatedCarSection = () => {
     <div>
       <section id="slider" className="pt-5">
         <div className="container">
-          <h2 className="offer-heading pl-3">
-            <div className="location-label">
-              <div className="styled-label">
-                <BsPersonCircle className="mr-2 home-page-heading-icon" />
-                <b>Our Fleet Cars:</b>
-                <hr className="home-page-heading-underline col-3" />
+          <div className="bg-white">
+            <h2 className="offer-heading pl-3 bg-white">
+              <div className="location-label">
+                <div className="styled-label">
+                  <BsPersonCircle className="mr-2 home-page-heading-icon" />
+                  <b>Our Fleet Cars:</b>
+                  <hr className="home-page-heading-underline col-3" />
+                </div>
               </div>
-            </div>
-          </h2>
-          <div className="slider-container">
-            <div className="slider">
-              <div className="owl-carousel owl-carousel-main-container">
-                {imagesData.map((data, index) => (
-                  <div className="animated-imgs-container" key={index}>
-                    <div className="slider-card slider-imgs">
-                      <h2 className="text-center pt-3">{data.type}</h2>
-                      <div className="d-flex justify-content-center align-items-center mb-4">
-                        <a href="/vehicles">
-                          <img
-                            src={data.url}
-                            alt={`Slide ${index + 1}`}
-                            className="img-fluid slider-item pl-4"
-                          />
-                        </a>
+            </h2>
+            <div className="slider-container">
+              <div className="slider">
+                <div className="owl-carousel owl-carousel-main-container">
+                  {imagesData.map((data, index) => (
+                    <div className="animated-imgs-container" key={index}>
+                      <div className="slider-card slider-imgs">
+                        <h2 className="text-center pt-3">{data.type}</h2>
+                        <div className="d-flex justify-content-center align-items-center mb-4">
+                          <a href="/vehicles">
+                            <img
+                              src={data.url}
+                              alt={`Slide ${index + 1}`}
+                              className="img-fluid slider-item pl-4"
+                            />
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>

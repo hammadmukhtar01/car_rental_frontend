@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./otherPages.css";
-import MainNavbar from '../navbar/mainNavbar';
+import { FiPlus } from "react-icons/fi";
+import MainNavbar from "../navbar/mainNavbar";
 
 const FaqsPage = () => {
-
   const [activeIndex, setActiveIndex] = useState(null);
+
+  const [active, setActive] = useState(false);
+
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    contentRef.current.style.maxHeight = active
+      ? `${contentRef.current.scrollHeight}px`
+      : "0px";
+  }, [contentRef, active]);
+
+  const toggleAccordion = () => {
+    setActive(!active);
+  };
 
   const faqData = [
     {
@@ -72,53 +86,14 @@ const FaqsPage = () => {
     },
   ];
 
-
   const handleToggle = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
-  const imageGalleryData = [
-    {
-      id: 1,
-      title: "HYUNDAI ACCENT 1.4P AT MY2023 - WHITE",
-      thumbnailSrc: "Thumbnails/TN%20-%20ACCENT.jpg",
-      fullSizeSrc: "https://milelecarrental.com/Thumbnails/TN - ACCENT.jpg",
-      alt: "(LHD) HYUNDAI ACCENT 1.4P AT MY2023 - WHITE",
-    },
-    {
-      id: 2,
-      title: "NISSAN KICKS 1.6P AT MY2022 - BLACK",
-      thumbnailSrc: "Thumbnails/TN%20-%20KICKS.jpg",
-      fullSizeSrc: "https://milelecarrental.com/Thumbnails/TN - KICKS.jpg",
-      alt: "(LHD) NISSAN KICKS 1.6P AT MY2022 - BLACK",
-    },
-    {
-      id: 3,
-      title: "KIA PICANTO 1.2P AT MY2023 – SPARKLING SILVER",
-      thumbnailSrc: "Thumbnails/TN%20-%20PICANTO.jpg",
-      fullSizeSrc: "https://milelecarrental.com/Thumbnails/TN - PICANTO.jpg",
-      alt: "(LHD) KIA PICANTO 1.2P AT MY2023 – SPARKLING SILVER",
-    },
-    {
-      id: 4,
-      title: "Chevrolet Captiva Premier 7-Seater 1.5P AT MY2023",
-      thumbnailSrc: "Thumbnails/TN%20-%20CAPTIVA.jpg",
-      fullSizeSrc: "https://milelecarrental.com/Thumbnails/TN - CAPTIVA.jpg",
-      alt: "(LHD) Chevrolet Captiva Premier 7-Seater 1.5P AT MY2023",
-    },
-    {
-      id: 5,
-      title: "KIA K5 2.0P AT MY2023 – WHITE",
-      thumbnailSrc: "Thumbnails/TN%20-%20K5.jpg",
-      fullSizeSrc: "https://milelecarrental.com/Thumbnails/TN - K5.jpg",
-      alt: "(LHD) KIA K5 2.0P AT MY2023 – WHITE",
-    },
-  ];
-
   return (
     <>
       <div id="main" className="pb-5">
-      <div className="navbar-bg-img-container">
+        <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
             <MainNavbar />
@@ -177,7 +152,9 @@ const FaqsPage = () => {
                           <br />
                           {faqData.map((item, index) => (
                             <div
-                              className="elementor-accordion-item"
+                              className={`elementor-accordion-item ${
+                                activeIndex === index ? "active" : ""
+                              }`}
                               key={index}
                             >
                               <div
@@ -224,6 +201,36 @@ const FaqsPage = () => {
                               )}
                             </div>
                           ))}
+
+                          <div>
+                            <button
+                              className={`question-section ${active}`}
+                              onClick={toggleAccordion}
+                            >
+                              <div>
+                                <div className="question-align">
+                                  <h4 className="question-style">
+                                    Why do you like web developemnt
+                                  </h4>
+                                  <FiPlus
+                                    className={
+                                      active
+                                        ? `question-icon rotate`
+                                        : `question-icon`
+                                    }
+                                  />
+                                </div>
+                                <div
+                                  ref={contentRef}
+                                  className={
+                                    active ? `answer answer-divider` : `answer`
+                                  }
+                                >
+                                  <p>Because I love coding</p>
+                                </div>
+                              </div>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -247,50 +254,7 @@ const FaqsPage = () => {
                         </h4>
                       </div>
                     </div>
-                    <div
-                      className="elementor-element elementor-element-0c7defa elementor-hidden-tablet elementor-hidden-mobile elementor-widget elementor-widget-image-gallery"
-                      data-id="0c7defa"
-                      data-element_type="widget"
-                      data-widget_type="image-gallery.default"
-                    >
-                      <div className="elementor-widget-container">
-                        <div className="elementor-image-gallery">
-                          <div
-                            id="gallery-1"
-                            className="gallery galleryid-986 gallery-columns-3 gallery-size-thumbnail"
-                          >
-                            {imageGalleryData.map((imageData) => (
-                              <figure
-                                key={imageData.id}
-                                className="gallery-item"
-                              >
-                                <div className="gallery-icon landscape">
-                                  <a
-                                    data-elementor-open-lightbox="yes"
-                                    data-elementor-lightbox-slideshow="0c7defa"
-                                    data-elementor-lightbox-title="01"
-                                    data-e-action-hash={`#elementor-action%3Aaction%3Dlightbox%26settings%3DeyJpZCI6${imageData.id}`}
-                                    href={imageData.fullSizeSrc}
-                                  >
-                                    <img
-                                      loading="lazy"
-                                      width="150"
-                                      height="150"
-                                      src={imageData.thumbnailSrc}
-                                      className="attachment-thumbnail size-thumbnail"
-                                      alt={imageData.alt}
-                                      decoding="async"
-                                      srcSet={`${imageData.fullSizeSrc} 150w, ${imageData.fullSizeSrc} 120w, ${imageData.fullSizeSrc} 200w, ${imageData.fullSizeSrc} 300w, ${imageData.fullSizeSrc} 100w`}
-                                      sizes="(max-width: 150px) 100vw, 150px"
-                                    />
-                                  </a>
-                                </div>
-                              </figure>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+
                     <div
                       className="elementor-element elementor-element-cb13be4 elementor-widget elementor-widget-motors-single-listing-contact-info"
                       data-id="cb13be4"

@@ -13,8 +13,6 @@ import ClientLogoSection from "./ourClients";
 import { SiBmw } from "react-icons/si";
 import AnimatedCarImg from "../../images/bgImg3-removebg-preview.png";
 import { BsPersonCircle } from "react-icons/bs";
-import AnimatedCarVideo from "../../images/animateVideo2.mp4";
-import VideoPlayer from "./videoPlayer";
 
 const HomePage = () => {
   const carBrands = [
@@ -56,11 +54,11 @@ const HomePage = () => {
               <SiBmw className="y4 animated-img logo4" />
             </div> */}
           </div>
-          <div className="tag-line-heading-home-page">
+          {/* <div className="tag-line-heading-home-page">
             <h1 className="tag-line-heading-text">
               Drive Luxury Cars In Dubai <br /> Afforable Cars
             </h1>
-          </div>
+          </div> */}
 
           {/* <div className="car-movement tag-line-heading-home-page">
             <div className="car">
@@ -71,10 +69,6 @@ const HomePage = () => {
               />
             </div>
           </div> */}
-
-          <div className="">
-            {/* <VideoPlayer videoUrl={AnimatedCarVideo} /> */}
-          </div>
 
           <CarCards />
 

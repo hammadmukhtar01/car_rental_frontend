@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 
-const VideoPlayer = ({ videoUrl }) => {
+const VideoPlayer = ({ videoUrl, bgColor }) => {
   const playerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
 
@@ -10,7 +10,7 @@ const VideoPlayer = ({ videoUrl }) => {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', background: bgColor || '' }}>
       <ReactPlayer
         ref={playerRef}
         url={videoUrl}
@@ -18,8 +18,8 @@ const VideoPlayer = ({ videoUrl }) => {
         loop
         muted
         width="100%"
-        height="90%"
-        background="green"
+        height="50%"
+        style={{ position: 'relative', top: 83, left: 0 }}
       />
 
       <div
@@ -27,9 +27,6 @@ const VideoPlayer = ({ videoUrl }) => {
           position: 'absolute',
           top: 0,
           left: 0,
-          width: '100%',
-          height: '50%',
-          background: 'green',
           display: isPlaying ? 'none' : 'block',
         }}
       >

@@ -1,12 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  Modal,
-} from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Modal } from "react-bootstrap";
 import {
   BsPersonCircle,
   BsFillShieldLockFill,
@@ -329,7 +322,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 </Form.Group>
                               </Col>
                             ))}
-
                           </Row>
                         </div>
                       </Col>
@@ -340,7 +332,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                     </Row>
                   </div>
                 </div>
-                <Modal show={showModal} onHide={handleCloseModal} centered>
+                <Modal show={showModal} onHide={handleCloseModal} centered  size="lg">
                   <Modal.Header closeButton>
                     <Modal.Title>View Details</Modal.Title>
                   </Modal.Header>
@@ -388,7 +380,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 type="file"
                                 placeholder="driving license"
                                 value={driverDrivingLicense}
-                                onChange={(e) => setDriverDrivingLicense(e.target.value)}
+                                onChange={(e) =>
+                                  setDriverDrivingLicense(e.target.value)
+                                }
                               />
                             </Form.Group>
                           </Col>
@@ -406,7 +400,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 type="file"
                                 placeholder="passport number"
                                 value={driverPassport}
-                                onChange={(e) => setDriverPassport(e.target.value)}
+                                onChange={(e) =>
+                                  setDriverPassport(e.target.value)
+                                }
                               />
                             </Form.Group>
                           </Col>
@@ -419,13 +415,19 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               </div>
               <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
                 <Col lg={3} md={4} sm={6} xs={8}>
-                  <Button
-                    variant="primary"
-                    className="booking-text action-button next"
-                    onClick={nextStep}
-                  >
-                    Book and Pay
-                  </Button>
+                  <div className="button-container">
+                    <button
+                      className="animated-button booking-text action-button next"
+                      onClick={nextStep}
+                    >
+                      {" "}
+                      <span className="button-text-span">
+                      <span className="transition"></span>
+                      <span className="gradient"></span>
+                      <span className="label">Book & Pay</span>
+                    </span>
+                    </button>
+                  </div>
                 </Col>
               </div>
             </div>

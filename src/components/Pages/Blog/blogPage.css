@@ -1,20 +1,15 @@
-.all-blogs-container {
-  /* border: 1px solid rgb(225, 225, 225); */
-  /* background-color: rgb(177, 177, 177); */
-}
-
 .blog-style-one {
   margin-top: 20px;
   background-color: white;
   border: 1px solid #f3f3f3;
   border-radius: 10px;
-  margin-left: 7px;
-  margin-right: 7px;
+  margin-left: 18px;
+  margin-right: 18px;
 }
 
 .blog-style-one:hover {
   cursor: pointer;
-  transform: scale(1.1);
+  transform: scale(1.05);
   transition: transform 0.7s ease; 
 }
 

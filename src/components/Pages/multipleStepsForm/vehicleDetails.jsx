@@ -507,13 +507,19 @@ const VehicleDetails = ({ nextStep }) => {
               </div>
               <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
                 <Col lg={3} md={4} sm={6} xs={8}>
-                  <Button
-                    variant="primary"
-                    className="booking-text next"
-                    onClick={nextStep}
-                  >
-                    Start Booking
-                  </Button>
+                  <div className="button-container">
+                    <button
+                      className="animated-button booking-text next"
+                      onClick={nextStep}
+                    >
+                      {" "}
+                      <span className="button-text-span">
+                      <span className="transition"></span>
+                      <span className="gradient"></span>
+                      <span className="label">Start Booking</span>
+                    </span>
+                    </button>
+                  </div>
                 </Col>
               </div>
             </div>

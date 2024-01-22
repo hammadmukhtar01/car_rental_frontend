@@ -310,7 +310,7 @@ const VehiclesPage = () => {
                     md={12}
                     sm={12}
                     xs={12}
-                    className="all-cars-search-box-container "
+                    className="all-cars-search-box-container pb-4"
                   >
                     <Row>
                       <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
@@ -450,6 +450,25 @@ const VehiclesPage = () => {
                           </div>
                         </Form.Group>
                       </Col>
+                      <Col
+                        xxl={2}
+                        lg={2}
+                        md={4}
+                        sm={6}
+                        xs={6}
+                        className="d-flex align-items-end mt-3 "
+                      >
+                        <div className="button-container">
+                          <button className="animated-button">
+                            {" "}
+                            <span className="button-text-span">
+                              <span className="transition"></span>
+                              <span className="gradient"></span>
+                              <span className="label">Search</span>
+                            </span>
+                          </button>
+                        </div>
+                      </Col>
                     </Row>
                   </Col>
                 </Row>
@@ -470,17 +489,17 @@ const VehiclesPage = () => {
           <Container fluid className="all-cars-container pb-4">
             <Row>
               <Col xxl={3} lg={3} md={4} className="filters-section">
-                <div className="bg-white">
+                <div className="">
                   <h3 className="filters-heading text-center pt-3">
                     <b>
                       Filters: <hr style={{ opacity: "1" }} />
                     </b>
                   </h3>
                 </div>
-                <div className="card search-filters-card m-1">
+                <div className="card search-filters-card">
                   <article className="card-group-item">
                     <div className="car-model-label">
-                      <header className="card-header styled-label">
+                      <header className="card-header styled-label pt-3 pb-3">
                         <BsCarFrontFill className="mr-2" />
                         <b>Car Brand</b>
                       </header>
@@ -510,7 +529,7 @@ const VehiclesPage = () => {
                   </article>
                   <article className="card-group-item">
                     <div className="location-label">
-                      <header className="card-header styled-label title">
+                      <header className="card-header styled-label title pt-3 pb-3">
                         <BsJustify className="mr-2" />
                         <b>Car Type</b>
                       </header>
@@ -540,7 +559,7 @@ const VehiclesPage = () => {
                   </article>
                   <article className="card-group-item">
                     <div className="location-label">
-                      <header className="card-header styled-label">
+                      <header className="card-header styled-label pt-3 pb-3">
                         <BsTags className="mr-2" />
                         <b>Price Range</b>
                       </header>
@@ -609,10 +628,10 @@ const VehiclesPage = () => {
                   </Row>
 
                   <>
-                    <h4 className="pt-4 pb-2 all-cars-heading">
+                    <h3 className="pt-4 pb-2 all-cars-heading">
                       All Cars
                       <hr />
-                    </h4>
+                    </h3>
                     <Row className="offers-car-container-row">
                       {currentTableData.map((car, index) => (
                         <Col
@@ -624,15 +643,6 @@ const VehiclesPage = () => {
                           className="offers-car-div pb-5"
                         >
                           <div className="all-offer-cars p-3">
-                            {car.discount > 0 && (
-                              <>
-                                <div id={`hr-value-allcars-1`}></div>
-                                <div className="offer-car-price">
-                                  <b>{car.discount}% Off</b>
-                                </div>
-                                <div id={`hr-value-allcars-2`}></div>
-                              </>
-                            )}
                             <div className="car-name-div">
                               <span className="car-name text-end">
                                 {" "}
@@ -677,35 +687,22 @@ const VehiclesPage = () => {
                                         key={index}
                                         className="col-xxl-6 col-lg-8 col-md-6 col-sm-6 col-8 pt-2"
                                       >
-                                        <div className="card">
+                                        <div className="card price-per-specificDay-container">
                                           <div className="card-body price-day-div">
                                             <div className="card-text">
-                                              <span style={{ color: "gray" }}>
+                                              <span className="per-specificDay-heading">
                                                 Per {duration}
                                               </span>
                                               <br />
                                               {car.discount > 0 && (
                                                 <>
-                                                  <del
-                                                    style={{
-                                                      textDecorationColor:
-                                                        "red",
-                                                      color: "#cc6119",
-                                                    }}
-                                                  >
+                                                  <del className="value-del-line">
                                                     {car.originalPrice *
                                                       durationValues[
                                                         index
                                                       ]}{" "}
                                                   </del>{" "}
-                                                  <span
-                                                    className="AED"
-                                                    style={{
-                                                      textDecorationColor:
-                                                        "red",
-                                                      color: "#cc6119",
-                                                    }}
-                                                  >
+                                                  <span className="AED-text">
                                                     AED
                                                   </span>{" "}
                                                 </>
@@ -715,7 +712,7 @@ const VehiclesPage = () => {
                                                   <span className="p-1 mr-2"></span>
                                                 </>
                                               )}
-                                              <span style={{ color: "green" }}>
+                                              <span className="final-discounted-value-span">
                                                 {calculateSalePrice(
                                                   car.originalPrice,
                                                   car.discount
@@ -733,7 +730,7 @@ const VehiclesPage = () => {
                               </>
                             )}
                             <div className="d-flex justify-content-center">
-                              <div className="col-xxl-10 col-lg-10 col-md-12 col-sm-8 col-10">
+                              <div className="col-xxl-10 col-lg-10 col-md-12 col-sm-8 col-10 d-flex justify-content-center">
                                 {car.days > 0 ? (
                                   <>
                                     <Button
@@ -752,13 +749,20 @@ const VehiclesPage = () => {
                                   </>
                                 ) : (
                                   <>
-                                    <Button
-                                      variant="primary"
-                                      className="book-now-button"
-                                      onClick={allCarsBookingButton}
-                                    >
-                                      Book Now
-                                    </Button>
+                                    <div className="button-container">
+                                      <button
+                                        className="animated-button"
+                                        onClick={allCarsBookingButton}
+                                      >
+                                        <span className="button-text-span">
+                                          <span className="transition"></span>
+                                          <span className="gradient"></span>
+                                          <span className="label">
+                                            Rent Now
+                                          </span>
+                                        </span>
+                                      </button>
+                                    </div>
                                   </>
                                 )}
                               </div>

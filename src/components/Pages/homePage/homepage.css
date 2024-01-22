@@ -232,7 +232,7 @@
   padding: 10px 20px;
   box-shadow: 3px 1px 9px #535353;
   background-color: rgb(239, 238, 235, 0.4);
-  margin: 10px 10px 210px 10px;
+  margin: 10px 10px 150px 10px;
 }
 .search-box-container:hover {
   /* background-color: rgba(248, 248, 248, 0.6); */
@@ -243,10 +243,11 @@
 }
 
 .all-cars-search-box-container {
-  border: 1px solid rgb(184, 184, 184);
+  /* border: 1px solid rgb(184, 184, 184); */
   border-radius: 6px;
   padding: 10px 20px;
-  background-color: rgb(239, 238, 235);
+  background-color: white;
+  box-shadow: 2px 1px 18px #a39f9f;
 }
 
 .total-days {
@@ -450,7 +451,7 @@ html {
   overflow: visible !important; /* You can try with "visible" */
 }
 .owl-carousel .owl-item.active.center .slider-card {
-  box-shadow: 2px 5px 12px #cc6119;
+  box-shadow: 1px 1px 12px #cc6119;
 }
 
 .owl-carousel .owl-item img {
@@ -468,7 +469,7 @@ html {
 }
 .slider-card {
   padding: 0px 0px;
-  margin: 30px 5px 5px 5px;
+  margin: 30px 5px 40px 5px;
   border-radius: 5px;
   /* box-shadow: 0 15px 45px -20px rgb(0 0 0 / 73%); */
   transform: scale(0.75);
@@ -483,7 +484,7 @@ html {
 .owl-nav .owl-prev {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 10px;
   opacity: 1;
   font-size: 30px !important;
   z-index: 1;
@@ -492,7 +493,7 @@ html {
 .owl-nav .owl-next {
   position: absolute;
   top: 50%;
-  right: 0;
+  right: 10px;
   opacity: 1;
   font-size: 30px !important;
   z-index: 1;

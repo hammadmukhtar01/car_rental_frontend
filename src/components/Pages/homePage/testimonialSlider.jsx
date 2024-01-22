@@ -108,25 +108,25 @@ const Carousel = () => {
   return (
     <div className="testimonial-container pt-5">
       <div className="container">
-        <div className="styled-label">
+        <div className="styled-label ml-4">
           <div className="heading-icon-container-div">
             <BsPersonCircle className="mr-2 home-page-heading-icon" />
             <span>
-              <b className="fs-3">Our Clients Say?</b>
+              <b className="fs-3">Testimonials</b>
             </span>
           </div>
-          <hr className="home-page-heading-underline col-3" />
+          <hr className="home-page-heading-underline col-2" />
         </div>
         <AliceCarousel
           mouseTracking
           items={testimonials.map(generateTestimonialItem)}
           responsive={responsive}
           controlsStrategy="alternate"
-          // infinite
+          infinite
           disableDotsControls
-          // autoPlay
-          // autoPlayInterval="2000"
-          // animationDuration="1500"
+          autoPlay
+          autoPlayInterval="2000"
+          animationDuration="1500"
         />
       </div>
     </div>
@@ -134,3 +134,14 @@ const Carousel = () => {
 };
 
 export default Carousel;
+
+
+
+
+
+
+
+
+
+
+
