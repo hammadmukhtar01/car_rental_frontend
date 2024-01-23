@@ -10,7 +10,7 @@
 .blog-style-one:hover {
   cursor: pointer;
   transform: scale(1.05);
-  transition: transform 0.7s ease; 
+  transition: transform 0.7s ease;
 }
 
 .blog-style-one .blog-image {
@@ -106,4 +106,11 @@
 .category:hover {
   background-color: white !important;
   color: black !important;
+}
+
+.alice-carousel__prev-btn-wrapper {
+  margin: 1px -12px;
+}
+.alice-carousel__next-btn-wrapper {
+  margin: 1px -12px;
 }

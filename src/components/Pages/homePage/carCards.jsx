@@ -59,7 +59,7 @@ const Carousel = () => {
   };
 
   const generateTestimonialItem = (car) => (
-    <div key={car.name} className="item">
+    <div key={car.name} className="item container">
       <MDBContainer className="p-2">
         <MDBRow className="text-center offers-car-container-row">
           <MDBCol className="offers-car-div pb-4">

@@ -167,7 +167,7 @@
 }
 
 .car-brands-slider {
-  display: inline-flex; 
+  display: inline-flex;
   animation: slide infinite linear 15s;
 }
 
@@ -176,7 +176,6 @@
 }
 
 .car-brand {
-
   width: 120px;
   height: 100px;
   display: flex;
@@ -345,10 +344,14 @@
 
 .car-image {
   width: 100%;
-  /* height: 80%; */
   object-fit: contain;
   border-radius: 6px;
+  /* height: 80%; */
   /* margin: 60px 0px 10px 0px; */
+}
+
+.car-image:hover {
+  cursor: pointer;
 }
 
 .offer-car-item {
@@ -448,14 +451,42 @@ html {
 }
 
 .owl-carousel .owl-stage-outer {
-  overflow: visible !important; /* You can try with "visible" */
+  overflow: visible !important;
 }
 .owl-carousel .owl-item.active.center .slider-card {
-  box-shadow: 1px 1px 12px #cc6119;
+  /* box-shadow: 1px 1px 12px #cc6119; */
+  /* border: 1px solid rgb(194, 194, 194); */
+  box-shadow: 1px 1px 16px rgba(186, 186, 186, 0.8);
 }
 
+/* .owl-carousel .owl-item.active.center .slider-card:before {
+  position: absolute;
+  right: 80px;
+  bottom: 5px;
+  width: 100%;
+  height: 37%;
+  border-radius: 0 10% 0 0;
+  z-index: -1;
+  content: "";
+  box-shadow: 86px 0 17px rgba(0,0,0,0.33);
+  -webkit-transform: skew(-36deg);
+  -moz-transform: skew(-36deg);
+  -ms-transform: skew(-36deg);
+  -o-transform: skew(-36deg);
+  transform: skew(-36deg);
+  -webkit-transform-origin: 0% 100%;
+  -moz-transform-origin: 0% 100%;
+  -ms-transform-origin: 0% 100%;
+  -o-transform-origin: 0% 100%;
+  transform-origin: 0% 100%;
+} */
+
 .owl-carousel .owl-item img {
-  width: 90% !important;
+  width: 80% !important;
+}
+
+.animated-car-anchor-tag {
+  display: contents;
 }
 
 .slider {
@@ -659,6 +690,14 @@ option:disabled {
   border: 1px solid rgb(197, 197, 197);
 }
 
+.alice-carousel__prev-btn {
+  margin-left: -25px;
+}
+
+.alice-carousel__next-btn {
+  margin-left: 40px;
+}
+
 @media screen and (max-width: 576px) {
   .custom-dropdown {
     width: 100%;
@@ -670,6 +709,13 @@ option:disabled {
   .dropoff-locations-button-col {
     display: inline !important;
   }
+  .alice-carousel__prev-btn {
+    margin-left: -10px;
+  }
+
+  .alice-carousel__next-btn {
+    margin-left: -7px;
+  }
 }
 @media screen and (min-width: 576px) and (max-width: 767px) {
   .custom-dropdown {
@@ -678,11 +724,25 @@ option:disabled {
   .submit-button {
     margin-top: 15px;
   }
+  .alice-carousel__prev-btn {
+    margin-left: -20px;
+  }
+
+  .alice-carousel__next-btn {
+    margin-left: 35px;
+  }
 }
 
 @media screen and (min-width: 767px) and (max-width: 991px) {
   .custom-dropdown {
     width: 284%;
+  }
+  .alice-carousel__prev-btn {
+    margin-left: -20px;
+  }
+
+  .alice-carousel__next-btn {
+    margin-left: 30px;
   }
 }
 
@@ -692,13 +752,13 @@ option:disabled {
   }
   .alice-carousel__next-btn {
     text-align: right !important;
-    width: 42% !important;
+    width: 85% !important;
   }
 }
 
 @media screen and (max-width: 991px) {
   .alice-carousel__next-btn {
     text-align: right !important;
-    width: 45% !important;
+    width: 93% !important;
   }
 }

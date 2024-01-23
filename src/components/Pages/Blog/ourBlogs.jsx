@@ -46,12 +46,13 @@ const OurBlogs = () => {
 
   const generateBlogItem = (blogData) => (
     <div key={blogData.id} className="item">
-      <div className="single-blog blog-style-one">
+      <div className="container">
+      <div className="single-blog blog-style-one ">
         <div className="blog-image">
           <a href={`##${blogData.id}`}>
             <img src={blogData.imageUrl} alt="Blog" />
           </a>
-          <a href={`##${blogData.id}`} className="category">
+          <a href={`##${blogData.id}`} className="category ">
             {blogData.category}
           </a>
         </div>
@@ -67,6 +68,7 @@ const OurBlogs = () => {
             READ MORE
           </a>
         </div>
+      </div>
       </div>
     </div>
   );

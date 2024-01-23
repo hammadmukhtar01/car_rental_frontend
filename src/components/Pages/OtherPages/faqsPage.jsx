@@ -128,7 +128,7 @@ const FaqsPage = () => {
                           <div className="elementor-widget-container">
                             <center>
                               <h3>
-                                <strong>FREQUENTLY ASKED QUESTIONS</strong>
+                                <strong>FREQUENTLY ASKED QUESTIONS!</strong>
                               </h3>
                             </center>
                             <div
