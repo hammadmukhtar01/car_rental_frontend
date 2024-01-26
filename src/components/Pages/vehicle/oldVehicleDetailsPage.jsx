@@ -138,9 +138,7 @@ const VehicleDetailsPage = () => {
 
   return (
     <div>
-      <div
-        className="vehicelDetail-main-container"
-      >
+      <div className="vehicelDetail-main-container">
         <div className="main-container p-4">
           <section className="wpb-content-wrapper">
             <div className="row">
@@ -238,75 +236,67 @@ const VehicleDetailsPage = () => {
                           ))}
                         </div>
 
-
-
-
-
-
                         <div className="price-booking-button-div col-lg-12">
-                        <div className="">
-                          <div className="booking-price-evaluation">
-                            {data && data.additionalCharges && (
-                              <>
-                                {data.additionalCharges.map((charge) => (
-                                  <div
-                                    key={charge._id}
-                                    className="price-row"
-                                    style={{ lineHeight: "300%" }}
-                                  >
-                                    <span className="price-label">
-                                      {charge.name}:
-                                    </span>
-                                    <span className="price-value">
-                                      AED | {`${charge.value}`}
-                                    </span>
-                                  </div>
-                                ))}
-                                <hr />
-                              </>
-                            )}
-                            <div
-                              className="total-price-row"
-                              style={{ lineHeight: "100%", fontSize: "16px" }}
-                            >
-                              <span className="price-label">Total Price:</span>
-                              <span className="price-value">
-                                <b>AED | {calculateTotalPrice()}</b>
-                              </span>{" "}
+                          <div className="">
+                            <div className="booking-price-evaluation">
+                              {data && data.additionalCharges && (
+                                <>
+                                  {data.additionalCharges.map((charge) => (
+                                    <div
+                                      key={charge._id}
+                                      className="price-row"
+                                      style={{ lineHeight: "300%" }}
+                                    >
+                                      <span className="price-label">
+                                        {charge.name}:
+                                      </span>
+                                      <span className="price-value">
+                                        AED | {`${charge.value}`}
+                                      </span>
+                                    </div>
+                                  ))}
+                                  <hr />
+                                </>
+                              )}
+                              <div
+                                className="total-price-row"
+                                style={{ lineHeight: "100%", fontSize: "16px" }}
+                              >
+                                <span className="price-label">
+                                  Total Price:
+                                </span>
+                                <span className="price-value">
+                                  <b>AED | {calculateTotalPrice()}</b>
+                                </span>{" "}
+                              </div>
+                              <hr />
                             </div>
-                            <hr />
-                          </div>
 
-                          <div className="booking-wishlist-button">
-                            {buttonShown === "available" ? (
-                              <div className="col-lg-12 col-md-12">
-                                <button
-                                  className="btn btn-primary"
-                                  onClick={() => handleBooking(data.id)}
-                                >
-                                 Started Booking{" "}
-                                </button>
-                              </div>
-                            ) : (
-                              <div className="col-lg-12 col-md-12">
-                                <Link
-                                  to="/wishlist"
-                                  className="btn btn-primary"
-                                >
-                                  <b>Add to Wishlist</b>
-                                </Link>
-                              </div>
-                            )}
+                            <div className="booking-wishlist-button">
+                              {buttonShown === "available" ? (
+                                <div className="col-lg-12 col-md-12">
+                                  <button
+                                    className="btn btn-primary"
+                                    onClick={() => handleBooking(data.id)}
+                                  >
+                                    Started Booking{" "}
+                                  </button>
+                                </div>
+                              ) : (
+                                <div className="col-lg-12 col-md-12">
+                                  <Link
+                                    to="/wishlist"
+                                    className="btn btn-primary"
+                                  >
+                                    <b>Add to Wishlist</b>
+                                  </Link>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
-
-
-                        
-                      </div>
                       <br />
-
-                     
                     </div>
 
                     <div
@@ -413,7 +403,7 @@ const VehicleDetailsPage = () => {
                         </div>
                       </div>
                     </div>
-<br />
+                    <br />
                     <div>
                       <h2>Location</h2>
                       <a

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FaPhone, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 import { Modal } from "react-bootstrap";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 const FixedNumLocButtons = () => {
   const phoneNumber = "+971508805974";
@@ -19,20 +18,6 @@ const FixedNumLocButtons = () => {
   const openMapModal = () => {
     setShowModal(true);
   };
-
-  // const handleMapClick = () => {
-  //   window.open(mapLink, "_blank");
-  // };
-
-  const mapContainerStyle = {
-    width: "100%",
-    height: "300px",
-  };
-
-  // const center = {
-  //   lat: latitude,
-  //   lng: longitude,
-  // };
 
   return (
     <div className="contact-buttons-container">

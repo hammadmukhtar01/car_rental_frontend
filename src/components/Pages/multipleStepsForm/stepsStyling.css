@@ -49,6 +49,12 @@ h4 {
   border-right: 8px solid black;
 }
 
+.car-prices-details-container {
+  border-color: rgb(216, 216, 216);
+  border-style: solid;
+  border-width: 0px 0px 0px 1px;
+}
+
 .booking-detail-heading {
   font-weight: 700;
   color: #cc6119;
@@ -140,7 +146,7 @@ h4 {
 }
 
 .car-features-text-2 {
-  font-size: 13px;
+  font-size: 14px;
   text-align: center;
 }
 
@@ -169,7 +175,7 @@ h4 {
 }
 
 .car-description-text-2 {
-  font-size: 13px;
+  font-size: 14px;
   padding: 10px;
   /* max-height: 110px; */
   /* overflow-y: auto; */
@@ -211,7 +217,7 @@ h4 {
   background-color: #f7e2d5;
 }
 
-.add-on-icon{
+.add-on-icon {
   padding: 7px;
   border-radius: 6px;
   width: 40px;
@@ -253,7 +259,7 @@ h4 {
 
 .button--submit {
   min-height: 50px;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   border: none;
   box-shadow: none;
   border-radius: 0 6px 6px 0;
@@ -261,7 +267,7 @@ h4 {
   color: #fff;
   font-size: 15px;
   cursor: pointer;
-  transition: background-color .3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .button--submit:hover {
@@ -277,7 +283,6 @@ h4 {
   background-color: rgba(206, 2, 2, 0.809);
   box-shadow: none;
 }
-
 
 .modal-overlay {
   position: fixed;
@@ -313,5 +318,10 @@ h4 {
   background-color: #d19268;
 }
 
+@media screen and (max-width: 991px) {
+  .car-prices-details-container {
+    border: none;
+  }
+  
+}
 
-    

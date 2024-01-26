@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { BsCpu, BsPerson, BsSuitcase } from "react-icons/bs";
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
@@ -255,7 +255,7 @@ const VehicleDetails = ({ nextStep }) => {
 
                         <div className="car-features-description-main-div2 p-2">
                           <div className="features-sub-div">
-                            <span className="car-features-div2-heading">
+                            <span className="car-features-div2-heading fw-bolder">
                               Car Features:{" "}
                             </span>
                             <div className="car-features-text-2">
@@ -266,7 +266,7 @@ const VehicleDetails = ({ nextStep }) => {
                           <br />
                           <div className="car-description-div">
                             <div className="car-description-div2-heading m-2">
-                              Description:{" "}
+                             <b> Description:{" "}</b>
                             </div>
                             <hr className="hr-line-heading-scroll" />
 

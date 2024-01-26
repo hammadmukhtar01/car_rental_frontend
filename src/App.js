@@ -15,7 +15,7 @@ import AboutusPage from "./components/Pages/OtherPages/aboutusPage";
 import CustomerBookingPage from "./components/customerDashboard/myBookingDetails";
 import VerificationForm from "./components/Pages/multipleStepsForm/multipleStepsForm";
 import FixedNumLocButtons from "./components/Pages/navbar/locationNumberIcons";
-import MainNavbar from "./components/Pages/navbar/mainNavbar";
+// import MainNavbar from "./components/Pages/navbar/mainNavbar";
 
 function App() {
   return (
@@ -23,7 +23,9 @@ function App() {
       <div className="App">
         <div className="top-page-horizontal-line">
           <span className="top-horizontal-line-text">
-            22 years of successfull record
+            Velit esse
+            quod, eius dolorem, asperiores iure, consectetur vel sed
+            praesentium facilis.
           </span>
         </div>
         {/* <span class="loader"></span> */}

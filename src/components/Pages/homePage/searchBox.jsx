@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Row, Col, Form } from "react-bootstrap";
 import {
   BsGeoAltFill,
@@ -12,6 +12,8 @@ import DropoffLocationDropdown from "./dropoffSearchBoxDropDown";
 import MainNavbar from "../navbar/mainNavbar";
 import AnimatedCarVideo from "../../images/noBgVideo3.webm";
 import VideoPlayer from "./videoPlayer";
+import { DateRange } from "react-date-range";
+import { LuSearch } from "react-icons/lu";
 
 const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");
@@ -29,6 +31,15 @@ const SearchBox = () => {
     useState("Deliver");
   const [selectedDropOffOptionButton, setSelectedDropOffOptionButton] =
     useState("CompanyDropOff");
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
 
   const cityNames = useMemo(() => ["Sharja", "Dubai", "Burjman"], []);
 
@@ -68,6 +79,47 @@ const SearchBox = () => {
     setSelectedDropOffOptionButton(option);
   };
 
+  const dateInputRef = useRef(null);
+
+  const handleDateClick = () => {
+    setShowDatePicker(true);
+  };
+
+  const handleDateChange = (ranges) => {
+    const { startDate, endDate } = ranges.selection;
+
+    const pickupDate = startDate ? startDate.toLocaleDateString() : null;
+    const dropoffDate = endDate ? endDate.toLocaleDateString() : null;
+
+    setPickUpDate(pickupDate);
+    setDropOffDate(dropoffDate);
+
+    console.log("Pickup Date:", pickupDate);
+    console.log("Dropoff Date:", dropoffDate);
+
+    setDateRange([ranges.selection]);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      console.log("Clicked outside");
+      if (
+        showDatePicker &&
+        dateInputRef.current &&
+        !dateInputRef.current.contains(event.target)
+      ) {
+        console.log("Closing datepicker");
+        setShowDatePicker(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [showDatePicker]);
+
   return (
     <>
       <div className="bg-img-container ">
@@ -77,7 +129,48 @@ const SearchBox = () => {
             <Row>
               <Col>
                 <Row>
-                  <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
+                  <Col xxl={3} lg={3} md={7} sm={6} xs={12}>
+                    <Form.Group controlId="formDropoffDateTime">
+                      <div className="date-label">
+                        <label className="styled-label">
+                          <BsCalendar2Check className="mr-2" />
+                          <b>Pickup-Dropoff Date</b>
+                        </label>
+                      </div>
+                      <div onClick={handleDateClick} ref={dateInputRef}>
+                        <input
+                          className="form-control-date mt-2 col-12"
+                          type="text"
+                          value={
+                            dateRange[0].startDate
+                              ? `${dateRange[0].startDate.toLocaleDateString()} - ${
+                                  dateRange[0].endDate
+                                    ? dateRange[0].endDate.toLocaleDateString()
+                                    : "Select end date"
+                                }`
+                              : "Select date range"
+                          }
+                          readOnly
+                        />
+                      </div>
+                      {showDatePicker && (
+                        <div onClick={(e) => e.stopPropagation()}>
+                          <DateRange
+                            editableDateInputs={true}
+                            onChange={handleDateChange}
+                            moveRangeOnFirstSelection={false}
+                            ranges={dateRange}
+                            disabledDay={(date) =>
+                              date < new Date().setHours(0, 0, 0, 0)
+                            }
+                            onClose={() => setShowDatePicker(false)}
+                          />
+                        </div>
+                      )}
+                    </Form.Group>
+                  </Col>
+
+                  <Col xxl={2} lg={2} md={5} sm={6} xs={12}>
                     <Form.Group controlId="formKeyword">
                       <div className="location-label">
                         <label className="styled-label">
@@ -110,24 +203,7 @@ const SearchBox = () => {
                     </Form.Group>
                   </Col>
 
-                  <Col xxl={2} lg={3} md={5} sm={6} xs={12}>
-                    <Form.Group controlId="formPickupDateTime">
-                      <div className="date-label">
-                        <label className="styled-label">
-                          <BsCalendar2Check className="mr-2" />
-                          <b>Pickup Date</b>
-                        </label>
-                      </div>
-                      <input
-                        className="form-control-date mt-2 col-12"
-                        type="date"
-                        min={getCurrentDateTime()}
-                        value={pickUpDate}
-                        onChange={(e) => setPickUpDate(e.target.value)}
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
+                  <Col xxl={2} lg={2} md={3} sm={6} xs={6}>
                     <Form.Group controlId="formPickupDateTime">
                       <div className="date-label">
                         <label className="styled-label">
@@ -144,25 +220,7 @@ const SearchBox = () => {
                     </Form.Group>
                   </Col>
 
-                  <Col xxl={2} lg={3} md={5} sm={6} xs={12}>
-                    <Form.Group controlId="formDropoffDateTime">
-                      <div className="date-label">
-                        <label className="styled-label">
-                          <BsCalendar4Week className="mr-2" />
-                          <b>Dropoff Date</b>
-                        </label>
-                      </div>
-                      <input
-                        className="form-control-date mt-2 col-12"
-                        type="date"
-                        min={pickUpDate}
-                        value={dropOffDate}
-                        onChange={(e) => setDropOffDate(e.target.value)}
-                      />
-                    </Form.Group>
-                  </Col>
-
-                  <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
+                  <Col xxl={2} lg={2} md={3} sm={6} xs={6}>
                     <Form.Group controlId="formDropoffDateTime">
                       <div className="date-label">
                         <label className="styled-label">
@@ -178,8 +236,7 @@ const SearchBox = () => {
                       />
                     </Form.Group>
                   </Col>
-
-                  <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
+                  <Col xxl={2} lg={2} md={4} sm={6} xs={12}>
                     <Form.Group controlId="formLocation">
                       <div className="location-label">
                         <label className="styled-label">
@@ -213,32 +270,20 @@ const SearchBox = () => {
                       </div>
                     </Form.Group>
                   </Col>
-
-                  <Col
-                    xxl={4}
-                    lg={4}
-                    md={4}
-                    sm={12}
-                    xs={12}
-                    className="d-flex align-items-end mt-3"
-                  >
+                  <Col className="d-flex align-items-end mt-3 ">
                     <div className="button-container">
-                      <button className="animated-button">
+                      <button className="animated-search-button">
+                        {" "}
                         <span className="button-text-span">
                           <span className="transition"></span>
                           <span className="gradient"></span>
-                          <span className="label">Search</span>
+                          <span className="label">
+                            {" "}
+                            <LuSearch />{" "}
+                          </span>
                         </span>
                       </button>
                     </div>
-                  </Col>
-                  <Col className="mt-2 d-flex align-items-end justify-content-end">
-                    {numberOfDays > 0 && (
-                      <span className="rental-period-label">
-                        <span>Rental Period:</span>{" "}
-                        <span className="total-days">{numberOfDays}</span>
-                      </span>
-                    )}
                   </Col>
                 </Row>
               </Col>

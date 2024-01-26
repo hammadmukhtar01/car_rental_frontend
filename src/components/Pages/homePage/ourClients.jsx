@@ -1,5 +1,5 @@
 import React from "react";
-import './ourClients.css';
+import "./ourClients.css";
 
 const clientLogos = [
   "https://cdn.ayroui.com/1.0/images/client-logo/graygrids.svg",
@@ -9,6 +9,7 @@ const clientLogos = [
 ];
 
 const ClientLogoSection = () => {
+  
   return (
     <section className="client-logo-area client-logo-one">
       <div className="section-title-two">
@@ -17,7 +18,9 @@ const ClientLogoSection = () => {
             <div className="col-12">
               <div className="content">
                 <span> Our Partners </span>
-                <h2 className="fw-bold">Our Awesome Clients</h2>
+                <div className="animated-text ">
+                  <h2 className="fw-bold">Our Awesome Clients</h2>
+                </div>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit sed
                   do eiusmod tempor incididunt ut labore aliqua.

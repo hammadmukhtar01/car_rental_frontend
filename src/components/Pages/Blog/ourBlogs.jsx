@@ -5,7 +5,6 @@ import { BsPersonCircle } from "react-icons/bs";
 import "./blogPage.css";
 
 const OurBlogs = () => {
-  
   const blogsData = [
     {
       id: 1,
@@ -47,28 +46,28 @@ const OurBlogs = () => {
   const generateBlogItem = (blogData) => (
     <div key={blogData.id} className="item">
       <div className="container">
-      <div className="single-blog blog-style-one ">
-        <div className="blog-image">
-          <a href={`##${blogData.id}`}>
-            <img src={blogData.imageUrl} alt="Blog" />
-          </a>
-          <a href={`##${blogData.id}`} className="category ">
-            {blogData.category}
-          </a>
+        <div className="single-blog blog-style-one">
+          <div className="blog-image">
+            <a href={`##${blogData.id}`}>
+              <img src={blogData.imageUrl} alt="Blog" />
+            </a>
+            <a href={`##${blogData.id}`} className="category ">
+              {blogData.category}
+            </a>
+          </div>
+          <div className="blog-content">
+            <h5 className="blog-title">
+              <a href={`##${blogData.id}`}>{blogData.title}</a>
+            </h5>
+            <span>
+              <i className="lni lni-calendar"></i> {blogData.date}
+            </span>
+            <p className="text">{blogData.text}</p>
+            <a className="more" href={`##${blogData.id}`}>
+              READ MORE
+            </a>
+          </div>
         </div>
-        <div className="blog-content">
-          <h5 className="blog-title">
-            <a href={`##${blogData.id}`}>{blogData.title}</a>
-          </h5>
-          <span>
-            <i className="lni lni-calendar"></i> {blogData.date}
-          </span>
-          <p className="text">{blogData.text}</p>
-          <a className="more" href={`##${blogData.id}`}>
-            READ MORE
-          </a>
-        </div>
-      </div>
       </div>
     </div>
   );

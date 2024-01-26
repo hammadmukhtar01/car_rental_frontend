@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { Container, Row, Col, Form, Button, Modal } from "react-bootstrap";
 import {
   BsGeoAltFill,
   BsGeoAlt,
   BsCalendar2Check,
-  BsCalendar4Week,
   BsCarFrontFill,
   BsJustify,
   BsTags,
@@ -13,14 +12,15 @@ import {
   BsSuitcase,
 } from "react-icons/bs";
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
-import { LuSnowflake } from "react-icons/lu";
+import { LuSnowflake, LuSearch } from "react-icons/lu";
 import "./vehicleDetails.css";
 import Car1 from "../../images/car1.jpg";
-import PickupLocationDropdown from "../homePage/pickupSearchBoxDropDown";
+import PickupLocationModal from "../homePage/pickupSearchBoxDropDown";
 import DropoffLocationDropdown from "../homePage/dropoffSearchBoxDropDown";
 import Pagination from "./pagination";
 import MainNavbar from "../navbar/mainNavbar";
 import { useNavigate } from "react-router-dom";
+import { DateRange } from "react-date-range";
 
 const PageSize = 4;
 
@@ -41,16 +41,27 @@ const VehiclesPage = () => {
   const [showPickupDropdown, setShowPickupDropdown] = useState(false);
   const [showDropoffDropdown, setShowDropoffDropdown] = useState(false);
   const [selectedPickupCityName, setSelectedPickupCityName] = useState("");
+  const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [selectedDropoffCityName, setSelectedDropoffCityName] = useState("");
   const [selectedFilters, setSelectedFilters] = useState({
     carModels: [],
     carTypes: [],
   });
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+
   const [selectedPickUpOptionButton, setSelectedPickUpOptionButton] =
     useState("Deliver");
   const [selectedDropOffOptionButton, setSelectedDropOffOptionButton] =
     useState("CompanyDropOff");
   const navigate = useNavigate();
+  const [showPickupModal, setShowPickupModal] = useState(false);
 
   const carModels = ["Mersedes Benz", "Nissan Altima", "Another Brand"];
   const carTypes = ["Family", "Intermediate", "Small"];
@@ -94,6 +105,17 @@ const VehiclesPage = () => {
     const calculatedPrice = (originalPrice * discount) / 100;
     return Math.floor(originalPrice - calculatedPrice);
   };
+
+  const mileleLocations = [
+    { id: 1, locationName: "Showroom 93", lat: 25.276987, lng: 55.296249 },
+    { id: 2, locationName: "Showroom 11", lat: 35.476987, lng: 45.596249 },
+  ];
+
+  const cityNames = [
+    { id: 1, locationName: "Sharja", lat: 25.276987, lng: 55.296249 },
+    { id: 2, locationName: "Dubai", lat: 35.276987, lng: 65.296249 },
+    { id: 3, locationName: "Burjman", lat: 45.276987, lng: 75.296249 },
+  ];
 
   const carsData = useMemo(
     () =>
@@ -204,7 +226,7 @@ const VehiclesPage = () => {
     }
   }, [pickUpDate, dropOffDate]);
 
-  const cityNames = useMemo(() => ["Sharja", "Dubai", "Burjman"], []);
+  // const cityNames = useMemo(() => ["Sharja", "Dubai", "Burjman"], []);
 
   const handlePickUpButtonClick = (option) => {
     if (option === "Deliver") {
@@ -212,8 +234,8 @@ const VehiclesPage = () => {
     } else if (option === "Pick") {
       console.log("In pick");
     }
-    setShowPickupDropdown(false);
-    setSelectedPickUpOptionButton(option);
+    setPickupLocation(option);
+    setShowPickupModal(false);
   };
 
   const handleDropOffButtonClick = (option) => {
@@ -291,6 +313,47 @@ const VehiclesPage = () => {
     }));
   };
 
+  const dateInputRef = useRef(null);
+
+  const handleDateClick = () => {
+    setShowDatePicker(true);
+  };
+
+  const handleDateChange = (ranges) => {
+    const { startDate, endDate } = ranges.selection;
+
+    const pickupDate = startDate ? startDate.toLocaleDateString() : null;
+    const dropoffDate = endDate ? endDate.toLocaleDateString() : null;
+
+    setPickUpDate(pickupDate);
+    setDropOffDate(dropoffDate);
+
+    console.log("Pickup Date:", pickupDate);
+    console.log("Dropoff Date:", dropoffDate);
+
+    setDateRange([ranges.selection]);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      console.log("Clicked outside");
+      if (
+        showDatePicker &&
+        dateInputRef.current &&
+        !dateInputRef.current.contains(event.target)
+      ) {
+        console.log("Closing datepicker");
+        setShowDatePicker(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [showDatePicker]);
+
   return (
     <div id="main" className="pb-2 ">
       <>
@@ -313,7 +376,48 @@ const VehiclesPage = () => {
                     className="all-cars-search-box-container pb-4"
                   >
                     <Row>
-                      <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
+                      <Col xxl={3} lg={3} md={7} sm={6} xs={12}>
+                        <Form.Group controlId="formDropoffDateTime">
+                          <div className="date-label">
+                            <label className="styled-label">
+                              <BsCalendar2Check className="mr-2" />
+                              <b>Pickup-Dropoff Date</b>
+                            </label>
+                          </div>
+                          <div onClick={handleDateClick} ref={dateInputRef}>
+                            <input
+                              className="form-control-date mt-2 col-12"
+                              type="text"
+                              value={
+                                dateRange[0].startDate
+                                  ? `${dateRange[0].startDate.toLocaleDateString()} - ${
+                                      dateRange[0].endDate
+                                        ? dateRange[0].endDate.toLocaleDateString()
+                                        : "Select end date"
+                                    }`
+                                  : "Select date range"
+                              }
+                              readOnly
+                            />
+                          </div>
+                          {showDatePicker && (
+                            <div onClick={(e) => e.stopPropagation()}>
+                              <DateRange
+                                editableDateInputs={true}
+                                onChange={handleDateChange}
+                                moveRangeOnFirstSelection={false}
+                                ranges={dateRange}
+                                disabledDay={(date) =>
+                                  date < new Date().setHours(0, 0, 0, 0)
+                                }
+                                onClose={() => setShowDatePicker(false)}
+                              />
+                            </div>
+                          )}
+                        </Form.Group>
+                      </Col>
+
+                      <Col xxl={2} lg={2} md={5} sm={6} xs={12}>
                         <Form.Group controlId="formKeyword">
                           <div className="location-label">
                             <label className="styled-label">
@@ -326,97 +430,32 @@ const VehiclesPage = () => {
                               className="form-control-location mt-2 col-12"
                               type="text"
                               placeholder="Enter pickup Option"
-                              defaultValue={pickupLocation}
-                              onClick={() =>
-                                setShowPickupDropdown(!showPickupDropdown)
-                              }
-                            />
-                            <PickupLocationDropdown
-                              show={showPickupDropdown}
-                              handleButtonClick={handlePickUpButtonClick}
-                              cityNames={cityNames}
-                              selectedPickupCityName={selectedPickupCityName}
-                              setSelectedPickupCityName={
-                                setSelectedPickupCityName
-                              }
-                              setPickupLocation={setPickupLocation}
-                              selectedPickUpOptionButton={
-                                selectedPickUpOptionButton
-                              }
+                              value={pickupLocationMessage}
+                              onChange={() => console.log("On change in pickup")}
+                              onClick={() => setShowPickupModal(true)}
                             />
                           </div>
                         </Form.Group>
                       </Col>
-
-                      <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                        <Form.Group controlId="formPickupDateTime">
-                          <div className="date-label">
-                            <label className="styled-label">
-                              <BsCalendar2Check className="mr-2" />
-                              <b>Pickup Date</b>
-                            </label>
-                          </div>
-                          <input
-                            className="form-control-date mt-2 col-12"
-                            type="date"
-                            min={getCurrentDateTime()}
-                            value={pickUpDate}
-                            onChange={(e) => setPickUpDate(e.target.value)}
+                      <Modal
+                        show={showPickupModal}
+                        onHide={() => setShowPickupModal(false)}
+                        size="xl"
+                      >
+                        <Modal.Header closeButton>
+                          <Modal.Title>Pickup Location</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                          <PickupLocationModal
+                            show={showPickupModal}
+                            handleButtonClick={handlePickUpButtonClick}
+                            cityNames={cityNames}
+                            mileleLocations={mileleLocations}
+                            updatePickupLocationMessage={setPickupLocationMessage} 
                           />
-                        </Form.Group>
-                      </Col>
-                      <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                        <Form.Group controlId="formPickupDateTime">
-                          <div className="date-label">
-                            <label className="styled-label">
-                              <b>Pickup Time</b>
-                            </label>
-                          </div>
-                          <input
-                            className="form-control-date mt-2 col-12"
-                            type="time"
-                            min={getCurrentDateTime()}
-                            value={pickUpTime}
-                            onChange={(e) => setPickUpTime(e.target.value)}
-                          />
-                        </Form.Group>
-                      </Col>
-
-                      <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                        <Form.Group controlId="formDropoffDateTime">
-                          <div className="date-label">
-                            <label className="styled-label">
-                              <BsCalendar4Week className="mr-2" />
-                              <b>Dropoff Date</b>
-                            </label>
-                          </div>
-                          <input
-                            className="form-control-date mt-2 col-12"
-                            type="date"
-                            min={pickUpDate}
-                            value={dropOffDate}
-                            onChange={(e) => setDropOffDate(e.target.value)}
-                          />
-                        </Form.Group>
-                      </Col>
-
-                      <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                        <Form.Group controlId="formDropoffDateTime">
-                          <div className="date-label">
-                            <label className="styled-label">
-                              <b>Dropoff Time</b>
-                            </label>
-                          </div>
-                          <input
-                            className="form-control-date mt-2 col-12"
-                            type="time"
-                            // min={pickUpTime}
-                            value={dropOffTime}
-                            onChange={(e) => setDropOffTime(e.target.value)}
-                          />
-                        </Form.Group>
-                      </Col>
-                      <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
+                        </Modal.Body>
+                      </Modal>
+                      <Col xxl={2} lg={2} md={4} sm={6} xs={12}>
                         <Form.Group controlId="formLocation">
                           <div className="location-label">
                             <label className="styled-label">
@@ -450,21 +489,51 @@ const VehiclesPage = () => {
                           </div>
                         </Form.Group>
                       </Col>
-                      <Col
-                        xxl={2}
-                        lg={2}
-                        md={4}
-                        sm={6}
-                        xs={6}
-                        className="d-flex align-items-end mt-3 "
-                      >
+                      <Col xxl={2} lg={2} md={3} sm={6} xs={6}>
+                        <Form.Group controlId="formPickupDateTime">
+                          <div className="date-label">
+                            <label className="styled-label">
+                              <b>Pickup Time</b>
+                            </label>
+                          </div>
+                          <input
+                            className="form-control-date mt-2 col-12"
+                            type="time"
+                            min={getCurrentDateTime()}
+                            value={pickUpTime}
+                            onChange={(e) => setPickUpTime(e.target.value)}
+                          />
+                        </Form.Group>
+                      </Col>
+
+                      <Col xxl={2} lg={2} md={3} sm={6} xs={6}>
+                        <Form.Group controlId="formDropoffDateTime">
+                          <div className="date-label">
+                            <label className="styled-label">
+                              <b>Dropoff Time</b>
+                            </label>
+                          </div>
+                          <input
+                            className="form-control-date mt-2 col-12"
+                            type="time"
+                            // min={pickUpTime}
+                            value={dropOffTime}
+                            onChange={(e) => setDropOffTime(e.target.value)}
+                          />
+                        </Form.Group>
+                      </Col>
+
+                      <Col className="d-flex align-items-end mt-3 ">
                         <div className="button-container">
-                          <button className="animated-button">
+                          <button className="animated-search-button">
                             {" "}
                             <span className="button-text-span">
                               <span className="transition"></span>
                               <span className="gradient"></span>
-                              <span className="label">Search</span>
+                              <span className="label">
+                                {" "}
+                                <LuSearch />{" "}
+                              </span>
                             </span>
                           </button>
                         </div>
@@ -496,7 +565,7 @@ const VehiclesPage = () => {
                     </b>
                   </h3>
                 </div>
-                <div className="card search-filters-card">
+                <div className="card search-filters-card checkbox-container">
                   <article className="card-group-item">
                     <div className="car-model-label">
                       <header className="card-header styled-label pt-3 pb-3">
@@ -508,7 +577,11 @@ const VehiclesPage = () => {
                       <div className="card-body">
                         <form>
                           {carModels.map((model, index) => (
-                            <label className="form-check" key={index}>
+                            <label
+                              className="form-check flipBox"
+                              aria-label={`Checkbox ${index}`}
+                              key={index}
+                            >
                               <input
                                 className="form-check-input"
                                 type="checkbox"
@@ -521,6 +594,16 @@ const VehiclesPage = () => {
                                 )}
                               />
                               <span className="form-check-label">{model}</span>
+                              <div className="flipBox_boxOuter">
+                                <div className="flipBox_box">
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                </div>
+                              </div>
                             </label>
                           ))}
                         </form>
@@ -538,7 +621,11 @@ const VehiclesPage = () => {
                       <div className="card-body">
                         <form>
                           {carTypes.map((type, index) => (
-                            <label className="form-check" key={index}>
+                            <label
+                              className="form-check flipBox"
+                              aria-label={`Checkbox ${index}`}
+                              key={index}
+                            >
                               <input
                                 className="form-check-input"
                                 type="checkbox"
@@ -551,6 +638,16 @@ const VehiclesPage = () => {
                                 )}
                               />
                               <span className="form-check-label">{type}</span>
+                              <div className="flipBox_boxOuter">
+                                <div className="flipBox_box">
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                </div>
+                              </div>
                             </label>
                           ))}
                         </form>
@@ -567,7 +664,7 @@ const VehiclesPage = () => {
                     <div className="filter-content">
                       <div className="card-body">
                         <div className="form-row">
-                          <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6">
+                          <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6">
                             <input
                               type="number"
                               className="form-control"
@@ -578,7 +675,7 @@ const VehiclesPage = () => {
                             />
                           </div>
 
-                          <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 text-right">
+                          <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 text-right">
                             <input
                               type="number"
                               className="form-control"
@@ -685,7 +782,7 @@ const VehiclesPage = () => {
                                     {durations.map((duration, index) => (
                                       <div
                                         key={index}
-                                        className="col-xxl-6 col-lg-8 col-md-6 col-sm-6 col-8 pt-2"
+                                        className="col-xxl-4 col-lg-6 col-md-6 col-sm-6 col-8 pt-2"
                                       >
                                         <div className="card price-per-specificDay-container">
                                           <div className="card-body price-day-div">
@@ -694,7 +791,7 @@ const VehiclesPage = () => {
                                                 Per {duration}
                                               </span>
                                               <br />
-                                              {car.discount > 0 && (
+                                              {/* {car.discount > 0 && (
                                                 <>
                                                   <del className="value-del-line">
                                                     {car.originalPrice *
@@ -703,20 +800,23 @@ const VehiclesPage = () => {
                                                       ]}{" "}
                                                   </del>{" "}
                                                   <span className="AED-text">
-                                                    AED
+                                                    
                                                   </span>{" "}
                                                 </>
-                                              )}{" "}
-                                              {car.discount <= 0 && (
+                                              )}{" "} */}
+                                              {/* {car.discount <= 0 && (
                                                 <>
                                                   <span className="p-1 mr-2"></span>
                                                 </>
-                                              )}
+                                              )} */}
                                               <span className="final-discounted-value-span">
-                                                {calculateSalePrice(
+                                                {/* {calculateSalePrice(
                                                   car.originalPrice,
                                                   car.discount
                                                 ) * durationValues[index]}{" "}
+                                                AED{" "} */}
+                                                {car.originalPrice *
+                                                  durationValues[index]}{" "}
                                                 AED{" "}
                                               </span>
                                             </div>

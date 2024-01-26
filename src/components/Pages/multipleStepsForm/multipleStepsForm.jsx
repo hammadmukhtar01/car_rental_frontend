@@ -32,15 +32,14 @@ function VerificationForm() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [renderStep()]);
-
+  }, []);
 
   return (
     <div className="multi_step_form">
       <div className="navbar-bg-img-container">
         <div className="booking-page-banner-navbar">
           {" "}
-            <MainNavbar />
+          <MainNavbar />
         </div>
       </div>
       <form id="msform">

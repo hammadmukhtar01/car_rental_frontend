@@ -593,9 +593,7 @@ html {
 .alice-carousel__prev-btn-item,
 .alice-carousel__next-btn-item {
   font-size: 22px !important;
-  padding: 5px 15px !important;
-  /* border: 1px solid #cc6119 !important; */
-  /* background-color: #cc6119 !important; */
+  padding: 5px 12px !important;
   border-radius: 5px !important;
   color: black !important;
   font-weight: 600;
@@ -622,7 +620,8 @@ html {
 }
 
 .alice-carousel__dots-item:not(.__custom) {
-  background-color: rgb(255, 255, 255) !important;
+  border: 1px solid lightgrey !important;
+  background-color: transparent !important;
   width: 12px !important;
   height: 12px !important;
 }

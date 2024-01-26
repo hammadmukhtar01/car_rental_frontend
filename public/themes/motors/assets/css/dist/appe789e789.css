@@ -2934,7 +2934,7 @@ button,
     visibility: visible;
     border: none;
     white-space: normal;
-    box-shadow: 0 2px 0 #567ab4;
+    /* box-shadow: 0 2px 0 #567ab4; */
     transition: opacity 0.2s ease-in !important;
     transform: translateZ(0);
     opacity: 1;

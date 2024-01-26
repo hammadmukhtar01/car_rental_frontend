@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import Car1 from "../../images/car1.jpg";
 import { useNavigate } from "react-router-dom";
 import AliceCarousel from "react-alice-carousel";
@@ -115,7 +114,7 @@ const Carousel = () => {
             <div className="heading-icon-container-div">
               <BsPersonCircle className="mr-2 home-page-heading-icon" />
               <span>
-                <b className="fs-3">Offers Cars:</b>
+                <b className="fs-3">Offers:</b>
               </span>
             </div>
             <hr className="home-page-heading-underline col-2" />

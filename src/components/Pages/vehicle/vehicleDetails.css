@@ -88,6 +88,7 @@
   display: flex;
   box-sizing: border-box;
   align-items: center;
+  justify-content: center;
   letter-spacing: 0.01071em;
   border-radius: 50px;
   line-height: 1.43;
@@ -206,7 +207,7 @@
 }
 
 .final-discounted-value-span {
-  color: green;
+  color: #cc6119;
 }
 
 .price-per-specificDay-container:hover {
@@ -369,11 +370,318 @@ span.select2-selection_arrow b {
   background-color: #cc6119;
 }
 
-.form-check-input[type="checkbox"] {
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
+
+/*
+ *, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Ubuntu', sans-serif;
+  background-color: #ddd;
+  color: #000;
+  min-height: 100vh;
+  margin: 0;
+  padding: 3em 1em;
+  display: grid;
+  place-items: center;
+  perspective: 750px;
+} */
+
+.checkbox-container * :not(:empty) {
+  transform-style: preserve-3d;
+}
+
+.checkboxes {
+  width: 100%;
+  max-width: 180px;
+}
+
+.flipBox {
+  position: relative;
+  display: block;
+  text-align: left;
+  margin: 1em auto;
+  cursor: pointer;
+}
+
+.flipBox:active > .flipBox_boxOuter {
+  height: 25%;
+}
+
+.flipBox span {
+  padding-left: 1.25em;
+}
+
+.flipBox > input {
+  appearance: none;
+  position: fixed;
+  left: -100vmax;
+  top: -100vmax;
+}
+
+.flipBox > input:checked ~ .flipBox_boxOuter {
+  animation: flipBox1 0.5s forwards linear;
+}
+
+.flipBox > input:checked ~ .flipBox_boxOuter .flipBox_box {
+  animation: flipBox2 0.5s forwards ease-in-out;
+}
+
+.flipBox > input:checked ~ .flipBox_shadow {
+  animation: flipBox3 0.5s forwards ease-in-out;
+}
+
+.flipBox > input:not(:checked) ~ .flipBox_boxOuter {
+  animation: flipBox4 0.5s forwards linear;
+}
+
+.flipBox > input:not(:checked) ~ .flipBox_boxOuter .flipBox_box {
+  animation: flipBox5 0.5s forwards ease-in-out;
+}
+
+.flipBox > input:not(:checked) ~ .flipBox_shadow {
+  animation: flipBox6 0.5s forwards ease-in-out;
+}
+
+.flipBox > input:disabled ~ * {
+  cursor: not-allowed;
+}
+
+.flipBox > input:disabled ~ .flipBox_boxOuter {
+  height: 0%;
+}
+
+.flipBox > input:disabled ~ .flipBox_boxOuter .flipBox_box > div:nth-child(6) {
+  background-color: #ccc;
+}
+
+.flipBox
+  > input:disabled
+  ~ .flipBox_boxOuter
+  .flipBox_box
+  > div:nth-child(-n + 5),
+.flipBox > input:disabled ~ .flipBox_shadow {
+  display: none;
+}
+
+.flipBox > input:focus-visible ~ span {
+  outline: 1px #000 solid;
+  outline-offset: 0.25em;
+}
+
+.flipBox_boxOuter {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1em;
+  height: 1em;
+  transform-origin: top;
+  transition: height 0.25s;
+}
+
+.flipBox_box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1em;
+  height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.flipBox_box > div {
+  position: absolute;
+  width: 1em;
+  box-shadow: 0 0 0.35em rgba(142, 142, 142, 0.467) inset;
+}
+
+.flipBox_box > div:nth-child(1) {
+  background-image: linear-gradient(#cc6119, white);
+  transform: rotateY(0deg) translateX(50%) rotateY(90deg);
+  height: 100%;
+}
+
+.flipBox_box > div:nth-child(2) {
+  background-image: linear-gradient(#cc6119, white);
+  transform: rotateY(90deg) translateX(50%) rotateY(90deg);
+  height: 100%;
+}
+
+.flipBox_box > div:nth-child(3) {
+  background-image: linear-gradient(#cc6119, white);
+  transform: rotateY(180deg) translateX(50%) rotateY(90deg);
+  height: 100%;
+}
+
+.flipBox_box > div:nth-child(4) {
+  background-image: linear-gradient(#cc6119, white);
+  transform: rotateY(270deg) translateX(50%) rotateY(90deg);
+  height: 100%;
+}
+
+.flipBox_box > div:nth-child(5) {
+  background-color: #cc6119;
+  transform: rotateX(90deg) translateY(-0.5em);
+  transform-origin: top;
+  height: 1em;
+}
+
+.flipBox_box > div:nth-child(5)::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  clip-path: polygon(
+    12.5% 56.25%,
+    25% 43.75%,
+    37.5% 56.25%,
+    75% 18.75%,
+    87.5% 31.25%,
+    37.5% 81.25%,
+    12.5% 56.25%
+  );
+}
+
+.flipBox_box > div:nth-child(6) {
+  bottom: 0;
+  background-color: white;
+  transform: rotateX(90deg) translateY(0.5em);
+  transform-origin: bottom;
+  height: 1em;
+}
+
+@keyframes flipBox1 {
+  0%,
+  100% {
+    transform: rotateX(90deg);
+    animation-timing-function: ease-out;
+  }
+  50% {
+    transform: rotateX(90deg) translateY(2em);
+    animation-timing-function: ease-in;
+  }
+}
+
+@keyframes flipBox2 {
+  from {
+    transform: translate(-50%, -50%) rotateX(0deg) rotateY(180deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotateX(-180deg) rotateY(0deg);
+  }
+}
+
+@keyframes flipBox3 {
+  0%,
+  100% {
+    transform: translateY(-50%) translateZ(-1px) scale(1);
+    animation-timing-function: ease-out;
+  }
+  50% {
+    transform: translateY(-50%) translateZ(-1px) scale(1.5);
+    animation-timing-function: ease-in;
+  }
+}
+
+@keyframes flipBox4 {
+  0%,
+  100% {
+    transform: rotateX(90deg);
+    animation-timing-function: ease-out;
+  }
+  50% {
+    transform: rotateX(90deg) translateY(2em);
+    animation-timing-function: ease-in;
+  }
+}
+
+@keyframes flipBox5 {
+  from {
+    transform: translate(-50%, -50%) rotateX(-180deg) rotateY(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotateX(-360deg) rotateY(180deg);
+  }
+}
+
+@keyframes flipBox6 {
+  0%,
+  100% {
+    transform: translateY(-50%) translateZ(-1px) scale(1);
+    animation-timing-function: ease-out;
+  }
+  50% {
+    transform: translateY(-50%) translateZ(-1px) scale(1.5);
+    animation-timing-function: ease-in;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .flipBox_boxOuter,
+  .flipBox_box,
+  .flipBox_shadow {
+    animation-play-state: paused !important;
+  }
+
+  .flipBox_boxOuter {
+    transition: none;
+  }
+}
+
+/* .rdrDayDisabled .rdrInRange,
+.rdrDayDisabled .rdrStartEdge,
+.rdrDayDisabled .rdrEndEdge,
+.rdrDayDisabled .rdrSelected,
+.rdrDayDisabled .rdrDayStartPreview,
+.rdrDayDisabled .rdrDayInPreview,
+.rdrDayDisabled .rdrDayEndPreview {
+  background-color: white;
+}
+
+.rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
+.rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
+.rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
+.rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
+  color: rgb(205, 205, 205) !important;
+  font-size: small;
+} */
+
+.rdrCalendarWrapper {
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 999;
+  /* font-size: 14.9px !important; */
+}
+
+.rdrDayDisabled {
+  background-color: white !important;
+}
+
+.rdrMonthAndYearPickers select option {
+  background-color: white;
+  color: #000;
+}
+
+.rdrMonthAndYearPickers select {
+  color: white !important;
+  padding: 10px 27px !important;
+  background-image: url("data:image/svg+xml;utf8,<svg width='9px' height='6px' viewBox='0 0 9 6' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><g id='Artboard' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' transform='translate(-636.000000, -171.000000)' fill-opacity='1'><g id='input' transform='translate(172.000000, 37.000000)' fill='%230E242F' fill-rule='nonzero'><g id='Group-9' transform='translate(323.000000, 127.000000)'><path d='M142.280245,7.23952813 C141.987305,6.92353472 141.512432,6.92361662 141.219585,7.23971106 C140.926739,7.5558055 140.926815,8.06821394 141.219755,8.38420735 L145.498801,13 L149.780245,8.38162071 C150.073185,8.0656273 150.073261,7.55321886 149.780415,7.23712442 C149.487568,6.92102998 149.012695,6.92094808 148.719755,7.23694149 L145.498801,10.7113732 L142.280245,7.23952813 Z' id='arrow' fill='white'></path></g></g></g></svg>") !important;
+  background-color: #cc6119 !important;
+}
+
+.rdrDayNumber span {
+  font-weight: 600;
+  font-size: larger;
+}
+
+/* .form-check-input[type="checkbox"] {
   border-radius: 0px;
   border: 1px solid #a9a9a9;
   cursor: pointer;
-}
+} */
 
 .all-cars-heading {
   color: #cc6119;
@@ -397,5 +705,11 @@ span.select2-selection_arrow b {
 @media screen and (max-width: 575px) {
   .pay-now-value {
     font-size: 14px;
+  }
+  .rdrMonthAndYearPickers select {
+    padding: 7px 20px !important;
+  }
+  .rdrCalendarWrapper {
+    font-size: 10px !important;
   }
 }

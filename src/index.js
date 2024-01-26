@@ -6,6 +6,8 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import 'select2/dist/css/select2.min.css';
 import 'select2';
+import 'react-date-range/dist/styles.css'; 
+import 'react-date-range/dist/theme/default.css'; 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

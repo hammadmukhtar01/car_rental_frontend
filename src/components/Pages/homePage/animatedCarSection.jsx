@@ -17,7 +17,7 @@ const AnimatedCarSection = () => {
       loop: true,
       margin: 10,
       nav: true,
-      // autoplay: true,
+      autoplay: true,
       autoplayTimeout: 3000,
       autoplayHoverPause: true,
       autoplaySpeed: 3000,

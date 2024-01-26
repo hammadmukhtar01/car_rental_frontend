@@ -1,234 +1,199 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Row, Col, Form } from "react-bootstrap";
-import $ from "jquery";
+import React, { useState, useRef } from "react";
+import { Tab } from "@headlessui/react";
+import MapComponent from "../homePage/MapComponent";
+import "./pickupdropoffModal.css";
+import { Form } from "react-bootstrap";
 
-const PickupLocationDropdown = ({
+function PickupLocationModal({
   show,
   handleButtonClick,
   cityNames,
-  selectedPickupCityName,
-  setSelectedPickupCityName,
-  setPickupLocation,
-}) => {
-  const [selectedPickUpOptionButton, setSelectedPickUpOptionButton] =
-    useState("Deliver");
+  mileleLocations,
+  updatePickupLocationMessage,
+}) {
+  const [selectedTab, setSelectedTab] = useState("deliver");
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [hoveredLocation, setHoveredLocation] = useState(null);
+  const [inputFieldValue, setInputFieldValue] = useState("");
+  const [pickupLocationMessage, setPickupLocationMessage] = useState("");
+  const mapRef = useRef(null);
 
-  useEffect(() => {
-    if (show) {
-      $("#deliverToCityNameSelect").select2({
-        placeholder: "Select City",
-        data: cityNames.map((cityName) => ({ id: cityName, text: cityName })),
-      });
-
-      return () => {
-        $("#deliverToCityNameSelect").select2("destroy");
-      };
-    }
-  }, [show, cityNames]);
-
-  const handleButtonToggle = (button) => {
-    setSelectedPickUpOptionButton(button);
+  const handleTabChange = (tab) => {
+    setSelectedTab(tab);
+    setSelectedLocation(null);
+    setHoveredLocation(null);
   };
 
-  const [selectedpickUpLocation, setSelectedpickUpLocation] = useState("");
-  const [pickupCityValue, setPickupCityValue] = useState("")
+  const handleListHover = (location) => {
+    if (!selectedLocation) {
+      setHoveredLocation(location);
+    }
+  };
 
-  const mileleLocations = useMemo(
-    () => [
-      {
-        id: 1,
-        locationName: "Showroom 93",
-        locationDetails: "Milele Showroom 93, Ras Al Khor, Dubai, UAE.",
-      },
-      {
-        id: 2,
-        locationName: "Head Office AF03",
-        locationDetails:
-          "Milele Head Office, Samari Retails, Office Number AF03, Dubai.",
-      },
-    ],
-    []
-  );
+  const handleListClick = (location) => {
+    setSelectedLocation(location);
+    setHoveredLocation(null);
+  };
 
-  useEffect(() => {
-    $("#pickupSelfLocationNameSelect").select2({
-      placeholder: "Select Location",
-      data: mileleLocations.map((locations) => ({
-        id: locations.locationName,
-        locName: locations.locationName,
-        text: locations.locationDetails,
-      })),
+  const handleInputChange = (e) => {
+    setInputFieldValue(e.target.value);
+  };
+
+  const handleInputSubmit = () => {
+    let message = "";
+    if (selectedTab === "deliver") {
+      message = `${
+        selectedLocation ? selectedLocation.locationName : ""
+      }-${inputFieldValue}`;
+    } else if (selectedTab === "pick") {
+      message = `${
+        selectedLocation ? selectedLocation.locationName : ""
+      }`;
+    }
+    setPickupLocationMessage(message);
+    updatePickupLocationMessage(message);
+
+    handleButtonClick(selectedTab, {
+      locationName: selectedLocation ? selectedLocation.locationName : "",
+      inputValue: inputFieldValue,
     });
-
-    return () => {
-      $("#pickupSelfLocationNameSelect").select2("destroy");
-    };
-  }, [mileleLocations]);
+  };
 
   return (
     show && (
-      <div className="custom-dropdown p-4">
-        <>
-          <Row>
-            <Col className="d-flex align-items-center pickup-locations-button-col">
-              <div className="pr-3">
-                <button
-                  className="btn btn-danger"
-                  onClick={() => handleButtonToggle("Deliver")}
-                >
-                  Deliver to Me
-                </button>
-              </div>{" "}
-              <div>
-                <button
-                  className="btn btn-success pick-drop-myself-button"
-                  onClick={() => handleButtonToggle("Pick")}
-                >
-                  Pick Myself
-                </button>
-              </div>
-            </Col>
-          </Row>
-          <br />
-          {selectedPickUpOptionButton === "Deliver" && (
-            <div className="deliver-to-me-main-container">
-              <Row>
-                <div className="deliver-to-me-container">
-                  <Row>
-                    <Col xxl={3} lg={3} md={3} sm={5} xs={12}>
-                      <Form.Group controlId="formCarModel">
-                        <select
-                          id="deliverToLocationSelect"
-                          className="form-select"
-                          value={selectedPickupCityName}
-                          onChange={(e) =>
-                            setSelectedPickupCityName(e.target.value)
-                          }
-                        >
-                          <option
-                            value=""
-                            disabled
-                            className="disabled-choose-button"
-                          >
-                            Choose City
-                          </option>
-                          {cityNames.map((cityName) => (
-                            <option key={cityName} value={cityName}>
-                              {cityName}
-                            </option>
-                          ))}
-                        </select>
-                      </Form.Group>
-                    </Col>
-                    <Col xxl={6} lg={7} md={6} sm={7} xs={12}>
-                      <Form.Group controlId="formLocation">
+      <div className="custom-modal">
+        <Tab.Group>
+          <Tab.List className="col-3 pickup-option-menus pb-3">
+            <Tab
+              className={({ selected }) =>
+                selected
+                  ? "pickup-loc-option deliver-me-selected px-2 py-2"
+                  : "pickup-loc-option deliver-me-not-selected px-2 py-2"
+              }
+              onClick={() => handleTabChange("deliver")}
+            >
+              <span className="deliver-to-me-text">Deliver to Me</span>
+            </Tab>
+            <Tab
+              className={({ selected }) =>
+                selected
+                  ? "pickup-loc-option pickup-selected px-2 py-2"
+                  : "pickup-loc-option pickup-not-selected px-2 py-2"
+              }
+              onClick={() => handleTabChange("pick")}
+            >
+              <span className="pickup-text"> Pick Up Myself</span>
+            </Tab>
+          </Tab.List>
+
+          <Tab.Panels>
+            <Tab.Panel>
+              {/* Content for "Deliver to Me" */}
+              <div className="row">
+                <div className="col-4 px-5 py-8">
+                  <h2 className="text-xl font-bold mb-4">
+                    Available Locations
+                  </h2>
+                  <ul className="deliver-to-me-loc-list list-unstyled">
+                    {cityNames.map((city) => (
+                      <li
+                        key={city.id}
+                        onClick={() => handleListClick(city)}
+                        onMouseEnter={() => handleListHover(city)}
+                        className={`deliver-to-me-single-list ${
+                          selectedLocation === city || hoveredLocation === city
+                            ? "active"
+                            : ""
+                        }`}
+                      >
+                        <span className="mr-2">🛫</span>
+                        {city.locationName}
+                        <hr />
+                      </li>
+                    ))}
+                  </ul>
+                  {selectedLocation && (
+                    <div className="mt-3">
+                      <Form.Group controlId="formKeyword">
                         <input
                           className="form-control-location mt-2 col-12"
                           type="text"
-                          value={pickupCityValue}
-                          onChange={(e) => setPickupCityValue(e.target.value)}
+                          placeholder={`Enter your location for ${selectedLocation.locationName}`}
+                          value={inputFieldValue}
+                          onChange={handleInputChange}
                         />
                       </Form.Group>
-                    </Col>
-
-                    <Col
-                      xxl={3}
-                      lg={2}
-                      md={2}
-                      sm={6}
-                      xs={8}
-                      className="d-flex justify-content-center align-items-center submit-button"
-                    >
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => handleButtonClick("Pick")}
-                      >
-                        <span className="d-block text-center">Submit</span>
-                      </button>
-                    </Col>
-                  </Row>
+                      {/* <button onClick={handleInputSubmit}>Submit</button> */}
+                    </div>
+                  )}
                 </div>
-              </Row>
-            </div>
-          )}
-          {selectedPickUpOptionButton === "Pick" && (
-            <div className="pickup-myself-main-container">
-              <Row>
-                <div className="pickup-car-details-container">
-                  <Row>
-                    <Col xxl={3} lg={3} md={3} sm={5} xs={12}>
-                      <Form.Group controlId="formCarModel">
-                        <select
-                          id="deliverToLocationSelect"
-                          className="form-select"
-                          value={selectedpickUpLocation}
-                          onChange={(e) =>
-                            setSelectedpickUpLocation(e.target.value)
-                          }
-                        >
-                          <option
-                            value=""
-                            disabled
-                            className="disabled-choose-button"
-                          >
-                            Choose Location
-                          </option>
-                          {mileleLocations.map((locations) => (
-                            <option
-                              key={locations.id}
-                              value={locations.locationName}
-                            >
-                              {locations.locationName}
-                            </option>
-                          ))}
-                        </select>
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      xxl={6}
-                      lg={7}
-                      md={6}
-                      sm={7}
-                      xs={12}
-                      className="pickup-location-col-container"
-                    >
-                      <div className="pickup-location-text bg-white">
-                        <span className="pickup-location-data">
-                          {selectedpickUpLocation
-                            ? mileleLocations.find(
-                                (location) =>
-                                  location.locationName ===
-                                  selectedpickUpLocation
-                              )?.locationDetails
-                            : "Please select location from drop down"}
-                        </span>
-                      </div>
-                    </Col>
 
-                    <Col
-                      xxl={3}
-                      lg={2}
-                      md={2}
-                      sm={6}
-                      xs={8}
-                      className="d-flex justify-content-center align-items-center submit-button"
-                    >
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => handleButtonClick("Pick")}
-                      >
-                        <span className="d-block text-center">Submit</span>
-                      </button>
-                    </Col>
-                  </Row>
+                {/* Right Column - Map */}
+                <div className="col-8">
+                  {(hoveredLocation || selectedLocation) && (
+                    <MapComponent
+                      locations={[hoveredLocation || selectedLocation]}
+                      mapRef={mapRef}
+                    />
+                  )}
                 </div>
-              </Row>
-            </div>
-          )}
-        </>
+              </div>
+            </Tab.Panel>
+
+            <Tab.Panel>
+              {/* Content for "Pick Up Myself" */}
+              <div className="row">
+                <div className="col-4 px-5 py-8">
+                  <h2 className="text-xl font-bold mb-4">
+                    Available Locations
+                  </h2>
+                  <ul className="pickup-loc-list list-unstyled">
+                    {mileleLocations.map((location) => (
+                      <li
+                        key={location.id}
+                        onClick={() => handleListClick(location)}
+                        onMouseEnter={() => handleListHover(location)}
+                        className={`pickup-single-list ${
+                          selectedLocation === location ||
+                          hoveredLocation === location
+                            ? "active"
+                            : ""
+                        }`}
+                      >
+                        <span className="mr-2">🛫</span>
+                        {location.locationName}
+                        <hr />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Right Column - Map */}
+                <div className="col-8">
+                  {(hoveredLocation || selectedLocation) && (
+                    <MapComponent
+                      locations={[hoveredLocation || selectedLocation]}
+                      mapRef={mapRef}
+                    />
+                  )}
+                </div>
+              </div>
+            </Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
+
+        <div className="button-container">
+          <button className="animated-button" onClick={handleInputSubmit}>
+            <span className="button-text-span">
+              <span className="transition"></span>
+              <span className="gradient"></span>
+              <span className="label">Rent Now</span>
+            </span>
+          </button>
+        </div>
       </div>
     )
   );
-};
+}
 
-export default PickupLocationDropdown;
+export default PickupLocationModal;

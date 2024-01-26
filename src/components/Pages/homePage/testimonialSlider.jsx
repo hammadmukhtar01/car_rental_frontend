@@ -106,7 +106,7 @@ const Carousel = () => {
   );
 
   return (
-    <div className="testimonial-container pt-5">
+    <div className="testimonial-container pt-3">
       <div className="container">
         <div className="styled-label ml-4">
           <div className="heading-icon-container-div">
