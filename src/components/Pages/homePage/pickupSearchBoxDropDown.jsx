@@ -113,12 +113,12 @@ function PickupLocationModal({
                     ))}
                   </ul>
                   {selectedLocation && (
-                    <div className="mt-3">
+                    <div className="mt-5">
                       <Form.Group controlId="formKeyword">
                         <input
                           className="form-control-location mt-2 col-12"
                           type="text"
-                          placeholder={`Enter your location for ${selectedLocation.locationName}`}
+                          placeholder={`Address for ${selectedLocation.locationName}`}
                           value={inputFieldValue}
                           onChange={handleInputChange}
                         />

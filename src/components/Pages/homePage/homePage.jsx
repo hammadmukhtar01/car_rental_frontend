@@ -12,6 +12,8 @@ import OurBlogs from "../Blog/ourBlogs";
 import ClientLogoSection from "./ourClients";
 import "./ourClients.css";
 import { BsPersonCircle } from "react-icons/bs";
+import { useReload } from "../../PrivateComponents/utils";
+import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 
 const HomePage = () => {
   const carBrands = [
@@ -31,6 +33,16 @@ const HomePage = () => {
     const slider = document.querySelector(".car-brands-slider");
     slider.classList.remove("paused");
   };
+
+  const { loading } = useReload();
+
+  if (loading) {
+    return (
+      <>
+       <ReloadingComponent/>
+      </>
+    );
+  }
 
   return (
     <div className="">

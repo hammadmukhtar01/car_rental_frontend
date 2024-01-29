@@ -255,7 +255,7 @@
 }
 
 .booking-page-banner-navbar {
-  background-image: url("../../images/bgImg1.jpg");
+  /* background-image: url("../../images/bgImg1.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
@@ -263,7 +263,7 @@
 }
 
 .search-box-home-page {
-  background-image: url("../../images/bgImg1.jpg");
+  /* background-image: url("../../images/bgImg1.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -307,6 +307,11 @@
   box-shadow: none;
   font-size: 14px;
   background-color: white !important;
+}
+
+.diff-dropoff-loc-lable label {
+  font-weight: 600;
+  color: #cc6119;
 }
 
 /* Car cards CSS  */

@@ -1,7 +1,48 @@
 import React from "react";
 import MainNavbar from "../navbar/mainNavbar";
+import { useReload } from "../../PrivateComponents/utils";
+import ReloadingComponent from './../../PrivateComponents/reloadingComponent';
+import HashLoader from "react-spinners/ClipLoader";
 
 const AboutusPage = () => {
+  const { loading } = useReload();
+
+  if (loading) {
+    return (
+      // <div className="loader-container-main">
+      //   <HashLoader
+      //     color="#cc6119"
+      //     loading={loading}
+      //     size={100}
+      //     speedMultiplier={0.5}
+      //     aria-label="Loading Spinner"
+      //     data-testid="loader"
+      //   />
+      // </div>
+
+      // <>
+      //   <div className="loader-container">
+      //     <div className="loader">
+      //       <span></span>
+      //     </div>
+      //     <div className="loader">
+      //       <span></span>
+      //     </div>
+      //     <div className="loader">
+      //       <i></i>
+      //     </div>
+      //     <div className="loader">
+      //       <i></i>
+      //     </div>
+      //   </div>
+      // </>
+
+      <>
+       <ReloadingComponent/>
+      </>
+    );
+  }
+
   return (
     <>
       <div id="main">

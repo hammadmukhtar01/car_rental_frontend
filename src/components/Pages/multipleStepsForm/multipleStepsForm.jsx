@@ -5,6 +5,8 @@ import PaymentPage from "./paymentPage";
 import ProgressBar from "./progressBar";
 import "./multipleStepsForm.css";
 import MainNavbar from "../navbar/mainNavbar";
+import { useReload } from "../../PrivateComponents/utils";
+import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 
 function VerificationForm() {
   const [step, setStep] = useState(1);
@@ -33,6 +35,16 @@ function VerificationForm() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const { loading } = useReload();
+
+  if (loading) {
+    return (
+      <>
+       <ReloadingComponent/>
+      </>
+    );
+  }
 
   return (
     <div className="multi_step_form">

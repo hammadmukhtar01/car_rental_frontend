@@ -69,12 +69,8 @@
   transform: scale(0.9);
 }
 
-
-
-
-
-
-button.animated-search-button, button.animated-button {
+button.animated-search-button,
+button.animated-button {
   overflow: hidden;
 }
 
@@ -133,7 +129,7 @@ button:hover .transition {
   cursor: pointer;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   animation: pulse 2s ease-in-out infinite;
-  padding: 10px 15px;
+  padding: 13px 7px;
   border: 1px solid #d35400;
 }
 
@@ -152,35 +148,41 @@ button:hover .transition {
   }
 }
 
-.animated-button:hover, .animated-search-button:hover {
+.animated-button:hover,
+.animated-search-button:hover {
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
   color: #cc6119 !important;
   opacity: 1;
-  border: 1px solid wheat;
+  border: 1px solid rgb(207, 207, 207);
 }
 
 .button-text-span {
   padding: 0px 10px;
 }
 
-
-
 .animated-text h2 {
   overflow: hidden;
-  border-right: .1em solid #cc6119; 
-  white-space: nowrap; 
-  margin: 0 auto; 
-  animation: 
-    text 2.5s steps(40, end),
-    blink-caret .75s step-end infinite;
+  border-right: 0.1em solid #cc6119;
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: text 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
 @keyframes text {
-  from { width: 0 }
-  to { width: 90% }
+  from {
+    width: 0;
+  }
+  to {
+    width: 90%;
+  }
 }
 
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #cc6119; }
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #cc6119;
+  }
 }

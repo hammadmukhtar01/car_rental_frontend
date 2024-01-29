@@ -8,6 +8,8 @@ import {
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
+import { useReload } from "../../PrivateComponents/utils";
+import ReloadingComponent from './../../PrivateComponents/reloadingComponent';
 
 const FaqsPage = () => {
   const faqItems = [
@@ -47,6 +49,16 @@ const FaqsPage = () => {
         "This is the sixth item's accordion body. It is <code>.accordion-body</code>, though the transition does limit overflow.",
     },
   ];
+
+  const { loading } = useReload();
+
+  if (loading) {
+    return (
+      <>
+       <ReloadingComponent/>
+      </>
+    );
+  }
 
   return (
     <>

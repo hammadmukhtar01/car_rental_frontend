@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import BookingDetails from "./components/Pages/Booking/bookingDetails";
@@ -23,13 +23,9 @@ function App() {
       <div className="App">
         <div className="top-page-horizontal-line">
           <span className="top-horizontal-line-text">
-            Velit esse
-            quod, eius dolorem, asperiores iure, consectetur vel sed
-            praesentium facilis.
+            Milele Motors, Car Rental System
           </span>
         </div>
-        {/* <span class="loader"></span> */}
-        {/* <MainNavbar /> */}
         <Routes>
           <Route path="/" exact element={<HomePage />} />
           <Route path="/home" exact element={<HomePage />} />

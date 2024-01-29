@@ -277,7 +277,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
                                     <Col lg={8} md={6} sm={6} xs={12}>
                                       <div className="add-ons-label-name p-2">
-                                        <label className="">
+                                        <label className="add-ons-label">
                                           <b>{AddOnsDataValues.addOnsName}</b>
                                           <br />
                                           <span>
@@ -304,7 +304,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     <Col lg={3} md={6} sm={6} xs={12}>
                                       <div className="form-check form-switch form-switch-md float-end">
                                         <input
-                                          className="form-check-input"
+                                          className="form-check-input add-ons-toggle-input"
                                           type="checkbox"
                                           id={`flexSwitchCheckDefault_${AddOnsDataValues.id}`}
                                           // checked={

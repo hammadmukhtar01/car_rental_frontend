@@ -16,17 +16,20 @@ import { LuSnowflake, LuSearch } from "react-icons/lu";
 import "./vehicleDetails.css";
 import Car1 from "../../images/car1.jpg";
 import PickupLocationModal from "../homePage/pickupSearchBoxDropDown";
-import DropoffLocationDropdown from "../homePage/dropoffSearchBoxDropDown";
+import DropoffLocationModal from "../homePage/dropoffSearchBoxDropDown";
 import Pagination from "./pagination";
 import MainNavbar from "../navbar/mainNavbar";
 import { useNavigate } from "react-router-dom";
 import { DateRange } from "react-date-range";
+import { useReload } from "../../PrivateComponents/utils";
+import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 
 const PageSize = 4;
 
 const VehiclesPage = () => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
+  const [showDropoff, setShowDropoff] = useState(false);
   const [pickUpDate, setPickUpDate] = useState("");
   const [pickUpTime, setPickUpTime] = useState("");
   const [dropOffDate, setDropOffDate] = useState("");
@@ -38,11 +41,8 @@ const VehiclesPage = () => {
   const durations = ["Day", "Week", "Month"];
   const durationValues = [1, 7, 30];
   const [currentPage, setCurrentPage] = useState(1);
-  const [showPickupDropdown, setShowPickupDropdown] = useState(false);
-  const [showDropoffDropdown, setShowDropoffDropdown] = useState(false);
-  const [selectedPickupCityName, setSelectedPickupCityName] = useState("");
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
-  const [selectedDropoffCityName, setSelectedDropoffCityName] = useState("");
+  const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
   const [selectedFilters, setSelectedFilters] = useState({
     carModels: [],
     carTypes: [],
@@ -56,12 +56,9 @@ const VehiclesPage = () => {
     },
   ]);
 
-  const [selectedPickUpOptionButton, setSelectedPickUpOptionButton] =
-    useState("Deliver");
-  const [selectedDropOffOptionButton, setSelectedDropOffOptionButton] =
-    useState("CompanyDropOff");
   const navigate = useNavigate();
   const [showPickupModal, setShowPickupModal] = useState(false);
+  const [showDropoffModal, setShowDropoffModal] = useState(false);
 
   const carModels = ["Mersedes Benz", "Nissan Altima", "Another Brand"];
   const carTypes = ["Family", "Intermediate", "Small"];
@@ -145,7 +142,7 @@ const VehiclesPage = () => {
             "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
           discount: 0,
           originalPrice: 342,
-          days: 12,
+          days: 0,
           carType: "Small",
           carModel: "Nissan Altima",
         },
@@ -215,19 +212,6 @@ const VehiclesPage = () => {
     return isoDateString;
   };
 
-  useEffect(() => {
-    if (pickUpDate && dropOffDate) {
-      const pickupDate = new Date(pickUpDate);
-      const dropoffDate = new Date(dropOffDate);
-      const timeDifference = dropoffDate.getTime() - pickupDate.getTime();
-      const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-
-      setNumberOfDays(daysDifference);
-    }
-  }, [pickUpDate, dropOffDate]);
-
-  // const cityNames = useMemo(() => ["Sharja", "Dubai", "Burjman"], []);
-
   const handlePickUpButtonClick = (option) => {
     if (option === "Deliver") {
       console.log("In delivery");
@@ -239,13 +223,17 @@ const VehiclesPage = () => {
   };
 
   const handleDropOffButtonClick = (option) => {
-    if (option === "CompanyDropOff") {
-      console.log("In company drop off");
-    } else if (option === "SelfDropOff") {
-      console.log("In self drop pick");
+    if (option === "Deliver") {
+      console.log("In deliver drop off");
+    } else if (option === "Pick") {
+      console.log("In drop off pick");
     }
-    setShowPickupDropdown(false);
-    setSelectedDropOffOptionButton(option);
+    setDropoffLocation(option);
+    setShowDropoffModal(false);
+  };
+
+  const handleDropoffCheckboxChange = () => {
+    setShowDropoff(!showDropoff);
   };
 
   const allCarsBookingButton = () => {
@@ -354,6 +342,20 @@ const VehiclesPage = () => {
     };
   }, [showDatePicker]);
 
+  const handleSearchCarButton = () => {
+    alert("Loading required cars");
+  };
+
+  const { loading } = useReload();
+
+  if (loading) {
+    return (
+      <>
+        <ReloadingComponent />
+      </>
+    );
+  }
+
   return (
     <div id="main" className="pb-2 ">
       <>
@@ -417,26 +419,70 @@ const VehiclesPage = () => {
                         </Form.Group>
                       </Col>
 
-                      <Col xxl={2} lg={2} md={5} sm={6} xs={12}>
+                      <Col
+                        xxl={showDropoff ? 2 : 4}
+                        lg={showDropoff ? 2 : 4}
+                        md={5}
+                        sm={6}
+                        xs={12}
+                        className={` ${
+                          showDropoff ? "dropoff-visible" : "dropoff-hidden"
+                        }`}
+                      >
                         <Form.Group controlId="formKeyword">
                           <div className="location-label">
                             <label className="styled-label">
                               <BsGeoAlt className="mr-2" />
-                              <b>Pickup Option</b>
+                              <b>Pick-Up</b>
                             </label>
                           </div>
                           <div className="custom-dropdown-container">
                             <input
                               className="form-control-location mt-2 col-12"
                               type="text"
-                              placeholder="Enter pickup Option"
+                              placeholder="Enter pickup location"
                               value={pickupLocationMessage}
-                              onChange={() => console.log("On change in pickup")}
+                              onChange={() =>
+                                console.log("On change in pickup")
+                              }
                               onClick={() => setShowPickupModal(true)}
                             />
                           </div>
                         </Form.Group>
+                        <div className="mt-2">
+                          <Form.Check
+                            type="checkbox"
+                            label="Different Dropoff Location"
+                            onChange={handleDropoffCheckboxChange}
+                          />
+                        </div>
                       </Col>
+
+                      {showDropoff && (
+                        <Col xxl={2} lg={2} md={5} sm={6} xs={12}>
+                          <Form.Group controlId="formKeyword">
+                            <div className="location-label">
+                              <label className="styled-label">
+                                <BsGeoAltFill className="mr-2" />
+                                <b>Drop-Off</b>
+                              </label>
+                            </div>
+                            <div className="custom-dropdown-container">
+                              <input
+                                className="form-control-location mt-2 col-12"
+                                type="text"
+                                placeholder="Enter dropoff location"
+                                value={dropoffLocationMessage}
+                                onChange={() =>
+                                  console.log("On change in dropoff")
+                                }
+                                onClick={() => setShowDropoffModal(true)}
+                              />
+                            </div>
+                          </Form.Group>
+                        </Col>
+                      )}
+
                       <Modal
                         show={showPickupModal}
                         onHide={() => setShowPickupModal(false)}
@@ -451,44 +497,34 @@ const VehiclesPage = () => {
                             handleButtonClick={handlePickUpButtonClick}
                             cityNames={cityNames}
                             mileleLocations={mileleLocations}
-                            updatePickupLocationMessage={setPickupLocationMessage} 
+                            updatePickupLocationMessage={
+                              setPickupLocationMessage
+                            }
                           />
                         </Modal.Body>
                       </Modal>
-                      <Col xxl={2} lg={2} md={4} sm={6} xs={12}>
-                        <Form.Group controlId="formLocation">
-                          <div className="location-label">
-                            <label className="styled-label">
-                              <BsGeoAltFill className="mr-2" />
-                              <b>DropOff Option</b>
-                            </label>
-                          </div>
-                          <div className="custom-dropdown-container">
-                            <input
-                              className="form-control-location mt-2 col-12"
-                              type="text"
-                              placeholder="Enter dropoff Option"
-                              defaultValue={dropoffLocation}
-                              onClick={() =>
-                                setShowDropoffDropdown(!showDropoffDropdown)
-                              }
-                            />
-                            <DropoffLocationDropdown
-                              show={showDropoffDropdown}
-                              handleButtonClick={handleDropOffButtonClick}
-                              cityNames={cityNames}
-                              selectedDropoffCityName={selectedDropoffCityName}
-                              setSelectedDropoffCityName={
-                                setSelectedDropoffCityName
-                              }
-                              setDropoffLocation={setDropoffLocation}
-                              selectedDropOffOptionButton={
-                                selectedDropOffOptionButton
-                              }
-                            />
-                          </div>
-                        </Form.Group>
-                      </Col>
+
+                      <Modal
+                        show={showDropoffModal}
+                        onHide={() => setShowDropoffModal(false)}
+                        size="xl"
+                      >
+                        <Modal.Header closeButton>
+                          <Modal.Title>DropOff Location</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                          <DropoffLocationModal
+                            show={showDropoffModal}
+                            handleButtonClick={handleDropOffButtonClick}
+                            cityNames={cityNames}
+                            mileleLocations={mileleLocations}
+                            updateDropoffLocationMessage={
+                              setDropoffLocationMessage
+                            }
+                          />
+                        </Modal.Body>
+                      </Modal>
+
                       <Col xxl={2} lg={2} md={3} sm={6} xs={6}>
                         <Form.Group controlId="formPickupDateTime">
                           <div className="date-label">
@@ -523,9 +559,12 @@ const VehiclesPage = () => {
                         </Form.Group>
                       </Col>
 
-                      <Col className="d-flex align-items-end mt-3 ">
+                      <Col xxl={1} lg={1} md={3} sm={6} xs={6} className="pt-5">
                         <div className="button-container">
-                          <button className="animated-search-button">
+                          <button
+                            className="animated-search-button"
+                            onClick={handleSearchCarButton}
+                          >
                             {" "}
                             <span className="button-text-span">
                               <span className="transition"></span>
@@ -539,16 +578,6 @@ const VehiclesPage = () => {
                         </div>
                       </Col>
                     </Row>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col className="mt-2">
-                    {numberOfDays > 0 && (
-                      <span className="fs-5">
-                        Number of days:{" "}
-                        <span className="total-days">{numberOfDays}</span>
-                      </span>
-                    )}
                   </Col>
                 </Row>
               </div>
@@ -833,19 +862,23 @@ const VehiclesPage = () => {
                               <div className="col-xxl-10 col-lg-10 col-md-12 col-sm-8 col-10 d-flex justify-content-center">
                                 {car.days > 0 ? (
                                   <>
-                                    <Button
-                                      variant="primary"
-                                      className="pay-now-button"
+                                    <button
+                                      className="animated-button"
+                                      onClick={allCarsBookingButton}
                                     >
-                                      <span className="pay-now-value">
-                                        Pay Now | AED:{" "}
-                                        {calculateSalePrice(
-                                          car.originalPrice,
-                                          car.discount
-                                        ) * car.days}{" "}
-                                        | {car.days} days
+                                      <span className="button-text-span">
+                                        <span className="transition"></span>
+                                        <span className="gradient"></span>
+                                        <span className="label">
+                                          Pay Now | AED:{" "}
+                                          {calculateSalePrice(
+                                            car.originalPrice,
+                                            car.discount
+                                          ) * car.days}{" "}
+                                          | {car.days} days
+                                        </span>
                                       </span>
-                                    </Button>
+                                    </button>
                                   </>
                                 ) : (
                                   <>

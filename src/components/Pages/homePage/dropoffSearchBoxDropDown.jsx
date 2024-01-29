@@ -1,232 +1,199 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Row, Col, Form } from "react-bootstrap";
-import $ from "jquery";
+import React, { useState, useRef } from "react";
+import { Tab } from "@headlessui/react";
+import MapComponent from "../homePage/MapComponent";
+import { Form } from "react-bootstrap";
+import "./pickupdropoffModal.css";
 
-const DropoffLocationDropdown = ({
+function DropoffLocationModal({
   show,
   handleButtonClick,
   cityNames,
-  selectedDropoffCityName,
-  setSelectedDropoffCityName,
-  setDropoffLocation,
-}) => {
-  const [selectedButton, setSelectedButton] = useState("CompanyDropOff");
+  mileleLocations,
+  updateDropoffLocationMessage,
+}) {
+  const [selectedTab, setSelectedTab] = useState("deliver");
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [hoveredLocation, setHoveredLocation] = useState(null);
+  const [inputFieldValue, setInputFieldValue] = useState("");
+  const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
+  const mapRef = useRef(null);
 
-  useEffect(() => {
-    if (show) {
-      $("#deliverToCityNameSelect").select2({
-        placeholder: "Choose City",
-        data: cityNames.map((cityName) => ({ id: cityName, text: cityName })),
-      });
+  const handleTabChange = (tab) => {
+    setSelectedTab(tab);
+    setSelectedLocation(null);
+    setHoveredLocation(null);
+  };
 
-      return () => {
-        $("#deliverToCityNameSelect").select2("destroy");
-      };
+  const handleListHover = (location) => {
+    if (!selectedLocation) {
+      setHoveredLocation(location);
     }
-  }, [show, cityNames]);
+  };
 
-  const handleButtonToggle = (button) => {
-    setSelectedButton(button);
-  }
+  const handleListClick = (location) => {
+    setSelectedLocation(location);
+    setHoveredLocation(null);
+  };
 
-  const [selecteddropOffLocation, setSelecteddropOffLocation] = useState("");
-  const [dropoffCityValue, setDropoffCityValue] = useState("")
+  const handleInputChange = (e) => {
+    setInputFieldValue(e.target.value);
+  };
 
-  const mileleLocations = useMemo(
-    () => [
-      {
-        id: 1,
-        locationName: "Showroom 93",
-        locationDetails: "Milele Showroom 93, Ras Al Khor, Dubai, UAE.",
-      },
-      {
-        id: 2,
-        locationName: "Head Office AF03",
-        locationDetails:
-          "Milele Head Office, Samari Retails, Office Number AF03, Dubai.",
-      },
-    ],
-    []
-  );
+  const handleInputSubmit = () => {
+    let message = "";
+    if (selectedTab === "deliver") {
+      message = `${
+        selectedLocation ? selectedLocation.locationName : ""
+      }-${inputFieldValue}`;
+    } else if (selectedTab === "pick") {
+      message = `${
+        selectedLocation ? selectedLocation.locationName : ""
+      }`;
+    }
+    setDropoffLocationMessage(message);
+    updateDropoffLocationMessage(message);
 
-  useEffect(() => {
-    $("#dropoffSelfLocationNameSelect").select2({
-      placeholder: "Select Location",
-      data: mileleLocations.map((locations) => ({
-        id: locations.locationName,
-        locName: locations.locationName,
-        text: locations.locationDetails,
-      })),
+    handleButtonClick(selectedTab, {
+      locationName: selectedLocation ? selectedLocation.locationName : "",
+      inputValue: inputFieldValue,
     });
-
-    return () => {
-      $("#dropoffSelfLocationNameSelect").select2("destroy");
-    };
-  }, [mileleLocations]);
+  };
 
   return (
     show && (
-      <div className="custom-dropdown p-4">
-        <>
-          <Row>
-            <Col className="d-flex align-items-center dropoff-locations-button-col">
-              <div className="pr-3">
-                <button
-                  className="btn btn-danger"
-                  onClick={() => handleButtonToggle("CompanyDropOff")}
-                >
-                  Dropoff By Company
-                </button>
-              </div>{" "}
-              <div>
-                <button
-                  className="btn btn-success pick-drop-myself-button"
-                  onClick={() => handleButtonToggle("SelfDropOff")}
-                >
-                  Dropoff By Self
-                </button>
-              </div>
-            </Col>
-          </Row>
-          <br />
-          {selectedButton === "CompanyDropOff" && (
-            <div className="drop-off-by-company-main-container">
-              <Row>
-                <div className="drop-off-by-company-container">
-                  <Row>
-                    <Col xxl={3} lg={3} md={3} sm={5} xs={12}>
-                      <Form.Group controlId="formCarModel">
-                        <select
-                          id="CompanyDropOffLocationSelect"
-                          className="form-select"
-                          value={selectedDropoffCityName}
-                          onChange={(e) => setSelectedDropoffCityName(e.target.value)}
-                        >
-                          <option
-                            value=""
-                            disabled
-                            className="disabled-choose-button"
-                          >
-                            Choose City
-                          </option>
-                          {cityNames.map((cityName) => (
-                            <option key={cityName} value={cityName}>
-                              {cityName}
-                            </option>
-                          ))}
-                        </select>
-                      </Form.Group>
-                    </Col>
-                    <Col xxl={6} lg={7} md={6} sm={7} xs={12}>
-                      <Form.Group controlId="formLocation">
+      <div className="custom-modal">
+        <Tab.Group>
+          <Tab.List className="col-3 dropoff-option-menus pb-3">
+            <Tab
+              className={({ selected }) =>
+                selected
+                  ? "dropoff-loc-option deliver-me-selected px-2 py-2"
+                  : "dropoff-loc-option deliver-me-not-selected px-2 py-2"
+              }
+              onClick={() => handleTabChange("deliver")}
+            >
+              <span className="deliver-to-me-text">Deliver to Me</span>
+            </Tab>
+            <Tab
+              className={({ selected }) =>
+                selected
+                  ? "dropoff-loc-option dropoff-selected px-2 py-2"
+                  : "dropoff-loc-option dropoff-not-selected px-2 py-2"
+              }
+              onClick={() => handleTabChange("pick")}
+            >
+              <span className="dropoff-text"> Pick Up Myself</span>
+            </Tab>
+          </Tab.List>
+
+          <Tab.Panels>
+            <Tab.Panel>
+              {/* Content for "Deliver to Me" */}
+              <div className="row">
+                <div className="col-4 px-5 py-8">
+                  <h2 className="text-xl font-bold mb-4">
+                    Available Locations
+                  </h2>
+                  <ul className="deliver-to-me-loc-list list-unstyled">
+                    {cityNames.map((city) => (
+                      <li
+                        key={city.id}
+                        onClick={() => handleListClick(city)}
+                        onMouseEnter={() => handleListHover(city)}
+                        className={`deliver-to-me-single-list ${
+                          selectedLocation === city || hoveredLocation === city
+                            ? "active"
+                            : ""
+                        }`}
+                      >
+                        <span className="mr-2">🛫</span>
+                        {city.locationName}
+                        <hr />
+                      </li>
+                    ))}
+                  </ul>
+                  {selectedLocation && (
+                    <div className="mt-5">
+                      <Form.Group controlId="formKeyword">
                         <input
                           className="form-control-location mt-2 col-12"
                           type="text"
-                          placeholder="Enter dropoff location"
-                          value={dropoffCityValue}
-                          onChange={(e) => setDropoffCityValue(e.target.value)}
+                          placeholder={`Address for ${selectedLocation.locationName}`}
+                          value={inputFieldValue}
+                          onChange={handleInputChange}
                         />
                       </Form.Group>
-                    </Col>
-
-                    <Col
-                      xxl={3}
-                      lg={2}
-                      md={2}
-                      sm={6}
-                      xs={8}
-                      className="d-flex justify-content-center align-items-center submit-button"
-                    >
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => handleButtonClick("SelfDropOff")}
-                      >
-                        <span className="d-block text-center">Submit</span>
-                      </button>
-                    </Col>
-                  </Row>
+                      {/* <button onClick={handleInputSubmit}>Submit</button> */}
+                    </div>
+                  )}
                 </div>
-              </Row>
-            </div>
-          )}
-          {selectedButton === "SelfDropOff" && (
-            <div className="dropoff-myself-main-container">
-              <Row>
-                <div className="dropoff-car-details-container">
-                  <Row>
-                    <Col xxl={3} lg={3} md={3} sm={5} xs={12}>
-                      <Form.Group controlId="formCarModel">
-                        <select
-                          id="CompanyDropOffLocationSelect"
-                          className="form-select"
-                          value={selecteddropOffLocation}
-                          onChange={(e) =>
-                            setSelecteddropOffLocation(e.target.value)
-                          }
-                        >
-                          <option
-                            value=""
-                            disabled
-                            className="disabled-choose-button"
-                          >
-                            Choose Location
-                          </option>
-                          {mileleLocations.map((locations) => (
-                            <option
-                              key={locations.id}
-                              value={locations.locationName}
-                            >
-                              {locations.locationName}
-                            </option>
-                          ))}
-                        </select>
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      xxl={6}
-                      lg={7}
-                      md={6}
-                      sm={7}
-                      xs={12}
-                      className="dropoff-location-col-container"
-                    >
-                      <div className="dropoff-location-text bg-white">
-                        <span className="dropoff-location-data">
-                          {selecteddropOffLocation
-                            ? mileleLocations.find(
-                                (location) =>
-                                  location.locationName ===
-                                  selecteddropOffLocation
-                              )?.locationDetails
-                            : "Please select location from drop down"}
-                        </span>
-                      </div>
-                    </Col>
 
-                    <Col
-                      xxl={3}
-                      lg={2}
-                      md={2}
-                      sm={6}
-                      xs={8}
-                      className="d-flex justify-content-center align-items-center submit-button"
-                    >
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => handleButtonClick("SelfDropOff")}
-                      >
-                        <span className="d-block text-center">Submit</span>
-                      </button>
-                    </Col>
-                  </Row>
+                {/* Right Column - Map */}
+                <div className="col-8">
+                  {(hoveredLocation || selectedLocation) && (
+                    <MapComponent
+                      locations={[hoveredLocation || selectedLocation]}
+                      mapRef={mapRef}
+                    />
+                  )}
                 </div>
-              </Row>
-            </div>
-          )}
-        </>
+              </div>
+            </Tab.Panel>
+
+            <Tab.Panel>
+              {/* Content for "Pick Up Myself" */}
+              <div className="row">
+                <div className="col-4 px-5 py-8">
+                  <h2 className="text-xl font-bold mb-4">
+                    Available Locations
+                  </h2>
+                  <ul className="dropoff-loc-list list-unstyled">
+                    {mileleLocations.map((location) => (
+                      <li
+                        key={location.id}
+                        onClick={() => handleListClick(location)}
+                        onMouseEnter={() => handleListHover(location)}
+                        className={`dropoff-single-list ${
+                          selectedLocation === location ||
+                          hoveredLocation === location
+                            ? "active"
+                            : ""
+                        }`}
+                      >
+                        <span className="mr-2">🛫</span>
+                        {location.locationName}
+                        <hr />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Right Column - Map */}
+                <div className="col-8">
+                  {(hoveredLocation || selectedLocation) && (
+                    <MapComponent
+                      locations={[hoveredLocation || selectedLocation]}
+                      mapRef={mapRef}
+                    />
+                  )}
+                </div>
+              </div>
+            </Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
+
+        <div className="button-container">
+          <button className="animated-button" onClick={handleInputSubmit}>
+            <span className="button-text-span">
+              <span className="transition"></span>
+              <span className="gradient"></span>
+              <span className="label">Rent Now</span>
+            </span>
+          </button>
+        </div>
       </div>
     )
   );
-};
+}
 
-export default DropoffLocationDropdown;
+export default DropoffLocationModal;

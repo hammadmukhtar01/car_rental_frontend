@@ -1,10 +1,23 @@
 import React from "react";
 import MainNavbar from '../navbar/mainNavbar';
+import { useReload } from "../../PrivateComponents/utils";
+import ReloadingComponent from './../../PrivateComponents/reloadingComponent';
 
 const ContactusPage = () => {
   const handleContactUsSubmitButton = () => {
     alert("Thank You for Contacting Us. We will contact You soon.");
   };
+
+  const { loading } = useReload();
+
+  if (loading) {
+    return (
+      <>
+       <ReloadingComponent/>
+      </>
+    );
+  }
+
   return (
     <>
       <div id="main" className="">
