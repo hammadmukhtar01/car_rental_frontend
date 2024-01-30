@@ -16,6 +16,7 @@ import CustomerBookingPage from "./components/customerDashboard/myBookingDetails
 import VerificationForm from "./components/Pages/multipleStepsForm/multipleStepsForm";
 import FixedNumLocButtons from "./components/Pages/navbar/locationNumberIcons";
 // import MainNavbar from "./components/Pages/navbar/mainNavbar";
+import ForgotPasswordPage from './components/authentication/forgotPassword';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/myBookings/:id" element={<CustomerBookingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
           <Route path="/bookingPage1" element={<VerificationForm />} />
         </Routes>
         <Footer />

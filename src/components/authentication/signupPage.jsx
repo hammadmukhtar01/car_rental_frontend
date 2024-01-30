@@ -77,7 +77,7 @@ const SignupPage = () => {
                     >
                       Full Name
                     </label>
-                    <div className="col-lg-6">
+                    <div className="col-lg-7">
                       <input
                         className="form-control"
                         id="username"
@@ -98,7 +98,7 @@ const SignupPage = () => {
                     <label htmlFor="city" className="col-lg-5 col-form-label">
                       Email
                     </label>
-                    <div className="col-lg-6">
+                    <div className="col-lg-7">
                       <input
                         className="form-control"
                         id="email"
@@ -122,7 +122,7 @@ const SignupPage = () => {
                     >
                       Password
                     </label>
-                    <div className="col-lg-6">
+                    <div className="col-lg-7">
                       <input
                         className="form-control"
                         id="password"
@@ -147,7 +147,7 @@ const SignupPage = () => {
                     <label htmlFor="city" className="col-lg-5 col-form-label">
                       Confirm password
                     </label>
-                    <div className="col-lg-6">
+                    <div className="col-lg-7">
                       <input
                         className="form-control"
                         id="passwordConfirm"
@@ -175,7 +175,7 @@ const SignupPage = () => {
                     >
                       Phone Number
                     </label>
-                    <div className="col-lg-6">
+                    <div className="col-lg-7">
                       <input
                         className="form-control"
                         id="phoneNum"
@@ -196,7 +196,7 @@ const SignupPage = () => {
                     <label htmlFor="city" className="col-lg-5 col-form-label">
                       City
                     </label>
-                    <div className="col-lg-6">
+                    <div className="col-lg-7">
                       <input
                         className="form-control"
                         id="city"

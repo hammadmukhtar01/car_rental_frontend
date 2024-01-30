@@ -65,10 +65,10 @@ const LoginPage = () => {
                 </p>
                 <form action="#" className="signin-form">
                   <div className="form-group row">
-                    <label htmlFor="city" className="col-lg-5 col-form-label">
+                    <label htmlFor="city" className="col-lg-4 col-form-label">
                       Email
                     </label>
-                    <div className="col-lg-6">
+                    <div className="col-lg-7">
                       <input
                         className="form-control"
                         id="email"
@@ -88,11 +88,11 @@ const LoginPage = () => {
                   <div className="form-group row">
                     <label
                       htmlFor="phoneNum"
-                      className="col-lg-5 col-form-label"
+                      className="col-lg-4 col-form-label"
                     >
                       Password
                     </label>
-                    <div className="col-lg-6">
+                    <div className="col-lg-7">
                       <input
                         className="form-control"
                         id="password"

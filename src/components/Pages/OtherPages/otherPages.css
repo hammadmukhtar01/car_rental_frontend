@@ -22,5 +22,24 @@
 }
 
 
+.about-us-section-1-container {
+  padding: 15px;
+}
 
+.legacy-icon {
+  font-size: 40px;
+  color: #cc6119;
+}
 
+.why-us-single-container {
+  border: 1px solid rgb(208, 208, 208);
+}
+
+.about-us-text-col {
+  padding: inherit;
+  /* margin: 20px; */
+}
+
+.why-us-single-container {
+  padding: 20px;
+}

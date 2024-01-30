@@ -24,10 +24,10 @@
 ul.deliver-to-me-loc-list li:hover,
 ul.pickup-loc-list li:hover,
 ul.dropoff-loc-list li:hover {
-  background-color: #ffcfae;
+  background-color: #e67931;
   cursor: pointer;
-  color: #ae4600;
-  transform: scale(1.1);
+  color: white;
+  transform: scale(1.05);
   transition: transform 0.5s ease-in-out !important;
 }
 

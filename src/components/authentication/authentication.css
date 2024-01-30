@@ -66,7 +66,7 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-.login-wrap, .signup-wrap {
+.login-wrap, .signup-wrap, .forgot-wrap {
   position: relative;
   color: black;
   font-weight: bolder;
@@ -104,7 +104,7 @@
   font-size: 26px;
 }
 
-.login-row {
+.login-row, .forgot-row {
   display: flex;
   flex-wrap: wrap;
 }

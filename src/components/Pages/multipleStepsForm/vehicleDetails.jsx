@@ -158,7 +158,7 @@ const VehicleDetails = ({ nextStep }) => {
                     <div className="pickup-location-div">
                       <span className="location-heading">Pickup Location</span>
                       <h5 className="location-value">
-                        Sharja Airport - Terminal 1
+                        Sharjah Airport - Terminal 1
                       </h5>
                       <span className="city-name">City name</span>
                       <div>
@@ -172,7 +172,7 @@ const VehicleDetails = ({ nextStep }) => {
                     <div className="dropoff-location-div">
                       <span className="location-heading">Pickup Location</span>
                       <h5 className="location-value">
-                        Sharja Airport - Terminal 1
+                        Sharjah Airport - Terminal 1
                       </h5>
                       <span className="city-name">City name</span>
                       <div>

@@ -35,14 +35,13 @@ const SearchBox = () => {
   const navigate = useNavigate();
 
   const mileleLocations = [
-    { id: 1, locationName: "Showroom 93", lat: 25.276987, lng: 55.296249 },
-    { id: 2, locationName: "Showroom 11", lat: 35.476987, lng: 45.596249 },
+    { id: 2, locationName: "Showroom 11", lat: 25.17415786184568, lng: 55.37397086110656 },
   ];
 
   const cityNames = [
-    { id: 1, locationName: "Sharja", lat: 25.276987, lng: 55.296249 },
-    { id: 2, locationName: "Dubai", lat: 35.276987, lng: 65.296249 },
-    { id: 3, locationName: "Burjman", lat: 45.276987, lng: 75.296249 },
+    { id: 1, locationName: "Sharjah", lat: 25.3461498, lng: 55.4210633 },
+    { id: 2, locationName: "Dubai", lat: 25.246583391917024, lng: 55.36045718226757 },
+    { id: 3, locationName: "Ajman", lat: 25.406758980569528, lng: 55.442444567785444 },
   ];
   useEffect(() => {
     if (pickUpDate && dropOffDate) {

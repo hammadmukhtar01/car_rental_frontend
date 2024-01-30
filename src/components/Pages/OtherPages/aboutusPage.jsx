@@ -1,8 +1,11 @@
 import React from "react";
 import MainNavbar from "../navbar/mainNavbar";
 import { useReload } from "../../PrivateComponents/utils";
-import ReloadingComponent from './../../PrivateComponents/reloadingComponent';
+import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import HashLoader from "react-spinners/ClipLoader";
+import AboutUsImg from "../../images/bgImg3.jpg";
+import AboutUsImg2 from "../../images/bgImg2.jpg";
+import { SiLegacygames } from "react-icons/si";
 
 const AboutusPage = () => {
   const { loading } = useReload();
@@ -38,7 +41,7 @@ const AboutusPage = () => {
       // </>
 
       <>
-       <ReloadingComponent/>
+        <ReloadingComponent />
       </>
     );
   }
@@ -52,146 +55,124 @@ const AboutusPage = () => {
             <MainNavbar />
           </div>
         </div>
-        <div className="container mt-4">
-          <div
-            data-elementor-type="wp-page"
-            data-elementor-id="3201"
-            className="elementor elementor-3201"
-          >
-            <section
-              className="elementor-section elementor-top-section elementor-element elementor-element-51f601c elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-              data-id="51f601c"
-              data-element_type="section"
-            >
-              <div className="elementor-container elementor-column-gap-default"></div>
-            </section>
-            <center>
-              <h2 className="offer-heading">
-                Why Choose US?
-                <hr className="col-2" style={{ border: "1px solid #cc6119" }} />
-              </h2>
-            </center>
-            <section
-              className="elementor-section elementor-top-section elementor-element elementor-element-89359a9 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-              data-id="89359a9"
-              data-element_type="section"
-            >
-              <div className="elementor-container elementor-column-gap-default">
-                <div
-                  className="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-0283819"
-                  data-id="0283819"
-                  data-element_type="column"
-                >
-                  <div className="elementor-widget-wrap elementor-element-populated">
-                    <div
-                      className="elementor-element elementor-element-0c2b075 elementor-widget elementor-widget-text-editor"
-                      data-id="0c2b075"
-                      data-element_type="widget"
-                      data-widget_type="text-editor.default"
-                    >
-                      <div className="elementor-widget-container">
-                        <ul
-                          className="list-style-1"
-                          style={{ marginTop: "15px" }}
-                        >
-                          <li>
-                            <center>
-                              <img
-                                decoding="async"
-                                src="icons/1.png"
-                                alt="aboutUs"
-                                className="iconBorder"
-                              />
-                            </center>
-                            <br />
-                            <p>
-                              We thrive on a customer-centered approach, and
-                              based on your feedback are able to keep our
-                              services at par with your expectations.{" "}
-                            </p>
-                          </li>
-                          <br />
-                          <li>
-                            <center>
-                              <img
-                                decoding="async"
-                                src="icons/2.png"
-                                alt="aboutUs"
-                                className="iconBorder"
-                              />
-                            </center>
-                            <br />
-                            <p>
-                              Our diligent & experienced team of assures
-                              reliable and seamless service. We are not shy of
-                              going the extra mile to ensure that you journey
-                              with us is a truly enjoyable experience.{" "}
-                            </p>
-                          </li>
-                        </ul>
+        <div className="container mt-4 mb-4">
+          <section className="about-us-main-section-1">
+            <div className="about-us-section-1">
+              <div className="about-us-section-heading text-center">
+                <h3>
+                  <b>About US</b>
+                </h3>
+              </div>
+              <div className="about-us-section-1-container">
+                <div className="row p-4 d-flex align-items-center">
+                  <div className="about-us-text-col col-6">
+                    <p>
+                      Welcome to Milele Car Rental, a proud subsidiary of Milele
+                      Corporations, a global leader with over 35 years of
+                      unparalleled experience in the automotive industry.
+                      Nestled under the esteemed Milele umbrella, we bring you a
+                      legacy of excellence, reliability, and a commitment to
+                      providing exceptional car rental services.
+                    </p>
+                  </div>
+                  <div className="about-us-img-col col-6">
+                    <img src={AboutUsImg} alt="about-us-img" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="about-us-main-section-1">
+            <div className="about-us-section-1">
+              <div className="about-us-section-heading text-center">
+                <h3>
+                  <b>Why US?</b>
+                </h3>
+              </div>
+              <div className="about-us-section-1-container">
+                <div className="row p-4 ">
+                  {/* <div className="about-us-img-col col-6">
+                    <img src={AboutUsImg2} alt="about-us-img" />
+                  </div> */}
+
+                  <div className="about-us-text-col col-4">
+                    <div className="row ">
+                      <div className="col-12 why-us-single-container">
+                        <SiLegacygames className="legacy-icon" />
+                        <div className="legacy-heading mt-2 mb-2">
+                          <h5>
+                            <b>Legacy</b>
+                          </h5>
+                        </div>
+                        <div className="legacy-description">
+                          <p>
+                            {" "}
+                            As part of Milele Corporations, we inherit a rich
+                            legacy built on a foundation of trust, innovation,
+                            and customer satisfaction. Our parent company stands
+                            as one of the foremost players in the import and
+                            export of new cars worldwide, solidifying its
+                            reputation as an industry powerhouse.
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  className="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-7532aff"
-                  data-id="7532aff"
-                  data-element_type="column"
-                >
-                  <div className="elementor-widget-wrap elementor-element-populated">
-                    <div
-                      className="elementor-element elementor-element-9ef364b elementor-widget elementor-widget-image"
-                      data-id="9ef364b"
-                      data-element_type="widget"
-                      data-widget_type="image.default"
-                    >
-                      <div className="elementor-widget-container">
-                        <ul
-                          className="list-style-1"
-                          style={{ marginTop: "15px" }}
-                        >
-                          <li>
-                            <center>
-                              <img
-                                decoding="async"
-                                src="icons/3.png"
-                                alt="aboutUs"
-                                className="iconBorder"
-                              />
-                            </center>
-                            <br />
-                            <p>
-                              We are always a phone call away. Whether you need
-                              to hire a vehicle or any service on your existing
-                              vehicle hired form us we're assure the quickest
-                              turnaround and response!{" "}
-                            </p>
-                          </li>
-                          <li>
-                            <center>
-                              <img
-                                decoding="async"
-                                src="icons/4.png"
-                                alt="aboutUs"
-                                className="iconBorder"
-                              />
-                            </center>
-                            <br />
-                            <p>
-                              At MILELE, we understand your need for convenient
-                              custom-made solutions. Our varied fleet of ready
-                              and well-maintained vehicles can conveniently
-                              cater to your needs.{" "}
-                            </p>
-                          </li>
-                        </ul>
+
+                  <div className="about-us-text-col col-4">
+                    <div className="row">
+                      <div className="col-12 why-us-single-container">
+                        <SiLegacygames className="legacy-icon" />
+                        <div className="legacy-heading mt-2 mb-2">
+                          <h5>
+                            <b>Legacy</b>
+                          </h5>
+                        </div>
+                        <div className="legacy-description">
+                          <p>
+                            {" "}
+                            As part of Milele Corporations, we inherit a rich
+                            legacy built on a foundation of trust, innovation,
+                            and customer satisfaction. Our parent company stands
+                            as one of the foremost players in the import and
+                            export of new cars worldwide, solidifying its
+                            reputation as an industry powerhouse.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="about-us-text-col col-4">
+                    <div className="row">
+                      <div className="col-12 why-us-single-container">
+                        <SiLegacygames className="legacy-icon" />
+                        <div className="legacy-heading mt-2 mb-2">
+                          <h5>
+                            <b>Legacy</b>
+                          </h5>
+                        </div>
+                        <div className="legacy-description">
+                          <p>
+                            {" "}
+                            As part of Milele Corporations, we inherit a rich
+                            legacy built on a foundation of trust, innovation,
+                            and customer satisfaction. Our parent company stands
+                            as one of the foremost players in the import and
+                            export of new cars worldwide, solidifying its
+                            reputation as an industry powerhouse.
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </section>
-          </div>
+            </div>
+          </section>
+
+         
         </div>
       </div>
     </>
