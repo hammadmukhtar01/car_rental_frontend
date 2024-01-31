@@ -17,11 +17,11 @@ import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 
 const HomePage = () => {
   const carBrands = [
-    { name: "hyundai", logo: HyundaiLogo },
-    { name: "chevrolet", logo: CheveroletLogo },
-    { name: "kia", logo: KiaLogo },
-    { name: "peugeot", logo: PeugeotLogo },
-    { name: "nissan", logo: NissanLogo },
+    { name: "hyundai", logo: HyundaiLogo, title: "Hyundai" },
+    { name: "chevrolet", logo: CheveroletLogo, title: "Cheverolet" },
+    { name: "kia", logo: KiaLogo, title: "Kia" },
+    { name: "peugeot", logo: PeugeotLogo, title: "Peugeot" },
+    { name: "nissan", logo: NissanLogo, title: "Nissan" },
   ];
 
   const handleMouseEnter = () => {
@@ -39,7 +39,7 @@ const HomePage = () => {
   if (loading) {
     return (
       <>
-       <ReloadingComponent/>
+        <ReloadingComponent />
       </>
     );
   }
@@ -110,7 +110,7 @@ const HomePage = () => {
                       <img
                         src={brand.logo}
                         className="brands-logo-images"
-                        title="brand-logos"
+                        title={brand.title}
                         alt="Logo"
                       />
                     </div>

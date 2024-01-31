@@ -211,7 +211,7 @@
 }
 
 .price-per-specificDay-container:hover {
-  background: #dfdfdf;
+  background: #eeeeee;
   cursor: pointer;
   transform: scale(1.03);
   transition: 0.4s ease-in-out;
@@ -307,8 +307,18 @@ span.select2-selection_arrow b {
 
 .all-cars-section {
   border-radius: 6px;
+  border: 1px solid #cccccc;
   padding: 10px 20px;
-  background-color: white;
+  background-color: transparent;
+}
+
+.all-cars-hr-tag {
+  opacity: 0.9;
+}
+
+.price-filter-heading, .car-type-filter-heading {
+  border-radius: 0px !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.175);
 }
 
 .all-offer-cars {
@@ -699,7 +709,7 @@ body {
 }
 
 .all-offer-cars {
-  background-color: #f3f3f3;
+  background-color: white;
 }
 
 @media screen and (max-width: 575px) {

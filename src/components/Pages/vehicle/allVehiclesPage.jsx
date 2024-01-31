@@ -19,12 +19,12 @@ import PickupLocationModal from "../homePage/pickupSearchBoxDropDown";
 import DropoffLocationModal from "../homePage/dropoffSearchBoxDropDown";
 import Pagination from "./pagination";
 import MainNavbar from "../navbar/mainNavbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { DateRange } from "react-date-range";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 
-const PageSize = 4;
+const PageSize = 20;
 
 const VehiclesPage = () => {
   const [pickupLocation, setPickupLocation] = useState("");
@@ -60,8 +60,14 @@ const VehiclesPage = () => {
   const [showPickupModal, setShowPickupModal] = useState(false);
   const [showDropoffModal, setShowDropoffModal] = useState(false);
 
-  const carModels = ["Mersedes Benz", "Nissan Altima", "Another Brand"];
-  const carTypes = ["Family", "Intermediate", "Small"];
+  const carModels = ["Mersedes Benz", "Nissan Altima", "Bugatti"];
+  const carTypes = ["Family", "Intermediate", "SUV", "Economy"];
+
+  const carTypeInURL = useLocation();
+  const queryParams = new URLSearchParams(carTypeInURL.search);
+  const initialCarType = queryParams.get("carType");
+
+  // console.log("Initial Car type is : ", initialCarType)
 
   const carFeaturesWithIcons = [
     {
@@ -104,13 +110,28 @@ const VehiclesPage = () => {
   };
 
   const mileleLocations = [
-    { id: 2, locationName: "Showroom 11", lat: 25.17415786184568, lng: 55.37397086110656 },
+    {
+      id: 2,
+      locationName: "Showroom 11",
+      lat: 25.17415786184568,
+      lng: 55.37397086110656,
+    },
   ];
 
   const cityNames = [
     { id: 1, locationName: "Sharjah", lat: 25.3461498, lng: 55.4210633 },
-    { id: 2, locationName: "Dubai", lat: 25.246583391917024, lng: 55.36045718226757 },
-    { id: 3, locationName: "Ajman", lat: 25.406758980569528, lng: 55.442444567785444 },
+    {
+      id: 2,
+      locationName: "Dubai",
+      lat: 25.246583391917024,
+      lng: 55.36045718226757,
+    },
+    {
+      id: 3,
+      locationName: "Ajman",
+      lat: 25.406758980569528,
+      lng: 55.442444567785444,
+    },
   ];
 
   const carsData = useMemo(
@@ -142,7 +163,7 @@ const VehiclesPage = () => {
           discount: 0,
           originalPrice: 342,
           days: 0,
-          carType: "Small",
+          carType: "Economy",
           carModel: "Nissan Altima",
         },
         {
@@ -151,7 +172,7 @@ const VehiclesPage = () => {
           discount: 0,
           originalPrice: 975,
           days: 0,
-          carType: "Small",
+          carType: "SUV",
           carModel: "Mersedes Benz",
         },
         {
@@ -239,6 +260,15 @@ const VehiclesPage = () => {
     console.log("All Cars Booking Button");
     navigate("/bookingPage1");
   };
+
+  useEffect(() => {
+    if (initialCarType) {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        carTypes: [...prevFilters.carTypes, initialCarType],
+      }));
+    }
+  }, [initialCarType]);
 
   const filterCars = useMemo(() => {
     const filteredCars = carsData.filter((car) => {
@@ -499,6 +529,12 @@ const VehiclesPage = () => {
                             updatePickupLocationMessage={
                               setPickupLocationMessage
                             }
+                            initialSelectedLocation={pickupLocation}
+                            initialInputFieldValue={pickupLocationMessage}
+
+                            // Selected Pickup Type (Delivery, pickup)
+                            // selected location name
+                            // selected input address for location name
                           />
                         </Modal.Body>
                       </Modal>
@@ -520,6 +556,8 @@ const VehiclesPage = () => {
                             updateDropoffLocationMessage={
                               setDropoffLocationMessage
                             }
+                            initialSelectedLocation={dropoffLocation}
+                            initialInputFieldValue={dropoffLocationMessage}
                           />
                         </Modal.Body>
                       </Modal>
@@ -640,7 +678,7 @@ const VehiclesPage = () => {
                   </article>
                   <article className="card-group-item">
                     <div className="location-label">
-                      <header className="card-header styled-label title pt-3 pb-3">
+                      <header className="card-header styled-label title car-type-filter-heading pt-3 pb-3">
                         <BsJustify className="mr-2" />
                         <b>Car Type</b>
                       </header>
@@ -684,7 +722,7 @@ const VehiclesPage = () => {
                   </article>
                   <article className="card-group-item">
                     <div className="location-label">
-                      <header className="card-header styled-label pt-3 pb-3">
+                      <header className="card-header styled-label price-filter-heading pt-3 pb-3">
                         <BsTags className="mr-2" />
                         <b>Price Range</b>
                       </header>
@@ -753,9 +791,9 @@ const VehiclesPage = () => {
                   </Row>
 
                   <>
-                    <h3 className="pt-4 pb-2 all-cars-heading">
+                    <h3 className="pb-2 all-cars-heading">
                       All Cars
-                      <hr />
+                      <hr className="all-cars-hr-tag" />
                     </h3>
                     <Row className="offers-car-container-row">
                       {currentTableData.map((car, index) => (
@@ -775,11 +813,14 @@ const VehiclesPage = () => {
                               </span>
                             </div>
                             <div className="car-image-container ">
-                              <img
-                                src={car.image}
-                                alt={`Car ${index + 1}`}
-                                className="car-image m-4"
-                              />
+                              <a href="/bookingPage1">
+                                {" "}
+                                <img
+                                  src={car.image}
+                                  alt={`Car ${index + 1}`}
+                                  className="car-image"
+                                />
+                              </a>
                               {/* <div className="car-image-overlay"></div> */}
                             </div>
                             <div className="all-vehicles-features-icons features-scroll-container text-center">

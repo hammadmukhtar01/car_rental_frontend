@@ -1,5 +1,5 @@
-
-.accordion-button, .accordion-button:focus {
+.accordion-button,
+.accordion-button:focus {
   box-shadow: 4px 2px 12px 1px #e3e3e3;
 }
 
@@ -17,10 +17,11 @@
   background-size: 1rem;
 }
 
-.accordion-button:hover::after, .accordion-button:focus::before, .accordion-button:not(.collapsed)::after {
+.accordion-button:hover::after,
+.accordion-button:focus::before,
+.accordion-button:not(.collapsed)::after {
   filter: brightness(0) invert(1);
 }
-
 
 .about-us-section-1-container {
   padding: 15px;
@@ -42,4 +43,13 @@
 
 .why-us-single-container {
   padding: 20px;
+}
+
+.accordion-header {
+  font-family: sans-serif;
+}
+
+.accordion-button.collapsed {
+
+font-size: 15px;
 }

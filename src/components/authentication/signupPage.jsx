@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import "./authentication.css";
 import MainNavbar from "../Pages/navbar/mainNavbar";
+import { useReload } from "../PrivateComponents/utils";
+import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
@@ -55,14 +57,25 @@ const SignupPage = () => {
       alert("Please enter a correct data");
     }
   };
+
+  const { loading } = useReload();
+
+  if (loading) {
+    return (
+      <>
+        <ReloadingComponent />
+      </>
+    );
+  }
+
   return (
     <>
-        <div className="navbar-bg-img-container">
-          <div className="booking-page-banner-navbar">
-            {" "}
-            <MainNavbar />
-          </div>
+      <div className="navbar-bg-img-container">
+        <div className="booking-page-banner-navbar">
+          {" "}
+          <MainNavbar />
         </div>
+      </div>
       <section className="ftco-section">
         <div className="container">
           <div className="login-row justify-content-center">
@@ -229,10 +242,14 @@ const SignupPage = () => {
                       <p></p>
                       <button
                         type="submit"
-                        className="createAccount-form-control btn btn-primary submit px-3"
+                        className="createAccount-form-control animated-button submit px-3"
                         onClick={(e) => handleSignUp(e)}
                       >
-                        Create Account{" "}
+                        <span className="button-text-span">
+                          <span className="transition"></span>
+                          <span className="gradient"></span>
+                          <span className="label">Create Account </span>
+                        </span>
                       </button>
                     </div>
                   </div>

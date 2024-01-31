@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./authentication.css";
 import MainNavbar from "../Pages/navbar/mainNavbar";
+import { useReload } from "../PrivateComponents/utils";
+import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -46,6 +48,18 @@ const LoginPage = () => {
     }
   };
 
+  
+  const { loading } = useReload();
+
+  if (loading) {
+    return (
+      <>
+        <ReloadingComponent />
+      </>
+    );
+  }
+
+
   return (
     <>
       <div className="navbar-bg-img-container">
@@ -59,10 +73,7 @@ const LoginPage = () => {
           <div className="login-row justify-content-center">
             <div className="col-lg-6 ">
               <div className="login-wrap ">
-                <p className=" have-account-text">Log In </p>
-                <p className="text-center have-account-text">
-                  Already have an account?
-                </p>
+                <p className=" have-account-text mb-4">Login Here!</p>
                 <form action="#" className="signin-form">
                   <div className="form-group row">
                     <label htmlFor="city" className="col-lg-4 col-form-label">
@@ -118,10 +129,15 @@ const LoginPage = () => {
                       <p></p>
                       <button
                         type="submit"
-                        className="login-form-control btn btn-primary submit"
+                        className="login-form-control animated-button submit"
                         onClick={(e) => handleLogin(e)}
                       >
-                        Log In
+                    
+                        <span className="button-text-span">
+                          <span className="transition"></span>
+                          <span className="gradient"></span>
+                          <span className="label">Log In</span>
+                        </span>
                       </button>
                     </div>
                   </div>

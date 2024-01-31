@@ -61,12 +61,8 @@
 }
 
 .one-testimonial-main-div:hover {
-  background-color: #e8e8e8;
-  cursor: pointer;
-}
-
-.one-testimonial-main-div:active {
-  transform: scale(0.9);
+  cursor: text;
+  transform: scale(0.94);
 }
 
 button.animated-search-button,

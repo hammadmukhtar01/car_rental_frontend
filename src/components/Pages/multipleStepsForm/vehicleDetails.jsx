@@ -153,7 +153,7 @@ const VehicleDetails = ({ nextStep }) => {
           <>
             <div className="step1-car-location-details-container">
               <div className="step1-location-details pb-3 pt-3">
-                <Row>
+                <Row className="p-2">
                   <Col lg={6} md={6} sm={12} xs={12}>
                     <div className="pickup-location-div">
                       <span className="location-heading">Pickup Location</span>
@@ -186,7 +186,7 @@ const VehicleDetails = ({ nextStep }) => {
               </div>
               <br />
               <div className="step1-car-details">
-                <Row>
+                <Row className="pl-3 pt-3">
                   <h4 className="step1-car-name pl-3">Car Name</h4>
                   <span className="step1-car-type pl-3">Car Type </span>
                   <Col lg={7} md={12} sm={12} xs={12}>

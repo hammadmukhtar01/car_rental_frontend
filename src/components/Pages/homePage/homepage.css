@@ -230,15 +230,15 @@
   border-radius: 6px;
   padding: 10px 20px;
   box-shadow: 3px 1px 9px #535353;
-  background-color: rgb(239, 238, 235, 0.4);
+  background: transparent;
   margin: 10px 10px 150px 10px;
 }
 .search-box-container:hover {
+  background-color: white;
   /* background-color: rgba(248, 248, 248, 0.6); */
-  background-image: url("../../images/wallpaperBg.png");
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat;
   background-size: cover;
-  background-position: top;
+  background-position: top; */
 }
 
 .all-cars-search-box-container {
@@ -496,6 +496,10 @@ html {
   display: contents;
 }
 
+.animated-car-anchor-tag:hover {
+  cursor: pointer;
+}
+
 .slider {
   margin-bottom: 30px;
   margin-top: 30px;
@@ -626,7 +630,7 @@ html {
 
 .alice-carousel__dots-item:not(.__custom) {
   border: 1px solid lightgrey !important;
-  background-color: transparent !important;
+  background-color: white !important;
   width: 12px !important;
   height: 12px !important;
 }

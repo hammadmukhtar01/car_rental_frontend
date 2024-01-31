@@ -36,6 +36,7 @@ ul.dropoff-loc-list li:hover {
 .dropoff-selected {
   background-color: #cc6119;
   border-radius: 20px;
+  color: white;
 }
 
 .pickup-not-selected,
@@ -49,7 +50,8 @@ ul.dropoff-loc-list li:hover {
 .pickup-not-selected:hover,
 .dropoff-not-selected:hover,
 .deliver-me-not-selected:hover {
-  color: black;
+  /* color: black; */
+  cursor: pointer;
   transform: scale(0.95);
   transition: transform 0.4s ease-in-out !important;
 }
@@ -57,6 +59,7 @@ ul.dropoff-loc-list li:hover {
 .pickup-selected:hover,
 .dropoff-selected:hover,
 .deliver-me-selected:hover {
+  cursor: pointer;
   transform: scale(0.95);
   transition: transform 0.4s ease-in-out !important;
 }

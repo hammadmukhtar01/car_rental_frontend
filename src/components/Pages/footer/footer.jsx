@@ -2,6 +2,9 @@ import React from "react";
 import "./footer.css";
 
 const Footer = () => {
+  const footerSubscriptionButton = () => {
+    alert("Thank You for subscription...");
+  };
   return (
     <div>
       <footer id="footer">
@@ -58,8 +61,8 @@ const Footer = () => {
                       <div className="mc4wp-form-fields">
                         <div className="stm-mc-unit">
                           <form
-                            method="post"
-                            action="https://milelecarrental.com/subscriptions"
+                            // method="post"
+                            action="http://localhost:3000/home"
                           >
                             <input
                               type="hidden"
@@ -71,9 +74,13 @@ const Footer = () => {
                               type="email"
                               name="email"
                               placeholder="Enter your email..."
-                              required=""
+                              required
                             />
-                            <input type="submit" value="Sign up" />
+                            <input
+                              type="submit"
+                              value="Sign up"
+                              onClick={footerSubscriptionButton}
+                            />
                           </form>
                         </div>
                         <div className="stm-mc-label">
@@ -83,7 +90,7 @@ const Footer = () => {
                     </div>
                   </div>
                 </aside>
-            
+
                 <aside id="socials-2" className="widget widget_socials">
                   <div className="widget-wrapper">
                     <div className="widget-title">
@@ -163,7 +170,6 @@ const Footer = () => {
                             <i className="fab fa-tiktok"></i>
                           </a>
                         </li>
-                       
                       </ul>
                     </div>
                   </div>

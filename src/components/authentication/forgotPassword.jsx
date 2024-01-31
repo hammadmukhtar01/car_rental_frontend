@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MainNavbar from "../Pages/navbar/mainNavbar";
+import { useReload } from "../PrivateComponents/utils";
+import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -29,6 +31,16 @@ const ForgotPasswordPage = () => {
       alert("Email not found. Try Again with correct email.");
     }
   };
+
+  const { loading } = useReload();
+
+  if (loading) {
+    return (
+      <>
+        <ReloadingComponent />
+      </>
+    );
+  }
 
   return (
     <>
@@ -72,10 +84,14 @@ const ForgotPasswordPage = () => {
                       <p></p>
                       <button
                         type="submit"
-                        className="forgot-form-control btn btn-primary submit"
+                        className="forgot-form-control animated-button submit"
                         onClick={handleForgotPasswordClick}
                       >
-                        Submit
+                        <span className="button-text-span">
+                          <span className="transition"></span>
+                          <span className="gradient"></span>
+                          <span className="label">Submit</span>
+                        </span>
                       </button>
                     </div>
                   </div>

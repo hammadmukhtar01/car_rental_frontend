@@ -16,7 +16,7 @@ function MainNavbar() {
   const user_info = JSON.parse(auth);
   const customer_Id = user_info?.data?._id;
 
-  console.log("Auth in local storage is: ", user_info);
+  // console.log("Auth in local storage is: ", user_info);
 
   const handleLogout = () => {
     localStorage.removeItem("user");

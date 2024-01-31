@@ -1,7 +1,8 @@
 import React from "react";
-import MainNavbar from '../navbar/mainNavbar';
+import { Form } from "react-bootstrap";
+import MainNavbar from "../navbar/mainNavbar";
 import { useReload } from "../../PrivateComponents/utils";
-import ReloadingComponent from './../../PrivateComponents/reloadingComponent';
+import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 
 const ContactusPage = () => {
   const handleContactUsSubmitButton = () => {
@@ -13,7 +14,7 @@ const ContactusPage = () => {
   if (loading) {
     return (
       <>
-       <ReloadingComponent/>
+        <ReloadingComponent />
       </>
     );
   }
@@ -21,7 +22,7 @@ const ContactusPage = () => {
   return (
     <>
       <div id="main" className="">
-      <div className="navbar-bg-img-container">
+        <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
             <MainNavbar />
@@ -33,7 +34,7 @@ const ContactusPage = () => {
             data-elementor-id="3104"
             className="elementor elementor-3104 pt-xl-4"
           >
-             <section
+            <section
               className="elementor-section elementor-top-section elementor-element elementor-element-51b8b43 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
               data-id="51b8b43"
               data-element_type="section"
@@ -61,7 +62,7 @@ const ContactusPage = () => {
                                   className="elementor-contact-tab active"
                                   data-tab="552852"
                                 >
-                                  <span className="tab-item">
+                                  <span className="tab-item p-2">
                                     <span className="elementor-contact-title-text">
                                       <b>Renting</b>{" "}
                                     </span>
@@ -75,7 +76,7 @@ const ContactusPage = () => {
                                   <div className="icon">
                                     <i className="stmicon- stm-icon-pin"></i>
                                   </div>
-                                  <div className="text ml-5">
+                                  <div className="text ml-3">
                                     <h4 className="title heading-font">
                                       Address
                                     </h4>
@@ -93,7 +94,7 @@ const ContactusPage = () => {
                                   <div className="icon">
                                     <i className="stmicon- stm-icon-phone"></i>
                                   </div>
-                                  <div className="text ml-5">
+                                  <div className="text ml-3">
                                     <h4 className="title heading-font">
                                       Sales Phone
                                     </h4>
@@ -107,7 +108,7 @@ const ContactusPage = () => {
                                   <div className="icon">
                                     <i className="stmicon- stm-icon-time"></i>
                                   </div>
-                                  <div className="text ml-5">
+                                  <div className="text ml-3">
                                     <h4 className="title heading-font">
                                       Sales Hours
                                     </h4>
@@ -208,8 +209,8 @@ const ContactusPage = () => {
                                     dir="ltr"
                                   >
                                     <form
-                                      action="https://milelecarrental.com/contacts"
-                                      method="post"
+                                      action="http://localhost:3000/home"
+                                      // method="post"
                                       className="wpcf7-form init "
                                       id="form-contact"
                                       aria-label="Contact form"
@@ -219,7 +220,6 @@ const ContactusPage = () => {
                                       <input
                                         type="hidden"
                                         name="_token"
-                                        // value="UW5wWno4TpWXbMngkXXxDc9mrhvTqZzd3q8ESoFk"
                                         autoComplete="off"
                                       />{" "}
                                       <div className="row">
@@ -320,19 +320,13 @@ const ContactusPage = () => {
                                                 <span className="wpcf7-form-control wpcf7-checkbox">
                                                   <span className="wpcf7-list-item first last">
                                                     <label>
-                                                      <div className="checker">
-                                                        <span>
-                                                          <input
-                                                            type="checkbox"
-                                                            name="is_subscribed"
-                                                          />
-                                                        </span>
+                                                      <div className="mt-2">
+                                                        <Form.Check
+                                                          className="diff-dropoff-loc-lable"
+                                                          type="checkbox"
+                                                          label=" Subscribe and Get latest updates and offers by Email"
+                                                        />
                                                       </div>
-                                                      <span className="wpcf7-list-item-label">
-                                                        Subscribe and Get latest
-                                                        updates and offers by
-                                                        Email
-                                                      </span>
                                                     </label>
                                                   </span>
                                                 </span>
@@ -363,12 +357,19 @@ const ContactusPage = () => {
                                           </div>
                                           <div className="col-8 contact-us-submit">
                                             <button
-                                              className="btn btn-primary"
+                                              className="animated-button"
                                               onClick={() =>
                                                 handleContactUsSubmitButton()
                                               }
                                             >
-                                              Submit{" "}
+
+                                              <span className="button-text-span">
+                                          <span className="transition"></span>
+                                          <span className="gradient"></span>
+                                          <span className="label">
+                                           Submit
+                                          </span>
+                                        </span>
                                             </button>
                                           </div>
                                         </div>
@@ -396,7 +397,6 @@ const ContactusPage = () => {
                 </div>
               </div>
             </section>
-           
           </div>
         </div>
       </div>

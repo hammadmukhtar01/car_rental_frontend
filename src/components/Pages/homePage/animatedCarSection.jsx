@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router";
 import "owl.carousel";
 import "owl.carousel/dist/assets/owl.carousel.min.css";
 import "owl.carousel/dist/assets/owl.theme.default.min.css";
@@ -12,6 +13,8 @@ import carFleetImg2 from '../../images/car-fleet-2.jpeg';
 import carFleetImg3 from '../../images/car-fleet-3.jpeg';
 
 const AnimatedCarSection = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.$(".owl-carousel").owlCarousel({
       loop: true,
@@ -43,25 +46,25 @@ const AnimatedCarSection = () => {
   const imagesData = [
     {
       url: carFleetImg1,
-      type: "Family Car img1",
+      type: "Intermediate",
     },
     {
       url: carFleetImg2,
-      type: "Type 2 img2",
+      type: "SUV",
     },
     {
       url: carFleetImg3,
-      type: "Intermediate img3",
+      type: "Economy",
     },
     {
       url: carFleetImg1,
-      type: "Type 2 img4",
-    },
-    {
-      url: carFleetImg2,
-      type: "Intermediate img5",
+      type: "Family",
     },
   ];
+
+  const handleImageClick = (carType) => {
+    navigate(`/vehicles?carType=${carType}`);
+  };
 
   return (
     <div>
@@ -81,17 +84,18 @@ const AnimatedCarSection = () => {
               <div className="slider">
                 <div className="owl-carousel owl-carousel-main-container">
                   {imagesData.map((data, index) => (
-                    <div className="animated-imgs-container" key={index}>
+                    <div className="animated-imgs-container" key={index} >
                       <div className="slider-card slider-imgs">
                         <h2 className="text-center pt-3">{data.type}</h2>
                         <div className="d-flex justify-content-center align-items-center mb-4">
-                          <a href="/vehicles" className="animated-car-anchor-tag">
+                          <div className="animated-car-anchor-tag">
                             <img
                               src={data.url}
                               alt={`Slide ${index + 1}`}
                               className="img-fluid slider-item"
-                            />
-                          </a>
+                              onClick={() => handleImageClick(data.type)}
+                              />
+                          </div>
                         </div>
                       </div>
                     </div>
