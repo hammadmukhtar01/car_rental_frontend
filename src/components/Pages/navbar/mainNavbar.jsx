@@ -95,7 +95,7 @@ function MainNavbar() {
             id="responsive-navbar-nav"
             className="col-lg-10 col-md-10 navbar-menus-main-container"
           >
-            <Nav className=" d-flex justify-content-end">
+            <Nav className=" d-flex align-items-center">
               {navbarMenus.map((navbarMenu, index) => (
                 <React.Fragment key={index}>
                   <Nav.Link
