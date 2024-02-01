@@ -39,7 +39,7 @@ const PaymentPage = ({ prevStep }) => {
                   alt=""
                 />
               </div>
-              <div className="row m-0 bg-light">
+              <div className="row m-0 bg-white">
                 <div className="col-md-4 col-6 ps-30 pe-0 my-4">
                   <p className="text-muted">Mileage</p>
                   <p className="h5">
@@ -101,12 +101,13 @@ const PaymentPage = ({ prevStep }) => {
                 </div>
               </div>
               <div className=" px-0">
-                <div className="row bg-light pb-5 pl-3 pr-3">
+                <div className="row bg-white pb-5 pl-3 pr-3">
                   <div className="col-12 px-4 my-4">
                     <h4 className="fw-bold">Payment Detail:</h4>
                   </div>
                   <br />
-                  <Col xxl={12} lg={2} md={5} sm={6} xs={12}>
+                 <div className="row">
+                 <Col xxl={12} lg={12} md={4} sm={6} xs={12}>
                     <Form.Group controlId="formKeyword">
                       <div className="location-label">
                         <label className="styled-label">
@@ -128,7 +129,7 @@ const PaymentPage = ({ prevStep }) => {
                     </Form.Group>
                   </Col>
 
-                  <Col xxl={6} lg={2} md={5} sm={6} xs={12}>
+                  <Col xxl={6} lg={6} md={4} sm={6} xs={12}>
                     <Form.Group controlId="formKeyword">
                       <div className="location-label">
                         <label className="styled-label">
@@ -152,7 +153,7 @@ const PaymentPage = ({ prevStep }) => {
                     </Form.Group>
                   </Col>
 
-                  <Col xxl={6} lg={2} md={5} sm={6} xs={12}>
+                  <Col xxl={6} lg={6} md={4} sm={6} xs={12}>
                     <Form.Group controlId="formKeyword">
                       <div className="location-label">
                         <label className="styled-label">
@@ -174,7 +175,7 @@ const PaymentPage = ({ prevStep }) => {
                     </Form.Group>
                   </Col>
 
-                  <Col xxl={6} lg={2} md={5} sm={6} xs={12}>
+                  <Col xxl={12} lg={12} md={6} sm={6} xs={12}>
                     <Form.Group controlId="formKeyword">
                       <div className="location-label">
                         <label className="styled-label">
@@ -196,7 +197,7 @@ const PaymentPage = ({ prevStep }) => {
                     </Form.Group>
                   </Col>
 
-                  <Col xxl={6} lg={2} md={5} sm={6} xs={12}>
+                  <Col xxl={6} lg={6} md={4} sm={6} xs={12}>
                     <Form.Group controlId="formKeyword">
                       <div className="location-label">
                         <label className="styled-label">
@@ -217,6 +218,8 @@ const PaymentPage = ({ prevStep }) => {
                       </div>
                     </Form.Group>
                   </Col>
+                  
+                 </div>
                 </div>
                 <br />
                 <div className="row col-lg-6 col-md-6 ">

@@ -417,7 +417,7 @@ code {
   } */
 
   .features-scroll-container {
-    display: flex;
+    /* display: flex; */
     max-height: 373px;
     overflow-y: visible;
     flex-direction: row;

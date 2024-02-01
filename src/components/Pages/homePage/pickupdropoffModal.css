@@ -80,3 +80,19 @@ ul.dropoff-loc-list li:hover {
   font-weight: 600;
   box-shadow: 0px 0px 6px 0px #cc6119;
 }
+
+
+@media screen and (max-width: 991px) {
+  .deliver-map, .pick-map {
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .deliver-map, .pick-map {
+    display: none;
+  }
+  .rent-button-in-map {
+    margin-top: 20px;
+  }
+}

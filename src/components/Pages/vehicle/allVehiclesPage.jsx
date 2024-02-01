@@ -562,7 +562,7 @@ const VehiclesPage = () => {
                         </Modal.Body>
                       </Modal>
 
-                      <Col xxl={2} lg={2} md={3} sm={6} xs={6}>
+                      <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
                         <Form.Group controlId="formPickupDateTime">
                           <div className="date-label">
                             <label className="styled-label">
@@ -579,7 +579,7 @@ const VehiclesPage = () => {
                         </Form.Group>
                       </Col>
 
-                      <Col xxl={2} lg={2} md={3} sm={6} xs={6}>
+                      <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
                         <Form.Group controlId="formDropoffDateTime">
                           <div className="date-label">
                             <label className="styled-label">

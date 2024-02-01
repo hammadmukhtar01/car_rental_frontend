@@ -87,7 +87,7 @@ function PickupLocationModal({
   return (
     show && (
       <div className="custom-modal">
-        <div className="col-4 pickup-option-menus pb-3">
+        <div className="col-lg-4 col-md-8 pickup-option-menus pb-3">
           <div
             className={`pickup-loc-option ${
               selectedTab === "deliver"
@@ -112,7 +112,7 @@ function PickupLocationModal({
           <div>
             {/* Content for "Deliver to Me" */}
             <div className="row">
-              <div className="col-4 px-5 py-8">
+              <div className="col-lg-4 col-md-12 px-5 py-8">
                 <h2 className="text-xl font-bold mb-4">Available Locations</h2>
                 <ul className="deliver-to-me-loc-list list-unstyled">
                   {cityNames.map((city) => (
@@ -148,7 +148,7 @@ function PickupLocationModal({
               </div>
 
               {/* Right Column - Map */}
-              <div className="col-8">
+              <div className="col-lg-8 col-md-12 col-sm-12 col-12 deliver-map">
                 {(hoveredLocation || selectedLocation) && (
                   <MapComponent
                     locations={[hoveredLocation || selectedLocation]}
@@ -162,7 +162,7 @@ function PickupLocationModal({
           <div>
             {/* Content for "Pick Up Myself" */}
             <div className="row">
-              <div className="col-4 px-5 py-8">
+              <div className="col-lg-4 col-md-8  px-5 py-8">
                 <h2 className="text-xl font-bold mb-4">Available Locations</h2>
                 <ul className="pickup-loc-list list-unstyled">
                   {mileleLocations.map((location) => (
@@ -186,7 +186,7 @@ function PickupLocationModal({
               </div>
 
               {/* Right Column - Map */}
-              <div className="col-8">
+              <div className="col-lg-8 col-md-12 col-sm-12 col-12 pick-map">
                 {(hoveredLocation || selectedLocation) && (
                   <MapComponent
                     locations={[hoveredLocation || selectedLocation]}
@@ -198,7 +198,7 @@ function PickupLocationModal({
           </div>
         )}
 
-        <div className="button-container">
+        <div className="button-container rent-button-in-map">
           <button className="animated-button" onClick={handleInputSubmit}>
             <span className="button-text-span">
               <span className="transition"></span>

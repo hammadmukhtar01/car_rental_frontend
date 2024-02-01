@@ -1,19 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import "./authentication.css";
 import MainNavbar from "../Pages/navbar/mainNavbar";
 import { useReload } from "../PrivateComponents/utils";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
+import { useNavigate } from "react-router";
+import axios from "axios";
 
 const SignupPage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [cityName, setCityName] = useState("");
-  const navigate = "useNavigate()";
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    passwordConfirm: "",
+  });
 
   useEffect(() => {
     const auth = localStorage.getItem("user");
@@ -22,39 +25,34 @@ const SignupPage = () => {
     }
   }, [navigate]);
 
-  const handleSignUp = async () => {
-    // console.warn("Data: ", user, password);
-    let data = {
-      name,
-      email,
-      password,
-      passwordConfirm,
-      phoneNumber,
-      cityName,
-    };
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-    let result = await fetch("http://localhost:8000/api/v1/customer/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      body: JSON.stringify(data),
-    });
-
-    result = await result.json();
-    console.warn("Result", result);
-
-    if (result.status === "success") {
-      // const userId = result.data.data.user._id;
-      // console.warn("User Id: " + userId);
-      localStorage.setItem("user", JSON.stringify(result));
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/customer/create",
+        formData
+      );
+      console.log(response.data);
+      // Redirect to a success page or perform any other action upon successful signup
+      alert("Success Msssg");
       navigate("/home");
-    } else if (result.message === "Account or password is not entered") {
-      alert("Email or Password is missing.");
-    } else {
-      alert("Please enter a correct data");
+    } catch (error) {
+      console.error("Signup failed:", error.response.data);
+
+      // Extract error message from the response
+      const errorInResponse = error.response.data;
+      const regex = /<pre>Error: (.+?)<br>/;
+      const match = errorInResponse.match(regex);
+
+      const errorMessage = match ? match[1] : 'Signup failed. Please try again.';
+
+      // Display the error message in an alert
+      console.log("error is ---------- : ", errorMessage);
     }
   };
 
@@ -82,7 +80,11 @@ const SignupPage = () => {
             <div className="col-lg-6 signup-wrap ">
               <div className="">
                 <p className="text-center have-account-text">SignUp Page</p>
-                <form action="#" className="signup-form">
+                <form
+                  action="#"
+                  className="signup-form"
+                  onSubmit={handleSubmit}
+                >
                   <div className="form-group row">
                     <label
                       htmlFor="phoneNum"
@@ -94,15 +96,13 @@ const SignupPage = () => {
                       <input
                         className="form-control"
                         id="username"
-                        name="username"
-                        type="text"
                         autoComplete="username"
+                        type="text"
+                        name="name"
                         required
                         placeholder="username"
-                        value={name}
-                        onChange={(e) => {
-                          setName(e.target.value);
-                        }}
+                        value={formData.name}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -120,10 +120,8 @@ const SignupPage = () => {
                         autoComplete="email"
                         required
                         placeholder="Email"
-                        value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                        }}
+                        value={formData.email}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -144,10 +142,8 @@ const SignupPage = () => {
                         autoComplete="current-password"
                         required
                         placeholder="Password"
-                        value={password}
-                        onChange={(e) => {
-                          setPassword(e.target.value);
-                        }}
+                        value={formData.password}
+                        onChange={handleChange}
                       />
                       <span
                         toggle="#password-field"
@@ -169,10 +165,8 @@ const SignupPage = () => {
                         autoComplete="confirm-password"
                         required
                         placeholder="Confirm Password"
-                        value={passwordConfirm}
-                        onChange={(e) => {
-                          setPasswordConfirm(e.target.value);
-                        }}
+                        value={formData.passwordConfirm}
+                        onChange={handleChange}
                       />
                       <span
                         toggle="#password-field"
@@ -183,7 +177,7 @@ const SignupPage = () => {
 
                   <div className="form-group row">
                     <label
-                      htmlFor="phoneNum"
+                      htmlFor="phoneNumber"
                       className="col-lg-5 col-form-label"
                     >
                       Phone Number
@@ -191,37 +185,14 @@ const SignupPage = () => {
                     <div className="col-lg-7">
                       <input
                         className="form-control"
-                        id="phoneNum"
-                        name="phoneNum"
+                        id="phoneNumber"
+                        name="phoneNumber"
                         type="tel"
                         autoComplete="Phone-Number"
                         required
                         placeholder="Phone Number"
-                        value={phoneNumber}
-                        onChange={(e) => {
-                          setPhoneNumber(e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-group row">
-                    <label htmlFor="city" className="col-lg-5 col-form-label">
-                      City
-                    </label>
-                    <div className="col-lg-7">
-                      <input
-                        className="form-control"
-                        id="city"
-                        name="city"
-                        type="text"
-                        autoComplete="city"
-                        required
-                        placeholder="City"
-                        value={cityName}
-                        onChange={(e) => {
-                          setCityName(e.target.value);
-                        }}
+                        value={formData.phoneNumber}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -243,7 +214,7 @@ const SignupPage = () => {
                       <button
                         type="submit"
                         className="createAccount-form-control animated-button submit px-3"
-                        onClick={(e) => handleSignUp(e)}
+                        // onClick={(e) => handleSignUp(e)}
                       >
                         <span className="button-text-span">
                           <span className="transition"></span>

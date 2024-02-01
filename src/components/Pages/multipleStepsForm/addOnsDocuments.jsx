@@ -257,25 +257,25 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
                   <div className="driver-details-form-container">
                     <Row>
-                      <Col lg={10} md={10} sm={12} xs={12}>
+                      <Col lg={12} md={12} sm={12} xs={12}>
                         <div className=" form-group pl-4 pr-4">
                           <Row className="d-flex">
                             {AddOnsData.map((AddOnsDataValues) => (
                               <Col
                                 lg={5}
-                                md={6}
-                                sm={6}
+                                md={12}
+                                sm={12}
                                 xs={12}
                                 className="add-on-container"
                                 key={AddOnsDataValues.id}
                               >
                                 <Form.Group controlId="formKeyword">
                                   <div className="row d-flex align-items-center">
-                                    <Col lg={1} md={6} sm={6} xs={12}>
+                                    <Col lg={1} md={2} sm={2} xs={2}>
                                       <AddOnsDataValues.IconName className="mr-2 heading-icon" />
                                     </Col>
 
-                                    <Col lg={8} md={6} sm={6} xs={12}>
+                                    <Col lg={8} md={7} sm={7} xs={7}>
                                       <div className="add-ons-label-name p-2">
                                         <label className="add-ons-label">
                                           <b>{AddOnsDataValues.addOnsName}</b>
@@ -301,7 +301,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                       </div>
                                     </Col>
 
-                                    <Col lg={3} md={6} sm={6} xs={12}>
+                                    <Col lg={3} md={3} sm={3} xs={3}>
                                       <div className="form-check form-switch form-switch-md float-end">
                                         <input
                                           className="form-check-input add-ons-toggle-input"
@@ -326,7 +326,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                         </div>
                       </Col>
 
-                      <Col>
+                      <Col lg={2} md={12}>
                         <p>Total price</p>
                       </Col>
                     </Row>

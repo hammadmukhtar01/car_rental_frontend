@@ -34,6 +34,12 @@ const ContactusPage = () => {
             data-elementor-id="3104"
             className="elementor elementor-3104 pt-xl-4"
           >
+            <div className="styled-label text-center pt-3 pb-5">
+              <span>
+                <b className="fs-3">Contact Us</b>
+              </span>
+              <hr className="aboutUs-heading-underline col-2 text-center" />
+            </div>
             <section
               className="elementor-section elementor-top-section elementor-element elementor-element-51b8b43 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
               data-id="51b8b43"
@@ -41,7 +47,7 @@ const ContactusPage = () => {
             >
               <div className="elementor-container elementor-column-gap-default">
                 <div
-                  className="pl-5 elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-11ee9bf"
+                  className="pl-1 elementor-column elementor-top-column elementor-element elementor-element-11ee9bf col-lg-4 col-md-12"
                   data-id="11ee9bf"
                   data-element_type="column"
                 >
@@ -131,11 +137,11 @@ const ContactusPage = () => {
                   </div>
                 </div>
                 <div
-                  className="elementor-column elementor-col-66 elementor-top-column elementor-element elementor-element-c583530"
+                  className="elementor-column elementor-top-column elementor-element elementor-element-c583530 col-lg-8 col-md-12 pt-1"
                   data-id="c583530"
                   data-element_type="column"
                 >
-                  <div className="elementor-widget-wrap elementor-element-populated">
+                  <div className="elementor-widget-wrap elementor-element-populated contact-us-map-div">
                     <div
                       className="elementor-element elementor-element-c970e75 elementor-widget elementor-widget-stm-google-map"
                       data-id="c970e75"
@@ -362,14 +368,13 @@ const ContactusPage = () => {
                                                 handleContactUsSubmitButton()
                                               }
                                             >
-
                                               <span className="button-text-span">
-                                          <span className="transition"></span>
-                                          <span className="gradient"></span>
-                                          <span className="label">
-                                           Submit
-                                          </span>
-                                        </span>
+                                                <span className="transition"></span>
+                                                <span className="gradient"></span>
+                                                <span className="label">
+                                                  Submit
+                                                </span>
+                                              </span>
                                             </button>
                                           </div>
                                         </div>

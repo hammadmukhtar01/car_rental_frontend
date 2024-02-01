@@ -73,7 +73,7 @@ const LoginPage = () => {
           <div className="login-row justify-content-center">
             <div className="col-lg-6 ">
               <div className="login-wrap ">
-                <p className=" have-account-text mb-4">Login Here!</p>
+                <p className=" have-account-text text-center mb-4 mt-2">User Login</p>
                 <form action="#" className="signin-form">
                   <div className="form-group row">
                     <label htmlFor="city" className="col-lg-4 col-form-label">
@@ -141,9 +141,7 @@ const LoginPage = () => {
                       </button>
                     </div>
                   </div>
-                  <br />
-                  <br />
-                  <div className="form-group-0">
+                  <div className="form-group-0 pt-4">
                     <div className="col-lg-12">
                       <a href="/forgotpassword" style={{ color: "#fff" }}>
                         <div className="forgot-password">

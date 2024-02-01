@@ -23,26 +23,47 @@
   filter: brightness(0) invert(1);
 }
 
+.about-us-main-section-1, .about-us-main-section-2 {
+  background-color: white;
+}
+
 .about-us-section-1-container {
   padding: 15px;
 }
 
+.why-us-icon-div {
+  /* border: 1px solid black; */
+  background-color: #cc6119;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 50px;
+}
+
+.why-us-row-main-div {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.why-us-text-col:hover {
+  transform: scale(0.95);
+  transition: 0.6s ease-in-out;
+}
+
 .legacy-icon {
-  font-size: 40px;
-  color: #cc6119;
+  font-size: 26px;
+  color: white;
 }
 
 .why-us-single-container {
-  border: 1px solid rgb(208, 208, 208);
+  padding: 30px;
+  background-color: #f3f3f3;
+  border-radius: 10px;
 }
 
-.about-us-text-col {
+.about-us-text-col, .why-us-text-col {
   padding: inherit;
   /* margin: 20px; */
-}
-
-.why-us-single-container {
-  padding: 20px;
 }
 
 .accordion-header {
@@ -52,4 +73,70 @@
 .accordion-button.collapsed {
 
 font-size: 15px;
+}
+
+
+.center-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.border-div-img {
+  position: relative;
+}
+
+.border-div-img {
+  position: relative;
+}
+
+.border-div-img::after {
+  content: '';
+  position: absolute;
+  width: 1px; 
+  background-color: gray !important;
+  border: 150px solid #d5d5d5;
+  border-radius: 10px;
+}
+
+.border-div-img::after {
+  bottom: -30px;
+  left: 45%;
+  height: 100%;
+}
+
+.border-div-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 1; 
+}
+
+.aboutUs-heading-underline {
+  left: 41%;
+  border: 1px solid #cc6119;
+  opacity: 0.8;
+}
+
+.contact-us-map-div {
+  border: 1px solid rgb(168, 168, 168);
+  margin: 5px;
+  background-color: white;
+}
+
+@media screen and (max-width: 991px) {
+  .border-div-img::after {
+    border: 120px solid #d5d5d5;
+  }
+  .border-div-img::after {
+    bottom: -50px;
+    left: 45%;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .border-div-img::after {
+   display: none;
+  }
 }
