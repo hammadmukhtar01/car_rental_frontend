@@ -5,9 +5,10 @@ import "./authentication.css";
 import MainNavbar from "../Pages/navbar/mainNavbar";
 import { useReload } from "../PrivateComponents/utils";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
+import axios from "axios";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
+  const [emailPhoneNum, setEmailPhoneNum] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -20,35 +21,39 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.warn("Data: ", email, password);
-    let data = { email, password };
+    console.warn("Data: ", emailPhoneNum, password);
+    let data = { emailPhoneNum, password };
 
-    let result = await fetch("http://localhost:8000/api/v1/customer/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+    try {
+      let result = await axios.post(
+        "http://localhost:8000/api/v1/customer/login",
+        data,
 
-      body: JSON.stringify(data),
-    });
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
 
-    result = await result.json();
-    console.warn("Result", result);
+      let resultedData = result.data
+      console.log("Result in login page is: ", resultedData);
+      alert("Success Message");
 
-    if (result.status === "success") {
-      // const userId = result.data.data.user._id;
-      // console.warn("User Id: " + userId);
-      localStorage.setItem("user", JSON.stringify(result));
-      navigate("/vehicles");
-    } else if (result.message === "Account or password is not correct") {
-      alert("Email or Password is missing.");
-    } else {
-      alert("Please enter a correct data");
+      if (resultedData.status === "success") {
+        // const userId = result.data.data.user._id;
+        // console.warn("User Id: " + userId);
+        localStorage.setItem("user", JSON.stringify(result));
+        navigate("/home");
+      } else {
+        alert("Email/Password missing...");
+      }
+    } catch (error) {
+      console.log("Login Failed Error is --- :", error.response.data.message);
     }
   };
 
-  
   const { loading } = useReload();
 
   if (loading) {
@@ -58,7 +63,6 @@ const LoginPage = () => {
       </>
     );
   }
-
 
   return (
     <>
@@ -73,8 +77,10 @@ const LoginPage = () => {
           <div className="login-row justify-content-center">
             <div className="col-lg-6 ">
               <div className="login-wrap ">
-                <p className=" have-account-text text-center mb-4 mt-2">User Login</p>
-                <form action="#" className="signin-form">
+                <p className=" have-account-text text-center mb-4 mt-2">
+                  User Login
+                </p>
+                <form action="#" className="signin-form" onSubmit={handleLogin}>
                   <div className="form-group row">
                     <label htmlFor="city" className="col-lg-4 col-form-label">
                       Email
@@ -82,15 +88,15 @@ const LoginPage = () => {
                     <div className="col-lg-7">
                       <input
                         className="form-control"
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
+                        id="email_PhoneNum"
+                        name="email_PhoneNum"
+                        type="text"
+                        autoComplete="email_PhoneNum"
                         required
-                        placeholder="Email"
-                        value={email}
+                        placeholder="Email/Phone Number"
+                        value={emailPhoneNum}
                         onChange={(e) => {
-                          setEmail(e.target.value);
+                          setEmailPhoneNum(e.target.value);
                         }}
                       />
                     </div>
@@ -130,9 +136,8 @@ const LoginPage = () => {
                       <button
                         type="submit"
                         className="login-form-control animated-button submit"
-                        onClick={(e) => handleLogin(e)}
+                        // onClick={(e) => handleLogin(e)}
                       >
-                    
                         <span className="button-text-span">
                           <span className="transition"></span>
                           <span className="gradient"></span>

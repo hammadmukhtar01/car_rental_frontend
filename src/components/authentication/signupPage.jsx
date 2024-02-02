@@ -29,6 +29,22 @@ const SignupPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleFocus = (e) => {
+    const inputGroup = e.target.closest(".inputgroup");
+    if (inputGroup) {
+      inputGroup.classList.add("input-filled");
+    }
+  };
+
+  const handleBlur = (e) => {
+    const inputGroup = e.target.closest(".inputgroup");
+    if (inputGroup) {
+      if (e.target.value === "") {
+        inputGroup.classList.remove("input-filled");
+      }
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -37,22 +53,15 @@ const SignupPage = () => {
         "http://localhost:8000/api/v1/customer/create",
         formData
       );
-      console.log(response.data);
-      // Redirect to a success page or perform any other action upon successful signup
+      console.log("sign up response is: --- ", response.data);
       alert("Success Msssg");
-      navigate("/home");
+      if (response.data.status === "success") {
+        navigate("/home");
+      } else {
+        alert("Email/Password missing...");
+      }
     } catch (error) {
-      console.error("Signup failed:", error.response.data);
-
-      // Extract error message from the response
-      const errorInResponse = error.response.data;
-      const regex = /<pre>Error: (.+?)<br>/;
-      const match = errorInResponse.match(regex);
-
-      const errorMessage = match ? match[1] : 'Signup failed. Please try again.';
-
-      // Display the error message in an alert
-      console.log("error is ---------- : ", errorMessage);
+      console.log("Signup failed:", error.response.data.message);
     }
   };
 
@@ -77,7 +86,7 @@ const SignupPage = () => {
       <section className="ftco-section">
         <div className="container">
           <div className="login-row justify-content-center">
-            <div className="col-lg-6 signup-wrap ">
+            <div className="col-lg-7 signup-wrap pb-5">
               <div className="">
                 <p className="text-center have-account-text">SignUp Page</p>
                 <form
@@ -86,114 +95,154 @@ const SignupPage = () => {
                   onSubmit={handleSubmit}
                 >
                   <div className="form-group row">
-                    <label
-                      htmlFor="phoneNum"
-                      className="col-lg-5 col-form-label"
+                    {/* <label
+                      htmlFor="username"
+                      className={`col-lg-5 col-md-5 col-form-label signup-page-labels`}
                     >
                       Full Name
-                    </label>
-                    <div className="col-lg-7">
+                    </label> */}
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
                       <input
+                        type="text"
+                        autoComplete="off"
                         className="form-control"
                         id="username"
-                        autoComplete="username"
-                        type="text"
                         name="name"
                         required
-                        placeholder="username"
                         value={formData.name}
                         onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                       />
+                      <label htmlFor="name">name</label>
                     </div>
-                  </div>
 
-                  <div className="form-group row">
-                    <label htmlFor="city" className="col-lg-5 col-form-label">
-                      Email
-                    </label>
-                    <div className="col-lg-7">
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
                       <input
                         className="form-control"
                         id="email"
                         name="email"
                         type="email"
-                        autoComplete="email"
+                        autoComplete="off"
                         required
-                        placeholder="Email"
                         value={formData.email}
                         onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                       />
+                      <label htmlFor="email">email</label>
                     </div>
                   </div>
 
-                  <div className="form-group row">
+                  {/* <div className="form-group row">
                     <label
-                      htmlFor="phoneNum"
-                      className="col-lg-5 col-form-label"
+                      htmlFor="email"
+                      className={`col-lg-5 col-md-5 col-form-label signup-page-labels`}
+                    >
+                      Email
+                    </label>
+                    <div className="inputgroup col-lg-6 col-md-6">
+                      <input
+                        className="form-control"
+                        id="email"
+                        name="email"
+                        type="email"
+                        autoComplete="off"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                      <label htmlFor="email">email</label>
+                    </div>
+                  </div> */}
+
+                  {/* <div className="form-group row">
+                    <label
+                      htmlFor="password"
+                      className={`col-lg-5 col-md-5 col-form-label signup-page-labels`}
                     >
                       Password
                     </label>
-                    <div className="col-lg-7">
+                    <div className="inputgroup col-lg-6 col-md-6">
                       <input
                         className="form-control"
                         id="password"
                         name="password"
                         type="password"
-                        autoComplete="current-password"
+                        autoComplete="off"
                         required
-                        placeholder="Password"
                         value={formData.password}
                         onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                       />
-                      <span
-                        toggle="#password-field"
-                        className="fa fa-fw  field-icon toggle-password"
-                      ></span>
+                      <label htmlFor="password">password</label>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="form-group row">
-                    <label htmlFor="city" className="col-lg-5 col-form-label">
-                      Confirm password
-                    </label>
-                    <div className="col-lg-7">
+                    {/* <label
+                      htmlFor="confirmPassword"
+                      className={`col-lg-5 col-md-5 col-form-label signup-page-labels`}
+                    >
+                      Confirm Password
+                    </label> */}
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
+                      <input
+                        className="form-control"
+                        id="password"
+                        name="password"
+                        type="password"
+                        autoComplete="off"
+                        required
+                        value={formData.password}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                      <label htmlFor="password">password</label>
+                    </div>
+
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
                       <input
                         className="form-control"
                         id="passwordConfirm"
                         name="passwordConfirm"
                         type="password"
-                        autoComplete="confirm-password"
+                        autoComplete="off"
                         required
-                        placeholder="Confirm Password"
                         value={formData.passwordConfirm}
                         onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                       />
-                      <span
-                        toggle="#password-field"
-                        className="fa fa-fw  field-icon toggle-password"
-                      ></span>
+                      <label htmlFor="confirmPassword">confirm password</label>
                     </div>
                   </div>
 
                   <div className="form-group row">
-                    <label
+                    {/* <label
                       htmlFor="phoneNumber"
-                      className="col-lg-5 col-form-label"
+                      className={`col-lg-5 col-md-5 col-form-label signup-page-labels`}
                     >
                       Phone Number
-                    </label>
-                    <div className="col-lg-7">
+                    </label> */}
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-12">
                       <input
                         className="form-control"
                         id="phoneNumber"
                         name="phoneNumber"
                         type="tel"
-                        autoComplete="Phone-Number"
+                        autoComplete="off"
                         required
-                        placeholder="Phone Number"
                         value={formData.phoneNumber}
                         onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                       />
+                      <label htmlFor="phoneNumber">phone number</label>
                     </div>
                   </div>
 
@@ -209,7 +258,7 @@ const SignupPage = () => {
                   </div>
                   <br />
                   <div className="form-group-3 col-lg-12">
-                    <div className="col-lg-6">
+                    <div className="col-lg-6 col-md-6">
                       <p></p>
                       <button
                         type="submit"

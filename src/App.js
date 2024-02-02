@@ -17,6 +17,7 @@ import VerificationForm from "./components/Pages/multipleStepsForm/multipleSteps
 import FixedNumLocButtons from "./components/Pages/navbar/locationNumberIcons";
 // import MainNavbar from "./components/Pages/navbar/mainNavbar";
 import ForgotPasswordPage from './components/authentication/forgotPassword';
+import ResetPasswordPage from "./components/authentication/resetPasswordPage";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
+          <Route path="/resetPassword/:id" element={<ResetPasswordPage />} />
           <Route path="/bookingPage1" element={<VerificationForm />} />
         </Routes>
         <Footer />

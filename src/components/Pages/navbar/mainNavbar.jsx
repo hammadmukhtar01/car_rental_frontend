@@ -12,11 +12,11 @@ import "./navbar.css";
 function MainNavbar() {
   const { loading, reloadPage } = useReload();
   const navigate = useNavigate();
-  const auth = localStorage.getItem("user");
-  const user_info = JSON.parse(auth);
-  const customer_Id = user_info?.data?._id;
+  const auth = JSON.parse(localStorage.getItem("user"));
+  const user_info = auth?.data;
+  const customer_Id = user_info?.data?.data?._id;
 
-  // console.log("Auth in local storage is: ", user_info);
+  console.log("Auth in local storage is: ", user_info);
 
   const handleLogout = () => {
     localStorage.removeItem("user");

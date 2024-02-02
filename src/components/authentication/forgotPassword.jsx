@@ -3,32 +3,37 @@ import { useNavigate } from "react-router-dom";
 import MainNavbar from "../Pages/navbar/mainNavbar";
 import { useReload } from "../PrivateComponents/utils";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
+import axios from "axios";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  const handleForgotPasswordClick = async () => {
-    // console.warn("Data: ", user, password);
-    let data = { email };
+  const handleForgotPasswordClick = async (e) => {
+    e.preventDefault();
 
-    let result = await fetch("http://localhost:8000/api/v1/forgotpassword", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+    try {
+      let result = await axios.post(
+        "http://localhost:8000/api/v1/customer/forgotpassword",
+        { email: email },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
 
-      body: JSON.stringify(data),
-    });
+      console.log("Result in Forgot Pass page is: ", result.data);
+      alert("Success Message");
 
-    result = await result.json();
-    console.warn("Result=====", result);
-    if (result.status === "success") {
-      alert(result.message);
-      navigate(`/login`);
-    } else {
-      alert("Email not found. Try Again with correct email.");
+      if (result.status === 200 && result.data.status === "success") {
+        navigate(`/login`);
+      } else {
+        alert("Email not found. Try again with a correct email.");
+      }
+    } catch (error) {
+      console.log("Forgot password failed:", error.response.data.message);
     }
   };
 
@@ -57,7 +62,11 @@ const ForgotPasswordPage = () => {
               <div className="forgot-wrap ">
                 <p className=" have-account-text"> Forgot Password...</p>
 
-                <form action="#" className="signin-form">
+                <form
+                  action="#"
+                  className="signin-form"
+                  onSubmit={handleForgotPasswordClick}
+                >
                   <div className="form-group row">
                     <label htmlFor="city" className="col-lg-5 col-form-label">
                       Email
@@ -85,7 +94,7 @@ const ForgotPasswordPage = () => {
                       <button
                         type="submit"
                         className="forgot-form-control animated-button submit"
-                        onClick={handleForgotPasswordClick}
+                        // onClick={handleForgotPasswordClick}
                       >
                         <span className="button-text-span">
                           <span className="transition"></span>
@@ -98,12 +107,14 @@ const ForgotPasswordPage = () => {
                   <br />
                   <div className="form-group-0">
                     <div className="col-lg-12">
-                      <a href="/login" style={{ color: "#fff" }}>
-                        <div className="forgot-password">
-                          {" "}
-                          Remember Password? Login here.
-                        </div>
-                      </a>
+                      <div>
+                        <a href="/login" style={{ color: "#fff" }}>
+                          <div className="forgot-password">
+                            {" "}
+                            Remember Password? Login here.
+                          </div>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </form>

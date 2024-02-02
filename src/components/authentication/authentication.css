@@ -12,7 +12,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-
 }
 
 .ftco-section:after {
@@ -66,7 +65,9 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-.login-wrap, .signup-wrap, .forgot-wrap {
+.login-wrap,
+.signup-wrap,
+.forgot-wrap {
   position: relative;
   color: black;
   font-weight: bolder;
@@ -104,7 +105,8 @@
   font-size: 26px;
 }
 
-.login-row, .forgot-row {
+.login-row,
+.forgot-row {
   display: flex;
   flex-wrap: wrap;
 }
@@ -168,6 +170,62 @@
 }
 
 .custom-button:hover {
-  background-color:white;
+  background-color: white;
   color: black !important;
+}
+
+.inputgroup {
+  font-family: "segoe ui", sans-serif;
+  margin: 1em 0 0 0;
+  position: relative;
+}
+
+.inputgroup input {
+  font-size: 70%;
+  padding: 0.4em 0.4em 0.4em 1em;
+  outline: none;
+  border: 2px solid rgb(200, 200, 200);
+  background-color: transparent;
+  border-radius: 20px;
+  width: 100%;
+  font-weight: 500;
+}
+
+.inputgroup label {
+  font-size: 75%;
+  position: absolute;
+  left: 0;
+  padding-left: 1.8em;
+  padding-top: 0.45em;
+  margin-left: 0.5em;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+  color: rgb(0, 0, 0);
+  margin-top: -3.25em;
+  font-weight: 200;
+}
+
+.inputgroup input:focus + label {
+  transform: translatey(-50%) scale(0.9);
+  margin: -3.3em;
+  margin-left: 2.3em;
+  padding: 0.1em 0.4em;
+  font-weight: 700;
+  background-color: white;
+  font-size: 85%;
+}
+
+.inputgroup.input-filled label {
+  transform: translatey(-50%) scale(0.9);
+  margin: -3.3em;
+  margin-left: 2.3em;
+  padding: 0.1em 0.4em;
+  font-weight: 700;
+  background-color: white;
+  font-size: 85%;
+}
+
+.signup-page-labels {
+  display: flex;
+  align-items: center;
 }
