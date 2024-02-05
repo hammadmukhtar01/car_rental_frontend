@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { Container, Row, Col, Form, Button, Modal } from "react-bootstrap";
+import { Container, Row, Col, Form, Modal } from "react-bootstrap";
 import {
   BsGeoAltFill,
   BsGeoAlt,
@@ -23,6 +23,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { DateRange } from "react-date-range";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PageSize = 20;
 
@@ -373,6 +375,24 @@ const VehiclesPage = () => {
 
   const handleSearchCarButton = () => {
     alert("Loading required cars");
+    // toast("Loading required cars!", { autoClose: 3000 });
+
+    // toast.success("Success Notification !", {
+    //   position: "top-center",
+    // });
+
+    // toast.error("Error Notification !", {
+    //   position: "top-right",
+    // });
+
+    // toast.info("Info Notification !", {
+    //   position: "bottom-center",
+    // });
+
+    // toast("Custom Style Notification with css class!", {
+    //   position: "bottom-right",
+    //   className: "foo-bar",
+    // });
   };
 
   const { loading } = useReload();
@@ -612,6 +632,7 @@ const VehiclesPage = () => {
                               </span>
                             </span>
                           </button>
+                          <ToastContainer />
                         </div>
                       </Col>
                     </Row>

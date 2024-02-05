@@ -12,7 +12,7 @@ function PickupLocationModal({
   initialSelectedLocation,
   initialInputFieldValue,
 }) {
-  console.log("initialInputFieldValue: ", initialInputFieldValue)
+  console.log("initialInputFieldValue: ", initialInputFieldValue);
   const [selectedTab, setSelectedTab] = useState(
     initialSelectedLocation || "pick"
   );
@@ -25,10 +25,12 @@ function PickupLocationModal({
   useEffect(() => {
     if (initialInputFieldValue) {
       const [locationName, inputValue] = initialInputFieldValue.split("-");
-  
+
       if (locationName && inputValue) {
         // For "deliver" tab
-        const selectedCity = cityNames.find(city => city.locationName === locationName);
+        const selectedCity = cityNames.find(
+          (city) => city.locationName === locationName
+        );
         if (selectedCity) {
           setSelectedLocation(selectedCity);
           setHoveredLocation(null);
@@ -36,7 +38,9 @@ function PickupLocationModal({
         }
       } else {
         // For "pick" tab
-        const selectedMileleLocation = mileleLocations.find(location => location.locationName === initialInputFieldValue);
+        const selectedMileleLocation = mileleLocations.find(
+          (location) => location.locationName === initialInputFieldValue
+        );
         if (selectedMileleLocation) {
           setSelectedLocation(selectedMileleLocation);
           setHoveredLocation(null);
@@ -137,6 +141,7 @@ function PickupLocationModal({
                     <Form.Group controlId="formKeyword">
                       <input
                         className="form-control-location mt-2 col-12"
+                        required
                         type="text"
                         placeholder={`Address for ${selectedLocation.locationName}`}
                         value={inputFieldValue}

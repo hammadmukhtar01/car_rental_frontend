@@ -8,6 +8,8 @@ import MainNavbar from "../navbar/mainNavbar";
 import { DateRange } from "react-date-range";
 import { LuSearch } from "react-icons/lu";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");
@@ -139,15 +141,22 @@ const SearchBox = () => {
     };
   }, [showDatePicker]);
 
-  const handleSearchCarButton = () => {
-    alert("Loading required cars");
+  const handleSearchCarButton = async (e) => {
+    e.preventDefault();
+    // alert("Loading required cars");
+    toast.info("Loading required cars!", {
+      autoClose: 3000,
+      style: { border: "1px solid #c0c0c0" },
+    });
+
     navigate("/vehicles");
+    return false;
   };
 
   return (
     <>
       <div className="bg-img-container ">
-          <MainNavbar />
+        <MainNavbar />
         <div className="container">
           <div className="search-box-container pb-4">
             <Row>
@@ -215,6 +224,7 @@ const SearchBox = () => {
                         <input
                           className="form-control-location mt-2 col-12"
                           type="text"
+                          required
                           placeholder="Enter pickup location"
                           value={pickupLocationMessage}
                           onChange={() => console.log("On change in pickup")}
@@ -243,6 +253,7 @@ const SearchBox = () => {
                         <div className="custom-dropdown-container">
                           <input
                             className="form-control-location mt-2 col-12"
+                            required
                             type="text"
                             placeholder="Enter dropoff location"
                             value={dropoffLocationMessage}
@@ -309,6 +320,7 @@ const SearchBox = () => {
                       </div>
                       <input
                         className="form-control-date mt-2 col-12"
+                        required
                         type="time"
                         min={getCurrentDateTime()}
                         value={pickUpTime}
@@ -328,6 +340,7 @@ const SearchBox = () => {
                         className="form-control-date mt-2 col-12"
                         type="time"
                         // min={pickUpTime}
+                        required
                         value={dropOffTime}
                         onChange={(e) => setDropOffTime(e.target.value)}
                       />
@@ -350,6 +363,7 @@ const SearchBox = () => {
                           </span>
                         </span>
                       </button>
+                      <ToastContainer />
                     </div>
                   </Col>
                 </Row>

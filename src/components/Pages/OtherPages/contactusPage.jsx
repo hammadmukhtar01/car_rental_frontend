@@ -5,6 +5,8 @@ import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ContactusPage = () => {
   const navigate = useNavigate();
@@ -46,17 +48,21 @@ const ContactusPage = () => {
 
   const handleContactUsSubmitButton = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await axios.post(
         `http://localhost:8000/api/v1/contactUsForm/create`,
         formData
       );
       console.log("Contact Us response is: --- ", response.data.message);
-      alert("Success Msssg");
+      // alert("Success Msssg");
       if (response.data.status === "success") {
         // navigate("/home");
-        alert("Sucesssssss")
+
+        toast.success("Thank You for Contacting Us.", {
+          autoClose: 3000,
+          style: { border: "1px solid #c0c0c0" },
+        });
       } else {
         alert("Email/Password missing...");
       }
@@ -289,15 +295,16 @@ const ContactusPage = () => {
                       <p></p>
                       <button
                         type="submit"
-                        className="createAccount-form-control animated-button submit px-3"
+                        className="contactUs-form-control animated-button submit px-3"
                         // onClick={(e) => handleSignUp(e)}
                       >
                         <span className="button-text-span">
                           <span className="transition"></span>
                           <span className="gradient"></span>
-                          <span className="label">Create Account </span>
+                          <span className="label">Submit</span>
                         </span>
                       </button>
+                      <ToastContainer />
                     </div>
                   </div>
                 </form>

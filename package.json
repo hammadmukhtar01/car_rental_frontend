@@ -44,6 +44,7 @@
     "react-spinners": "^0.13.8",
     "react-spring": "^9.7.3",
     "react-stacker-loaded": "^1.0.0",
+    "react-toastify": "^10.0.4",
     "react-transition-group": "^4.4.5",
     "select2": "^4.1.0-rc.0",
     "slick-carousel": "^1.8.1",

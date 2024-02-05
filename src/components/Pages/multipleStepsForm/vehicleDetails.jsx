@@ -7,6 +7,8 @@ import { LuSnowflake } from "react-icons/lu";
 import { TiTick } from "react-icons/ti";
 import Modals from "./imageEnlarger";
 import { RxCross2 } from "react-icons/rx";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const VehicleDetails = ({ nextStep }) => {
   const [couponCode, setCouponCode] = useState("");
@@ -70,12 +72,14 @@ const VehicleDetails = ({ nextStep }) => {
     );
 
     if (couponCode.trim() === "") {
-      alert("Please enter a coupon code.");
+      toast.warning("Please enter a coupon code", { autoClose: 3000, style: {border: "1px solid #c0c0c0"} });
+
       return;
     }
 
     if (!foundCoupon) {
-      alert("Invalid coupon code. Please enter a valid coupon code.");
+      // alert("Invalid coupon code. Please enter a valid coupon code.");
+      toast.error("Invalid coupon code. Please enter a valid coupon code.", { autoClose: 3000, style: {lineHeight: "20px", border: "1px solid #c0c0c0"} });
       return;
     }
 
@@ -266,7 +270,7 @@ const VehicleDetails = ({ nextStep }) => {
                           <br />
                           <div className="car-description-div">
                             <div className="car-description-div2-heading m-2">
-                             <b> Description:{" "}</b>
+                              <b> Description: </b>
                             </div>
                             <hr className="hr-line-heading-scroll" />
 
@@ -431,6 +435,7 @@ const VehicleDetails = ({ nextStep }) => {
                                           <TiTick />
                                         </button>
                                       )}
+                                      <ToastContainer />
                                     </div>
                                   </Col>
                                 </Row>
@@ -514,10 +519,10 @@ const VehicleDetails = ({ nextStep }) => {
                     >
                       {" "}
                       <span className="button-text-span">
-                      <span className="transition"></span>
-                      <span className="gradient"></span>
-                      <span className="label">Start Booking</span>
-                    </span>
+                        <span className="transition"></span>
+                        <span className="gradient"></span>
+                        <span className="label">Start Booking</span>
+                      </span>
                     </button>
                   </div>
                 </Col>

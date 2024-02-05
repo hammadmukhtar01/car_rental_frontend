@@ -2,11 +2,17 @@ import React from "react";
 import "./footer.css";
 import { Form } from "react-bootstrap";
 import { FaRegBell } from "react-icons/fa";
-// import TikTokIcon from '../../images/tiktok.svg';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Footer = () => {
-  const footerSubscriptionButton = () => {
-    alert("Thank You for subscription...");
+
+  const footerSubscriptionButton = (e) => {
+    e.preventDefault();
+    toast.success("Thank You for Subscribing Milele.", {
+      autoClose: 3000,
+      style: { fontSize: "14px", fontWeight: "600", border: "1px solid #c0c0c0" },
+    });
   };
 
   const socialMediaApps = [
@@ -127,15 +133,9 @@ const Footer = () => {
                     <div className="">
                       <form
                         // method="post"
-                        action="http://localhost:3000/home"
                         onSubmit={footerSubscriptionButton}
                       >
-                        <input
-                          type="hidden"
-                          name="_token"
-                          value="UW5wWno4TpWXbMngkXXxDc9mrhvTqZzd3q8ESoFk"
-                          autoComplete="off"
-                        />{" "}
+                        <input type="hidden" autoComplete="off" />{" "}
                         <Form.Group controlId="formKeyword">
                           <div className="custom-dropdown-container">
                             <input
@@ -151,6 +151,7 @@ const Footer = () => {
                             >
                               <FaRegBell className="fs-5" />
                             </button>
+                            <ToastContainer />
                           </div>
                         </Form.Group>
                       </form>
@@ -185,13 +186,12 @@ const Footer = () => {
                                   {socialMediaIcons.appName}
                                 </span>
                                 <span>
-                                 
                                   {socialMediaIcons.appName !== "tiktok" ? (
                                     <i
                                       className={`fa fa-${socialMediaIcons.appName}`}
                                     ></i>
                                   ) : (
-                                    <div className="">
+                                    <div className="tiktok-icon-div">
                                       <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"
