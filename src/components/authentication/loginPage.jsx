@@ -22,6 +22,7 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    
     console.warn("Data: ", emailPhoneNum, password);
     let data = { emailPhoneNum, password };
 

@@ -1,32 +1,55 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import MainNavbar from "../Pages/navbar/mainNavbar";
+import ReloadingComponent from "../PrivateComponents/reloadingComponent";
+import { useReload } from "../PrivateComponents/utils";
 
 const ResetPasswordPage = () => {
-  const { id } = useParams(); 
+  const { token } = useParams();
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();
 
-  console.log("Reset passs token ",id)
+  console.log("Reset passs token ", token);
 
-  const handleForgotPasswordClick = async () => {
+  const handleForgotPasswordClick = async (e) => {
+    e.preventDefault();
+
     // console.warn("Data: ", user, password);
     let data = { password, passwordConfirm };
 
-    let result = await axios.patch(
-      `http://localhost:8000/api/v1/resetpassword/${id}`,
-      {
-        ...data,
-      }
-    );
+    try {
+      let result = await axios.patch(
+        `http://localhost:8000/api/v1/customer/resetpassword/${token}`,
+        data
+      );
 
-    if (result.status === 201) {
-      alert("Password Updated successfully.");
-      navigate(`/login`);
+      console.log("Result in reset password page is: ", result);
+      alert("Success Message");
+
+      if (result.status === 201) {
+        alert("Password Updated successfully.");
+        navigate(`/login`);
+      }
+    } catch (error) {
+      console.log(
+        "Reset Password Failed Error is --- :",
+        error.response.data.message
+      );
     }
   };
+
+  const { loading } = useReload();
+
+  if (loading) {
+    return (
+      <>
+        <ReloadingComponent />
+      </>
+    );
+  }
 
   return (
     <>
@@ -48,51 +71,55 @@ const ResetPasswordPage = () => {
                   className="reset-password-form"
                   onSubmit={handleForgotPasswordClick}
                 >
-                  <div className="form-group row">
-                    <label htmlFor="city" className="col-lg-5 col-form-label">
-                      Password
-                    </label>
-                    <div className="col-lg-7">
-                    <input
-                        className="form-control"
-                        id="password"
-                        name="password"
-                        type="password"
-                        autoComplete="current-password"
-                        required
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => {
-                          setPassword(e.target.value);
-                        }}
-                      />
+                  <Form.Group controlId="formKeyword">
+                    <div className="form-group row">
+                      <div className="login-form-label col-lg-4 col-md-4">
+                        <label className="styled-label">
+                          <b>Password</b>
+                        </label>
+                      </div>
+                      <div className="col-lg-7 col-md-7 custom-dropdown-container">
+                        <input
+                          className="form-control-login mt-2 col-12"
+                          id="password"
+                          name="password"
+                          type="password"
+                          autoComplete="current-password"
+                          required
+                          placeholder="Password"
+                          value={password}
+                          onChange={(e) => {
+                            setPassword(e.target.value);
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </Form.Group>
 
-                  <div className="form-group row">
-                    <label htmlFor="city" className="col-lg-5 col-form-label">
-                      Confirm password
-                    </label>
-                    <div className="col-lg-7">
-                      <input
-                        className="form-control"
-                        id="passwordConfirm"
-                        name="passwordConfirm"
-                        type="password"
-                        autoComplete="confirm-password"
-                        required
-                        placeholder="Confirm Password"
-                        value={passwordConfirm}
-                        onChange={(e) => {
-                          setPasswordConfirm(e.target.value);
-                        }}
-                      />
-                      <span
-                        toggle="#password-field"
-                        className="fa fa-fw  field-icon toggle-password"
-                      ></span>
+                  <Form.Group controlId="formKeyword">
+                    <div className="form-group row">
+                      <div className="login-form-label col-lg-4 col-md-4">
+                        <label className="styled-label">
+                          <b>Confirm Password</b>
+                        </label>
+                      </div>
+                      <div className="col-lg-7 col-md-7 custom-dropdown-container">
+                        <input
+                          className="form-control-login mt-2 col-12"
+                          id="passwordConfirm"
+                          name="passwordConfirm"
+                          type="password"
+                          autoComplete="confirm-password"
+                          required
+                          placeholder="Confirm Password"
+                          value={passwordConfirm}
+                          onChange={(e) => {
+                            setPasswordConfirm(e.target.value);
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </Form.Group>
 
                   <div className="form-group-3 col-lg-12">
                     <div className="col-lg-6">

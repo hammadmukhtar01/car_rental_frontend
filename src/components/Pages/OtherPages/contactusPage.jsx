@@ -1,12 +1,68 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import MainNavbar from "../navbar/mainNavbar";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 const ContactusPage = () => {
-  const handleContactUsSubmitButton = () => {
-    alert("Thank You for Contacting Us. We will contact You soon.");
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    phoneNumber: "",
+    comment: "",
+  });
+
+  useEffect(() => {
+    const auth = localStorage.getItem("user");
+    if (auth) {
+      navigate("/home");
+    }
+  }, [navigate]);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFocus = (e) => {
+    const inputGroup = e.target.closest(".inputgroup");
+    if (inputGroup) {
+      inputGroup.classList.add("input-filled");
+    }
+  };
+
+  const handleBlur = (e) => {
+    const inputGroup = e.target.closest(".inputgroup");
+    if (inputGroup) {
+      if (e.target.value === "") {
+        inputGroup.classList.remove("input-filled");
+      }
+    }
+  };
+
+  const handleContactUsSubmitButton = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/contactUsForm/create`,
+        formData
+      );
+      console.log("Contact Us response is: --- ", response.data.message);
+      alert("Success Msssg");
+      if (response.data.status === "success") {
+        // navigate("/home");
+        alert("Sucesssssss")
+      } else {
+        alert("Email/Password missing...");
+      }
+    } catch (error) {
+      console.log("Signup failed:", error.response.data.message);
+    }
   };
 
   const { loading } = useReload();
@@ -40,366 +96,211 @@ const ContactusPage = () => {
               </span>
               <hr className="aboutUs-heading-underline col-2 text-center" />
             </div>
-            <section
-              className="elementor-section elementor-top-section elementor-element elementor-element-51b8b43 elementor-section-full_width elementor-section-height-default elementor-section-height-default"
-              data-id="51b8b43"
-              data-element_type="section"
-            >
-              <div className="elementor-container elementor-column-gap-default">
-                <div
-                  className="pl-1 elementor-column elementor-top-column elementor-element elementor-element-11ee9bf col-lg-4 col-md-12"
-                  data-id="11ee9bf"
-                  data-element_type="column"
-                >
-                  <div className="elementor-widget-wrap elementor-element-populated">
-                    <div
-                      className="elementor-element elementor-element-4d970ae elementor-widget elementor-widget-motors-contact-tabs"
-                      data-id="4d970ae"
-                      data-element_type="widget"
-                      data-settings='{"_animation":"none"}'
-                      data-widget_type="motors-contact-tabs.default"
-                    >
-                      <div className="elementor-widget-container">
-                        <div className="stm-elementor-contact-tabs">
-                          <div className="elementor-contact-tabs">
-                            <div className="elementor-contact-tabs-container">
-                              <ul className="elementor-contact-tabs-list">
-                                <li
-                                  className="elementor-contact-tab active"
-                                  data-tab="552852"
-                                >
-                                  <span className="tab-item p-2">
-                                    <span className="elementor-contact-title-text">
-                                      <b>Renting</b>{" "}
-                                    </span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="contact-tabs-containers-wrap">
-                              <div className="elementor-contact-panels-container contact-panel-552852 active p-3">
-                                <div className="tab-unit d-flex ">
-                                  <div className="icon">
-                                    <i className="stmicon- stm-icon-pin"></i>
-                                  </div>
-                                  <div className="text ml-3">
-                                    <h4 className="title heading-font">
-                                      Address
-                                    </h4>
-                                    <div className="content heading-font">
-                                      <p>
-                                        Showroom 93 <br />
-                                        Al Aweer Auto Market, Ras Al Khor <br />{" "}
-                                        United Arab Emirates{" "}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
+            <section className="contact-us-section-1">
+              <div className="row">
+                <div className="pl-1 col-lg-4 col-md-4">
+                  <div className="contact-us-detail-container">
+                    <ul className="elementor-contact-tabs-list">
+                      <li className="">
+                        <span className="tab-item p-2">
+                          <span className="renting-text">
+                            <b>Renting</b>{" "}
+                          </span>
+                        </span>
+                      </li>
+                    </ul>
+                    <div className="contact-us-map p-3">
+                      <div className="tab-unit d-flex ">
+                        <div className="icon">
+                          <i className="stmicon- stm-icon-pin"></i>
+                        </div>
+                        <div className="text ml-3">
+                          <h4 className="title heading-font">Address</h4>
+                          <div className="content heading-font">
+                            <p className="contact-us-address-text">
+                              Showroom 93 <br />
+                              Al Aweer Auto Market, Ras Al Khor <br /> United
+                              Arab Emirates{" "}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
 
-                                <div className="tab-unit d-flex ">
-                                  <div className="icon">
-                                    <i className="stmicon- stm-icon-phone"></i>
-                                  </div>
-                                  <div className="text ml-3">
-                                    <h4 className="title heading-font">
-                                      Sales Phone
-                                    </h4>
-                                    <div className="content heading-font">
-                                      <p>(+971) 544519432</p>
-                                    </div>
-                                  </div>
-                                </div>
+                      <div className="tab-unit d-flex ">
+                        <div className="icon">
+                          <i className="stmicon- stm-icon-phone"></i>
+                        </div>
+                        <div className="text ml-3">
+                          <h4 className="title heading-font">Sales Phone</h4>
+                          <div className="content heading-font">
+                            <p className="contact-us-address-text">
+                              (+971) 544519432
+                            </p>
+                          </div>
+                        </div>
+                      </div>
 
-                                <div className="tab-unit d-flex ">
-                                  <div className="icon">
-                                    <i className="stmicon- stm-icon-time"></i>
-                                  </div>
-                                  <div className="text ml-3">
-                                    <h4 className="title heading-font">
-                                      Sales Hours
-                                    </h4>
-                                    <div className="content heading-font">
-                                      <p>
-                                        Monday - Saturday:
-                                        <br /> 09:00 - 22:00 Hours
-                                        <br />
-                                        Sunday: Closed
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                      <div className="tab-unit d-flex ">
+                        <div className="icon">
+                          <i className="stmicon- stm-icon-time"></i>
+                        </div>
+                        <div className="text ml-3">
+                          <h4 className="title heading-font">Sales Hours</h4>
+                          <div className="content heading-font">
+                            <p className="contact-us-address-text">
+                              Monday - Saturday:
+                              <br /> 09:00 - 22:00 Hours
+                              <br />
+                              Sunday: Closed
+                            </p>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div
-                  className="elementor-column elementor-top-column elementor-element elementor-element-c583530 col-lg-8 col-md-12 pt-1"
-                  data-id="c583530"
-                  data-element_type="column"
-                >
-                  <div className="elementor-widget-wrap elementor-element-populated contact-us-map-div">
-                    <div
-                      className="elementor-element elementor-element-c970e75 elementor-widget elementor-widget-stm-google-map"
-                      data-id="c970e75"
-                      data-element_type="widget"
-                      data-widget_type="stm-google-map.default"
-                    >
-                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.852700403415!2d55.36611197620153!3d25.174451077725763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f675b5b792571%3A0x8dd25798a287aa87!2sMilele%20Showroom%2093!5e0!3m2!1sen!2sae!4v1695724496789!5m2!1sen!2sae"
-                        width="600"
-                        height="450"
-                        style={{ border: "0" }}
-                        allowFullScreen=""
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="#"
-                      ></iframe>
-                    </div>
+
+                <div className="col-lg-8 col-md-8 pt-1 contact-us-map-container">
+                  <div className="contact-us-map-div p-2">
+                    <iframe
+                      className="map-iframe-class"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.852700403415!2d55.36611197620153!3d25.174451077725763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f675b5b792571%3A0x8dd25798a287aa87!2sMilele%20Showroom%2093!5e0!3m2!1sen!2sae!4v1695724496789!5m2!1sen!2sae"
+                      allowFullScreen=""
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="#"
+                    ></iframe>
                   </div>
                 </div>
               </div>
             </section>
 
-            <section
-              className="elementor-section elementor-top-section elementor-element elementor-element-fd15043 elementor-section-full_width elementor-section-height-min-height elementor-section-stretched elementor-section-height-default elementor-section-items-middle"
-              data-id="fd15043"
-              data-element_type="section"
-              data-settings='{"stretch_section":"section-stretched","background_background":"classic"}'
-            >
-              <div className="elementor-container elementor-column-gap-default">
-                <div
-                  className="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-5cab879"
-                  data-id="5cab879"
-                  data-element_type="column"
-                >
-                  <div className="elementor-widget-wrap elementor-element-populated">
-                    <section
-                      className="elementor-section elementor-inner-section elementor-element elementor-element-0bb7e84 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-                      data-id="0bb7e84"
-                      data-element_type="section"
-                      data-settings='{"background_background":"classic"}'
-                    >
-                      <div className="elementor-container elementor-column-gap-default">
-                        <div
-                          className="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-1f1eb0f"
-                          data-id="1f1eb0f"
-                          data-element_type="column"
-                          data-settings='{"background_background":"classic"}'
-                        >
-                          <div className="elementor-widget-wrap elementor-element-populated">
-                            <div
-                              className="elementor-element elementor-element-ae22989 elementor-absolute elementor-widget__width-initial elementor-widget elementor-widget-stm-contact-form-seven"
-                              data-id="ae22989"
-                              data-element_type="widget"
-                              data-settings='{"_position":"absolute"}'
-                              data-widget_type="stm-contact-form-seven.default"
-                            >
-                              <div className="elementor-widget-container">
-                                <div
-                                  className="stm-elementor-contact-form-seven "
-                                  id="single_contact_form_73186"
-                                >
-                                  <div className="icon-title">
-                                    <h2 className="contactUs-heading-font title">
-                                      CONTACT US
-                                    </h2>
-                                  </div>
-                                  <div
-                                    className="wpcf7 js"
-                                    id="wpcf7-f717-p3100-o1"
-                                    lang="en-US"
-                                    dir="ltr"
-                                  >
-                                    <form
-                                      action="http://localhost:3000/home"
-                                      // method="post"
-                                      className="wpcf7-form init "
-                                      id="form-contact"
-                                      aria-label="Contact form"
-                                      noValidate="novalidate"
-                                      data-status="init"
-                                    >
-                                      <input
-                                        type="hidden"
-                                        name="_token"
-                                        autoComplete="off"
-                                      />{" "}
-                                      <div className="row">
-                                        <div className="col-md-7 col-sm-7">
-                                          <div className="row">
-                                            <div className="col-md-6 col-sm-6">
-                                              <div className="form-group">
-                                                <div className="contact-us-label">
-                                                  First Name*
-                                                </div>
-                                                <span
-                                                  className="wpcf7-form-control-wrap"
-                                                  data-name="first-name"
-                                                >
-                                                  <input
-                                                    size="40"
-                                                    className="wpcf7-form-control wpcf7-text wpcf7-validates-as-required "
-                                                    aria-required="true"
-                                                    placeholder="Enter your first name"
-                                                    type="text"
-                                                    name="first_name"
-                                                  />
-                                                </span>
-                                              </div>
-                                            </div>
-                                            <div className="col-md-6 col-sm-6">
-                                              <div className="form-group">
-                                                <div className="contact-us-label">
-                                                  Last Name*
-                                                </div>
-                                                <span
-                                                  className="wpcf7-form-control-wrap"
-                                                  data-name="last-name"
-                                                >
-                                                  <input
-                                                    size="40"
-                                                    className="wpcf7-form-control wpcf7-text wpcf7-validates-as-required  "
-                                                    aria-required="true"
-                                                    aria-invalid="false"
-                                                    placeholder="Enter your last name"
-                                                    type="text"
-                                                    name="last_name"
-                                                  />
-                                                </span>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div className="row">
-                                            <div className="col-md-6 col-sm-6">
-                                              <div className="form-group">
-                                                <div className="contact-us-label">
-                                                  Email*
-                                                </div>
-                                                <span
-                                                  className="wpcf7-form-control-wrap"
-                                                  data-name="email"
-                                                >
-                                                  <input
-                                                    size="40"
-                                                    className="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required
-                                                                   wpcf7-validates-as-email"
-                                                    aria-required="true"
-                                                    aria-invalid="false"
-                                                    placeholder="email@domain.com"
-                                                    type="email"
-                                                    name="email"
-                                                  />
-                                                </span>
-                                              </div>
-                                            </div>
-                                            <div className="col-md-6 col-sm-6">
-                                              <div className="form-group">
-                                                <div className="contact-us-label">
-                                                  Phone
-                                                </div>
-                                                <span
-                                                  className="wpcf7-form-control-wrap"
-                                                  data-name="phone"
-                                                >
-                                                  <input
-                                                    size="40"
-                                                    className="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-tel "
-                                                    aria-invalid="false"
-                                                    placeholder="Phone number"
-                                                    type="tel"
-                                                    name="phone"
-                                                  />
-                                                </span>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div className="row">
-                                            <div className="col-md-12 stm-contact-us-checkbox">
-                                              <span
-                                                className="wpcf7-form-control-wrap"
-                                                data-name="subscribe"
-                                              >
-                                                <span className="wpcf7-form-control wpcf7-checkbox">
-                                                  <span className="wpcf7-list-item first last">
-                                                    <label>
-                                                      <div className="mt-2">
-                                                        <Form.Check
-                                                          className="diff-dropoff-loc-lable"
-                                                          type="checkbox"
-                                                          label=" Subscribe and Get latest updates and offers by Email"
-                                                        />
-                                                      </div>
-                                                    </label>
-                                                  </span>
-                                                </span>
-                                              </span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="col-md-5 col-sm-5">
-                                          <div className="form-group">
-                                            <div className="form-group">
-                                              <div className="contact-us-label">
-                                                Comment
-                                              </div>
-                                              <span
-                                                className="wpcf7-form-control-wrap"
-                                                data-name="message"
-                                              >
-                                                <textarea
-                                                  cols="40"
-                                                  rows="5"
-                                                  className="wpcf7-form-control wpcf7-textarea "
-                                                  aria-invalid="false"
-                                                  placeholder="Enter your message..."
-                                                  name="comment"
-                                                ></textarea>
-                                              </span>
-                                            </div>
-                                          </div>
-                                          <div className="col-8 contact-us-submit">
-                                            <button
-                                              className="animated-button"
-                                              onClick={() =>
-                                                handleContactUsSubmitButton()
-                                              }
-                                            >
-                                              <span className="button-text-span">
-                                                <span className="transition"></span>
-                                                <span className="gradient"></span>
-                                                <span className="label">
-                                                  Submit
-                                                </span>
-                                              </span>
-                                            </button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div
-                                        className="wpcf7-response-output"
-                                        aria-hidden="true"
-                                      ></div>
-                                    </form>
-                                    <div
-                                      className="alert alert-success"
-                                      id="contact-form-output"
-                                      hidden
-                                      role="alert"
-                                    ></div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
+            <section className="contact-us-section-2 pt-5 pb-4">
+              <div className="contact-us-form-container col-lg-10">
+                <div className="styled-label mt-2">
+                  <div className="heading-icon-container-div d-flex justify-content-center">
+                    <span>
+                      <b className="fs-3">Contact Us Form</b>
+                    </span>
                   </div>
+                  <hr className="home-page-heading-underline " />
                 </div>
+
+                <form
+                  action="#"
+                  className="signup-form"
+                  onSubmit={handleContactUsSubmitButton}
+                >
+                  <div className="form-group row">
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
+                      <input
+                        type="text"
+                        autoComplete="off"
+                        className="form-control"
+                        id="fname"
+                        name="fname"
+                        required
+                        value={formData.fname}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                      <label htmlFor="lname">First Name</label>
+                    </div>
+
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
+                      <input
+                        type="text"
+                        autoComplete="off"
+                        className="form-control"
+                        id="lname"
+                        name="lname"
+                        required
+                        value={formData.lname}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                      <label htmlFor="lname">Last Name</label>
+                    </div>
+
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
+                      <input
+                        className="form-control"
+                        id="email"
+                        name="email"
+                        type="email"
+                        autoComplete="off"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                      <label htmlFor="email">Email</label>
+                    </div>
+
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
+                      <input
+                        className="form-control"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        type="tel"
+                        autoComplete="off"
+                        required
+                        value={formData.phoneNumber}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                      <label htmlFor="phoneNumber">Phone Number</label>
+                    </div>
+
+                    <div className=" mt-4 col-lg-6 col-md-6 col-sm-12">
+                      <textarea
+                        className="col-md-12 form-control-contact-us"
+                        cols="60"
+                        rows="5"
+                        id="comment"
+                        name="comment"
+                        type="checkbox"
+                        autoComplete="off"
+                        placeholder="comment"
+                        required
+                        value={formData.comment}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                    </div>
+
+                    <label>
+                      <div className="mt-2">
+                        <Form.Check
+                          className="diff-dropoff-loc-lable"
+                          type="checkbox"
+                          label=" Subscribe and Get latest updates and offers by Email"
+                        />
+                      </div>
+                    </label>
+                  </div>
+                  <div className="form-group-3 col-lg-12 pb-4">
+                    <div className="col-lg-6 col-md-6 d-flex justify-content-center">
+                      <p></p>
+                      <button
+                        type="submit"
+                        className="createAccount-form-control animated-button submit px-3"
+                        // onClick={(e) => handleSignUp(e)}
+                      >
+                        <span className="button-text-span">
+                          <span className="transition"></span>
+                          <span className="gradient"></span>
+                          <span className="label">Create Account </span>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </section>
           </div>
