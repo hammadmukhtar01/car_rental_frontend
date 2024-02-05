@@ -1,67 +1,183 @@
 .footer-main-container {
-    background-color: #232628;
-  }
-  
-  .footer-text-gray {
-    color: gray;
-    font-weight: 700;
-    font-size: 16px;
-  }
-  
-  .widget-title {
-    color: white;
-    font-weight: 700;
-  }
-  .footer-location-text-main,
-  .footer-service-hr-time,
-  .footer-sales-hr-time,
-  .footer-subscription-text {
-    color: white;
-    font-size: 15px;
-  }
-  
-  .footer-subscription-text {
-    font-weight: 400;
-  }
-  
-  .form-control-subscription,
-  .subscription-button {
-    padding: 6px 14px;
-    border: none;
-  }
-  
-  .subscription-button {
-    background-color: #cc6119;
-    color: white;
-  }
-  
-  .social-media-icons-container {
-    display: flex;
-  }
-  
-  .single-social-media-icons {
-    margin: 0px 15px;
-    background-color: #cc6119;
-    padding: 0px 10px 7px 10px;
-    cursor: pointer;
-    font-size: 23px;
-    border-radius: 50px;
-  }
-  
-  .single-social-media-icons:hover {
-      background-color: white;
-  }
-  
-  .social-media-icon-tag {
-    color: white;
-  }
-  
-  .single-social-media-icons:hover .social-media-icon-tag {
-      color: #cc6119;
-    }
-  
-  .copyright-text {
-    color: gray;
-  }
-  
-  
+  background-color: #232628;
+}
+
+.footer-text-gray {
+  color: gray;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.widget-title {
+  color: white;
+  font-weight: 700;
+}
+.footer-location-text-main,
+.footer-service-hr-time,
+.footer-sales-hr-time,
+.footer-subscription-text {
+  color: white;
+  font-size: 15px;
+}
+
+.footer-subscription-text {
+  font-weight: 400;
+}
+
+.form-control-subscription,
+.subscription-button {
+  padding: 6px 14px;
+  border: none;
+}
+
+.subscription-button {
+  background-color: #cc6119;
+  color: white;
+}
+
+.single-social-media-icons {
+  margin: 0px 15px;
+  background-color: #cc6119;
+  padding: 0px 10px 7px 10px;
+  cursor: pointer;
+  font-size: 23px;
+  border-radius: 50px;
+}
+
+.single-social-media-icons:hover {
+  background-color: white;
+}
+
+.social-media-icon-tag {
+  color: white;
+}
+
+.single-social-media-icons:hover .social-media-icon-tag {
+  color: #cc6119;
+}
+
+.copyright-text {
+  color: gray;
+}
+
+.social-media-icons-container {
+  display: inline-flex;
+  list-style: none;
+  padding-top: 40px;
+  flex-wrap: wrap;
+}
+
+.social-media-icons-container .icon {
+  position: relative;
+  background: #fff;
+  border-radius: 50%;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.social-media-icons-container .tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  background: #fff;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.social-media-icons-container .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #fff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.social-media-icons-container .icon:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.social-media-icons-container [class^="fa-"],
+.social-media-icons-container .bi-tiktok::before {
+  content: attr(class);
+}
+
+.social-media-icons-container .icon,
+.social-media-icons-container .icon .tooltip,
+.social-media-icons-container .icon .tooltip::before {
+  color: #cc6119;
+}
+
+.social-media-icons-container .icon:hover span,
+.social-media-icons-container .icon:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.social-media-icons-container .facebook:hover,
+.social-media-icons-container .facebook:hover .tooltip,
+.social-media-icons-container .facebook:hover .tooltip::before {
+  background: #1877f2;
+  color: #fff;
+}
+
+.social-media-icons-container .twitter:hover,
+.social-media-icons-container .twitter:hover .tooltip,
+.social-media-icons-container .twitter:hover .tooltip::before {
+  background: #1da1f2;
+  color: #fff;
+}
+
+.social-media-icons-container .instagram:hover,
+.social-media-icons-container .instagram:hover .tooltip,
+.social-media-icons-container .instagram:hover .tooltip::before {
+  background: #e4405f;
+  color: #fff;
+}
+
+.social-media-icons-container .pinterest:hover,
+.social-media-icons-container .pinterest:hover .tooltip,
+.social-media-icons-container .pinterest:hover .tooltip::before {
+  background: #bd081c;
+  color: #fff;
+}
+
+.social-media-icons-container .youtube:hover,
+.social-media-icons-container .youtube:hover .tooltip,
+.social-media-icons-container .youtube:hover .tooltip::before {
+  background: #ff0000;
+  color: #fff;
+}
+
+.social-media-icons-container .linkedin:hover,
+.social-media-icons-container .linkedin:hover .tooltip,
+.social-media-icons-container .linkedin:hover .tooltip::before {
+  background: #0077b5;
+  color: #fff;
+}
+
+.social-media-icons-container .tiktok:hover,
+.social-media-icons-container .tiktok:hover .tooltip,
+.social-media-icons-container .tiktok:hover .tooltip::before {
+  background: turquoise;
+  color: white;
+}

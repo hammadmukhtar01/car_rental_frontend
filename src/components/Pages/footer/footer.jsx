@@ -1,15 +1,8 @@
 import React from "react";
 import "./footer.css";
 import { Form } from "react-bootstrap";
-import { FaFacebook, FaPinterest, FaTiktok } from "react-icons/fa6";
-import { GrInstagram } from "react-icons/gr";
-import {
-  FaSnapchat,
-  FaLinkedin,
-  FaYoutube,
-  FaRegBell,
-  FaTwitter,
-} from "react-icons/fa";
+import { FaRegBell } from "react-icons/fa";
+// import TikTokIcon from '../../images/tiktok.svg';
 
 const Footer = () => {
   const footerSubscriptionButton = () => {
@@ -18,45 +11,40 @@ const Footer = () => {
 
   const socialMediaApps = [
     {
+      appName: "facebook",
       hrefLink: "https://www.facebook.com/milelecarrental/",
-      socialMediaIcons: FaFacebook,
     },
 
     {
+      appName: "twitter",
       hrefLink: "https://twitter.com/milelecarrental",
-      socialMediaIcons: FaTwitter,
     },
-
     {
-      hrefLink: "https://www.pinterest.com/MileleCarRental/",
-      socialMediaIcons: FaPinterest,
-    },
-
-    {
+      appName: "instagram",
       hrefLink: "https://www.instagram.com/milelecarrentals/",
-      socialMediaIcons: GrInstagram,
     },
 
     {
+      appName: "pinterest",
+      hrefLink: "https://www.pinterest.com/MileleCarRental/",
+    },
+
+    {
+      appName: "youtube",
       hrefLink: "https://www.youtube.com/channel/UCGZsbfATcMxEBbz1PWAKt0A",
-      socialMediaIcons: FaYoutube,
     },
 
     {
-      hrefLink: "https://www.snapchat.com/add/milelecarrental",
-      socialMediaIcons: FaSnapchat,
-    },
-
-    {
+      appName: "linkedin",
       hrefLink: "https://www.linkedin.com/company/99998565/admin/feed/posts/",
-      socialMediaIcons: FaLinkedin,
     },
 
     {
+      appName: "tiktok",
       hrefLink: "https://www.tiktok.com/@milelecarrental",
-      socialMediaIcons: FaTiktok,
     },
   ];
+
   return (
     <div>
       <footer id="footer">
@@ -183,14 +171,41 @@ const Footer = () => {
                         {socialMediaApps.map((socialMediaIcons, index) => (
                           <div
                             key={index}
-                            className="single-social-media-icons"
+                            className="single-social-media-icons-div"
                           >
                             <a
                               href={`${socialMediaIcons.hrefLink}`}
                               target="_blank"
                               rel="noreferrer"
                             >
-                              <socialMediaIcons.socialMediaIcons className="social-media-icon-tag" />
+                              <li
+                                className={`icon ${socialMediaIcons.appName}`}
+                              >
+                                <span className="tooltip">
+                                  {socialMediaIcons.appName}
+                                </span>
+                                <span>
+                                 
+                                  {socialMediaIcons.appName !== "tiktok" ? (
+                                    <i
+                                      className={`fa fa-${socialMediaIcons.appName}`}
+                                    ></i>
+                                  ) : (
+                                    <div className="">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="16"
+                                        height="16"
+                                        fill="currentColor"
+                                        className="bi bi-tiktok"
+                                        viewBox="0 0 16 16"
+                                      >
+                                        <path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z" />
+                                      </svg>
+                                    </div>
+                                  )}
+                                </span>
+                              </li>
                             </a>
                           </div>
                         ))}
@@ -228,5 +243,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-
