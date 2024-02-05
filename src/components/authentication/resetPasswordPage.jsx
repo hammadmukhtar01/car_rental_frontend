@@ -4,17 +4,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import MainNavbar from "../Pages/navbar/mainNavbar";
 
 const ResetPasswordPage = () => {
-  const { token } = useParams(); 
+  const { id } = useParams(); 
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();
+
+  console.log("Reset passs token ",id)
 
   const handleForgotPasswordClick = async () => {
     // console.warn("Data: ", user, password);
     let data = { password, passwordConfirm };
 
     let result = await axios.patch(
-      `http://localhost:8000/api/v1/resetpassword/${token}`,
+      `http://localhost:8000/api/v1/resetpassword/${id}`,
       {
         ...data,
       }

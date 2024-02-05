@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Form } from "react-bootstrap";
 import "./authentication.css";
 import MainNavbar from "../Pages/navbar/mainNavbar";
 import { useReload } from "../PrivateComponents/utils";
@@ -37,7 +38,7 @@ const LoginPage = () => {
         }
       );
 
-      let resultedData = result.data
+      let resultedData = result.data;
       console.log("Result in login page is: ", resultedData);
       alert("Success Message");
 
@@ -81,54 +82,55 @@ const LoginPage = () => {
                   User Login
                 </p>
                 <form action="#" className="signin-form" onSubmit={handleLogin}>
-                  <div className="form-group row">
-                    <label htmlFor="city" className="col-lg-4 col-form-label">
-                      Email
-                    </label>
-                    <div className="col-lg-7">
-                      <input
-                        className="form-control"
-                        id="email_PhoneNum"
-                        name="email_PhoneNum"
-                        type="text"
-                        autoComplete="email_PhoneNum"
-                        required
-                        placeholder="Email/Phone Number"
-                        value={emailPhoneNum}
-                        onChange={(e) => {
-                          setEmailPhoneNum(e.target.value);
-                        }}
-                      />
+                  <Form.Group controlId="formKeyword">
+                    <div className="form-group row">
+                      <div className="login-form-label col-lg-4 col-md-4">
+                        <label className="styled-label">
+                          <b>Email / Number</b>
+                        </label>
+                      </div>
+                      <div className="col-lg-7 col-md-7 custom-dropdown-container">
+                        <input
+                          className="form-control-login mt-2 col-12"
+                          id="email_PhoneNum"
+                          name="email_PhoneNum"
+                          type="text"
+                          autoComplete="email_PhoneNum"
+                          placeholder="Email/Phone Number"
+                          required
+                          value={emailPhoneNum}
+                          onChange={(e) => {
+                            setEmailPhoneNum(e.target.value);
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </Form.Group>
 
-                  <div className="form-group row">
-                    <label
-                      htmlFor="phoneNum"
-                      className="col-lg-4 col-form-label"
-                    >
-                      Password
-                    </label>
-                    <div className="col-lg-7">
-                      <input
-                        className="form-control"
-                        id="password"
-                        name="password"
-                        type="password"
-                        autoComplete="current-password"
-                        required
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => {
-                          setPassword(e.target.value);
-                        }}
-                      />
-                      <span
-                        toggle="#password-field"
-                        className="fa fa-fw  field-icon toggle-password"
-                      ></span>
+                  <Form.Group controlId="formKeyword">
+                    <div className="form-group row">
+                      <div className="login-form-label col-lg-4 col-md-4">
+                        <label className="styled-label">
+                          <b>Password</b>
+                        </label>
+                      </div>
+                      <div className="col-lg-7 col-md-7 custom-dropdown-container">
+                        <input
+                          className="form-control-login mt-2 col-12"
+                          name="password"
+                          type="password"
+                          autoComplete="current-password"
+                          required
+                          placeholder="Password"
+                          value={password}
+                          onChange={(e) => {
+                            setPassword(e.target.value);
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </Form.Group>
+
 
                   <div className="form-group-3 col-lg-12">
                     <div className="col-lg-6">

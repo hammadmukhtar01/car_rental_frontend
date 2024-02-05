@@ -1,247 +1,232 @@
 import React from "react";
 import "./footer.css";
+import { Form } from "react-bootstrap";
+import { FaFacebook, FaPinterest, FaTiktok } from "react-icons/fa6";
+import { GrInstagram } from "react-icons/gr";
+import {
+  FaSnapchat,
+  FaLinkedin,
+  FaYoutube,
+  FaRegBell,
+  FaTwitter,
+} from "react-icons/fa";
 
 const Footer = () => {
   const footerSubscriptionButton = () => {
     alert("Thank You for subscription...");
   };
+
+  const socialMediaApps = [
+    {
+      hrefLink: "https://www.facebook.com/milelecarrental/",
+      socialMediaIcons: FaFacebook,
+    },
+
+    {
+      hrefLink: "https://twitter.com/milelecarrental",
+      socialMediaIcons: FaTwitter,
+    },
+
+    {
+      hrefLink: "https://www.pinterest.com/MileleCarRental/",
+      socialMediaIcons: FaPinterest,
+    },
+
+    {
+      hrefLink: "https://www.instagram.com/milelecarrentals/",
+      socialMediaIcons: GrInstagram,
+    },
+
+    {
+      hrefLink: "https://www.youtube.com/channel/UCGZsbfATcMxEBbz1PWAKt0A",
+      socialMediaIcons: FaYoutube,
+    },
+
+    {
+      hrefLink: "https://www.snapchat.com/add/milelecarrental",
+      socialMediaIcons: FaSnapchat,
+    },
+
+    {
+      hrefLink: "https://www.linkedin.com/company/99998565/admin/feed/posts/",
+      socialMediaIcons: FaLinkedin,
+    },
+
+    {
+      hrefLink: "https://www.tiktok.com/@milelecarrental",
+      socialMediaIcons: FaTiktok,
+    },
+  ];
   return (
     <div>
       <footer id="footer">
-        <div id="footer-main">
-          <div className="footer_widgets_wrapper ">
+        <div className="footer-main-container pt-4">
+          <div id="footer-main">
             <div className="container">
-              <div className="widgets cols_3 clearfix">
-                <aside id="text-3" className="widget widget_text">
+              <div className="row">
+                <aside
+                  id="text-3"
+                  className="col-lg-4 col-md-4 col-sm-6 col-xs-12"
+                >
                   <div className="widget-wrapper">
                     <div className="widget-title">
                       <h6>Sales Hours</h6>
                     </div>
                     <div className="textwidget">
-                      <span className="date">Monday - Saturday:</span> 09:00 -
-                      22:00 Hours
+                      <span className="footer-text-gray">
+                        Monday - Saturday:
+                      </span>{" "}
+                      <span className="footer-sales-hr-time">
+                        09:00 - 22:00 Hours
+                      </span>
                       <br />
-                      <span className="date">Sunday:</span> Closed
+                      <span className="footer-text-gray">Sunday:</span>{" "}
+                      <span className="footer-sales-hr-time">Closed</span>
                     </div>
                   </div>
+                  <hr className="text-white" />
                 </aside>
-                <aside id="text-4" className="widget widget_text">
+                <aside
+                  id="text-4"
+                  className="col-lg-4 col-md-4 col-sm-6 col-xs-12"
+                >
                   <div className="widget-wrapper">
                     <div className="widget-title">
                       <h6>Service Hours</h6>
                     </div>
                     <div className="textwidget">
-                      <span className="date">Monday - Saturday:</span> 09:00 -
-                      22:00 Hours
+                      <span className="footer-text-gray">
+                        Monday - Saturday:
+                      </span>{" "}
+                      <span className="footer-service-hr-time">
+                        09:00 - 22:00 Hours
+                      </span>
                       <br />
-                      <span className="date">Sunday:</span> Closed
+                      <span className="footer-text-gray">Sunday:</span>{" "}
+                      <span className="footer-service-hr-time">Closed</span>
                     </div>
                   </div>
+                  <hr className="text-white" />
                 </aside>
-                <aside id="text-5" className="widget widget_text">
+                <aside
+                  id="text-5"
+                  className="col-lg-4 col-md-4 col-sm-6 col-xs-12"
+                >
                   <div className="widget-wrapper">
                     <div className="widget-title">
                       <h6>Location</h6>
                     </div>
-                    <div className="textwidget">
-                      <span className="date"></span> Showroom 93 ,
-                      <span className="date"></span> Al Aweer Market ,<br />
-                      <span className="date"></span> Ras Al Khor ,
-                      <span className="date"></span> United Arab Emirates
+                    <div className="footer-location-text-main">
+                      <span className="footer-location-text"></span> Showroom 93
+                      ,<span className="footer-location-text"></span> Al Aweer
+                      Market ,<br />
+                      <span className="footer-location-text"></span> Ras Al Khor
+                      ,<span className="footer-location-text"></span> United
+                      Arab Emirates
                     </div>
                   </div>
+                  <hr className="text-white" />
                 </aside>
-                <aside
-                  id="mc4wp_form_widget-2"
-                  className="widget widget_mc4wp_form_widget"
-                >
-                  <div className="widget-wrapper">
-                    <div className="widget-title">
-                      <h6>Subscribe</h6>
-                      <div className="mc4wp-form-fields">
-                        <div className="stm-mc-unit">
-                          <form
-                            // method="post"
-                            action="http://localhost:3000/home"
-                          >
+              </div>
+
+              <div className="row">
+                <div className="col-lg-4 col-md-4 widget-title">
+                  <aside
+                    id="mc4wp_form_widget-2"
+                    className="widget widget_mc4wp_form_widget"
+                  >
+                    <h6>Subscribe</h6>
+                    <div className="">
+                      <form
+                        // method="post"
+                        action="http://localhost:3000/home"
+                        onSubmit={footerSubscriptionButton}
+                      >
+                        <input
+                          type="hidden"
+                          name="_token"
+                          value="UW5wWno4TpWXbMngkXXxDc9mrhvTqZzd3q8ESoFk"
+                          autoComplete="off"
+                        />{" "}
+                        <Form.Group controlId="formKeyword">
+                          <div className="custom-dropdown-container">
                             <input
-                              type="hidden"
-                              name="_token"
-                              value="UW5wWno4TpWXbMngkXXxDc9mrhvTqZzd3q8ESoFk"
-                              autoComplete="off"
-                            />{" "}
-                            <input
+                              className="form-control-subscription mt-2 col-lg-10 col-md-9 col-sm-9 col-9"
                               type="email"
                               name="email"
                               placeholder="Enter your email..."
                               required
                             />
-                            <input
+                            <button
                               type="submit"
-                              value="Sign up"
-                              onClick={footerSubscriptionButton}
-                            />
-                          </form>
-                        </div>
-                        <div className="stm-mc-label">
-                          Get latest updates and offers.
-                        </div>
+                              className="subscription-button"
+                            >
+                              <FaRegBell className="fs-5" />
+                            </button>
+                          </div>
+                        </Form.Group>
+                      </form>
+                      <div className="footer-subscription-text mt-3">
+                        <span>Get latest deals & offers.</span>
                       </div>
                     </div>
-                  </div>
-                </aside>
+                  </aside>
+                </div>
 
-                <aside id="socials-2" className="widget widget_socials">
-                  <div className="widget-wrapper">
-                    <div className="widget-title">
-                      <h6>Social Network</h6>
+                <div className="col-lg-8 col-md-8">
+                  <aside className="widget widget_socials pt-2">
+                    <div className="social-media-icons-main-container">
+                      <div className="widget-title">
+                        <h6>Social Network</h6>
+                      </div>
+                      <div className="social-media-icons-container pt-1">
+                        {socialMediaApps.map((socialMediaIcons, index) => (
+                          <div
+                            key={index}
+                            className="single-social-media-icons"
+                          >
+                            <a
+                              href={`${socialMediaIcons.hrefLink}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <socialMediaIcons.socialMediaIcons className="social-media-icon-tag" />
+                            </a>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div className="socials_widget_wrapper">
-                      <ul className="widget_socials list-unstyled clearfix">
-                        <li>
-                          <a
-                            href="https://www.facebook.com/milelecarrental/"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <i className="fab fa-facebook"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="https://twitter.com/milelecarrental"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <i className="fab fa-twitter"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="https://www.pinterest.com/MileleCarRental/"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <i className="fab fa-pinterest"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="https://www.instagram.com/milelecarrentals/"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <i className="fab fa-instagram"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="https://www.youtube.com/channel/UCGZsbfATcMxEBbz1PWAKt0A"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <i className="fab fa-youtube"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="https://www.snapchat.com/add/milelecarrental"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <i className="fab fa-snapchat"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="https://www.linkedin.com/company/99998565/admin/feed/posts/"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <i className="fab fa-linkedin"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="https://www.tiktok.com/@milelecarrental"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <i className="fab fa-tiktok"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </aside>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="footer-copyright" style={{ backgroundColor: "#232628" }}>
-          <div className="container footer-copyright">
-            <div className="row">
-              <div className="col-md-8 col-sm-8">
-                <div className="clearfix">
-                  <div className="copyright-text heading-font">
-                    {" "}
-                    Copyright{" "}
-                    <a href="home.html" target="_blank">
-                      2023
-                    </a>
-                    <a href="home.html" target="_blank">
-                      Milele car Rental
-                    </a>
-                  </div>
+                  </aside>
                 </div>
               </div>
-              <div className="col-md-4 col-sm-4">
-                <div className="clearfix">
-                  <div className="pull-right xs-pull-left">
-                    <div className="pull-right">
-                      <div className="copyright-socials">
-                        <ul className="clearfix">
-                          <li>
-                            <a
-                              href="https://www.facebook.com/milelecarrental/"
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <i className="fab fa-facebook"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="https://twitter.com/milelecarrental"
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <i className="fab fa-twitter"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="https://www.instagram.com/milelecarrentals/"
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <i className="fab fa-instagram"></i>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+              <hr className="text-white" />
+            </div>
+          </div>
+
+          <div id="footer-copyright">
+            <div className="container footer-copyright pt-3 pb-5">
+              <div className="row">
+                <div className="col-md-8 col-sm-8">
+                  <div className="clearfix">
+                    <div className="copyright-text">
+                      {" "}
+                      Copyright{" "}
+                      <a href="/" target="_blank">
+                        2023 Milele car Rental
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <div className="global-alerts"></div>
         </div>
-        <div className="global-alerts"></div>
       </footer>
     </div>
   );
 };
 
 export default Footer;
+
+

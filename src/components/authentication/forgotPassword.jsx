@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MainNavbar from "../Pages/navbar/mainNavbar";
+import { Form } from "react-bootstrap";
 import { useReload } from "../PrivateComponents/utils";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import axios from "axios";
@@ -67,26 +68,30 @@ const ForgotPasswordPage = () => {
                   className="signin-form"
                   onSubmit={handleForgotPasswordClick}
                 >
-                  <div className="form-group row">
-                    <label htmlFor="city" className="col-lg-5 col-form-label">
-                      Email
-                    </label>
-                    <div className="col-lg-7">
-                      <input
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="email"
-                        required
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value);
-                        }}
-                      />
+                  <Form.Group controlId="formKeyword">
+                    <div className="form-group row">
+                      <div className="login-form-label col-lg-4 col-md-4">
+                        <label className="styled-label">
+                          <b>Email </b>
+                        </label>
+                      </div>
+                      <div className="col-lg-7 col-md-7 custom-dropdown-container">
+                        <input
+                          className="form-control-login mt-2 col-12"
+                          id="email_PhoneNum"
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          required
+                          placeholder="Email"
+                          value={email}
+                          onChange={(e) => {
+                            setEmail(e.target.value);
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  </Form.Group>
 
                   <div className="form-group-3 col-lg-12">
                     <div className="col-lg-6">

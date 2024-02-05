@@ -68,7 +68,7 @@ const Carousel = () => {
             </div>
             <h5 className="mb-3">{testimonial.name}</h5>
             <p className="px-xl-3">
-              <MDBIcon fas icon="quote-left" className="pe-2" />
+              <MDBIcon fa icon="quote-left" className="pe-2" />
               {testimonial.text}
             </p>
             <MDBTypography
@@ -80,7 +80,7 @@ const Carousel = () => {
                 (_, i) => (
                   <li key={i}>
                     <MDBIcon
-                      fas
+                      fa
                       icon="star"
                       size="sm"
                       className="text-warning"
@@ -91,7 +91,7 @@ const Carousel = () => {
               {testimonial.rating % 1 !== 0 && (
                 <li>
                   <MDBIcon
-                    fas
+                    fa
                     icon="star-half-alt"
                     size="sm"
                     className="text-warning"

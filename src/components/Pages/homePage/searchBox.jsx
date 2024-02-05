@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Row, Col, Form, Modal } from "react-bootstrap";
 import { BsGeoAltFill, BsGeoAlt, BsCalendar2Check } from "react-icons/bs";
-import "./homePage.css";
+import "./homepage.css";
 import PickupLocationModal from "./pickupSearchBoxDropDown";
 import DropoffLocationModal from "./dropoffSearchBoxDropDown";
 import MainNavbar from "../navbar/mainNavbar";
@@ -80,7 +80,7 @@ const SearchBox = () => {
     }
     setPickupLocation(option);
     setShowPickupModal(false);
-    setPickupLocationMessage(option);
+    // setPickupLocationMessage(option);
   };
 
   const handleDropOffButtonClick = (option) => {
@@ -91,7 +91,7 @@ const SearchBox = () => {
     }
     setDropoffLocation(option);
     setShowDropoffModal(false);
-    setDropoffLocationMessage(option);
+    // setDropoffLocationMessage(option);
   };
 
   const handleDropoffCheckboxChange = () => {
