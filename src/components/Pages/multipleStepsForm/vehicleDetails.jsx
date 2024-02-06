@@ -72,14 +72,24 @@ const VehicleDetails = ({ nextStep }) => {
     );
 
     if (couponCode.trim() === "") {
-      toast.warning("Please enter a coupon code", { autoClose: 3000, style: {border: "1px solid #c0c0c0"} });
+      toast.warning("Please enter a coupon code", {
+        autoClose: 3000,
+        style: { border: "1px solid #c0c0c0", fontSize: "14px" },
+      });
 
       return;
     }
 
     if (!foundCoupon) {
       // alert("Invalid coupon code. Please enter a valid coupon code.");
-      toast.error("Invalid coupon code. Please enter a valid coupon code.", { autoClose: 3000, style: {lineHeight: "20px", border: "1px solid #c0c0c0"} });
+      toast.error("Invalid coupon code. Please enter a valid coupon code.", {
+        autoClose: 3000,
+        style: {
+          lineHeight: "20px",
+          border: "1px solid #c0c0c0",
+          fontSize: "14px",
+        },
+      });
       return;
     }
 

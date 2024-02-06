@@ -19,9 +19,14 @@ function MainNavbar() {
   console.log("Auth in local storage is: ", user_info);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    reloadPage();
-    navigate(`/`);
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+      localStorage.removeItem("user");
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+      navigate(`/`);
+    }
   };
 
   const handleReload = () => {

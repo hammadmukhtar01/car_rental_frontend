@@ -61,7 +61,7 @@ const ContactusPage = () => {
 
         toast.success("Thank You for Contacting Us.", {
           autoClose: 3000,
-          style: { border: "1px solid #c0c0c0" },
+          style: { border: "1px solid #c0c0c0", fontSize: "14px" },
         });
       } else {
         alert("Email/Password missing...");

@@ -5,6 +5,8 @@ import { Form } from "react-bootstrap";
 import { useReload } from "../PrivateComponents/utils";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -26,15 +28,31 @@ const ForgotPasswordPage = () => {
       );
 
       console.log("Result in Forgot Pass page is: ", result.data);
-      alert("Success Message");
 
       if (result.status === 200 && result.data.status === "success") {
-        navigate(`/login`);
+        toast.success("Check your email for password reset link.", {
+          autoClose: 2000,
+          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+          onClose: () => {
+            navigate("/home");
+          },
+        });
       } else {
-        alert("Email not found. Try again with a correct email.");
+        toast.warning("Email not found. Try again with a correct email.", {
+          autoClose: 3000,
+          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px", },
+        });
       }
     } catch (error) {
-      console.log("Forgot password failed:", error.response.data.message);
+      toast.error(`${error.response.data.message}`, {
+        autoClose: 3000,
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          lineHeight: "18px",
+          fontSize: "14px",
+        },
+      });
     }
   };
 
@@ -107,6 +125,7 @@ const ForgotPasswordPage = () => {
                           <span className="label">Submit</span>
                         </span>
                       </button>
+                      <ToastContainer />
                     </div>
                   </div>
                   <br />
@@ -123,7 +142,6 @@ const ForgotPasswordPage = () => {
                     </div>
                   </div>
                 </form>
-
                 <br />
               </div>
             </div>

@@ -7,9 +7,11 @@ import MainNavbar from "../Pages/navbar/mainNavbar";
 import { useReload } from "../PrivateComponents/utils";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
-  const [emailPhoneNum, setEmailPhoneNum] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -22,9 +24,9 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
-    console.warn("Data: ", emailPhoneNum, password);
-    let data = { emailPhoneNum, password };
+
+    console.warn("Data: ", email, password);
+    let data = { email, password };
 
     try {
       let result = await axios.post(
@@ -41,18 +43,28 @@ const LoginPage = () => {
 
       let resultedData = result.data;
       console.log("Result in login page is: ", resultedData);
-      alert("Success Message");
 
       if (resultedData.status === "success") {
-        // const userId = result.data.data.user._id;
-        // console.warn("User Id: " + userId);
         localStorage.setItem("user", JSON.stringify(result));
-        navigate("/home");
+        toast.success("Logged In Successfully!", {
+          autoClose: 2000,
+          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+          onClose: () => {
+            navigate("/home");
+          },
+        });
       } else {
-        alert("Email/Password missing...");
+        // alert("Email/Password missing...");
+        toast.warning("Email/Password missing...", {
+          autoClose: 3000,
+          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+        });
       }
     } catch (error) {
-      console.log("Login Failed Error is --- :", error.response.data.message);
+      toast.error(`${error.response.data.message}`, {
+        autoClose: 3000,
+        style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+      });
     }
   };
 
@@ -87,21 +99,21 @@ const LoginPage = () => {
                     <div className="form-group row">
                       <div className="login-form-label col-lg-4 col-md-4">
                         <label className="styled-label">
-                          <b>Email / Number</b>
+                          <b>Email</b>
                         </label>
                       </div>
                       <div className="col-lg-7 col-md-7 custom-dropdown-container">
                         <input
                           className="form-control-login mt-2 col-12"
-                          id="email_PhoneNum"
-                          name="email_PhoneNum"
+                          id="email"
+                          name="email"
                           type="text"
-                          autoComplete="email_PhoneNum"
-                          placeholder="Email/Phone Number"
+                          autoComplete="email"
+                          placeholder="Email"
                           required
-                          value={emailPhoneNum}
+                          value={email}
                           onChange={(e) => {
-                            setEmailPhoneNum(e.target.value);
+                            setEmail(e.target.value);
                           }}
                         />
                       </div>
@@ -132,7 +144,6 @@ const LoginPage = () => {
                     </div>
                   </Form.Group>
 
-
                   <div className="form-group-3 col-lg-12">
                     <div className="col-lg-6">
                       <p></p>
@@ -147,6 +158,7 @@ const LoginPage = () => {
                           <span className="label">Log In</span>
                         </span>
                       </button>
+                      <ToastContainer />
                     </div>
                   </div>
                   <div className="form-group-0 pt-4">

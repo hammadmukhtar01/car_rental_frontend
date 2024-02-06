@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import MainNavbar from "../Pages/navbar/mainNavbar";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import { useReload } from "../PrivateComponents/utils";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ResetPasswordPage = () => {
   const { token } = useParams();
@@ -27,17 +29,30 @@ const ResetPasswordPage = () => {
       );
 
       console.log("Result in reset password page is: ", result);
-      alert("Success Message");
 
       if (result.status === 201) {
-        alert("Password Updated successfully.");
-        navigate(`/login`);
+        toast.success("Password Updated successfully.", {
+          autoClose: 2000,
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            fontSize: "14px",
+          },
+          onClose: () => {
+            navigate("/home");
+          },
+        });
       }
     } catch (error) {
-      console.log(
-        "Reset Password Failed Error is --- :",
-        error.response.data.message
-      );
+      toast.error(`${error.response.data.message}`, {
+        autoClose: 3000,
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          lineHeight: "18px",
+          fontSize: "14px",
+        },
+      });
     }
   };
 
@@ -135,6 +150,7 @@ const ResetPasswordPage = () => {
                           <span className="label">Submit</span>
                         </span>
                       </button>
+                      <ToastContainer />
                     </div>
                   </div>
                   <br />

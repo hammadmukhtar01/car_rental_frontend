@@ -14,6 +14,8 @@ import "./ourClients.css";
 import { BsPersonCircle } from "react-icons/bs";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
+import SpinTheWheel from "../spinTheWheel/spinTheWheel";
+import Celebration from "../spinTheWheel/celebration";
 
 const HomePage = () => {
   const carBrands = [
@@ -80,8 +82,9 @@ const HomePage = () => {
               />
             </div>
           </div> */}
-
+          {/* <SpinTheWheel /> */}
           <CarCards />
+          {/* <Celebration/> */}
 
           <div className="container pt-4 pb-4">
             <div className="car-brands-icons-container p-3">

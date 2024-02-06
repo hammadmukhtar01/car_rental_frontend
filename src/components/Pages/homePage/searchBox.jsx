@@ -146,7 +146,7 @@ const SearchBox = () => {
     // alert("Loading required cars");
     toast.info("Loading required cars!", {
       autoClose: 3000,
-      style: { border: "1px solid #c0c0c0" },
+      style: { border: "1px solid #c0c0c0", fontSize: "14px" },
     });
 
     navigate("/vehicles");

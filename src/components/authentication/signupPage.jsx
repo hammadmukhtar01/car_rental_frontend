@@ -6,6 +6,8 @@ import { useReload } from "../PrivateComponents/utils";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -54,14 +56,26 @@ const SignupPage = () => {
         formData
       );
       console.log("sign up response is: --- ", response.data);
-      alert("Success Msssg");
+
       if (response.data.status === "success") {
-        navigate("/home");
+        toast.success("Account Created Successfully!", {
+          autoClose: 2000,
+          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+          onClose: () => {
+            navigate("/home");
+          },
+        });
       } else {
-        alert("Email/Password missing...");
+        toast.warning("Some fields are missing", {
+          autoClose: 3000,
+          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+        });
       }
     } catch (error) {
-      console.log("Signup failed:", error.response.data.message);
+      toast.error(`${error.response.data.message}`, {
+        autoClose: 3000,
+        style: { border: "1px solid #c0c0c0", fontWeight: "400", lineHeight: "18px", fontSize: "14px" },
+      });
     }
   };
 
@@ -271,6 +285,7 @@ const SignupPage = () => {
                           <span className="label">Create Account </span>
                         </span>
                       </button>
+                      <ToastContainer />
                     </div>
                   </div>
                 </form>
