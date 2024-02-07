@@ -448,7 +448,8 @@ img:hover {
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: rgba(0, 0, 0);
+  /* color: rgba(0, 0, 0); */
+  color: #cc6119;
 }
 
 .right-dropdown .dropdown-menu {

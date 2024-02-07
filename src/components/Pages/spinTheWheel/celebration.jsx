@@ -154,7 +154,7 @@ const Celebration = () => {
       window.removeEventListener("resize", windowResized);
       document.removeEventListener("click", onClick);
     };
-  }, []); // Empty dependency array ensures the effect runs only once on component mount
+  }, []);
 
   return <canvas id="canvas"></canvas>;
 };

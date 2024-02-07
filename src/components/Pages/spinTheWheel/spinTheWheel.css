@@ -1,0 +1,17 @@
+.spin-wheel-component-class{
+    max-width: 70% !important;
+    max-height: 50% !important;
+}
+
+#canvas {
+    max-width: 170% !important;
+    max-height: 100% !important;
+    /* margin-left: 70px; */
+}
+
+@media screen and (min-width:991px) {
+    #canvas {
+        margin-left: 70px;
+    }
+    
+}

@@ -244,7 +244,7 @@
   margin: 10px 10px 150px 10px;
 }
 .search-box-container:hover {
-  background-color: white;
+  background-color: rgb(200, 200, 200);
   /* background-color: rgba(248, 248, 248, 0.6); */
   /* background-repeat: no-repeat;
   background-size: cover;
@@ -273,7 +273,7 @@
 }
 
 .search-box-home-page {
-  /* background-image: url("../../images/bgImg1.jpg"); */
+  background-image: url("../../images/bgImg1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

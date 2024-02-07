@@ -1,5 +1,7 @@
 import React from "react";
-import Car1 from "../../images/car1.jpg";
+import Car1 from "../../images/car-fleet-1.png";
+import Car2 from "../../images/car-fleet-2.png";
+import Car3 from "../../images/car-fleet-3.png";
 import { useNavigate } from "react-router-dom";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
@@ -14,31 +16,27 @@ const cars = [
   },
   {
     name: "Car name 2",
-    image:
-      "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
+    image: Car2,
     discount: 15,
   },
   {
     name: "Car name 3",
-    image:
-      "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
+    image: Car3,
     discount: 25,
   },
   {
     name: "Car name 4",
-    image:
-      "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
-    discount: 25,
-  },
-  {
-    name: "Car name 5",
     image: Car1,
     discount: 25,
   },
   {
+    name: "Car name 5",
+    image: Car2,
+    discount: 25,
+  },
+  {
     name: "Car name 6",
-    image:
-      "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
+    image: Car3,
     discount: 25,
   },
 ];

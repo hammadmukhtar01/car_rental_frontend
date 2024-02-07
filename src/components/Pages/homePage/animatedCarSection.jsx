@@ -8,9 +8,9 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "owl.carousel/dist/assets/owl.theme.green.css";
 import { BsPersonCircle } from "react-icons/bs";
-import carFleetImg1 from '../../images/car-fleet-1.jpeg';
-import carFleetImg2 from '../../images/car-fleet-2.jpeg';
-import carFleetImg3 from '../../images/car-fleet-3.jpeg';
+import carFleetImg1 from '../../images/car-fleet-1.png';
+import carFleetImg2 from '../../images/car-fleet-2.png';
+import carFleetImg3 from '../../images/car-fleet-3.png';
 
 const AnimatedCarSection = () => {
   const navigate = useNavigate();
@@ -44,9 +44,21 @@ const AnimatedCarSection = () => {
   }, []);
 
   const imagesData = [
+    // {
+    //   url: carFleetImg1,
+    //   type: "Sedan",
+    // },
+    {
+      url: carFleetImg2,
+      type: "SUV",
+    },
+    {
+      url: carFleetImg3,
+      type: "Economy",
+    },
     {
       url: carFleetImg1,
-      type: "Intermediate",
+      type: "Sedan",
     },
     {
       url: carFleetImg2,
@@ -58,7 +70,7 @@ const AnimatedCarSection = () => {
     },
     {
       url: carFleetImg1,
-      type: "Family",
+      type: "Sedan",
     },
   ];
 

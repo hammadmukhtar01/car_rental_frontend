@@ -164,7 +164,7 @@ const LoginPage = () => {
                   <div className="form-group-0 pt-4">
                     <div className="col-lg-12">
                       <a href="/forgotpassword" style={{ color: "#fff" }}>
-                        <div className="forgot-password">
+                        <div className="forgot-password text-center">
                           {" "}
                           Forgot Password ?
                         </div>

@@ -14,7 +14,9 @@ import {
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
 import { LuSnowflake, LuSearch } from "react-icons/lu";
 import "./vehicleDetails.css";
-import Car1 from "../../images/car1.jpg";
+import Car1 from "../../images/car-fleet-1.png";
+import Car2 from "../../images/car-fleet-2.png";
+import Car3 from "../../images/car-fleet-3.png";
 import PickupLocationModal from "../homePage/pickupSearchBoxDropDown";
 import DropoffLocationModal from "../homePage/dropoffSearchBoxDropDown";
 import Pagination from "./pagination";
@@ -62,8 +64,8 @@ const VehiclesPage = () => {
   const [showPickupModal, setShowPickupModal] = useState(false);
   const [showDropoffModal, setShowDropoffModal] = useState(false);
 
-  const carModels = ["Mersedes Benz", "Nissan Altima", "Bugatti"];
-  const carTypes = ["Family", "Intermediate", "SUV", "Economy"];
+  const carModels = ["Picanto", "Creta", "K5", "Elantra", "Corolla", "2008"];
+  const carTypes = ["Sedan", "SUV", "Economy"];
 
   const carTypeInURL = useLocation();
   const queryParams = new URLSearchParams(carTypeInURL.search);
@@ -145,28 +147,26 @@ const VehiclesPage = () => {
           discount: 0,
           originalPrice: 300,
           days: 0,
-          carType: "Intermediate",
-          carModel: "Another Brand",
+          carType: "SUV",
+          carModel: "Picanto",
         },
         {
           name: "Car name 2",
-          image:
-            "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
+          image: Car2,
           discount: 3,
           originalPrice: 200,
           days: 0,
-          carType: "Family",
-          carModel: "Nissan Altima",
+          carType: "Sedan",
+          carModel: "Cretaa",
         },
         {
           name: "Car name 3",
-          image:
-            "https://www.dkeng.co.uk/sales_images/1593558000/large_1594227296_murcielagosv_57.jpg",
+          image: Car3,
           discount: 0,
           originalPrice: 342,
           days: 0,
           carType: "Economy",
-          carModel: "Nissan Altima",
+          carModel: "Cretaa",
         },
         {
           name: "Car name 4",
@@ -175,17 +175,16 @@ const VehiclesPage = () => {
           originalPrice: 975,
           days: 0,
           carType: "SUV",
-          carModel: "Mersedes Benz",
+          carModel: "K5",
         },
         {
           name: "Car name 5",
-          image:
-            "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
+          image: Car2,
           discount: 15,
           originalPrice: 250,
           days: 0,
-          carType: "Family",
-          carModel: "Another Brand",
+          carType: "Sedan",
+          carModel: "2008",
         },
         {
           name: "Car name 6",
@@ -193,18 +192,17 @@ const VehiclesPage = () => {
           discount: 0,
           originalPrice: 100,
           days: 0,
-          carType: "Intermediate",
-          carModel: "Another Brand",
+          carType: "SUV",
+          carModel: "K5",
         },
         {
           name: "Car name 7",
-          image:
-            "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0",
+          image: Car3,
           discount: 15,
           originalPrice: 79,
           days: 0,
-          carType: "Intermediate",
-          carModel: "Nissan Altima",
+          carType: "SUV",
+          carModel: "K5",
         },
       ].map((car) => ({
         ...car,
@@ -750,11 +748,14 @@ const VehiclesPage = () => {
                     </div>
                     <div className="filter-content">
                       <div className="card-body">
-                        <div className="form-row">
+                        <div className="">
                           <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6">
                             <input
+                              className="form-control-login"
+                              name="minPrice"
+                              autoComplete="off"
+                              required
                               type="number"
-                              className="form-control"
                               min={0}
                               value={minPrice}
                               onChange={(e) => setMinPrice(e.target.value)}
@@ -762,11 +763,22 @@ const VehiclesPage = () => {
                             />
                           </div>
 
-                          <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 text-right">
-                            <input
+                          <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6">
+                            {/* <input
                               type="number"
                               className="form-control"
                               value={maxPrice}
+                              onChange={(e) => setMaxPrice(e.target.value)}
+                              placeholder="max value"
+                              min={minPrice}
+                            /> */}
+                            <input
+                              className="form-control-login "
+                              name="maxPrice"
+                              autoComplete="off"
+                              required
+                              type="number"
+                              value={minPrice}
                               onChange={(e) => setMaxPrice(e.target.value)}
                               placeholder="max value"
                               min={minPrice}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchBox from "./searchBox";
 import CarCards from "./carCards";
 import AnimatedCarSection from "./animatedCarSection";
@@ -16,8 +16,13 @@ import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 import SpinTheWheel from "../spinTheWheel/spinTheWheel";
 import Celebration from "../spinTheWheel/celebration";
+import { RxColorWheel } from "react-icons/rx";
+import { ImSpinner4 } from "react-icons/im";
+import { Modal } from "react-bootstrap";
 
 const HomePage = () => {
+  const [showModal, setShowModal] = useState(false);
+
   const carBrands = [
     { name: "hyundai", logo: HyundaiLogo, title: "Hyundai" },
     { name: "chevrolet", logo: CheveroletLogo, title: "Cheverolet" },
@@ -34,6 +39,14 @@ const HomePage = () => {
   const handleMouseLeave = () => {
     const slider = document.querySelector(".car-brands-slider");
     slider.classList.remove("paused");
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const openMapModal = () => {
+    setShowModal(true);
   };
 
   const { loading } = useReload();
@@ -85,6 +98,30 @@ const HomePage = () => {
           {/* <SpinTheWheel /> */}
           <CarCards />
           {/* <Celebration/> */}
+
+          <div className="spin-wheel-buttons-container">
+            <a
+              href="#spin-the-wheel"
+              onClick={openMapModal}
+              className="contact-button spin-the-wheel-link"
+            >
+              <ImSpinner4 className="rotate" />
+            </a>
+          </div>
+
+          <Modal show={showModal} onHide={handleCloseModal} size="lg">
+            <Modal.Header closeButton>
+              <Modal.Title>Spin The Wheel</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <SpinTheWheel />
+            </Modal.Body>
+            <Modal.Footer>
+              <button className="btn btn-secondary" onClick={handleCloseModal}>
+                Close
+              </button>
+            </Modal.Footer>
+          </Modal>
 
           <div className="container pt-4 pb-4">
             <div className="car-brands-icons-container p-3">

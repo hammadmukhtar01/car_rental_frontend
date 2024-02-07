@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Col, Form } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PaymentPage = ({ prevStep }) => {
   const [cardNumber, setCardNumber] = useState("");
@@ -8,8 +10,19 @@ const PaymentPage = ({ prevStep }) => {
   const [cvc, setCvc] = useState("");
   const [cardholderName, setCardholderName] = useState("");
 
-  const handlePurchase = async () => {
-    alert("Purchase Message");
+  const handlePurchase = async (e) => {
+    e.preventDefault();
+    toast.success("Payment Done Successfully!", {
+      autoClose: 2000,
+      style: {
+        border: "1px solid #c0c0c0",
+        fontWeight: "400",
+        fontSize: "14px",
+      },
+      // onClose: () => {
+      //   navigate("/home");
+      // },
+    });
   };
 
   return (
@@ -100,140 +113,148 @@ const PaymentPage = ({ prevStep }) => {
                   </div>
                 </div>
               </div>
-              <div className=" px-0">
-                <div className="row bg-white pb-5 pl-3 pr-3">
-                  <div className="col-12 px-4 my-4">
-                    <h4 className="fw-bold">Payment Detail:</h4>
+              <form
+                action="#"
+                className="payment-form"
+                onSubmit={handlePurchase}
+              >
+                <div className="payment-form-div">
+                  <div className="row bg-white pb-5 pl-3 pr-3">
+                    <div className="col-12 px-4 my-4">
+                      <h4 className="fw-bold">Payment Detail:</h4>
+                    </div>
+                    <br />
+                    <div className="row">
+                      <Col xxl={12} lg={12} md={4} sm={6} xs={12}>
+                        <Form.Group controlId="formKeyword">
+                          <div className="location-label">
+                            <label className="styled-label">
+                              <b>Card Number</b>
+                            </label>
+                          </div>
+                          <div className="custom-dropdown-container">
+                            <input
+                              className="form-control-location mt-2 col-12"
+                              id="cardnumber"
+                              name="cardnumber"
+                              required
+                              placeholder="1234 5678 9012 3456"
+                              type="text"
+                              value={cardNumber}
+                              onChange={(e) => setCardNumber(e.target.value)}
+                            />
+                          </div>
+                        </Form.Group>
+                      </Col>
+
+                      <Col xxl={6} lg={6} md={4} sm={6} xs={12}>
+                        <Form.Group controlId="formKeyword">
+                          <div className="location-label">
+                            <label className="styled-label">
+                              <b> Expiry Month</b>
+                            </label>
+                          </div>
+                          <div className="custom-dropdown-container">
+                            <input
+                              className="form-control-location mt-2 col-12"
+                              id="expMonth"
+                              name="expMonth"
+                              type="number"
+                              required
+                              placeholder="mm"
+                              min={1}
+                              max={12}
+                              value={expMonth}
+                              onChange={(e) => setExpMonth(e.target.value)}
+                            />
+                          </div>
+                        </Form.Group>
+                      </Col>
+
+                      <Col xxl={6} lg={6} md={4} sm={6} xs={12}>
+                        <Form.Group controlId="formKeyword">
+                          <div className="location-label">
+                            <label className="styled-label">
+                              <b> Expiry Year</b>
+                            </label>
+                          </div>
+                          <div className="custom-dropdown-container">
+                            <input
+                              className="form-control-location mt-2 col-12"
+                              id="expYear"
+                              name="expYear"
+                              type="number"
+                              required
+                              placeholder="yy"
+                              value={expYear}
+                              onChange={(e) => setExpYear(e.target.value)}
+                            />
+                          </div>
+                        </Form.Group>
+                      </Col>
+
+                      <Col xxl={12} lg={12} md={6} sm={6} xs={12}>
+                        <Form.Group controlId="formKeyword">
+                          <div className="location-label">
+                            <label className="styled-label">
+                              <b>Cardholder Name</b>
+                            </label>
+                          </div>
+                          <div className="custom-dropdown-container">
+                            <input
+                              className="form-control-location mt-2 col-12"
+                              id="cardholderName"
+                              name="cardholderName"
+                              type="text"
+                              required
+                              placeholder="Card Holder Full Name"
+                              value={cardholderName}
+                              onChange={(e) =>
+                                setCardholderName(e.target.value)
+                              }
+                            />
+                          </div>
+                        </Form.Group>
+                      </Col>
+
+                      <Col xxl={6} lg={6} md={4} sm={6} xs={12}>
+                        <Form.Group controlId="formKeyword">
+                          <div className="location-label">
+                            <label className="styled-label">
+                              <b>CVC</b>
+                            </label>
+                          </div>
+                          <div className="custom-dropdown-container">
+                            <input
+                              className="form-control-location mt-2 col-12"
+                              id="cvc"
+                              name="cvc"
+                              type="text"
+                              required
+                              placeholder="###"
+                              value={cvc}
+                              onChange={(e) => setCvc(e.target.value)}
+                            />
+                          </div>
+                        </Form.Group>
+                      </Col>
+                    </div>
                   </div>
                   <br />
-                 <div className="row">
-                 <Col xxl={12} lg={12} md={4} sm={6} xs={12}>
-                    <Form.Group controlId="formKeyword">
-                      <div className="location-label">
-                        <label className="styled-label">
-                          <b>Card Number</b>
-                        </label>
-                      </div>
-                      <div className="custom-dropdown-container">
-                        <input
-                          className="form-control-location mt-2 col-12"
-                          id="cardnumber"
-                          name="cardnumber"
-                          required
-                          placeholder="1234 5678 9012 3456"
-                          type="text"
-                          value={cardNumber}
-                          onChange={(e) => setCardNumber(e.target.value)}
-                        />
-                      </div>
-                    </Form.Group>
-                  </Col>
-
-                  <Col xxl={6} lg={6} md={4} sm={6} xs={12}>
-                    <Form.Group controlId="formKeyword">
-                      <div className="location-label">
-                        <label className="styled-label">
-                          <b> Expiry Month</b>
-                        </label>
-                      </div>
-                      <div className="custom-dropdown-container">
-                        <input
-                          className="form-control-location mt-2 col-12"
-                          id="expMonth"
-                          name="expMonth"
-                          type="number"
-                          required
-                          placeholder="mm"
-                          min={1}
-                          max={12}
-                          value={expMonth}
-                          onChange={(e) => setExpMonth(e.target.value)}
-                        />
-                      </div>
-                    </Form.Group>
-                  </Col>
-
-                  <Col xxl={6} lg={6} md={4} sm={6} xs={12}>
-                    <Form.Group controlId="formKeyword">
-                      <div className="location-label">
-                        <label className="styled-label">
-                          <b> Expiry Year</b>
-                        </label>
-                      </div>
-                      <div className="custom-dropdown-container">
-                        <input
-                          className="form-control-location mt-2 col-12"
-                          id="expYear"
-                          name="expYear"
-                          type="number"
-                          required
-                          placeholder="yy"
-                          value={expYear}
-                          onChange={(e) => setExpYear(e.target.value)}
-                        />
-                      </div>
-                    </Form.Group>
-                  </Col>
-
-                  <Col xxl={12} lg={12} md={6} sm={6} xs={12}>
-                    <Form.Group controlId="formKeyword">
-                      <div className="location-label">
-                        <label className="styled-label">
-                          <b>Cardholder Name</b>
-                        </label>
-                      </div>
-                      <div className="custom-dropdown-container">
-                        <input
-                          className="form-control-location mt-2 col-12"
-                          id="cardholderName"
-                          name="cardholderName"
-                          type="text"
-                          required
-                          placeholder="Card Holder Full Name"
-                          value={cardholderName}
-                          onChange={(e) => setCardholderName(e.target.value)}
-                        />
-                      </div>
-                    </Form.Group>
-                  </Col>
-
-                  <Col xxl={6} lg={6} md={4} sm={6} xs={12}>
-                    <Form.Group controlId="formKeyword">
-                      <div className="location-label">
-                        <label className="styled-label">
-                          <b>CVC</b>
-                        </label>
-                      </div>
-                      <div className="custom-dropdown-container">
-                        <input
-                          className="form-control-location mt-2 col-12"
-                          id="cvc"
-                          name="cvc"
-                          type="text"
-                          required
-                          placeholder="###"
-                          value={cvc}
-                          onChange={(e) => setCvc(e.target.value)}
-                        />
-                      </div>
-                    </Form.Group>
-                  </Col>
-                  
-                 </div>
+                  <div className="row col-lg-6 col-md-6 ">
+                    <button className="animated-button" type="button">
+                      {" "}
+                      <span className="button-text-span">
+                        <span className="transition"></span>
+                        <span className="gradient"></span>
+                        <span className="label"> Pay & Book</span>
+                      </span>{" "}
+                    </button>
+                    <ToastContainer />
+                  </div>
+                  <br />
                 </div>
-                <br />
-                <div className="row col-lg-6 col-md-6 ">
-                  <button className="animated-button" onClick={handlePurchase}>
-                    {" "}
-                    <span className="button-text-span">
-                      <span className="transition"></span>
-                      <span className="gradient"></span>
-                      <span className="label"> Pay & Book</span>
-                    </span>{" "}
-                  </button>
-                </div>
-                <br />
-              </div>
+              </form>
             </div>
           </div>
         </div>

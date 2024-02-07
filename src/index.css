@@ -11,6 +11,16 @@ body {
   border: 1px solid rgb(175, 175, 175) !important;
 }
 
+.spin-wheel-buttons-container {
+  position: fixed;
+  bottom: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  right: 15px;
+  z-index: 999;
+}
+
 .contact-buttons-container {
   position: fixed;
   bottom: 30px;
@@ -19,7 +29,6 @@ body {
   align-items: flex-end;
   right: 15px;
   z-index: 999;
-
 }
 
 .contact-button {
@@ -71,8 +80,22 @@ body {
   background-color: #cc6119;
 }
 
+.spin-the-wheel-link {
+  background-color: #cc6119;
+}
+
 .whatsapp-link {
   background-color: green;
+}
+
+.rotate {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .contact-button svg {

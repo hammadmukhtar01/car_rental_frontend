@@ -235,6 +235,7 @@ const SearchBox = () => {
                     <div className="mt-2">
                       <Form.Check
                         type="checkbox"
+                        style={{color: "#cc6119", fontWeight: "700"}}
                         label="Different Dropoff Location"
                         onChange={handleDropoffCheckboxChange}
                       />

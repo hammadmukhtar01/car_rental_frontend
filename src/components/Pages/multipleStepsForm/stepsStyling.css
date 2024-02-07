@@ -244,6 +244,7 @@ h4 {
 .input-group {
   display: flex;
   align-items: center;
+  justify-content: flex-end
 }
 
 .input {
@@ -258,7 +259,7 @@ h4 {
 }
 
 .button--submit {
-  min-height: 50px;
+  min-height: 45px;
   padding: 0.5em 1em;
   border: none;
   box-shadow: none;

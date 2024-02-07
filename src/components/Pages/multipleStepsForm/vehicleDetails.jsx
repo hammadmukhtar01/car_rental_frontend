@@ -9,6 +9,7 @@ import Modals from "./imageEnlarger";
 import { RxCross2 } from "react-icons/rx";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Car1 from "../../images/car-fleet-1.png";
 
 const VehicleDetails = ({ nextStep }) => {
   const [couponCode, setCouponCode] = useState("");
@@ -118,9 +119,7 @@ const VehicleDetails = ({ nextStep }) => {
     },
   ];
 
-  const carImg =
-    "https://th.bing.com/th/id/R.5984159799b0816018fee4e99b7411d5?rik=juCYPL27dy2pDw&riu=http%3a%2f%2ftonyferraricertified.com%2fwp-content%2fuploads%2f2018%2f08%2fsportscar-17583_1920.jpg&ehk=w%2fCNEgr5e37cX%2bi7bfuD64D1puZfzMxXPSjpJlzSYLw%3d&risl=&pid=ImgRaw&r=0";
-
+  const carImg = Car1;
   const totalDays = 3;
   const totalPrice = 90;
   const totalCharges = totalDays * totalPrice;
@@ -415,13 +414,16 @@ const VehicleDetails = ({ nextStep }) => {
                                     </span>
                                   </Col>
                                 </Row>
-                                <Row className="coupon-input-fields-div">
+                                <Row className="coupon-input-fields-div d-flex">
                                   <Col>
                                     <div className="input-group">
                                       <input
+                                        className="form-control-login col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8"
+                                        name="couponCode"
+                                        autoComplete="off"
+                                        required
                                         type="text"
                                         placeholder="Coupon Code"
-                                        className="input form-control"
                                         value={couponCode}
                                         onChange={(e) =>
                                           setCouponCode(e.target.value)
