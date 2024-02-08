@@ -1,0 +1,33 @@
+.css-8t49rw-MuiStepConnector-line {
+  min-height: 70px !important;
+  margin-bottom: 10px;
+}
+
+.loc-name-text-car-details {
+  font-weight: 600 !important;
+}
+
+.loc-name-car-details-page {
+  color: #cc6119;
+  padding-left: 100px;
+}
+
+.pick-drop-data {
+  padding: 20px 38px 38px 38px;
+}
+
+.customer-icon-stepper-container,
+.car-prices-details-container {
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+  padding-top: 15px;
+  background: rgb(255, 255, 255);
+  /* box-shadow: 1px 1px 9px 1px #b7afa9; */
+}
+
+.pickup-dropoff-heading,
+.price-breakdown-heading {
+  color: #cc6119;
+  font-weight: 600;
+}
+

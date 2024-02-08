@@ -58,9 +58,12 @@ function VerificationForm() {
         <div className="progress-bar-div">
           <ProgressBar step={step} />
         </div>
-        <div className="steps-data-main-div pb-4 container">
+       <div className="bg-white">
+
+       <div className="steps-data-main-div pb-4 container">
           <div className="steps-data-container">{renderStep()}</div>
         </div>
+       </div>
       </form>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { BsCpu, BsPerson, BsSuitcase } from "react-icons/bs";
+import { BsCpu, BsPerson, BsSuitcase, BsCheck2All } from "react-icons/bs";
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
 import { LuSnowflake } from "react-icons/lu";
 import { TiTick } from "react-icons/ti";
@@ -10,6 +10,8 @@ import { RxCross2 } from "react-icons/rx";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Car1 from "../../images/car-fleet-1.png";
+import VerticalSliderCarDetails from "./verticalSliderCarDetails";
+import { MdRadioButtonChecked } from "react-icons/md";
 
 const VehicleDetails = ({ nextStep }) => {
   const [couponCode, setCouponCode] = useState("");
@@ -65,6 +67,19 @@ const VehicleDetails = ({ nextStep }) => {
     },
   ];
 
+  const carAdditionalFeatures = [
+    "Air Condtioner",
+    "Central Lock",
+    "Power Windows",
+    "Power Steering",
+    "Radio Listening",
+    "Air Condtioner",
+    "Central Lock",
+    "Power Windows",
+    "Power Steering",
+    "Radio Listening",
+  ];
+
   const applyCoupon = (e) => {
     e.preventDefault();
 
@@ -108,12 +123,23 @@ const VehicleDetails = ({ nextStep }) => {
   const additionalCharges = [
     {
       _id: 1,
+      name: "Total Days",
+      value: 200,
+    },
+    {
+      _id: 2,
+      name: "Rental Charges / 3 days",
+      value: 200,
+    },
+
+    {
+      _id: 3,
       name: "Charge 1",
       value: 200,
     },
 
     {
-      _id: 2,
+      _id: 4,
       name: "Charge 2",
       value: 70,
     },
@@ -165,7 +191,7 @@ const VehicleDetails = ({ nextStep }) => {
         <Container fluid>
           <>
             <div className="step1-car-location-details-container">
-              <div className="step1-location-details pb-3 pt-3">
+              {/* <div className="step1-location-details pb-3 pt-3">
                 <Row className="p-2">
                   <Col lg={6} md={6} sm={12} xs={12}>
                     <div className="pickup-location-div">
@@ -197,12 +223,12 @@ const VehicleDetails = ({ nextStep }) => {
                   </Col>
                 </Row>
               </div>
-              <br />
+              <br /> */}
               <div className="step1-car-details">
                 <Row className="pl-3 pt-3">
                   <h4 className="step1-car-name pl-3">Car Name</h4>
                   <span className="step1-car-type pl-3">Car Type </span>
-                  <Col lg={7} md={12} sm={12} xs={12}>
+                  <Col lg={8} md={12} sm={12} xs={12}>
                     <div className="car-imgs-details-container">
                       <div className="car-img-container">
                         <Row>
@@ -252,8 +278,10 @@ const VehicleDetails = ({ nextStep }) => {
                                         <Col lg={12} md={12} sm={12} xs={12}>
                                           <div className="features-values">
                                             <carFeaturesIcons.featureIcon className="mr-1 " />{" "}
-                                            {carFeaturesIcons.value}{" "}
-                                            {carFeaturesIcons.name}
+                                            <span className="features-icon-name">
+                                              {carFeaturesIcons.value}{" "}
+                                              {carFeaturesIcons.name}
+                                            </span>
                                           </div>
                                         </Col>
                                       </Row>
@@ -271,9 +299,27 @@ const VehicleDetails = ({ nextStep }) => {
                             <span className="car-features-div2-heading fw-bolder">
                               Car Features:{" "}
                             </span>
-                            <div className="car-features-text-2">
-                              Air Condtioner, Central Lock, Power Windows, Power
-                              Steering, Radio
+                            <div className="car-features-text-2 pt-2">
+                              <div className="car-features-div">
+                                <Row>
+                                  {carAdditionalFeatures.map(
+                                    (additionalFeatures, index) => (
+                                      <Col lg={4} md={4} sm={6} xs={8} key={index}>
+                                        <div className="car-features-list pt-2">
+                                          <MdRadioButtonChecked
+                                            className="mr-2"
+                                            style={{
+                                              color: "#cc6119",
+                                              fontSize: "20px",
+                                            }}
+                                          />{" "}
+                                          {additionalFeatures}
+                                        </div>
+                                      </Col>
+                                    )
+                                  )}
+                                </Row>
+                              </div>
                             </div>
                           </div>
                           <br />
@@ -318,163 +364,54 @@ const VehicleDetails = ({ nextStep }) => {
                       </div>
                     </div>
                   </Col>
-                  {/* <div className="vertical-line-car-details-page"></div> */}
-                  <Col lg={5} md={12} sm={12} xs={12}>
-                    <div className="car-prices-details-container p-3">
-                      <h4>
-                        <b>Prices:</b>
-                      </h4>
-                      <div className="total-days-row">
-                        <span className="total-days-label">Total Days</span>
-                        <span className="total-days-value">3 days</span>
+                  <Col lg={4} md={12} sm={12} xs={12}>
+                    <div className="step1-car-location-details-container">
+                      <VerticalSliderCarDetails />
+                    </div>
+                    <br />
+                    <div className="car-prices-details-container">
+                      <div className="price-breakdown-heading mb-3 text-center">
+                        <h4>Price Breakdown</h4>
+                        <hr style={{ opacity: "1" }} />
                       </div>
-                      <div className="total-days-div">
-                        <div className="price-details-div col-lg-12">
-                          <div className="booking-charges-evaluation-step1">
-                            <div className="booking-detail-heading">
-                              Booking Details:
-                              <hr style={{ color: "black" }} />
-                            </div>
-                            <div
-                              className="price-row p-1"
-                              style={{ lineHeight: "300%" }}
-                            >
-                              <span className="price-label">
-                                Rental Charges / {totalDays} days
-                              </span>
-                              <div className="">
-                                AED{" "}
-                                <span className="charges-value pl-1">
-                                  {totalCharges}
-                                </span>
-                              </div>
-                            </div>
-                            {/* {data && data.additionalCharges && ( */}
-                            <>
-                              {additionalCharges.map((charge) => (
+                      <div className="price-break-down-container p-3">
+                        <div className="total-days-div">
+                          <div className="price-details-div col-lg-12">
+                            <div className="booking-charges-evaluation-step1">
+                              <>
+                                {additionalCharges.map((charge) => (
+                                  <div
+                                    key={charge._id}
+                                    className="price-row p-1"
+                                    style={{ lineHeight: "100%" }}
+                                  >
+                                    <span className="price-label">
+                                      {charge.name}:
+                                    </span>
+                                    <div className="">
+                                      AED{" "}
+                                      <span className="charges-value pl-1">{`${charge.value}`}</span>
+                                    </div>
+                                  </div>
+                                ))}
+                                <hr />
+                              </>
+                              <div className="charges-section-2">
                                 <div
-                                  key={charge._id}
-                                  className="price-row p-1"
-                                  style={{ lineHeight: "100%" }}
+                                  className="total-price-row p-1"
+                                  style={{
+                                    lineHeight: "100%",
+                                    fontSize: "16px",
+                                  }}
                                 >
-                                  <span className="price-label">
-                                    {charge.name}:
+                                  <span className="sub-total-price-label">
+                                    Sub Total
                                   </span>
                                   <div className="">
                                     AED{" "}
-                                    <span className="charges-value pl-1">{`${charge.value}`}</span>
-                                  </div>
-                                </div>
-                              ))}
-                              <hr />
-                            </>
-                            {/* )} */}
-                            <div className="charges-section-2">
-                              <div
-                                className="total-price-row p-1"
-                                style={{ lineHeight: "100%", fontSize: "16px" }}
-                              >
-                                <span className="sub-total-price-label">
-                                  Sub Total
-                                </span>
-                                <div className="">
-                                  AED{" "}
-                                  <span className="sub-total-price-value pl-1">
-                                    {" "}
-                                    {subTotalValue}
-                                  </span>
-                                </div>
-                              </div>
-                              <div
-                                className="total-price-row p-1"
-                                style={{ lineHeight: "100%", fontSize: "16px" }}
-                              >
-                                <div>
-                                  <span className="sub-total-price-label">
-                                    Tax Total
-                                  </span>{" "}
-                                </div>
-                                <div className="">
-                                  AED{" "}
-                                  <span className="sub-total-price-value pl-1">
-                                    {" "}
-                                    {taxTotal}
-                                  </span>
-                                </div>
-                              </div>
-                              <span className="pl-2">
-                                {" "}
-                                (5% of {subTotalValue})
-                              </span>
-                              <div className="coupon-main-div pt-3">
-                                <Row>
-                                  <Col xs={12} className="coupon-label-div">
-                                    <span className="coupon-label">
-                                      Coupon:
-                                    </span>
-                                  </Col>
-                                </Row>
-                                <Row className="coupon-input-fields-div d-flex">
-                                  <Col>
-                                    <div className="input-group">
-                                      <input
-                                        className="form-control-login col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8"
-                                        name="couponCode"
-                                        autoComplete="off"
-                                        required
-                                        type="text"
-                                        placeholder="Coupon Code"
-                                        value={couponCode}
-                                        onChange={(e) =>
-                                          setCouponCode(e.target.value)
-                                        }
-                                      />
-
-                                      {isCouponApplied ? (
-                                        <>
-                                          <button
-                                            className="remove-coupon-btn button--submit"
-                                            onClick={removeCoupon}
-                                          >
-                                            <RxCross2 />
-                                          </button>
-                                        </>
-                                      ) : (
-                                        <button
-                                          className="apply-coupon-btn button--submit"
-                                          onClick={applyCoupon}
-                                        >
-                                          <TiTick />
-                                        </button>
-                                      )}
-                                      <ToastContainer />
-                                    </div>
-                                  </Col>
-                                </Row>
-                              </div>
-                            </div>
-                            <hr />
-
-                            {isCouponApplied && appliedCoupon && (
-                              <div className="coupon-discount-main-div-container">
-                                <div
-                                  className="total-price-row p-1"
-                                  style={{
-                                    lineHeight: "100%",
-                                    fontSize: "16px",
-                                  }}
-                                >
-                                  <span className="grand-total-price-label">
-                                    Grand Total
-                                  </span>
-                                  <div className="del-value-main-div pb-3">
-                                    AED{" "}
-                                    <span className="coupon-discount-value">
-                                      -{appliedCoupon.value}%
-                                    </span>
-                                    <span className="deleted-grand-total-price-value pl-1">
+                                    <span className="sub-total-price-value pl-1">
                                       {" "}
-                                      {grandTotalPrice}
+                                      {subTotalValue}
                                     </span>
                                   </div>
                                 </div>
@@ -485,36 +422,133 @@ const VehicleDetails = ({ nextStep }) => {
                                     fontSize: "16px",
                                   }}
                                 >
-                                  <span className="discount-price-label">
-                                    Total Discount
-                                  </span>
-                                  <div className="del-value-main-div pb-3">
+                                  <div>
+                                    <span className="sub-total-price-label">
+                                      Tax Total
+                                    </span>{" "}
+                                  </div>
+                                  <div className="">
                                     AED{" "}
-                                    <span className="discounted-value">
-                                      -{grandTotalDiscountedValue()}
+                                    <span className="sub-total-price-value pl-1">
+                                      {" "}
+                                      {taxTotal}
                                     </span>
                                   </div>
                                 </div>
-                                <hr />
-                              </div>
-                            )}
-                            <div
-                              className="total-price-row p-1"
-                              style={{ lineHeight: "100%", fontSize: "16px" }}
-                            >
-                              <span className="grand-total-price-label">
-                                Grand Total Price
-                              </span>
-                              <div className="">
-                                AED{" "}
-                                <span className="grand-total-price-value pl-1">
+                                <span className="pl-2">
                                   {" "}
-                                  {grandTotalPriceWithDiscount}
+                                  (5% of {subTotalValue})
                                 </span>
-                              </div>
-                            </div>
+                                <div className="coupon-main-div pt-3">
+                                  <Row>
+                                    <Col xs={12} className="coupon-label-div">
+                                      <span className="coupon-label">
+                                        Coupon:
+                                      </span>
+                                    </Col>
+                                  </Row>
+                                  <Row className="coupon-input-fields-div d-flex">
+                                    <Col>
+                                      <div className="input-group">
+                                        <input
+                                          className="form-control-login col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8"
+                                          name="couponCode"
+                                          autoComplete="off"
+                                          required
+                                          type="text"
+                                          placeholder="Coupon Code"
+                                          value={couponCode}
+                                          onChange={(e) =>
+                                            setCouponCode(e.target.value)
+                                          }
+                                        />
 
-                            <hr />
+                                        {isCouponApplied ? (
+                                          <>
+                                            <button
+                                              className="remove-coupon-btn button--submit"
+                                              onClick={removeCoupon}
+                                            >
+                                              <RxCross2 />
+                                            </button>
+                                          </>
+                                        ) : (
+                                          <button
+                                            className="apply-coupon-btn button--submit"
+                                            onClick={applyCoupon}
+                                          >
+                                            <TiTick />
+                                          </button>
+                                        )}
+                                        <ToastContainer />
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                </div>
+                              </div>
+                              <hr />
+
+                              {isCouponApplied && appliedCoupon && (
+                                <div className="coupon-discount-main-div-container">
+                                  <div
+                                    className="total-price-row p-1"
+                                    style={{
+                                      lineHeight: "100%",
+                                      fontSize: "16px",
+                                    }}
+                                  >
+                                    <span className="grand-total-price-label">
+                                      Grand Total
+                                    </span>
+                                    <div className="del-value-main-div pb-3">
+                                      AED{" "}
+                                      <span className="coupon-discount-value">
+                                        -{appliedCoupon.value}%
+                                      </span>
+                                      <span className="deleted-grand-total-price-value pl-1">
+                                        {" "}
+                                        {grandTotalPrice}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="total-price-row p-1"
+                                    style={{
+                                      lineHeight: "100%",
+                                      fontSize: "16px",
+                                    }}
+                                  >
+                                    <span className="discount-price-label">
+                                      Total Discount
+                                    </span>
+                                    <div className="del-value-main-div pb-3">
+                                      AED{" "}
+                                      <span className="discounted-value">
+                                        -{grandTotalDiscountedValue()}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <hr />
+                                </div>
+                              )}
+                              <div
+                                className="total-price-row p-1"
+                                style={{ lineHeight: "100%", fontSize: "16px" }}
+                              >
+                                <span className="grand-total-price-label">
+                                  Grand Total Price
+                                </span>
+                                <div className="">
+                                  AED{" "}
+                                  <span className="grand-total-price-value pl-1">
+                                    {" "}
+                                    {grandTotalPriceWithDiscount}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <hr />
+                            </div>
                           </div>
                         </div>
                       </div>

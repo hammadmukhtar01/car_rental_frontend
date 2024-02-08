@@ -255,6 +255,10 @@ img.all-cars-img {
   max-width: 50%;
 }
 
+.features-icon-name {
+color: gray;
+}
+
 span.select2-selection_arrow b {
   display: contents !important;
 }
@@ -316,7 +320,8 @@ span.select2-selection_arrow b {
   opacity: 0.9;
 }
 
-.price-filter-heading, .car-type-filter-heading {
+.price-filter-heading,
+.car-type-filter-heading {
   border-radius: 0px !important;
   border-top: 1px solid rgba(0, 0, 0, 0.175);
 }
@@ -372,12 +377,27 @@ span.select2-selection_arrow b {
   height: fit-content;
 }
 
+.filters-text {
+  color: #cc6119;
+}
+
 .filters-heading {
-  color: white;
+  /* color: white; */
   font-weight: 500;
-  padding-top: 6px;
+  border: 1px solid #cccccc;
+  background-color: white;
+  padding: 20px 10px;
   border-radius: 6px;
-  background-color: #cc6119;
+  /* background-color: #cc6119; */
+}
+
+.clear-filters {
+  color: #cc6119;
+  cursor: pointer;
+}
+
+.clear-filters:hover {
+  text-decoration: underline;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");

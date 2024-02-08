@@ -27,6 +27,7 @@ import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RxCross2 } from "react-icons/rx";
 
 const PageSize = 20;
 
@@ -328,6 +329,17 @@ const VehiclesPage = () => {
         ? prevFilters[type].filter((item) => item !== option)
         : [...prevFilters[type], option],
     }));
+  };
+
+  const handleClearAllFilters = () => {
+    console.log("Clear all filetrs");
+    setSelectedFilters({
+      carModels: [],
+      carTypes: [],
+    });
+    setMinPrice("");
+    setMaxPrice("");
+    // setSortBy("Recommended");
   };
 
   const dateInputRef = useRef(null);
@@ -643,12 +655,20 @@ const VehiclesPage = () => {
           <Container fluid className="all-cars-container pb-4">
             <Row>
               <Col xxl={3} lg={3} md={4} className="filters-section">
-                <div className="">
-                  <h3 className="filters-heading text-center pt-3">
-                    <b>
-                      Filters: <hr style={{ opacity: "1" }} />
-                    </b>
-                  </h3>
+                <div className="filters-heading">
+                  <div className="row d-flex">
+                    <Col>
+                      <h4 className="filters-text">Filters</h4>
+                    </Col>
+                    <Col className="clear-filters-container text-end">
+                      <span
+                        className="clear-filters "
+                        onClick={handleClearAllFilters}
+                      >
+                        Clear all <RxCross2 />
+                      </span>
+                    </Col>
+                  </div>
                 </div>
                 <div className="card search-filters-card checkbox-container">
                   <article className="card-group-item">
