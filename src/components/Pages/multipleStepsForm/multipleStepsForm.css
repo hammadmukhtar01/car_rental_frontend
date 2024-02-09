@@ -522,6 +522,16 @@ code {
   border-color: rgb(214, 214, 214);
 }
 
+.form-check-input:checked {
+  background-color: #cc6119;
+  border-color: #cc6119;
+}
+
+.form-check-input:focus { 
+  border-color: #cc6119;
+  box-shadow: 0 0 0 0 #cc6119;
+}
+
 .form-switch.form-switch-sm {
   margin-bottom: 0.5rem;
 }

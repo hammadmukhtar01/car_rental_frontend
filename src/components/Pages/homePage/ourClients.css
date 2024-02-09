@@ -164,6 +164,10 @@ button:hover .transition {
   animation: text 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
+.client-logo-area .section-title-two .content.in-view .animated-text h2 {
+  animation: text 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
 @keyframes text {
   from {
     width: 0;

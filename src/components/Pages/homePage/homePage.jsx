@@ -19,6 +19,7 @@ import Celebration from "../spinTheWheel/celebration";
 import { RxColorWheel } from "react-icons/rx";
 import { ImSpinner4 } from "react-icons/im";
 import { Modal } from "react-bootstrap";
+import GoogleMapAPI from "../../GoogleMap/googleMapAPI";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -159,6 +160,8 @@ const HomePage = () => {
               </div>
             </div>
           </div>
+
+          {/* <GoogleMapAPI/> */}
 
           <ClientLogoSection />
           <AnimatedCarSection />
