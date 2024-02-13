@@ -59,7 +59,7 @@ export default function SpinTheWheel() {
       {/* Modal or Toast for showing the result */}
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Spin The Wheel</Modal.Title>
+          <Modal.Title>Spin The Wheel Result:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {showResult && (

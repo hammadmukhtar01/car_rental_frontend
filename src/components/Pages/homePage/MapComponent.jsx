@@ -38,7 +38,7 @@ function MapComponent({ locations, mapRef, defaultLat, defaultLon }) {
       center={defaultCenter}
       ref={mapRef}
       zoom={20}
-      style={{ height: "400px", width: "100%", outline: "dotted" }}
+      style={{ height: "400px", width: "100%", border: "1px solid black" }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

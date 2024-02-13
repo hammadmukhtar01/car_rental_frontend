@@ -309,7 +309,8 @@
 }
 
 .form-control-location,
-.form-control-login {
+.form-control-login,
+.form-control-age {
   height: 45px;
   /* width: 215px; */
   border: 1px solid rgb(184, 184, 184) !important;
@@ -318,6 +319,44 @@
   box-shadow: none;
   font-size: 14px;
   background-color: white !important;
+}
+
+.css-13cymwt-control,
+.css-t3ipsp-control,
+.css-1nmdiq5-menu {
+  border: 1px solid rgb(184, 184, 184) !important;
+  line-height: 32px;
+  margin-left: -13px;
+  margin-right: -14px;
+  border-radius: 6px;
+}
+
+.css-t3ipsp-control {
+  box-shadow: none !important;
+}
+
+.css-t3ipsp-control:active {
+  outline: none;
+  border-color: none;
+  box-shadow: none;
+}
+
+.css-1n6sfyn-MenuList::selection {
+  background-color: white !important;
+}
+
+.css-tr4s17-option{
+  background-color: #cc6119 !important;
+}
+
+.css-d7l1ni-option {
+  background-color: rgb(234, 234, 234) !important;
+}
+
+.form-control-location:focus,
+.form-control-login:focus,
+.form-control-age:focus {
+  outline: none;
 }
 
 .form-control-contact-us {

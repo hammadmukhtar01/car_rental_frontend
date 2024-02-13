@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { BsCpu, BsPerson, BsSuitcase, BsCheck2All } from "react-icons/bs";
+import { BsCpu, BsPerson, BsSuitcase } from "react-icons/bs";
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
 import { LuSnowflake } from "react-icons/lu";
 import { TiTick } from "react-icons/ti";
@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Car1 from "../../images/car-fleet-1.png";
 import VerticalSliderCarDetails from "./verticalSliderCarDetails";
 import { MdRadioButtonChecked } from "react-icons/md";
+import { FaArrowTrendUp } from "react-icons/fa6";
+import { TbListDetails } from "react-icons/tb";
 
 const VehicleDetails = ({ nextStep }) => {
   const [couponCode, setCouponCode] = useState("");
@@ -121,33 +123,33 @@ const VehicleDetails = ({ nextStep }) => {
   };
 
   const additionalCharges = [
-    {
-      _id: 1,
-      name: "Total Days",
-      value: 200,
-    },
-    {
-      _id: 2,
-      name: "Rental Charges / 3 days",
-      value: 200,
-    },
+    // {
+    //   _id: 1,
+    //   name: "Total Days",
+    //   value: 200,
+    // },
+    // {
+    //   _id: 2,
+    //   name: "Rental Charges / 3 days",
+    //   value: 200,
+    // },
 
     {
-      _id: 3,
+      _id: 1,
       name: "Charge 1",
       value: 200,
     },
 
     {
-      _id: 4,
+      _id: 2,
       name: "Charge 2",
-      value: 70,
+      value: 50,
     },
   ];
 
   const carImg = Car1;
   const totalDays = 3;
-  const totalPrice = 90;
+  const totalPrice = 100;
   const totalCharges = totalDays * totalPrice;
 
   const calculateTotalPrice = () => {
@@ -183,6 +185,11 @@ const VehicleDetails = ({ nextStep }) => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleNextStep1 = () => {
+    const nextStepUrl = "/bookingPage/2";
+    window.location.href = nextStepUrl;
   };
 
   return (
@@ -304,9 +311,15 @@ const VehicleDetails = ({ nextStep }) => {
                                 <Row>
                                   {carAdditionalFeatures.map(
                                     (additionalFeatures, index) => (
-                                      <Col lg={4} md={4} sm={6} xs={8} key={index}>
+                                      <Col
+                                        lg={4}
+                                        md={4}
+                                        sm={6}
+                                        xs={8}
+                                        key={index}
+                                      >
                                         <div className="car-features-list pt-2">
-                                          <MdRadioButtonChecked
+                                          <FaArrowTrendUp
                                             className="mr-2"
                                             style={{
                                               color: "#cc6119",
@@ -378,6 +391,54 @@ const VehicleDetails = ({ nextStep }) => {
                         <div className="total-days-div">
                           <div className="price-details-div col-lg-12">
                             <div className="booking-charges-evaluation-step1">
+                              <>
+                                <div
+                                  className="price-row p-1"
+                                  style={{ lineHeight: "100%" }}
+                                >
+                                  <span className="price-label">
+                                    Total Days:
+                                  </span>
+                                  <div className="">
+                                    Days{" "}
+                                    <span className="charges-value pl-1">
+                                      {totalDays}
+                                    </span>
+                                  </div>
+                                </div>
+
+                                <div
+                                  className="price-row p-1"
+                                  style={{ lineHeight: "100%" }}
+                                >
+                                  <span className="price-label">
+                                    Rental Charges per day
+                                  </span>
+                                  <div className="">
+                                    AED{" "}
+                                    <span className="charges-value pl-1">
+                                      {totalPrice}
+                                    </span>
+                                  </div>
+                                </div>
+
+                                <div
+                                  className="price-row p-1"
+                                  style={{ lineHeight: "100%" }}
+                                >
+                                  <span className="price-label">
+                                    Rental Charges / {totalDays} days
+                                  </span>
+                                  <div className="">
+                                    AED{" "}
+                                    <span className="charges-value pl-1">
+                                      {totalCharges}
+                                    </span>
+                                  </div>
+                                </div>
+
+                                <hr />
+                              </>
                               <>
                                 {additionalCharges.map((charge) => (
                                   <div
@@ -454,7 +515,6 @@ const VehicleDetails = ({ nextStep }) => {
                                           className="form-control-login col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8"
                                           name="couponCode"
                                           autoComplete="off"
-                                          required
                                           type="text"
                                           placeholder="Coupon Code"
                                           value={couponCode}
@@ -561,7 +621,7 @@ const VehicleDetails = ({ nextStep }) => {
                   <div className="button-container">
                     <button
                       className="animated-button booking-text next"
-                      onClick={nextStep}
+                      onClick={() => handleNextStep1()}
                     >
                       {" "}
                       <span className="button-text-span">

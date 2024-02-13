@@ -7,9 +7,10 @@ import DropoffLocationModal from "./dropoffSearchBoxDropDown";
 import MainNavbar from "../navbar/mainNavbar";
 import { DateRange } from "react-date-range";
 import { LuSearch } from "react-icons/lu";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Select from "react-select";
 
 const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");
@@ -68,6 +69,34 @@ const SearchBox = () => {
       setNumberOfDays(daysDifference);
     }
   }, [pickUpDate, dropOffDate]);
+
+  const generateTimeSlots = () => {
+    const timeSlots = [];
+    let hour = 8;
+    let minute = 0;
+    let ampm = "AM";
+
+    while (!(hour === 23 && minute === 30)) {
+      const formattedHour = hour.toString().padStart(2, "0");
+      const formattedMinute = minute.toString().padStart(2, "0");
+      const time = `${formattedHour}:${formattedMinute} ${ampm}`;
+      timeSlots.push({ label: time, value: time });
+
+      minute += 30;
+      if (minute === 60) {
+        hour++;
+        minute = 0;
+      }
+      if (hour === 12 && minute === 0) {
+        ampm = "PM";
+      }
+    }
+
+    return timeSlots;
+  };
+
+  // Usage:
+  const timeOptions = generateTimeSlots();
 
   const getCurrentDateTime = () => {
     const currentDate = new Date();
@@ -203,68 +232,75 @@ const SearchBox = () => {
                     </Form.Group>
                   </Col>
 
-                  <Col
-                    xxl={showDropoff ? 2 : 4}
-                    lg={showDropoff ? 2 : 4}
-                    md={5}
-                    sm={6}
-                    xs={12}
-                    className={` ${
-                      showDropoff ? "dropoff-visible" : "dropoff-hidden"
-                    }`}
-                  >
-                    <Form.Group controlId="formKeyword">
-                      <div className="location-label">
-                        <label className="styled-label">
-                          <BsGeoAlt className="mr-2" />
-                          <b>Pick-Up</b>
-                        </label>
-                      </div>
-                      <div className="custom-dropdown-container">
-                        <input
-                          className="form-control-location mt-2 col-12"
-                          type="text"
-                          required
-                          placeholder="Enter pickup location"
-                          value={pickupLocationMessage}
-                          onChange={() => console.log("On change in pickup")}
-                          onClick={() => setShowPickupModal(true)}
+                  <Col xxl={4} lg={4} md={showDropoff ? 9 : 6} sm={12} xs={12}>
+                    <Row>
+                      <Col
+                        xxl={showDropoff ? 6 : 12}
+                        lg={showDropoff ? 6 : 12}
+                        md={showDropoff ? 6 : 12}
+                        sm={6}
+                        xs={12}
+                        className={` ${
+                          showDropoff ? "dropoff-visible" : "dropoff-hidden"
+                        }`}
+                      >
+                        <Form.Group controlId="formKeyword">
+                          <div className="location-label">
+                            <label className="styled-label">
+                              <BsGeoAlt className="mr-2" />
+                              <b>Pick-Up</b>
+                            </label>
+                          </div>
+                          <div className="custom-dropdown-container">
+                            <input
+                              className="form-control-location mt-2 col-12"
+                              type="text"
+                              placeholder="Enter pickup location"
+                              value={pickupLocationMessage}
+                              onChange={() =>
+                                console.log("On change in pickup")
+                              }
+                              onClick={() => setShowPickupModal(true)}
+                            />
+                          </div>
+                        </Form.Group>
+                      </Col>
+
+                      {showDropoff && (
+                        <Col xxl={6} lg={6} md={6} sm={6} xs={12}>
+                          <Form.Group controlId="formKeyword">
+                            <div className="location-label">
+                              <label className="styled-label">
+                                <BsGeoAltFill className="mr-2" />
+                                <b>Drop-Off</b>
+                              </label>
+                            </div>
+                            <div className="custom-dropdown-container">
+                              <input
+                                className="form-control-location mt-2 col-12"
+                                type="text"
+                                placeholder="Enter dropoff location"
+                                value={dropoffLocationMessage}
+                                onChange={() =>
+                                  console.log("On change in dropoff")
+                                }
+                                onClick={() => setShowDropoffModal(true)}
+                              />
+                            </div>
+                          </Form.Group>
+                        </Col>
+                      )}
+                    </Row>
+                    <Row>
+                      <div className="mt-2">
+                        <Form.Check
+                          type="checkbox"
+                          label="Different Dropoff Location"
+                          onChange={handleDropoffCheckboxChange}
                         />
                       </div>
-                    </Form.Group>
-                    <div className="mt-2">
-                      <Form.Check
-                        type="checkbox"
-                        style={{color: "#cc6119", fontWeight: "700"}}
-                        label="Different Dropoff Location"
-                        onChange={handleDropoffCheckboxChange}
-                      />
-                    </div>
+                    </Row>
                   </Col>
-
-                  {showDropoff && (
-                    <Col xxl={2} lg={2} md={5} sm={6} xs={12}>
-                      <Form.Group controlId="formKeyword">
-                        <div className="location-label">
-                          <label className="styled-label">
-                            <BsGeoAltFill className="mr-2" />
-                            <b>Drop-Off</b>
-                          </label>
-                        </div>
-                        <div className="custom-dropdown-container">
-                          <input
-                            className="form-control-location mt-2 col-12"
-                            required
-                            type="text"
-                            placeholder="Enter dropoff location"
-                            value={dropoffLocationMessage}
-                            onChange={() => console.log("On change in dropoff")}
-                            onClick={() => setShowDropoffModal(true)}
-                          />
-                        </div>
-                      </Form.Group>
-                    </Col>
-                  )}
 
                   <Modal
                     show={showPickupModal}
@@ -313,7 +349,7 @@ const SearchBox = () => {
                   </Modal>
 
                   <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                    <Form.Group controlId="formPickupDateTime">
+                    {/* <Form.Group controlId="formPickupDateTime">
                       <div className="date-label">
                         <label className="styled-label">
                           <b>Pickup Time</b>
@@ -326,6 +362,24 @@ const SearchBox = () => {
                         min={getCurrentDateTime()}
                         value={pickUpTime}
                         onChange={(e) => setPickUpTime(e.target.value)}
+                      /> */}
+                    <Form.Group controlId="formKeyword">
+                      <div className="location-label">
+                        <label className="styled-label mb-3">
+                          <b>Pickup Time</b>
+                        </label>
+                      </div>
+                      <Select
+                        options={timeOptions}
+                        required
+                        className="form-control-pickup-time col-12"
+                        value={timeOptions.find(
+                          (option) => option.value === pickUpTime
+                        )} // Set the value here
+                        onChange={(selectedOption) => {
+                          console.log("Selected option is: ", selectedOption);
+                          setPickUpTime(selectedOption.value);
+                        }}
                       />
                     </Form.Group>
                   </Col>

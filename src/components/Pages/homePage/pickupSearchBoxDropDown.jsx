@@ -21,7 +21,6 @@ function PickupLocationModal({
   const [inputFieldValue, setInputFieldValue] = useState("");
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const mapRef = useRef();
-  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     if (initialInputFieldValue) {
@@ -69,29 +68,14 @@ function PickupLocationModal({
 
   const handleInputChange = (e) => {
     setInputFieldValue(e.target.value);
-    // Use Google Places Autocomplete API to get suggestions based on input value
-    const input = e.target.value;
-    const autocompleteService = new window.google.maps.places.AutocompleteService();
-    if (input) {
-      autocompleteService.getPlacePredictions(
-        { input },
-        (predictions, status) => {
-          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            // Update state with suggestions
-            setSuggestions(predictions.map((prediction) => prediction.description));
-          }
-        }
-      );
-    } else {
-      // Clear suggestions if input is empty
-      setSuggestions([]);
-    }
   };
 
   const handleInputSubmit = () => {
     let message = "";
     if (selectedTab === "deliver") {
-      message = `${selectedLocation ? selectedLocation.locationName : ""}-${inputFieldValue}`;
+      message = `${
+        selectedLocation ? selectedLocation.locationName : ""
+      }-${inputFieldValue}`;
     } else if (selectedTab === "pick") {
       message = `${selectedLocation ? selectedLocation.locationName : ""}`;
     }
@@ -135,17 +119,23 @@ function PickupLocationModal({
               <div className="col-lg-4 col-md-12 px-5 py-8">
                 <h2 className="text-xl font-bold mb-4">Available Locations</h2>
                 <ul className="deliver-to-me-loc-list list-unstyled">
-                  {suggestions.map((suggestion, index) => (
+                  {cityNames.map((city) => (
                     <li
-                      key={index}
-                      onClick={() => setInputFieldValue(suggestion)}
-                      className="suggestion"
+                      key={city.id}
+                      onClick={() => handleListClick(city)}
+                      onMouseEnter={() => handleListHover(city)}
+                      className={`deliver-to-me-single-list ${
+                        selectedLocation === city || hoveredLocation === city
+                          ? "active"
+                          : ""
+                      }`}
                     >
-                      {suggestion}
+                      <span className="mr-2">🛫</span>
+                      {city.locationName}
+                      <hr />
                     </li>
                   ))}
                 </ul>
-                
                 {selectedLocation && (
                   <div className="mt-5">
                     <Form.Group controlId="formKeyword">

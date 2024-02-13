@@ -1,29 +1,29 @@
-import React, { useState } from "react";
-import { Col, Form } from "react-bootstrap";
-import { toast, ToastContainer } from "react-toastify";
+// import React, { useState } from "react";
+// import { Col, Form } from "react-bootstrap";
+// import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const PaymentPage = ({ prevStep }) => {
-  const [cardNumber, setCardNumber] = useState("");
-  const [expMonth, setExpMonth] = useState("");
-  const [expYear, setExpYear] = useState("");
-  const [cvc, setCvc] = useState("");
-  const [cardholderName, setCardholderName] = useState("");
+  // const [cardNumber, setCardNumber] = useState("");
+  // const [expMonth, setExpMonth] = useState("");
+  // const [expYear, setExpYear] = useState("");
+  // const [cvc, setCvc] = useState("");
+  // const [cardholderName, setCardholderName] = useState("");
 
-  const handlePurchase = async (e) => {
-    e.preventDefault();
-    toast.success("Payment Done Successfully!", {
-      autoClose: 2000,
-      style: {
-        border: "1px solid #c0c0c0",
-        fontWeight: "400",
-        fontSize: "14px",
-      },
-      // onClose: () => {
-      //   navigate("/home");
-      // },
-    });
-  };
+  // const handlePurchase = async (e) => {
+  //   e.preventDefault();
+  //   toast.success("Payment Done Successfully!", {
+  //     autoClose: 2000,
+  //     style: {
+  //       border: "1px solid #c0c0c0",
+  //       fontWeight: "400",
+  //       fontSize: "14px",
+  //     },
+  //     onClose: () => {
+  //       navigate("/home");
+  //     },
+  //   });
+  // };
 
   return (
     <>
@@ -113,7 +113,7 @@ const PaymentPage = ({ prevStep }) => {
                   </div>
                 </div>
               </div>
-              <form
+              {/* <form
                 action="#"
                 className="payment-form"
                 onSubmit={handlePurchase}
@@ -254,8 +254,19 @@ const PaymentPage = ({ prevStep }) => {
                   </div>
                   <br />
                 </div>
-              </form>
+              </form> */}
             </div>
+            <div className="row col-lg-5 col-md-6 mt-4">
+              <button className="animated-button" type="button">
+                {" "}
+                <span className="button-text-span">
+                  <span className="transition"></span>
+                  <span className="gradient"></span>
+                  <span className="label"> Pay & Book</span>
+                </span>{" "}
+              </button>
+              {/* <ToastContainer /> */}
+            </div>{" "}
           </div>
         </div>
       </div>

@@ -18,6 +18,8 @@ import FixedNumLocButtons from "./components/Pages/navbar/locationNumberIcons";
 // import MainNavbar from "./components/Pages/navbar/mainNavbar";
 import ForgotPasswordPage from './components/authentication/forgotPassword';
 import ResetPasswordPage from "./components/authentication/resetPasswordPage";
+import VehicleDetails from "./components/Pages/multipleStepsForm/vehicleDetails";
+import AddOnsDocuments from "./components/Pages/multipleStepsForm/addOnsDocuments";
 
 function App() {
   return (
@@ -44,7 +46,9 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
           <Route path="/resetpassword/:token" element={<ResetPasswordPage />} />
-          <Route path="/bookingPage1" element={<VerificationForm />} />
+          <Route path="/bookingPage/:step" element={<VerificationForm />} />
+          <Route path="/bookingPage2" element={<AddOnsDocuments />} />
+          <Route path="/bookingPage3" element={<PaymentPage />} />
         </Routes>
         <Footer />
         <FixedNumLocButtons />

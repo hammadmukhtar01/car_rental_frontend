@@ -28,6 +28,8 @@ import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
+import { AiOutlineMinusCircle } from "react-icons/ai";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const PageSize = 20;
 
@@ -48,6 +50,9 @@ const VehiclesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
+  const [isCarBrandOpen, setIsCarBrandOpen] = useState(true);
+  const [isCarTypeOpen, setIsCarTypeOpen] = useState(true);
+  const [isCarPriceRangeOpen, setIsCarPriceRangeOpen] = useState(true);
   const [selectedFilters, setSelectedFilters] = useState({
     carModels: [],
     carTypes: [],
@@ -259,7 +264,7 @@ const VehiclesPage = () => {
 
   const allCarsBookingButton = () => {
     console.log("All Cars Booking Button");
-    navigate("/bookingPage1");
+    navigate("/bookingPage/1");
   };
 
   useEffect(() => {
@@ -405,6 +410,18 @@ const VehiclesPage = () => {
     // });
   };
 
+  const toggleCarBrand = () => {
+    setIsCarBrandOpen(!isCarBrandOpen);
+  };
+
+  const toggleCarType = () => {
+    setIsCarTypeOpen(!isCarTypeOpen);
+  };
+
+  const toggleCarPriceRange = () => {
+    setIsCarPriceRangeOpen(!isCarPriceRangeOpen);
+  };
+
   const { loading } = useReload();
 
   if (loading) {
@@ -437,7 +454,7 @@ const VehiclesPage = () => {
                     className="all-cars-search-box-container pb-4"
                   >
                     <Row>
-                      <Col xxl={3} lg={3} md={7} sm={6} xs={12}>
+                      <Col xxl={3} lg={3} md={6} sm={6} xs={12}>
                         <Form.Group controlId="formDropoffDateTime">
                           <div className="date-label">
                             <label className="styled-label">
@@ -479,68 +496,80 @@ const VehiclesPage = () => {
                       </Col>
 
                       <Col
-                        xxl={showDropoff ? 2 : 4}
-                        lg={showDropoff ? 2 : 4}
-                        md={5}
-                        sm={6}
+                        xxl={4}
+                        lg={4}
+                        md={showDropoff ? 9 : 6}
+                        sm={12}
                         xs={12}
-                        className={` ${
-                          showDropoff ? "dropoff-visible" : "dropoff-hidden"
-                        }`}
                       >
-                        <Form.Group controlId="formKeyword">
-                          <div className="location-label">
-                            <label className="styled-label">
-                              <BsGeoAlt className="mr-2" />
-                              <b>Pick-Up</b>
-                            </label>
-                          </div>
-                          <div className="custom-dropdown-container">
-                            <input
-                              className="form-control-location mt-2 col-12"
-                              type="text"
-                              placeholder="Enter pickup location"
-                              value={pickupLocationMessage}
-                              onChange={() =>
-                                console.log("On change in pickup")
-                              }
-                              onClick={() => setShowPickupModal(true)}
+                        <Row>
+                          <Col
+                            xxl={showDropoff ? 6 : 12}
+                            lg={showDropoff ? 6 : 12}
+                            md={showDropoff ? 6 : 12}
+                            sm={6}
+                            xs={12}
+                            className={` ${
+                              showDropoff ? "dropoff-visible" : "dropoff-hidden"
+                            }`}
+                          >
+                            <Form.Group controlId="formKeyword">
+                              <div className="location-label">
+                                <label className="styled-label">
+                                  <BsGeoAlt className="mr-2" />
+                                  <b>Pick-Up</b>
+                                </label>
+                              </div>
+                              <div className="custom-dropdown-container">
+                                <input
+                                  className="form-control-location mt-2 col-12"
+                                  type="text"
+                                  placeholder="Enter pickup location"
+                                  value={pickupLocationMessage}
+                                  onChange={() =>
+                                    console.log("On change in pickup")
+                                  }
+                                  onClick={() => setShowPickupModal(true)}
+                                />
+                              </div>
+                            </Form.Group>
+                          </Col>
+
+                          {showDropoff && (
+                            <Col xxl={6} lg={6} md={6} sm={6} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label">
+                                    <BsGeoAltFill className="mr-2" />
+                                    <b>Drop-Off</b>
+                                  </label>
+                                </div>
+                                <div className="custom-dropdown-container">
+                                  <input
+                                    className="form-control-location mt-2 col-12"
+                                    type="text"
+                                    placeholder="Enter dropoff location"
+                                    value={dropoffLocationMessage}
+                                    onChange={() =>
+                                      console.log("On change in dropoff")
+                                    }
+                                    onClick={() => setShowDropoffModal(true)}
+                                  />
+                                </div>
+                              </Form.Group>
+                            </Col>
+                          )}
+                        </Row>
+                        <Row>
+                          <div className="mt-2">
+                            <Form.Check
+                              type="checkbox"
+                              label="Different Dropoff Location"
+                              onChange={handleDropoffCheckboxChange}
                             />
                           </div>
-                        </Form.Group>
-                        <div className="mt-2">
-                          <Form.Check
-                            type="checkbox"
-                            label="Different Dropoff Location"
-                            onChange={handleDropoffCheckboxChange}
-                          />
-                        </div>
+                        </Row>
                       </Col>
-
-                      {showDropoff && (
-                        <Col xxl={2} lg={2} md={5} sm={6} xs={12}>
-                          <Form.Group controlId="formKeyword">
-                            <div className="location-label">
-                              <label className="styled-label">
-                                <BsGeoAltFill className="mr-2" />
-                                <b>Drop-Off</b>
-                              </label>
-                            </div>
-                            <div className="custom-dropdown-container">
-                              <input
-                                className="form-control-location mt-2 col-12"
-                                type="text"
-                                placeholder="Enter dropoff location"
-                                value={dropoffLocationMessage}
-                                onChange={() =>
-                                  console.log("On change in dropoff")
-                                }
-                                onClick={() => setShowDropoffModal(true)}
-                              />
-                            </div>
-                          </Form.Group>
-                        </Col>
-                      )}
 
                       <Modal
                         show={showPickupModal}
@@ -673,118 +702,185 @@ const VehiclesPage = () => {
                 <div className="card search-filters-card checkbox-container">
                   <article className="card-group-item">
                     <div className="car-model-label">
-                      <header className="card-header styled-label pt-3 pb-3">
-                        <BsCarFrontFill className="mr-2" />
-                        <b>Car Brand</b>
+                      <header
+                        className="card-header styled-label pt-3 pb-3"
+                        onClick={toggleCarBrand}
+                      >
+                        <div className="car-brand-filter-container d-flex justify-content-between">
+                          <div className="car-brand-icon-title">
+                            <BsCarFrontFill className="mr-2" />
+                            <b>Car Brand</b>
+                          </div>
+                          <div className="car-brand-open-close-modal ">
+                            {isCarBrandOpen ? (
+                              <>
+                                <div className="brand-open-icon">
+                                  <AiOutlineMinusCircle className="text-right" />
+                                </div>
+                              </>
+                            ) : (
+                              <div className="brand-open-icon">
+                                <AiOutlinePlusCircle className="text-right" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </header>
                     </div>{" "}
-                    <div className="filter-content">
-                      <div className="card-body">
-                        <form>
-                          {carModels.map((model, index) => (
-                            <label
-                              className="form-check flipBox"
-                              aria-label={`Checkbox ${index}`}
-                              key={index}
-                            >
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value={model}
-                                onChange={() =>
-                                  handleCheckboxChange(model, "carModels")
-                                }
-                                checked={selectedFilters.carModels.includes(
-                                  model
-                                )}
-                              />
-                              <span className="form-check-label">{model}</span>
-                              <div className="flipBox_boxOuter">
-                                <div className="flipBox_box">
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
+                    {isCarBrandOpen && (
+                      <div className="filter-content">
+                        <div className="card-body">
+                          <form>
+                            {carModels.map((model, index) => (
+                              <label
+                                className="form-check flipBox"
+                                aria-label={`Checkbox ${index}`}
+                                key={index}
+                              >
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  value={model}
+                                  onChange={() =>
+                                    handleCheckboxChange(model, "carModels")
+                                  }
+                                  checked={selectedFilters.carModels.includes(
+                                    model
+                                  )}
+                                />
+                                <span className="form-check-label">
+                                  {model}
+                                </span>
+                                <div className="flipBox_boxOuter">
+                                  <div className="flipBox_box">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                  </div>
                                 </div>
-                              </div>
-                            </label>
-                          ))}
-                        </form>
+                              </label>
+                            ))}
+                          </form>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </article>
                   <article className="card-group-item">
-                    <div className="location-label">
-                      <header className="card-header styled-label title car-type-filter-heading pt-3 pb-3">
-                        <BsJustify className="mr-2" />
-                        <b>Car Type</b>
-                      </header>
-                    </div>
-                    <div className="filter-content">
-                      <div className="card-body">
-                        <form>
-                          {carTypes.map((type, index) => (
-                            <label
-                              className="form-check flipBox"
-                              aria-label={`Checkbox ${index}`}
-                              key={index}
-                            >
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value={type}
-                                onChange={() =>
-                                  handleCheckboxChange(type, "carTypes")
-                                }
-                                checked={selectedFilters.carTypes.includes(
-                                  type
-                                )}
-                              />
-                              <span className="form-check-label">{type}</span>
-                              <div className="flipBox_boxOuter">
-                                <div className="flipBox_box">
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                </div>
-                              </div>
-                            </label>
-                          ))}
-                        </form>
-                      </div>
-                    </div>
-                  </article>
-                  <article className="card-group-item">
-                    <div className="location-label">
-                      <header className="card-header styled-label price-filter-heading pt-3 pb-3">
-                        <BsTags className="mr-2" />
-                        <b>Price Range</b>
-                      </header>
-                    </div>
-                    <div className="filter-content">
-                      <div className="card-body">
-                        <div className="">
-                          <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6">
-                            <input
-                              className="form-control-login"
-                              name="minPrice"
-                              autoComplete="off"
-                              required
-                              type="number"
-                              min={0}
-                              value={minPrice}
-                              onChange={(e) => setMinPrice(e.target.value)}
-                              placeholder="min value"
-                            />
+                    <div className="car-type-filter-label">
+                      <header
+                        className="card-header styled-label title car-type-filter-heading pt-3 pb-3"
+                        onClick={toggleCarType}
+                      >
+                        <div className="car-type-filter-container d-flex justify-content-between">
+                          <div className="car-type-icon-title">
+                            <BsJustify className="mr-2" />
+                            <b>Car Type</b>
                           </div>
+                          <div className="car-type-open-close-modal ">
+                            {isCarTypeOpen ? (
+                              <>
+                                <div className="type-open-icon">
+                                  <AiOutlineMinusCircle className="text-right" />
+                                </div>
+                              </>
+                            ) : (
+                              <div className="type-open-icon">
+                                <AiOutlinePlusCircle className="text-right" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </header>
+                    </div>
+                    {isCarTypeOpen && (
+                      <div className="filter-content">
+                        <div className="card-body">
+                          <form>
+                            {carTypes.map((type, index) => (
+                              <label
+                                className="form-check flipBox"
+                                aria-label={`Checkbox ${index}`}
+                                key={index}
+                              >
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  value={type}
+                                  onChange={() =>
+                                    handleCheckboxChange(type, "carTypes")
+                                  }
+                                  checked={selectedFilters.carTypes.includes(
+                                    type
+                                  )}
+                                />
+                                <span className="form-check-label">{type}</span>
+                                <div className="flipBox_boxOuter">
+                                  <div className="flipBox_box">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                  </div>
+                                </div>
+                              </label>
+                            ))}
+                          </form>
+                        </div>
+                      </div>
+                    )}
+                  </article>
+                  <article className="card-group-item">
+                    <div className="car-price-filter-label">
+                      <header
+                        className="card-header styled-label price-filter-heading pt-3 pb-3"
+                        onClick={toggleCarPriceRange}
+                      >
+                        <div className="car-type-filter-container d-flex justify-content-between">
+                          <div className="car-type-icon-title">
+                            <BsTags className="mr-2" />
+                            <b>Price Range</b>
+                          </div>
+                          <div className="car-price-range-open-close-modal ">
+                            {isCarPriceRangeOpen ? (
+                              <>
+                                <div className="price-range-open-icon">
+                                  <AiOutlineMinusCircle className="text-right" />
+                                </div>
+                              </>
+                            ) : (
+                              <div className="price-range-open-icon">
+                                <AiOutlinePlusCircle className="text-right" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </header>
+                    </div>
+                    {isCarPriceRangeOpen && (
+                      <div className="filter-content">
+                        <div className="card-body">
+                          <div className="">
+                            <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
+                              <input
+                                className="form-control-login"
+                                name="minPrice"
+                                autoComplete="off"
+                                required
+                                type="number"
+                                min={0}
+                                value={minPrice}
+                                onChange={(e) => setMinPrice(e.target.value)}
+                                placeholder="min value"
+                              />
+                            </div>
 
-                          <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6">
-                            {/* <input
+                            <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
+                              {/* <input
                               type="number"
                               className="form-control"
                               value={maxPrice}
@@ -792,21 +888,22 @@ const VehiclesPage = () => {
                               placeholder="max value"
                               min={minPrice}
                             /> */}
-                            <input
-                              className="form-control-login "
-                              name="maxPrice"
-                              autoComplete="off"
-                              required
-                              type="number"
-                              value={minPrice}
-                              onChange={(e) => setMaxPrice(e.target.value)}
-                              placeholder="max value"
-                              min={minPrice}
-                            />
+                              <input
+                                className="form-control-login "
+                                name="maxPrice"
+                                autoComplete="off"
+                                required
+                                type="number"
+                                value={maxPrice}
+                                onChange={(e) => setMaxPrice(e.target.value)}
+                                placeholder="max value"
+                                min={minPrice}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    )}
                   </article>
                 </div>
               </Col>
@@ -866,7 +963,7 @@ const VehiclesPage = () => {
                               </span>
                             </div>
                             <div className="car-image-container ">
-                              <a href="/bookingPage1">
+                              <a href="/bookingPage/1">
                                 {" "}
                                 <img
                                   src={car.image}
