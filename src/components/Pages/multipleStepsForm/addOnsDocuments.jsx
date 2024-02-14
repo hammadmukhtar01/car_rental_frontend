@@ -175,6 +175,30 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     );
   };
 
+  const selectStyles = {
+    control: (provided, { hasValue }) => ({
+      ...provided,
+      cursor: "pointer",
+      border: "1px solid rgb(184, 184, 184)",
+      boxShadow: "none",
+      lineHeight: "32px",
+      marginLeft: "-13px",
+      marginRight: "-14px",
+      borderRadius: "6px",
+      ":hover": {
+        border: "1px solid rgb(184, 184, 184)",
+      },
+    }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      cursor: "pointer",
+      backgroundColor: isSelected ? "#cc6119" : "white",
+      ":hover": {
+        backgroundColor: isSelected ? "#cc6119" : "rgb(229, 229, 229)",
+      },
+    }),
+  };
+
   return (
     <div>
       <div className="vehicle-details-location-main-div pt-3 pb-3">
@@ -289,32 +313,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   );
                                   setNationality(selectedOption.value);
                                 }}
+                                styles={selectStyles}
                               />
-                              {/* <select
-                                required
-                                value={nationality}
-                                onChange={(e) => {
-                                  console.log(
-                                    "Selected nationality:",
-                                    e.target.value
-                                  );
-                                  setNationality(e.target.value);
-                                }}
-                              >
-                                <option value="" disabled>
-                                  Choose Car Model
-                                </option>
-                                {nationalityValues.map((model) => (
-                                  <option
-                                    key={model.countryValue}
-                                    value={model.countryName}
-                                  >
-                                    {model.countryName}
-                                  </option>
-                                ))}
-                              </select> */}
                             </Form.Group>
                           </Col>
+
                           <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">

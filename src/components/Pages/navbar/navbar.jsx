@@ -1,130 +1,182 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
-import "../../../App.css";
+  import Nav from "react-bootstrap/Nav";
+  import Navbar from "react-bootstrap/Navbar";
+  import NavDropdown from "react-bootstrap/NavDropdown";
+  import { NavLink, useNavigate } from "react-router-dom";
+  import React from "react";
+  import Image from "react-bootstrap/Image";
+  import logo from "../../images/car_rental_logo_old.png";
+  import { useReload } from "../../PrivateComponents/utils";
+  import HashLoader from "react-spinners/ClipLoader";
+  import "./navbar.css";
 
-const NavbarComp = () => {
-  const auth = localStorage.getItem("user");
-  const user_info = JSON.parse(auth);
+  function MainNavbar() {
+    const { loading, reloadPage } = useReload();
+    const navigate = useNavigate();
+    const auth = JSON.parse(localStorage.getItem("user"));
+    const user_info = auth?.data;
+    const customer_Id = user_info?.data?.data?._id;
 
-  console.log("Auth in local storage is: ", user_info);
+    console.log("Auth in local storage is: ", user_info);
 
-  const socialLinks = [
-    { iconClass: "fa fa-phone", href: "tel:971544519432" },
-    {
-      iconClass: "fab fa-whatsapp",
-      href: "https://api.whatsapp.com/send?phone=971544519432",
-    },
-    {
-      iconClass: "fab fa-facebook",
-      href: "https://www.facebook.com/milelecarrental/",
-    },
-    {
-      iconClass: "fab fa-instagram",
-      href: "https://www.instagram.com/milelecarrentals/",
-    },
-  ];
+    const handleLogout = () => {
+      const confirmLogout = window.confirm("Are you sure you want to log out?");
+      if (confirmLogout) {
+        localStorage.removeItem("user");
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
+        navigate(`/`);
+      }
+    };
 
-  return (
-    <div>
-      <div id="header">
-        <div className="header-main ">
-          <div className="navbar1-container">
-            <div className="clearfix">
-              <div className="logo-main ">
-                <img
-                  src="images/car_rental_logo.png"
-                  className="logo-image"
-                  style={{ width: "230px" }}
-                  title="Home"
-                  alt="Logo"
-                />
-                <div className="mobile-contacts-trigger visible-sm visible-xs">
-                  <i className="stm-icon-phone-o"></i>
-                  <i className="stm-icon-close-times"></i>
+    const handleReload = () => {
+      console.log("Reloading...");
+      reloadPage();
+    };
+
+    const navbarMenus = [
+      {
+        menuName: "Home",
+        navigateTo: "/",
+      },
+      {
+        menuName: "Vehicles",
+        navigateTo: "/vehicles",
+      },
+      {
+        menuName: "About Us",
+        navigateTo: "/aboutus",
+      },
+      {
+        menuName: "FAQs",
+        navigateTo: "/faqs",
+      },
+      {
+        menuName: "Contact Us",
+        navigateTo: "/contactus",
+      },
+      {
+        menuName: "Lease",
+        navigateTo: "/quicklease",
+      },
+    ];
+
+    const renderSeparator = (index, length) => {
+      if (index < length - 1) {
+        if (window.innerWidth >= 768) {
+          return (
+            <span className="vertical-line d-flex flex-row align-items-center">
+              |
+            </span>
+          );
+        } else {
+          return (
+            <span className="horizontal-line d-flex flex-row align-items-center"></span>
+          );
+        }
+      }
+      return null;
+    };
+
+    return (
+      <>
+        <div className="navabr-main-container container">
+          <Navbar
+            collapseOnSelect
+            expand="lg"
+            className={`p-0 ${loading ? "hidden" : ""}`}
+          >
+            <div className="d-flex align-items-center col-lg-2 col-sm-10">
+              <Navbar.Brand>
+                <div className="main-logo">
+                  <a href="/home">
+                    <Image src={logo} alt="Main Logo" fluid />
+                  </a>
                 </div>
-                <div className="mobile-menu-trigger visible-sm visible-xs ">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
-              
-
-              <div className="top-info-wrap">
-                <div className="header-top-info">
-                  <div className="clearfix">
-                    <div className="pull-right">
-                      <div className="header-main-socs">
-                        <ul className="clearfix">
-                          {socialLinks.map((link, index) => (
-                            <li key={index}>
-                              <a
-                                href={link.href}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                <i className={link.iconClass}></i>
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="pull-right send-enquiry-button">
-                      <a href="#t">
-                        <button
-                          type="button"
-                          className="btn btn-sm "
-                          style={{
-                            backgroundColor: "#cc6119",
-                            boxShadow: "none",
-                            marginLeft: "20px",
-                          }}
-                        >
-                          SEND ENQUIRY
-                        </button>
-                      </a>
-                    </div>
-                    <div className="pull-right text-right">
-                      <div className="header-secondary-phone header-secondary-phone-single">
-                        <div className="phone">
-                          <i
-                            className="stm-icon-phone "
-                            style={{ color: "#cc761a" }}
-                          ></i>
-                          <span className="phone-number heading-font">
-                            <a href="tel:971544519432"> +971 544519432 </a>
-                          </span>
-                        </div>
-                        <div className="phone">
-                          <i
-                            className="stm-icon-mail "
-                            style={{ color: "#cc761a" }}
-                          ></i>
-                          <span className="phone-number heading-font mt-1">
-                            <a href="cdn-cgi/l/email-protection.html#224b4c444d624f4b4e474e4741435050474c56434e0c414d4f">
-                              {" "}
-                              <span
-                                className="__cf_email__"
-                                data-cfemail="caa3a4aca58aa7a3a6afa6afa9abb8b8afa4beaba6e4a9a5a7"
-                              >
-                                info@milelecarrental.com
-                              </span>
-                            </a>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </Navbar.Brand>
+              <Navbar.Toggle
+                className="hidden-toggle-button"
+                aria-controls="responsive-navbar-nav"
+              />
             </div>
-          </div>
-        </div>
-      
-      </div>
-    </div>
-  );
-};
 
-export default NavbarComp;
+            <Navbar.Collapse
+              id="responsive-navbar-nav"
+              className="col-lg-10 col-md-10 navbar-menus-main-container d-flex justify-content-end"
+            >
+              <Nav className=" d-flex align-items-center">
+                {navbarMenus.map((navbarMenu, index) => (
+                  <React.Fragment key={index}>
+                    <Nav.Link
+                      as={NavLink}
+                      to={navbarMenu.navigateTo}
+                      activeclassname="active"
+                      className="navbar-all-menus"
+                      key={index}
+                      onClick={handleReload}
+                    >
+                      {navbarMenu.menuName}
+                    </Nav.Link>
+
+                    {renderSeparator(index, navbarMenus.length)}
+                  </React.Fragment>
+                ))}
+                {renderSeparator(1, navbarMenus.length)}
+
+                {user_info && user_info.status === "success" ? (
+                  <>
+                    <Nav.Link disabled className="welcome-text">
+                      Welcome, {user_info.data.name.slice(0, 6)}
+                    </Nav.Link>
+
+                    <NavDropdown title="User" id="user-nav-dropdown">
+                      <NavDropdown.Item
+                        as={NavLink}
+                        to={`/myProfile/${customer_Id}`}
+                      >
+                        My Profile
+                      </NavDropdown.Item>
+
+                      <NavDropdown.Item
+                        as={NavLink}
+                        to={`/myBookings/${customer_Id}`}
+                      >
+                        My Bookings
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item onClick={handleLogout}>
+                        Logout
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link
+                      as={NavLink}
+                      to="/login"
+                      activeclassname="active"
+                      className=""
+                    >
+                      <b className="login-menu">Login</b>
+                    </Nav.Link>
+                    {renderSeparator(1, navbarMenus.length)}
+
+                    <Nav.Link
+                      as={NavLink}
+                      to="/signup"
+                      activeclassname="active"
+                      className=""
+                    >
+                      <b className="signup-menu">Sign Up</b>
+                    </Nav.Link>
+                  </>
+                )}
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </div>
+      </>
+    );
+  }
+
+  export default MainNavbar;

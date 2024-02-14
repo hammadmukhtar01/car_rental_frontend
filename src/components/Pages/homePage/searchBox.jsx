@@ -95,14 +95,8 @@ const SearchBox = () => {
     return timeSlots;
   };
 
-  // Usage:
   const timeOptions = generateTimeSlots();
 
-  const getCurrentDateTime = () => {
-    const currentDate = new Date();
-    const isoDateString = currentDate.toISOString().slice(0, -8);
-    return isoDateString;
-  };
   const handlePickUpButtonClick = (option) => {
     if (option === "Deliver") {
       console.log("In delivery");
@@ -182,10 +176,34 @@ const SearchBox = () => {
     return false;
   };
 
+  const selectStyles = {
+    control: (provided, { hasValue }) => ({
+      ...provided,
+      cursor: "pointer",
+      border: "1px solid rgb(184, 184, 184)",
+      boxShadow: "none",
+      lineHeight: "32px",
+      marginLeft: "-13px",
+      marginRight: "-14px",
+      borderRadius: "6px",
+      ":hover": {
+        border: "1px solid rgb(184, 184, 184)",
+      },
+    }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      cursor: "pointer",
+      backgroundColor: isSelected ? "#cc6119" : "white",
+      ":hover": {
+        backgroundColor: isSelected ? "#cc6119" : "rgb(229, 229, 229)",
+      },
+    }),
+  }
+
   return (
     <>
       <div className="bg-img-container ">
-        <MainNavbar />
+        {/* <MainNavbar /> */}
         <div className="container">
           <div className="search-box-container pb-4">
             <Row>
@@ -319,10 +337,6 @@ const SearchBox = () => {
                         updatePickupLocationMessage={setPickupLocationMessage}
                         initialSelectedLocation={pickupLocation}
                         initialInputFieldValue={pickupLocationMessage}
-
-                        // Selected Pickup Type (Delivery, pickup)
-                        // selected location name
-                        // selected input address for location name
                       />
                     </Modal.Body>
                   </Modal>
@@ -349,20 +363,6 @@ const SearchBox = () => {
                   </Modal>
 
                   <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                    {/* <Form.Group controlId="formPickupDateTime">
-                      <div className="date-label">
-                        <label className="styled-label">
-                          <b>Pickup Time</b>
-                        </label>
-                      </div>
-                      <input
-                        className="form-control-date mt-2 col-12"
-                        required
-                        type="time"
-                        min={getCurrentDateTime()}
-                        value={pickUpTime}
-                        onChange={(e) => setPickUpTime(e.target.value)}
-                      /> */}
                     <Form.Group controlId="formKeyword">
                       <div className="location-label">
                         <label className="styled-label mb-3">
@@ -375,29 +375,38 @@ const SearchBox = () => {
                         className="form-control-pickup-time col-12"
                         value={timeOptions.find(
                           (option) => option.value === pickUpTime
-                        )} // Set the value here
+                        )}
                         onChange={(selectedOption) => {
                           console.log("Selected option is: ", selectedOption);
                           setPickUpTime(selectedOption.value);
                         }}
+                        styles={selectStyles}
                       />
                     </Form.Group>
                   </Col>
 
                   <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                    <Form.Group controlId="formDropoffDateTime">
-                      <div className="date-label">
-                        <label className="styled-label">
+                    <Form.Group controlId="formKeyword">
+                      <div className="location-label">
+                        <label className="styled-label mb-3">
                           <b>Dropoff Time</b>
                         </label>
                       </div>
-                      <input
-                        className="form-control-date mt-2 col-12"
-                        type="time"
-                        // min={pickUpTime}
+                      <Select
+                        options={timeOptions}
                         required
-                        value={dropOffTime}
-                        onChange={(e) => setDropOffTime(e.target.value)}
+                        className="form-control-dropoff-time col-12"
+                        value={timeOptions.find(
+                          (option) => option.value === dropOffTime
+                        )}
+                        onChange={(selectedOption) => {
+                          console.log(
+                            "Selected Dropoff option is: ",
+                            selectedOption
+                          );
+                          setDropOffTime(selectedOption.value);
+                        }}
+                        styles={selectStyles}
                       />
                     </Form.Group>
                   </Col>

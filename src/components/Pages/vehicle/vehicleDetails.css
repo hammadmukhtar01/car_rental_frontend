@@ -360,6 +360,10 @@ span.select2-selection_arrow b {
   flex-direction: row-reverse;
 }
 
+.all-car-icons {
+  color: gray;
+}
+
 .filters-main-container {
   padding: 5px 5px 20px 5px;
   border: 1px solid #e1e1e1;

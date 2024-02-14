@@ -21,7 +21,13 @@ body {
   z-index: 999;
 }
 
-.contact-buttons-container {
+.lease-car-phone-num-div,
+.lease-car-whatsapp-div {
+  margin: 13px 5px 0px 13px;
+}
+
+.contact-buttons-container,
+.lease-car-buttons-container {
   position: fixed;
   bottom: 30px;
   display: flex;
@@ -31,7 +37,8 @@ body {
   z-index: 999;
 }
 
-.contact-button {
+.contact-button,
+.lease-car-button {
   display: flex;
   align-items: center;
   margin-bottom: 11px;
@@ -43,9 +50,41 @@ body {
   position: relative;
 }
 
-.contact-button::before {
+.lease-car-button {
+  padding: 0px 14px;
+}
+
+.lease-car-button,
+.whatsapp-link-lease-section {
+  padding: 13px;
+  border: 1px solid rgb(214, 214, 214);
+  border-color: transparent;
+}
+
+.phone-call-link-lease-section:hover,
+.whatsapp-link-lease-section:hover {
+  background-color: white;
+  border: 1px solid rgb(214, 214, 214);
+}
+
+.phone-call-link-lease-section:hover svg {
+  background-color: white;
+  color: #cc6119;
+}
+
+.whatsapp-link-lease-section:hover svg {
+  background-color: white;
+  color: green;
+}
+
+.whatsapp-link-lease-section svg,
+.phone-call-link-lease-section svg {
+  font-size: 24px;
+}
+
+.contact-button::before,
+.lease-car-button::before {
   content: "";
-  /* display: none; */
   position: absolute;
   width: 100%;
   height: 100%;
@@ -53,7 +92,8 @@ body {
   opacity: 0;
 }
 
-.contact-button:hover::before {
+.contact-button:hover::before,
+.lease-car-button:hover::before {
   left: 0;
   animation: identifier 1s ease-out infinite;
   border-radius: 50px;
@@ -75,8 +115,38 @@ body {
   }
 }
 
+/* Define the keyframes animation */
+@keyframes wave-effect {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* Apply the animation to .whatsapp-link-lease-section elements */
+.whatsapp-link-lease-section::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0;
+}
+
+.whatsapp-link-lease-section:hover::before {
+  left: 0;
+  animation: wave-effect 1s ease-out infinite; /* Apply the animation here */
+  border-radius: 50px;
+  background: inherit;
+}
+
 .phone-call-link,
-.map-link {
+.map-link,
+.phone-call-link-lease-section {
   background-color: #cc6119;
 }
 
@@ -84,7 +154,8 @@ body {
   background-color: #cc6119;
 }
 
-.whatsapp-link {
+.whatsapp-link,
+.whatsapp-link-lease-section {
   background-color: green;
 }
 
@@ -312,11 +383,33 @@ ul.header-menu {
 @media screen and (max-width: 991px) {
   .contact-button svg {
     font-size: 22px;
-  }  
+  }
+  .lease-car-button,
+  .whatsapp-link-lease-section {
+    padding: 10px;
+  }
+  .whatsapp-link-lease-section svg,
+  .phone-call-link-lease-section svg {
+    font-size: 18px;
+  }
 }
 
-@media screen and (max-width: 567px) {
+@media screen and (max-width: 767px) {
   .contact-buttons-container {
     display: none;
+  }
+  .lease-car-button,
+  .whatsapp-link-lease-section {
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .contact-buttons-container {
+    display: none;
+  }
+  .lease-car-button,
+  .whatsapp-link-lease-section {
+    padding: 17px;
   }
 }

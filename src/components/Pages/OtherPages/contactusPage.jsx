@@ -87,7 +87,7 @@ const ContactusPage = () => {
         <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
-            <MainNavbar />
+            {/* <MainNavbar /> */}
           </div>
         </div>
         <div className="contactUs-container container">

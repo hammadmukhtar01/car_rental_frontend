@@ -30,6 +30,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import Select from "react-select";
 
 const PageSize = 20;
 
@@ -50,7 +51,7 @@ const VehiclesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
-  const [isCarBrandOpen, setIsCarBrandOpen] = useState(true);
+  const [isCarModelOpen, setIsCarModelOpen] = useState(true);
   const [isCarTypeOpen, setIsCarTypeOpen] = useState(true);
   const [isCarPriceRangeOpen, setIsCarPriceRangeOpen] = useState(true);
   const [selectedFilters, setSelectedFilters] = useState({
@@ -232,11 +233,38 @@ const VehiclesPage = () => {
     }
   }, [pickUpDate, dropOffDate]);
 
-  const getCurrentDateTime = () => {
-    const currentDate = new Date();
-    const isoDateString = currentDate.toISOString().slice(0, -8);
-    return isoDateString;
+  const sortByDropDown = [
+    { label: "Low to High", value: "LowToHigh" },
+    { label: "High to Low", value: "HighToLow" },
+    { label: "Recommended", value: "Recommended" },
+  ];
+
+  const generateTimeSlots = () => {
+    const timeSlots = [];
+    let hour = 8;
+    let minute = 0;
+    let ampm = "AM";
+
+    while (!(hour === 23 && minute === 30)) {
+      const formattedHour = hour.toString().padStart(2, "0");
+      const formattedMinute = minute.toString().padStart(2, "0");
+      const time = `${formattedHour}:${formattedMinute} ${ampm}`;
+      timeSlots.push({ label: time, value: time });
+
+      minute += 30;
+      if (minute === 60) {
+        hour++;
+        minute = 0;
+      }
+      if (hour === 12 && minute === 0) {
+        ampm = "PM";
+      }
+    }
+
+    return timeSlots;
   };
+
+  const timeOptions = generateTimeSlots();
 
   const handlePickUpButtonClick = (option) => {
     if (option === "Deliver") {
@@ -410,8 +438,8 @@ const VehiclesPage = () => {
     // });
   };
 
-  const toggleCarBrand = () => {
-    setIsCarBrandOpen(!isCarBrandOpen);
+  const toggleCarModel = () => {
+    setIsCarModelOpen(!isCarModelOpen);
   };
 
   const toggleCarType = () => {
@@ -420,6 +448,30 @@ const VehiclesPage = () => {
 
   const toggleCarPriceRange = () => {
     setIsCarPriceRangeOpen(!isCarPriceRangeOpen);
+  };
+
+  const selectStyles = {
+    control: (provided, { hasValue }) => ({
+      ...provided,
+      cursor: "pointer",
+      border: "1px solid rgb(184, 184, 184)",
+      boxShadow: "none",
+      lineHeight: "32px",
+      marginLeft: "-13px",
+      marginRight: "-14px",
+      borderRadius: "6px",
+      ":hover": {
+        border: "1px solid rgb(184, 184, 184)",
+      },
+    }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      cursor: "pointer",
+      backgroundColor: isSelected ? "#cc6119" : "white",
+      ":hover": {
+        backgroundColor: isSelected ? "#cc6119" : "rgb(229, 229, 229)",
+      },
+    }),
   };
 
   const { loading } = useReload();
@@ -438,7 +490,7 @@ const VehiclesPage = () => {
         <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
-            <MainNavbar />
+            {/* <MainNavbar /> */}
           </div>
         </div>
         <div className="all-cars-main-container-div container">
@@ -590,10 +642,6 @@ const VehiclesPage = () => {
                             }
                             initialSelectedLocation={pickupLocation}
                             initialInputFieldValue={pickupLocationMessage}
-
-                            // Selected Pickup Type (Delivery, pickup)
-                            // selected location name
-                            // selected input address for location name
                           />
                         </Modal.Body>
                       </Modal>
@@ -622,35 +670,53 @@ const VehiclesPage = () => {
                       </Modal>
 
                       <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                        <Form.Group controlId="formPickupDateTime">
-                          <div className="date-label">
-                            <label className="styled-label">
+                        <Form.Group controlId="formKeyword">
+                          <div className="location-label">
+                            <label className="styled-label mb-3">
                               <b>Pickup Time</b>
                             </label>
                           </div>
-                          <input
-                            className="form-control-date mt-2 col-12"
-                            type="time"
-                            min={getCurrentDateTime()}
-                            value={pickUpTime}
-                            onChange={(e) => setPickUpTime(e.target.value)}
+                          <Select
+                            options={timeOptions}
+                            required
+                            className="form-control-pickup-time col-12"
+                            value={timeOptions.find(
+                              (option) => option.value === pickUpTime
+                            )}
+                            onChange={(selectedOption) => {
+                              console.log(
+                                "Selected option is: ",
+                                selectedOption
+                              );
+                              setPickUpTime(selectedOption.value);
+                            }}
+                            styles={selectStyles}
                           />
                         </Form.Group>
                       </Col>
 
                       <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                        <Form.Group controlId="formDropoffDateTime">
-                          <div className="date-label">
-                            <label className="styled-label">
+                        <Form.Group controlId="formKeyword">
+                          <div className="location-label">
+                            <label className="styled-label mb-3">
                               <b>Dropoff Time</b>
                             </label>
                           </div>
-                          <input
-                            className="form-control-date mt-2 col-12"
-                            type="time"
-                            // min={pickUpTime}
-                            value={dropOffTime}
-                            onChange={(e) => setDropOffTime(e.target.value)}
+                          <Select
+                            options={timeOptions}
+                            required
+                            className="form-control-dropoff-time col-12"
+                            value={timeOptions.find(
+                              (option) => option.value === dropOffTime
+                            )}
+                            onChange={(selectedOption) => {
+                              console.log(
+                                "Selected Dropoff option is: ",
+                                selectedOption
+                              );
+                              setDropOffTime(selectedOption.value);
+                            }}
+                            styles={selectStyles}
                           />
                         </Form.Group>
                       </Col>
@@ -704,15 +770,15 @@ const VehiclesPage = () => {
                     <div className="car-model-label">
                       <header
                         className="card-header styled-label pt-3 pb-3"
-                        onClick={toggleCarBrand}
+                        onClick={toggleCarModel}
                       >
                         <div className="car-brand-filter-container d-flex justify-content-between">
                           <div className="car-brand-icon-title">
                             <BsCarFrontFill className="mr-2" />
-                            <b>Car Brand</b>
+                            <b>Car Model</b>
                           </div>
                           <div className="car-brand-open-close-modal ">
-                            {isCarBrandOpen ? (
+                            {isCarModelOpen ? (
                               <>
                                 <div className="brand-open-icon">
                                   <AiOutlineMinusCircle className="text-right" />
@@ -727,7 +793,7 @@ const VehiclesPage = () => {
                         </div>
                       </header>
                     </div>{" "}
-                    {isCarBrandOpen && (
+                    {isCarModelOpen && (
                       <div className="filter-content">
                         <div className="card-body">
                           <form>
@@ -922,7 +988,7 @@ const VehiclesPage = () => {
                                   <b>Sort By:</b>
                                 </h6>
                               </Form.Label>
-                              <select
+                              {/* <select
                                 id="sortBySelect"
                                 className="form-select sort-by-select-tag"
                                 title="sorting"
@@ -931,8 +997,24 @@ const VehiclesPage = () => {
                               >
                                 <option value="LowToHigh">Low to High</option>
                                 <option value="HighToLow">High to Low</option>
-                                <option value="Recommended">Recommended</option>
+                                <option value="Recommended">Recommended</option> 
                               </select>
+                                */}
+
+                              <Select
+                                options={sortByDropDown}
+                                required
+                                className="form-control-sort-by col-12"
+                                setNationality
+                                onChange={(selectedOption) => {
+                                  console.log(
+                                    "Selected optn is: ",
+                                    selectedOption
+                                  );
+                                  setSortBy(selectedOption.value);
+                                }}
+                                styles={selectStyles}
+                              />
                             </Form.Group>
                           </Col>
                         </Row>
@@ -978,8 +1060,8 @@ const VehiclesPage = () => {
                                 (carFeaturesIcons, index) => (
                                   <span key={index}>
                                     <span className="features-values">
-                                      <carFeaturesIcons.featureIcon className="" />{" "}
-                                      {carFeaturesIcons.value}{" "}
+                                      <carFeaturesIcons.featureIcon className="all-car-icons" />{" "}
+                                      <span className="">{carFeaturesIcons.value}{" "}</span>
                                       {index <
                                         carFeaturesWithIcons.length - 1 && (
                                         <span className="car-features-vertical-line mr-2 ml-2">

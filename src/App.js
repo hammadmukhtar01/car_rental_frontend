@@ -5,7 +5,6 @@ import BookingDetails from "./components/Pages/Booking/bookingDetails";
 import PaymentPage from "./components/Pages/multipleStepsForm/paymentPage";
 import Footer from "./components/Pages/footer/footer";
 import HomePage from "./components/Pages/homePage/homePage";
-import VehicleDetailsPage from "./components/Pages/vehicle/oldVehicleDetailsPage";
 import VehiclesPage from "./components/Pages/vehicle/allVehiclesPage";
 import LoginPage from "./components/authentication/loginPage";
 import FaqsPage from "./components/Pages/OtherPages/faqsPage";
@@ -15,16 +14,21 @@ import AboutusPage from "./components/Pages/OtherPages/aboutusPage";
 import CustomerBookingPage from "./components/customerDashboard/myBookingDetails";
 import VerificationForm from "./components/Pages/multipleStepsForm/multipleStepsForm";
 import FixedNumLocButtons from "./components/Pages/navbar/locationNumberIcons";
-// import MainNavbar from "./components/Pages/navbar/mainNavbar";
-import ForgotPasswordPage from './components/authentication/forgotPassword';
+import MainNavbar from "./components/Pages/navbar/mainNavbar";
+import ForgotPasswordPage from "./components/authentication/forgotPassword";
 import ResetPasswordPage from "./components/authentication/resetPasswordPage";
 import VehicleDetails from "./components/Pages/multipleStepsForm/vehicleDetails";
 import AddOnsDocuments from "./components/Pages/multipleStepsForm/addOnsDocuments";
+import ErrorPage from "./components/Pages/OtherPages/errorPage";
+import QuickLeaseVehicles from "./components/Pages/vehicle/quickleaseVehicles";
 
 function App() {
   return (
     <>
       <div className="App">
+        <div className="">
+          <MainNavbar />
+        </div>
         <div className="top-page-horizontal-line">
           <span className="top-horizontal-line-text">
             Milele Motors, Car Rental System
@@ -34,7 +38,7 @@ function App() {
           <Route path="/" exact element={<HomePage />} />
           <Route path="/home" exact element={<HomePage />} />
           <Route path="/vehicles" element={<VehiclesPage />} />
-          <Route path="/vehicleDetails/:id" element={<VehicleDetailsPage />} />
+          <Route path="/quicklease" element={<QuickLeaseVehicles />} />
           <Route path="/booking/:id" element={<BookingDetails />} />
           <Route path="/payment/:id" element={<PaymentPage />} />
           <Route path="/aboutus" element={<AboutusPage />} />
@@ -49,8 +53,9 @@ function App() {
           <Route path="/bookingPage/:step" element={<VerificationForm />} />
           <Route path="/bookingPage2" element={<AddOnsDocuments />} />
           <Route path="/bookingPage3" element={<PaymentPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
         <FixedNumLocButtons />
       </div>
     </>

@@ -57,7 +57,7 @@ const AboutusPage = () => {
       <div id="main">
         <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
-            <MainNavbar />
+            {/* <MainNavbar /> */}
           </div>
         </div>
         <div className="container mt-4 mb-4">

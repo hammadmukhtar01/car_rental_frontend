@@ -391,7 +391,7 @@ img:hover {
 }
 
 .main-logo {
-  max-width: 100%;
+  max-width: 50%;
 }
 
 .navbar-all-menus.active {
@@ -490,8 +490,9 @@ div.col-lg-10.navbar-nav {
 
 @media (min-width: 576px) and (max-width: 991px) {
   .main-logo {
-    max-width: 40%;
+    /* max-width: 140%; */
   }
+  
 }
 
 @media (max-width: 991px) {
@@ -512,5 +513,8 @@ div.col-lg-10.navbar-nav {
   }
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 576px) {
+  .main-logo {
+    /* max-width: 100%; */
+  }
 }
