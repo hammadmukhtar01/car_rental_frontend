@@ -57,7 +57,7 @@ const AboutusPage = () => {
       <div id="main">
         <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
-            {/* <MainNavbar /> */}
+            <MainNavbar />
           </div>
         </div>
         <div className="container mt-4 mb-4">
@@ -72,7 +72,7 @@ const AboutusPage = () => {
                 <span>
                   <b className="fs-3">About Us</b>
                 </span>
-                <hr className="aboutUs-heading-underline col-2 text-center" />
+                <hr className="middle-hr-tag " />
               </div>
               <br />
               <div className="about-us-section-1-container">
@@ -103,7 +103,7 @@ const AboutusPage = () => {
                 <span>
                   <b className="fs-3">Why Us</b>
                 </span>
-                <hr className="aboutUs-heading-underline col-2 text-center" />
+                <hr className="middle-hr-tag " />
               </div>
               <div className="about-us-section-1-container">
                 <div className="why-us-row-main-div row p-4">

@@ -49,14 +49,38 @@ const SearchBox = () => {
     {
       id: 2,
       locationName: "Dubai",
-      lat: 25.246583391917024,
-      lng: 55.36045718226757,
+      lat: 25.3461498,
+      lng: 55.4210633,
     },
     {
       id: 3,
       locationName: "Ajman",
-      lat: 25.406758980569528,
-      lng: 55.442444567785444,
+      lat: 25.3461498,
+      lng: 55.4210633,
+    },
+    {
+      id: 4,
+      locationName: "Fujairah",
+      lat: 25.3461498,
+      lng: 55.4210633,
+    },
+    {
+      id: 5,
+      locationName: "Al Ain",
+      lat: 25.3461498,
+      lng: 55.4210633,
+    },
+    {
+      id: 6,
+      locationName: "Abu Dhabi",
+      lat: 25.3461498,
+      lng: 55.4210633,
+    },
+    {
+      id: 7,
+      locationName: "Ras Al Khaimah",
+      lat: 25.3461498,
+      lng: 55.4210633,
     },
   ];
   useEffect(() => {
@@ -198,12 +222,12 @@ const SearchBox = () => {
         backgroundColor: isSelected ? "#cc6119" : "rgb(229, 229, 229)",
       },
     }),
-  }
+  };
 
   return (
     <>
       <div className="bg-img-container ">
-        {/* <MainNavbar /> */}
+        <MainNavbar />
         <div className="container">
           <div className="search-box-container pb-4">
             <Row>

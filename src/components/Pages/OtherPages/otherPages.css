@@ -5,6 +5,7 @@
 
 .accordion-button:hover {
   background-color: #cc6119;
+  color: white;
 }
 
 .accordion-button:not(.collapsed) {
@@ -113,7 +114,7 @@
 }
 
 .aboutUs-heading-underline {
-  left: 41%;
+  /* left: 33%; */
   border: 1px solid #cc6119;
   opacity: 0.8;
 }

@@ -203,9 +203,9 @@ const QuickLeaseVehicles = () => {
     });
   };
 
-  const handleSearchCarButton = () => {
+  const handleSendInquiryButton = () => {
     alert("Loading required cars");
-    toast("Loading required cars!", { autoClose: 3000 });
+    // toast("Loading required cars!", { autoClose: 3000 });
 
     // toast.success("Success Notification !", {
     //   position: "top-center",
@@ -223,6 +223,7 @@ const QuickLeaseVehicles = () => {
     //   position: "bottom-right",
     //   className: "foo-bar",
     // });
+    navigate('/contactus')
   };
 
   const toggleCarModel = () => {
@@ -419,7 +420,7 @@ const QuickLeaseVehicles = () => {
                   <>
                     <h3 className="pb-2 all-cars-heading">
                       All Cars
-                      <hr className="all-cars-hr-tag" />
+                      <hr className="middle-hr-tag" />
                     </h3>
                     <Row className="offers-car-container-row">
                       {currentTableData.map((car, index) => (
@@ -495,7 +496,7 @@ const QuickLeaseVehicles = () => {
                                 <div className="lease-car-button send-inquiry-button">
                                   <button
                                     className="animated-button"
-                                    onClick={allCarsBookingButton}
+                                    onClick={handleSendInquiryButton}
                                   >
                                     <span className="button-text-span">
                                       <span className="transition"></span>

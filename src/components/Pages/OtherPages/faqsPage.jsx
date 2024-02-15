@@ -133,14 +133,15 @@ const FaqsPage = () => {
       <div className="navbar-bg-img-container">
         <div className="booking-page-banner-navbar">
           {" "}
-          {/* <MainNavbar /> */}
+          <MainNavbar />
         </div>
       </div>
       <div className="container pt-4 pb-5">
-        <div className="faq-heading text-center">
+        <div className="styled-label text-center">
           <span>
-            <b>Frequently Asked Questions!</b>
+            <b className="fs-3"> Frequently Asked Questions!</b>
           </span>
+          <hr className="middle-hr-tag" />
         </div>
         <div className="faqs-main-div">
           <MDBContainer className="mt-4">

@@ -87,7 +87,7 @@ const ContactusPage = () => {
         <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
-            {/* <MainNavbar /> */}
+            <MainNavbar />
           </div>
         </div>
         <div className="contactUs-container container">
@@ -100,7 +100,7 @@ const ContactusPage = () => {
               <span>
                 <b className="fs-3">Contact Us</b>
               </span>
-              <hr className="aboutUs-heading-underline col-2 text-center" />
+              <hr className="middle-hr-tag " />
             </div>
             <section className="contact-us-section-1">
               <div className="row">
@@ -182,14 +182,14 @@ const ContactusPage = () => {
             </section>
 
             <section className="contact-us-section-2 pt-5 pb-4">
-              <div className="contact-us-form-container col-lg-10">
+              <div className="contact-us-form-container col-lg-8">
                 <div className="styled-label mt-2">
                   <div className="heading-icon-container-div d-flex justify-content-center">
                     <span>
                       <b className="fs-3">Contact Us Form</b>
                     </span>
                   </div>
-                  <hr className="home-page-heading-underline " />
+                  <hr className="middle-hr-tag text-center " />
                 </div>
 
                 <form

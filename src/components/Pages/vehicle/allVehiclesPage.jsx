@@ -490,7 +490,7 @@ const VehiclesPage = () => {
         <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
-            {/* <MainNavbar /> */}
+            <MainNavbar />
           </div>
         </div>
         <div className="all-cars-main-container-div container">
@@ -1025,7 +1025,7 @@ const VehiclesPage = () => {
                   <>
                     <h3 className="pb-2 all-cars-heading">
                       All Cars
-                      <hr className="all-cars-hr-tag" />
+                      <hr className="middle-hr-tag" />
                     </h3>
                     <Row className="offers-car-container-row">
                       {currentTableData.map((car, index) => (

@@ -61,9 +61,15 @@ body {
   border-color: transparent;
 }
 
-.phone-call-link-lease-section:hover,
 .whatsapp-link-lease-section:hover {
   background-color: white;
+  box-shadow: 1px 1px 12px 1px green;
+  border: 1px solid rgb(214, 214, 214);
+}
+
+.phone-call-link-lease-section:hover {
+  background-color: white;
+  box-shadow: 1px 1px 12px 1px #cc6119;
   border: 1px solid rgb(214, 214, 214);
 }
 

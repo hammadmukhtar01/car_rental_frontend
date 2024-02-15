@@ -282,7 +282,7 @@
 .navbar-container {
   position: relative;
   z-index: 1;
-  padding: 80px 30px;
+  padding: 10px 30px 80px 30px;
 }
 
 .bg-img {

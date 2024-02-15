@@ -71,11 +71,11 @@ const Footer = () => {
                         Monday - Saturday:
                       </span>{" "}
                       <span className="footer-sales-hr-time">
-                        09:00 - 22:00 Hours
+                        24 Hours
                       </span>
                       <br />
                       <span className="footer-text-gray">Sunday:</span>{" "}
-                      <span className="footer-sales-hr-time">Closed</span>
+                      <span className="footer-sales-hr-time">08:00 - 22:00 Hours</span>
                     </div>
                   </div>
                   <hr className="text-white" />
@@ -93,11 +93,11 @@ const Footer = () => {
                         Monday - Saturday:
                       </span>{" "}
                       <span className="footer-service-hr-time">
-                        09:00 - 22:00 Hours
+                        24 Hours
                       </span>
                       <br />
                       <span className="footer-text-gray">Sunday:</span>{" "}
-                      <span className="footer-service-hr-time">Closed</span>
+                      <span className="footer-service-hr-time">08:00 - 22:00 Hours</span>
                     </div>
                   </div>
                   <hr className="text-white" />

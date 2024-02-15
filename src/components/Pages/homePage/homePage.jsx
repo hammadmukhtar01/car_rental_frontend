@@ -98,6 +98,18 @@ const HomePage = () => {
           </div> */}
           {/* <SpinTheWheel /> */}
           <CarCards />
+
+          <div>
+            <iframe
+              src="https://presenter.ahaslides.com/share/your-saved-spinner-wheel-1707997684787-u5lme6a552"
+              title="spin-wheel"
+              style={{ width: "100%", height: "800px" }}
+            >
+              {" "}
+              <p>Your browser does not support iframes.</p>{" "}
+            </iframe>
+          </div>
+
           {/* <Celebration/> */}
 
           <div className="spin-wheel-buttons-container">
@@ -163,12 +175,11 @@ const HomePage = () => {
 
           {/* <GoogleMapAPI/> */}
 
-          <ClientLogoSection />
+          {/* <ClientLogoSection /> */}
           <AnimatedCarSection />
 
           <OurBlogs />
           <TestimonialSlider />
-          <hr />
         </div>
       </div>
     </div>

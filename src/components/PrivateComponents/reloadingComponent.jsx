@@ -3,7 +3,7 @@ import React from "react";
 const ReloadingComponent = () => {
   return (
     <>
-      <div className="loader-container-main">
+      {/* <div className="loader-container-main">
         <svg
           role="img"
           aria-label="Mouth and eyes come from 9:00 and rotate clockwise into position, right eye blinks, then all parts rotate and merge into 3:00"
@@ -98,7 +98,7 @@ const ReloadingComponent = () => {
             </g>
           </g>
         </svg>
-      </div>
+      </div> */}
     </>
   );
 };

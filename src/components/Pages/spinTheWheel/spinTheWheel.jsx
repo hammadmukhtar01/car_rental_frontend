@@ -7,13 +7,28 @@ export default function SpinTheWheel() {
   const [showModal, setShowModal] = useState(false);
 
   const segments = [
-    "Better luck next time",
-    "1 Week Free Picanto",
+    "Try Again",
+    "Better Luck Next Time",
+    "Win 100kms",
+    "Win 300kms",
+    "Win 500kms",
+    "Win 1000kms",
+    "Win an iPhone",
+    "Goodie Bag",
     "10% Discount",
   ];
-  const segColors = ["green", "purple", "orange"];
+  const segColors = [
+    "blue",
+    "green",
+    "purple",
+    "orange",
+    "gray",
+    "green",
+    "purple",
+    "orange",
+    "gray",
+  ];
 
-  // State to manage showing the result
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState("");
 

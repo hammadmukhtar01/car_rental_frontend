@@ -71,7 +71,7 @@ const ForgotPasswordPage = () => {
       <div className="navbar-bg-img-container">
         <div className="booking-page-banner-navbar">
           {" "}
-          {/* <MainNavbar /> */}
+          <MainNavbar />
         </div>
       </div>
       <section className="ftco-section">

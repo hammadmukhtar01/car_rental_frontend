@@ -76,7 +76,7 @@ const Carousel = () => {
                 </a>
                 <div className="car-image-overlay"></div>
               </div>
-              <hr className="discount-line" />
+              {/* <hr className="discount-line" /> */}
               <div className="car-details">
                 <p className="car-name">
                   {" "}

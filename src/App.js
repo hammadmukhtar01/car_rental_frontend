@@ -26,9 +26,9 @@ function App() {
   return (
     <>
       <div className="App">
-        <div className="">
+        {/* <div className="">
           <MainNavbar />
-        </div>
+        </div> */}
         <div className="top-page-horizontal-line">
           <span className="top-horizontal-line-text">
             Milele Motors, Car Rental System
@@ -55,7 +55,7 @@ function App() {
           <Route path="/bookingPage3" element={<PaymentPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
         <FixedNumLocButtons />
       </div>
     </>

@@ -1,6 +1,5 @@
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -10,10 +9,32 @@ import logo from "../../images/car_rental_logo_old.png";
 import { Col } from "react-bootstrap";
 
 function OffcanvasExample() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const auth = JSON.parse(localStorage.getItem("user"));
+  const user_info = auth?.data;
+  const customer_Id = user_info?.data?.data?._id;
+
+  console.log("Auth in local storage is: ", user_info);
+  const isVehiclesPage =
+    location.pathname.includes("/vehicles") ||
+    location.pathname.includes("/quicklease");
+
+  const handleLogout = () => {
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+      localStorage.removeItem("user");
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+      navigate(`/`);
+    }
+  };
+
   return (
     <>
-      <Container >
-        <Navbar key={"md"} expand={"md"} className="bg-body-tertiary">
+      <Container className="">
+        <Navbar key={"lg"} expand={"lg"} className={`p-0 `}>
           <Col lg={3} md={3} xs={6}>
             <Navbar.Brand>
               <div className="main-logo">
@@ -24,19 +45,19 @@ function OffcanvasExample() {
             </Navbar.Brand>
           </Col>
           {/* Right Side */}
-          <Col xs={9} style={{display: "contents"}}>
+          <Col xs={9} style={{ display: "contents" }}>
             <Navbar.Toggle
               className="hidden-toggle-button"
               aria-controls="responsive-navbar-nav"
             />
             <Navbar.Offcanvas
-              id={`offcanvasNavbar-expand-md`}
-              aria-labelledby={`offcanvasNavbarLabel-expand-md`}
+              id={`offcanvasNavbar-expand-lg`}
+              aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
               placement="end"
             >
               <Offcanvas.Header closeButton>
                 <Navbar.Brand>
-                  <div className="main-logo">
+                  <div className="toggle-main-logo">
                     <a href="/home">
                       <Image src={logo} alt="Main Logo" fluid />
                     </a>
@@ -45,23 +66,113 @@ function OffcanvasExample() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="#action1">Home</Nav.Link>
-                  <NavDropdown
-                    title="Dropdown"
-                    id={`offcanvasNavbarDropdown-expand-md`}
+                  <Nav.Link
+                    as={NavLink}
+                    to="/home"
+                    className="navbar-all-menus"
+                    activeclassname="active"
                   >
-                    <NavDropdown.Item href="#action4">
-                      Vehicles
+                    Home
+                  </Nav.Link>
+                  <NavDropdown
+                    title="Vehicles"
+                    id={`offcanvasNavbarDropdown-expand-lg`}
+                    className={`navbar-dropdown-title ${
+                      isVehiclesPage ? "active" : ""
+                    }`}
+                  >
+                    <NavDropdown.Item
+                      href="/vehicles"
+                      className={`navbar-sub-menus ${
+                        location.pathname.includes("/vehicles") ? "active" : ""
+                      }`}
+                    >
+                      For Rent
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Lease Car
+                    <NavDropdown.Item
+                      href="/quicklease"
+                      className={`navbar-sub-menus ${
+                        location.pathname.includes("/quicklease")
+                          ? "active"
+                          : ""
+                      }`}
+                    >
+                      For Lease
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link href="#action2">About Us</Nav.Link>
-                  <Nav.Link href="#action2">FAQs</Nav.Link>
-                  <Nav.Link href="#action2">Contact Us</Nav.Link>
+                  <Nav.Link
+                    as={NavLink}
+                    to="/aboutus"
+                    className="navbar-all-menus"
+                    activeclassname="active"
+                  >
+                    About Us
+                  </Nav.Link>
+                  <Nav.Link
+                    as={NavLink}
+                    to="/faqs"
+                    className="navbar-all-menus"
+                    activeclassname="active"
+                  >
+                    FAQs
+                  </Nav.Link>
+                  <Nav.Link
+                    as={NavLink}
+                    to="/contactus"
+                    className="navbar-all-menus"
+                    activeclassname="active"
+                  >
+                    Contact Us
+                  </Nav.Link>
                 </Nav>
+                {user_info && user_info.status === "success" ? (
+                  <>
+                    <Nav.Link disabled className="welcome-text">
+                      Welcome, {user_info.data.name.slice(0, 6)}
+                    </Nav.Link>
+
+                    <NavDropdown title="User" id="user-nav-dropdown">
+                      <NavDropdown.Item
+                        as={NavLink}
+                        to={`/myProfile/${customer_Id}`}
+                      >
+                        My Profile
+                      </NavDropdown.Item>
+
+                      <NavDropdown.Item
+                        as={NavLink}
+                        to={`/myBookings/${customer_Id}`}
+                      >
+                        My Bookings
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item onClick={handleLogout}>
+                        Logout
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link
+                      as={NavLink}
+                      to="/login"
+                      className="auth-menu"
+                      activeclassname="active"
+                    >
+                      <b className="login-menu">Login</b>
+                    </Nav.Link>
+
+                    <Nav.Link
+                      as={NavLink}
+                      to="/signup"
+                      className="auth-menu"
+                      activeclassname="active"
+                    >
+                      <b className="signup-menu">Sign Up</b>
+                    </Nav.Link>
+                  </>
+                )}
               </Offcanvas.Body>
             </Navbar.Offcanvas>
           </Col>
