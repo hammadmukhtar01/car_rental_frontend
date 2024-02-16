@@ -99,16 +99,7 @@ const HomePage = () => {
           {/* <SpinTheWheel /> */}
           <CarCards />
 
-          <div>
-            <iframe
-              src="https://presenter.ahaslides.com/share/your-saved-spinner-wheel-1707997684787-u5lme6a552"
-              title="spin-wheel"
-              style={{ width: "100%", height: "800px" }}
-            >
-              {" "}
-              <p>Your browser does not support iframes.</p>{" "}
-            </iframe>
-          </div>
+          
 
           {/* <Celebration/> */}
 

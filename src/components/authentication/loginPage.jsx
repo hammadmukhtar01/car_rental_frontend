@@ -11,7 +11,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
+  const tenancyName = "MileleCarRental";
+  const [UsernameOrEmailAddress, setUsernameOrEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -25,12 +26,12 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    console.warn("Data: ", email, password);
-    let data = { email, password };
+    console.warn("Data: ", UsernameOrEmailAddress, password);
+    let data = { tenancyName, UsernameOrEmailAddress, password };
 
     try {
       let result = await axios.post(
-        "http://localhost:8000/api/v1/customer/login",
+        "https://app.speedautosystems.com/api/Account",
         data,
 
         {
@@ -44,11 +45,15 @@ const LoginPage = () => {
       let resultedData = result.data;
       console.log("Result in login page is: ", resultedData);
 
-      if (resultedData.status === "success") {
+      if (resultedData.success === true) {
         localStorage.setItem("user", JSON.stringify(result));
         toast.success("Logged In Successfully!", {
           autoClose: 2000,
-          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            fontSize: "14px",
+          },
           onClose: () => {
             navigate("/home");
           },
@@ -57,13 +62,21 @@ const LoginPage = () => {
         // alert("Email/Password missing...");
         toast.warning("Email/Password missing...", {
           autoClose: 3000,
-          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            fontSize: "14px",
+          },
         });
       }
     } catch (error) {
       toast.error(`${error.response.data.message}`, {
         autoClose: 3000,
-        style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          fontSize: "14px",
+        },
       });
     }
   };
@@ -105,15 +118,15 @@ const LoginPage = () => {
                       <div className="col-lg-7 col-md-7 custom-dropdown-container">
                         <input
                           className="form-control-login mt-2 col-12"
-                          id="email"
-                          name="email"
+                          id="UsernameOrEmailAddress"
+                          name="UsernameOrEmailAddress"
                           type="text"
-                          autoComplete="email"
-                          placeholder="Email"
+                          autoComplete="UsernameOrEmailAddress"
+                          placeholder="UsernameOrEmailAddress"
                           required
-                          value={email}
+                          value={UsernameOrEmailAddress}
                           onChange={(e) => {
-                            setEmail(e.target.value);
+                            setUsernameOrEmailAddress(e.target.value);
                           }}
                         />
                       </div>

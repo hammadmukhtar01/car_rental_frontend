@@ -20,6 +20,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [driverDrivingLicense, setDriverDrivingLicense] = useState("");
   const [driverPassport, setDriverPassport] = useState("");
   const [selectedAddOns, setSelectedAddOns] = useState([]);
+  const [addOnsValuesData, setAddOnsValuesData] = useState([]);
+  const [selectedDropDownOptions, setSelectedDropDownOptions] = useState({});
   // const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
 
   const NationalityNames = [
@@ -69,25 +71,30 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       addOnsDetail:
         "1 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
     },
+  ];
+
+  const DropDownAddOnsData = [
     {
-      id: 5,
+      id: 1,
       addOnsName: "Baby Seat",
-      pricePerDay: [
-        { days: "0-10", price: 100 },
-        { days: "10-20", price: 150 },
-        { days: "20+", price: 200 },
+      addOnType: "days",
+      priceRange: [
+        { id: 1, label: "0-10", price: 100 },
+        { id: 2, label: "10-20", price: 150 },
+        { id: 3, label: "20+", price: 200 },
       ],
       IconName: BsFileEarmarkArrowUp,
       checkBoxValue: 0,
       addOnsDetail: "Details of Baby Seat addon...",
     },
+
     {
-      id: 6,
+      id: 2,
       addOnsName: "Insurance",
-      pricePerDuration: [
-        { duration: "One Day", price: 50 },
-        { duration: "Weekly", price: 100 },
-        { duration: "Monthly", price: 200 },
+      priceRange: [
+        { id: 1, label: "One Day", price: 50 },
+        { id: 2, label: "Weekly", price: 100 },
+        { id: 3, label: "Monthly", price: 200 },
       ],
       IconName: BsFileEarmarkArrowUp,
       checkBoxValue: 0,
@@ -109,33 +116,35 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     });
   };
 
-  const calculateTotal = () => {
+  const totalAddOnsPriceSimple = () => {
     return selectedAddOns.reduce((total, addOn) => {
-      if (addOn.pricePerTrip) {
-        return total + addOn.pricePerTrip;
-      } else if (addOn.pricePerDay) {
-        // Calculate price based on selected days
-        const selectedDays = 15; // Example: user selected 15 days
-        const { price } = addOn.pricePerDay.find(({ days }) => {
-          const [start, end] = days.split("-");
-          const [rangeStart, rangeEnd] = [
-            parseInt(start),
-            parseInt(end || selectedDays + 1),
-          ];
-          return selectedDays >= rangeStart && selectedDays < rangeEnd;
-        });
-        return total + price;
-      } else if (addOn.pricePerDuration) {
-        // Calculate price based on selected duration
-        const selectedDuration = "Weekly"; // Example: user selected "Weekly"
-        const { price } = addOn.pricePerDuration.find(
-          ({ duration }) => duration === selectedDuration
-        );
-        return total + price;
-      }
-      return total;
+      return total + (addOn.pricePerTrip || 0);
     }, 0);
   };
+
+  const handleDropDownChange = (id, selectedOption) => {
+    setSelectedDropDownOptions({
+      ...selectedDropDownOptions,
+      [id]: selectedOption,
+    });
+  };
+
+  const calculateDropDownAddOnsTotal = () => {
+    let total = 0;
+    for (const id in selectedDropDownOptions) {
+      const selectedOption = selectedDropDownOptions[id];
+      if (selectedOption) {
+        const price = selectedOption.price;
+        total += price;
+      }
+    }
+    return total;
+  };
+
+  const totalAllAddOnsPrice = () => {
+    return calculateDropDownAddOnsTotal() + totalAddOnsPriceSimple();
+  };
+
   const handleViewDetails = (addOn) => {
     setSelectedAddOn(addOn);
     setShowModal(true);
@@ -439,41 +448,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                           <label className="add-ons-label">
                                             <b>{AddOnsDataValues.addOnsName}</b>
                                             <br />
-                                            {AddOnsDataValues.pricePerTrip && (
-                                              <span>
-                                                AED{" "}
-                                                {AddOnsDataValues.pricePerTrip}{" "}
-                                                / Trip
-                                              </span>
-                                            )}
-                                            {AddOnsDataValues.pricePerDay && (
-                                              <>
-                                                <span>Price per day:</span>
-                                                <ul>
-                                                  {AddOnsDataValues.pricePerDay.map(
-                                                    ({ days, price }) => (
-                                                      <li key={days}>
-                                                        {days}: AED {price}
-                                                      </li>
-                                                    )
-                                                  )}
-                                                </ul>
-                                              </>
-                                            )}
-                                            {AddOnsDataValues.pricePerDuration && (
-                                              <>
-                                                <span>Price per duration:</span>
-                                                <ul>
-                                                  {AddOnsDataValues.pricePerDuration.map(
-                                                    ({ duration, price }) => (
-                                                      <li key={duration}>
-                                                        {duration}: AED {price}
-                                                      </li>
-                                                    )
-                                                  )}
-                                                </ul>
-                                              </>
-                                            )}
+                                            <span>
+                                              AED{" "}
+                                              {AddOnsDataValues.pricePerTrip}
+                                            </span>
                                             <br />
                                             <a
                                               href={`#${AddOnsDataValues.id}`}
@@ -508,16 +486,116 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 </Col>
                               ))}
                             </Row>
+
+                            <Row className="d-flex">
+                              {DropDownAddOnsData.map((AddOnsDataValues) => (
+                                <Col
+                                  lg={5}
+                                  md={12}
+                                  sm={12}
+                                  xs={12}
+                                  className="add-on-container"
+                                  key={AddOnsDataValues.id}
+                                >
+                                  <Form.Group
+                                    controlId={`formKeyword_${AddOnsDataValues.id}`}
+                                  >
+                                    <div className="row d-flex align-items-center">
+                                      <Col lg={1} md={2} sm={2} xs={2}>
+                                        <AddOnsDataValues.IconName className="mr-2 heading-icon" />
+                                      </Col>
+                                      <Col lg={6} md={7} sm={7} xs={7}>
+                                        <div className="add-ons-label-name p-2">
+                                          <label className="add-ons-label">
+                                            <b>{AddOnsDataValues.addOnsName}</b>
+                                            <br />
+
+                                            {AddOnsDataValues.priceRange && (
+                                              <>
+                                                <span>Prices Range:</span>
+                                                <ol
+                                                  style={{
+                                                    listStyleType: "none",
+                                                    padding: 0,
+                                                  }}
+                                                >
+                                                  {AddOnsDataValues.priceRange.map(
+                                                    (
+                                                      { label, price },
+                                                      index
+                                                    ) => (
+                                                      <li key={label}>
+                                                        <span
+                                                          style={{
+                                                            fontWeight: "bold",
+                                                            marginRight: "5px",
+                                                          }}
+                                                        >
+                                                          {index + 1}.
+                                                        </span>
+                                                        {label}{" "}
+                                                        {
+                                                          AddOnsDataValues.addOnType
+                                                        }
+                                                        : AED {price}
+                                                      </li>
+                                                    )
+                                                  )}
+                                                </ol>
+                                              </>
+                                            )}
+                                            <br />
+                                            <a
+                                              href={`#${AddOnsDataValues.id}`}
+                                              onClick={() =>
+                                                handleViewDetails(
+                                                  AddOnsDataValues
+                                                )
+                                              }
+                                              className="add-ons-view-details"
+                                            >
+                                              View Details
+                                            </a>
+                                          </label>
+                                        </div>
+                                      </Col>
+                                      <Col lg={5} md={3} sm={3} xs={3}>
+                                        <div className="form-check form-switch form-switch-md float-end">
+                                          <Select
+                                            options={AddOnsDataValues.priceRange.map(
+                                              ({ id, label, price }) => ({
+                                                value: id,
+                                                label: `Option: ${id}`,
+                                                price: price,
+                                              })
+                                            )}
+                                            required
+                                            className="form-control-nationality col-12"
+                                            onChange={(selectedOption) => {
+                                              handleDropDownChange(
+                                                AddOnsDataValues.id,
+                                                selectedOption
+                                              );
+                                            }}
+                                            styles={selectStyles}
+                                          />
+                                        </div>
+                                      </Col>
+                                    </div>
+                                  </Form.Group>
+                                </Col>
+                              ))}
+                            </Row>
                           </div>
                         </Col>
 
                         <Col lg={11} md={11} sm={12} xs={12}>
                           <div className="total-addons-price text-right">
                             <div>
-                              <span className="fs-4 fw-medium">Total:</span>{" "}
+                              <span className="fs-4 fw-medium"> Total:</span>{" "}
                               <span>AED</span>{" "}
                               <span className="total-addons-value fs-3 fw-semibold">
-                                {calculateTotal()}
+                                {totalAllAddOnsPrice()}
                               </span>{" "}
                             </div>
                           </div>
@@ -538,7 +616,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                       {selectedAddOn && (
                         <>
                           <p>{selectedAddOn.addOnsDetail}</p>
-                          {/* Add other details you want to display */}
                         </>
                       )}
                     </Modal.Body>

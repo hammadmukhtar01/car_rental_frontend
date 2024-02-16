@@ -12,10 +12,11 @@ function OffcanvasExample() {
   const navigate = useNavigate();
   const location = useLocation();
   const auth = JSON.parse(localStorage.getItem("user"));
+  const authStatusCode = auth?.statusText;
   const user_info = auth?.data;
-  const customer_Id = user_info?.data?.data?._id;
+  const userName = user_info?.result?.userName;
 
-  console.log("Auth in local storage is: ", user_info);
+  console.log("Auth in local storage is --: ", auth);
   const isVehiclesPage =
     location.pathname.includes("/vehicles") ||
     location.pathname.includes("/quicklease");
@@ -74,7 +75,7 @@ function OffcanvasExample() {
                   >
                     Home
                   </Nav.Link>
-                  <NavDropdown
+                  {/* <NavDropdown
                     title="Vehicles"
                     id={`offcanvasNavbarDropdown-expand-lg`}
                     className={`navbar-dropdown-title ${
@@ -100,7 +101,16 @@ function OffcanvasExample() {
                     >
                       For Lease
                     </NavDropdown.Item>
-                  </NavDropdown>
+                  </NavDropdown> */}
+                  <Nav.Link
+                    as={NavLink}
+                    to="/vehicles"
+                    className="navbar-all-menus"
+                    activeclassname="active"
+                  >
+                    Cars
+                  </Nav.Link>
+
                   <Nav.Link
                     as={NavLink}
                     to="/aboutus"
@@ -117,6 +127,16 @@ function OffcanvasExample() {
                   >
                     FAQs
                   </Nav.Link>
+
+                  <Nav.Link
+                    as={NavLink}
+                    to="/quicklease"
+                    className="navbar-all-menus"
+                    activeclassname="active"
+                  >
+                    Lease Car
+                  </Nav.Link>
+
                   <Nav.Link
                     as={NavLink}
                     to="/contactus"
@@ -126,23 +146,23 @@ function OffcanvasExample() {
                     Contact Us
                   </Nav.Link>
                 </Nav>
-                {user_info && user_info.status === "success" ? (
+                {auth && authStatusCode === "OK" ? (
                   <>
                     <Nav.Link disabled className="welcome-text">
-                      Welcome, {user_info.data.name.slice(0, 6)}
+                      Welcome, {auth?.data?.result?.userName?.slice(0, 6)}
                     </Nav.Link>
 
                     <NavDropdown title="User" id="user-nav-dropdown">
                       <NavDropdown.Item
                         as={NavLink}
-                        to={`/myProfile/${customer_Id}`}
+                        to={`/myProfile/${userName}`}
                       >
                         My Profile
                       </NavDropdown.Item>
 
                       <NavDropdown.Item
                         as={NavLink}
-                        to={`/myBookings/${customer_Id}`}
+                        to={`/myBookings/${userName}`}
                       >
                         My Bookings
                       </NavDropdown.Item>
