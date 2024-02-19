@@ -50,15 +50,15 @@ const HomePage = () => {
     setShowModal(true);
   };
 
-  const { loading } = useReload();
+  // const { loading } = useReload();
 
-  if (loading) {
-    return (
-      <>
-        <ReloadingComponent />
-      </>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <>
+  //       <ReloadingComponent />
+  //     </>
+  //   );
+  // }
 
   return (
     <div className="">
@@ -118,7 +118,6 @@ const HomePage = () => {
               <Modal.Title>Spin The Wheel</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <SpinTheWheel />
             </Modal.Body>
             <Modal.Footer>
               <button className="btn btn-secondary" onClick={handleCloseModal}>

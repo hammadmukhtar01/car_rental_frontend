@@ -516,7 +516,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                                 <ol
                                                   style={{
                                                     listStyleType: "none",
-                                                    padding: 0,
                                                   }}
                                                 >
                                                   {AddOnsDataValues.priceRange.map(
@@ -525,7 +524,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                                       index
                                                     ) => (
                                                       <li key={label}>
-                                                        <span
+                                                        {/* <span
                                                           style={{
                                                             fontWeight: "bold",
                                                             marginRight: "5px",
@@ -537,7 +536,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                                         {
                                                           AddOnsDataValues.addOnType
                                                         }
-                                                        : AED {price}
+                                                        : AED {price} */}
                                                       </li>
                                                     )
                                                   )}
@@ -559,13 +558,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                           </label>
                                         </div>
                                       </Col>
-                                      <Col lg={5} md={3} sm={3} xs={3}>
+                                      <Col lg={6} md={3} sm={3} xs={3}>
                                         <div className="form-check form-switch form-switch-md float-end">
                                           <Select
                                             options={AddOnsDataValues.priceRange.map(
                                               ({ id, label, price }) => ({
                                                 value: id,
-                                                label: `Option: ${id}`,
+                                                label: `${id}: ${label}
+                                                
+                                                  // ${AddOnsDataValues?.addOnType}
+                                                
+                                                : AED ${price}`,
                                                 price: price,
                                               })
                                             )}

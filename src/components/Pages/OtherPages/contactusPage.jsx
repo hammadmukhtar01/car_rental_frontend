@@ -19,13 +19,6 @@ const ContactusPage = () => {
     comment: "",
   });
 
-  useEffect(() => {
-    const auth = localStorage.getItem("user");
-    if (auth) {
-      navigate("/home");
-    }
-  }, [navigate]);
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -71,15 +64,15 @@ const ContactusPage = () => {
     }
   };
 
-  const { loading } = useReload();
+  // const { loading } = useReload();
 
-  if (loading) {
-    return (
-      <>
-        <ReloadingComponent />
-      </>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <>
+  //       <ReloadingComponent />
+  //     </>
+  //   );
+  // }
 
   return (
     <>

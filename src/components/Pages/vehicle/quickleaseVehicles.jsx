@@ -234,15 +234,15 @@ const QuickLeaseVehicles = () => {
     setIsCarTypeOpen(!isCarTypeOpen);
   };
 
-  const { loading } = useReload();
+  // const { loading } = useReload();
 
-  if (loading) {
-    return (
-      <>
-        <ReloadingComponent />
-      </>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <>
+  //       <ReloadingComponent />
+  //     </>
+  //   );
+  // }
 
   return (
     <div id="main" className="pb-2 ">
