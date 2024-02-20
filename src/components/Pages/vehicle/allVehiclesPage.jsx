@@ -254,7 +254,7 @@ const VehiclesPage = () => {
   };
 
   const allCarsBookingButton = (tariffGroupId, startDate, endDate) => {
-    console.log("All Cars Booking Button", tariffGroupId, startDate, endDate);
+    console.log("All Cars Booking Button",);
     // navigate(
     //   `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
     // );
