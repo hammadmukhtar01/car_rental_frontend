@@ -10,9 +10,9 @@ import {
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
 import { LuSnowflake } from "react-icons/lu";
 import "./vehicleDetails.css";
-import Car1 from "../../images/car-fleet-1.png";
-import Car2 from "../../images/car-fleet-2.png";
-import Car3 from "../../images/car-fleet-3.png";
+import Car1 from "../../images/suv-car-fleet-1.png";
+import Car2 from "../../images/sedan-car-fleet-2.png";
+import Car3 from "../../images/economy-car-fleet-3.png";
 import Pagination from "./pagination";
 import MainNavbar from "../navbar/mainNavbar";
 import { useNavigate, useLocation } from "react-router-dom";

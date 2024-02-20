@@ -8,9 +8,9 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "owl.carousel/dist/assets/owl.theme.green.css";
 import { BsPersonCircle } from "react-icons/bs";
-import carFleetImg1 from '../../images/car-fleet-1.png';
-import carFleetImg2 from '../../images/car-fleet-2.png';
-import carFleetImg3 from '../../images/car-fleet-3.png';
+import carFleetImg1 from '../../images/suv-car-fleet-1.png';
+import carFleetImg2 from '../../images/sedan-car-fleet-2.png';
+import carFleetImg3 from '../../images/economy-car-fleet-3.png';
 
 const AnimatedCarSection = () => {
   const navigate = useNavigate();

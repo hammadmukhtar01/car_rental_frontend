@@ -401,8 +401,8 @@ span.select2-selection_arrow b {
 }
 
 .sort-by-select-tag:focus {
-box-shadow: none !important;
-border-color: #ccc;
+  box-shadow: none !important;
+  border-color: #ccc;
 }
 
 .brand-open-icon,
@@ -724,6 +724,52 @@ body {
   font-weight: 600;
   font-size: larger;
 }
+
+.rdrDayDisabled .rdrDayNumber span {
+  color: #a2abb0 !important;
+}
+
+.rdrDayDisabled .rdrDayNumber {
+  background-color: white !important;
+  cursor: not-allowed;
+}
+
+.rdrDayPassive .rdrDayNumber span {
+  color: #d0d2d2 !important;
+}
+
+.rdrDayPassive .rdrDayNumber {
+  background-color: white !important;
+  cursor: not-allowed;
+}
+
+.rdrInRange {
+  background: #cc6119 !important;
+  border-left-color: white;
+  border-right-color: white;
+}
+.rdrStartEdge {
+  background-color: #cc6119 !important;
+}
+.rdrEndEdge {
+  background-color: #cc6119 !important;
+}
+
+.rdrStartEdge:hover {
+  border-color: red !important;
+}
+
+.rdrDay:not(.rdrDayPassive).rdrDay:not(.rdrDayDisabled) .rdrDayNumber span {
+  color: #1d2429 !important;
+}
+
+
+
+
+
+
+
+
 
 /* .form-check-input[type="checkbox"] {
   border-radius: 0px;

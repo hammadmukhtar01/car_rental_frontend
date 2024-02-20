@@ -1,7 +1,7 @@
 import React from "react";
-import Car1 from "../../images/car-fleet-1.png";
-import Car2 from "../../images/car-fleet-2.png";
-import Car3 from "../../images/car-fleet-3.png";
+import Car1 from "../../images/suv-car-fleet-1.png";
+import Car2 from "../../images/sedan-car-fleet-2.png";
+import Car3 from "../../images/economy-car-fleet-3.png";
 import { useNavigate } from "react-router-dom";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";

@@ -9,7 +9,7 @@ import Modals from "./imageEnlarger";
 import { RxCross2 } from "react-icons/rx";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Car1 from "../../images/car-fleet-1.png";
+import Car1 from "../../images/suv-car-fleet-1.png";
 import VerticalSliderCarDetails from "./verticalSliderCarDetails";
 import { MdRadioButtonChecked } from "react-icons/md";
 import { FaArrowTrendUp } from "react-icons/fa6";

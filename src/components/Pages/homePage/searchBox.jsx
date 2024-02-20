@@ -20,7 +20,6 @@ const SearchBox = () => {
   const [pickUpTime, setPickUpTime] = useState("");
   const [dropOffDate, setDropOffDate] = useState("");
   const [dropOffTime, setDropOffTime] = useState("");
-  const [numberOfDays, setNumberOfDays] = useState(0);
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -28,8 +27,8 @@ const SearchBox = () => {
   const [showDropoffModal, setShowDropoffModal] = useState(false);
   const [dateRange, setDateRange] = useState([
     {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: null,
+      endDate: null,
       key: "selection",
     },
   ]);
@@ -83,16 +82,6 @@ const SearchBox = () => {
       lng: 55.4210633,
     },
   ];
-  useEffect(() => {
-    if (pickUpDate && dropOffDate) {
-      const pickupDate = new Date(pickUpDate);
-      const dropoffDate = new Date(dropOffDate);
-      const timeDifference = dropoffDate.getTime() - pickupDate.getTime();
-      const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-
-      setNumberOfDays(daysDifference);
-    }
-  }, [pickUpDate, dropOffDate]);
 
   const generateTimeSlots = () => {
     const timeSlots = [];
@@ -188,16 +177,31 @@ const SearchBox = () => {
     };
   }, [showDatePicker]);
 
-  const handleSearchCarButton = async (e) => {
+  const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
-    // alert("Loading required cars");
-    toast.info("Loading required cars!", {
-      autoClose: 3000,
-      style: { border: "1px solid #c0c0c0", fontSize: "14px" },
-    });
 
-    navigate("/vehicles");
-    return false;
+    if (!dateRange[0].startDate || !dateRange[0].endDate) {
+      toast.warn("Date must be chosen", {
+        autoClose: 1000,
+        style: { border: "1px solid #c0c0c0", fontSize: "14px" },
+      });
+      return;
+    }
+
+    const startLocalDate = new Date(
+      dateRange[0].startDate.getTime() -
+        dateRange[0].startDate.getTimezoneOffset() * 60000
+    );
+    const endLocalDate = new Date(
+      dateRange[0].endDate.getTime() -
+        dateRange[0].endDate.getTimezoneOffset() * 60000
+    );
+
+    const startDate = startLocalDate.toISOString().split("T")[0];
+    const endDate = endLocalDate.toISOString().split("T")[0];
+    const url = `/vehicles?startDate=${startDate}&endDate=${endDate}`;
+
+    navigate(url);
   };
 
   const selectStyles = {
@@ -232,229 +236,245 @@ const SearchBox = () => {
           <div className="search-box-container pb-4">
             <Row>
               <Col>
-                <Row>
-                  <Col xxl={3} lg={3} md={7} sm={6} xs={12}>
-                    <Form.Group controlId="formDropoffDateTime">
-                      <div className="date-label">
-                        <label className="styled-label">
-                          <BsCalendar2Check className="mr-2" />
-                          <b>Pickup-Dropoff Date</b>
-                        </label>
-                      </div>
-                      <div onClick={handleDateClick} ref={dateInputRef}>
-                        <input
-                          className="form-control-date mt-2 col-12"
-                          type="text"
-                          value={
-                            dateRange[0].startDate
-                              ? `${dateRange[0].startDate.toLocaleDateString()} - ${
-                                  dateRange[0].endDate
-                                    ? dateRange[0].endDate.toLocaleDateString()
-                                    : "Select end date"
-                                }`
-                              : "Select date range"
-                          }
-                          readOnly
-                        />
-                      </div>
-                      {showDatePicker && (
-                        <div onClick={(e) => e.stopPropagation()}>
-                          <DateRange
-                            editableDateInputs={true}
-                            onChange={handleDateChange}
-                            moveRangeOnFirstSelection={false}
-                            ranges={dateRange}
-                            disabledDay={(date) =>
-                              date < new Date().setHours(0, 0, 0, 0)
+                <form
+                  action="#"
+                  className="signin-form"
+                  onSubmit={handleSearchVehicleButtonHomePage}
+                >
+                  <Row>
+                    <Col xxl={3} lg={3} md={7} sm={6} xs={12}>
+                      <Form.Group controlId="formDropoffDateTime">
+                        <div className="date-label">
+                          <label className="styled-label">
+                            <BsCalendar2Check className="mr-2" />
+                            <b>Pickup-Dropoff Date</b>
+                          </label>
+                        </div>
+                        <div onClick={handleDateClick} ref={dateInputRef}>
+                          <input
+                            className="form-control-date mt-2 col-12"
+                            type="text"
+                            required
+                            value={
+                              dateRange[0].startDate
+                                ? `${dateRange[0].startDate.toLocaleDateString()} - ${
+                                    dateRange[0].endDate
+                                      ? dateRange[0].endDate.toLocaleDateString()
+                                      : "Select end date"
+                                  }`
+                                : "Select date range"
                             }
-                            onClose={() => setShowDatePicker(false)}
+                            readOnly
                           />
                         </div>
-                      )}
-                    </Form.Group>
-                  </Col>
-
-                  <Col xxl={4} lg={4} md={showDropoff ? 9 : 6} sm={12} xs={12}>
-                    <Row>
-                      <Col
-                        xxl={showDropoff ? 6 : 12}
-                        lg={showDropoff ? 6 : 12}
-                        md={showDropoff ? 6 : 12}
-                        sm={6}
-                        xs={12}
-                        className={` ${
-                          showDropoff ? "dropoff-visible" : "dropoff-hidden"
-                        }`}
-                      >
-                        <Form.Group controlId="formKeyword">
-                          <div className="location-label">
-                            <label className="styled-label">
-                              <BsGeoAlt className="mr-2" />
-                              <b>Pick-Up</b>
-                            </label>
-                          </div>
-                          <div className="custom-dropdown-container">
-                            <input
-                              className="form-control-location mt-2 col-12"
-                              type="text"
-                              placeholder="Enter pickup location"
-                              value={pickupLocationMessage}
-                              onChange={() =>
-                                console.log("On change in pickup")
+                        {showDatePicker && (
+                          <div onClick={(e) => e.stopPropagation()}>
+                            <DateRange
+                              editableDateInputs={true}
+                              onChange={handleDateChange}
+                              moveRangeOnFirstSelection={false}
+                              ranges={dateRange}
+                              rangeColors={["#cc6119"]}
+                              disabledDay={(date) =>
+                                date < new Date().setHours(0, 0, 0, 0)
                               }
-                              onClick={() => setShowPickupModal(true)}
+                              onClose={() => setShowDatePicker(false)}
                             />
                           </div>
-                        </Form.Group>
-                      </Col>
+                        )}
+                      </Form.Group>
+                    </Col>
 
-                      {showDropoff && (
-                        <Col xxl={6} lg={6} md={6} sm={6} xs={12}>
+                    <Col
+                      xxl={4}
+                      lg={4}
+                      md={showDropoff ? 9 : 6}
+                      sm={12}
+                      xs={12}
+                    >
+                      <Row>
+                        <Col
+                          xxl={showDropoff ? 6 : 12}
+                          lg={showDropoff ? 6 : 12}
+                          md={showDropoff ? 6 : 12}
+                          sm={6}
+                          xs={12}
+                          className={` ${
+                            showDropoff ? "dropoff-visible" : "dropoff-hidden"
+                          }`}
+                        >
                           <Form.Group controlId="formKeyword">
                             <div className="location-label">
                               <label className="styled-label">
-                                <BsGeoAltFill className="mr-2" />
-                                <b>Drop-Off</b>
+                                <BsGeoAlt className="mr-2" />
+                                <b>Pick-Up</b>
                               </label>
                             </div>
                             <div className="custom-dropdown-container">
                               <input
                                 className="form-control-location mt-2 col-12"
                                 type="text"
-                                placeholder="Enter dropoff location"
-                                value={dropoffLocationMessage}
+                                placeholder="Enter pickup location"
+                                value={pickupLocationMessage}
                                 onChange={() =>
-                                  console.log("On change in dropoff")
+                                  console.log("On change in pickup")
                                 }
-                                onClick={() => setShowDropoffModal(true)}
+                                onClick={() => setShowPickupModal(true)}
                               />
                             </div>
                           </Form.Group>
                         </Col>
-                      )}
-                    </Row>
-                    <Row>
-                      <div className="mt-2">
-                        <Form.Check
-                          type="checkbox"
-                          label="Different Dropoff Location"
-                          onChange={handleDropoffCheckboxChange}
+
+                        {showDropoff && (
+                          <Col xxl={6} lg={6} md={6} sm={6} xs={12}>
+                            <Form.Group controlId="formKeyword">
+                              <div className="location-label">
+                                <label className="styled-label">
+                                  <BsGeoAltFill className="mr-2" />
+                                  <b>Drop-Off</b>
+                                </label>
+                              </div>
+                              <div className="custom-dropdown-container">
+                                <input
+                                  className="form-control-location mt-2 col-12"
+                                  type="text"
+                                  placeholder="Enter dropoff location"
+                                  value={dropoffLocationMessage}
+                                  onChange={() =>
+                                    console.log("On change in dropoff")
+                                  }
+                                  onClick={() => setShowDropoffModal(true)}
+                                />
+                              </div>
+                            </Form.Group>
+                          </Col>
+                        )}
+                      </Row>
+                      <Row>
+                        <div className="mt-2">
+                          <Form.Check
+                            type="checkbox"
+                            label="Different Dropoff Location"
+                            onChange={handleDropoffCheckboxChange}
+                          />
+                        </div>
+                      </Row>
+                    </Col>
+
+                    <Modal
+                      show={showPickupModal}
+                      onHide={() => setShowPickupModal(false)}
+                      size="xl"
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title>Pickup Location</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <PickupLocationModal
+                          show={showPickupModal}
+                          handleButtonClick={handlePickUpButtonClick}
+                          cityNames={cityNames}
+                          mileleLocations={mileleLocations}
+                          updatePickupLocationMessage={setPickupLocationMessage}
+                          initialSelectedLocation={pickupLocation}
+                          initialInputFieldValue={pickupLocationMessage}
                         />
-                      </div>
-                    </Row>
-                  </Col>
+                      </Modal.Body>
+                    </Modal>
 
-                  <Modal
-                    show={showPickupModal}
-                    onHide={() => setShowPickupModal(false)}
-                    size="xl"
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title>Pickup Location</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <PickupLocationModal
-                        show={showPickupModal}
-                        handleButtonClick={handlePickUpButtonClick}
-                        cityNames={cityNames}
-                        mileleLocations={mileleLocations}
-                        updatePickupLocationMessage={setPickupLocationMessage}
-                        initialSelectedLocation={pickupLocation}
-                        initialInputFieldValue={pickupLocationMessage}
-                      />
-                    </Modal.Body>
-                  </Modal>
+                    <Modal
+                      show={showDropoffModal}
+                      onHide={() => setShowDropoffModal(false)}
+                      size="xl"
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title>DropOff Location</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <DropoffLocationModal
+                          show={showDropoffModal}
+                          handleButtonClick={handleDropOffButtonClick}
+                          cityNames={cityNames}
+                          mileleLocations={mileleLocations}
+                          updateDropoffLocationMessage={
+                            setDropoffLocationMessage
+                          }
+                          initialSelectedLocation={dropoffLocation}
+                          initialInputFieldValue={dropoffLocationMessage}
+                        />
+                      </Modal.Body>
+                    </Modal>
 
-                  <Modal
-                    show={showDropoffModal}
-                    onHide={() => setShowDropoffModal(false)}
-                    size="xl"
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title>DropOff Location</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <DropoffLocationModal
-                        show={showDropoffModal}
-                        handleButtonClick={handleDropOffButtonClick}
-                        cityNames={cityNames}
-                        mileleLocations={mileleLocations}
-                        updateDropoffLocationMessage={setDropoffLocationMessage}
-                        initialSelectedLocation={dropoffLocation}
-                        initialInputFieldValue={dropoffLocationMessage}
-                      />
-                    </Modal.Body>
-                  </Modal>
+                    <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
+                      <Form.Group controlId="formKeyword">
+                        <div className="location-label">
+                          <label className="styled-label mb-3">
+                            <b>Pickup Time</b>
+                          </label>
+                        </div>
+                        <Select
+                          options={timeOptions}
+                          // required
+                          className="form-control-pickup-time col-12"
+                          value={timeOptions.find(
+                            (option) => option.value === pickUpTime
+                          )}
+                          onChange={(selectedOption) => {
+                            console.log("Selected option is: ", selectedOption);
+                            setPickUpTime(selectedOption.value);
+                          }}
+                          styles={selectStyles}
+                        />
+                      </Form.Group>
+                    </Col>
 
-                  <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                    <Form.Group controlId="formKeyword">
-                      <div className="location-label">
-                        <label className="styled-label mb-3">
-                          <b>Pickup Time</b>
-                        </label>
-                      </div>
-                      <Select
-                        options={timeOptions}
-                        required
-                        className="form-control-pickup-time col-12"
-                        value={timeOptions.find(
-                          (option) => option.value === pickUpTime
-                        )}
-                        onChange={(selectedOption) => {
-                          console.log("Selected option is: ", selectedOption);
-                          setPickUpTime(selectedOption.value);
-                        }}
-                        styles={selectStyles}
-                      />
-                    </Form.Group>
-                  </Col>
+                    <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
+                      <Form.Group controlId="formKeyword">
+                        <div className="location-label">
+                          <label className="styled-label mb-3">
+                            <b>Dropoff Time</b>
+                          </label>
+                        </div>
+                        <Select
+                          options={timeOptions}
+                          // required
+                          className="form-control-dropoff-time col-12"
+                          value={timeOptions.find(
+                            (option) => option.value === dropOffTime
+                          )}
+                          onChange={(selectedOption) => {
+                            console.log(
+                              "Selected Dropoff option is: ",
+                              selectedOption
+                            );
+                            setDropOffTime(selectedOption.value);
+                          }}
+                          styles={selectStyles}
+                        />
+                      </Form.Group>
+                    </Col>
 
-                  <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                    <Form.Group controlId="formKeyword">
-                      <div className="location-label">
-                        <label className="styled-label mb-3">
-                          <b>Dropoff Time</b>
-                        </label>
-                      </div>
-                      <Select
-                        options={timeOptions}
-                        required
-                        className="form-control-dropoff-time col-12"
-                        value={timeOptions.find(
-                          (option) => option.value === dropOffTime
-                        )}
-                        onChange={(selectedOption) => {
-                          console.log(
-                            "Selected Dropoff option is: ",
-                            selectedOption
-                          );
-                          setDropOffTime(selectedOption.value);
-                        }}
-                        styles={selectStyles}
-                      />
-                    </Form.Group>
-                  </Col>
-
-                  <Col xxl={1} lg={1} md={3} sm={6} xs={6} className="pt-5">
-                    <div className="button-container">
-                      <button
-                        className="animated-search-button"
-                        onClick={handleSearchCarButton}
-                      >
-                        {" "}
-                        <span className="button-text-span">
-                          <span className="transition"></span>
-                          <span className="gradient"></span>
-                          <span className="label">
-                            {" "}
-                            <LuSearch />{" "}
+                    <Col xxl={1} lg={1} md={3} sm={6} xs={6} className="pt-5">
+                      <div className="button-container">
+                        <button
+                          className="animated-search-button"
+                          // onClick={handleSearchCarButton}
+                        >
+                          {" "}
+                          <span className="button-text-span">
+                            <span className="transition"></span>
+                            <span className="gradient"></span>
+                            <span className="label">
+                              {" "}
+                              <LuSearch />{" "}
+                            </span>
                           </span>
-                        </span>
-                      </button>
-                      <ToastContainer />
-                    </div>
-                  </Col>
-                </Row>
+                        </button>
+                        <ToastContainer />
+                      </div>
+                    </Col>
+                  </Row>
+                </form>
               </Col>
             </Row>
           </div>
