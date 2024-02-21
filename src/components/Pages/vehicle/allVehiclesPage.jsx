@@ -94,46 +94,6 @@ const VehiclesPage = () => {
     },
   ]);
 
-  const carFeaturesWithIcons = [
-    {
-      name: "Person Seats",
-      value: 4,
-      featureIcon: BsPerson,
-    },
-
-    {
-      name: "Doors",
-      value: 5,
-      featureIcon: GiCarDoor,
-    },
-    {
-      name: "Automatic",
-      value: "A",
-      featureIcon: GiGearStickPattern,
-    },
-
-    {
-      name: "Air Bags",
-      value: 2,
-      featureIcon: BsSuitcase,
-    },
-    {
-      name: "L Engine",
-      value: 1.7,
-      featureIcon: BsCpu,
-    },
-
-    {
-      name: "AC",
-      value: "AC",
-      featureIcon: LuSnowflake,
-    },
-  ];
-  const calculateSalePrice = (originalPrice, discount) => {
-    const calculatedPrice = (originalPrice * discount) / 100;
-    return Math.floor(originalPrice - calculatedPrice);
-  };
-
   const mileleLocations = [
     {
       id: 2,
@@ -199,10 +159,92 @@ const VehiclesPage = () => {
     fetchCarsData();
   };
 
+  const carFeaturesWithIcons = [
+    {
+      name: "Person Seats",
+      value: null,
+      featureIcon: BsPerson,
+    },
+
+    {
+      name: "Doors",
+      value: 5,
+      featureIcon: GiCarDoor,
+    },
+    {
+      name: "Automatic",
+      value: "A",
+      featureIcon: GiGearStickPattern,
+    },
+
+    {
+      name: "Air Bags",
+      value: 2,
+      featureIcon: BsSuitcase,
+    },
+    {
+      name: "L Engine",
+      value: 1.7,
+      featureIcon: BsCpu,
+    },
+
+    {
+      name: "AC",
+      value: "AC",
+      featureIcon: LuSnowflake,
+    },
+  ];
+
+  const dataArray = [];
+
+  carsData.forEach((item) => {
+    const dataObject = {
+      category: item.acrissCategory.name,
+      fuel: item.acrissFuelAc.name,
+      type: item.acrissType.name,
+      transmission: item.acrissTransDrive.name,
+      passengerCapacity: item.passengerCapacity,
+      smallBagsCapacity: item.smallBagsCapacity,
+      largeBagsCapacity: item.largeBagsCapacity,
+      tariffGroupId: item.tariffGroupId,
+    };
+    console.log("type of doors: ", item.acrissType.name,)
+
+
+    // carFeaturesWithIcons.forEach((feature) => {
+    //   switch (feature.name) {
+    //     case "Person Seats":
+    //       dataObject[feature.name] = item.passengerCapacity;
+    //       console.log(`Person seats are: ${dataObject[feature.name]}`);
+    //       break;
+    //     case "Doors":
+    //       const doorRange = item.acrissType.name.split("-").map(Number);
+    //       dataObject[feature.name] = doorRange.reduce(
+    //         (acc, val) => acc + val,
+    //         0
+    //       );
+    //       break;
+    //     case "Automatic":
+    //       dataObject[feature.name] = item.acrissTransDrive.name.charAt(0);
+    //       break;
+    //     case "Air Bags":
+    //       dataObject[feature.name] =
+    //         item.smallBagsCapacity + item.largeBagsCapacity;
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // });
+
+    dataArray.push(dataObject);
+  });
+
+  console.log(dataArray);
+
   const sortByDropDown = [
+    { label: "Recommended", value: "Recommended" },
     { label: "Low to High", value: "LowToHigh" },
     { label: "High to Low", value: "HighToLow" },
-    { label: "Recommended", value: "Recommended" },
   ];
 
   const generateTimeSlots = () => {
@@ -1005,6 +1047,7 @@ const VehiclesPage = () => {
                                     );
                                     setSortBy(selectedOption.value);
                                   }}
+                                  defaultValue={sortByDropDown[0]}
                                   styles={selectStyles}
                                 />
                               </Form.Group>
@@ -1033,7 +1076,7 @@ const VehiclesPage = () => {
                               <div className="car-name-div">
                                 <span className="car-name text-end">
                                   {" "}
-                                  <b>{car.title} | </b>( {car.carType} ){" "}
+                                  <b>{car?.title} | </b>( {car?.acrissCategory?.name} ){" "}
                                 </span>
                               </div>
                               <div className="car-image-container ">
@@ -1052,24 +1095,66 @@ const VehiclesPage = () => {
                                 {/* <div className="car-image-overlay"></div> */}
                               </div>
                               <div className="all-vehicles-features-icons features-scroll-container text-center">
-                                {carFeaturesWithIcons.map(
-                                  (carFeaturesIcons, index) => (
-                                    <span key={index}>
-                                      <span className="features-values">
-                                        <carFeaturesIcons.featureIcon className="all-car-icons" />{" "}
-                                        <span className="">
-                                          {carFeaturesIcons.value}{" "}
-                                        </span>
-                                        {index <
-                                          carFeaturesWithIcons.length - 1 && (
-                                          <span className="car-features-vertical-line mr-2 ml-2">
-                                            |
+                                {dataArray.map((carData, dataIndex) => (
+                                  <span key={dataIndex}>
+                                    {carFeaturesWithIcons.map(
+                                      (carFeature, featureIndex) => {
+                                        const showIcon =
+                                          carData.tariffGroupId ===
+                                          car.tariffGroupId;
+                                        let value;
+                                        switch (carFeature.name) {
+                                          case "Person Seats":
+                                            value = carData.passengerCapacity;
+                                            break;
+                                          case "Doors":
+                                            // const [doorRange = carData.type] = carData.type.split(/[-/]/);
+                                            const [doorRange = carData.type] = carData.type.includes(' ') ? carData.type.split(' ') : [carData.type];
+                                            value = doorRange
+                                            break;
+                                          case "Automatic":
+                                            value =
+                                              carData.transmission.split(
+                                                "/"
+                                              )[0].charAt(0);
+                                            break;
+                                          case "Air Bags":
+                                            value =
+                                              carData.smallBagsCapacity +
+                                              carData.largeBagsCapacity;
+                                            break;
+                                          default:
+                                            value = carData[carFeature.name];
+                                            break;
+                                        }
+
+                                        // Render the icon only if showIcon is true
+                                        return (
+                                          <span
+                                            key={featureIndex}
+                                            className="features-values"
+                                          >
+                                            {showIcon && (
+                                              <>
+                                                <carFeature.featureIcon className="all-car-icons" />{" "}
+                                                <span className="">
+                                                  {value}
+                                                </span>
+                                                {featureIndex <
+                                                  carFeaturesWithIcons.length -
+                                                    1 && (
+                                                  <span className="car-features-vertical-line mr-2 ml-2">
+                                                    |
+                                                  </span>
+                                                )}
+                                              </>
+                                            )}
                                           </span>
-                                        )}
-                                      </span>
-                                    </span>
-                                  )
-                                )}
+                                        );
+                                      }
+                                    )}
+                                  </span>
+                                ))}
                               </div>
 
                               <hr className="discount-line" />

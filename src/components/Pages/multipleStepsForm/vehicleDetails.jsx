@@ -51,32 +51,80 @@ const VehicleDetails = ({ nextStep }) => {
     }
   }, [StartDateTime, ReturnDateTime]);
 
+  const fetchSingleCarDetails = useCallback(async () => {
+    let data = { TariffGroupId, StartDateTime, ReturnDateTime };
+    try {
+      const token =
+        "pwhUHSoPIOJmECDhAyhlP1X5ZvzD1W3dmhUOdpQ-BQtQzg1PNlv8invCvbT1qk3EsoJfM_v8Pj8ZJsPKXVoC-kZtg0p2mpAu4f5g8LiMWrGbqZ4QRY-1xJRJTcWF-t24jUgdng1-myn-TgDddhkldDmkOufYlMdkGQDpZtnUfQ00qgl58t65VCWwK29g4ZWq_Y9djzMDXsmSARNbtZD4TkjqEtIihGsxcffl8VEdO_f3oqDZamOk-mq9XrzlOxdU76g7WRmubIBctGiJPO8DV5crp-ccVfeZ_3TinZc6pmUABcezl9QxkrcbcgTGrRjMhpdqtXYOworyQjpjOfEhbTHYrkQFw-7yTJOJiUCIUMX05z97fE5DIi7GJg8-PL5xfzUyPgruvfnkHHmlFRWIFOkoEgf7FdcQ3S7EveRJZsHVxCKUKg-Dvjm4k7VyHE3uLhKurIgj4VzVSdRYGVRiggymUxvRT4h5Lr_nh2G1vzIrOG1R5vfb_93Pk5SelyNHoizjG_3nCfGbgWzwQ728Z6Vn22CAcbKemFRF7kVh0mg";
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/GetVehicleRateDetail`;
+      const response = await axios.post(url, data, { headers });
+
+      setSingleVehicleDetails(response.data.result);
+      console.log("Complete Details of a cars is : ", response.data.result);
+    } catch (error) {
+      console.error("Error fetching vehicle rates:", error);
+    }
+  }, [TariffGroupId, StartDateTime, ReturnDateTime]);
+
+  useEffect(() => {
+    fetchSingleCarDetails();
+  }, [StartDateTime, ReturnDateTime, fetchSingleCarDetails]);
+
+  const baseAPIResponsePath = singleVehicleDetails?.vehicle?.tariffGroup;
+
+  const carTypeName = baseAPIResponsePath?.title;
+  const carCategory = baseAPIResponsePath?.acrissCategory?.name;
+  const carImg = baseAPIResponsePath?.displayImage?.url;
+  const totalPrice = singleVehicleDetails?.charges?.[0]?.tariff?.[0]?.rate;
+  const totalAPIResponseCharges = singleVehicleDetails?.totalCharges;
+
+  const carPassengerCapacity = baseAPIResponsePath?.passengerCapacity;
+  const carFuelType = baseAPIResponsePath?.acrissFuelAc?.name;
+  const carManualAutomaticType =
+    baseAPIResponsePath?.acrissTransDrive?.name?.split("/")[0];
+  const carDoorstype =
+    baseAPIResponsePath?.acrissType?.name?.split("/")[1] ||
+    baseAPIResponsePath?.acrissType?.name?.split("-")[1] ||
+    baseAPIResponsePath?.acrissType?.name;
+  const carlargeSafetyBags = baseAPIResponsePath?.largeBagsCapacity;
+  const carsmallSafetyBags = baseAPIResponsePath?.smallBagsCapacity;
+  const carTotalSafetyBags = carlargeSafetyBags + carsmallSafetyBags;
+
+  console.log(
+    `Passengers are ${carPassengerCapacity} and Fuel type is: ${carFuelType} and car type is ${carManualAutomaticType} and carDoors are ${carDoorstype} and total bags are ${carTotalSafetyBags}`
+  );
+
   const carFeaturesWithIcons = [
     {
       name: "Person Seats",
-      value: 4,
+      value: carPassengerCapacity,
       featureIcon: BsPerson,
     },
 
     {
       name: "Doors",
-      value: 5,
+      value: carDoorstype,
       featureIcon: GiCarDoor,
     },
     {
-      name: "Automatic",
+      name: carManualAutomaticType,
       value: null,
       featureIcon: GiGearStickPattern,
     },
 
     {
-      name: "Air Bags",
-      value: 2,
+      name: "Safety Bags",
+      value: carTotalSafetyBags,
       featureIcon: BsSuitcase,
     },
     {
-      name: "L Engine",
-      value: 1.7,
+      name: " Engine",
+      value: carFuelType,
       featureIcon: BsCpu,
     },
 
@@ -191,34 +239,6 @@ const VehicleDetails = ({ nextStep }) => {
     },
   ];
 
-  const fetchSingleCarDetails = useCallback(async () => {
-    let data = { TariffGroupId, StartDateTime, ReturnDateTime };
-    try {
-      const token =
-        "pwhUHSoPIOJmECDhAyhlP1X5ZvzD1W3dmhUOdpQ-BQtQzg1PNlv8invCvbT1qk3EsoJfM_v8Pj8ZJsPKXVoC-kZtg0p2mpAu4f5g8LiMWrGbqZ4QRY-1xJRJTcWF-t24jUgdng1-myn-TgDddhkldDmkOufYlMdkGQDpZtnUfQ00qgl58t65VCWwK29g4ZWq_Y9djzMDXsmSARNbtZD4TkjqEtIihGsxcffl8VEdO_f3oqDZamOk-mq9XrzlOxdU76g7WRmubIBctGiJPO8DV5crp-ccVfeZ_3TinZc6pmUABcezl9QxkrcbcgTGrRjMhpdqtXYOworyQjpjOfEhbTHYrkQFw-7yTJOJiUCIUMX05z97fE5DIi7GJg8-PL5xfzUyPgruvfnkHHmlFRWIFOkoEgf7FdcQ3S7EveRJZsHVxCKUKg-Dvjm4k7VyHE3uLhKurIgj4VzVSdRYGVRiggymUxvRT4h5Lr_nh2G1vzIrOG1R5vfb_93Pk5SelyNHoizjG_3nCfGbgWzwQ728Z6Vn22CAcbKemFRF7kVh0mg";
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
-
-      const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/GetVehicleRateDetail`;
-      const response = await axios.post(url, data, { headers });
-
-      setSingleVehicleDetails(response.data.result);
-      console.log("Complete Details of a cars is : ", response.data.result);
-    } catch (error) {
-      console.error("Error fetching vehicle rates:", error);
-    }
-  }, [TariffGroupId, StartDateTime, ReturnDateTime]);
-
-  useEffect(() => {
-    fetchSingleCarDetails();
-  }, [StartDateTime, ReturnDateTime, fetchSingleCarDetails]);
-
-  const carImg = singleVehicleDetails?.vehicle?.tariffGroup?.displayImage?.url;
-  const totalPrice = singleVehicleDetails?.charges?.[0]?.tariff?.[0]?.rate;
-  const totalAPIResponseCharges = singleVehicleDetails?.totalCharges;
-
   const calculateTotalPrice = () => {
     if (additionalCharges) {
       return additionalCharges.reduce(
@@ -308,10 +328,8 @@ const VehicleDetails = ({ nextStep }) => {
             <div className="step1-car-location-details-container">
               <div className="step1-car-details">
                 <Row className="pl-3 pt-3">
-                  <h4 className="step1-car-name pl-3">
-                    {singleVehicleDetails?.vehicle?.tariffGroup?.title}
-                  </h4>
-                  <span className="step1-car-type pl-3">Car Type </span>
+                  <h4 className="step1-car-name pl-3">{carTypeName}</h4>
+                  <span className="step1-car-type pl-3">{carCategory} </span>
                   <Col lg={8} md={12} sm={12} xs={12}>
                     <div className="car-imgs-details-container">
                       <div className="car-img-container">
@@ -421,10 +439,7 @@ const VehicleDetails = ({ nextStep }) => {
 
                             <div>
                               <div className="car-description-text-2">
-                                {
-                                  singleVehicleDetails?.vehicle?.tariffGroup
-                                    ?.subTitle
-                                }
+                                {baseAPIResponsePath?.subTitle}
                               </div>
                             </div>
                           </div>
