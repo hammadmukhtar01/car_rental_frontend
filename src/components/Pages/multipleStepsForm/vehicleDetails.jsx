@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useLocation } from "react-router";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { BsCpu, BsPerson, BsSuitcase } from "react-icons/bs";
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
@@ -10,16 +11,45 @@ import { RxCross2 } from "react-icons/rx";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Car1 from "../../images/suv-car-fleet-1.png";
-import VerticalSliderCarDetails from "./verticalSliderCarDetails";
 import { MdRadioButtonChecked } from "react-icons/md";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { TbListDetails } from "react-icons/tb";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Typography from "@mui/material/Typography";
+import { FaMapMarkerAlt, FaTelegramPlane } from "react-icons/fa";
+import "./verticalSliderCarDetails.css";
+import axios from "axios";
 
 const VehicleDetails = ({ nextStep }) => {
   const [couponCode, setCouponCode] = useState("");
   const [isCouponApplied, setIsCouponApplied] = useState(false);
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [singleVehicleDetails, setSingleVehicleDetails] = useState({});
+  const [numberOfDays, setNumberOfDays] = useState(0);
+  // const [totalCharges, setTotalCharges] = useState("");
+
+  const carTypeInURL = useLocation();
+  const queryParams = new URLSearchParams(carTypeInURL.search);
+  const TariffGroupId = queryParams.get("tariffGroupId");
+  const StartDateTime = queryParams.get("startDate");
+  const ReturnDateTime = queryParams.get("endDate");
+  const pickupTimeParam = queryParams.get("pickupTime");
+  const dropoffTimeParam = queryParams.get("dropoffTime");
+
+  useEffect(() => {
+    if (StartDateTime && ReturnDateTime) {
+      const startTimeStamp = new Date(StartDateTime).getTime();
+      const endTimeStamp = new Date(ReturnDateTime).getTime();
+      const timeDifference = endTimeStamp - startTimeStamp;
+      const totalDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+      setNumberOfDays(totalDays);
+    }
+  }, [StartDateTime, ReturnDateTime]);
 
   const carFeaturesWithIcons = [
     {
@@ -40,7 +70,7 @@ const VehicleDetails = ({ nextStep }) => {
     },
 
     {
-      name: "Luggage Space",
+      name: "Air Bags",
       value: 2,
       featureIcon: BsSuitcase,
     },
@@ -82,6 +112,21 @@ const VehicleDetails = ({ nextStep }) => {
     "Radio Listening",
   ];
 
+  const steps = [
+    {
+      locName: "Pickup Loc Name",
+      locDate: StartDateTime,
+      locTime: pickupTimeParam,
+      locIcon: FaTelegramPlane,
+    },
+    {
+      locName: "Drop off Loc Name",
+      locDate: ReturnDateTime,
+      locTime: dropoffTimeParam,
+      locIcon: FaMapMarkerAlt,
+    },
+  ];
+
   const applyCoupon = (e) => {
     e.preventDefault();
 
@@ -99,7 +144,6 @@ const VehicleDetails = ({ nextStep }) => {
     }
 
     if (!foundCoupon) {
-      // alert("Invalid coupon code. Please enter a valid coupon code.");
       toast.error("Invalid coupon code. Please enter a valid coupon code.", {
         autoClose: 3000,
         style: {
@@ -147,10 +191,33 @@ const VehicleDetails = ({ nextStep }) => {
     },
   ];
 
-  const carImg = Car1;
-  const totalDays = 3;
-  const totalPrice = 100;
-  const totalCharges = totalDays * totalPrice;
+  const fetchSingleCarDetails = useCallback(async () => {
+    let data = { TariffGroupId, StartDateTime, ReturnDateTime };
+    try {
+      const token =
+        "pwhUHSoPIOJmECDhAyhlP1X5ZvzD1W3dmhUOdpQ-BQtQzg1PNlv8invCvbT1qk3EsoJfM_v8Pj8ZJsPKXVoC-kZtg0p2mpAu4f5g8LiMWrGbqZ4QRY-1xJRJTcWF-t24jUgdng1-myn-TgDddhkldDmkOufYlMdkGQDpZtnUfQ00qgl58t65VCWwK29g4ZWq_Y9djzMDXsmSARNbtZD4TkjqEtIihGsxcffl8VEdO_f3oqDZamOk-mq9XrzlOxdU76g7WRmubIBctGiJPO8DV5crp-ccVfeZ_3TinZc6pmUABcezl9QxkrcbcgTGrRjMhpdqtXYOworyQjpjOfEhbTHYrkQFw-7yTJOJiUCIUMX05z97fE5DIi7GJg8-PL5xfzUyPgruvfnkHHmlFRWIFOkoEgf7FdcQ3S7EveRJZsHVxCKUKg-Dvjm4k7VyHE3uLhKurIgj4VzVSdRYGVRiggymUxvRT4h5Lr_nh2G1vzIrOG1R5vfb_93Pk5SelyNHoizjG_3nCfGbgWzwQ728Z6Vn22CAcbKemFRF7kVh0mg";
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/GetVehicleRateDetail`;
+      const response = await axios.post(url, data, { headers });
+
+      setSingleVehicleDetails(response.data.result);
+      console.log("Complete Details of a cars is : ", response.data.result);
+    } catch (error) {
+      console.error("Error fetching vehicle rates:", error);
+    }
+  }, [TariffGroupId, StartDateTime, ReturnDateTime]);
+
+  useEffect(() => {
+    fetchSingleCarDetails();
+  }, [StartDateTime, ReturnDateTime, fetchSingleCarDetails]);
+
+  const carImg = singleVehicleDetails?.vehicle?.tariffGroup?.displayImage?.url;
+  const totalPrice = singleVehicleDetails?.charges?.[0]?.tariff?.[0]?.rate;
+  const totalAPIResponseCharges = singleVehicleDetails?.totalCharges;
 
   const calculateTotalPrice = () => {
     if (additionalCharges) {
@@ -162,7 +229,7 @@ const VehicleDetails = ({ nextStep }) => {
     return 0;
   };
 
-  const subTotalValue = calculateTotalPrice() + totalCharges;
+  const subTotalValue = calculateTotalPrice() + totalAPIResponseCharges;
   const taxTotal = Math.floor((5 * subTotalValue) / 100);
   const grandTotalPrice = subTotalValue + taxTotal;
 
@@ -192,48 +259,58 @@ const VehicleDetails = ({ nextStep }) => {
     window.location.href = nextStepUrl;
   };
 
+  function CustomStepIcon({ locName, locDate, IconName, locTime }) {
+    function formatDate(dateString) {
+      const options = { day: "2-digit", month: "short", year: "numeric" };
+      const date = new Date(dateString);
+      return date.toLocaleDateString("en-US", options);
+    }
+
+    const formattedDate = formatDate(locDate);
+
+    return (
+      <>
+        <div className="customer-step-container">
+          <div>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <IconName className="mr-4" />{" "}
+              <div>
+                <Typography
+                  variant="body1"
+                  className="loc-name-text-car-details"
+                >
+                  {locName}
+                </Typography>
+              </div>
+            </Box>
+          </div>
+          <div className="loc-name-car-details-page d-flex flex-row-reverse">
+            <Typography variant="body2">
+              {locTime} <span className="text-dark">(</span> {formattedDate}{" "}
+              <span className="text-dark">)</span>
+            </Typography>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="">
       <div className="vehicle-details-location-main-div pb-3 pt-3">
         <Container fluid>
           <>
             <div className="step1-car-location-details-container">
-              {/* <div className="step1-location-details pb-3 pt-3">
-                <Row className="p-2">
-                  <Col lg={6} md={6} sm={12} xs={12}>
-                    <div className="pickup-location-div">
-                      <span className="location-heading">Pickup Location</span>
-                      <h5 className="location-value">
-                        Sharjah Airport - Terminal 1
-                      </h5>
-                      <span className="city-name">City name</span>
-                      <div>
-                        <span className="pickup-location-value">
-                          05 Jan 2024 11:00 am
-                        </span>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col lg={6} md={6} sm={12} xs={12}>
-                    <div className="dropoff-location-div">
-                      <span className="location-heading">Pickup Location</span>
-                      <h5 className="location-value">
-                        Sharjah Airport - Terminal 1
-                      </h5>
-                      <span className="city-name">City name</span>
-                      <div>
-                        <span className="dropoff-location-value">
-                          05 Jan 2024 7:00 pm
-                        </span>
-                      </div>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-              <br /> */}
               <div className="step1-car-details">
                 <Row className="pl-3 pt-3">
-                  <h4 className="step1-car-name pl-3">Car Name</h4>
+                  <h4 className="step1-car-name pl-3">
+                    {singleVehicleDetails?.vehicle?.tariffGroup?.title}
+                  </h4>
                   <span className="step1-car-type pl-3">Car Type </span>
                   <Col lg={8} md={12} sm={12} xs={12}>
                     <div className="car-imgs-details-container">
@@ -344,32 +421,10 @@ const VehicleDetails = ({ nextStep }) => {
 
                             <div>
                               <div className="car-description-text-2">
-                                Complete Description of Car. Lorem ipsum dolor
-                                sit amet consectetur adipisicing elit. A
-                                sapiente ducimus qui aliquam in quibusdam
-                                quisquam neque illum incidunt. Nostrum pariatur
-                                in sed ipsam ad nisi dolores possimus corrupti
-                                asperiores? Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Dolores hic cumque
-                                eum accusantium debitis corrupti dicta
-                                cupiditate quibusdam officia? Vitae quod vero
-                                autem laudantium neque! Qui sint quisquam
-                                asperiores dolore! Lorem, ipsum dolor sit amet
-                                consectetur adipisicing elit. Molestias suscipit
-                                vitae maiores animi dignissimos quam labore
-                                neque accusamus possimus quo ipsum maxime illo
-                                quisquam, reiciendis rerum nemo aspernatur
-                                deserunt! Ipsa? Lorem ipsum dolor sit amet
-                                consectetur, adipisicing elit. Eos maiores qui
-                                ullam vel rem veniam accusantium animi fuga,
-                                obcaecati quaerat nisi, sint, omnis reiciendis
-                                numquam ratione repellat error tempore expedita!
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Exercitationem dolores magnam
-                                eligendi, repellendus mollitia fuga nam aperiam
-                                odit fugit est corporis, odio aut perferendis,
-                                amet hic. Obcaecati laboriosam pariatur
-                                consequuntur.
+                                {
+                                  singleVehicleDetails?.vehicle?.tariffGroup
+                                    ?.subTitle
+                                }
                               </div>
                             </div>
                           </div>
@@ -379,7 +434,36 @@ const VehicleDetails = ({ nextStep }) => {
                   </Col>
                   <Col lg={4} md={12} sm={12} xs={12}>
                     <div className="step1-car-location-details-container">
-                      <VerticalSliderCarDetails />
+                      {/* <VerticalSliderCarDetails /> */}
+                      <Box
+                        sx={{ width: "100%" }}
+                        className="customer-icon-stepper-container"
+                      >
+                        <div className="pickup-dropoff-heading mb-3 text-center">
+                          <h4>Pick-up & Drop-off</h4>
+                          <hr style={{ opacity: "1" }} />
+                        </div>
+                        <Stepper
+                          activeStep={steps.length - 1}
+                          orientation="vertical"
+                          className="pick-drop-data"
+                        >
+                          {steps.map((label, index) => (
+                            <Step key={index}>
+                              <StepLabel
+                                StepIconComponent={() => (
+                                  <CustomStepIcon
+                                    locName={label.locName}
+                                    locDate={label.locDate}
+                                    IconName={label.locIcon}
+                                    locTime={label.locTime}
+                                  />
+                                )}
+                              />
+                            </Step>
+                          ))}
+                        </Stepper>
+                      </Box>
                     </div>
                     <br />
                     <div className="car-prices-details-container">
@@ -402,7 +486,7 @@ const VehicleDetails = ({ nextStep }) => {
                                   <div className="">
                                     Days{" "}
                                     <span className="charges-value pl-1">
-                                      {totalDays}
+                                      {numberOfDays}
                                     </span>
                                   </div>
                                 </div>
@@ -427,12 +511,12 @@ const VehicleDetails = ({ nextStep }) => {
                                   style={{ lineHeight: "100%" }}
                                 >
                                   <span className="price-label">
-                                    Rental Charges / {totalDays} days
+                                    Rental Charges / {numberOfDays} days
                                   </span>
                                   <div className="">
                                     AED{" "}
                                     <span className="charges-value pl-1">
-                                      {totalCharges}
+                                      {totalAPIResponseCharges}
                                     </span>
                                   </div>
                                 </div>

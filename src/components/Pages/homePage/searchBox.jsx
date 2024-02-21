@@ -27,8 +27,8 @@ const SearchBox = () => {
   const [showDropoffModal, setShowDropoffModal] = useState(false);
   const [dateRange, setDateRange] = useState([
     {
-      startDate: null,
-      endDate: null,
+      startDate: new Date(),
+      endDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),      
       key: "selection",
     },
   ]);
@@ -85,12 +85,18 @@ const SearchBox = () => {
 
   const generateTimeSlots = () => {
     const timeSlots = [];
-    let hour = 8;
+    let hour = 7;
     let minute = 0;
     let ampm = "AM";
-
     while (!(hour === 23 && minute === 30)) {
-      const formattedHour = hour.toString().padStart(2, "0");
+      let formattedHour;
+      if (hour <= 12) {
+        formattedHour = hour.toString().padStart(2, "0");
+      } else {
+        const newhour = hour - 12;
+        formattedHour = newhour.toString().padStart(2, "0");
+      }
+
       const formattedMinute = minute.toString().padStart(2, "0");
       const time = `${formattedHour}:${formattedMinute} ${ampm}`;
       timeSlots.push({ label: time, value: time });

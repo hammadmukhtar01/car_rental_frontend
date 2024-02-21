@@ -759,10 +759,6 @@ body {
   border-color: red !important;
 }
 
-.rdrDay:not(.rdrDayPassive).rdrDay:not(.rdrDayDisabled) .rdrDayNumber span {
-  color: #1d2429 !important;
-}
-
 
 
 

@@ -20,9 +20,6 @@ import {
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
 import { LuSnowflake, LuSearch } from "react-icons/lu";
 import "./vehicleDetails.css";
-// import Car1 from "../../images/suv-car-fleet-1.png";
-// import Car2 from "../../images/sedan-car-fleet-2.png";
-// import Car3 from "../../images/economy-car-fleet-3.png";
 import PickupLocationModal from "../homePage/pickupSearchBoxDropDown";
 import DropoffLocationModal from "../homePage/dropoffSearchBoxDropDown";
 import Pagination from "./pagination";
@@ -57,7 +54,6 @@ const VehiclesPage = () => {
   const durationValues = [1, 7, 30];
   const [carsData, setCarsData] = useState([]);
   const [carType, setCarType] = useState([]);
-  const [tariffGroupId, setTariffGroupId] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
@@ -80,8 +76,15 @@ const VehiclesPage = () => {
   const initialCarType = queryParams.get("carType");
   const startDateParam = queryParams.get("startDate");
   const endDateParam = queryParams.get("endDate");
-  const startDate = startDateParam ? new Date(startDateParam) : new Date();
-  const endDate = endDateParam ? new Date(endDateParam) : new Date();
+  const startDate = useMemo(() => {
+    return startDateParam ? new Date(startDateParam) : new Date();
+  }, [startDateParam]);
+
+  const endDate = useMemo(() => {
+    return endDateParam
+      ? new Date(endDateParam)
+      : new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+  }, [endDateParam]);
 
   const [dateRange, setDateRange] = useState([
     {
@@ -110,7 +113,7 @@ const VehiclesPage = () => {
     },
 
     {
-      name: "Luggage Space",
+      name: "Air Bags",
       value: 2,
       featureIcon: BsSuitcase,
     },
@@ -204,12 +207,18 @@ const VehiclesPage = () => {
 
   const generateTimeSlots = () => {
     const timeSlots = [];
-    let hour = 8;
+    let hour = 7;
     let minute = 0;
     let ampm = "AM";
-
     while (!(hour === 23 && minute === 30)) {
-      const formattedHour = hour.toString().padStart(2, "0");
+      let formattedHour;
+      if (hour <= 12) {
+        formattedHour = hour.toString().padStart(2, "0");
+      } else {
+        const newhour = hour - 12;
+        formattedHour = newhour.toString().padStart(2, "0");
+      }
+
       const formattedMinute = minute.toString().padStart(2, "0");
       const time = `${formattedHour}:${formattedMinute} ${ampm}`;
       timeSlots.push({ label: time, value: time });
@@ -254,10 +263,27 @@ const VehiclesPage = () => {
   };
 
   const allCarsBookingButton = (tariffGroupId, startDate, endDate) => {
-    console.log("All Cars Booking Button",);
-    // navigate(
-    //   `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
-    // );
+    if (!pickUpTime || !dropOffTime) {
+      toast.error("pickup & dropoff time is missing.", {
+        autoClose: 1000,
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          lineHeight: "18px",
+          fontSize: "14px",
+        },
+      });
+      return;
+    }
+
+    console.log("All Cars Booking Button");
+    navigate(
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${
+        startDate.toISOString().split("T")[0]
+      }&endDate=${
+        endDate.toISOString().split("T")[0]
+      }&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}`
+    );
   };
 
   useEffect(() => {
@@ -373,6 +399,17 @@ const VehiclesPage = () => {
   };
 
   useEffect(() => {
+    console.log("Start Date from URL:", startDate);
+    console.log("End Date from URL:", endDate);
+    if (startDate && endDate) {
+      const timeDifference = endDate.getTime() - startDate.getTime();
+      const totalDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
+      console.log("Number of days:", totalDays);
+      setNumberOfDays(totalDays);
+    }
+  }, [startDate, endDate]);
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       console.log("Clicked outside");
       if (
@@ -440,31 +477,25 @@ const VehiclesPage = () => {
 
   return (
     <div id="main" className="pb-2 ">
-      <>
-        <div className="navbar-bg-img-container">
-          <div className="booking-page-banner-navbar">
-            {" "}
-            <MainNavbar />
+      <form action="#" className="signin-form">
+        <>
+          <div className="navbar-bg-img-container">
+            <div className="booking-page-banner-navbar">
+              {" "}
+              <MainNavbar />
+            </div>
           </div>
-        </div>
-        <div className="all-cars-main-container-div container">
-          <div className="vehicles-page-main-container">
-            <div className="searchbox-container">
-              <div className="form-group pb-4 pt-4">
-                <Row className=" d-flex justify-content-center">
-                  <Col
-                    lg={12}
-                    md={12}
-                    sm={12}
-                    xs={12}
-                    className="all-cars-search-box-container pb-4"
-                  >
-                    <form
-                      action="#"
-                      className="signin-form"
-                      onSubmit={() =>
-                        allCarsBookingButton(tariffGroupId, startDate, endDate)
-                      }
+          <div className="all-cars-main-container-div container">
+            <div className="vehicles-page-main-container">
+              <div className="searchbox-container">
+                <div className="form-group pb-4 pt-4">
+                  <Row className=" d-flex justify-content-center">
+                    <Col
+                      lg={12}
+                      md={12}
+                      sm={12}
+                      xs={12}
+                      className="all-cars-search-box-container pb-4"
                     >
                       <Row>
                         <Col xxl={3} lg={3} md={6} sm={6} xs={12}>
@@ -711,63 +742,61 @@ const VehiclesPage = () => {
                           </div>
                         </Col>
                       </Row>
-                    </form>
-                  </Col>
-                </Row>
+                    </Col>
+                  </Row>
+                </div>
               </div>
             </div>
-          </div>
 
-          <Container fluid className="all-cars-container pb-4">
-            <Row>
-              <Col xxl={3} lg={3} md={4} className="filters-section">
-                <div className="filters-heading">
-                  <div className="row d-flex">
-                    <Col>
-                      <h4 className="filters-text">Filters</h4>
-                    </Col>
-                    <Col className="clear-filters-container text-end">
-                      <span
-                        className="clear-filters "
-                        onClick={handleClearAllFilters}
-                      >
-                        Clear all <RxCross2 />
-                      </span>
-                    </Col>
+            <Container fluid className="all-cars-container pb-4">
+              <Row>
+                <Col xxl={3} lg={3} md={4} className="filters-section">
+                  <div className="filters-heading">
+                    <div className="row d-flex">
+                      <Col>
+                        <h4 className="filters-text">Filters</h4>
+                      </Col>
+                      <Col className="clear-filters-container text-end">
+                        <span
+                          className="clear-filters "
+                          onClick={handleClearAllFilters}
+                        >
+                          Clear all <RxCross2 />
+                        </span>
+                      </Col>
+                    </div>
                   </div>
-                </div>
-                <div className="card search-filters-card checkbox-container">
-                  <article className="card-group-item">
-                    <div className="car-model-label">
-                      <header
-                        className="card-header styled-label pt-3 pb-3"
-                        onClick={toggleCarModel}
-                      >
-                        <div className="car-brand-filter-container d-flex justify-content-between">
-                          <div className="car-brand-icon-title">
-                            <BsCarFrontFill className="mr-2" />
-                            <b>Car Model</b>
-                          </div>
-                          <div className="car-brand-open-close-modal ">
-                            {isCarModelOpen ? (
-                              <>
+                  <div className="card search-filters-card checkbox-container">
+                    <article className="card-group-item">
+                      <div className="car-model-label">
+                        <header
+                          className="card-header styled-label pt-3 pb-3"
+                          onClick={toggleCarModel}
+                        >
+                          <div className="car-brand-filter-container d-flex justify-content-between">
+                            <div className="car-brand-icon-title">
+                              <BsCarFrontFill className="mr-2" />
+                              <b>Car Model</b>
+                            </div>
+                            <div className="car-brand-open-close-modal ">
+                              {isCarModelOpen ? (
+                                <>
+                                  <div className="brand-open-icon">
+                                    <AiOutlineMinusCircle className="text-right" />
+                                  </div>
+                                </>
+                              ) : (
                                 <div className="brand-open-icon">
-                                  <AiOutlineMinusCircle className="text-right" />
+                                  <AiOutlinePlusCircle className="text-right" />
                                 </div>
-                              </>
-                            ) : (
-                              <div className="brand-open-icon">
-                                <AiOutlinePlusCircle className="text-right" />
-                              </div>
-                            )}
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      </header>
-                    </div>{" "}
-                    {isCarModelOpen && (
-                      <div className="filter-content">
-                        <div className="card-body">
-                          <form>
+                        </header>
+                      </div>{" "}
+                      {isCarModelOpen && (
+                        <div className="filter-content">
+                          <div className="card-body">
                             {carModels.map((model, index) => (
                               <label
                                 className="form-check flipBox"
@@ -800,42 +829,40 @@ const VehiclesPage = () => {
                                 </div>
                               </label>
                             ))}
-                          </form>
-                        </div>
-                      </div>
-                    )}
-                  </article>
-                  <article className="card-group-item">
-                    <div className="car-type-filter-label">
-                      <header
-                        className="card-header styled-label title car-type-filter-heading pt-3 pb-3"
-                        onClick={toggleCarType}
-                      >
-                        <div className="car-type-filter-container d-flex justify-content-between">
-                          <div className="car-type-icon-title">
-                            <BsJustify className="mr-2" />
-                            <b>Car Type</b>
                           </div>
-                          <div className="car-type-open-close-modal ">
-                            {isCarTypeOpen ? (
-                              <>
+                        </div>
+                      )}
+                    </article>
+                    <article className="card-group-item">
+                      <div className="car-type-filter-label">
+                        <header
+                          className="card-header styled-label title car-type-filter-heading pt-3 pb-3"
+                          onClick={toggleCarType}
+                        >
+                          <div className="car-type-filter-container d-flex justify-content-between">
+                            <div className="car-type-icon-title">
+                              <BsJustify className="mr-2" />
+                              <b>Car Type</b>
+                            </div>
+                            <div className="car-type-open-close-modal ">
+                              {isCarTypeOpen ? (
+                                <>
+                                  <div className="type-open-icon">
+                                    <AiOutlineMinusCircle className="text-right" />
+                                  </div>
+                                </>
+                              ) : (
                                 <div className="type-open-icon">
-                                  <AiOutlineMinusCircle className="text-right" />
+                                  <AiOutlinePlusCircle className="text-right" />
                                 </div>
-                              </>
-                            ) : (
-                              <div className="type-open-icon">
-                                <AiOutlinePlusCircle className="text-right" />
-                              </div>
-                            )}
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      </header>
-                    </div>
-                    {isCarTypeOpen && (
-                      <div className="filter-content">
-                        <div className="card-body">
-                          <form>
+                        </header>
+                      </div>
+                      {isCarTypeOpen && (
+                        <div className="filter-content">
+                          <div className="card-body">
                             {carType.map((type, index) => (
                               <label
                                 className="form-check flipBox"
@@ -863,58 +890,56 @@ const VehiclesPage = () => {
                                 </div>
                               </label>
                             ))}
-                          </form>
-                        </div>
-                      </div>
-                    )}
-                  </article>
-                  <article className="card-group-item">
-                    <div className="car-price-filter-label">
-                      <header
-                        className="card-header styled-label price-filter-heading pt-3 pb-3"
-                        onClick={toggleCarPriceRange}
-                      >
-                        <div className="car-type-filter-container d-flex justify-content-between">
-                          <div className="car-type-icon-title">
-                            <BsTags className="mr-2" />
-                            <b>Price Range</b>
-                          </div>
-                          <div className="car-price-range-open-close-modal ">
-                            {isCarPriceRangeOpen ? (
-                              <>
-                                <div className="price-range-open-icon">
-                                  <AiOutlineMinusCircle className="text-right" />
-                                </div>
-                              </>
-                            ) : (
-                              <div className="price-range-open-icon">
-                                <AiOutlinePlusCircle className="text-right" />
-                              </div>
-                            )}
                           </div>
                         </div>
-                      </header>
-                    </div>
-                    {isCarPriceRangeOpen && (
-                      <div className="filter-content">
-                        <div className="card-body">
-                          <div className="">
-                            <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
-                              <input
-                                className="form-control-login"
-                                name="minPrice"
-                                autoComplete="off"
-                                required
-                                type="number"
-                                min={0}
-                                value={minPrice}
-                                onChange={(e) => setMinPrice(e.target.value)}
-                                placeholder="min value"
-                              />
+                      )}
+                    </article>
+                    <article className="card-group-item">
+                      <div className="car-price-filter-label">
+                        <header
+                          className="card-header styled-label price-filter-heading pt-3 pb-3"
+                          onClick={toggleCarPriceRange}
+                        >
+                          <div className="car-type-filter-container d-flex justify-content-between">
+                            <div className="car-type-icon-title">
+                              <BsTags className="mr-2" />
+                              <b>Price Range</b>
                             </div>
+                            <div className="car-price-range-open-close-modal ">
+                              {isCarPriceRangeOpen ? (
+                                <>
+                                  <div className="price-range-open-icon">
+                                    <AiOutlineMinusCircle className="text-right" />
+                                  </div>
+                                </>
+                              ) : (
+                                <div className="price-range-open-icon">
+                                  <AiOutlinePlusCircle className="text-right" />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </header>
+                      </div>
+                      {isCarPriceRangeOpen && (
+                        <div className="filter-content">
+                          <div className="card-body">
+                            <div className="">
+                              <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
+                                <input
+                                  className="form-control-login"
+                                  name="minPrice"
+                                  autoComplete="off"
+                                  type="number"
+                                  min={0}
+                                  value={minPrice}
+                                  onChange={(e) => setMinPrice(e.target.value)}
+                                  placeholder="min value"
+                                />
+                              </div>
 
-                            <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
-                              {/* <input
+                              <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
+                                {/* <input
                               type="number"
                               className="form-control"
                               value={maxPrice}
@@ -922,41 +947,40 @@ const VehiclesPage = () => {
                               placeholder="max value"
                               min={minPrice}
                             /> */}
-                              <input
-                                className="form-control-login "
-                                name="maxPrice"
-                                autoComplete="off"
-                                required
-                                type="number"
-                                value={maxPrice}
-                                onChange={(e) => setMaxPrice(e.target.value)}
-                                placeholder="max value"
-                                min={minPrice}
-                              />
+                                <input
+                                  className="form-control-login "
+                                  name="maxPrice"
+                                  autoComplete="off"
+                                  type="number"
+                                  value={maxPrice}
+                                  onChange={(e) => setMaxPrice(e.target.value)}
+                                  placeholder="max value"
+                                  min={minPrice}
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                  </article>
-                </div>
-              </Col>
+                      )}
+                    </article>
+                  </div>
+                </Col>
 
-              <Col xxl={9} lg={9} md={8}>
-                <div className="all-cars-section ">
-                  <Row className="d-flex justify-content-end">
-                    <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
-                      <div className="sort-by-dropdown">
-                        <Row className="sort-by-row  mb-4">
-                          <Col>
-                            <Form.Group controlId="formSortBy">
-                              <Form.Label className="styled-label mt-2">
-                                <h6>
-                                  {" "}
-                                  <b>Sort By:</b>
-                                </h6>
-                              </Form.Label>
-                              {/* <select
+                <Col xxl={9} lg={9} md={8}>
+                  <div className="all-cars-section ">
+                    <Row className="d-flex justify-content-end">
+                      <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
+                        <div className="sort-by-dropdown">
+                          <Row className="sort-by-row  mb-4">
+                            <Col>
+                              <Form.Group controlId="formSortBy">
+                                <Form.Label className="styled-label mt-2">
+                                  <h6>
+                                    {" "}
+                                    <b>Sort By:</b>
+                                  </h6>
+                                </Form.Label>
+                                {/* <select
                                 id="sortBySelect"
                                 className="form-select sort-by-select-tag"
                                 title="sorting"
@@ -969,104 +993,104 @@ const VehiclesPage = () => {
                               </select>
                                 */}
 
-                              <Select
-                                options={sortByDropDown}
-                                required
-                                className="form-control-sort-by col-12"
-                                setSortBy
-                                onChange={(selectedOption) => {
-                                  console.log(
-                                    "Selected optn is: ",
-                                    selectedOption
-                                  );
-                                  setSortBy(selectedOption.value);
-                                }}
-                                styles={selectStyles}
-                              />
-                            </Form.Group>
-                          </Col>
-                        </Row>
-                      </div>
-                    </Col>
-                  </Row>
-
-                  <>
-                    <h3 className="pb-2 all-cars-heading">
-                      All Cars
-                      <hr className="middle-hr-tag" />
-                    </h3>
-                    <Row className="offers-car-container-row">
-                      {currentTableData.map((car, index) => (
-                        <Col
-                          key={car.tariffGroupId}
-                          xxl={6}
-                          lg={6}
-                          md={12}
-                          sm={12}
-                          className="offers-car-div pb-5"
-                        >
-                          <div className="all-offer-cars p-3">
-                            <div className="car-name-div">
-                              <span className="car-name text-end">
-                                {" "}
-                                <b>{car.title} | </b>( {car.carType} ){" "}
-                              </span>
-                            </div>
-                            <div className="car-image-container ">
-                              <a
-                                href={`/bookingPage/1?tariffGroupId=${
-                                  car.tariffGroupId
-                                }&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`}
-                              >
-                                {" "}
-                                <img
-                                  src={car.displayImageUrl}
-                                  alt={`Car ${index + 1}`}
-                                  className="car-image"
+                                <Select
+                                  options={sortByDropDown}
+                                  required
+                                  className="form-control-sort-by col-12"
+                                  setSortBy
+                                  onChange={(selectedOption) => {
+                                    console.log(
+                                      "Selected optn is: ",
+                                      selectedOption
+                                    );
+                                    setSortBy(selectedOption.value);
+                                  }}
+                                  styles={selectStyles}
                                 />
-                              </a>
-                              {/* <div className="car-image-overlay"></div> */}
-                            </div>
-                            <div className="all-vehicles-features-icons features-scroll-container text-center">
-                              {carFeaturesWithIcons.map(
-                                (carFeaturesIcons, index) => (
-                                  <span key={index}>
-                                    <span className="features-values">
-                                      <carFeaturesIcons.featureIcon className="all-car-icons" />{" "}
-                                      <span className="">
-                                        {carFeaturesIcons.value}{" "}
-                                      </span>
-                                      {index <
-                                        carFeaturesWithIcons.length - 1 && (
-                                        <span className="car-features-vertical-line mr-2 ml-2">
-                                          |
+                              </Form.Group>
+                            </Col>
+                          </Row>
+                        </div>
+                      </Col>
+                    </Row>
+
+                    <>
+                      <h3 className="pb-2 all-cars-heading">
+                        All Cars
+                        <hr className="middle-hr-tag" />
+                      </h3>
+                      <Row className="offers-car-container-row">
+                        {currentTableData.map((car, index) => (
+                          <Col
+                            key={car.tariffGroupId}
+                            xxl={6}
+                            lg={6}
+                            md={12}
+                            sm={12}
+                            className="offers-car-div pb-5"
+                          >
+                            <div className="all-offer-cars p-3">
+                              <div className="car-name-div">
+                                <span className="car-name text-end">
+                                  {" "}
+                                  <b>{car.title} | </b>( {car.carType} ){" "}
+                                </span>
+                              </div>
+                              <div className="car-image-container ">
+                                <a
+                                  href={`/bookingPage/1?tariffGroupId=${
+                                    car.tariffGroupId
+                                  }&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`}
+                                >
+                                  {" "}
+                                  <img
+                                    src={car.displayImageUrl}
+                                    alt={`Car ${index + 1}`}
+                                    className="car-image"
+                                  />
+                                </a>
+                                {/* <div className="car-image-overlay"></div> */}
+                              </div>
+                              <div className="all-vehicles-features-icons features-scroll-container text-center">
+                                {carFeaturesWithIcons.map(
+                                  (carFeaturesIcons, index) => (
+                                    <span key={index}>
+                                      <span className="features-values">
+                                        <carFeaturesIcons.featureIcon className="all-car-icons" />{" "}
+                                        <span className="">
+                                          {carFeaturesIcons.value}{" "}
                                         </span>
-                                      )}
+                                        {index <
+                                          carFeaturesWithIcons.length - 1 && (
+                                          <span className="car-features-vertical-line mr-2 ml-2">
+                                            |
+                                          </span>
+                                        )}
+                                      </span>
                                     </span>
-                                  </span>
-                                )
-                              )}
-                            </div>
+                                  )
+                                )}
+                              </div>
 
-                            <hr className="discount-line" />
+                              <hr className="discount-line" />
 
-                            {numberOfDays <= 0 && (
-                              <>
-                                <div className="price-day-main-div">
-                                  <div className="row">
-                                    {durations.map((duration, index) => (
-                                      <div
-                                        key={index}
-                                        className="col-xxl-4 col-lg-6 col-md-6 col-sm-6 col-8 pt-2"
-                                      >
-                                        <div className="card price-per-specificDay-container">
-                                          <div className="card-body price-day-div">
-                                            <div className="card-text">
-                                              <span className="per-specificDay-heading">
-                                                Per {duration}
-                                              </span>
-                                              <br />
-                                              {/* {car.discount > 0 && (
+                              {numberOfDays <= 0 && (
+                                <>
+                                  <div className="price-day-main-div">
+                                    <div className="row">
+                                      {durations.map((duration, index) => (
+                                        <div
+                                          key={index}
+                                          className="col-xxl-4 col-lg-6 col-md-6 col-sm-6 col-8 pt-2"
+                                        >
+                                          <div className="card price-per-specificDay-container">
+                                            <div className="card-body price-day-div">
+                                              <div className="card-text">
+                                                <span className="per-specificDay-heading">
+                                                  Per {duration}
+                                                </span>
+                                                <br />
+                                                {/* {car.discount > 0 && (
                                                 <>
                                                   <del className="value-del-line">
                                                     {car.originalPrice *
@@ -1079,95 +1103,95 @@ const VehiclesPage = () => {
                                                   </span>{" "}
                                                 </>
                                               )}{" "} */}
-                                              {/* {car.discount <= 0 && (
+                                                {/* {car.discount <= 0 && (
                                                 <>
                                                   <span className="p-1 mr-2"></span>
                                                 </>
                                               )} */}
-                                              <span className="final-discounted-value-span">
-                                                {/* {calculateSalePrice(
+                                                <span className="final-discounted-value-span">
+                                                  {/* {calculateSalePrice(
                                                   car.originalPrice,
                                                   car.discount
                                                 ) * durationValues[index]}{" "}
                                                 AED{" "} */}
-                                                {car.rate *
-                                                  durationValues[index]}{" "}
-                                                AED{" "}
-                                              </span>
+                                                  {car.rate *
+                                                    durationValues[index]}{" "}
+                                                  AED{" "}
+                                                </span>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    ))}
+                                      ))}
+                                    </div>
                                   </div>
-                                </div>
-                                <br />
-                              </>
-                            )}
-                            <div className="d-flex justify-content-center">
-                              <div className="col-xxl-10 col-lg-10 col-md-12 col-sm-8 col-10 d-flex justify-content-center">
-                                {numberOfDays > 0 ? (
-                                  <>
-                                    <button
-                                      className="animated-button"
-                                      // onClick={() =>
-                                      //   allCarsBookingButton(
-                                      //     car.id,
-                                      //     car.tariffGroupId,
-                                      //     startDate,
-                                      //     endDate
-                                      //   )
-                                      // }
-                                    >
-                                      <span className="button-text-span">
-                                        <span className="transition"></span>
-                                        <span className="gradient"></span>
-                                        <span className="label">
-                                          Pay Now | AED:{" "}
-                                          {car.rate * numberOfDays} |{" "}
-                                          {numberOfDays} days
-                                        </span>
-                                      </span>
-                                    </button>
-                                  </>
-                                ) : (
-                                  <>
-                                    <div className="button-container">
+                                  <br />
+                                </>
+                              )}
+                              <div className="d-flex justify-content-center">
+                                <div className="col-xxl-10 col-lg-10 col-md-12 col-sm-8 col-10 d-flex justify-content-center">
+                                  {numberOfDays > 0 ? (
+                                    <>
                                       <button
                                         className="animated-button"
-                                        onClick={allCarsBookingButton}
+                                        onClick={() =>
+                                          allCarsBookingButton(
+                                            car.tariffGroupId,
+                                            startDate,
+                                            endDate
+                                          )
+                                        }
                                       >
                                         <span className="button-text-span">
                                           <span className="transition"></span>
                                           <span className="gradient"></span>
                                           <span className="label">
-                                            Rent Now
+                                            Pay Now | AED:{" "}
+                                            {car.rate * numberOfDays} |{" "}
+                                            {numberOfDays} days
                                           </span>
                                         </span>
                                       </button>
-                                    </div>
-                                  </>
-                                )}
+                                    </>
+                                  ) : (
+                                    <>
+                                      <div className="button-container">
+                                        <button
+                                          className="animated-button"
+                                          onClick={allCarsBookingButton}
+                                        >
+                                          <span className="button-text-span">
+                                            <span className="transition"></span>
+                                            <span className="gradient"></span>
+                                            <span className="label">
+                                              Rent Now
+                                            </span>
+                                          </span>
+                                        </button>
+                                      </div>
+                                    </>
+                                  )}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </Col>
-                      ))}
-                    </Row>
-                  </>
-                  <Pagination
-                    className="pagination-bar"
-                    currentPage={currentPage}
-                    totalCount={carsData.length}
-                    pageSize={PageSize}
-                    onPageChange={(page) => setCurrentPage(page)}
-                  />
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      </>
+                          </Col>
+                        ))}
+                      </Row>
+                    </>
+                    <Pagination
+                      className="pagination-bar"
+                      currentPage={currentPage}
+                      totalCount={carsData.length}
+                      pageSize={PageSize}
+                      onPageChange={(page) => setCurrentPage(page)}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+        </>
+      </form>
     </div>
   );
 };

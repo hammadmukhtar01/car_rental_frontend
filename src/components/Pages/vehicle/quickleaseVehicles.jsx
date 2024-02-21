@@ -68,7 +68,7 @@ const QuickLeaseVehicles = () => {
     },
 
     {
-      name: "Luggage Space",
+      name: "Air Bags",
       value: 2,
       featureIcon: BsSuitcase,
     },
