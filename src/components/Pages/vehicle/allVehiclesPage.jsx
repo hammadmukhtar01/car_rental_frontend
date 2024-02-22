@@ -35,8 +35,10 @@ import { AiOutlineMinusCircle } from "react-icons/ai";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Select from "react-select";
 import axios from "axios";
+import makeAnimated from "react-select/animated";
 
-const PageSize = 20;
+const PageSize = 4;
+const animatedComponents = makeAnimated();
 
 const VehiclesPage = () => {
   const [pickupLocation, setPickupLocation] = useState("");
@@ -54,26 +56,24 @@ const VehiclesPage = () => {
   const durationValues = [1, 7, 30];
   const [carsData, setCarsData] = useState([]);
   const [carType, setCarType] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCarTypes, setSelectedCarTypes] = useState([]);
+  const [carCategoriesData, setCarCategoriesData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
-  const [isCarModelOpen, setIsCarModelOpen] = useState(true);
+  const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(true);
   const [isCarTypeOpen, setIsCarTypeOpen] = useState(true);
   const [isCarPriceRangeOpen, setIsCarPriceRangeOpen] = useState(true);
-  const [selectedFilters, setSelectedFilters] = useState({
-    carModels: [],
-  });
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const navigate = useNavigate();
   const [showPickupModal, setShowPickupModal] = useState(false);
   const [showDropoffModal, setShowDropoffModal] = useState(false);
 
-  const carModels = ["Picanto", "Creta", "K5", "Elantra", "Corolla", "2008"];
-
   const carTypeInURL = useLocation();
   const queryParams = new URLSearchParams(carTypeInURL.search);
-  const initialCarType = queryParams.get("carType");
+  // const initialCarType = queryParams.get("carType");
   const startDateParam = queryParams.get("startDate");
   const endDateParam = queryParams.get("endDate");
   const startDate = useMemo(() => {
@@ -159,6 +159,32 @@ const VehiclesPage = () => {
     fetchCarsData();
   };
 
+  const fetchAllCategories = useCallback(async () => {
+    try {
+      const token =
+        "pwhUHSoPIOJmECDhAyhlP1X5ZvzD1W3dmhUOdpQ-BQtQzg1PNlv8invCvbT1qk3EsoJfM_v8Pj8ZJsPKXVoC-kZtg0p2mpAu4f5g8LiMWrGbqZ4QRY-1xJRJTcWF-t24jUgdng1-myn-TgDddhkldDmkOufYlMdkGQDpZtnUfQ00qgl58t65VCWwK29g4ZWq_Y9djzMDXsmSARNbtZD4TkjqEtIihGsxcffl8VEdO_f3oqDZamOk-mq9XrzlOxdU76g7WRmubIBctGiJPO8DV5crp-ccVfeZ_3TinZc6pmUABcezl9QxkrcbcgTGrRjMhpdqtXYOworyQjpjOfEhbTHYrkQFw-7yTJOJiUCIUMX05z97fE5DIi7GJg8-PL5xfzUyPgruvfnkHHmlFRWIFOkoEgf7FdcQ3S7EveRJZsHVxCKUKg-Dvjm4k7VyHE3uLhKurIgj4VzVSdRYGVRiggymUxvRT4h5Lr_nh2G1vzIrOG1R5vfb_93Pk5SelyNHoizjG_3nCfGbgWzwQ728Z6Vn22CAcbKemFRF7kVh0mg";
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/getSettings`;
+      const response = await axios.post(url, {}, { headers });
+
+      setCarCategoriesData(response.data.result.categories);
+      console.log(
+        "All Categories of cars are :------- ",
+        response.data.result.categories
+      );
+    } catch (error) {
+      console.error("Error fetching vehicle rates:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAllCategories();
+  }, [fetchAllCategories]);
+
   const carFeaturesWithIcons = [
     {
       name: "Person Seats",
@@ -208,38 +234,10 @@ const VehiclesPage = () => {
       largeBagsCapacity: item.largeBagsCapacity,
       tariffGroupId: item.tariffGroupId,
     };
-    console.log("type of doors: ", item.acrissType.name,)
-
-
-    // carFeaturesWithIcons.forEach((feature) => {
-    //   switch (feature.name) {
-    //     case "Person Seats":
-    //       dataObject[feature.name] = item.passengerCapacity;
-    //       console.log(`Person seats are: ${dataObject[feature.name]}`);
-    //       break;
-    //     case "Doors":
-    //       const doorRange = item.acrissType.name.split("-").map(Number);
-    //       dataObject[feature.name] = doorRange.reduce(
-    //         (acc, val) => acc + val,
-    //         0
-    //       );
-    //       break;
-    //     case "Automatic":
-    //       dataObject[feature.name] = item.acrissTransDrive.name.charAt(0);
-    //       break;
-    //     case "Air Bags":
-    //       dataObject[feature.name] =
-    //         item.smallBagsCapacity + item.largeBagsCapacity;
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // });
-
     dataArray.push(dataObject);
   });
 
-  console.log(dataArray);
+  console.log("Data Array is: --- ", dataArray);
 
   const sortByDropDown = [
     { label: "Recommended", value: "Recommended" },
@@ -328,26 +326,21 @@ const VehiclesPage = () => {
     );
   };
 
-  useEffect(() => {
-    if (initialCarType) {
-      setSelectedFilters((prevFilters) => ({
-        ...prevFilters,
-        carType: [...prevFilters.carType, initialCarType],
-      }));
-    }
-  }, [initialCarType]);
-
   const filterCars = useMemo(() => {
     const filteredCars = carsData.filter((car) => {
-      const modelMatch =
-        selectedFilters.carModels.length === 0 ||
-        selectedFilters.carModels.includes(car.carModel);
-      // const typeMatch = carType.length === 0 || carType.includes(car.carType);
+      const typeMatch =
+        selectedCarTypes.length === 0 || selectedCarTypes.includes(car.title);
+      const categoryMatch =
+        selectedCategories.length === 0 ||
+        selectedCategories.some(
+          (selectedCategory) =>
+            selectedCategory.value === car.acrissCategory.code
+        );
       const priceMatch =
         (minPrice === "" || car.rate >= minPrice) &&
         (maxPrice === "" || car.rate <= maxPrice);
 
-      return modelMatch && priceMatch;
+      return typeMatch && categoryMatch && priceMatch;
     });
 
     let sortedFilteredCars = [...filteredCars];
@@ -367,7 +360,19 @@ const VehiclesPage = () => {
     }
 
     return sortedFilteredCars;
-  }, [carsData, maxPrice, minPrice, selectedFilters.carModels, sortBy]);
+  }, [
+    carsData,
+    maxPrice,
+    minPrice,
+    selectedCarTypes,
+    selectedCategories,
+    sortBy,
+  ]);
+
+  const handleCategoryChange = (selectedOptions) => {
+    setSelectedCategories(selectedOptions);
+    console.log("Selected categories ------- :", selectedOptions);
+  };
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
@@ -379,31 +384,22 @@ const VehiclesPage = () => {
     window.scrollTo(0, 0);
   }, [currentPage]);
 
-  const handleCheckboxChange = (option, type) => {
-    setSelectedFilters((prevFilters) => ({
-      ...prevFilters,
-      [type]: prevFilters[type].includes(option)
-        ? prevFilters[type].filter((item) => item !== option)
-        : [...prevFilters[type], option],
-    }));
+  const handleCarTypeCheckboxChange = (type) => {
+    setSelectedCarTypes((prev) => {
+      if (prev.includes(type)) {
+        return prev.filter((t) => t !== type);
+      } else {
+        return [...prev, type];
+      }
+    });
   };
-
-  // const handleCarTypeCheckboxChange = (type) => {
-  //   setCarType((prevCarType) =>
-  //     prevCarType.includes(type)
-  //       ? prevCarType.filter((item) => item !== type)
-  //       : [...prevCarType, type]
-  //   );
-  // };
 
   const handleClearAllFilters = () => {
     console.log("Clear all filetrs");
-    setSelectedFilters({
-      carModels: [],
-    });
+    setSelectedCarTypes([]);
+    setSelectedCategories([]);
     setMinPrice("");
     setMaxPrice("");
-    // setSortBy("Recommended");
   };
 
   const dateInputRef = useRef(null);
@@ -471,8 +467,8 @@ const VehiclesPage = () => {
     };
   }, [showDatePicker]);
 
-  const toggleCarModel = () => {
-    setIsCarModelOpen(!isCarModelOpen);
+  const toggleCarCategories = () => {
+    setIsCarCategoriesOpen(!isCarCategoriesOpen);
   };
 
   const toggleCarType = () => {
@@ -503,6 +499,31 @@ const VehiclesPage = () => {
       backgroundColor: isSelected ? "#cc6119" : "white",
       ":hover": {
         backgroundColor: isSelected ? "#cc6119" : "rgb(229, 229, 229)",
+      },
+    }),
+  };
+
+  const selectCategoriesStyles = {
+    control: (provided, { hasValue }) => ({
+      ...provided,
+      cursor: "pointer",
+      border: "1px solid rgb(184, 184, 184)",
+      boxShadow: "none",
+      lineHeight: "32px",
+      marginLeft: "-7px",
+      marginRight: "-8px",
+      borderRadius: "6px",
+      ":hover": {
+        border: "1px solid rgb(184, 184, 184)",
+      },
+    }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      cursor: "pointer",
+      backgroundColor: isSelected ? "#cc6119" : "white",
+      ":hover": {
+        backgroundColor: isSelected ? "#cc6119" : "#cc6119",
+        color: isSelected ? "gray" : "white",
       },
     }),
   };
@@ -808,27 +829,28 @@ const VehiclesPage = () => {
                       </Col>
                     </div>
                   </div>
-                  <div className="card search-filters-card checkbox-container">
+
+                  <div className="card search-filters-card ">
                     <article className="card-group-item">
-                      <div className="car-model-label">
+                      <div className="car-categories-label">
                         <header
                           className="card-header styled-label pt-3 pb-3"
-                          onClick={toggleCarModel}
+                          onClick={toggleCarCategories}
                         >
-                          <div className="car-brand-filter-container d-flex justify-content-between">
-                            <div className="car-brand-icon-title">
+                          <div className="car-categories-filter-container d-flex justify-content-between">
+                            <div className="car-categories-icon-title">
                               <BsCarFrontFill className="mr-2" />
-                              <b>Car Model</b>
+                              <b>Car Categories</b>
                             </div>
-                            <div className="car-brand-open-close-modal ">
-                              {isCarModelOpen ? (
+                            <div className="car-categories-open-close-modal ">
+                              {isCarCategoriesOpen ? (
                                 <>
-                                  <div className="brand-open-icon">
+                                  <div className="categories-open-icon">
                                     <AiOutlineMinusCircle className="text-right" />
                                   </div>
                                 </>
                               ) : (
-                                <div className="brand-open-icon">
+                                <div className="categories-open-icon">
                                   <AiOutlinePlusCircle className="text-right" />
                                 </div>
                               )}
@@ -836,45 +858,33 @@ const VehiclesPage = () => {
                           </div>
                         </header>
                       </div>{" "}
-                      {isCarModelOpen && (
+                      {isCarCategoriesOpen && (
                         <div className="filter-content">
                           <div className="card-body">
-                            {carModels.map((model, index) => (
-                              <label
-                                className="form-check flipBox"
-                                aria-label={`Checkbox ${index}`}
-                                key={index}
-                              >
-                                <input
-                                  className="form-check-input"
-                                  type="checkbox"
-                                  value={model}
-                                  onChange={() =>
-                                    handleCheckboxChange(model, "carModels")
-                                  }
-                                  checked={selectedFilters.carModels.includes(
-                                    model
+                            <article className="card-group-item">
+                              <div className="car-card">
+                                <Select
+                                  isMulti
+                                  components={animatedComponents}
+                                  options={carCategoriesData.map(
+                                    (category) => ({
+                                      value: category.code,
+                                      label: category.name,
+                                    })
                                   )}
+                                  value={selectedCategories}
+                                  onChange={handleCategoryChange}
+                                  styles={selectCategoriesStyles}
                                 />
-                                <span className="form-check-label">
-                                  {model}
-                                </span>
-                                <div className="flipBox_boxOuter">
-                                  <div className="flipBox_box">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                  </div>
-                                </div>
-                              </label>
-                            ))}
+                              </div>
+                            </article>
                           </div>
                         </div>
                       )}
                     </article>
+                  </div>
+
+                  <div className="card search-filters-card checkbox-container">
                     <article className="card-group-item">
                       <div className="car-type-filter-label">
                         <header
@@ -915,9 +925,10 @@ const VehiclesPage = () => {
                                   className="form-check-input"
                                   type="checkbox"
                                   value={type}
-                                  // onChange={() =>
-                                  //   handleCarTypeCheckboxChange(type)
-                                  // }
+                                  checked={selectedCarTypes.includes(type)}
+                                  onChange={() =>
+                                    handleCarTypeCheckboxChange(type)
+                                  }
                                 />
                                 <span className="form-check-label">{type}</span>
                                 <div className="flipBox_boxOuter">
@@ -936,6 +947,7 @@ const VehiclesPage = () => {
                         </div>
                       )}
                     </article>
+
                     <article className="card-group-item">
                       <div className="car-price-filter-label">
                         <header
@@ -981,14 +993,6 @@ const VehiclesPage = () => {
                               </div>
 
                               <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
-                                {/* <input
-                              type="number"
-                              className="form-control"
-                              value={maxPrice}
-                              onChange={(e) => setMaxPrice(e.target.value)}
-                              placeholder="max value"
-                              min={minPrice}
-                            /> */}
                                 <input
                                   className="form-control-login "
                                   name="maxPrice"
@@ -1022,19 +1026,6 @@ const VehiclesPage = () => {
                                     <b>Sort By:</b>
                                   </h6>
                                 </Form.Label>
-                                {/* <select
-                                id="sortBySelect"
-                                className="form-select sort-by-select-tag"
-                                title="sorting"
-                                value={sortBy}
-                                onChange={(e) => setSortBy(e.target.value)}
-                              >
-                                <option value="LowToHigh">Low to High</option>
-                                <option value="HighToLow">High to Low</option>
-                                <option value="Recommended">Recommended</option> 
-                              </select>
-                                */}
-
                                 <Select
                                   options={sortByDropDown}
                                   required
@@ -1076,14 +1067,22 @@ const VehiclesPage = () => {
                               <div className="car-name-div">
                                 <span className="car-name text-end">
                                   {" "}
-                                  <b>{car?.title} | </b>( {car?.acrissCategory?.name} ){" "}
+                                  <b>{car?.acrissCategory?.name} | </b>(
+                                  {car?.title})
                                 </span>
                               </div>
                               <div className="car-image-container ">
-                                <a
-                                  href={`/bookingPage/1?tariffGroupId=${
-                                    car.tariffGroupId
-                                  }&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`}
+                                <div
+                                  // href={`/bookingPage/1?tariffGroupId=${
+                                  //   car.tariffGroupId
+                                  // }&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`}
+                                  onClick={() =>
+                                    allCarsBookingButton(
+                                      car.tariffGroupId,
+                                      startDate,
+                                      endDate
+                                    )
+                                  }
                                 >
                                   {" "}
                                   <img
@@ -1091,7 +1090,7 @@ const VehiclesPage = () => {
                                     alt={`Car ${index + 1}`}
                                     className="car-image"
                                   />
-                                </a>
+                                </div>
                                 {/* <div className="car-image-overlay"></div> */}
                               </div>
                               <div className="all-vehicles-features-icons features-scroll-container text-center">
@@ -1109,19 +1108,28 @@ const VehiclesPage = () => {
                                             break;
                                           case "Doors":
                                             // const [doorRange = carData.type] = carData.type.split(/[-/]/);
-                                            const [doorRange = carData.type] = carData.type.includes(' ') ? carData.type.split(' ') : [carData.type];
-                                            value = doorRange
+                                            const [doorRange = carData.type] =
+                                              carData.type.includes(" ")
+                                                ? carData.type.split(" ")
+                                                : [carData.type];
+                                            value = doorRange;
                                             break;
                                           case "Automatic":
-                                            value =
-                                              carData.transmission.split(
-                                                "/"
-                                              )[0].charAt(0);
+                                            value = carData.transmission
+                                              .split("/")[0]
+                                              .charAt(0);
                                             break;
                                           case "Air Bags":
                                             value =
                                               carData.smallBagsCapacity +
                                               carData.largeBagsCapacity;
+                                            break;
+                                          case "L Engine":
+                                            // value = carData.passengerCapacity;
+                                            value = 1.7;
+                                            break;
+                                          case "AC":
+                                            value = "AC";
                                             break;
                                           default:
                                             value = carData[carFeature.name];
@@ -1266,7 +1274,7 @@ const VehiclesPage = () => {
                     <Pagination
                       className="pagination-bar"
                       currentPage={currentPage}
-                      totalCount={carsData.length}
+                      totalCount={filterCars.length}
                       pageSize={PageSize}
                       onPageChange={(page) => setCurrentPage(page)}
                     />

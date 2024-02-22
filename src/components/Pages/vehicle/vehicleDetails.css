@@ -405,6 +405,7 @@ span.select2-selection_arrow b {
   border-color: #ccc;
 }
 
+.categories-open-icon,
 .brand-open-icon,
 .price-range-open-icon,
 .type-open-icon {
@@ -412,6 +413,7 @@ span.select2-selection_arrow b {
   font-weight: bold;
 }
 
+.categories-open-icon:hover,
 .brand-open-icon:hover,
 .price-range-open-icon:hover,
 .type-open-icon:hover {
