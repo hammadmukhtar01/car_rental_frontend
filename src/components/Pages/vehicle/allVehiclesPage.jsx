@@ -155,7 +155,8 @@ const VehiclesPage = () => {
     fetchCarsData();
   }, [dateRange, fetchCarsData]);
 
-  const handleSearchCarButton = async () => {
+  const handleSearchCarButton = async (e) => {
+    e.PreventDefault();
     fetchCarsData();
   };
 
@@ -208,12 +209,6 @@ const VehiclesPage = () => {
       value: 2,
       featureIcon: BsSuitcase,
     },
-    {
-      name: "L Engine",
-      value: 1.7,
-      featureIcon: BsCpu,
-    },
-
     {
       name: "AC",
       value: "AC",
@@ -528,6 +523,23 @@ const VehiclesPage = () => {
     }),
   };
 
+  const featureValues = carFeaturesWithIcons.map((feature, index) => {
+    const value = feature.value;
+    if (value !== null && value !== undefined) {
+      return (
+        <span className="single-feature-container features-values" key={index}>
+          {feature.featureIcon && (
+            <>
+              <feature.featureIcon className="all-car-icons" />{" "}
+            </>
+          )}
+          <span>{value}</span>
+        </span>
+      );
+    }
+    return null; // Return null for null or undefined values
+  });
+
   // const { loading } = useReload();
 
   // if (loading) {
@@ -824,7 +836,7 @@ const VehiclesPage = () => {
                           className="clear-filters "
                           onClick={handleClearAllFilters}
                         >
-                          Clear all <RxCross2 />
+                          Reset <RxCross2 />
                         </span>
                       </Col>
                     </div>
@@ -1063,7 +1075,7 @@ const VehiclesPage = () => {
                             sm={12}
                             className="offers-car-div pb-5"
                           >
-                            <div className="all-offer-cars p-3">
+                            <div className="all-offer-cars pb-3">
                               <div className="car-name-div">
                                 <span className="car-name text-end">
                                   {" "}
@@ -1073,12 +1085,9 @@ const VehiclesPage = () => {
                               </div>
                               <div className="car-image-container ">
                                 <div
-                                  // href={`/bookingPage/1?tariffGroupId=${
-                                  //   car.tariffGroupId
-                                  // }&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`}
                                   onClick={() =>
                                     allCarsBookingButton(
-                                      car.tariffGroupId,
+                                      car?.tariffGroupId,
                                       startDate,
                                       endDate
                                     )
@@ -1086,12 +1095,11 @@ const VehiclesPage = () => {
                                 >
                                   {" "}
                                   <img
-                                    src={car.displayImageUrl}
+                                    src={car?.displayImageUrl}
                                     alt={`Car ${index + 1}`}
                                     className="car-image"
                                   />
                                 </div>
-                                {/* <div className="car-image-overlay"></div> */}
                               </div>
                               <div className="all-vehicles-features-icons features-scroll-container text-center">
                                 {dataArray.map((carData, dataIndex) => (
@@ -1109,8 +1117,8 @@ const VehiclesPage = () => {
                                           case "Doors":
                                             // const [doorRange = carData.type] = carData.type.split(/[-/]/);
                                             const [doorRange = carData.type] =
-                                              carData.type.includes(" ")
-                                                ? carData.type.split(" ")
+                                              carData.type.includes("%")
+                                                ? carData.type.split("")
                                                 : [carData.type];
                                             value = doorRange;
                                             break;
@@ -1124,10 +1132,6 @@ const VehiclesPage = () => {
                                               carData.smallBagsCapacity +
                                               carData.largeBagsCapacity;
                                             break;
-                                          case "L Engine":
-                                            // value = carData.passengerCapacity;
-                                            value = 1.7;
-                                            break;
                                           case "AC":
                                             value = "AC";
                                             break;
@@ -1136,29 +1140,24 @@ const VehiclesPage = () => {
                                             break;
                                         }
 
-                                        // Render the icon only if showIcon is true
-                                        return (
+                                        return value !== undefined &&
+                                          value !== null &&
+                                          showIcon === true ? (
                                           <span
                                             key={featureIndex}
-                                            className="features-values"
+                                            className="single-feature-container features-values"
                                           >
-                                            {showIcon && (
+                                            {carFeature.name !== "Doors" && (
                                               <>
                                                 <carFeature.featureIcon className="all-car-icons" />{" "}
-                                                <span className="">
-                                                  {value}
-                                                </span>
-                                                {featureIndex <
-                                                  carFeaturesWithIcons.length -
-                                                    1 && (
-                                                  <span className="car-features-vertical-line mr-2 ml-2">
-                                                    |
-                                                  </span>
-                                                )}
                                               </>
                                             )}
+                                            <span className="">{value}</span>
+                                            {/* {featureIndex < carFeaturesWithIcons.length - 1 && (
+                                              <span className="car-features-vertical-line mr-2 ml-2">|</span>
+                                            )} */}
                                           </span>
-                                        );
+                                        ) : null;
                                       }
                                     )}
                                   </span>
@@ -1222,24 +1221,27 @@ const VehiclesPage = () => {
                                 </>
                               )}
                               <div className="d-flex justify-content-center">
-                                <div className="col-xxl-10 col-lg-10 col-md-12 col-sm-8 col-10 d-flex justify-content-center">
+                                <div className="col-xxl-10 col-lg-11 col-md-12 col-sm-8 col-12 d-flex justify-content-center">
                                   {numberOfDays > 0 ? (
                                     <>
                                       <button
                                         className="animated-button"
-                                        onClick={() =>
-                                          allCarsBookingButton(
-                                            car.tariffGroupId,
-                                            startDate,
-                                            endDate
-                                          )
-                                        }
+                                        onClick={() => {
+                                          console.log(
+                                            `--------------------------Start date is ---- ${startDate} \n End Date is ---- ${endDate}`
+                                          );
+                                          // allCarsBookingButton(
+                                          //   car.tariffGroupId,
+                                          //   startDate,
+                                          //   endDate
+                                          // );
+                                        }}
                                       >
                                         <span className="button-text-span">
                                           <span className="transition"></span>
                                           <span className="gradient"></span>
                                           <span className="label">
-                                            Pay Now | AED:{" "}
+                                            Pay Now <span>|</span> AED:{" "}
                                             {car.rate * numberOfDays} |{" "}
                                             {numberOfDays} days
                                           </span>

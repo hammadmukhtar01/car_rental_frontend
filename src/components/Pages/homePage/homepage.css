@@ -426,7 +426,7 @@
 
 .car-image-container {
   position: relative;
-  height: 300px;
+  height: 230px;
   overflow: visible;
   display: flex;
   justify-content: center;
@@ -849,6 +849,12 @@ option:disabled {
   .alice-carousel__next-btn {
     text-align: right !important;
     width: 85% !important;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .car-image-container {
+    height: 160px;
   }
 }
 

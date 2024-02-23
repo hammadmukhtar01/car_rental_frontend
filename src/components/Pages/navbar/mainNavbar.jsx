@@ -134,7 +134,7 @@ function OffcanvasExample() {
                     className="navbar-all-menus"
                     activeclassname="active"
                   >
-                    Lease Car
+                    Lease To Own
                   </Nav.Link>
 
                   <Nav.Link

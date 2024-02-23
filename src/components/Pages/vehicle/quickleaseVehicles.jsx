@@ -73,12 +73,6 @@ const QuickLeaseVehicles = () => {
       featureIcon: BsSuitcase,
     },
     {
-      name: "L Engine",
-      value: 1.7,
-      featureIcon: BsCpu,
-    },
-
-    {
       name: "AC",
       value: "AC",
       featureIcon: LuSnowflake,
@@ -255,7 +249,7 @@ const QuickLeaseVehicles = () => {
         </div>
         <div className="styled-label text-center pb-3">
           <span>
-            <b className="fs-3">Quick lease</b>
+            <b className="fs-3">Lease To Own</b>
           </span>
         </div>
         <div className="all-cars-main-container-div container">
@@ -272,7 +266,7 @@ const QuickLeaseVehicles = () => {
                         className="clear-filters "
                         onClick={handleClearAllFilters}
                       >
-                        Clear all <RxCross2 />
+                        Reset <RxCross2 />
                       </span>
                     </Col>
                   </div>
@@ -432,7 +426,7 @@ const QuickLeaseVehicles = () => {
                           sm={12}
                           className="offers-car-div pb-5"
                         >
-                          <div className="all-offer-cars p-3">
+                          <div className="all-offer-cars pb-3">
                             <div className="car-name-div">
                               <span className="car-name text-end">
                                 {" "}
@@ -440,7 +434,7 @@ const QuickLeaseVehicles = () => {
                               </span>
                             </div>
                             <div className="car-image-container ">
-                              <a href="/bookingPage/1">
+                              <a href="#1">
                                 {" "}
                                 <img
                                   src={car.image}
@@ -453,18 +447,18 @@ const QuickLeaseVehicles = () => {
                             <div className="all-vehicles-features-icons features-scroll-container text-center">
                               {carFeaturesWithIcons.map(
                                 (carFeaturesIcons, index) => (
-                                  <span key={index}>
+                                  <span key={index} className="lease-page-single-feature-container">
                                     <span className="features-values">
                                       <carFeaturesIcons.featureIcon className="all-car-icons" />{" "}
                                       <span className="">
                                         {carFeaturesIcons.value}{" "}
                                       </span>
-                                      {index <
+                                      {/* {index <
                                         carFeaturesWithIcons.length - 1 && (
                                         <span className="car-features-vertical-line mr-2 ml-2">
                                           |
                                         </span>
-                                      )}
+                                      )} */}
                                     </span>
                                   </span>
                                 )
@@ -474,7 +468,7 @@ const QuickLeaseVehicles = () => {
                             <hr className="discount-line" />
 
                             <div className="lease-cars-buttons-container">
-                              <div className="button-container d-flex justify-content-center align-items-start">
+                              <div className="button-container d-flex flex-wrap justify-content-center align-items-start">
                                <div className="lease-car-phone-num-div">
                                <a
                                   href={`tel:${phoneNumber}`}
