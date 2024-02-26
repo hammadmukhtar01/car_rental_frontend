@@ -76,23 +76,50 @@ const VehiclesPage = () => {
   // const initialCarType = queryParams.get("carType");
   const startDateParam = queryParams.get("startDate");
   const endDateParam = queryParams.get("endDate");
-  const startDate = useMemo(() => {
-    return startDateParam ? new Date(startDateParam) : new Date();
-  }, [startDateParam]);
 
-  const endDate = useMemo(() => {
-    return endDateParam
-      ? new Date(endDateParam)
-      : new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-  }, [endDateParam]);
+  // console.log(`Start param dateeeeee ${startDateParam}\nEEEEEEEE ${endDateParam}`)
+  const defaultStartDate = new Date();
+  const defaultEndDate = new Date(
+    defaultStartDate.getTime() + 24 * 60 * 60 * 1000
+  );
 
   const [dateRange, setDateRange] = useState([
     {
-      startDate,
-      endDate,
+      startDate: startDateParam ? new Date(startDateParam) : defaultStartDate,
+      endDate: endDateParam ? new Date(endDateParam) : defaultEndDate,
       key: "selection",
     },
   ]);
+
+  const startDate = useMemo(() => dateRange[0].startDate, [dateRange]);
+  const endDate = useMemo(() => dateRange[0].endDate, [dateRange]);
+
+  const startDateFunc = new Date(startDate);
+  if (
+    startDateFunc.toISOString().split("T")[0] ===
+      new Date().toISOString().split("T")[0] ||
+    startDateFunc.toISOString().split("T")[0] === startDateParam
+  ) {
+    startDateFunc.setDate(startDateFunc.getDate());
+  } else startDateFunc.setDate(startDateFunc.getDate() + 1);
+
+  const endDateFunc = new Date(endDate);
+  if (
+    endDateFunc.toISOString().split("T")[0] ===
+      new Date(defaultStartDate.getTime() + 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split("T")[0] ||
+    endDateFunc.toISOString().split("T")[0] === endDateParam
+  ) {
+    endDateFunc.setDate(endDateFunc.getDate());
+  } else endDateFunc.setDate(endDateFunc.getDate() + 1);
+
+  const datePickerStartDate = encodeURIComponent(
+    startDateFunc.toISOString()
+  ).split("T")[0];
+  const datePickerEndDate = encodeURIComponent(endDateFunc.toISOString()).split(
+    "T"
+  )[0];
 
   const mileleLocations = [
     {
@@ -156,7 +183,7 @@ const VehiclesPage = () => {
   }, [dateRange, fetchCarsData]);
 
   const handleSearchCarButton = async (e) => {
-    e.PreventDefault();
+    e.preventDefault();
     fetchCarsData();
   };
 
@@ -313,11 +340,7 @@ const VehiclesPage = () => {
 
     console.log("All Cars Booking Button");
     navigate(
-      `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${
-        startDate.toISOString().split("T")[0]
-      }&endDate=${
-        endDate.toISOString().split("T")[0]
-      }&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}`
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}`
     );
   };
 
@@ -522,23 +545,6 @@ const VehiclesPage = () => {
       },
     }),
   };
-
-  const featureValues = carFeaturesWithIcons.map((feature, index) => {
-    const value = feature.value;
-    if (value !== null && value !== undefined) {
-      return (
-        <span className="single-feature-container features-values" key={index}>
-          {feature.featureIcon && (
-            <>
-              <feature.featureIcon className="all-car-icons" />{" "}
-            </>
-          )}
-          <span>{value}</span>
-        </span>
-      );
-    }
-    return null; // Return null for null or undefined values
-  });
 
   // const { loading } = useReload();
 
@@ -1228,13 +1234,13 @@ const VehiclesPage = () => {
                                         className="animated-button"
                                         onClick={() => {
                                           console.log(
-                                            `--------------------------Start date is ---- ${startDate} \n End Date is ---- ${endDate}`
+                                            `--------------------------Start date is ---- ${datePickerStartDate} \n End Date is ---- ${datePickerEndDate}`
                                           );
-                                          // allCarsBookingButton(
-                                          //   car.tariffGroupId,
-                                          //   startDate,
-                                          //   endDate
-                                          // );
+                                          allCarsBookingButton(
+                                            car.tariffGroupId,
+                                            datePickerStartDate,
+                                            datePickerEndDate
+                                          );
                                         }}
                                       >
                                         <span className="button-text-span">
