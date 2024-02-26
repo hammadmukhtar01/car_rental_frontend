@@ -15,7 +15,6 @@ import { BsPersonCircle } from "react-icons/bs";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 import SpinTheWheel from "../spinTheWheel/spinTheWheel";
-import Celebration from "../spinTheWheel/celebration";
 import { RxColorWheel } from "react-icons/rx";
 import { ImSpinner4 } from "react-icons/im";
 import { Modal } from "react-bootstrap";
@@ -68,41 +67,10 @@ const HomePage = () => {
             <div className="search-box-home-page">
               <SearchBox />
             </div>
-            {/* <div className="x1 animate-logos">
-              <SiBmw className="y1 animated-img logo1" />
-            </div>
-            <div className="x2 animate-logos">
-              <SiBmw className="y2 animated-img logo2" />
-            </div>
-            <div className="x3 animate-logos">
-              <SiBmw className="y3 animated-img logo3" />
-            </div>
-            <div className="x4 animate-logos">
-              <SiBmw className="y4 animated-img logo4" />
-            </div> */}
           </div>
-          {/* <div className="tag-line-heading-home-page">
-            <h1 className="tag-line-heading-text">
-              Drive Luxury Cars In Dubai <br /> Afforable Cars
-            </h1>
-          </div> */}
 
-          {/* <div className="car-movement tag-line-heading-home-page">
-            <div className="car">
-              <img
-                src={AnimatedCarImg}
-                alt="aboutUs"
-                className="animated-car-banner"
-              />
-            </div>
-          </div> */}
-          {/* <SpinTheWheel /> */}
           <CarCards />
-
-          
-
           {/* <Celebration/> */}
-
           <div className="spin-wheel-buttons-container">
             <a
               href="#spin-the-wheel"
@@ -118,6 +86,7 @@ const HomePage = () => {
               <Modal.Title>Spin The Wheel</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+              <SpinTheWheel />
             </Modal.Body>
             <Modal.Footer>
               <button className="btn btn-secondary" onClick={handleCloseModal}>
