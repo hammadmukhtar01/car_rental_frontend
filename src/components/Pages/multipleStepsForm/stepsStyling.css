@@ -133,8 +133,6 @@ h4 {
   /* flex-wrap: wrap; */
 }
 
-
-
 .features-values {
   font-size: 13px;
 }
@@ -247,7 +245,7 @@ h4 {
 .input-group {
   display: flex;
   align-items: center;
-  justify-content: flex-end
+  justify-content: flex-end;
 }
 
 .input {
@@ -322,10 +320,15 @@ h4 {
   background-color: #d19268;
 }
 
+.car-image-1 {
+  max-width: inherit;
+
+  -webkit-box-reflect:below -15em -webkit-gradient(linear, right top, right
+        bottom, from(transparent), color-stop(30%, transparent), to(rgba(255, 255, 255, 0.4)));
+}
+
 @media screen and (max-width: 991px) {
   .car-prices-details-container {
     border: none;
   }
-  
 }
-

@@ -339,14 +339,11 @@
   padding: 4px !important;
 }
 
-.css-12a83d4-MultiValueRemove:hover{
+.css-12a83d4-MultiValueRemove:hover {
   background-color: #df9462 !important;
   color: white !important;
   margin-left: 5px !important;
 }
-
-
-
 
 .css-13cymwt-control,
 .css-t3ipsp-control,
@@ -372,7 +369,7 @@
   background-color: white !important;
 }
 
-.css-tr4s17-option{
+.css-tr4s17-option {
   background-color: #cc6119 !important;
 }
 
@@ -479,6 +476,15 @@
   display: flex;
   /* justify-content: space-evenly; */
   align-items: center;
+}
+
+.single-car-container-div {
+  /* background-image: url("../../images/abc4.jpg"); */
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  /* background-attachment: fixed */
 }
 
 .offer-car-item {

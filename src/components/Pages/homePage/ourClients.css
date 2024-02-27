@@ -83,6 +83,7 @@ button.animated-button {
 .label {
   position: relative;
   top: -1px;
+  font-size: 16px;
 }
 
 .transition {

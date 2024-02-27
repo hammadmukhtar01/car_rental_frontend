@@ -356,7 +356,7 @@ const VehicleDetails = ({ nextStep }) => {
                                 <img
                                   src={carImg}
                                   alt={`Car-1`}
-                                  className="car-image"
+                                  className="car-image-1"
                                   onClick={handleImageClick}
                                 />
                               </div>

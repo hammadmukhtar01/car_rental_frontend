@@ -1079,9 +1079,9 @@ const VehiclesPage = () => {
                             lg={6}
                             md={12}
                             sm={12}
-                            className="offers-car-div pb-5"
+                            className="all-cars-container-div pb-5"
                           >
-                            <div className="all-offer-cars pb-3">
+                            <div className="single-car-container-div pb-3">
                               <div className="car-name-div">
                                 <span className="car-name text-end">
                                   {" "}

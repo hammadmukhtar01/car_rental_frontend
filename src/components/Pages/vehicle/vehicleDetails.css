@@ -322,14 +322,14 @@ span.select2-selection_arrow b {
   border-top: 1px solid rgba(0, 0, 0, 0.175);
 }
 
-.all-offer-cars {
+.single-car-container-div {
   border: 1px solid rgb(217, 217, 217);
   border-radius: 4px;
   /* box-shadow: 4px 3px 12px #d3d3d3; */
   padding: 10px 10px;
 }
 
-.all-offer-cars:hover {
+.single-car-container-div:hover {
   box-shadow: 4px 3px 12px 5px #b4b3b3;
 }
 
@@ -795,8 +795,8 @@ body {
   color: #d0d0d0;
 }
 
-.all-offer-cars {
-  background-color: white;
+.single-car-container-div {
+  /* background-color: white; */
   /* background: rgb(41,28,5); */
 /* background: linear-gradient(214deg, rgba(41,28,5,1) 0%, rgba(212,208,202,1) 21%, rgba(11,7,1,1) 100%); */
 }
@@ -811,7 +811,7 @@ body {
   .rdrCalendarWrapper {
     font-size: 10px !important;
   }
-  .all-offer-cars {
+  .single-car-container-div {
     padding: 10px 5px;
   }
   .vehicles-page-main-container {
