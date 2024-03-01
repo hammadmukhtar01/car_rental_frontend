@@ -20,7 +20,7 @@ import ResetPasswordPage from "./components/authentication/resetPasswordPage";
 import VehicleDetails from "./components/Pages/multipleStepsForm/vehicleDetails";
 import AddOnsDocuments from "./components/Pages/multipleStepsForm/addOnsDocuments";
 import ErrorPage from "./components/Pages/OtherPages/errorPage";
-import QuickLeaseVehicles from "./components/Pages/vehicle/quickleaseVehicles";
+import QuickLeaseVehicles from "./components/Pages/vehicle/leaseToOwn";
 
 function App() {
   return (

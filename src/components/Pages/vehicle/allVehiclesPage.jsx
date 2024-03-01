@@ -37,7 +37,7 @@ import Select from "react-select";
 import axios from "axios";
 import makeAnimated from "react-select/animated";
 
-const PageSize = 4;
+const PageSize = 8;
 const animatedComponents = makeAnimated();
 
 const VehiclesPage = () => {
@@ -1120,14 +1120,14 @@ const VehiclesPage = () => {
                                           case "Person Seats":
                                             value = carData.passengerCapacity;
                                             break;
-                                          case "Doors":
-                                            // const [doorRange = carData.type] = carData.type.split(/[-/]/);
-                                            const [doorRange = carData.type] =
-                                              carData.type.includes("%")
-                                                ? carData.type.split("")
-                                                : [carData.type];
-                                            value = doorRange;
-                                            break;
+                                          // case "Doors":
+                                          //   const [doorRange = carData.type] = carData.type.split(/[-/]/);
+                                          //   const [doorRange = carData.type] =
+                                          //     carData.type.includes("%")
+                                          //       ? carData.type.split("")
+                                          //       : [carData.type];
+                                          //   value = doorRange;
+                                          //   break;
                                           case "Automatic":
                                             value = carData.transmission
                                               .split("/")[0]
@@ -1247,9 +1247,16 @@ const VehiclesPage = () => {
                                           <span className="transition"></span>
                                           <span className="gradient"></span>
                                           <span className="label">
-                                            Pay Now <span>|</span> AED:{" "}
-                                            {car.rate * numberOfDays} |{" "}
-                                            {numberOfDays} days
+                                            Pay Now{" "}
+                                            <span className="pay-now-price-md-lg">
+                                              <span>|</span> AED:{" "}
+                                              {car.rate * numberOfDays} |{" "}
+                                              {numberOfDays} days
+                                            </span>
+                                            <div className="pay-now-price-xs">
+                                              AED: {car.rate * numberOfDays} |{" "}
+                                              {numberOfDays} days
+                                            </div>
                                           </span>
                                         </span>
                                       </button>

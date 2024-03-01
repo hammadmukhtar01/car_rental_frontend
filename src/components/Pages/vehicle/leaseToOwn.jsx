@@ -217,7 +217,7 @@ const QuickLeaseVehicles = () => {
     //   position: "bottom-right",
     //   className: "foo-bar",
     // });
-    navigate('/contactus')
+    navigate("/contactus");
   };
 
   const toggleCarModel = () => {
@@ -227,6 +227,70 @@ const QuickLeaseVehicles = () => {
   const toggleCarType = () => {
     setIsCarTypeOpen(!isCarTypeOpen);
   };
+
+  const leaseToOwnCalculator = (numOfYears, totalSellingPrice) => {
+    let x;
+    let y;
+    const downPaymentWithVAT = totalSellingPrice * 0.2;
+    const downPaymentWithoutVAT = downPaymentWithVAT / 1.05;
+    const leasedAmouontPerYearWithoutDownPayment =
+      totalSellingPrice - downPaymentWithoutVAT;
+
+    const financeCostPeryear =
+      leasedAmouontPerYearWithoutDownPayment * 0.08 * numOfYears;
+
+    const leastAmountFinanceCostWithoutVAT =
+      leasedAmouontPerYearWithoutDownPayment + financeCostPeryear;
+    const leastAmountFinanceCostWithVAT =
+      leastAmountFinanceCostWithoutVAT * 1.05;
+
+    const monthlyInstallmentsPriceWithoutVAT =
+      leastAmountFinanceCostWithoutVAT / (12 * numOfYears);
+    const monthlyInstallmentsPriceWithVAT =
+      monthlyInstallmentsPriceWithoutVAT * 1.05;
+
+    const totalLeasedPaymentWithoutVAT =
+      monthlyInstallmentsPriceWithoutVAT * 12 * numOfYears;
+    const totalLeasedPaymentWithVAT =
+      monthlyInstallmentsPriceWithVAT * 12 * numOfYears;
+
+    const premiumFullInsurancePerYearWihtoutVAT =
+      totalSellingPrice * 1.1 * 0.03 * numOfYears;
+    const premiumFullInsurancePerYearWihtVAT =
+      premiumFullInsurancePerYearWihtoutVAT * 1.05;
+
+    const yearlyRegisterationWithoutVAT = 2000 * numOfYears;
+    const yearlyRegisterationWithVAT = yearlyRegisterationWithoutVAT * 1.05;
+
+    const someChargesCalculation =
+      (premiumFullInsurancePerYearWihtoutVAT + yearlyRegisterationWithoutVAT) *
+      1.08;
+
+    const monthlyRegisterationInsurancePriceWithoutVAT =
+      someChargesCalculation / (12 * numOfYears);
+    const monthlyRegisterationInsurancePriceWithVAT =
+      monthlyRegisterationInsurancePriceWithoutVAT * 1.05;
+
+    const finalPricePerMonthWithoutVATBeforeRound =
+      monthlyInstallmentsPriceWithoutVAT +
+      monthlyRegisterationInsurancePriceWithoutVAT;
+
+    const finalPricePerMonthWithoutVAT = Math.round(
+      finalPricePerMonthWithoutVATBeforeRound
+    );
+
+    const finalPricePerMonthWithVAT = Math.round(
+      finalPricePerMonthWithoutVATBeforeRound * 1.05
+    );
+
+    console.log(
+      `Final Price without VAT is: ${finalPricePerMonthWithoutVAT}\nFinal Price Including VAT is: ${finalPricePerMonthWithVAT}`
+    );
+  };
+
+  useEffect(() => {
+    leaseToOwnCalculator(5, 245000);
+  }, []);
 
   // const { loading } = useReload();
 
@@ -447,7 +511,10 @@ const QuickLeaseVehicles = () => {
                             <div className="all-vehicles-features-icons features-scroll-container text-center">
                               {carFeaturesWithIcons.map(
                                 (carFeaturesIcons, index) => (
-                                  <span key={index} className="lease-page-single-feature-container">
+                                  <span
+                                    key={index}
+                                    className="lease-page-single-feature-container"
+                                  >
                                     <span className="features-values">
                                       <carFeaturesIcons.featureIcon className="all-car-icons" />{" "}
                                       <span className="">
@@ -469,23 +536,23 @@ const QuickLeaseVehicles = () => {
 
                             <div className="lease-cars-buttons-container">
                               <div className="button-container d-flex flex-wrap justify-content-center align-items-start">
-                               <div className="lease-car-phone-num-div">
-                               <a
-                                  href={`tel:${phoneNumber}`}
-                                  className="lease-car-button phone-call-link-lease-section"
-                                >
-                                  <FaPhone />
-                                </a>
-                               </div>
-                               <div className="lease-car-whatsapp-div mr-2">
-                                <a
-                                  href={whatsappLink}
-                                  target="_blank"
-                                  className="lease-car-button whatsapp-link-lease-section"
-                                  rel="noreferrer"
-                                >
-                                  <FaWhatsapp />
-                                </a>
+                                <div className="lease-car-phone-num-div">
+                                  <a
+                                    href={`tel:${phoneNumber}`}
+                                    className="lease-car-button phone-call-link-lease-section"
+                                  >
+                                    <FaPhone />
+                                  </a>
+                                </div>
+                                <div className="lease-car-whatsapp-div mr-2">
+                                  <a
+                                    href={whatsappLink}
+                                    target="_blank"
+                                    className="lease-car-button whatsapp-link-lease-section"
+                                    rel="noreferrer"
+                                  >
+                                    <FaWhatsapp />
+                                  </a>
                                 </div>
                                 <div className="lease-car-button send-inquiry-button">
                                   <button

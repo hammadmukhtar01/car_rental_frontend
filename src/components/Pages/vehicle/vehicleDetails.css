@@ -74,6 +74,10 @@
 
 /* Pagination */
 
+ul.pagination-container.pagination-bar {
+  padding-left: 0rem;
+}
+
 .pagination-container {
   display: flex;
   list-style-type: none;
@@ -93,7 +97,6 @@
   border-radius: 50px;
   line-height: 1.43;
   font-size: 14px;
-  min-width: 32px;
   border-right: 0.12em solid white;
   border-top: 0.12em solid white;
   box-shadow: 1px 0px 3px #cc6119;

@@ -242,7 +242,7 @@ const PaymentPage = ({ prevStep }) => {
                   </div>
                   <br />
                   <div className="row col-lg-6 col-md-6 ">
-                    <button className="animated-button" type="button">
+                    <button type="button" className="animated-button" type="button">
                       {" "}
                       <span className="button-text-span">
                         <span className="transition"></span>
@@ -257,7 +257,7 @@ const PaymentPage = ({ prevStep }) => {
               </form> */}
             </div>
             <div className="row col-lg-5 col-md-6 mt-4">
-              <button className="animated-button" type="button">
+              <button type="button" className="animated-button" type="button">
                 {" "}
                 <span className="button-text-span">
                   <span className="transition"></span>

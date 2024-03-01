@@ -83,7 +83,7 @@ button.animated-button {
 .label {
   position: relative;
   top: -1px;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .transition {
@@ -157,6 +157,10 @@ button:hover .transition {
   /* padding: 0px 10px; */
 }
 
+.pay-now-price-xs {
+  display: none;
+}
+
 .animated-text h2 {
   overflow: hidden;
   border-right: 0.1em solid #cc6119;
@@ -191,6 +195,18 @@ button:hover .transition {
 @media screen and (max-width: 375px) {
   .animated-button {
     font-size: 12px;
-    padding: 10px 10px;
+    padding: 5px 30px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .pay-now-price-xs {
+    display: block;
+  }
+
+  .pay-now-price-md-lg {
+    display: none;
   }
 }

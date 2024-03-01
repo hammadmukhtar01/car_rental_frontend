@@ -204,7 +204,7 @@ function PickupLocationModal({
         )}
 
         <div className="button-container rent-button-in-map">
-          <button className="animated-button" onClick={handleInputSubmit}>
+          <button type="button" className="animated-button" onClick={handleInputSubmit}>
             <span className="button-text-span">
               <span className="transition"></span>
               <span className="gradient"></span>
