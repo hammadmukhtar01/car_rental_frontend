@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Modal } from "react-bootstrap";
 import {
   BsCarFrontFill,
+  BsCalendar2Check,
   BsJustify,
   BsCpu,
   BsPerson,
@@ -14,6 +15,7 @@ import Car1 from "../../images/suv-car-fleet-1.png";
 import Car2 from "../../images/sedan-car-fleet-2.png";
 import Car3 from "../../images/economy-car-fleet-3.png";
 import Pagination from "./pagination";
+import Select from "react-select";
 import MainNavbar from "../navbar/mainNavbar";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useReload } from "../../PrivateComponents/utils";
@@ -23,13 +25,20 @@ import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { FaPhone, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
+import ContactUsForm from "../OtherPages/contactUsForm";
 
-const PageSize = 20;
+import makeAnimated from "react-select/animated";
+
+const PageSize = 8;
+const animatedComponents = makeAnimated();
 
 const QuickLeaseVehicles = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isCarModelOpen, setIsCarModelOpen] = useState(true);
   const [isCarTypeOpen, setIsCarTypeOpen] = useState(true);
+  const [isNumOfyearsOpen, setIsNumOfyearsOpen] = useState(true);
+  const [selectedNumOfYears, setSelectedNumOfYears] = useState({label: "1 year", value: 1});
+  const [showModal, setShowModal] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     carModels: [],
     carTypes: [],
@@ -91,42 +100,49 @@ const QuickLeaseVehicles = () => {
           image: Car1,
           carType: "SUV",
           carModel: "Picanto",
+          carPrice: 124000,
         },
         {
           name: "Car name 2",
           image: Car2,
           carType: "Sedan",
           carModel: "Cretaa",
+          carPrice: 90000,
         },
         {
           name: "Car name 3",
           image: Car3,
           carType: "Economy",
           carModel: "Cretaa",
+          carPrice: 245000,
         },
         {
           name: "Car name 4",
           image: Car1,
           carType: "SUV",
           carModel: "K5",
+          carPrice: 540000,
         },
         {
           name: "Car name 5",
           image: Car2,
           carType: "Sedan",
           carModel: "2008",
+          carPrice: 85000,
         },
         {
           name: "Car name 6",
           image: Car1,
           carType: "SUV",
           carModel: "K5",
+          carPrice: 250000,
         },
         {
           name: "Car name 7",
           image: Car3,
           carType: "SUV",
           carModel: "K5",
+          carPrice: 20000,
         },
       ].map((car) => ({
         ...car,
@@ -139,10 +155,11 @@ const QuickLeaseVehicles = () => {
     []
   );
 
-  const allCarsBookingButton = () => {
-    console.log("All Cars Booking Button");
-    navigate("/bookingPage/1");
-  };
+  const numOfYears = useMemo(() => [1, 2, 3, 4, 5], []);
+  const numOfYearsOptions = numOfYears.map((year) => ({
+    label: `${year} year${year > 1 ? "s" : ""}`,
+    value: year,
+  }));
 
   useEffect(() => {
     if (initialCarType) {
@@ -198,26 +215,8 @@ const QuickLeaseVehicles = () => {
   };
 
   const handleSendInquiryButton = () => {
-    alert("Loading required cars");
-    // toast("Loading required cars!", { autoClose: 3000 });
-
-    // toast.success("Success Notification !", {
-    //   position: "top-center",
-    // });
-
-    // toast.error("Error Notification !", {
-    //   position: "top-right",
-    // });
-
-    // toast.info("Info Notification !", {
-    //   position: "bottom-center",
-    // });
-
-    // toast("Custom Style Notification with css class!", {
-    //   position: "bottom-right",
-    //   className: "foo-bar",
-    // });
-    navigate("/contactus");
+    setShowModal(true);
+    // navigate("/contactus");
   };
 
   const toggleCarModel = () => {
@@ -228,9 +227,11 @@ const QuickLeaseVehicles = () => {
     setIsCarTypeOpen(!isCarTypeOpen);
   };
 
-  const leaseToOwnCalculator = (numOfYears, totalSellingPrice) => {
-    let x;
-    let y;
+  const toggleNumofYears = () => {
+    setIsNumOfyearsOpen(!isNumOfyearsOpen);
+  };
+
+  const calculateLeaseToOwnPrice = (numOfYears, totalSellingPrice) => {
     const downPaymentWithVAT = totalSellingPrice * 0.2;
     const downPaymentWithoutVAT = downPaymentWithVAT / 1.05;
     const leasedAmouontPerYearWithoutDownPayment =
@@ -286,11 +287,53 @@ const QuickLeaseVehicles = () => {
     console.log(
       `Final Price without VAT is: ${finalPricePerMonthWithoutVAT}\nFinal Price Including VAT is: ${finalPricePerMonthWithVAT}`
     );
+    return finalPricePerMonthWithVAT;
   };
 
-  useEffect(() => {
-    leaseToOwnCalculator(5, 245000);
-  }, []);
+  // useEffect(() => {
+  //   calculateLeaseToOwnPrice(5, 245000);
+  // }, []);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleNumOfYearsChange = (selectedOptions) => {
+    console.log("111111- Change num of years...", selectedOptions);
+    if (selectedOptions.length > 0) {
+      const latestSelectedOption = selectedOptions[selectedOptions.length - 1];
+      setSelectedNumOfYears(latestSelectedOption);
+      console.log("222222- Change num of years...", latestSelectedOption);
+    } else {
+      setSelectedNumOfYears(null);
+      console.log("333333333-Change num of years...", selectedNumOfYears);
+    }
+  };
+
+  const selectNumOfyearsStyles = {
+    control: (provided, { hasValue }) => ({
+      ...provided,
+      cursor: "pointer",
+      border: "1px solid rgb(184, 184, 184)",
+      boxShadow: "none",
+      lineHeight: "32px",
+      marginLeft: "-7px",
+      marginRight: "-8px",
+      borderRadius: "6px",
+      ":hover": {
+        border: "1px solid rgb(184, 184, 184)",
+      },
+    }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      cursor: "pointer",
+      backgroundColor: isSelected ? "#cc6119" : "white",
+      ":hover": {
+        backgroundColor: isSelected ? "#cc6119" : "#cc6119",
+        color: isSelected ? "gray" : "white",
+      },
+    }),
+  };
 
   // const { loading } = useReload();
 
@@ -313,7 +356,7 @@ const QuickLeaseVehicles = () => {
         </div>
         <div className="styled-label text-center pb-3">
           <span>
-            <b className="fs-3">Lease To Own</b>
+            <b className="fs-3 mt-2 mb-2">Lease To Own</b>
           </span>
         </div>
         <div className="all-cars-main-container-div container">
@@ -335,6 +378,56 @@ const QuickLeaseVehicles = () => {
                     </Col>
                   </div>
                 </div>
+
+                <div className="card search-filters-card">
+                  <article className="card-group-item">
+                    <div className="car-categories-label">
+                      <header
+                        className="card-header styled-label pt-3 pb-3"
+                        onClick={toggleNumofYears}
+                      >
+                        <div className="car-categories-filter-container d-flex justify-content-between">
+                          <div className="car-categories-icon-title">
+                            <BsCalendar2Check className="mr-2" />
+                            <b>Select years</b>
+                          </div>
+                          <div className="car-categories-open-close-modal ">
+                            {isNumOfyearsOpen ? (
+                              <>
+                                <div className="categories-open-icon">
+                                  <AiOutlineMinusCircle className="text-right" />
+                                </div>
+                              </>
+                            ) : (
+                              <div className="categories-open-icon">
+                                <AiOutlinePlusCircle className="text-right" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </header>
+                    </div>{" "}
+                    {isNumOfyearsOpen && (
+                      <div className="filter-content">
+                        <div className="card-body">
+                          <article className="card-group-item">
+                            <div className="car-card">
+                              <Select
+                                isMulti
+                                components={animatedComponents}
+                                options={numOfYearsOptions}
+                                value={selectedNumOfYears}
+                                onChange={handleNumOfYearsChange}
+                                styles={selectNumOfyearsStyles}
+                              />
+                            </div>
+                          </article>
+                        </div>
+                      </div>
+                    )}
+                  </article>
+                </div>
+
                 <div className="card search-filters-card checkbox-container">
                   <article className="card-group-item">
                     <div className="car-model-label">
@@ -491,12 +584,22 @@ const QuickLeaseVehicles = () => {
                           className="offers-car-div pb-5"
                         >
                           <div className="single-car-container-div pb-3">
-                            <div className="car-name-div">
-                              <span className="car-name text-end">
-                                {" "}
-                                <b>{car.name} | </b>( {car.carType} ){" "}
-                              </span>
+                            <div className="car-price-name-container pb-3">
+                              <div className="test-div">
+                                <span className="test text-start">
+                                  {/* <div id="tag">
+                                    <span id="price">100 AED /Month</span>
+                                  </div> */}
+                                </span>
+                              </div>
+
+                              <div className="car-details-div">
+                                <span className="car-name text-end">
+                                  <b>{car.name} | </b>( {car.carType} )
+                                </span>
+                              </div>
                             </div>
+
                             <div className="car-image-container ">
                               <a href="#1">
                                 {" "}
@@ -533,6 +636,23 @@ const QuickLeaseVehicles = () => {
                             </div>
 
                             <hr className="discount-line" />
+
+                            <div className="car-installments-price pl-3 pr-3">
+                              <div className="product-panel__prices d-flex mb-3">
+                                <div className="product-panel__price">
+                                  <span>Installment per Month :</span>
+                                  {/* {selectedNumOfYears?.value} */}
+                                  AED{" "}
+                                  {selectedNumOfYears
+                                    ? calculateLeaseToOwnPrice(
+                                        selectedNumOfYears?.value,
+                                        car.carPrice
+                                      )
+                                    : "Select years"}
+                                  {/* {car.carPrice} */}
+                                </div>
+                              </div>
+                            </div>
 
                             <div className="lease-cars-buttons-container">
                               <div className="button-container d-flex flex-wrap justify-content-center align-items-start">
@@ -575,6 +695,29 @@ const QuickLeaseVehicles = () => {
                       ))}
                     </Row>
                   </>
+                  <Modal
+                    show={showModal}
+                    onHide={handleCloseModal}
+                    centered
+                    size="lg"
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>View Details</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <>
+                        <ContactUsForm />{" "}
+                      </>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={handleCloseModal}
+                      >
+                        Close
+                      </button>
+                    </Modal.Footer>
+                  </Modal>
                   <Pagination
                     className="pagination-bar"
                     currentPage={currentPage}

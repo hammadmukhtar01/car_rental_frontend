@@ -77,6 +77,11 @@
   font-size: 15px;
 }
 
+.accordion-button {
+  font-size: 15px;
+  font-weight: 600;
+}
+
 .center-img-container {
   display: flex;
   justify-content: center;

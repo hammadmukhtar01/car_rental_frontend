@@ -54,9 +54,9 @@ body {
   position: relative;
 }
 
-.lease-car-button {
+/* .lease-car-button {
   padding: 0px 14px;
-}
+} */
 
 .whatsapp-link-lease-section {
   padding: 12px;
@@ -116,6 +116,11 @@ body {
   border-radius: 50px;
   background: inherit;
 }
+
+.lease-car-whatsapp-div:hover .whatsapp-text-lto {
+  color: green;
+}
+
 
 .location-link {
   box-shadow: none;

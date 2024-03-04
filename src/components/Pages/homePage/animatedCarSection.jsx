@@ -29,8 +29,8 @@ const AnimatedCarSection = () => {
       autoplaySpeed: 3000,
       center: true,
       navText: [
-        "<i class='fa fa-angle-left'></i>",
-        "<i class='fa fa-angle-right'></i>",
+        "<i className='fa fa-angle-left'></i>",
+        "<i className='fa fa-angle-right'></i>",
       ],
       responsive: {
         0: {
