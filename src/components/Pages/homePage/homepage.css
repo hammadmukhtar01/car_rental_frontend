@@ -633,6 +633,25 @@ html {
   z-index: 1;
   box-shadow: none !important;
 }
+
+/* .owl-carousel .owl-nav button.owl-prev, .owl-carousel .owl-nav button.owl-next, .owl-carousel button.owl-dot {
+  padding: 16px !important;
+}
+
+.owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev, .owl-carousel button.owl-dot {
+  padding: 16px !important;
+}
+
+.owl-carousel .owl-nav button.owl-prev, .owl-carousel .owl-nav button.owl-next, .owl-carousel button.owl-dot {
+  background: red;
+  color: blue;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+} */
+
+
+
 /* .owl-dots {
   display: flex;
   align-items: center;

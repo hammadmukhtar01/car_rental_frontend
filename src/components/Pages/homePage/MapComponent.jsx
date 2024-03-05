@@ -4,7 +4,7 @@ import L from "leaflet";
 import markerIconUrl from "../../images/mapPinIcon.gif";
 import { useNavigate } from "react-router-dom";
 
-function MapComponent({ locations, mapRef, defaultLat, defaultLon }) {
+function MapComponents({ locations, mapRef, defaultLat, defaultLon }) {
   const navigate = useNavigate();
 
   const defaultCenter = useMemo(() => {
@@ -61,4 +61,4 @@ function MapComponent({ locations, mapRef, defaultLat, defaultLon }) {
   );
 }
 
-export default MapComponent;
+export default MapComponents;

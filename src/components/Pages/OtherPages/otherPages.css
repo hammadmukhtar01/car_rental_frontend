@@ -173,41 +173,38 @@
   border: 1px solid rgb(210, 210, 210);
 }
 
-
-
 /* Terms & Conditions */
 
 .all-terms-conditions-main-container {
   text-align: justify;
 }
 
+.terms-conditions-headings {
+  color: #cc6119;
+}
+
 .list-style-small-alpha {
   list-style-type: lower-alpha;
 }
 
-.list-style-small-alpha li::marker {
+.list-style-small-alpha li::marker,
+.list-style-capital-alpha li::marker,
+.list-style-lower-roman li::marker,
+.list-style-numbers li::marker {
+  color: #cc6119;
   font-weight: bold;
 }
 
 .list-style-capital-alpha {
   list-style-type: upper-alpha;
 }
-.list-style-capital-alpha li::marker {
-  font-weight: bold;
-}
 
 .list-style-lower-roman {
   list-style-type: lower-roman;
 }
-.list-style-lower-roman li::marker {
-  font-weight: bold;
-}
 
 .list-style-numbers {
   list-style-type: decimal;
-}
-.list-style-numbers li::marker {
-  font-weight: bold;
 }
 
 ul li {

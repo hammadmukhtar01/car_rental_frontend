@@ -19,9 +19,12 @@ import { RxColorWheel } from "react-icons/rx";
 import { ImSpinner4 } from "react-icons/im";
 import { Modal } from "react-bootstrap";
 import GoogleMapAPI from "../../GoogleMap/googleMapAPI";
+import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
+import MapComponent from "../../GoogleMap/googleMapAPI";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
+  const [selectedLocationss, setSelectedLocationss] = useState(null);
 
   const carBrands = [
     { name: "hyundai", logo: HyundaiLogo, title: "Hyundai" },
@@ -58,6 +61,10 @@ const HomePage = () => {
   //     </>
   //   );
   // }
+  // const [selectedLocationss, setSelectedLocationss] = useState({
+  //   lat: 28.7041,
+  //   lng: 77.1025,
+  // });
 
   return (
     <div className="">
@@ -70,6 +77,14 @@ const HomePage = () => {
           </div>
 
           <CarCards />
+
+          <div style={{ height: "100vh", width: "100%" }}>
+            <SearchLocationInput
+              setSelectedLocationss={setSelectedLocationss}
+            />
+            <MapComponent selectedLocationss={selectedLocationss} />
+          </div>
+
           {/* <Celebration/> */}
           <div className="spin-wheel-buttons-container">
             <a

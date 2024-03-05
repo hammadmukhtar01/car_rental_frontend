@@ -101,16 +101,9 @@ const AnimatedCarSection = () => {
     },
     {
       displayImageUrl: carFleetImg2,
-      title: "SUV",
+      title: "HatchBack",
     },
-    {
-      displayImageUrl: carFleetImg3,
-      title: "Economy",
-    },
-    {
-      displayImageUrl: carFleetImg1,
-      title: "Sedan",
-    },
+   
   ];
 
   carsData.forEach((car) => {

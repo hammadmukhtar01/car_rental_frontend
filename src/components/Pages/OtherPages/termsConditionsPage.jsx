@@ -33,7 +33,7 @@ const TermsConditionsPage = () => {
         <div className="all-terms-conditions-main-container">
           <div className="terms-conditions-main-div row pt-3 pb-3">
             <div className="term-conditions-h1 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <h5>PAYMENT</h5>
+              <h5 className="terms-conditions-headings">PAYMENT</h5>
               <p>
                 Rental is calculated on 24hour basis. Rental payments to be paid
                 in advance and non-rental payment will be billed separately and
@@ -62,7 +62,7 @@ const TermsConditionsPage = () => {
             </div>
 
             <div className="term-conditions-h2 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <h5>VEHICLE CHECK-OUT & CHECK-IN REPORT</h5>
+              <h5 className="terms-conditions-headings">VEHICLE CHECK-OUT & CHECK-IN REPORT</h5>
               <ul className="list-style-small-alpha">
                 <li>
                   Vehicle check out & check in report must be verified & signed
@@ -111,7 +111,7 @@ const TermsConditionsPage = () => {
 
           <div className="terms-conditions-main-div row pt-3 pb-3">
             <div className="term-conditions-h3 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <h5>INSURANCE</h5>
+              <h5 className="terms-conditions-headings">INSURANCE</h5>
               <p>
                 The HIRER shall pay to MILELE in respect of each and every
                 incident resulting in damages to or loss of the Vehicle the
@@ -132,7 +132,7 @@ const TermsConditionsPage = () => {
                 any other person or has caused
               </p>
               <div className="pb-5"></div>
-              <h5>TRAFFIC FINES & VOILATIONS</h5>
+              <h5 className="terms-conditions-headings">TRAFFIC FINES & VOILATIONS</h5>
               MILELE will pay the fines on regular basis to keep the traffic
               file active with the traffic authorities and will not notify the
               Hirer of any fines which may have caused by the Hirer except for
@@ -158,7 +158,7 @@ const TermsConditionsPage = () => {
             </div>
 
             <div className="term-conditions-h4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <h5>VEHICLE MISUSE</h5>
+              <h5 className="terms-conditions-headings">VEHICLE MISUSE</h5>
               <ul className="list-style-capital-alpha">
                 <li>
                   {" "}
@@ -232,7 +232,7 @@ const TermsConditionsPage = () => {
 
           <div className="terms-conditions-main-div row pt-3 pb-3">
             <div className="term-conditions-h5 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <h5>SERVICE & MAINTENANCE</h5>
+              <h5 className="terms-conditions-headings">SERVICE & MAINTENANCE</h5>
 
               <p>
                 It is the Hirer's responsibility to book the vehicle for
@@ -264,7 +264,7 @@ const TermsConditionsPage = () => {
             </div>
 
             <div className="term-conditions-h6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <h5>VEHICLE RESPONSIBILITY</h5>
+              <h5 className="terms-conditions-headings">VEHICLE RESPONSIBILITY</h5>
               <p>
                 The number of kilometres which the Vehicle shall have been
                 driven pursuant to this Agreement shall be conclusively
@@ -297,7 +297,7 @@ const TermsConditionsPage = () => {
           </div>
           <div className="term-conditions-h7 col-lg-12">
             <div className="pb-5"></div>
-            <h5>TERMINATION</h5>
+            <h5 className="terms-conditions-headings">TERMINATION</h5>
             <p>
               Milele have the right to terminate the agreement into following
               points:

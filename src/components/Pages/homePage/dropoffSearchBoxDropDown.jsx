@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import MapComponent from "../homePage/MapComponent";
+import MapComponent from "../../GoogleMap/googleMapAPI";
 import "./pickupdropoffModal.css";
 import { Form } from "react-bootstrap";
 

@@ -302,6 +302,7 @@ h4 {
 .modal-content {
   /* max-width: 70%; */
   max-height: 100%;
+  /* background: transparent; */
 }
 
 .modal-content img {

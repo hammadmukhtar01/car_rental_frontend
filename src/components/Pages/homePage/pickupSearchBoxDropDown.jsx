@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import MapComponent from "../homePage/MapComponent";
+import MapComponent from "../../GoogleMap/googleMapAPI";
 import "./pickupdropoffModal.css";
 import { Form } from "react-bootstrap";
+import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
 
 function PickupLocationModal({
   show,
@@ -12,6 +13,11 @@ function PickupLocationModal({
   initialSelectedLocation,
   initialInputFieldValue,
 }) {
+  const [selectedLocationss, setSelectedLocationss] = useState({
+    lat: 28.7041,
+    lng: 77.1025,
+  });
+
   console.log("initialInputFieldValue: ", initialInputFieldValue);
   const [selectedTab, setSelectedTab] = useState(
     initialSelectedLocation || "pick"
@@ -139,13 +145,14 @@ function PickupLocationModal({
                 {selectedLocation && (
                   <div className="mt-5">
                     <Form.Group controlId="formKeyword">
-                      <input
-                        className="form-control-location mt-2 col-12"
-                        required
-                        type="text"
-                        placeholder={`Address for ${selectedLocation.locationName}`}
-                        value={inputFieldValue}
-                        onChange={handleInputChange}
+                      <SearchLocationInput
+                        // className="form-control-location mt-2 col-12"
+                        // required
+                        // type="text"
+                        // placeholder={`Address for ${selectedLocation.locationName}`}
+                        // value={inputFieldValue}
+                        // onChange={handleInputChange}
+                        setSelectedLocationss={setSelectedLocationss}
                       />
                     </Form.Group>
                   </div>
@@ -155,10 +162,7 @@ function PickupLocationModal({
               {/* Right Column - Map */}
               <div className="col-lg-8 col-md-12 col-sm-12 col-12 deliver-map">
                 {(hoveredLocation || selectedLocation) && (
-                  <MapComponent
-                    locations={[hoveredLocation || selectedLocation]}
-                    mapRef={mapRef}
-                  />
+                  <MapComponent selectedLocationss={selectedLocationss} />
                 )}
               </div>
             </div>
@@ -193,10 +197,7 @@ function PickupLocationModal({
               {/* Right Column - Map */}
               <div className="col-lg-8 col-md-12 col-sm-12 col-12 pick-map">
                 {(hoveredLocation || selectedLocation) && (
-                  <MapComponent
-                    locations={[hoveredLocation || selectedLocation]}
-                    mapRef={mapRef}
-                  />
+                  <MapComponent selectedLocationss={selectedLocationss} />
                 )}
               </div>
             </div>
@@ -204,7 +205,11 @@ function PickupLocationModal({
         )}
 
         <div className="button-container rent-button-in-map">
-          <button type="button" className="animated-button" onClick={handleInputSubmit}>
+          <button
+            type="button"
+            className="animated-button"
+            onClick={handleInputSubmit}
+          >
             <span className="button-text-span">
               <span className="transition"></span>
               <span className="gradient"></span>
