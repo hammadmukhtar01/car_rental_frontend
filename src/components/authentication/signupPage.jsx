@@ -272,7 +272,6 @@ const SignupPage = () => {
                   </div>
                   <br />
                   <div className="form-group-3 col-lg-12">
-                    <div className="col-lg-6 col-md-6">
                       <p></p>
                       <button
                         type="submit"
@@ -286,7 +285,6 @@ const SignupPage = () => {
                         </span>
                       </button>
                       <ToastContainer />
-                    </div>
                   </div>
                 </form>
               </div>

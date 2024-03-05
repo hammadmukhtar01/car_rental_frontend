@@ -1,5 +1,5 @@
 import Container from "react-bootstrap/Container";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -10,16 +10,16 @@ import { Col } from "react-bootstrap";
 
 function OffcanvasExample() {
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   const auth = JSON.parse(localStorage.getItem("user"));
   const authStatusCode = auth?.statusText;
   const user_info = auth?.data;
   const userName = user_info?.result?.userName;
 
   console.log("Auth in local storage is --: ", auth);
-  const isVehiclesPage =
-    location.pathname.includes("/vehicles") ||
-    location.pathname.includes("/quicklease");
+  // const isVehiclesPage =
+  //   location.pathname.includes("/vehicles") ||
+  //   location.pathname.includes("/quicklease");
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
@@ -119,13 +119,22 @@ function OffcanvasExample() {
                   >
                     About Us
                   </Nav.Link>
-                  <Nav.Link
+                  {/* <Nav.Link
                     as={NavLink}
                     to="/faqs"
                     className="navbar-all-menus"
                     activeclassname="active"
                   >
                     FAQs
+                  </Nav.Link> */}
+
+                  <Nav.Link
+                    as={NavLink}
+                    to="/terms&Conditions"
+                    className="navbar-all-menus"
+                    activeclassname="active"
+                  >
+                    T&Cs
                   </Nav.Link>
 
                   <Nav.Link

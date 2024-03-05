@@ -21,6 +21,7 @@ import VehicleDetails from "./components/Pages/multipleStepsForm/vehicleDetails"
 import AddOnsDocuments from "./components/Pages/multipleStepsForm/addOnsDocuments";
 import ErrorPage from "./components/Pages/OtherPages/errorPage";
 import QuickLeaseVehicles from "./components/Pages/vehicle/leaseToOwn";
+import TermsConditionsPage from "./components/Pages/OtherPages/termsConditionsPage";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/payment/:id" element={<PaymentPage />} />
           <Route path="/aboutus" element={<AboutusPage />} />
           <Route path="/faqs" element={<FaqsPage />} />
+          <Route path="/terms&Conditions" element={<TermsConditionsPage />} />
           <Route path="/contactus" element={<ContactusPage />} />
           <Route path="/myProfile/:id" element={<ContactusPage />} />
           <Route path="/myBookings/:id" element={<CustomerBookingPage />} />
