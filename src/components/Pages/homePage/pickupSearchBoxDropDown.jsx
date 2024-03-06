@@ -15,12 +15,12 @@ function PickupLocationModal({
 }) {
   const [selectedLocationss, setSelectedLocationss] = useState({
     lat: 28.7041,
-    lng: 77.1025,
+    lng: 71.1025,
   });
 
   console.log("initialInputFieldValue: ", initialInputFieldValue);
   const [selectedTab, setSelectedTab] = useState(
-    initialSelectedLocation || "pick"
+    initialSelectedLocation || "deliver"
   );
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [hoveredLocation, setHoveredLocation] = useState(null);
@@ -138,12 +138,12 @@ function PickupLocationModal({
                     >
                       <span className="mr-2">🛫</span>
                       {city.locationName}
-                      <hr />
+                      {/* <hr /> */}
                     </li>
                   ))}
                 </ul>
                 {selectedLocation && (
-                  <div className="mt-5">
+                  <div className="mt-4">
                     <Form.Group controlId="formKeyword">
                       <SearchLocationInput
                         // className="form-control-location mt-2 col-12"
@@ -151,7 +151,7 @@ function PickupLocationModal({
                         // type="text"
                         // placeholder={`Address for ${selectedLocation.locationName}`}
                         // value={inputFieldValue}
-                        // onChange={handleInputChange}
+                        onChange={handleInputChange}
                         setSelectedLocationss={setSelectedLocationss}
                       />
                     </Form.Group>
@@ -160,7 +160,7 @@ function PickupLocationModal({
               </div>
 
               {/* Right Column - Map */}
-              <div className="col-lg-8 col-md-12 col-sm-12 col-12 deliver-map">
+              <div className="col-lg-8 col-md-12 col-sm-12 col-12 deliver-map mt-3 mb-3">
                 {(hoveredLocation || selectedLocation) && (
                   <MapComponent selectedLocationss={selectedLocationss} />
                 )}
@@ -188,7 +188,7 @@ function PickupLocationModal({
                     >
                       <span className="mr-2">🛫</span>
                       {location.locationName}
-                      <hr />
+                      {/* <hr /> */}
                     </li>
                   ))}
                 </ul>
@@ -204,16 +204,16 @@ function PickupLocationModal({
           </div>
         )}
 
-        <div className="button-container rent-button-in-map">
+        <div className="button-container rent-button-in-map text-center col-lg-3 col-md-6 mt-2 mb-2">
           <button
             type="button"
-            className="animated-button"
+            className="animated-button pt-2 pb-2"
             onClick={handleInputSubmit}
           >
             <span className="button-text-span">
               <span className="transition"></span>
               <span className="gradient"></span>
-              <span className="label">Rent Now</span>
+              <span className="label">Start Booking</span>
             </span>
           </button>
         </div>

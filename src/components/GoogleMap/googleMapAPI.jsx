@@ -3,6 +3,7 @@ import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
 import "./googleMapAPI.css";
 
 const MapComponent = ({ selectedLocationss }) => {
+
   const REACT_APP_GOOGLE_MAPS_KEY = "AIzaSyAePasC96mT2mWIMAGi0aPUIAL5hKRnhOg";
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: REACT_APP_GOOGLE_MAPS_KEY,
@@ -15,10 +16,10 @@ const MapComponent = ({ selectedLocationss }) => {
   if (!isLoaded) return "Maps";
 
   return (
-    <div style={{ marginTop: "50px" }}>
+    <div className="google-map-main-container">
       <GoogleMap
         mapContainerStyle={{
-          height: "800px",
+          height: "600px",
         }}
         center={selectedLocationss}
         zoom={13}

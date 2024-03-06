@@ -21,6 +21,7 @@ import { Modal } from "react-bootstrap";
 import GoogleMapAPI from "../../GoogleMap/googleMapAPI";
 import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
 import MapComponent from "../../GoogleMap/googleMapAPI";
+import TestAutoComInput from "../../GoogleMap/testSearchInput";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -77,13 +78,6 @@ const HomePage = () => {
           </div>
 
           <CarCards />
-
-          <div style={{ height: "100vh", width: "100%" }}>
-            <SearchLocationInput
-              setSelectedLocationss={setSelectedLocationss}
-            />
-            <MapComponent selectedLocationss={selectedLocationss} />
-          </div>
 
           {/* <Celebration/> */}
           <div className="spin-wheel-buttons-container">

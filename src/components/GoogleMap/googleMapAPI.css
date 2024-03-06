@@ -2,7 +2,6 @@
   height: 100%;
 }
 
-
 #description {
   font-family: Roboto;
   font-size: 15px;
@@ -74,8 +73,14 @@
 }
 
 .pac-container {
-  z-index: 9999 !important; 
+  z-index: 9999 !important;
 }
 
-
-
+.suggested-locations-div {
+  position: absolute;
+  z-index: 999;
+  width: 200%;
+  margin-top: 3px;
+  padding-bottom: 30px;
+  font-size: "small";
+}

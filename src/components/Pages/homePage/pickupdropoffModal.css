@@ -21,14 +21,69 @@
   font-weight: 500;
 }
 
+ul.deliver-to-me-loc-list li,
+ul.pickup-loc-list li,
+ul.dropoff-loc-list li {
+  border-bottom: 1px solid rgb(182, 182, 182);
+  padding: 10px;
+}
+
+ul.deliver-to-me-loc-list li:last-child,
+ul.pickup-loc-list li:last-child,
+ul.dropoff-loc-list li:last-child {
+  border-bottom: 1px solid rgb(182, 182, 182);
+  padding: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+ul.deliver-to-me-loc-list,
+ul.pickup-loc-list,
+ul.dropoff-loc-list {
+  border-top: 1px solid rgb(182, 182, 182);
+  border-left: 1px solid rgb(182, 182, 182);
+  border-right: 1px solid rgb(182, 182, 182);
+  border-radius: 10px;
+}
+
+ul.deliver-to-me-loc-list li.active,
+ul.pickup-loc-list li.active,
+ul.dropoff-loc-list li.active {
+  background-color: #e67931;
+  cursor: pointer;
+  color: white;
+  /* transform: scale(1.05); */
+  transition: transform 0.5s ease-in-out !important;
+}
+
 ul.deliver-to-me-loc-list li:hover,
 ul.pickup-loc-list li:hover,
 ul.dropoff-loc-list li:hover {
   background-color: #e67931;
   cursor: pointer;
   color: white;
-  transform: scale(1.05);
+  /* transform: scale(1.05); */
   transition: transform 0.5s ease-in-out !important;
+}
+
+ul.deliver-to-me-loc-list li:last-child.active,
+ul.pickup-loc-list li:last-child.active,
+ul.dropoff-loc-list li:last-child.active,
+ul.deliver-to-me-loc-list li:last-child:hover,
+ul.pickup-loc-list li:last-child:hover,
+ul.dropoff-loc-list li:last-child:hover {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+ul.deliver-to-me-loc-list li:first-child.active,
+ul.pickup-loc-list li:first-child.active,
+ul.dropoff-loc-list li:first-child.active,
+ul.deliver-to-me-loc-list li:first-child:hover,
+ul.pickup-loc-list li:first-child:hover,
+ul.dropoff-loc-list li:first-child:hover {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .deliver-me-selected,
@@ -81,15 +136,22 @@ ul.dropoff-loc-list li:hover {
   box-shadow: 0px 0px 6px 0px #cc6119;
 }
 
+.deliver-map,
+.pick-map {
+  border: 1px solid rgb(202, 202, 202);
+  padding: 10px;
+}
 
 @media screen and (max-width: 991px) {
-  .deliver-map, .pick-map {
+  .deliver-map,
+  .pick-map {
     padding: 15px;
   }
 }
 
 @media screen and (max-width: 576px) {
-  .deliver-map, .pick-map {
+  .deliver-map,
+  .pick-map {
     display: none;
   }
   .rent-button-in-map {
