@@ -14,16 +14,27 @@ function PickupLocationModal({
   initialInputFieldValue,
 }) {
   const [selectedLocationss, setSelectedLocationss] = useState({
-    lat: 28.7041,
-    lng: 71.1025,
+    lat: 25.177316,
+    lng: 55.376264,
+  });
+
+  const [pickUpLocationss, setPickupLocationss] = useState({
+    lat: 25.177316,
+    lng: 55.376264,
   });
 
   console.log("initialInputFieldValue: ", initialInputFieldValue);
   const [selectedTab, setSelectedTab] = useState(
     initialSelectedLocation || "deliver"
   );
+  const [locationDetail, setLocationDetail] = useState("");
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [hoveredLocation, setHoveredLocation] = useState(null);
+  const [pickupLocationName, setPickupLocationName] =
+    useState("Samari retails");
+  const [pickUpLocationDetail, setPickUpLocationDetail] = useState(
+    "Milele head office AF-07"
+  );
   const [inputFieldValue, setInputFieldValue] = useState("");
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const mapRef = useRef();
@@ -55,22 +66,38 @@ function PickupLocationModal({
     }
   }, [initialInputFieldValue, cityNames, mileleLocations]);
 
+  const handleFocus = (e) => {
+    const inputGroup = e.target.closest(".inputgroup");
+    if (inputGroup) {
+      inputGroup.classList.add("input-filled");
+    }
+  };
+
+  const handleBlur = (e) => {
+    const inputGroup = e.target.closest(".inputgroup");
+    if (inputGroup) {
+      if (e.target.value === "") {
+        inputGroup.classList.remove("input-filled");
+      }
+    }
+  };
+
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
     setSelectedLocation(null);
     setHoveredLocation(null);
   };
 
-  const handleListHover = (location) => {
-    if (!selectedLocation) {
-      setHoveredLocation(location);
-    }
-  };
+  // const handleListHover = (location) => {
+  //   if (!selectedLocation) {
+  //     setHoveredLocation(location);
+  //   }
+  // };
 
-  const handleListClick = (location) => {
-    setSelectedLocation(location);
-    setHoveredLocation(null);
-  };
+  // const handleListClick = (location) => {
+  //   setSelectedLocation(location);
+  //   setHoveredLocation(null);
+  // };
 
   const handleInputChange = (e) => {
     setInputFieldValue(e.target.value);
@@ -121,10 +148,10 @@ function PickupLocationModal({
         {selectedTab === "deliver" ? (
           <div>
             {/* Content for "Deliver to Me" */}
-            <div className="row">
-              <div className="col-lg-4 col-md-12 px-5 py-8">
-                <h2 className="text-xl font-bold mb-4">Available Locations</h2>
-                <ul className="deliver-to-me-loc-list list-unstyled">
+            <div className="">
+              <div className="px-5 py-8">
+                <h2 className="text-xl font-bold mb-4">Select Location</h2>
+                {/* <ul className="deliver-to-me-loc-list list-unstyled">
                   {cityNames.map((city) => (
                     <li
                       key={city.id}
@@ -138,42 +165,76 @@ function PickupLocationModal({
                     >
                       <span className="mr-2">🛫</span>
                       {city.locationName}
-                      {/* <hr /> */}
                     </li>
                   ))}
-                </ul>
-                {selectedLocation && (
-                  <div className="mt-4">
-                    <Form.Group controlId="formKeyword">
-                      <SearchLocationInput
-                        // className="form-control-location mt-2 col-12"
-                        // required
-                        // type="text"
-                        // placeholder={`Address for ${selectedLocation.locationName}`}
-                        // value={inputFieldValue}
-                        onChange={handleInputChange}
-                        setSelectedLocationss={setSelectedLocationss}
-                      />
-                    </Form.Group>
+                </ul> */}
+
+                {/* {selectedLocation && ( */}
+                <div className="mt-4">
+                  <div className="row">
+                    <div className="col-lg-4">
+                      <Form.Group controlId="formKeyword">
+                        <SearchLocationInput
+                          onChange={handleInputChange}
+                          setSelectedLocationss={setSelectedLocationss}
+                        />
+                      </Form.Group>
+                    </div>
+                    <div className="col-lg-4">
+                      <div className="inputgroup">
+                        <input
+                          type="text"
+                          autoComplete="off"
+                          className="form-control"
+                          id="locationDetail"
+                          name="locationDetail"
+                          required
+                          value={locationDetail}
+                          onChange={(e) => {
+                            setLocationDetail(e.target.value);
+                          }}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                        <label htmlFor="locationDetail">Complete Address</label>
+                      </div>
+                    </div>
+
+                    <div className="col-lg-4">
+                      <div className="button-container rent-button-in-map text-center mt-3 mb-2">
+                        <button
+                          type="button"
+                          className="animated-button pt-2 pb-2"
+                          onClick={handleInputSubmit}
+                        >
+                          <span className="button-text-span">
+                            <span className="transition"></span>
+                            <span className="gradient"></span>
+                            <span className="label">Start Booking</span>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                )}
+                </div>
+                {/* )} */}
               </div>
 
               {/* Right Column - Map */}
-              <div className="col-lg-8 col-md-12 col-sm-12 col-12 deliver-map mt-3 mb-3">
-                {(hoveredLocation || selectedLocation) && (
-                  <MapComponent selectedLocationss={selectedLocationss} />
-                )}
+              <div className="col-lg-12 col-md-12 col-sm-12 col-12 deliver-map mt-3 mb-3 ">
+                {/* {(hoveredLocation || selectedLocation) && ( */}
+                <MapComponent selectedLocationss={selectedLocationss} />
+                {/* )} */}
               </div>
             </div>
           </div>
         ) : (
           <div>
             {/* Content for "Pick Up Myself" */}
-            <div className="row">
-              <div className="col-lg-4 col-md-8  px-5 py-8">
-                <h2 className="text-xl font-bold mb-4">Available Locations</h2>
-                <ul className="pickup-loc-list list-unstyled">
+            <div className="">
+              <div className="px-5 py-8">
+                <h2 className="text-xl font-bold mb-4">Select Location</h2>
+                {/* <ul className="pickup-loc-list list-unstyled">
                   {mileleLocations.map((location) => (
                     <li
                       key={location.id}
@@ -188,35 +249,78 @@ function PickupLocationModal({
                     >
                       <span className="mr-2">🛫</span>
                       {location.locationName}
-                      {/* <hr /> */}
                     </li>
                   ))}
-                </ul>
+                </ul> */}
+
+                <div className="mt-4">
+                  <div className="row">
+                    <div className="col-lg-4">
+                      <div className="readOnlyInputGroup">
+                        <input
+                          type="text"
+                          autoComplete="off"
+                          className="form-control"
+                          id="pickupLocationName"
+                          name="pickupLocationName"
+                          required
+                          readOnly
+                          value={pickupLocationName}
+                          onChange={(e) => {
+                            setPickupLocationName(e.target.value);
+                          }}
+                        />
+                        <label htmlFor="pickupLocationName">Location</label>
+                      </div>
+                    </div>
+
+                    <div className="col-lg-4">
+                      <div className="readOnlyInputGroup">
+                        <input
+                          type="text"
+                          autoComplete="off"
+                          className="form-control"
+                          id="pickUpLocationDetail"
+                          name="pickUpLocationDetail"
+                          readOnly
+                          required
+                          value={pickUpLocationDetail}
+                          onChange={(e) => {
+                            setPickUpLocationDetail(e.target.value);
+                          }}
+                        />
+                        <label htmlFor="pickUpLocationDetail">Address Detail</label>
+                      </div>
+                    </div>
+
+                    <div className="col-lg-4">
+                      <div className="button-container rent-button-in-map text-center mt-3 mb-2">
+                        <button
+                          type="button"
+                          className="animated-button pt-2 pb-2"
+                          onClick={handleInputSubmit}
+                        >
+                          <span className="button-text-span">
+                            <span className="transition"></span>
+                            <span className="gradient"></span>
+                            <span className="label">Start Booking</span>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Right Column - Map */}
-              <div className="col-lg-8 col-md-12 col-sm-12 col-12 pick-map">
-                {(hoveredLocation || selectedLocation) && (
-                  <MapComponent selectedLocationss={selectedLocationss} />
-                )}
+              <div className="pick-map mt-3 mb-3 ">
+                {/* {(hoveredLocation || selectedLocation) && ( */}
+                <MapComponent selectedLocationss={pickUpLocationss} />
+                {/* )} */}
               </div>
             </div>
           </div>
         )}
-
-        <div className="button-container rent-button-in-map text-center col-lg-3 col-md-6 mt-2 mb-2">
-          <button
-            type="button"
-            className="animated-button pt-2 pb-2"
-            onClick={handleInputSubmit}
-          >
-            <span className="button-text-span">
-              <span className="transition"></span>
-              <span className="gradient"></span>
-              <span className="label">Start Booking</span>
-            </span>
-          </button>
-        </div>
       </div>
     )
   );

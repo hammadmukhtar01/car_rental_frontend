@@ -23,8 +23,8 @@ function DropoffLocationModal({
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
   const mapRef = useRef();
   const [selectedLocationss, setSelectedLocationss] = useState({
-    lat: 28.7041,
-    lng: 71.1025,
+    lat: 25.177316,
+    lng: 55.376264,
   });
 
   useEffect(() => {

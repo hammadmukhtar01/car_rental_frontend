@@ -1,51 +1,39 @@
-import React, { useState, useEffect } from "react";
-import { Form, Row, Col } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Input, List } from "antd";
+import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import "./googleMapAPI.css";
 
 const SearchLocationInput = ({ setSelectedLocationss }) => {
-  const [inputValue, setInputValue] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  const { placePredictions, getPlacePredictions, isPlacePredictionsLoading } =
+    useGoogle({
+      apiKey: "AIzaSyAePasC96mT2mWIMAGi0aPUIAL5hKRnhOg",
+    });
+  const [value, setValue] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [showSuggestions, setShowSuggestions] = useState(false); 
-  const googleMapsApiKey = "AIzaSyAePasC96mT2mWIMAGi0aPUIAL5hKRnhOg";
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    if (!googleMapsApiKey) return;
-
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`;
-    script.async = true;
-    document.body.appendChild(script);
-
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.body.removeChild(script);
+      document.removeEventListener("click", handleClickOutside);
     };
-  }, [googleMapsApiKey]);
+  }, []);
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-    if (e.target.value.length > 0) {
-      const service = new window.google.maps.places.AutocompleteService();
-      service.getPlacePredictions(
-        { input: e.target.value, componentRestrictions: { country: "AE" } },
-        (predictions, status) => {
-          if (
-            status === window.google.maps.places.PlacesServiceStatus.OK &&
-            predictions
-          ) {
-            setSuggestions(predictions);
-            setShowSuggestions(true);
-          }
-        }
-      );
-    } else {
-      setSuggestions([]);
+  const handleClickOutside = (event) => {
+    if (inputRef.current && !inputRef.current.contains(event.target)) {
       setShowSuggestions(false);
     }
   };
 
-  const handleSelectLocation = (placeId) => {
+  const handleSelectLocation = (description, placeId) => {
+    setValue(description);
+    setShowSuggestions(false);
+    setSelectedLocation(description);
+    fetchLocationDetails(placeId);
+  };
+
+  const fetchLocationDetails = (placeId) => {
     const service = new window.google.maps.places.PlacesService(
       document.createElement("div")
     );
@@ -54,19 +42,25 @@ const SearchLocationInput = ({ setSelectedLocationss }) => {
         status === window.google.maps.places.PlacesServiceStatus.OK &&
         place
       ) {
-        setSelectedLocation(place);
-        setInputValue(place.name);
         setSelectedLocationss({
           lat: place.geometry.location.lat(),
           lng: place.geometry.location.lng(),
         });
-        setSuggestions([]);
-        setShowSuggestions(false);
       }
     });
   };
 
+  const handleInputChange = (evt) => {
+    getPlacePredictions({
+      input: evt.target.value,
+      componentRestrictions: { country: "AE" },
+    });
+    setValue(evt.target.value);
+    setShowSuggestions(true);
+  };
+
   const handleFocus = (e) => {
+    setShowSuggestions(true);
     const inputGroup = e.target.closest(".inputgroup");
     if (inputGroup) {
       inputGroup.classList.add("input-filled");
@@ -80,64 +74,71 @@ const SearchLocationInput = ({ setSelectedLocationss }) => {
         inputGroup.classList.remove("input-filled");
       }
     }
+    setTimeout(() => {
+      setShowSuggestions(false);
+    }, 200);
   };
 
   return (
-    <div style={{ position: "relative" }}>
-      <Form.Group as={Row}>
-        <Col>
-          {/* <Form.Control
-            type="text"
-            className="form-control-location mt-2 col-12"
-            placeholder="Enter location"
-            value={inputValue}
-            onChange={handleInputChange}
-          /> */}
-
-          <div className="inputgroup col-lg-12 col-md-12 col-sm-12 col-12">
-            <input
-              type="text"
-              autoComplete="off"
-              className="form-control"
-              id="locationName"
-              name="locationName"
-              required
-              value={inputValue}
-              onChange={handleInputChange}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-            />
-            <label htmlFor="locationName">Location</label>
-          </div>
-
-          {showSuggestions && (
-            <ul
-              className="list-group suggested-locations-div"
-            >
-              {suggestions.map((suggestion) => (
-                <li
-                  key={suggestion.place_id}
-                  className="list-group-item d-flex align-items-center"
-                  onClick={() => handleSelectLocation(suggestion.place_id)}
-                >
-                  <FaMapMarkerAlt className="mr-2" />
-                  {suggestion.description}
-                </li>
-              ))}
-            </ul>
-          )}
-        </Col>
-      </Form.Group>
-      <Row>
-        <Col>
-          {selectedLocation && (
-            <div>
-              {/* <p>Latitude: {selectedLocation.geometry.location.lat()}</p> */}
-              {/* <p>Longitude: {selectedLocation.geometry.location.lng()}</p> */}
-            </div>
-          )}
-        </Col>
-      </Row>
+    <div>
+      <div className="inputgroup" ref={inputRef}>
+        <Input
+          value={value}
+          // onChange={(evt) => {
+          //   getPlacePredictions({
+          //     input: evt.target.value,
+          //     componentRestrictions: { country: "AE" },
+          //   });
+          //   setValue(evt.target.value);
+          //   setShowSuggestions(true);
+          // }}
+          loading={isPlacePredictionsLoading ? "true" : "false"}
+          type="text"
+          autoComplete="off"
+          className="form-control"
+          id="locationName"
+          name="locationName"
+          required
+          // value={inputValue}
+          onChange={handleInputChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
+        <label htmlFor="locationName">Location</label>
+      </div>
+      <div
+        style={{
+          display: showSuggestions ? "flex" : "none",
+          flexDirection: "column",
+        }}
+      >
+        {!isPlacePredictionsLoading && (
+          <List
+            dataSource={placePredictions}
+            className="list-group suggested-locations-div"
+            renderItem={(item) => (
+              <List.Item
+                className="pl-3 list-group-item single-suggested-location d-flex align-items-center "
+                onClick={() =>
+                  handleSelectLocation(item.description, item.place_id)
+                }
+                style={{
+                  backgroundColor:
+                    selectedLocation === item.description ? "#ff0000" : "",
+                  color: selectedLocation === item.description ? "#fff" : "",
+                  cursor: "pointer",
+                }}
+              >
+                <FaMapMarkerAlt
+                  className="single-suggested-location-marker mr-2"
+                  style={{ color: "#cc6119" }}
+                />
+                <List.Item.Meta title={item.description} />
+              </List.Item>
+            )}
+          />
+        )}
+      </div>
     </div>
   );
 };

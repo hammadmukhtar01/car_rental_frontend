@@ -84,3 +84,15 @@
   padding-bottom: 30px;
   font-size: "small";
 }
+
+.single-suggested-location:hover {
+  background-color: #cc6119;
+  cursor: pointer;
+}
+
+.single-suggested-location:hover .ant-list-item-meta-title,
+.single-suggested-location:hover .single-suggested-location-marker {
+  color: #fff !important;
+}
+
+
