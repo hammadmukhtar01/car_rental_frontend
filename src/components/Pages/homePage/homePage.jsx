@@ -14,7 +14,7 @@ import "./ourClients.css";
 import { BsPersonCircle } from "react-icons/bs";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
-import SpinTheWheel from "../spinTheWheel/spinTheWheel";
+// import SpinTheWheel from "../spinTheWheel/spinTheWheel";
 import { RxColorWheel } from "react-icons/rx";
 import { ImSpinner4 } from "react-icons/im";
 import { Modal } from "react-bootstrap";
@@ -95,7 +95,7 @@ const HomePage = () => {
               <Modal.Title>Spin The Wheel</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <SpinTheWheel />
+              {/* <SpinTheWheel /> */}
             </Modal.Body>
             <Modal.Footer>
               <button className="btn btn-secondary" onClick={handleCloseModal}>
