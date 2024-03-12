@@ -117,6 +117,17 @@
   border: 1px solid rgb(237, 235, 235);
 }
 
+.main-banner-img {
+  /* background-image: url("../../images/mainBanner.jpg"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 40vh;
+  width: 100%;
+  position: relative;
+  object-fit: cover;
+  aspect-ratio: 2/1;
+}
+
 .heading-icon-container-div {
   display: flex;
 }
@@ -241,7 +252,7 @@
   padding: 10px 20px;
   box-shadow: 3px 1px 9px #535353;
   background: transparent;
-  margin: 10px 10px 150px 10px;
+  margin: 10px 10px 20px 10px;
 }
 .search-box-container:hover {
   background-color: rgb(200, 200, 200);
@@ -273,16 +284,16 @@
 }
 
 .search-box-home-page {
-  background-image: url("../../images/bgImg1.jpg");
-  background-repeat: no-repeat;
+  /* background-image: url("../../images/bgImg1.jpg"); */
+  /* background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center; */
 }
 .bg-img-container,
 .navbar-container {
   position: relative;
   z-index: 1;
-  padding: 10px 30px 80px 30px;
+  padding: 10px 30px 10px 30px;
 }
 
 .bg-img {
@@ -292,19 +303,29 @@
 
 @media (max-width: 767px) {
   .search-box-home-page {
-    background-size: contain; /* Adjust as needed for small screens */
+    /* background-size: contain;  */
+  }
+  .main-banner-img {
+    /* background-image: url("../../images/mainBanner.jpg"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh;
+    width: 100%;
+    position: relative;
+    object-fit: fill;
+    aspect-ratio: 2/1;
   }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
   .search-box-home-page {
-    background-size: cover; /* Adjust as needed for medium screens */
+    /* background-size: cover;  */
   }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
   .search-box-home-page {
-    background-size: cover; /* Adjust as needed for large screens */
+    /* background-size: cover;  */
   }
 }
 
@@ -650,8 +671,6 @@ html {
   font: inherit;
 } */
 
-
-
 /* .owl-dots {
   display: flex;
   align-items: center;
@@ -881,11 +900,33 @@ option:disabled {
   .car-image-container {
     height: 160px;
   }
+  .main-banner-img {
+    /* background-image: url("../../images/mainBanner.jpg"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh;
+    width: 100%;
+    position: relative;
+    object-fit: contain;
+    aspect-ratio: 2/1;
+  }
 }
 
 @media screen and (max-width: 991px) {
   .alice-carousel__next-btn {
     text-align: right !important;
     width: 93% !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  
+  .main-banner-img {
+     background-repeat: no-repeat;
+    height: 50vh;
+    width: 100%;
+    position: relative;
+    object-fit: cover; 
+    aspect-ratio: 2/1;
   }
 }

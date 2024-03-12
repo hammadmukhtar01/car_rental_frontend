@@ -7,6 +7,8 @@ import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import { BsPersonCircle } from "react-icons/bs";
+import LargeBanner1 from "../../images/mainBanner.jpg";
+import SmallBanner2 from "../../images/small-banner.jpeg";
 
 const cars = [
   {
@@ -40,6 +42,24 @@ const cars = [
     discount: 25,
   },
 ];
+
+const LargeBanner = LargeBanner1; 
+const SmallBanner = SmallBanner2;
+
+// Function to change the banner image based on window width
+function changeBanner() {
+  const bannerImg = document.getElementById("banner-img");
+  if (window.innerWidth <= 767) {
+    bannerImg.src = SmallBanner;
+  } else {
+    bannerImg.src = LargeBanner
+    ;
+  }
+}
+
+window.onload = changeBanner;
+window.onresize = changeBanner;
+
 
 const Carousel = () => {
   const navigate = useNavigate();
@@ -117,7 +137,7 @@ const Carousel = () => {
             </div>
             <hr className="home-page-heading-underline col-2" />
           </div>
-          <AliceCarousel
+          {/* <AliceCarousel
             mouseTracking
             items={cars.map(generateTestimonialItem)}
             responsive={responsive}
@@ -126,7 +146,10 @@ const Carousel = () => {
             autoPlay
             autoPlayInterval="2000"
             animationDuration="1500"
-          />
+          /> */}
+          <div className="main-banner-img-container">
+          <img className="main-banner-img" id="banner-img" src={LargeBanner} alt="banner" />
+          </div>
         </div>
       </div>
     </div>

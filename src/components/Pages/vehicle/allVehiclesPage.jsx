@@ -220,11 +220,11 @@ const VehiclesPage = () => {
       featureIcon: BsPerson,
     },
 
-    {
-      name: "Doors",
-      value: 5,
-      featureIcon: GiCarDoor,
-    },
+    // {
+    //   name: "Doors",
+    //   value: 5,
+    //   featureIcon: GiCarDoor,
+    // },
     {
       name: "Automatic",
       value: "A",
@@ -247,14 +247,14 @@ const VehiclesPage = () => {
 
   carsData.forEach((item) => {
     const dataObject = {
-      category: item.acrissCategory.name,
-      fuel: item.acrissFuelAc.name,
-      type: item.acrissType.name,
-      transmission: item.acrissTransDrive.name,
-      passengerCapacity: item.passengerCapacity,
-      smallBagsCapacity: item.smallBagsCapacity,
-      largeBagsCapacity: item.largeBagsCapacity,
-      tariffGroupId: item.tariffGroupId,
+      category: item.acrissCategory?.name,
+      fuel: item.acrissFuelAc?.name,
+      type: item.acrissType?.name,
+      transmission: item.acrissTransDrive?.name,
+      passengerCapacity: item?.passengerCapacity,
+      smallBagsCapacity: item?.smallBagsCapacity,
+      largeBagsCapacity: item?.largeBagsCapacity,
+      tariffGroupId: item?.tariffGroupId,
     };
     dataArray.push(dataObject);
   });
@@ -884,10 +884,10 @@ const VehiclesPage = () => {
                                 <Select
                                   isMulti
                                   components={animatedComponents}
-                                  options={carCategoriesData.map(
+                                  options={carCategoriesData?.map(
                                     (category) => ({
-                                      value: category.code,
-                                      label: category.name,
+                                      value: category?.code,
+                                      label: category?.name,
                                     })
                                   )}
                                   value={selectedCategories}
@@ -933,7 +933,7 @@ const VehiclesPage = () => {
                       {isCarTypeOpen && (
                         <div className="filter-content">
                           <div className="card-body">
-                            {carType.map((type, index) => (
+                            {carType?.map((type, index) => (
                               <label
                                 className="form-check flipBox"
                                 aria-label={`Checkbox ${index}`}
@@ -1054,7 +1054,7 @@ const VehiclesPage = () => {
                                       "Selected optn is: ",
                                       selectedOption
                                     );
-                                    setSortBy(selectedOption.value);
+                                    setSortBy(selectedOption?.value);
                                   }}
                                   defaultValue={sortByDropDown[0]}
                                   styles={selectStyles}
@@ -1074,7 +1074,7 @@ const VehiclesPage = () => {
                       <Row className="offers-car-container-row">
                         {currentTableData.map((car, index) => (
                           <Col
-                            key={car.tariffGroupId}
+                            key={car?.tariffGroupId}
                             xxl={6}
                             lg={6}
                             md={12}
@@ -1110,15 +1110,15 @@ const VehiclesPage = () => {
                               <div className="all-vehicles-features-icons features-scroll-container text-center">
                                 {dataArray.map((carData, dataIndex) => (
                                   <span key={dataIndex}>
-                                    {carFeaturesWithIcons.map(
+                                    {carFeaturesWithIcons?.map(
                                       (carFeature, featureIndex) => {
                                         const showIcon =
-                                          carData.tariffGroupId ===
-                                          car.tariffGroupId;
+                                          carData?.tariffGroupId ===
+                                          car?.tariffGroupId;
                                         let value;
-                                        switch (carFeature.name) {
+                                        switch (carFeature?.name) {
                                           case "Person Seats":
-                                            value = carData.passengerCapacity;
+                                            value = carData?.passengerCapacity;
                                             break;
                                           // case "Doors":
                                           //   const [doorRange = carData.type] = carData.type.split(/[-/]/);
@@ -1130,19 +1130,21 @@ const VehiclesPage = () => {
                                           //   break;
                                           case "Automatic":
                                             value = carData.transmission
-                                              .split("/")[0]
-                                              .charAt(0);
+                                              ? carData.transmission
+                                                  .split("/")[0]
+                                                  .charAt(0)
+                                              : "N";
                                             break;
                                           case "Air Bags":
                                             value =
-                                              carData.smallBagsCapacity +
-                                              carData.largeBagsCapacity;
+                                              carData?.smallBagsCapacity +
+                                              carData?.largeBagsCapacity;
                                             break;
                                           case "AC":
                                             value = "AC";
                                             break;
                                           default:
-                                            value = carData[carFeature.name];
+                                            value = carData[carFeature?.name];
                                             break;
                                         }
 
@@ -1153,7 +1155,7 @@ const VehiclesPage = () => {
                                             key={featureIndex}
                                             className="single-feature-container features-values"
                                           >
-                                            {carFeature.name !== "Doors" && (
+                                            {carFeature?.name !== "Doors" && (
                                               <>
                                                 <carFeature.featureIcon className="all-car-icons" />{" "}
                                               </>
@@ -1176,7 +1178,7 @@ const VehiclesPage = () => {
                                 <>
                                   <div className="price-day-main-div">
                                     <div className="row">
-                                      {durations.map((duration, index) => (
+                                      {durations?.map((duration, index) => (
                                         <div
                                           key={index}
                                           className="col-xxl-4 col-lg-6 col-md-6 col-sm-6 col-8 pt-2"
@@ -1237,7 +1239,7 @@ const VehiclesPage = () => {
                                             `--------------------------Start date is ---- ${datePickerStartDate} \n End Date is ---- ${datePickerEndDate}`
                                           );
                                           allCarsBookingButton(
-                                            car.tariffGroupId,
+                                            car?.tariffGroupId,
                                             datePickerStartDate,
                                             datePickerEndDate
                                           );
@@ -1250,11 +1252,11 @@ const VehiclesPage = () => {
                                             Pay Now{" "}
                                             <span className="pay-now-price-md-lg">
                                               <span>|</span> AED:{" "}
-                                              {car.rate * numberOfDays} |{" "}
+                                              {car?.rate * numberOfDays} |{" "}
                                               {numberOfDays} days
                                             </span>
                                             <div className="pay-now-price-xs">
-                                              AED: {car.rate * numberOfDays} |{" "}
+                                              AED: {car?.rate * numberOfDays} |{" "}
                                               {numberOfDays} days
                                             </div>
                                           </span>
@@ -1289,7 +1291,7 @@ const VehiclesPage = () => {
                     <Pagination
                       className="pagination-bar"
                       currentPage={currentPage}
-                      totalCount={filterCars.length}
+                      totalCount={filterCars?.length}
                       pageSize={PageSize}
                       onPageChange={(page) => setCurrentPage(page)}
                     />
