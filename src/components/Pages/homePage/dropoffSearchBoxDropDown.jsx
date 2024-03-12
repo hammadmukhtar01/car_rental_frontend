@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from "react";
 import MapComponent from "../../GoogleMap/googleMapAPI";
 import "./pickupdropoffModal.css";
@@ -18,10 +19,10 @@ function DropoffLocationModal({
     lng: 55.376264,
   });
 
-  const [pickUpLocationss, setPickupLocationss] = useState({
-    lat: 25.177316,
-    lng: 55.376264,
-  });
+  // const [pickUpLocationss, setPickupLocationss] = useState({
+  //   lat: 25.177316,
+  //   lng: 55.376264,
+  // });
   console.log("initialInputFieldValue: ", initialInputFieldValue);
   const [selectedTab, setSelectedTab] = useState(
     initialSelectedLocation || "deliver"

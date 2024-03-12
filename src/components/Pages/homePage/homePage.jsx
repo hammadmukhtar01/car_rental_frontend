@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import SearchBox from "./searchBox";
 import CarCards from "./carCards";

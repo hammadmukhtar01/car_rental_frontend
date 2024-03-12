@@ -13,11 +13,10 @@ import {
   BsCarFrontFill,
   BsJustify,
   BsTags,
-  BsCpu,
   BsPerson,
   BsSuitcase,
 } from "react-icons/bs";
-import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
+import { GiGearStickPattern } from "react-icons/gi";
 import { LuSnowflake, LuSearch } from "react-icons/lu";
 import "./vehicleDetails.css";
 import PickupLocationModal from "../homePage/pickupSearchBoxDropDown";
@@ -26,8 +25,8 @@ import Pagination from "./pagination";
 import MainNavbar from "../navbar/mainNavbar";
 import { useNavigate, useLocation } from "react-router-dom";
 import { DateRange } from "react-date-range";
-import { useReload } from "../../PrivateComponents/utils";
-import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
+// import { useReload } from "../../PrivateComponents/utils";
+// import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";

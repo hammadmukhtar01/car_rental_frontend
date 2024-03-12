@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import Car1 from "../../images/suv-car-fleet-1.png";
 import Car2 from "../../images/sedan-car-fleet-2.png";
