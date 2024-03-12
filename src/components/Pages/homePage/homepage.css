@@ -398,6 +398,10 @@
   background-color: rgb(234, 234, 234) !important;
 }
 
+.css-9jq23d {
+  color: white !important;
+}
+
 .form-control-location:focus,
 .form-control-login:focus,
 .form-control-age:focus {
@@ -920,13 +924,12 @@ option:disabled {
 }
 
 @media screen and (min-width: 1200px) {
-  
   .main-banner-img {
-     background-repeat: no-repeat;
+    background-repeat: no-repeat;
     height: 50vh;
     width: 100%;
     position: relative;
-    object-fit: cover; 
+    object-fit: cover;
     aspect-ratio: 2/1;
   }
 }

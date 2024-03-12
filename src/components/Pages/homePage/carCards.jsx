@@ -44,23 +44,24 @@ const cars = [
   },
 ];
 
-const LargeBanner = LargeBanner1; 
+const LargeBanner = LargeBanner1;
 const SmallBanner = SmallBanner2;
 
-// Function to change the banner image based on window width
-function changeBanner() {
+const changeBanner = () => {
   const bannerImg = document.getElementById("banner-img");
-  if (window.innerWidth <= 767) {
-    bannerImg.src = SmallBanner;
+  if (bannerImg) {
+    if (window.innerWidth <= 767) {
+      bannerImg.src = SmallBanner;
+    } else {
+      bannerImg.src = LargeBanner;
+    }
   } else {
-    bannerImg.src = LargeBanner
-    ;
+    console.log("Banner image element not found.");
   }
-}
+};
 
-window.onload = changeBanner;
-window.onresize = changeBanner;
-
+document.addEventListener("DOMContentLoaded", changeBanner);
+window.addEventListener("resize", changeBanner);
 
 const Carousel = () => {
   const navigate = useNavigate();
@@ -149,7 +150,12 @@ const Carousel = () => {
             animationDuration="1500"
           /> */}
           <div className="main-banner-img-container">
-          <img className="main-banner-img" id="banner-img" src={LargeBanner} alt="banner" />
+            <img
+              className="main-banner-img"
+              id="banner-img"
+              src={LargeBanner}
+              alt="banner"
+            />
           </div>
         </div>
       </div>
