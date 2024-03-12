@@ -20,7 +20,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [driverDrivingLicense, setDriverDrivingLicense] = useState("");
   const [driverPassport, setDriverPassport] = useState("");
   const [selectedAddOns, setSelectedAddOns] = useState([]);
-  const [addOnsValuesData, setAddOnsValuesData] = useState([]);
+  // const [addOnsValuesData, setAddOnsValuesData] = useState([]);
   const [selectedDropDownOptions, setSelectedDropDownOptions] = useState({});
   // const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
 

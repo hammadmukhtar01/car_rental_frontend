@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
 import Pinn from '../../images/spinTheWheel/pin.png'
 import Wheel from '../../images/spinTheWheel/wheel.png'

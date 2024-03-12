@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useReload } from "../../PrivateComponents/utils";

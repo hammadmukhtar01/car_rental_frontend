@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useRef, useEffect, useState } from "react";
 import "./ourClients.css";
 import { useInView } from "react-intersection-observer";

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useCallback, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useLocation } from "react-router";

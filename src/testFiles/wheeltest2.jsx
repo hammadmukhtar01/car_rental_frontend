@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "../page2.css";
 import spinner from "../images/Group 801.png";
 import union from "../images/Union.png";

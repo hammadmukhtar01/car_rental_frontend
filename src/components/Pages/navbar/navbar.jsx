@@ -6,7 +6,6 @@
   import Image from "react-bootstrap/Image";
   import logo from "../../images/car_rental_logo_old.png";
   import { useReload } from "../../PrivateComponents/utils";
-  import HashLoader from "react-spinners/ClipLoader";
   import "./navbar.css";
 
   function MainNavbar() {

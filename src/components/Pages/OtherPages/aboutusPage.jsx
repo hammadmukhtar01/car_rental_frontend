@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import MainNavbar from "../navbar/mainNavbar";
 import { useReload } from "../../PrivateComponents/utils";
