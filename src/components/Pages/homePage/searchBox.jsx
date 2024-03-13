@@ -382,8 +382,8 @@ const SearchBox = () => {
                           handleButtonClick={handlePickUpButtonClick}
                           cityNames={cityNames}
                           mileleLocations={mileleLocations}
-                          updatePickupLocationMessage={setPickupLocationMessage}
                           initialSelectedLocation={pickupLocation}
+                          updatePickupLocationMessage={setPickupLocationMessage}
                           initialInputFieldValue={pickupLocationMessage}
                         />
                       </Modal.Body>

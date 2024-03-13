@@ -227,6 +227,11 @@ ul.pagination-container.pagination-bar {
   color: black;
 }
 
+.car-type-filter {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
 div.col-lg-4.col-md-4 {
   padding: -1px 8px;
 }
@@ -505,7 +510,7 @@ body {
   perspective: 750px;
 } */
 
-.checkbox-container * :not(:empty) {
+.car-type-filter * :not(:empty) {
   transform-style: preserve-3d;
 }
 

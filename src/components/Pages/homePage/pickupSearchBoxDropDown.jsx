@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from "react";
 import MapComponent from "../../GoogleMap/googleMapAPI";
 import "./pickupdropoffModal.css";
@@ -19,7 +18,7 @@ function PickupLocationModal({
     lng: 55.376264,
   });
 
-  const [pickUpLocationss, setPickupLocationss] = useState({
+  const [pickUpLocationss, ] = useState({
     lat: 25.177316,
     lng: 55.376264,
   });
@@ -89,17 +88,6 @@ function PickupLocationModal({
     setHoveredLocation(null);
   };
 
-  // const handleListHover = (location) => {
-  //   if (!selectedLocation) {
-  //     setHoveredLocation(location);
-  //   }
-  // };
-
-  // const handleListClick = (location) => {
-  //   setSelectedLocation(location);
-  //   setHoveredLocation(null);
-  // };
-
   const handleInputChange = (e) => {
     setInputFieldValue(e.target.value);
   };
@@ -152,25 +140,7 @@ function PickupLocationModal({
             <div className="">
               <div className="px-5 py-8">
                 <h2 className="text-xl font-bold mb-4">Select Location</h2>
-                {/* <ul className="deliver-to-me-loc-list list-unstyled">
-                  {cityNames.map((city) => (
-                    <li
-                      key={city.id}
-                      onClick={() => handleListClick(city)}
-                      onMouseEnter={() => handleListHover(city)}
-                      className={`deliver-to-me-single-list ${
-                        selectedLocation === city || hoveredLocation === city
-                          ? "active"
-                          : ""
-                      }`}
-                    >
-                      <span className="mr-2">🛫</span>
-                      {city.locationName}
-                    </li>
-                  ))}
-                </ul> */}
 
-                {/* {selectedLocation && ( */}
                 <div className="mt-4">
                   <div className="row">
                     <div className="col-lg-4">
@@ -218,14 +188,11 @@ function PickupLocationModal({
                     </div>
                   </div>
                 </div>
-                {/* )} */}
               </div>
 
               {/* Right Column - Map */}
               <div className="col-lg-12 col-md-12 col-sm-12 col-12 deliver-map mt-3 mb-3 ">
-                {/* {(hoveredLocation || selectedLocation) && ( */}
                 <MapComponent selectedLocationss={selectedLocationss} />
-                {/* )} */}
               </div>
             </div>
           </div>
@@ -235,25 +202,6 @@ function PickupLocationModal({
             <div className="">
               <div className="px-5 py-8">
                 <h2 className="text-xl font-bold mb-4">Select Location</h2>
-                {/* <ul className="pickup-loc-list list-unstyled">
-                  {mileleLocations.map((location) => (
-                    <li
-                      key={location.id}
-                      onClick={() => handleListClick(location)}
-                      onMouseEnter={() => handleListHover(location)}
-                      className={`pickup-single-list ${
-                        selectedLocation === location ||
-                        hoveredLocation === location
-                          ? "active"
-                          : ""
-                      }`}
-                    >
-                      <span className="mr-2">🛫</span>
-                      {location.locationName}
-                    </li>
-                  ))}
-                </ul> */}
-
                 <div className="mt-4">
                   <div className="row">
                     <div className="col-lg-4">
@@ -290,7 +238,9 @@ function PickupLocationModal({
                             setPickUpLocationDetail(e.target.value);
                           }}
                         />
-                        <label htmlFor="pickUpLocationDetail">Address Detail</label>
+                        <label htmlFor="pickUpLocationDetail">
+                          Address Detail
+                        </label>
                       </div>
                     </div>
 
@@ -315,9 +265,7 @@ function PickupLocationModal({
 
               {/* Right Column - Map */}
               <div className="pick-map mt-3 mb-3 ">
-                {/* {(hoveredLocation || selectedLocation) && ( */}
                 <MapComponent selectedLocationss={pickUpLocationss} />
-                {/* )} */}
               </div>
             </div>
           </div>

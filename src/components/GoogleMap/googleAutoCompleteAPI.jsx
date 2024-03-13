@@ -38,6 +38,7 @@ const SearchLocationInput = ({ setSelectedLocationss }) => {
       document.createElement("div")
     );
     service.getDetails({ placeId }, (place, status) => {
+      console.log("Place details response:", place);
       if (
         status === window.google.maps.places.PlacesServiceStatus.OK &&
         place

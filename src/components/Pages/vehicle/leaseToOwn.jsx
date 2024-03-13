@@ -459,7 +459,7 @@ const QuickLeaseVehicles = () => {
                     </div>{" "}
                     {isCarModelOpen && (
                       <div className="filter-content">
-                        <div className="card-body">
+                          <div className="card-body car-type-filter">
                           <form>
                             {carModels.map((model, index) => (
                               <label

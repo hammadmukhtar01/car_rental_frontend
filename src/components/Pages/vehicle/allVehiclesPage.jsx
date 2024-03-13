@@ -61,9 +61,9 @@ const VehiclesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
-  const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(true);
-  const [isCarTypeOpen, setIsCarTypeOpen] = useState(true);
-  const [isCarPriceRangeOpen, setIsCarPriceRangeOpen] = useState(true);
+  const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(window.innerWidth > 425 ? true : false);
+  const [isCarTypeOpen, setIsCarTypeOpen] = useState(window.innerWidth > 425 ? true : false);
+  const [isCarPriceRangeOpen, setIsCarPriceRangeOpen] = useState(window.innerWidth > 425 ? true : false);  
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const navigate = useNavigate();
@@ -931,7 +931,7 @@ const VehiclesPage = () => {
                       </div>
                       {isCarTypeOpen && (
                         <div className="filter-content">
-                          <div className="card-body">
+                          <div className="card-body car-type-filter">
                             {carType?.map((type, index) => (
                               <label
                                 className="form-check flipBox"
