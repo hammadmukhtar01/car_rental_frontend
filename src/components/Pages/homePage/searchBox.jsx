@@ -26,10 +26,11 @@ const SearchBox = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showPickupModal, setShowPickupModal] = useState(false);
   const [showDropoffModal, setShowDropoffModal] = useState(false);
+  const [inputFieldValue, setInputFieldValue] = useState("");
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
-      endDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),      
+      endDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
       key: "selection",
     },
   ]);
@@ -235,6 +236,10 @@ const SearchBox = () => {
     }),
   };
 
+  const handleInputFieldChange = (value) => {
+    setInputFieldValue(value);
+  };
+
   return (
     <>
       <div className="bg-img-container ">
@@ -380,11 +385,12 @@ const SearchBox = () => {
                         <PickupLocationModal
                           show={showPickupModal}
                           handleButtonClick={handlePickUpButtonClick}
-                          cityNames={cityNames}
-                          mileleLocations={mileleLocations}
                           initialSelectedLocation={pickupLocation}
                           updatePickupLocationMessage={setPickupLocationMessage}
                           initialInputFieldValue={pickupLocationMessage}
+                          inputFieldValue={inputFieldValue}
+                          setInputFieldValue={setInputFieldValue}
+                          handleInputFieldChange={handleInputFieldChange}
                         />
                       </Modal.Body>
                     </Modal>

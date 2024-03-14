@@ -23,6 +23,7 @@ import GoogleMapAPI from "../../GoogleMap/googleMapAPI";
 import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
 import MapComponent from "../../GoogleMap/googleMapAPI";
 import TestAutoComInput from "../../GoogleMap/testSearchInput";
+import BannerMain from "../../images/homePage-bg-banner.png";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -73,6 +74,9 @@ const HomePage = () => {
       <div id="main">
         <div className="homepage-main">
           <div className="search-box-home-page-container">
+            <div className="bg-img-banner-main">
+              <img className="banner-container" src={BannerMain} alt="test" />
+            </div>
             <div className="search-box-home-page">
               <SearchBox />
             </div>
@@ -95,9 +99,7 @@ const HomePage = () => {
             <Modal.Header closeButton>
               <Modal.Title>Spin The Wheel</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-              {/* <SpinTheWheel /> */}
-            </Modal.Body>
+            <Modal.Body>{/* <SpinTheWheel /> */}</Modal.Body>
             <Modal.Footer>
               <button className="btn btn-secondary" onClick={handleCloseModal}>
                 Close

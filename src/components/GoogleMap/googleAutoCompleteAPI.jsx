@@ -3,12 +3,14 @@ import { Input, List } from "antd";
 import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-const SearchLocationInput = ({ setSelectedLocationss }) => {
+const SearchLocationInput = ({ setSelectedLocationss, setLocationName, previousLocationValue }) => {
+  console.log(`1111111 is ${setSelectedLocationss}\n 2222222 is ${setLocationName} \n33333 is ${previousLocationValue}`)
   const { placePredictions, getPlacePredictions, isPlacePredictionsLoading } =
     useGoogle({
       apiKey: "AIzaSyAePasC96mT2mWIMAGi0aPUIAL5hKRnhOg",
     });
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(previousLocationValue || "");
+  console.log("In auto com google file value is; ", value)
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const inputRef = useRef(null);
@@ -30,6 +32,7 @@ const SearchLocationInput = ({ setSelectedLocationss }) => {
     setValue(description);
     setShowSuggestions(false);
     setSelectedLocation(description);
+    setLocationName(description);
     fetchLocationDetails(placeId);
   };
 
@@ -37,16 +40,24 @@ const SearchLocationInput = ({ setSelectedLocationss }) => {
     const service = new window.google.maps.places.PlacesService(
       document.createElement("div")
     );
-    service.getDetails({ placeId }, (place, status) => {
+    service.getDetails({ placeId, language: "en" }, (place, status) => {
       console.log("Place details response:", place);
       if (
         status === window.google.maps.places.PlacesServiceStatus.OK &&
         place
       ) {
-        setSelectedLocationss({
-          lat: place.geometry.location.lat(),
-          lng: place.geometry.location.lng(),
-        });
+        const state = place.address_components.find((component) =>
+          component.types.includes("administrative_area_level_1")
+        );
+        if (state) {
+          console.log("State:", state.long_name);
+          setSelectedLocationss({
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          });
+        } else {
+          console.log("State name not found");
+        }
       }
     });
   };
@@ -84,28 +95,19 @@ const SearchLocationInput = ({ setSelectedLocationss }) => {
     <div>
       <div className="inputgroup" ref={inputRef}>
         <Input
-          value={value}
-          // onChange={(evt) => {
-          //   getPlacePredictions({
-          //     input: evt.target.value,
-          //     componentRestrictions: { country: "AE" },
-          //   });
-          //   setValue(evt.target.value);
-          //   setShowSuggestions(true);
-          // }}
           loading={isPlacePredictionsLoading ? "true" : "false"}
           type="text"
           autoComplete="off"
           className="form-control"
           id="locationName"
           name="locationName"
+          value={value}
           required
-          // value={inputValue}
           onChange={handleInputChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
-        <label htmlFor="locationName">Location</label>
+        <label htmlFor="locationName">Deliver To</label>
       </div>
       <div
         style={{
