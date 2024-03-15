@@ -37,7 +37,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  right: 15px;
+  right: 20px;
   z-index: 999;
 }
 
@@ -46,11 +46,12 @@ body {
   display: flex;
   align-items: center;
   margin-bottom: 11px;
-  padding: 18px;
+  padding: 14px;
   border-radius: 50px;
   text-decoration: none;
   text-align: center;
-  color: white !important;
+  /* color: white !important; */
+  color: #cc6119 !important;
   position: relative;
 }
 
@@ -96,7 +97,7 @@ body {
 
 .whatsapp-link-lease-section svg,
 .phone-call-link-lease-section svg {
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .contact-button::before,
@@ -120,7 +121,6 @@ body {
 .lease-car-whatsapp-div:hover .whatsapp-text-lto {
   color: green;
 }
-
 
 .location-link {
   box-shadow: none;
@@ -169,7 +169,8 @@ body {
 .phone-call-link,
 .map-link,
 .phone-call-link-lease-section {
-  background-color: #cc6119;
+  /* background-color: #cc6119; */
+  background-color: white;
 }
 
 .spin-the-wheel-link {
@@ -178,7 +179,8 @@ body {
 
 .whatsapp-link,
 .whatsapp-link-lease-section {
-  background-color: rgba(0, 128, 0, 0.883);
+  /* background-color: rgba(0, 128, 0, 0.883); */
+  background-color: white;
 }
 
 .rotate {

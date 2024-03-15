@@ -23,7 +23,8 @@ import GoogleMapAPI from "../../GoogleMap/googleMapAPI";
 import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
 import MapComponent from "../../GoogleMap/googleMapAPI";
 import TestAutoComInput from "../../GoogleMap/testSearchInput";
-import BannerMain from "../../images/homePage-bg-banner.png";
+import BannerMain from "../../images/no-car-bg-home-banner.png";
+import OnlyCar from "../../images/only-car-bg-home-banner.png";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -75,17 +76,27 @@ const HomePage = () => {
         <div className="homepage-main">
           <div className="search-box-home-page-container">
             <div className="bg-img-banner-main">
-              <img className="banner-container" src={BannerMain} alt="test" />
+              <div className="banner-container"  />
+              <img
+                className="only-car-banner-container"
+                src={OnlyCar}
+                alt="test"
+              />
             </div>
-            <div className="search-box-home-page">
+            <div className="search-box-home-page mt-3">
               <SearchBox />
+            </div>
+            <div className="home-page-horizontal-line-2">
+              <h1 className="home-page-horizontal-line-2-text">
+                Rent, Drive, Explore Dubai
+              </h1>
             </div>
           </div>
 
           <CarCards />
 
           {/* <Celebration/> */}
-          <div className="spin-wheel-buttons-container">
+          {/* <div className="spin-wheel-buttons-container">
             <a
               href="#spin-the-wheel"
               onClick={openMapModal}
@@ -93,7 +104,7 @@ const HomePage = () => {
             >
               <ImSpinner4 className="rotate" />
             </a>
-          </div>
+          </div> */}
 
           <Modal show={showModal} onHide={handleCloseModal} size="lg">
             <Modal.Header closeButton>
