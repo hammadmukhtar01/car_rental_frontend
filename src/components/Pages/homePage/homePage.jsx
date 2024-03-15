@@ -25,6 +25,7 @@ import MapComponent from "../../GoogleMap/googleMapAPI";
 import TestAutoComInput from "../../GoogleMap/testSearchInput";
 import BannerMain from "../../images/no-car-bg-home-banner.png";
 import OnlyCar from "../../images/only-car-bg-home-banner.png";
+import testCar from "../../images/no-car-bg-home-banner-1.jpg";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -94,6 +95,13 @@ const HomePage = () => {
           </div>
 
           <CarCards />
+          <div>
+          <img
+                className=""
+                src={testCar}
+                alt="test"
+              />
+          </div>
 
           {/* <Celebration/> */}
           {/* <div className="spin-wheel-buttons-container">
