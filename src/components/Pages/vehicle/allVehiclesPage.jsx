@@ -43,7 +43,8 @@ const VehiclesPage = () => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
   const [showDropoff, setShowDropoff] = useState(false);
-  const [pickUpDate, setPickUpDate] = useState("");
+  const [pickUpDate, setPickUpDate] = useState(null);
+
   const [pickUpTime, setPickUpTime] = useState("");
   const [dropOffDate, setDropOffDate] = useState("");
   const [dropOffTime, setDropOffTime] = useState("");
@@ -61,9 +62,15 @@ const VehiclesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
-  const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(window.innerWidth > 425 ? true : false);
-  const [isCarTypeOpen, setIsCarTypeOpen] = useState(window.innerWidth > 425 ? true : false);
-  const [isCarPriceRangeOpen, setIsCarPriceRangeOpen] = useState(window.innerWidth > 425 ? true : false);  
+  const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(
+    window.innerWidth > 425 ? true : false
+  );
+  const [isCarTypeOpen, setIsCarTypeOpen] = useState(
+    window.innerWidth > 425 ? true : false
+  );
+  const [isCarPriceRangeOpen, setIsCarPriceRangeOpen] = useState(
+    window.innerWidth > 425 ? true : false
+  );
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const navigate = useNavigate();
@@ -73,8 +80,63 @@ const VehiclesPage = () => {
   const carTypeInURL = useLocation();
   const queryParams = new URLSearchParams(carTypeInURL.search);
   // const initialCarType = queryParams.get("carType");
+  // const pickupLocParam = queryParams.get("pickupLoc");
+  // const pickupTimeParam = queryParams.get("pickupTime");
+  // const dropoffTimeParam = queryParams.get("dropoffTime");
   const startDateParam = queryParams.get("startDate");
   const endDateParam = queryParams.get("endDate");
+
+  useEffect(() => {
+    const pickupLocParam = queryParams.get("pickupLoc");
+    if (pickupLocParam) {
+      setPickupLocationMessage(pickupLocParam);
+    }
+  }, [queryParams]);
+
+  const handlePickupModalClose = () => {
+    setShowPickupModal(false);
+  };
+
+  const handlePickupLocationChange = (location) => {
+    setPickupLocationMessage(location);
+  };
+
+  const handlePickupLocationModalOpen = () => {
+    setShowPickupModal(true);
+  };
+
+  // useEffect(() => {
+  //   const pickupTimeParam = queryParams.get("pickupTime");
+  //   if (pickupTimeParam) {
+  //     setPickUpTime({ label: pickupTimeParam, value: pickupTimeParam });
+  //   }
+  // }, [queryParams]);
+
+  useEffect(() => {
+    const pickupTimeParam = queryParams.get("pickupTime");
+    if (pickupTimeParam && !pickUpTime) {
+      setPickUpTime(pickupTimeParam);
+    }
+  }, [queryParams, pickUpTime]);
+
+  const handlePickUpTimeChange = (selectedOption) => {
+    const selectedTime = selectedOption.value;
+    setPickUpTime(selectedTime);
+  };
+
+
+  useEffect(() => {
+    const dropoffTimeParam = queryParams.get("dropoffTime");
+    if (dropoffTimeParam && !dropOffTime) {
+      setDropOffTime(dropoffTimeParam);
+    }
+  }, [queryParams, dropOffTime]);
+
+  const handleDropOffTimeChange = (selectedOption) => {
+    const selectedTime = selectedOption.value;
+    setDropOffTime(selectedTime);
+  };
+
 
   // console.log(`Start param dateeeeee ${startDateParam}\nEEEEEEEE ${endDateParam}`)
   const defaultStartDate = new Date();
@@ -655,7 +717,8 @@ const VehiclesPage = () => {
                                     onChange={() =>
                                       console.log("On change in pickup")
                                     }
-                                    onClick={() => setShowPickupModal(true)}
+                                    // onClick={() => setShowPickupModal(true)}
+                                    onClick={handlePickupLocationModalOpen}
                                   />
                                 </div>
                               </Form.Group>
@@ -699,7 +762,8 @@ const VehiclesPage = () => {
 
                         <Modal
                           show={showPickupModal}
-                          onHide={() => setShowPickupModal(false)}
+                          // onHide={() => setShowPickupModal(false)}
+                          onHide={handlePickupModalClose}
                           size="xl"
                         >
                           <Modal.Header closeButton>
@@ -709,12 +773,15 @@ const VehiclesPage = () => {
                             <PickupLocationModal
                               show={showPickupModal}
                               handleButtonClick={handlePickUpButtonClick}
+                              handlePickupLocationChange={
+                                handlePickupLocationChange
+                              }
                               cityNames={cityNames}
                               mileleLocations={mileleLocations}
                               updatePickupLocationMessage={
                                 setPickupLocationMessage
                               }
-                              initialSelectedLocation={pickupLocation}
+                              initialSelectedLocation={pickupLocationMessage}
                               initialInputFieldValue={pickupLocationMessage}
                             />
                           </Modal.Body>
@@ -754,16 +821,18 @@ const VehiclesPage = () => {
                               options={timeOptions}
                               required
                               className="form-control-pickup-time col-12"
-                              value={timeOptions.find(
-                                (option) => option.value === pickUpTime
-                              )}
-                              onChange={(selectedOption) => {
-                                console.log(
-                                  "Selected option is: ",
-                                  selectedOption
-                                );
-                                setPickUpTime(selectedOption.value);
-                              }}
+                              // value={timeOptions.find(
+                              //   (option) => option.value === pickUpTime
+                              // )}
+                              // onChange={(selectedOption) => {
+                              //   console.log(
+                              //     "Selected option is: ",
+                              //     selectedOption
+                              //   );
+                              //   setPickUpTime(selectedOption.value);
+                              // }}
+                              value={{ value: pickUpTime, label: pickUpTime }}
+                              onChange={handlePickUpTimeChange}
                               styles={selectStyles}
                             />
                           </Form.Group>
@@ -780,16 +849,18 @@ const VehiclesPage = () => {
                               options={timeOptions}
                               required
                               className="form-control-dropoff-time col-12"
-                              value={timeOptions.find(
-                                (option) => option.value === dropOffTime
-                              )}
-                              onChange={(selectedOption) => {
-                                console.log(
-                                  "Selected Dropoff option is: ",
-                                  selectedOption
-                                );
-                                setDropOffTime(selectedOption.value);
-                              }}
+                              // value={timeOptions.find(
+                              //   (option) => option.value === dropOffTime
+                              // )}
+                              // onChange={(selectedOption) => {
+                              //   console.log(
+                              //     "Selected Dropoff option is: ",
+                              //     selectedOption
+                              //   );
+                              //   setDropOffTime(selectedOption.value);
+                              // }}
+                              value={{ value: dropOffTime, label: dropOffTime }}
+                              onChange={handleDropOffTimeChange}
                               styles={selectStyles}
                             />
                           </Form.Group>

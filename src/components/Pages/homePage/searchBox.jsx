@@ -188,6 +188,18 @@ const SearchBox = () => {
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
 
+    if (!pickUpTime || !dropOffTime || !pickupLocationMessage) {
+      toast.error("Some inputs are missing.", {
+        autoClose: 1000,
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          fontSize: "16px",
+        },
+      });
+      return;
+    }
+
     if (!dateRange[0].startDate || !dateRange[0].endDate) {
       toast.warn("Date must be chosen", {
         autoClose: 1000,
@@ -207,7 +219,7 @@ const SearchBox = () => {
 
     const startDate = startLocalDate.toISOString().split("T")[0];
     const endDate = endLocalDate.toISOString().split("T")[0];
-    const url = `/vehicles?startDate=${startDate}&endDate=${endDate}`;
+    const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}`;
 
     navigate(url);
   };

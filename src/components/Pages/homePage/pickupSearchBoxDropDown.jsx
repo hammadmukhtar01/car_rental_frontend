@@ -32,6 +32,8 @@ function PickupLocationModal({
   const [selectedLocationName, setSelectedLocationName] = useState(
     initialInputFieldValue || ""
   );
+  const [pickupLocationState, setPickupLocationState] = useState("");
+
   console.log("Old loc is: ", selectedLocationName);
 
   // const [pickupLocationName, setPickupLocationName] =
@@ -80,6 +82,10 @@ function PickupLocationModal({
     });
   };
 
+  const handleStateChange = (stateName) => {
+    setPickupLocationState(stateName);
+  };
+
   return (
     show && (
       <div className="custom-modal">
@@ -120,9 +126,12 @@ function PickupLocationModal({
                           previousLocationValue={selectedLocationName}
                           setLocationName={setSelectedLocationName}
                           setSelectedLocationss={setSelectedLocationss}
+                          onStateChange={handleStateChange}
                         />
                       </Form.Group>
                     </div>
+                    <p>State: {pickupLocationState}</p>
+
                     <div className="col-lg-4">
                       <div className="inputgroup">
                         <input

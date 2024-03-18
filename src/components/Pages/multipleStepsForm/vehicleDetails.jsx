@@ -40,6 +40,17 @@ const VehicleDetails = ({ nextStep }) => {
   const ReturnDateTime = queryParams.get("endDate");
   const pickupTimeParam = queryParams.get("pickupTime");
   const dropoffTimeParam = queryParams.get("dropoffTime");
+  const selectedAddressState = "Dubai";
+
+  const deliveryCharges = {
+    "Fujairah": 250,
+    "Al Ain": 200,
+    "Abu Dhabi": 200,
+    "Dubai": 50,
+    "Ras Al Khaimah": 250,
+    "Sharjah": 80,
+    "Ajman": 100,
+  };
 
   useEffect(() => {
     if (StartDateTime && ReturnDateTime) {
@@ -226,19 +237,27 @@ const VehicleDetails = ({ nextStep }) => {
     //   name: "Rental Charges / 3 days",
     //   value: 200,
     // },
-
-    {
-      _id: 1,
-      name: "Charge 1",
-      value: 200,
-    },
-
-    {
-      _id: 2,
-      name: "Charge 2",
-      value: 50,
-    },
+    // {
+    //   _id: 1,
+    //   name: "Charge ",
+    //   value: 200,
+    // },
   ];
+
+  const getDeliveryCharge = () => {
+    // Convert selected address state to title case for comparison
+    const selectedState =
+      selectedAddressState.charAt(0).toUpperCase() +
+      selectedAddressState.slice(1).toLowerCase();
+
+    // Check if the selected state exists in the deliveryCharges object
+    if (deliveryCharges[selectedState]) {
+      return deliveryCharges[selectedState];
+    } else {
+      // Return a default value or handle if the state is not found
+      return 0; // You can modify this default value as per your requirement
+    }
+  };
 
   const calculateTotalPrice = () => {
     if (additionalCharges) {
@@ -250,7 +269,7 @@ const VehicleDetails = ({ nextStep }) => {
     return 0;
   };
 
-  const subTotalValue = calculateTotalPrice() + totalAPIResponseCharges;
+  const subTotalValue = calculateTotalPrice() + totalAPIResponseCharges + getDeliveryCharge();
   const taxTotal = Math.floor((5 * subTotalValue) / 100);
   const grandTotalPrice = subTotalValue + taxTotal;
 
@@ -540,21 +559,23 @@ const VehicleDetails = ({ nextStep }) => {
                                 <hr />
                               </>
                               <>
-                                {additionalCharges.map((charge) => (
-                                  <div
-                                    key={charge._id}
-                                    className="price-row p-1"
-                                    style={{ lineHeight: "100%" }}
-                                  >
-                                    <span className="price-label">
-                                      {charge.name}:
+                                {/* {additionalCharges.map((charge) => ( */}
+                                <div
+                                  // key={charge._id}
+                                  className="price-row p-1"
+                                  style={{ lineHeight: "100%" }}
+                                >
+                                  <span className="price-label">
+                                    Delivery Charges:
+                                  </span>
+                                  <div className="">
+                                    AED{" "}
+                                    <span className="charges-value pl-1">
+                                      {getDeliveryCharge()}
                                     </span>
-                                    <div className="">
-                                      AED{" "}
-                                      <span className="charges-value pl-1">{`${charge.value}`}</span>
-                                    </div>
                                   </div>
-                                ))}
+                                </div>
+                                {/* ))} */}
                                 <hr />
                               </>
                               <div className="charges-section-2">

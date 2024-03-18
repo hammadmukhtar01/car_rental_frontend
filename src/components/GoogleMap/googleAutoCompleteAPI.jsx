@@ -3,14 +3,18 @@ import { Input, List } from "antd";
 import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-const SearchLocationInput = ({ setSelectedLocationss, setLocationName, previousLocationValue }) => {
-  console.log(`1111111 is ${setSelectedLocationss}\n 2222222 is ${setLocationName} \n33333 is ${previousLocationValue}`)
+const SearchLocationInput = ({
+  setSelectedLocationss,
+  setLocationName,
+  previousLocationValue,
+  onStateChange,
+}) => {
   const { placePredictions, getPlacePredictions, isPlacePredictionsLoading } =
     useGoogle({
       apiKey: "AIzaSyAePasC96mT2mWIMAGi0aPUIAL5hKRnhOg",
     });
   const [value, setValue] = useState(previousLocationValue || "");
-  console.log("In auto com google file value is; ", value)
+  console.log("In auto com google file value is; ", value);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const inputRef = useRef(null);
@@ -46,18 +50,31 @@ const SearchLocationInput = ({ setSelectedLocationss, setLocationName, previousL
         status === window.google.maps.places.PlacesServiceStatus.OK &&
         place
       ) {
+        // Mapping of Arabic state names to English
+        const arabicToEnglishMap = {
+          الفجيرة: "Fujairah",
+          العين: "Al Ain",
+          "أبو ظبي": "Abu Dhabi",
+          دبي: "Dubai",
+          "رأس الخيمة": "Ras Al Khaimah",
+          الشارقة: "Sharjah",
+          عجمان: "Ajman",
+        };
+
         const state = place.address_components.find((component) =>
           component.types.includes("administrative_area_level_1")
         );
-        if (state) {
-          console.log("State:", state.long_name);
-          setSelectedLocationss({
-            lat: place.geometry.location.lat(),
-            lng: place.geometry.location.lng(),
-          });
-        } else {
-          console.log("State name not found");
+
+        let stateName = state ? state.long_name : null;
+        if (stateName && arabicToEnglishMap[stateName]) {
+          stateName = arabicToEnglishMap[stateName];
         }
+        console.log("State:", stateName);
+        setSelectedLocationss({
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+        });
+        onStateChange(stateName || "");
       }
     });
   };
