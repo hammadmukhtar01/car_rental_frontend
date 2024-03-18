@@ -88,10 +88,10 @@ const VehiclesPage = () => {
 
   useEffect(() => {
     const pickupLocParam = queryParams.get("pickupLoc");
-    if (pickupLocParam) {
+    if (pickupLocParam && !pickupLocationMessage) {
       setPickupLocationMessage(pickupLocParam);
     }
-  }, [queryParams]);
+  }, [queryParams, pickupLocationMessage]);
 
   const handlePickupModalClose = () => {
     setShowPickupModal(false);
@@ -124,7 +124,6 @@ const VehiclesPage = () => {
     setPickUpTime(selectedTime);
   };
 
-
   useEffect(() => {
     const dropoffTimeParam = queryParams.get("dropoffTime");
     if (dropoffTimeParam && !dropOffTime) {
@@ -136,7 +135,6 @@ const VehiclesPage = () => {
     const selectedTime = selectedOption.value;
     setDropOffTime(selectedTime);
   };
-
 
   // console.log(`Start param dateeeeee ${startDateParam}\nEEEEEEEE ${endDateParam}`)
   const defaultStartDate = new Date();
