@@ -50,8 +50,8 @@ body {
   border-radius: 50px;
   text-decoration: none;
   text-align: center;
-  /* color: white !important; */
-  color: #cc6119 !important;
+  color: white !important;
+  /* color: #cc6119 !important; */
   position: relative;
 }
 
@@ -169,8 +169,8 @@ body {
 .phone-call-link,
 .map-link,
 .phone-call-link-lease-section {
-  /* background-color: #cc6119; */
-  background-color: white;
+  background-color: #cc6119;
+  /* background-color: white; */
 }
 
 .spin-the-wheel-link {
@@ -179,8 +179,8 @@ body {
 
 .whatsapp-link,
 .whatsapp-link-lease-section {
-  /* background-color: rgba(0, 128, 0, 0.883); */
-  background-color: white;
+  background-color: rgba(0, 128, 0, 0.883);
+  /* background-color: white; */
 }
 
 .rotate {

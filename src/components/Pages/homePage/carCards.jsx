@@ -9,7 +9,7 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import { BsPersonCircle } from "react-icons/bs";
 import LargeBanner1 from "../../images/web-offer-banner-2.jpg";
-import SmallBanner2 from "../../images/web-offer-banner-2.jpg";
+import SmallBanner2 from "../../images/web-offer-banner.jpg";
 
 const cars = [
   {
