@@ -95,13 +95,6 @@ const HomePage = () => {
           </div>
 
           <CarCards />
-          <div>
-          <img
-                className=""
-                src={testCar}
-                alt="test"
-              />
-          </div>
 
           {/* <Celebration/> */}
           {/* <div className="spin-wheel-buttons-container">

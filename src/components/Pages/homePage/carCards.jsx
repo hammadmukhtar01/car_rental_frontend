@@ -8,8 +8,8 @@ import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import { BsPersonCircle } from "react-icons/bs";
-import LargeBanner1 from "../../images/mainBanner.jpg";
-import SmallBanner2 from "../../images/small-banner.jpeg";
+import LargeBanner1 from "../../images/web-offer-banner-2.jpg";
+import SmallBanner2 from "../../images/web-offer-banner-2.jpg";
 
 const cars = [
   {

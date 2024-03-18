@@ -118,14 +118,15 @@
 }
 
 .main-banner-img {
-  /* background-image: url("../../images/mainBanner.jpg"); */
   background-repeat: no-repeat;
-  background-size: cover;
-  height: 40vh;
-  width: 100%;
+  background-size: contain;
+  /* height: 40vh; */
+  /* width: 100%; */
   position: relative;
   object-fit: cover;
-  aspect-ratio: 2/1;
+
+    max-width: 100%;
+    height: auto;
 }
 
 .heading-icon-container-div {
@@ -248,7 +249,7 @@
 
 .search-box-container {
   /* border: 1px solid rgb(184, 184, 184); */
-  border-radius: 30px;  
+  border-radius: 30px;
   padding: 10px 20px;
   box-shadow: 3px 1px 9px #535353;
   background: rgba(240, 240, 240, 0.8);
@@ -288,20 +289,13 @@
 }
 
 .bg-img-banner-main {
-  position: relative;
-  height: 70vh;
-}
-
-.bg-img-banner-main  {
-  background-image: url('../../images/no-car-bg-home-banner-11.jpg');
+  background-image: url("../../images/no-car-bg-home-banner-11.jpg");
   width: 100%;
   height: 75vh;
-  /* height: 100%; */
-  /* display: block; */
-  object-fit: cover;
+  background-size: cover;
   background-position: top;
   position: relative;
-  background-repeat: no-repeat7
+  background-repeat: no-repeat;
 }
 
 .only-car-banner-container {
@@ -314,8 +308,15 @@
   pointer-events: none;
 }
 
+@media screen and (min-width: 1440px) {
+  .only-car-banner-container {
+    top: -30%;
+    pointer-events: none;
+    transform: scale(0.82);
+  }
+}
 
-@media screen and (max-width: 1400px){
+@media screen and (max-width: 1400px) {
   .only-car-banner-container {
     top: 8%;
     pointer-events: none;
@@ -327,15 +328,12 @@
   }
   .search-box-home-page {
     position: absolute;
-    top: 0%; 
-    left: 0% !important; 
+    top: 0%;
+    left: 0% !important;
     right: 0% !important;
     z-index: 1;
   }
-
-
 }
-
 
 @media screen and (max-width: 992px) {
   /* .bg-img-banner-main {
@@ -426,12 +424,11 @@
 
 .search-box-home-page {
   position: absolute;
-  top: 0%; 
-  left: 10%; 
+  top: 0%;
+  left: 10%;
   right: 10%;
   z-index: 1;
 }
-
 
 .home-page-horizontal-line-2 {
   padding: 40px 4px;
@@ -475,8 +472,8 @@
     /* background-image: url("../../images/mainBanner.jpg"); */
     background-repeat: no-repeat;
     background-size: cover;
-    height: 50vh;
-    width: 100%;
+    /* height: 50vh; */
+    /* width: 100%; */
     position: relative;
     object-fit: fill;
     aspect-ratio: 2/1;
@@ -1074,8 +1071,8 @@ option:disabled {
     /* background-image: url("../../images/mainBanner.jpg"); */
     background-repeat: no-repeat;
     background-size: cover;
-    height: 50vh;
-    width: 100%;
+    /* height: 50vh; */
+    /* width: 100%; */
     position: relative;
     object-fit: contain;
     aspect-ratio: 2/1;
@@ -1092,8 +1089,8 @@ option:disabled {
 @media screen and (min-width: 1200px) {
   .main-banner-img {
     background-repeat: no-repeat;
-    height: 50vh;
-    width: 100%;
+    /* height: 50vh; */
+    /* width: 100%; */
     position: relative;
     object-fit: cover;
     aspect-ratio: 2/1;
