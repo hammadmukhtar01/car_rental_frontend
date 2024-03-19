@@ -64,10 +64,12 @@ function PickupLocationModal({
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
+    handleFieldChange("selectedTabV", tab); 
   };
 
   const { formFields, handleFieldChange } = useGlobalFormFields({
     deliveryLocation: "",
+    selectedTabV: selectedTab || "",
     completeAddress: deliverToAddressValue || "",
     pickupLocationStateV: pickupLocationState || "",
   });

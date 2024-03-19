@@ -23,12 +23,14 @@ const SearchBox = () => {
   const [dropOffDate, setDropOffDate] = useState("");
   const [dropOffTime, setDropOffTime] = useState("");
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
+  console.log("pickup loc msg is-----------: ", pickupLocationMessage);
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showPickupModal, setShowPickupModal] = useState(false);
   const [showDropoffModal, setShowDropoffModal] = useState(false);
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
   const [inputFieldValue, setInputFieldValue] = useState("");
+
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -36,6 +38,30 @@ const SearchBox = () => {
       key: "selection",
     },
   ]);
+
+  useEffect(() => {
+    const storedFormFields = JSON.parse(localStorage.getItem("formFields"));
+    console.log("Stored date range is: ", storedFormFields);
+    let storedStartDateRange;
+    let storedEndDateRange;
+    if (storedFormFields) {
+      if (storedFormFields.dateRangeV1) {
+        storedStartDateRange = new Date(storedFormFields.dateRangeV1.startDate);
+        storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+      }
+    }
+
+    setDateRange([
+      {
+        startDate: storedStartDateRange || new Date(),
+        endDate:
+          storedEndDateRange ||
+          new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+        key: "selection",
+      },
+    ]);
+  }, []);
+
   const navigate = useNavigate();
   const { formFields, handleFieldChange } = useGlobalFormFields({
     pickTimeV1: pickUpTime || "",
@@ -140,6 +166,7 @@ const SearchBox = () => {
     const dateRangeObject = {
       startDate: updatedStartDate.toISOString().split("T")[0],
       endDate: updatedEndDate.toISOString().split("T")[0],
+      // key: "selection",
     };
 
     handleFieldChange("dateRangeV1", dateRangeObject);
@@ -307,7 +334,7 @@ const SearchBox = () => {
                           date < new Date().setHours(0, 0, 0, 0)
                         }
                         onClose={() => setShowDatePicker(false)}
-                        onClick={() => setShowDateRangeModal(true)}
+                        // onClick={() => setShowDateRangeModal(true)}
                       />
                     </Modal>
 

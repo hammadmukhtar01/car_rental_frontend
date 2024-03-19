@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
@@ -10,13 +10,14 @@ import "select2";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
   <React.StrictMode>
     <FormDataProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </FormDataProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
