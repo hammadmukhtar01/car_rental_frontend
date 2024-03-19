@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {
   useState,
   useEffect,
@@ -43,7 +44,7 @@ const VehiclesPage = () => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
   const [showDropoff, setShowDropoff] = useState(false);
-  const [pickUpDate, setPickUpDate] = useState(null);
+  const [pickUpDate, setPickUpDate] = useState("");
 
   const [pickUpTime, setPickUpTime] = useState("");
   const [dropOffDate, setDropOffDate] = useState("");
@@ -76,6 +77,7 @@ const VehiclesPage = () => {
   const navigate = useNavigate();
   const [showPickupModal, setShowPickupModal] = useState(false);
   const [showDropoffModal, setShowDropoffModal] = useState(false);
+  const [inputFieldValue, setInputFieldValue] = useState("");
 
   const carTypeInURL = useLocation();
   const queryParams = new URLSearchParams(carTypeInURL.search);
@@ -134,6 +136,10 @@ const VehiclesPage = () => {
   const handleDropOffTimeChange = (selectedOption) => {
     const selectedTime = selectedOption.value;
     setDropOffTime(selectedTime);
+  };
+
+  const handleInputFieldChange = (value) => {
+    setInputFieldValue(value);
   };
 
   // console.log(`Start param dateeeeee ${startDateParam}\nEEEEEEEE ${endDateParam}`)
@@ -771,16 +777,17 @@ const VehiclesPage = () => {
                             <PickupLocationModal
                               show={showPickupModal}
                               handleButtonClick={handlePickUpButtonClick}
-                              handlePickupLocationChange={
-                                handlePickupLocationChange
-                              }
-                              cityNames={cityNames}
-                              mileleLocations={mileleLocations}
+                              initialSelectedLocation={pickupLocationMessage}
                               updatePickupLocationMessage={
                                 setPickupLocationMessage
                               }
-                              initialSelectedLocation={pickupLocationMessage}
                               initialInputFieldValue={pickupLocationMessage}
+                              inputFieldValue={inputFieldValue}
+                              setInputFieldValue={setInputFieldValue}
+                              handleInputFieldChange={handleInputFieldChange}
+                              handlePickupLocationChange={
+                                handlePickupLocationChange
+                              }
                             />
                           </Modal.Body>
                         </Modal>
@@ -797,13 +804,14 @@ const VehiclesPage = () => {
                             <DropoffLocationModal
                               show={showDropoffModal}
                               handleButtonClick={handleDropOffButtonClick}
-                              cityNames={cityNames}
-                              mileleLocations={mileleLocations}
+                              initialSelectedLocation={dropoffLocation}
                               updateDropoffLocationMessage={
                                 setDropoffLocationMessage
                               }
-                              initialSelectedLocation={dropoffLocation}
                               initialInputFieldValue={dropoffLocationMessage}
+                              inputFieldValue={inputFieldValue}
+                              setInputFieldValue={setInputFieldValue}
+                              handleInputFieldChange={handleInputFieldChange}
                             />
                           </Modal.Body>
                         </Modal>

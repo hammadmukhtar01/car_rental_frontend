@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, useContext } from "react";
 import MapComponent from "../../GoogleMap/googleMapAPI";
 import "./pickupdropoffModal.css";
 import { Form } from "react-bootstrap";
 import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
+import useGlobalFormFields from "../Utils/useGlobalFormFields";
+// import FormDataContext from "../Utils/FormDataContext";
 
 function PickupLocationModal({
   show,
@@ -33,6 +36,7 @@ function PickupLocationModal({
     initialInputFieldValue || ""
   );
   const [pickupLocationState, setPickupLocationState] = useState("");
+  const [deliverToAddressValue, setDeliverToAddressValue] = useState("");
 
   console.log("Old loc is: ", selectedLocationName);
 
@@ -62,15 +66,25 @@ function PickupLocationModal({
     setSelectedTab(tab);
   };
 
+  const { formFields, handleFieldChange } = useGlobalFormFields({
+    deliveryLocation: "",
+    completeAddress: deliverToAddressValue || "",
+    pickupLocationStateV: pickupLocationState || "",
+  });
+
   const handleInputChange = (e) => {
-    handleInputFieldChange(e.target.value);
+    const { name, value } = e.target;
+    handleFieldChange(name, value);
+    handleInputFieldChange(value);
+    // setFormData({ ...formData, pickupLocationMessage: e.target.value });
   };
 
   const handleInputSubmit = () => {
     let message = "";
     console.log("Selected tab Value is-------:", selectedTab);
     if (selectedTab === "deliver") {
-      message = `${selectedLocationName ? selectedLocationName : ""}`;
+      message = `${formFields.deliveryLocation || ""}`;
+      console.log("1---Messg before update value...", message);
     } else if (selectedTab === "pick") {
       message = `Samari Retails - Milele head office AF-07`;
     }
@@ -83,7 +97,7 @@ function PickupLocationModal({
   };
 
   const handleStateChange = (stateName) => {
-    setPickupLocationState(stateName);
+    handleFieldChange("pickupLocationStateV", stateName);
   };
 
   return (
@@ -123,14 +137,16 @@ function PickupLocationModal({
                       <Form.Group controlId="formKeyword">
                         <SearchLocationInput
                           // onChange={handleInputChange}
-                          previousLocationValue={selectedLocationName}
-                          setLocationName={setSelectedLocationName}
+                          previousLocationValue={formFields.deliveryLocation}
+                          // setLocationName={setSelectedLocationName}
+                          setLocationName={(value) =>
+                            handleFieldChange("deliveryLocation", value)
+                          }
                           setSelectedLocationss={setSelectedLocationss}
                           onStateChange={handleStateChange}
                         />
                       </Form.Group>
                     </div>
-                    <p>State: {pickupLocationState}</p>
 
                     <div className="col-lg-4">
                       <div className="inputgroup">
@@ -141,7 +157,8 @@ function PickupLocationModal({
                           id="inputFieldValue"
                           name="inputFieldValue"
                           required
-                          value={inputFieldValue}
+                          // value={inputFieldValue}
+                          value={formFields.inputFieldValue}
                           onChange={handleInputChange}
                           onFocus={handleFocus}
                           onBlur={handleBlur}

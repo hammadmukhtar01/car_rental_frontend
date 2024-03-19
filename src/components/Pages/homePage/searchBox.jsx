@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
+import useGlobalFormFields from "../Utils/useGlobalFormFields";
 
 const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");
@@ -26,6 +27,7 @@ const SearchBox = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showPickupModal, setShowPickupModal] = useState(false);
   const [showDropoffModal, setShowDropoffModal] = useState(false);
+  const [showDateRangeModal, setShowDateRangeModal] = useState(false);
   const [inputFieldValue, setInputFieldValue] = useState("");
   const [dateRange, setDateRange] = useState([
     {
@@ -35,55 +37,21 @@ const SearchBox = () => {
     },
   ]);
   const navigate = useNavigate();
+  const { formFields, handleFieldChange } = useGlobalFormFields({
+    pickTimeV1: pickUpTime || "",
+    dropTimeV1: dropOffTime || "",
+    dateRangeV1: "",
+  });
 
-  const mileleLocations = [
-    {
-      id: 2,
-      locationName: "Showroom 11",
-      lat: 25.17415786184568,
-      lng: 55.37397086110656,
-    },
-  ];
+  const handlePickupTimeChange = (selectedOption) => {
+    console.log("Selected time option is: ", selectedOption);
+    handleFieldChange("pickTimeV1", selectedOption.value);
+  };
 
-  const cityNames = [
-    { id: 1, locationName: "Sharjah", lat: 25.3461498, lng: 55.4210633 },
-    {
-      id: 2,
-      locationName: "Dubai",
-      lat: 25.3461498,
-      lng: 55.4210633,
-    },
-    {
-      id: 3,
-      locationName: "Ajman",
-      lat: 25.3461498,
-      lng: 55.4210633,
-    },
-    {
-      id: 4,
-      locationName: "Fujairah",
-      lat: 25.3461498,
-      lng: 55.4210633,
-    },
-    {
-      id: 5,
-      locationName: "Al Ain",
-      lat: 25.3461498,
-      lng: 55.4210633,
-    },
-    {
-      id: 6,
-      locationName: "Abu Dhabi",
-      lat: 25.3461498,
-      lng: 55.4210633,
-    },
-    {
-      id: 7,
-      locationName: "Ras Al Khaimah",
-      lat: 25.3461498,
-      lng: 55.4210633,
-    },
-  ];
+  const handleDropoffTimeChange = (selectedOption) => {
+    console.log("Selected time option is: ", selectedOption);
+    handleFieldChange("dropTimeV1", selectedOption.value);
+  };
 
   const generateTimeSlots = () => {
     const timeSlots = [];
@@ -162,6 +130,20 @@ const SearchBox = () => {
     console.log("Pickup Date:", pickupDate);
     console.log("Dropoff Date:", dropoffDate);
 
+    const updatedStartDate = startDate
+      ? new Date(startDate.getTime() + 24 * 60 * 60 * 1000)
+      : null;
+    const updatedEndDate = endDate
+      ? new Date(endDate.getTime() + 24 * 60 * 60 * 1000)
+      : null;
+
+    const dateRangeObject = {
+      startDate: updatedStartDate.toISOString().split("T")[0],
+      endDate: updatedEndDate.toISOString().split("T")[0],
+    };
+
+    handleFieldChange("dateRangeV1", dateRangeObject);
+
     setDateRange([ranges.selection]);
   };
 
@@ -188,7 +170,7 @@ const SearchBox = () => {
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
 
-    if (!pickUpTime || !dropOffTime || !pickupLocationMessage) {
+    if (!pickUpTime || !dropOffTime) {
       toast.error("Some inputs are missing.", {
         autoClose: 1000,
         style: {
@@ -280,18 +262,20 @@ const SearchBox = () => {
                             type="text"
                             required
                             value={
-                              dateRange[0].startDate
-                                ? `${dateRange[0].startDate.toLocaleDateString()} - ${
-                                    dateRange[0].endDate
-                                      ? dateRange[0].endDate.toLocaleDateString()
-                                      : "Select end date"
-                                  }`
+                              formFields.dateRangeV1.startDate &&
+                              formFields.dateRangeV1.endDate
+                                ? `${new Date(
+                                    formFields.dateRangeV1.startDate
+                                  ).toLocaleDateString()} - ${new Date(
+                                    formFields.dateRangeV1.endDate
+                                  ).toLocaleDateString()}`
                                 : "Select date range"
                             }
+                            onClick={() => setShowDateRangeModal(true)}
                             readOnly
                           />
                         </div>
-                        {showDatePicker && (
+                        {/* {showDatePicker && (
                           <div onClick={(e) => e.stopPropagation()}>
                             <DateRange
                               editableDateInputs={true}
@@ -305,9 +289,27 @@ const SearchBox = () => {
                               onClose={() => setShowDatePicker(false)}
                             />
                           </div>
-                        )}
+                        )} */}
                       </Form.Group>
                     </Col>
+                    <Modal
+                      show={showDateRangeModal}
+                      onHide={() => setShowDateRangeModal(false)}
+                      size="sm"
+                    >
+                      <DateRange
+                        editableDateInputs={true}
+                        onChange={handleDateChange}
+                        moveRangeOnFirstSelection={false}
+                        ranges={dateRange}
+                        rangeColors={["#cc6119"]}
+                        disabledDay={(date) =>
+                          date < new Date().setHours(0, 0, 0, 0)
+                        }
+                        onClose={() => setShowDatePicker(false)}
+                        onClick={() => setShowDateRangeModal(true)}
+                      />
+                    </Modal>
 
                     <Col
                       xxl={4}
@@ -419,8 +421,6 @@ const SearchBox = () => {
                         <DropoffLocationModal
                           show={showDropoffModal}
                           handleButtonClick={handleDropOffButtonClick}
-                          cityNames={cityNames}
-                          mileleLocations={mileleLocations}
                           updateDropoffLocationMessage={
                             setDropoffLocationMessage
                           }
@@ -439,15 +439,16 @@ const SearchBox = () => {
                         </div>
                         <Select
                           options={timeOptions}
-                          // required
+                          required
                           className="form-control-pickup-time col-12"
                           value={timeOptions.find(
-                            (option) => option.value === pickUpTime
+                            (option) => option.value === formFields.pickTimeV1
                           )}
-                          onChange={(selectedOption) => {
-                            console.log("Selected option is: ", selectedOption);
-                            setPickUpTime(selectedOption.value);
-                          }}
+                          onChange={handlePickupTimeChange}
+                          // onChange={(selectedOption) => {
+                          //   console.log("Selected option is: ", selectedOption);
+                          //   setPickUpTime(selectedOption.value);
+                          // }}
                           styles={selectStyles}
                         />
                       </Form.Group>
@@ -462,18 +463,22 @@ const SearchBox = () => {
                         </div>
                         <Select
                           options={timeOptions}
-                          // required
+                          required
                           className="form-control-dropoff-time col-12"
                           value={timeOptions.find(
-                            (option) => option.value === dropOffTime
+                            (option) => option.value === formFields.dropTimeV1
                           )}
-                          onChange={(selectedOption) => {
-                            console.log(
-                              "Selected Dropoff option is: ",
-                              selectedOption
-                            );
-                            setDropOffTime(selectedOption.value);
-                          }}
+                          onChange={handleDropoffTimeChange}
+                          // value={timeOptions.find(
+                          //   (option) => option.value === dropOffTime
+                          // )}
+                          // onChange={(selectedOption) => {
+                          //   console.log(
+                          //     "Selected Dropoff option is: ",
+                          //     selectedOption
+                          //   );
+                          //   setDropOffTime(selectedOption.value);
+                          // }}
                           styles={selectStyles}
                         />
                       </Form.Group>
