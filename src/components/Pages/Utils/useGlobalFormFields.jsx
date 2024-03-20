@@ -1,13 +1,30 @@
 import { useState, useEffect } from "react";
 
 const useGlobalFormFields = (initialState) => {
+  const SIX_HOURS_IN_MS = 3 * 60 * 60 * 1000; 
+
   const [formFields, setFormFields] = useState(() => {
     const storedFields = localStorage.getItem("formFields");
-    return storedFields ? JSON.parse(storedFields) : initialState;
+    const storedTimestamp = localStorage.getItem("formFieldsTimestamp");
+    const currentTime = new Date().getTime();
+
+    if (storedFields && storedTimestamp) {
+      // Check if stored data is within the expiration time
+      if (currentTime - parseInt(storedTimestamp, 10) < SIX_HOURS_IN_MS) {
+        return JSON.parse(storedFields);
+      } else {
+        // Clear stored data if expired
+        localStorage.removeItem("formFields");
+        localStorage.removeItem("formFieldsTimestamp");
+      }
+    }
+
+    return initialState;
   });
 
   useEffect(() => {
     localStorage.setItem("formFields", JSON.stringify(formFields));
+    localStorage.setItem("formFieldsTimestamp", new Date().getTime().toString());
   }, [formFields]);
 
   function handleFieldChange(fieldName, value) {
@@ -21,6 +38,6 @@ const useGlobalFormFields = (initialState) => {
     formFields,
     handleFieldChange,
   };
-}
+};
 
 export default useGlobalFormFields;

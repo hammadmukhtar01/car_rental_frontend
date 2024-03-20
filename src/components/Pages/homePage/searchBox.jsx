@@ -29,7 +29,8 @@ const SearchBox = () => {
   const [showPickupModal, setShowPickupModal] = useState(false);
   const [showDropoffModal, setShowDropoffModal] = useState(false);
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
-  const [inputFieldValue, setInputFieldValue] = useState("");
+  const [inputPickupFieldValue, setPickupInputFieldValue] = useState("");
+  const [inputDropoffFieldValue, setDropoffInputFieldValue] = useState("");
 
   const [dateRange, setDateRange] = useState([
     {
@@ -44,10 +45,40 @@ const SearchBox = () => {
     console.log("Stored date range is: ", storedFormFields);
     let storedStartDateRange;
     let storedEndDateRange;
+    let pickupLocMainInput;
+    let dropoffLocMainInput;
+    let pickupLocTabV1;
+    let dropoffLocTabV1;
+    let checkBoxStoredValue;
+
     if (storedFormFields) {
+      checkBoxStoredValue = storedFormFields.showDropoffV1 === 0;
+      console.log(
+        "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
+        checkBoxStoredValue
+      );
+      setShowDropoff(checkBoxStoredValue);
+
+      pickupLocTabV1 = storedFormFields.selectedTabPickUp;
+      dropoffLocTabV1 = storedFormFields.selectedTabDropOff;
+
       if (storedFormFields.dateRangeV1) {
         storedStartDateRange = new Date(storedFormFields.dateRangeV1.startDate);
         storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+      }
+      if (pickupLocTabV1 === "pick") {
+        pickupLocMainInput = storedFormFields.pickupInputMessageV1;
+        setPickupLocationMessage(pickupLocMainInput);
+      } else if (pickupLocTabV1 === "deliver") {
+        pickupLocMainInput = storedFormFields.deliveryMapLocPickUp;
+        setPickupLocationMessage(pickupLocMainInput);
+      }
+      if (dropoffLocTabV1 === "pick") {
+        dropoffLocMainInput = storedFormFields.dropoffInputMessageV1;
+        setDropoffLocationMessage(dropoffLocMainInput);
+      } else if (dropoffLocTabV1 === "deliver") {
+        dropoffLocMainInput = storedFormFields.deliveryMapLocDropOff;
+        setDropoffLocationMessage(dropoffLocMainInput);
       }
     }
 
@@ -67,6 +98,7 @@ const SearchBox = () => {
     pickTimeV1: pickUpTime || "",
     dropTimeV1: dropOffTime || "",
     dateRangeV1: "",
+    showDropoffV1: 1,
   });
 
   const handlePickupTimeChange = (selectedOption) => {
@@ -136,6 +168,7 @@ const SearchBox = () => {
 
   const handleDropoffCheckboxChange = () => {
     setShowDropoff(!showDropoff);
+    handleFieldChange("showDropoffV1", showDropoff ? 1 : 0);
   };
 
   const dateInputRef = useRef(null);
@@ -258,7 +291,7 @@ const SearchBox = () => {
   };
 
   const handleInputFieldChange = (value) => {
-    setInputFieldValue(value);
+    setPickupInputFieldValue(value);
   };
 
   return (
@@ -409,11 +442,11 @@ const SearchBox = () => {
                             type="checkbox"
                             label="Different Dropoff Location"
                             onChange={handleDropoffCheckboxChange}
+                            checked={showDropoff}
                           />
                         </div>
                       </Row>
                     </Col>
-
                     <Modal
                       show={showPickupModal}
                       onHide={() => setShowPickupModal(false)}
@@ -426,11 +459,11 @@ const SearchBox = () => {
                         <PickupLocationModal
                           show={showPickupModal}
                           handleButtonClick={handlePickUpButtonClick}
-                          initialSelectedLocation={pickupLocation}
                           updatePickupLocationMessage={setPickupLocationMessage}
+                          initialSelectedLocation={pickupLocation}
                           initialInputFieldValue={pickupLocationMessage}
-                          inputFieldValue={inputFieldValue}
-                          setInputFieldValue={setInputFieldValue}
+                          inputPickupFieldValue={inputPickupFieldValue}
+                          setPickupInputFieldValue={setPickupInputFieldValue}
                           handleInputFieldChange={handleInputFieldChange}
                         />
                       </Modal.Body>
@@ -453,6 +486,9 @@ const SearchBox = () => {
                           }
                           initialSelectedLocation={dropoffLocation}
                           initialInputFieldValue={dropoffLocationMessage}
+                          inputDropoffFieldValue={inputDropoffFieldValue}
+                          setDropoffInputFieldValue={setDropoffInputFieldValue}
+                          handleInputFieldChange={handleInputFieldChange}
                         />
                       </Modal.Body>
                     </Modal>

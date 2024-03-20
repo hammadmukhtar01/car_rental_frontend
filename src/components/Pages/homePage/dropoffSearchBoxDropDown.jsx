@@ -4,69 +4,37 @@ import MapComponent from "../../GoogleMap/googleMapAPI";
 import "./pickupdropoffModal.css";
 import { Form } from "react-bootstrap";
 import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
+import useGlobalFormFields from "../Utils/useGlobalFormFields";
 
 function DropoffLocationModal({
   show,
   handleButtonClick,
-  cityNames,
-  mileleLocations,
   updateDropoffLocationMessage,
-  initialSelectedLocation,
   initialInputFieldValue,
+  inputDropoffFieldValue,
+  handleInputFieldChange,
 }) {
   const [selectedLocationss, setSelectedLocationss] = useState({
     lat: 25.177316,
     lng: 55.376264,
   });
 
-  // const [pickUpLocationss, setPickupLocationss] = useState({
-  //   lat: 25.177316,
-  //   lng: 55.376264,
-  // });
-  console.log("initialInputFieldValue: ", initialInputFieldValue);
-  const [selectedTab, setSelectedTab] = useState(
-    initialSelectedLocation || "deliver"
+  const [dropOffLocationss] = useState({
+    lat: 25.177316,
+    lng: 55.376264,
+  });
+  console.log(
+    "initialInputFieldValue:--12121212121-- ",
+    initialInputFieldValue
   );
-  const [locationDetail, setLocationDetail] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [hoveredLocation, setHoveredLocation] = useState(null);
-
-  const [dropoffLocationName, setDropoffLocationName] =
-    useState("Samari retails");
-  const [pickUpLocationDetail, setPickUpLocationDetail] = useState(
-    "Milele head office AF-07"
+  const [selectedTab, setSelectedTab] = useState("");
+  const [selectedLocationName, setSelectedLocationName] = useState(
+    initialInputFieldValue || ""
   );
+  const [dropoffLocationState, setPickupLocationState] = useState("");
+  const [deliverToAddressValue, setDeliverToAddressValue] = useState("");
 
-  const [inputFieldValue, setInputFieldValue] = useState("");
-  const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
-  const mapRef = useRef();
-
-  useEffect(() => {
-    if (initialInputFieldValue) {
-      const [locationName, inputValue] = initialInputFieldValue.split("-");
-
-      if (locationName && inputValue) {
-        // For "deliver" tab
-        const selectedCity = cityNames.find(
-          (city) => city.locationName === locationName
-        );
-        if (selectedCity) {
-          setSelectedLocation(selectedCity);
-          setHoveredLocation(null);
-          setInputFieldValue(inputValue);
-        }
-      } else {
-        // For "pick" tab
-        const selectedMileleLocation = mileleLocations.find(
-          (location) => location.locationName === initialInputFieldValue
-        );
-        if (selectedMileleLocation) {
-          setSelectedLocation(selectedMileleLocation);
-          setHoveredLocation(null);
-        }
-      }
-    }
-  }, [initialInputFieldValue, cityNames, mileleLocations]);
+  console.log("Old loc is: ", selectedLocationName);
 
   const handleFocus = (e) => {
     const inputGroup = e.target.closest(".inputgroup");
@@ -86,41 +54,65 @@ function DropoffLocationModal({
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
-    setSelectedLocation(null);
-    setHoveredLocation(null);
+    handleFieldChange("selectedTabDropOff", tab);
+    if (tab === "deliver") {
+      handleFieldChange("dropoffLocationStateV1", "");
+    }
   };
 
-  // const handleListHover = (location) => {
-  //   if (!selectedLocation) {
-  //     setHoveredLocation(location);
-  //   }
-  // };
+  const { formFields, handleFieldChange } = useGlobalFormFields({
+    deliveryMapLocDropOff: "",
+    selectedTabDropOff: "",
+    completeAddress: deliverToAddressValue || "",
+    dropoffLocationStateV1: dropoffLocationState || "",
+    dropoffInputMessageV1: updateDropoffLocationMessage || "",
+  });
 
-  // const handleListClick = (location) => {
-  //   setSelectedLocation(location);
-  //   setHoveredLocation(null);
-  // };
+  useEffect(() => {
+    setSelectedTab(formFields.selectedTabDropOff);
+  }, [formFields.selectedTabDropOff]);
 
   const handleInputChange = (e) => {
-    setInputFieldValue(e.target.value);
+    const { name, value } = e.target;
+    handleFieldChange(name, value);
+    handleInputFieldChange(value);
   };
 
   const handleInputSubmit = () => {
     let message = "";
+    console.log("Selected tab Value is-------:", selectedTab);
     if (selectedTab === "deliver") {
-      message = `${
-        selectedLocation ? selectedLocation.locationName : ""
-      }-${inputFieldValue}`;
+      message = `${formFields.deliveryMapLocDropOff || ""}`;
+      console.log("1---Messg before update value...", message);
+      handleFieldChange("deliveryMapLocDropOff", message);
     } else if (selectedTab === "pick") {
-      message = `${selectedLocation ? selectedLocation.locationName : ""}`;
+      message = `Samari Retails - Milele head office AF-07`;
+      handleFieldChange("dropoffInputMessageV1", message);
     }
-    setDropoffLocationMessage(message);
-    updateDropoffLocationMessage(message);
+    if (formFields) {
+      if (formFields.selectedTabDropOff === "pick") {
+        updateDropoffLocationMessage(
+          formFields?.dropoffInputMessageV1 || "test pick"
+        );
+      } else {
+        updateDropoffLocationMessage(
+          formFields?.deliveryMapLocDropOff || "test deliver"
+        );
+      }
+    }
+
+    console.log(
+      "Final new --- updateDropoffLocationMessage v ---- is: ----",
+      updateDropoffLocationMessage
+    );
 
     handleButtonClick(selectedTab, {
-      locationName: selectedLocation ? selectedLocation.locationName : "",
-      inputValue: inputFieldValue,
+      inputValue: inputDropoffFieldValue,
     });
+  };
+
+  const handleStateChange = (stateName) => {
+    handleFieldChange("dropoffLocationStateV1", stateName);
   };
 
   return (
@@ -155,38 +147,28 @@ function DropoffLocationModal({
             <div className="">
               <div className=" px-5 py-8">
                 <h2 className="text-xl font-bold mb-4">Select Location</h2>
-                {/* <ul className="deliver-to-me-loc-list list-unstyled">
-                  {cityNames.map((city) => (
-                    <li
-                      key={city.id}
-                      onClick={() => handleListClick(city)}
-                      onMouseEnter={() => handleListHover(city)}
-                      className={`deliver-to-me-single-list ${
-                        selectedLocation === city || hoveredLocation === city
-                          ? "active"
-                          : ""
-                      }`}
-                    >
-                      <span className="mr-2">🛫</span>
-                      {city.locationName}
-                    </li>
-                  ))}
-                </ul> */}
 
-                {/* {selectedLocation && ( */}
                 <div className="mt-4">
                   <div className="row">
                     <div className="col-lg-4">
                       <Form.Group controlId="formKeyword">
-                        <SearchLocationInput
+                        {/* <SearchLocationInput
                           onChange={handleInputChange}
                           setSelectedLocationss={setSelectedLocationss}
+                        /> */}
+                        <SearchLocationInput
+                          previousLocationValue={formFields.deliveryMapLocDropOff}
+                          setLocationName={(value) =>
+                            handleFieldChange("deliveryMapLocDropOff", value)
+                          }
+                          setSelectedLocationss={setSelectedLocationss}
+                          onStateChange={handleStateChange}
                         />
                       </Form.Group>
                     </div>
                     <div className="col-lg-4">
                       <div className="inputgroup">
-                        <input
+                        {/* <input
                           type="text"
                           autoComplete="off"
                           className="form-control"
@@ -199,8 +181,22 @@ function DropoffLocationModal({
                           }}
                           onFocus={handleFocus}
                           onBlur={handleBlur}
+                        /> */}
+                        <input
+                          type="text"
+                          autoComplete="off"
+                          className="form-control"
+                          id="inputDropoffFieldValue"
+                          name="inputDropoffFieldValue"
+                          required
+                          value={formFields?.inputDropoffFieldValue}
+                          onChange={handleInputChange}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
                         />
-                        <label htmlFor="locationDetail">Complete Address</label>
+                        <label htmlFor="inputDropoffFieldValue">
+                          Complete Address
+                        </label>{" "}
                       </div>
                     </div>
 
@@ -221,14 +217,11 @@ function DropoffLocationModal({
                     </div>
                   </div>
                 </div>
-                {/* )} */}
               </div>
 
               {/* Right Column - Map */}
               <div className="col-lg-12 col-md-12 col-sm-12 col-12 deliver-map mt-3 mb-3">
-                {/* {(hoveredLocation || selectedLocation) && ( */}
                 <MapComponent selectedLocationss={selectedLocationss} />
-                {/* )} */}
               </div>
             </div>
           </div>
@@ -238,30 +231,11 @@ function DropoffLocationModal({
             <div className="">
               <div className="px-5 py-8">
                 <h2 className="text-xl font-bold mb-4">Select Location</h2>
-                {/* <ul className="dropoff-loc-list list-unstyled">
-                  {mileleLocations.map((location) => (
-                    <li
-                      key={location.id}
-                      onClick={() => handleListClick(location)}
-                      onMouseEnter={() => handleListHover(location)}
-                      className={`dropoff-single-list ${
-                        selectedLocation === location ||
-                        hoveredLocation === location
-                          ? "active"
-                          : ""
-                      }`}
-                    >
-                      <span className="mr-2">🛫</span>
-                      {location.locationName}
-                    </li>
-                  ))}
-                </ul> */}
-
                 <div className="mt-4">
                   <div className="row">
                     <div className="col-lg-4">
                       <div className="readOnlyInputGroup">
-                        <input
+                        {/* <input
                           type="text"
                           autoComplete="off"
                           className="form-control"
@@ -273,7 +247,18 @@ function DropoffLocationModal({
                           onChange={(e) => {
                             setDropoffLocationName(e.target.value);
                           }}
+                        /> */}
+                        <input
+                          type="text"
+                          autoComplete="off"
+                          className="form-control"
+                          id="dropoffLocationName"
+                          name="dropoffLocationName"
+                          required
+                          readOnly
+                          value={"Samari retail111"}
                         />
+
                         <label htmlFor="dropoffLocationName">Location</label>
                       </div>
                     </div>
@@ -284,16 +269,17 @@ function DropoffLocationModal({
                           type="text"
                           autoComplete="off"
                           className="form-control"
-                          id="pickUpLocationDetail"
-                          name="pickUpLocationDetail"
+                          id="dropOffLocationDetail"
+                          name="dropOffLocationDetail"
                           readOnly
                           required
-                          value={pickUpLocationDetail}
-                          onChange={(e) => {
-                            setPickUpLocationDetail(e.target.value);
-                          }}
+                          // value={dropOffLocationDetail}
+                          value={"Milele head office AF-07"}
+                          // onChange={(e) => {
+                          //   setPickUpLocationDetail(e.target.value);
+                          // }}
                         />
-                        <label htmlFor="pickUpLocationDetail">
+                        <label htmlFor="dropOffLocationDetail">
                           Address Detail
                         </label>
                       </div>
@@ -320,9 +306,7 @@ function DropoffLocationModal({
 
               {/* Right Column - Map */}
               <div className="pick-map mt-3 mb-3 ">
-                {/* {(hoveredLocation || selectedLocation) && ( */}
-                <MapComponent selectedLocationss={selectedLocationss} />
-                {/* )} */}
+                <MapComponent selectedLocationss={dropOffLocationss} />
               </div>
             </div>
           </div>
