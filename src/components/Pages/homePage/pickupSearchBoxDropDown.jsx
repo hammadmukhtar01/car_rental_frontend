@@ -4,7 +4,7 @@ import MapComponent from "../../GoogleMap/googleMapAPI";
 import "./pickupdropoffModal.css";
 import { Form } from "react-bootstrap";
 import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
-import useGlobalFormFields from "../Utils/useGlobalFormFields";
+import UseGlobalFormFields from "../Utils/useGlobalFormFields";
 // import FormDataContext from "../Utils/FormDataContext";
 
 function PickupLocationModal({
@@ -52,7 +52,7 @@ function PickupLocationModal({
       inputGroup.classList.add("input-filled");
     }
   };
-
+  
   const handleBlur = (e) => {
     const inputGroup = e.target.closest(".inputgroup");
     if (inputGroup) {
@@ -62,15 +62,31 @@ function PickupLocationModal({
     }
   };
 
+  useEffect(() => {
+    const inputs = document.querySelectorAll(".inputgroup input");
+    inputs.forEach(input => {
+      input.addEventListener("focus", handleFocus, true);
+      input.addEventListener("blur", handleBlur, true);
+    });
+
+    return () => {
+      inputs.forEach(input => {
+        input.removeEventListener("focus", handleFocus, true);
+        input.removeEventListener("blur", handleBlur, true);
+      });
+    };
+  }, []);
+  
+
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
     handleFieldChange("selectedTabPickUp", tab);
     if (tab === "deliver") {
-      handleFieldChange("pickupLocationStateV1", "");
+      handleFieldChange("pickupLocationStateV1");
     }
   };
 
-  const { formFields, handleFieldChange } = useGlobalFormFields({
+  const { formFields, handleFieldChange } = UseGlobalFormFields({
     deliveryMapLocPickUp: "",
     selectedTabPickUp: "",
     completeAddress: deliverToAddressValue || "",
@@ -102,11 +118,13 @@ function PickupLocationModal({
     if (formFields) {
       if (formFields.selectedTabPickUp === "pick") {
         updatePickupLocationMessage(
-          formFields?.pickupInputMessageV1 || "test pick"
+          formFields?.pickupInputMessageV1 ||
+            "Samari Retails - Milele head office AF-07"
         );
       } else {
         updatePickupLocationMessage(
-          formFields?.deliveryMapLocPickUp || "test deliver"
+          formFields?.deliveryMapLocPickUp ||
+            "Samari Retails - Milele head office AF-07"
         );
       }
     }
@@ -115,7 +133,6 @@ function PickupLocationModal({
       "Final new --- updatePickupLocationMessage v ---- is: ----",
       updatePickupLocationMessage
     );
-
     handleButtonClick(selectedTab, {
       inputValue: inputPickupFieldValue,
     });
@@ -162,7 +179,9 @@ function PickupLocationModal({
                       <Form.Group controlId="formKeyword">
                         <SearchLocationInput
                           // onChange={handleInputChange}
-                          previousLocationValue={formFields.deliveryMapLocPickUp}
+                          previousLocationValue={
+                            formFields.deliveryMapLocPickUp
+                          }
                           // setLocationName={setSelectedLocationName}
                           setLocationName={(value) =>
                             handleFieldChange("deliveryMapLocPickUp", value)
@@ -183,7 +202,7 @@ function PickupLocationModal({
                           name="inputPickupFieldValue"
                           required
                           // value={inputPickupFieldValue}
-                          value={formFields?.inputPickupFieldValue}
+                          value={formFields?.inputPickupFieldValue || ""}
                           onChange={handleInputChange}
                           onFocus={handleFocus}
                           onBlur={handleBlur}

@@ -4,7 +4,7 @@ import MapComponent from "../../GoogleMap/googleMapAPI";
 import "./pickupdropoffModal.css";
 import { Form } from "react-bootstrap";
 import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
-import useGlobalFormFields from "../Utils/useGlobalFormFields";
+import UseGlobalFormFields from "../Utils/useGlobalFormFields";
 
 function DropoffLocationModal({
   show,
@@ -56,11 +56,11 @@ function DropoffLocationModal({
     setSelectedTab(tab);
     handleFieldChange("selectedTabDropOff", tab);
     if (tab === "deliver") {
-      handleFieldChange("dropoffLocationStateV1", "");
+      handleFieldChange("dropoffLocationStateV1");
     }
   };
 
-  const { formFields, handleFieldChange } = useGlobalFormFields({
+  const { formFields, handleFieldChange } = UseGlobalFormFields({
     deliveryMapLocDropOff: "",
     selectedTabDropOff: "",
     completeAddress: deliverToAddressValue || "",
@@ -92,11 +92,11 @@ function DropoffLocationModal({
     if (formFields) {
       if (formFields.selectedTabDropOff === "pick") {
         updateDropoffLocationMessage(
-          formFields?.dropoffInputMessageV1 || "test pick"
+          formFields?.dropoffInputMessageV1 || "Samari Retails - Milele head office AF-07"
         );
       } else {
         updateDropoffLocationMessage(
-          formFields?.deliveryMapLocDropOff || "test deliver"
+          formFields?.deliveryMapLocDropOff || "Samari Retails - Milele head office AF-07"
         );
       }
     }
@@ -189,7 +189,7 @@ function DropoffLocationModal({
                           id="inputDropoffFieldValue"
                           name="inputDropoffFieldValue"
                           required
-                          value={formFields?.inputDropoffFieldValue}
+                          value={formFields?.inputDropoffFieldValue || ""}
                           onChange={handleInputChange}
                           onFocus={handleFocus}
                           onBlur={handleBlur}

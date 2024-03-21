@@ -37,6 +37,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import Select from "react-select";
 import axios from "axios";
 import makeAnimated from "react-select/animated";
+import UseGlobalFormFields from "../Utils/useGlobalFormFields";
 
 const PageSize = 8;
 const animatedComponents = makeAnimated();
@@ -64,6 +65,8 @@ const VehiclesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
+  const [showDateRangeModal, setShowDateRangeModal] = useState(false);
+
   const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(
     window.innerWidth > 425 ? true : false
   );
@@ -75,7 +78,72 @@ const VehiclesPage = () => {
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
 
+  useEffect(() => {
+    const storedFormFields = JSON.parse(localStorage.getItem("formFields"));
+    console.log("Stored date range is: ", storedFormFields);
+    let storedStartDateRange;
+    let storedEndDateRange;
+    let pickupLocMainInput;
+    let dropoffLocMainInput;
+    let pickupLocTabV1;
+    let dropoffLocTabV1;
+    let checkBoxStoredValue;
+
+    if (storedFormFields) {
+      checkBoxStoredValue = storedFormFields.showDropoffV1 === 0;
+      console.log(
+        "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
+        checkBoxStoredValue
+      );
+      setShowDropoff(checkBoxStoredValue);
+
+      pickupLocTabV1 = storedFormFields.selectedTabPickUp;
+      dropoffLocTabV1 = storedFormFields.selectedTabDropOff;
+
+      if (storedFormFields.dateRangeV1) {
+        storedStartDateRange = new Date(storedFormFields.dateRangeV1.startDate);
+        storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+      }
+      if (pickupLocTabV1 === "pick") {
+        pickupLocMainInput = storedFormFields.pickupInputMessageV1;
+        setPickupLocationMessage(pickupLocMainInput);
+      } else if (pickupLocTabV1 === "deliver") {
+        pickupLocMainInput = storedFormFields.deliveryMapLocPickUp;
+        setPickupLocationMessage(pickupLocMainInput);
+      }
+      if (dropoffLocTabV1 === "pick") {
+        dropoffLocMainInput = storedFormFields.dropoffInputMessageV1;
+        setDropoffLocationMessage(dropoffLocMainInput);
+      } else if (dropoffLocTabV1 === "deliver") {
+        dropoffLocMainInput = storedFormFields.deliveryMapLocDropOff;
+        setDropoffLocationMessage(dropoffLocMainInput);
+      }
+      const storedPickUpTime = storedFormFields.pickTimeV1 || "";
+      setPickUpTime(storedPickUpTime);
+      const storedDropOffTime = storedFormFields.dropTimeV1 || "";
+      setDropOffTime(storedDropOffTime);
+    }
+
+    setDateRange([
+      {
+        startDate: storedStartDateRange || new Date(),
+        endDate:
+          storedEndDateRange ||
+          new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+        key: "selection",
+      },
+    ]);
+  }, []);
+
   const navigate = useNavigate();
+
+  const { formFields, handleFieldChange } = UseGlobalFormFields({
+    pickTimeV1: pickUpTime || "",
+    dropTimeV1: dropOffTime || "",
+    dateRangeV1: "",
+    showDropoffV1: 1,
+  });
+
   const [showPickupModal, setShowPickupModal] = useState(false);
   const [showDropoffModal, setShowDropoffModal] = useState(false);
   const [inputFieldValue, setInputFieldValue] = useState("");
@@ -108,13 +176,6 @@ const VehiclesPage = () => {
     setShowPickupModal(true);
   };
 
-  // useEffect(() => {
-  //   const pickupTimeParam = queryParams.get("pickupTime");
-  //   if (pickupTimeParam) {
-  //     setPickUpTime({ label: pickupTimeParam, value: pickupTimeParam });
-  //   }
-  // }, [queryParams]);
-
   useEffect(() => {
     const pickupTimeParam = queryParams.get("pickupTime");
     if (pickupTimeParam && !pickUpTime) {
@@ -123,20 +184,22 @@ const VehiclesPage = () => {
   }, [queryParams, pickUpTime]);
 
   const handlePickUpTimeChange = (selectedOption) => {
-    const selectedTime = selectedOption.value;
-    setPickUpTime(selectedTime);
+    console.log("Selected time option is: ", selectedOption);
+    setPickUpTime(selectedOption.value);
+    handleFieldChange("pickTimeV1", selectedOption.value);
   };
 
-  useEffect(() => {
-    const dropoffTimeParam = queryParams.get("dropoffTime");
-    if (dropoffTimeParam && !dropOffTime) {
-      setDropOffTime(dropoffTimeParam);
-    }
-  }, [queryParams, dropOffTime]);
+  // useEffect(() => {
+  //   const dropoffTimeParam = queryParams.get("dropoffTime");
+  //   if (dropoffTimeParam && !dropOffTime) {
+  //     setDropOffTime(dropoffTimeParam);
+  //   }
+  // }, [queryParams, dropOffTime]);
 
   const handleDropOffTimeChange = (selectedOption) => {
-    const selectedTime = selectedOption.value;
-    setDropOffTime(selectedTime);
+    console.log("Selected time option is: ", selectedOption);
+    setDropOffTime(selectedOption.value);
+    handleFieldChange("dropTimeV1", selectedOption.value);
   };
 
   const handleInputFieldChange = (value) => {
@@ -388,6 +451,7 @@ const VehiclesPage = () => {
 
   const handleDropoffCheckboxChange = () => {
     setShowDropoff(!showDropoff);
+    handleFieldChange("showDropoffV1", showDropoff ? 1 : 0);
   };
 
   const allCarsBookingButton = (tariffGroupId, startDate, endDate) => {
@@ -495,27 +559,29 @@ const VehiclesPage = () => {
   const handleDateChange = (ranges) => {
     const { startDate, endDate } = ranges.selection;
 
-    const pickupDate = startDate ? startDate : null;
-    const dropoffDate = endDate ? endDate : null;
+    const pickupDate = startDate ? startDate.toLocaleDateString() : null;
+    const dropoffDate = endDate ? endDate.toLocaleDateString() : null;
 
-    setPickUpDate(pickupDate ? pickupDate.toLocaleDateString() : null);
-    setDropOffDate(dropoffDate ? dropoffDate.toLocaleDateString() : null);
+    setPickUpDate(pickupDate);
+    setDropOffDate(dropoffDate);
 
-    console.log(
-      "Pickup Date:",
-      pickupDate ? pickupDate.toLocaleDateString() : null
-    );
-    console.log(
-      "Dropoff Date:",
-      dropoffDate ? dropoffDate.toLocaleDateString() : null
-    );
+    console.log("Pickup Date:", pickupDate);
+    console.log("Dropoff Date:", dropoffDate);
 
-    if (pickupDate && dropoffDate) {
-      const timeDifference = dropoffDate.getTime() - pickupDate.getTime();
-      const totalDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
-      console.log("Number of days:", totalDays);
-      setNumberOfDays(totalDays + 1);
-    }
+    const updatedStartDate = startDate
+      ? new Date(startDate.getTime() + 24 * 60 * 60 * 1000)
+      : null;
+    const updatedEndDate = endDate
+      ? new Date(endDate.getTime() + 24 * 60 * 60 * 1000)
+      : null;
+
+    const dateRangeObject = {
+      startDate: updatedStartDate.toISOString().split("T")[0],
+      endDate: updatedEndDate.toISOString().split("T")[0],
+      // key: "selection",
+    };
+
+    handleFieldChange("dateRangeV1", dateRangeObject);
 
     setDateRange([ranges.selection]);
   };
@@ -658,18 +724,20 @@ const VehiclesPage = () => {
                                 className="form-control-date mt-2 col-12"
                                 type="text"
                                 value={
-                                  dateRange[0].startDate
-                                    ? `${dateRange[0].startDate.toLocaleDateString()} - ${
-                                        dateRange[0].endDate
-                                          ? dateRange[0].endDate.toLocaleDateString()
-                                          : "Select end date"
-                                      }`
+                                  formFields.dateRangeV1.startDate &&
+                                  formFields.dateRangeV1.endDate
+                                    ? `${new Date(
+                                        formFields.dateRangeV1.startDate
+                                      ).toLocaleDateString()} - ${new Date(
+                                        formFields.dateRangeV1.endDate
+                                      ).toLocaleDateString()}`
                                     : "Select date range"
                                 }
+                                onClick={() => setShowDateRangeModal(true)}
                                 readOnly
                               />
                             </div>
-                            {showDatePicker && (
+                            {/* {showDatePicker && (
                               <div onClick={(e) => e.stopPropagation()}>
                                 <DateRange
                                   editableDateInputs={true}
@@ -682,10 +750,28 @@ const VehiclesPage = () => {
                                   onClose={() => setShowDatePicker(false)}
                                 />
                               </div>
-                            )}
+                            )} */}
                           </Form.Group>
                         </Col>
 
+                        <Modal
+                          show={showDateRangeModal}
+                          onHide={() => setShowDateRangeModal(false)}
+                          size="sm"
+                        >
+                          <DateRange
+                            editableDateInputs={true}
+                            onChange={handleDateChange}
+                            moveRangeOnFirstSelection={false}
+                            ranges={dateRange}
+                            rangeColors={["#cc6119"]}
+                            disabledDay={(date) =>
+                              date < new Date().setHours(0, 0, 0, 0)
+                            }
+                            onClose={() => setShowDatePicker(false)}
+                            // onClick={() => setShowDateRangeModal(true)}
+                          />
+                        </Modal>
                         <Col
                           xxl={4}
                           lg={4}
@@ -760,6 +846,7 @@ const VehiclesPage = () => {
                                 type="checkbox"
                                 label="Different Dropoff Location"
                                 onChange={handleDropoffCheckboxChange}
+                                checked={showDropoff}
                               />
                             </div>
                           </Row>
@@ -828,9 +915,10 @@ const VehiclesPage = () => {
                               options={timeOptions}
                               required
                               className="form-control-pickup-time col-12"
-                              // value={timeOptions.find(
-                              //   (option) => option.value === pickUpTime
-                              // )}
+                              value={timeOptions.find(
+                                (option) =>
+                                  option.value === formFields.pickTimeV1
+                              )}
                               // onChange={(selectedOption) => {
                               //   console.log(
                               //     "Selected option is: ",
@@ -838,7 +926,7 @@ const VehiclesPage = () => {
                               //   );
                               //   setPickUpTime(selectedOption.value);
                               // }}
-                              value={{ value: pickUpTime, label: pickUpTime }}
+                              // value={{ value: pickUpTime, label: pickUpTime }}
                               onChange={handlePickUpTimeChange}
                               styles={selectStyles}
                             />
@@ -856,9 +944,10 @@ const VehiclesPage = () => {
                               options={timeOptions}
                               required
                               className="form-control-dropoff-time col-12"
-                              // value={timeOptions.find(
-                              //   (option) => option.value === dropOffTime
-                              // )}
+                              value={timeOptions.find(
+                                (option) =>
+                                  option.value === formFields.dropTimeV1
+                              )}
                               // onChange={(selectedOption) => {
                               //   console.log(
                               //     "Selected Dropoff option is: ",
@@ -866,7 +955,7 @@ const VehiclesPage = () => {
                               //   );
                               //   setDropOffTime(selectedOption.value);
                               // }}
-                              value={{ value: dropOffTime, label: dropOffTime }}
+                              // value={{ value: dropOffTime, label: dropOffTime }}
                               onChange={handleDropOffTimeChange}
                               styles={selectStyles}
                             />

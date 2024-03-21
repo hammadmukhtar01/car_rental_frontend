@@ -219,7 +219,7 @@
   font-size: 85%;
 }
 
-.inputgroup.input-filled label{
+.inputgroup.input-filled label, .inputgroup label{
   transform: translatey(-50%) scale(0.9);
   margin: -3.3em;
   margin-left: 2.3em;

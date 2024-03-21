@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useGlobalFormFields = (initialState) => {
+const UseGlobalFormFields = (initialState) => {
   const SIX_HOURS_IN_MS = 3 * 60 * 60 * 1000; 
 
   const [formFields, setFormFields] = useState(() => {
@@ -40,4 +40,4 @@ const useGlobalFormFields = (initialState) => {
   };
 };
 
-export default useGlobalFormFields;
+export default UseGlobalFormFields;

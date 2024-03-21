@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
-import useGlobalFormFields from "../Utils/useGlobalFormFields";
+import UseGlobalFormFields from "../Utils/useGlobalFormFields";
 
 const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");
@@ -80,6 +80,10 @@ const SearchBox = () => {
         dropoffLocMainInput = storedFormFields.deliveryMapLocDropOff;
         setDropoffLocationMessage(dropoffLocMainInput);
       }
+      const storedPickUpTime = storedFormFields.pickTimeV1 || "";
+      setPickUpTime(storedPickUpTime);
+      const storedDropOffTime = storedFormFields.dropTimeV1 || "";
+      setDropOffTime(storedDropOffTime);
     }
 
     setDateRange([
@@ -94,7 +98,7 @@ const SearchBox = () => {
   }, []);
 
   const navigate = useNavigate();
-  const { formFields, handleFieldChange } = useGlobalFormFields({
+  const { formFields, handleFieldChange } = UseGlobalFormFields({
     pickTimeV1: pickUpTime || "",
     dropTimeV1: dropOffTime || "",
     dateRangeV1: "",
@@ -103,11 +107,13 @@ const SearchBox = () => {
 
   const handlePickupTimeChange = (selectedOption) => {
     console.log("Selected time option is: ", selectedOption);
+    setPickUpTime(selectedOption.value);
     handleFieldChange("pickTimeV1", selectedOption.value);
   };
 
   const handleDropoffTimeChange = (selectedOption) => {
     console.log("Selected time option is: ", selectedOption);
+    setDropOffTime(selectedOption.value);
     handleFieldChange("dropTimeV1", selectedOption.value);
   };
 
@@ -229,8 +235,10 @@ const SearchBox = () => {
 
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
-
-    if (!pickUpTime || !dropOffTime) {
+    console.log(
+      `pickup time is: ${pickUpTime} and dropoff time is: ${dropOffTime} and pickup loc msg is: ${pickupLocationMessage}`
+    );
+    if (!pickUpTime || !dropOffTime || !pickupLocationMessage) {
       toast.error("Some inputs are missing.", {
         autoClose: 1000,
         style: {
