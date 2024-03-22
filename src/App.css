@@ -426,7 +426,6 @@ img:hover {
   padding: 10px 18px !important;
   font-weight: bolder;
   font-size: medium;
-
 }
 
 .navbar-dropdown-title {
@@ -470,11 +469,23 @@ img:hover {
   /* background-color: #cc6119; */
   /* color: green !important; */
   color: #cc6119 !important;
+  cursor: copy;
 }
 
 .navbar-light .navbar-nav .nav-link {
-  /* color: #cc6119; */
-  color: white;
+  color: black;
+}
+
+.navbar-white .nav-link {
+  color: white !important;
+}
+
+.navbar-white .navbar-all-menus.active{
+  color: #cc6119 !important;
+}
+
+.navbar-white .navbar-all-menus:hover {
+  color: #cc6119 !important;
 }
 
 .right-dropdown .dropdown-menu {

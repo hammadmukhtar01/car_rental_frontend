@@ -36,7 +36,7 @@ function App() {
             Milele Motors, Car Rental System
           </span>
         </div>
-        <Routes>
+        <Routes>  
           <Route path="/" exact element={<HomePage />} />
           <Route path="/home" exact element={<HomePage />} />
           <Route path="/vehicles" element={<VehiclesPage />} />

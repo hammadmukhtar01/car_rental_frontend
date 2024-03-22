@@ -50,7 +50,6 @@ const SearchLocationInput = ({
         status === window.google.maps.places.PlacesServiceStatus.OK &&
         place
       ) {
-        // Mapping of Arabic state names to English
         const arabicToEnglishMap = {
           الفجيرة: "Fujairah",
           العين: "Al Ain",

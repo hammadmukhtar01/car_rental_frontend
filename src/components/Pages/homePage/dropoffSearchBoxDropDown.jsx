@@ -52,17 +52,9 @@ function DropoffLocationModal({
     }
   };
 
-  const handleTabChange = (tab) => {
-    setSelectedTab(tab);
-    handleFieldChange("selectedTabDropOff", tab);
-    if (tab === "deliver") {
-      handleFieldChange("dropoffLocationStateV1");
-    }
-  };
-
   const { formFields, handleFieldChange } = UseGlobalFormFields({
     deliveryMapLocDropOff: "",
-    selectedTabDropOff: "",
+    selectedTabDropOff: "deliver" || "",
     completeAddress: deliverToAddressValue || "",
     dropoffLocationStateV1: dropoffLocationState || "",
     dropoffInputMessageV1: updateDropoffLocationMessage || "",
@@ -70,7 +62,19 @@ function DropoffLocationModal({
 
   useEffect(() => {
     setSelectedTab(formFields.selectedTabDropOff);
-  }, [formFields.selectedTabDropOff]);
+  }, [formFields?.selectedTabDropOff]);
+
+  useEffect(() => {
+    setSelectedTab(formFields?.selectedTabDropOff || "pick");
+  }, [formFields?.selectedTabDropOff]);
+
+  const handleTabChange = (tab) => {
+    setSelectedTab(tab);
+    handleFieldChange("selectedTabDropOff", tab);
+    if (tab === "deliver") {
+      handleFieldChange("dropoffLocationStateV1");
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -89,14 +93,20 @@ function DropoffLocationModal({
       message = `Samari Retails - Milele head office AF-07`;
       handleFieldChange("dropoffInputMessageV1", message);
     }
+
+    handleFieldChange("selectedTabDropOff", selectedTab);
+
+
     if (formFields) {
       if (formFields.selectedTabDropOff === "pick") {
         updateDropoffLocationMessage(
-          formFields?.dropoffInputMessageV1 || "Samari Retails - Milele head office AF-07"
+          formFields?.dropoffInputMessageV1 ||
+            "Samari Retails - Milele head office AF-07"
         );
       } else {
         updateDropoffLocationMessage(
-          formFields?.deliveryMapLocDropOff || "Samari Retails - Milele head office AF-07"
+          formFields?.deliveryMapLocDropOff ||
+            "Samari Retails - Milele head office AF-07"
         );
       }
     }
@@ -157,7 +167,9 @@ function DropoffLocationModal({
                           setSelectedLocationss={setSelectedLocationss}
                         /> */}
                         <SearchLocationInput
-                          previousLocationValue={formFields.deliveryMapLocDropOff}
+                          previousLocationValue={
+                            formFields.deliveryMapLocDropOff
+                          }
                           setLocationName={(value) =>
                             handleFieldChange("deliveryMapLocDropOff", value)
                           }

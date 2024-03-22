@@ -41,60 +41,65 @@ const SearchBox = () => {
   ]);
 
   useEffect(() => {
-    const storedFormFields = JSON.parse(localStorage.getItem("formFields"));
-    console.log("Stored date range is: ", storedFormFields);
-    let storedStartDateRange;
-    let storedEndDateRange;
-    let pickupLocMainInput;
-    let dropoffLocMainInput;
-    let pickupLocTabV1;
-    let dropoffLocTabV1;
-    let checkBoxStoredValue;
+    const reqLocalStorageData = localStorage.getItem("formFields");
+    if (reqLocalStorageData) {
+      const storedFormFields = JSON.parse(reqLocalStorageData);
+      console.log("Stored date range is: ", storedFormFields);
+      let storedStartDateRange;
+      let storedEndDateRange;
+      let pickupLocMainInput;
+      let dropoffLocMainInput;
+      let pickupLocTabV1;
+      let dropoffLocTabV1;
+      let checkBoxStoredValue;
 
-    if (storedFormFields) {
-      checkBoxStoredValue = storedFormFields.showDropoffV1 === 0;
-      console.log(
-        "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
-        checkBoxStoredValue
-      );
-      setShowDropoff(checkBoxStoredValue);
+      if (storedFormFields) {
+        checkBoxStoredValue = storedFormFields.showDropoffV1 === 0;
+        console.log(
+          "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
+          checkBoxStoredValue
+        );
+        setShowDropoff(checkBoxStoredValue);
 
-      pickupLocTabV1 = storedFormFields.selectedTabPickUp;
-      dropoffLocTabV1 = storedFormFields.selectedTabDropOff;
+        pickupLocTabV1 = storedFormFields.selectedTabPickUp;
+        dropoffLocTabV1 = storedFormFields.selectedTabDropOff;
 
-      if (storedFormFields.dateRangeV1) {
-        storedStartDateRange = new Date(storedFormFields.dateRangeV1.startDate);
-        storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+        if (storedFormFields.dateRangeV1) {
+          storedStartDateRange = new Date(
+            storedFormFields.dateRangeV1.startDate
+          );
+          storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+        }
+        if (pickupLocTabV1 === "deliver") {
+          pickupLocMainInput = storedFormFields.pickupInputMessageV1;
+          setPickupLocationMessage(pickupLocMainInput);
+        } else if (pickupLocTabV1 === "deliver") {
+          pickupLocMainInput = storedFormFields.deliveryMapLocPickUp;
+          setPickupLocationMessage(pickupLocMainInput);
+        }
+        if (dropoffLocTabV1 === "pick") {
+          dropoffLocMainInput = storedFormFields.dropoffInputMessageV1;
+          setDropoffLocationMessage(dropoffLocMainInput);
+        } else if (dropoffLocTabV1 === "deliver") {
+          dropoffLocMainInput = storedFormFields.deliveryMapLocDropOff;
+          setDropoffLocationMessage(dropoffLocMainInput);
+        }
+        const storedPickUpTime = storedFormFields.pickTimeV1 || "";
+        setPickUpTime(storedPickUpTime);
+        const storedDropOffTime = storedFormFields.dropTimeV1 || "";
+        setDropOffTime(storedDropOffTime);
       }
-      if (pickupLocTabV1 === "pick") {
-        pickupLocMainInput = storedFormFields.pickupInputMessageV1;
-        setPickupLocationMessage(pickupLocMainInput);
-      } else if (pickupLocTabV1 === "deliver") {
-        pickupLocMainInput = storedFormFields.deliveryMapLocPickUp;
-        setPickupLocationMessage(pickupLocMainInput);
-      }
-      if (dropoffLocTabV1 === "pick") {
-        dropoffLocMainInput = storedFormFields.dropoffInputMessageV1;
-        setDropoffLocationMessage(dropoffLocMainInput);
-      } else if (dropoffLocTabV1 === "deliver") {
-        dropoffLocMainInput = storedFormFields.deliveryMapLocDropOff;
-        setDropoffLocationMessage(dropoffLocMainInput);
-      }
-      const storedPickUpTime = storedFormFields.pickTimeV1 || "";
-      setPickUpTime(storedPickUpTime);
-      const storedDropOffTime = storedFormFields.dropTimeV1 || "";
-      setDropOffTime(storedDropOffTime);
+
+      setDateRange([
+        {
+          startDate: storedStartDateRange || new Date(),
+          endDate:
+            storedEndDateRange ||
+            new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+          key: "selection",
+        },
+      ]);
     }
-
-    setDateRange([
-      {
-        startDate: storedStartDateRange || new Date(),
-        endDate:
-          storedEndDateRange ||
-          new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-        key: "selection",
-      },
-    ]);
   }, []);
 
   const navigate = useNavigate();
@@ -236,7 +241,7 @@ const SearchBox = () => {
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
     console.log(
-      `pickup time is: ${pickUpTime} and dropoff time is: ${dropOffTime} and pickup loc msg is: ${pickupLocationMessage}`
+      `pickup time is: ${pickUpTime} and dropoff time is: ${dropOffTime} and pickup loc msg is: ${pickupLocationMessage} and dropoff loc msg is: ${dropoffLocationMessage}`
     );
     if (!pickUpTime || !dropOffTime || !pickupLocationMessage) {
       toast.error("Some inputs are missing.", {

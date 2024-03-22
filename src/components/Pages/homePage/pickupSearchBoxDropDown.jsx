@@ -52,7 +52,7 @@ function PickupLocationModal({
       inputGroup.classList.add("input-filled");
     }
   };
-  
+
   const handleBlur = (e) => {
     const inputGroup = e.target.closest(".inputgroup");
     if (inputGroup) {
@@ -64,19 +64,18 @@ function PickupLocationModal({
 
   useEffect(() => {
     const inputs = document.querySelectorAll(".inputgroup input");
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       input.addEventListener("focus", handleFocus, true);
       input.addEventListener("blur", handleBlur, true);
     });
 
     return () => {
-      inputs.forEach(input => {
+      inputs.forEach((input) => {
         input.removeEventListener("focus", handleFocus, true);
         input.removeEventListener("blur", handleBlur, true);
       });
     };
   }, []);
-  
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
@@ -96,7 +95,11 @@ function PickupLocationModal({
 
   useEffect(() => {
     setSelectedTab(formFields.selectedTabPickUp);
-  }, [formFields.selectedTabPickUp]);
+  }, [formFields?.selectedTabPickUp]);
+
+  useEffect(() => {
+    setSelectedTab(formFields?.selectedTabPickUp || "pick");
+  }, [formFields?.selectedTabPickUp]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -115,6 +118,10 @@ function PickupLocationModal({
       message = `Samari Retails - Milele head office AF-07`;
       handleFieldChange("pickupInputMessageV1", message);
     }
+    console.log("Select tab------------------", selectedTab)
+
+      handleFieldChange("selectedTabPickUp", selectedTab);
+
     if (formFields) {
       if (formFields.selectedTabPickUp === "pick") {
         updatePickupLocationMessage(
@@ -129,11 +136,7 @@ function PickupLocationModal({
       }
     }
 
-    console.log(
-      "Final new --- updatePickupLocationMessage v ---- is: ----",
-      updatePickupLocationMessage
-    );
-    handleButtonClick(selectedTab, {
+    handleButtonClick(selectedTab || "pick", {
       inputValue: inputPickupFieldValue,
     });
   };

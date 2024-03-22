@@ -1,25 +1,29 @@
+import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Image from "react-bootstrap/Image";
-import logo from "../../images/car_rental_logo_old.png";
+import Whitelogo from "../../images/car_rental_logo_old.png";
+import Coloredlogo from "../../images/car_rental_logo.png";
 import { Col } from "react-bootstrap";
 
 function OffcanvasExample() {
+  const [isHomePage, setIsHomePage] = useState(false);
   const navigate = useNavigate();
-  // const location = useLocation();
+  const location = useLocation();
   const auth = JSON.parse(localStorage.getItem("user"));
   const authStatusCode = auth?.statusText;
   const user_info = auth?.data;
   const userName = user_info?.result?.userName;
 
   console.log("Auth in local storage is --: ", auth);
-  // const isVehiclesPage =
-  //   location.pathname.includes("/vehicles") ||
-  //   location.pathname.includes("/quicklease");
+
+  useEffect(() => {
+    setIsHomePage(location.pathname === "/home" || location.pathname === "/");
+  }, [location.pathname]);
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
@@ -40,7 +44,11 @@ function OffcanvasExample() {
             <Navbar.Brand>
               <div className="main-logo">
                 <a href="/home">
-                  <Image src={logo} alt="Main Logo" fluid />
+                  <Image
+                    src={`${isHomePage ? Whitelogo : Coloredlogo}`}
+                    alt="Main Logo"
+                    fluid
+                  />
                 </a>
               </div>
             </Navbar.Brand>
@@ -60,17 +68,27 @@ function OffcanvasExample() {
                 <Navbar.Brand>
                   <div className="toggle-main-logo">
                     <a href="/home">
-                      <Image src={logo} alt="Main Logo" fluid />
+                      <Image
+                        src={`${isHomePage ? Whitelogo : Coloredlogo}`}
+                        alt="Main Logo"
+                        fluid
+                      />
                     </a>
                   </div>
                 </Navbar.Brand>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
+                <Nav
+                  className={`justify-content-end flex-grow-1 pe-3 ${
+                    isHomePage ? "navbar-white" : "navbar-black"
+                  }`}
+                >
                   <Nav.Link
                     as={NavLink}
                     to="/home"
-                    className="navbar-all-menus"
+                    className={`navbar-all-menus ${
+                      location.pathname === "/home" ? "active" : "" || location.pathname === "/" ? "active" : ""
+                    }`}
                     activeclassname="active"
                   >
                     Home
@@ -105,7 +123,9 @@ function OffcanvasExample() {
                   <Nav.Link
                     as={NavLink}
                     to="/vehicles"
-                    className="navbar-all-menus"
+                    className={`navbar-all-menus ${
+                      location.pathname === "/vehicles" ? "active" : ""
+                    }`}
                     activeclassname="active"
                   >
                     Cars
@@ -114,7 +134,9 @@ function OffcanvasExample() {
                   <Nav.Link
                     as={NavLink}
                     to="/aboutus"
-                    className="navbar-all-menus"
+                    className={`navbar-all-menus ${
+                      location.pathname === "/aboutus" ? "active" : ""
+                    }`}
                     activeclassname="active"
                   >
                     About Us
@@ -122,7 +144,7 @@ function OffcanvasExample() {
                   {/* <Nav.Link
                     as={NavLink}
                     to="/faqs"
-                    className="navbar-all-menus"
+                    className={`navbar-all-menus ${location.pathname === '/faqs' ? 'active' : ''}`}
                     activeclassname="active"
                   >
                     FAQs
@@ -131,7 +153,9 @@ function OffcanvasExample() {
                   <Nav.Link
                     as={NavLink}
                     to="/terms&Conditions"
-                    className="navbar-all-menus"
+                    className={`navbar-all-menus ${
+                      location.pathname === "/terms&Conditions" ? "active" : ""
+                    }`}
                     activeclassname="active"
                   >
                     T&Cs
@@ -140,16 +164,20 @@ function OffcanvasExample() {
                   <Nav.Link
                     as={NavLink}
                     to="/quicklease"
-                    className="navbar-all-menus"
+                    className={`navbar-all-menus ${
+                      location.pathname === "/quicklease" ? "active" : ""
+                    }`}
                     activeclassname="active"
                   >
-                    Lease To Own
+                    LTO
                   </Nav.Link>
 
                   <Nav.Link
                     as={NavLink}
                     to="/contactus"
-                    className="navbar-all-menus"
+                    className={`navbar-all-menus ${
+                      location.pathname === "/contactus" ? "active" : ""
+                    }`}
                     activeclassname="active"
                   >
                     Contact Us
