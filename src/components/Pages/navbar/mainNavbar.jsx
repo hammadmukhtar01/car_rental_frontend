@@ -40,7 +40,7 @@ function OffcanvasExample() {
     <>
       <Container className="">
         <Navbar key={"lg"} expand={"lg"} className={`p-0 `}>
-          <Col lg={3} md={3} xs={6}>
+          <Col lg={2} md={3} xs={6}>
             <Navbar.Brand>
               <div className="main-logo">
                 <a href="/home">
@@ -79,7 +79,7 @@ function OffcanvasExample() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav
-                  className={`justify-content-end flex-grow-1 pe-3 ${
+                  className={`justify-content-end flex-grow-1 ${
                     isHomePage ? "navbar-white" : "navbar-black"
                   }`}
                 >
@@ -87,7 +87,11 @@ function OffcanvasExample() {
                     as={NavLink}
                     to="/home"
                     className={`navbar-all-menus ${
-                      location.pathname === "/home" ? "active" : "" || location.pathname === "/" ? "active" : ""
+                      location.pathname === "/home"
+                        ? "active"
+                        : "" || location.pathname === "/"
+                        ? "active"
+                        : ""
                     }`}
                     activeclassname="active"
                   >
@@ -128,7 +132,7 @@ function OffcanvasExample() {
                     }`}
                     activeclassname="active"
                   >
-                    Cars
+                    Fleet
                   </Nav.Link>
 
                   <Nav.Link
@@ -141,14 +145,6 @@ function OffcanvasExample() {
                   >
                     About Us
                   </Nav.Link>
-                  {/* <Nav.Link
-                    as={NavLink}
-                    to="/faqs"
-                    className={`navbar-all-menus ${location.pathname === '/faqs' ? 'active' : ''}`}
-                    activeclassname="active"
-                  >
-                    FAQs
-                  </Nav.Link> */}
 
                   <Nav.Link
                     as={NavLink}
@@ -181,6 +177,16 @@ function OffcanvasExample() {
                     activeclassname="active"
                   >
                     Contact Us
+                  </Nav.Link>
+                  <Nav.Link
+                    as={NavLink}
+                    to="/faqs"
+                    className={`navbar-all-menus ${
+                      location.pathname === "/faqs" ? "active" : ""
+                    }`}
+                    activeclassname="active"
+                  >
+                    FAQs
                   </Nav.Link>
                 </Nav>
                 {auth && authStatusCode === "OK" ? (

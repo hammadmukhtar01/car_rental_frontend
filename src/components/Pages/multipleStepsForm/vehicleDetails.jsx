@@ -40,16 +40,21 @@ const VehicleDetails = ({ nextStep }) => {
   const ReturnDateTime = queryParams.get("endDate");
   const pickupTimeParam = queryParams.get("pickupTime");
   const dropoffTimeParam = queryParams.get("dropoffTime");
-  const selectedAddressState = "Dubai";
+  const pickupLocParam = queryParams.get("pickupLoc");
+  const dropoffLocParam = queryParams.get("dropoffLoc");
+  const pickupLocStateParam = queryParams.get("pickupLocState");
+
+  console.log("state is ---- ", pickupLocStateParam);
+  // const selectedAddressState = "Dubai";
 
   const deliveryCharges = {
-    "Fujairah": 250,
-    "Al Ain": 200,
-    "Abu Dhabi": 200,
-    "Dubai": 50,
-    "Ras Al Khaimah": 250,
-    "Sharjah": 80,
-    "Ajman": 100,
+    FUJAIRAH: 250,
+    "AL AIN": 200,
+    "ABU DHABI": 200,
+    DUBAI: 50,
+    "RAS AL KHAIMAH": 250,
+    SHARJAH: 80,
+    AJMAN: 100,
   };
 
   useEffect(() => {
@@ -135,27 +140,27 @@ const VehicleDetails = ({ nextStep }) => {
       featureIcon: BsSuitcase,
     },
     {
-      name: " Engine",
-      value: carFuelType,
-      featureIcon: BsCpu,
-    },
-
-    {
       name: "AC",
       value: null,
       featureIcon: LuSnowflake,
+    },
+
+    {
+      name: " Engine",
+      value: carFuelType,
+      featureIcon: BsCpu,
     },
   ];
 
   const couponsData = [
     {
       name: "ABC123",
-      value: 20,
+      value: 10,
     },
 
     {
       name: "NEW40",
-      value: 40,
+      value: 20,
     },
   ];
 
@@ -174,13 +179,13 @@ const VehicleDetails = ({ nextStep }) => {
 
   const steps = [
     {
-      locName: "Pickup Loc Name",
+      locName: pickupLocParam,
       locDate: StartDateTime,
       locTime: pickupTimeParam,
       locIcon: FaTelegramPlane,
     },
     {
-      locName: "Drop off Loc Name",
+      locName: dropoffLocParam,
       locDate: ReturnDateTime,
       locTime: dropoffTimeParam,
       locIcon: FaMapMarkerAlt,
@@ -245,17 +250,12 @@ const VehicleDetails = ({ nextStep }) => {
   ];
 
   const getDeliveryCharge = () => {
-    // Convert selected address state to title case for comparison
-    const selectedState =
-      selectedAddressState.charAt(0).toUpperCase() +
-      selectedAddressState.slice(1).toLowerCase();
+    const selectedState = pickupLocStateParam.toUpperCase();
 
-    // Check if the selected state exists in the deliveryCharges object
     if (deliveryCharges[selectedState]) {
       return deliveryCharges[selectedState];
     } else {
-      // Return a default value or handle if the state is not found
-      return 0; // You can modify this default value as per your requirement
+      return 0;
     }
   };
 
@@ -269,7 +269,8 @@ const VehicleDetails = ({ nextStep }) => {
     return 0;
   };
 
-  const subTotalValue = calculateTotalPrice() + totalAPIResponseCharges + getDeliveryCharge();
+  const subTotalValue =
+    calculateTotalPrice() + totalAPIResponseCharges + getDeliveryCharge();
   const taxTotal = Math.floor((5 * subTotalValue) / 100);
   const grandTotalPrice = subTotalValue + taxTotal;
 
@@ -329,7 +330,7 @@ const VehicleDetails = ({ nextStep }) => {
               </div>
             </Box>
           </div>
-          <div className="loc-name-car-details-page d-flex flex-row-reverse">
+          <div className="loc-name-car-details-page d-flex justify-content-start">
             <Typography variant="body2">
               {locTime} <span className="text-dark">(</span> {formattedDate}{" "}
               <span className="text-dark">)</span>
@@ -481,7 +482,7 @@ const VehicleDetails = ({ nextStep }) => {
                         <Stepper
                           activeStep={steps.length - 1}
                           orientation="vertical"
-                          className="pick-drop-data"
+                          className="pick-drop-data col-11"
                         >
                           {steps.map((label, index) => (
                             <Step key={index}>

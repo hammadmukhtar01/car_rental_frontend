@@ -70,7 +70,7 @@ const SearchBox = () => {
           );
           storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
         }
-        if (pickupLocTabV1 === "deliver") {
+        if (pickupLocTabV1 === "pick") {
           pickupLocMainInput = storedFormFields.pickupInputMessageV1;
           setPickupLocationMessage(pickupLocMainInput);
         } else if (pickupLocTabV1 === "deliver") {

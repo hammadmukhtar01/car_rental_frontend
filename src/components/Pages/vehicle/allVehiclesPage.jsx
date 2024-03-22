@@ -66,6 +66,7 @@ const VehiclesPage = () => {
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
+  const [pickupLocStateValue, setPickupLocStateValue] = useState("");
 
   const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(
     window.innerWidth > 425 ? true : false
@@ -89,6 +90,7 @@ const VehiclesPage = () => {
     let dropoffLocTabV1;
     let checkBoxStoredValue;
     let pickupLocParam;
+    let pickupLocState1;
 
     if (storedFormFields) {
       checkBoxStoredValue = storedFormFields.showDropoffV1 === 0;
@@ -100,6 +102,15 @@ const VehiclesPage = () => {
 
       pickupLocTabV1 = storedFormFields.selectedTabPickUp;
       dropoffLocTabV1 = storedFormFields.selectedTabDropOff;
+
+      if (storedFormFields?.pickupLocationStateV1) {
+        console.log("in If state value is --------1---------: ", storedFormFields?.pickupLocationStateV1);
+        setPickupLocStateValue(storedFormFields?.pickupLocationStateV1);
+      } else {
+        pickupLocState1 = queryParams.get("pickupLocState");
+        console.log("in else state is -----------2---------: ", pickupLocState1);
+        setPickupLocStateValue(pickupLocState1);
+      }
 
       if (storedFormFields.dateRangeV1) {
         storedStartDateRange = new Date(storedFormFields.dateRangeV1.startDate);
@@ -449,7 +460,7 @@ const VehiclesPage = () => {
 
     console.log("All Cars Booking Button");
     navigate(
-      `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}`
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}`
     );
   };
 

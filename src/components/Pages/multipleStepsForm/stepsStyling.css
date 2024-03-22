@@ -84,8 +84,8 @@ h4 {
 .charges-value,
 .sub-total-price-value,
 .discounted-value {
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   color: #cc6119;
 }
 
