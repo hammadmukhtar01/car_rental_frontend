@@ -178,6 +178,8 @@ const VehiclesPage = () => {
   // const dropoffTimeParam = queryParams.get("dropoffTime");
   const startDateParam = queryParams.get("startDate");
   const endDateParam = queryParams.get("endDate");
+  const carTypeParam = queryParams.get("carType");
+  console.log("carTypeParam value is---", carTypeParam)
 
   const handlePickupModalClose = () => {
     setShowPickupModal(false);
@@ -300,6 +302,14 @@ const VehiclesPage = () => {
   useEffect(() => {
     fetchCarsData();
   }, [dateRange, fetchCarsData]);
+
+  useEffect(() => {
+    if (carTypeParam) {
+      const paramCarTypes = carTypeParam.split(',');
+      const selectedTypes = carType.filter(type => paramCarTypes.includes(type));
+      setSelectedCarTypes(selectedTypes);
+    }
+  }, [carTypeParam, carType]);
 
   const handleSearchCarButton = async (e) => {
     e.preventDefault();
@@ -460,7 +470,7 @@ const VehiclesPage = () => {
 
     console.log("All Cars Booking Button");
     navigate(
-      `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}`
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}&checkBoxValue=${showDropoff}`
     );
   };
 

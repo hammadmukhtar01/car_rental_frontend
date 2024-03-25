@@ -101,7 +101,7 @@
   margin-right: 12px;
   display: inline-block;
 }
-.blog-style-one .blog-content .text {
+.blog-style-one .blog-content {
   color: var(--dark-3);
   margin-top: 16px;
 }
@@ -125,4 +125,36 @@
 }
 .alice-carousel__next-btn-wrapper {
   margin: 1px -12px;
+}
+
+.text {
+  margin-top: 16px;
+  text-align: justify;
+  color: black;
+  text-decoration: none !important;
+}
+
+.blog-date {
+  color: black !important;
+}
+
+.category:hover {
+  box-shadow: 1px 1px 1px 1px #a34100;
+}
+
+.blog-item {
+  text-decoration: none !important;
+}
+
+.blog-title {
+  text-decoration: underline;
+  color: #cc6119;
+}
+
+.blog-details-image {
+  width: 100%;
+}
+
+.blog1-diff-carrental-lease-heading {
+  color: #df8142;
 }

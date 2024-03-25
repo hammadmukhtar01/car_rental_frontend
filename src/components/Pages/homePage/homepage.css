@@ -125,8 +125,8 @@
   position: relative;
   object-fit: cover;
 
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 .heading-icon-container-div {
@@ -179,8 +179,10 @@
 }
 
 .car-brands-slider {
-  display: inline-flex;
-  animation: slide infinite linear 15s;
+  display: flex;
+  /* animation: slide infinite linear 15s; */
+  align-items: center;
+  justify-content: center;
 }
 
 .car-brands-slider.paused {

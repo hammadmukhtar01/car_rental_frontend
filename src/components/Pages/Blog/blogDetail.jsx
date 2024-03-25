@@ -1,16 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import AliceCarousel from "react-alice-carousel";
-import "react-alice-carousel/lib/alice-carousel.css";
-import { BsPersonCircle } from "react-icons/bs";
-import "./blogPage.css";
-import BlogDetail from "./blogPage1";
+import { Container, Row, Col, Modal } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 import blog1_MainImg1 from "../../images/blog Images/blog1_main_Img1.png";
 import blog2_MainImg1 from "../../images/blog Images/blog2_main_Img1.png";
 import blog3_MainImg1 from "../../images/blog Images/blog3_main_Img1.png";
 import blog4_MainImg1 from "../../images/blog Images/blog4_main_Img1.png";
+import MainNavbar from "../navbar/navbar";
 
-const OurBlogs = () => {
+const BlogPage4 = ({ blogData }) => {
+  const blogNumInUrl = useLocation();
+  const queryParams = new URLSearchParams(blogNumInUrl.search);
+  const blogNumberParam = queryParams.get("blogID");
+
   const blogsData = [
     {
       id: 1,
@@ -49,85 +50,44 @@ const OurBlogs = () => {
     },
   ];
 
-  const responsive = {
-    0: { items: 1 },
-    568: { items: 2 },
-    1024: { items: 3 },
-  };
+  console.log("Blog data is: ----", blogNumberParam);
 
-  // const truncateText = (text, maxLength) => {
-  //   if (text.length <= maxLength) {
-  //     return text;
-  //   }
-  //   return text.substring(0, maxLength) + '...';
-  // };
-
-  const truncateText = (text, maxLength) => {
-    if (text.length <= maxLength) {
-      return text;
-    }
-    return text.substring(0, maxLength) + "...";
-  };
-
-  const generateBlogItem = (blogData) => (
-    <a
-      key={blogData.id}
-      className="blog-item"
-      href={`/blogPage${blogData.id}/${blogData.id}`}
-    >
-      <div className="container">
-        <div className="single-blog blog-style-one">
-          <div className="blog-image">
-            <img src={blogData.imageUrl} alt="Blog" />
-            <span className="category ">{blogData.category}</span>
-          </div>
-          <div className="blog-content">
-            <h5 className="blog-title">
-              <div className="blog-title">{blogData.title}</div>
-            </h5>
-            <span className="blog-date">
-              <i className="lni lni-calendar"></i> {blogData.date}
-            </span>
-            <p className="text">{truncateText(blogData.text, 210)}</p>
-            {/* <p className="text">{blogData.text}</p> */}
-
-            <a href={`/blogPage${blogData.id}/${blogData.id}`} className="more">
-              READ MORE
-            </a>
-          </div>
-        </div>
-      </div>
-    </a>
+  const selectedBlog = blogsData.find(
+    (blog) => blog.id === parseInt(blogNumberParam)
   );
 
+  // const { loading } = useReload();
+
+  // if (loading) {
+  //   return (
+  //     <>
+  //       <ReloadingComponent />
+  //     </>
+  //   );
+  // }
+
   return (
-    <div>
-      <section className="blog-area mt-4">
-        <div className="container">
-          <div className="styled-label ml-4">
-            <div className="heading-icon-container-div">
-              <BsPersonCircle className="mr-2 home-page-heading-icon" />
-              <span>
-                <b className="fs-3">Our Blogs</b>
-              </span>
-            </div>
-            <hr className="home-page-heading-underline col-2" />
+    <div id="main" className="pb-2 ">
+      <>
+        <div className="navbar-bg-img-container">
+          <div className="booking-page-banner-navbar">
+            {" "}
+            <MainNavbar />
           </div>
-          <AliceCarousel
-            mouseTracking
-            items={blogsData.map(generateBlogItem)}
-            responsive={responsive}
-            controlsStrategy="alternate"
-            infinite
-            disableDotsControls
-            autoPlay
-            autoPlayInterval="2000"
-            animationDuration="1500"
-          />
         </div>
-      </section>
+
+        <Container>
+          <div className="blog-details-page">
+            <h2>{selectedBlog?.title}</h2>
+            <div className="blog-details-image-container">
+              <img src={selectedBlog?.imageUrl} className="blog-details-image" alt="Blog" />
+            </div>
+            <p>{selectedBlog?.text}</p>
+          </div>
+        </Container>
+      </>
     </div>
   );
 };
 
-export default OurBlogs;
+export default BlogPage4;

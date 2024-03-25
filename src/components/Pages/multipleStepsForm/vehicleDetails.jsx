@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useLocation } from "react-router";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -34,17 +34,26 @@ const VehicleDetails = ({ nextStep }) => {
   // const [totalCharges, setTotalCharges] = useState("");
 
   const carTypeInURL = useLocation();
-  const queryParams = new URLSearchParams(carTypeInURL.search);
+  const queryParams = useMemo(() => new URLSearchParams(carTypeInURL.search), [carTypeInURL.search]);
   const TariffGroupId = queryParams.get("tariffGroupId");
   const StartDateTime = queryParams.get("startDate");
   const ReturnDateTime = queryParams.get("endDate");
   const pickupTimeParam = queryParams.get("pickupTime");
   const dropoffTimeParam = queryParams.get("dropoffTime");
   const pickupLocParam = queryParams.get("pickupLoc");
-  const dropoffLocParam = queryParams.get("dropoffLoc");
   const pickupLocStateParam = queryParams.get("pickupLocState");
+  const checkBoxValueParam = queryParams.get("checkBoxValue");
+  const [dropoffLocParam, setDropoffLocParam] = useState('');
 
-  console.log("state is ---- ", pickupLocStateParam);
+useEffect(() => {
+  if (checkBoxValueParam === "false") {
+    setDropoffLocParam(pickupLocParam);
+  } else {
+    setDropoffLocParam(queryParams.get("dropoffLoc"));
+  }
+}, [checkBoxValueParam, pickupLocParam, queryParams]);
+
+  console.log("state is ---- ", dropoffLocParam);
   // const selectedAddressState = "Dubai";
 
   const deliveryCharges = {

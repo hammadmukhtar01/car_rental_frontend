@@ -23,6 +23,11 @@ import AddOnsDocuments from "./components/Pages/multipleStepsForm/addOnsDocument
 import ErrorPage from "./components/Pages/OtherPages/errorPage";
 import QuickLeaseVehicles from "./components/Pages/vehicle/leaseToOwn";
 import TermsConditionsPage from "./components/Pages/OtherPages/termsConditionsPage";
+import BlogDetail from "./components/Pages/Blog/blogDetail";
+import BlogPage1 from "./components/Pages/Blog/blogPage1";
+import BlogPage2 from "./components/Pages/Blog/blogPage2";
+import BlogPage3 from "./components/Pages/Blog/blogPage3";
+import BlogPage4 from "./components/Pages/Blog/blogPage4";
 
 function App() {
   return (
@@ -56,6 +61,10 @@ function App() {
           <Route path="/bookingPage/:step" element={<VerificationForm />} />
           <Route path="/bookingPage2" element={<AddOnsDocuments />} />
           <Route path="/bookingPage3" element={<PaymentPage />} />
+          <Route path="/blogPage1/:id" element={<BlogPage1/>} />
+          <Route path="/blogPage2/:id" element={<BlogPage2/>} />
+          <Route path="/blogPage3/:id" element={<BlogPage3/>} />
+          <Route path="/blogPage4/:id" element={<BlogPage4/>} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />

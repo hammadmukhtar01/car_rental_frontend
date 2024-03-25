@@ -133,8 +133,8 @@ const HomePage = () => {
 
               <div
                 className="car-brands-slider-container"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
+                // onMouseEnter={handleMouseEnter}
+                // onMouseLeave={handleMouseLeave}
               >
                 <div className={`car-brands-slider`}>
                   {carBrands.map((brand, index) => (

@@ -1,0 +1,83 @@
+.lto-main-banner {
+  background-color: #cc6119;
+  color: white;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.heading-5-lto,
+.dealing-brands-lto-text {
+  margin-bottom: 0;
+}
+
+.heading-4-lto {
+  margin-bottom: 15px !important;
+}
+
+.main-car-img-lto {
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* height: 40vh; */
+  /* width: 100%; */
+  position: relative;
+  object-fit: cover;
+
+  max-width: 100%;
+  height: auto;
+}
+
+.dealing-brands-lto-icons-container {
+  background-color: #ec7d33;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: -2%;
+}
+
+.dealing-brands-lto-text-col {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.dealing-brands-lto-text {
+  color: gray;
+  font-weight: 700;
+}
+
+.car-brands-lto-div {
+  border-radius: 10px;
+  padding: 10px 5px;
+  color: #cc6119;
+}
+
+.single-brand-logo-lto {
+  max-width: 80px;
+}
+
+@media screen and (max-width: 576px) {
+  .single-brand-logo-lto {
+    max-width: 50px;
+  }
+  .dealing-brands-lto-icons-container {
+    left: 0%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .br-tag-lg-screens {
+    display: none;
+  }
+  .dealing-brands-lto-text-col {
+    border: none;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .single-brand-logo-lto {
+    max-width: 100px;
+  }
+  .dealing-brands-lto-text {
+    font-size: 40px;
+  }
+}
