@@ -496,6 +496,7 @@
 
 .form-control-location,
 .form-control-login,
+.form-control-consultation,
 .form-control-age {
   height: 45px;
   /* width: 215px; */
@@ -505,6 +506,30 @@
   box-shadow: none;
   font-size: 14px;
   background-color: white !important;
+}
+
+.form-control-consultation-number {
+  height: 45px !important;
+  border: 1px solid rgb(184, 184, 184) !important;
+  border-radius: 6px;
+  padding: 0px;
+  box-shadow: none;
+  font-size: 14px;
+  background-color: white !important;
+}
+
+.react-tel-input .form-control {
+  border: none !important;
+  height: 43px !important;
+  padding: 0px 0px 0px 48px !important;
+  font-weight: 600 !important;
+}
+
+.react-tel-input .flag-dropdown {
+  border: none !important;
+  border-radius: 5px 0 0 5px !important;
+  padding: 1px !important;
+  background-color: transparent !important;
 }
 
 .css-wsp0cs-MultiValueGeneric {
@@ -568,6 +593,7 @@
 }
 
 .form-control-location:focus,
+.form-control-consultation:focus,
 .form-control-login:focus,
 .form-control-age:focus {
   outline: none;

@@ -15,7 +15,6 @@ import AboutusPage from "./components/Pages/OtherPages/aboutusPage";
 import CustomerBookingPage from "./components/customerDashboard/myBookingDetails";
 import VerificationForm from "./components/Pages/multipleStepsForm/multipleStepsForm";
 import FixedNumLocButtons from "./components/Pages/navbar/locationNumberIcons";
-import MainNavbar from "./components/Pages/navbar/mainNavbar";
 import ForgotPasswordPage from "./components/authentication/forgotPassword";
 import ResetPasswordPage from "./components/authentication/resetPasswordPage";
 import VehicleDetails from "./components/Pages/multipleStepsForm/vehicleDetails";
@@ -23,7 +22,6 @@ import AddOnsDocuments from "./components/Pages/multipleStepsForm/addOnsDocument
 import ErrorPage from "./components/Pages/OtherPages/errorPage";
 import QuickLeaseVehicles from "./components/Pages/vehicle/leaseToOwn";
 import TermsConditionsPage from "./components/Pages/OtherPages/termsConditionsPage";
-import BlogDetail from "./components/Pages/Blog/blogDetail";
 import BlogPage1 from "./components/Pages/Blog/blogPage1";
 import BlogPage2 from "./components/Pages/Blog/blogPage2";
 import BlogPage3 from "./components/Pages/Blog/blogPage3";
@@ -42,7 +40,7 @@ function App() {
           </span>
         </div>
         <Routes>  
-          <Route path="/" exact element={<HomePage />} />
+          {/* <Route path="/" exact element={<HomePage />} /> */}
           <Route path="/home" exact element={<HomePage />} />
           <Route path="/vehicles" element={<VehiclesPage />} />
           <Route path="/quicklease" element={<QuickLeaseVehicles />} />

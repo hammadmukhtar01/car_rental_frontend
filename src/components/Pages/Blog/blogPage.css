@@ -49,7 +49,7 @@
 }
 
 .blog-content {
-  padding: 30px 0px;
+  padding: 30px 0px 5px 0px;
   border: 1px solid var(--light-1);
   border-radius: 0 0 8px 8px;
   border-top: none;
@@ -103,7 +103,6 @@
 }
 .blog-style-one .blog-content {
   color: var(--dark-3);
-  margin-top: 16px;
 }
 .blog-style-one .blog-content .more {
   text-transform: uppercase;
@@ -111,6 +110,10 @@
   color: #cc6119;
   display: inline-block;
 }
+.more {
+  text-decoration: underline;
+}
+
 .blog-style-one .blog-content .more:hover {
   color: #a34100;
 }
@@ -155,6 +158,34 @@
   width: 100%;
 }
 
-.blog1-diff-carrental-lease-heading {
+.blog2-extra-imgs-div {
+  text-align: center;
+}
+
+.blog2-all-images {
+  width: 70%;
+  height: auto;
+}
+
+.blog1-diff-carrental-lease-heading,
+.blog2-things-todo-inDubai-heading,
+.blog3-navigation-app-heading {
   color: #df8142;
+}
+
+.free-consultation-main-div {
+  padding: 30px 40px;
+  background-color: #e5762d;
+}
+
+.free-consultation-text {
+  border-radius: 20px;
+  background-color: white;
+  padding: 20px 40px 30px 40px;
+}
+
+.free-consultation-heading {
+  font-weight: 700;
+  text-align: center;
+  padding: 5px;
 }

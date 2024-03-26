@@ -1,8 +1,9 @@
 import React from "react";
-import { Container, Row, Col, Modal } from "react-bootstrap";
+import { Container} from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import blog3_MainImg1 from "../../images/blog Images/blog3_main_Img1.png";
-import MainNavbar from "../navbar/navbar";
+import MainNavbar from "../navbar/mainNavbar";
+import FreeConsultationForm from "./freeConsultationBlogForm";
 
 const BlogPage3 = ({ blogData }) => {
   const blogNumInUrl = useLocation();
@@ -42,7 +43,7 @@ const BlogPage3 = ({ blogData }) => {
 
         <Container>
           <div className="blog-details-page">
-            <h2>{blogsData?.title}</h2>
+          <h2 className="mb-3">{blogsData?.title}</h2>
             <div className="blog-details-image-container">
               <img
                 src={blogsData?.imageUrl}
@@ -52,7 +53,7 @@ const BlogPage3 = ({ blogData }) => {
             </div>
             <p className="mt-4">{blogsData?.text}</p>
             <br />
-            <h3 className="blog1-diff-carrental-lease-heading">
+            <h3 className="blog3-navigation-app-heading">
               Apple Maps App
             </h3>
             <p>
@@ -66,7 +67,7 @@ const BlogPage3 = ({ blogData }) => {
               expected. Apple Maps App is available in both Arabic and English.
             </p>
 
-            <h3 className="blog1-diff-carrental-lease-heading">Google Maps</h3>
+            <h3 className="blog3-navigation-app-heading">Google Maps</h3>
 
             <p>
               Perhaps the best-known and most-used app is Google Maps, which has
@@ -78,7 +79,7 @@ const BlogPage3 = ({ blogData }) => {
               views of most locations.{" "}
             </p>
 
-            <h3 className="blog1-diff-carrental-lease-heading">Waze </h3>
+            <h3 className="blog3-navigation-app-heading">Waze </h3>
 
             <p>
               One of the most commonly used apps is Waze, which will lead you
@@ -95,7 +96,7 @@ const BlogPage3 = ({ blogData }) => {
               available in Arabic. Get Waze on Google Play or Apple Store.{" "}
             </p>
 
-            <h3 className="blog1-diff-carrental-lease-heading">CAFU </h3>
+            <h3 className="blog3-navigation-app-heading">CAFU </h3>
 
             <p>
               CAFU is the UAE's own & the world's leading digital platform for
@@ -105,7 +106,7 @@ const BlogPage3 = ({ blogData }) => {
               book it all through the CAFU app.{" "}
             </p>
 
-            <h3 className="blog1-diff-carrental-lease-heading">
+            <h3 className="blog3-navigation-app-heading">
               RTA Smart Drive{" "}
             </h3>
 
@@ -121,7 +122,7 @@ const BlogPage3 = ({ blogData }) => {
               alerts. It's available in both English and Arabic in Dubai.{" "}
             </p>
 
-            <h3 className="blog1-diff-carrental-lease-heading">Yango Maps </h3>
+            <h3 className="blog3-navigation-app-heading">Yango Maps </h3>
 
             <p>
               More than 3,000km of roads in Dubai have been mapped out in high
@@ -135,9 +136,13 @@ const BlogPage3 = ({ blogData }) => {
               Google Play or Apple Store.{" "}
             </p>
           </div>
-
-          <div className="consultation-main-div"></div>
         </Container>
+
+        <div className="free-consultation-main-container">
+          <div className="free-consultation-main-div">
+            <FreeConsultationForm />
+          </div>
+        </div>
       </>
     </div>
   );

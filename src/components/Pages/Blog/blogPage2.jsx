@@ -1,7 +1,23 @@
 import React from "react";
-import { Container, Row, Col, Modal } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import blog2_MainImg1 from "../../images/blog Images/blog2_main_Img1.png";
-import MainNavbar from "../navbar/navbar";
+import MainNavbar from "../navbar/mainNavbar";
+import BurjKhalifaImg from "../../images/blog Images/blog2_Img1.png";
+import PalmJumeirahImg from "../../images/blog Images/blog2_Img2.png";
+import DubaiCreekImg from "../../images/blog Images/blog2_Img3.png";
+import DubaiMallImg from "../../images/blog Images/blog2_Img4.png";
+import SkydiveDubaiImg from "../../images/blog Images/blog2_Img5.png";
+import DubaiFrameImg from "../../images/blog Images/blog2_Img6.png";
+import KiteBeachImg from "../../images/blog Images/blog2_Img7.png";
+import CityWalkImg from "../../images/blog Images/blog2_Img8.png";
+import DubaiMarinaImg from "../../images/blog Images/blog2_Img9.png";
+import DeepDiveDubaiImg from "../../images/blog Images/blog2_Img10.png";
+import BurjAlArabImg from "../../images/blog Images/blog2_Img11.png";
+import MuseumoftheFutureImg from "../../images/blog Images/blog2_Img12.png";
+import ExpoCityDubaiImg from "../../images/blog Images/blog2_Img13.png";
+import "react-phone-input-2/lib/style.css";
+import "../homePage/homepage.css";
+import FreeConsultationForm from "./freeConsultationBlogForm";
 
 const BlogPage2 = () => {
   const blogsData = {
@@ -34,65 +50,336 @@ const BlogPage2 = () => {
         </div>
 
         <Container>
-          <div className="blog-details-page">
-            <h2>{blogsData?.title}</h2>
+          <div className="blog2-details-page">
             <div className="blog-details-image-container">
+            <h3 className="blog2-main-heading mb-3">
+              {blogsData?.title}
+            </h3>
               <img
                 src={blogsData?.imageUrl}
                 className="blog-details-image"
                 alt="Blog"
               />
             </div>
+           
+
             <p className="mt-4">{blogsData?.text}</p>
             <br />
-            <h3 className="blog1-diff-carrental-lease-heading">
-              There's a Factor of Ownership
-            </h3>
-            <p>
-              Leasing indicates that the customer will eventually have full
-              ownership of the car. Car rentals, on the other hand, imply that
-              the vehicle is rented for a definite and agreed-upon period of
-              time. In addition, regardless of whether you're on a lease or a
-              rental plan, you must pay a certain sum for the period of the
-              vehicle's use. In simple terms, automobile leasing is a convenient
-              way to buy a car without having to pay a deposit like you would
-              with a traditional lender.
-            </p>
+            <Row>
+              <Col>
+                <div className="blog-details-page">
+                  <Row>
+                    <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                      Burj Khalifa :
+                    </h3>
+                    <p>
+                      Standing 828m high, the Burj Khalifa is the tallest
+                      building in the world and one of Dubai's must-visit
+                      attractions. The majestic building is located in the heart
+                      of the city and is a hub of activity day and night. Just
+                      looking up in awe at the sheer scale of this magnificent
+                      structure is memorable in itself, but it's definitely
+                      worth venturing inside too. You can capture perfect views
+                      of the city from the observation deck at levels 124 and
+                      125, or have a bite to eat in the At The Top Sky Lounge.
+                      For special occasions, treat yourself to a sunset session
+                      at The Lounge, Burj Khalifa, the highest lounge in the
+                      world at 585m.
+                    </p>
+                    <div className="blog2-extra-imgs-div">
+                      <img
+                        src={BurjKhalifaImg}
+                        className="blog2-all-images pb-4"
+                        alt="Blog"
+                      />
+                    </div>
 
-            <h3 className="blog1-diff-carrental-lease-heading">
-              Contractual Conditions Vary
-            </h3>
+                    <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                      The Dubai Fountain :
+                    </h3>
 
-            <p>
-              Rental agreements are more suited to shorter-term commitments. Car
-              leasing, on the other hand, is for a longer period of time and has
-              additional benefits as well as cost-cutting provisions. This,
-              however, is largely contingent on your needs. If you're only in
-              Dubai for a short time, you might want to consider renting a car
-              for the duration of your stay. If you require a vehicle for a
-              prolonged period of time, firms such as Quick Lease have a variety
-              of choices to fulfill your needs.{" "}
-            </p>
+                    <p>
+                      Located at the base of Burj Khalifa is one of the world's
+                      largest choreographed fountain displays, where powerful
+                      jet streams soar as high as 150m in the air and sway in
+                      time to musical numbers. Stop by in the evening when
+                      displays begin at sundown and take place every 30 minutes,
+                      until the final song plays at 11pm. Diners can also sit
+                      back and enjoy the show at an array of restaurants at
+                      Dubai Mall or Souk Al Bahar, both commanding prime
+                      positions near the fountain arena.{" "}
+                    </p>
+                  </Row>
 
-            <h3 className="blog1-diff-carrental-lease-heading">
-              Insurance Requirements Could Vary{" "}
-            </h3>
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    Palm Jumeirah :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={PalmJumeirahImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    Palm Jumeirah is one of the largest manmade islands in the
+                    world and a triumph of human ingenuity. Locals and tourists
+                    alike flock to its vast array of high-end hotels – Waldorf
+                    Astoria, Fairmont, One&Only, Jumeirah Zabeel Saray and,
+                    perhaps most notably, Atlantis, The Palm. Getting here is
+                    simple, thanks to the monorail running down the 'trunk',
+                    which connects to the mainland's tram system.{" "}
+                  </p>
 
-            <p>
-              In most cases, insurance is required; however, some car rental
-              firms may provide you with the alternative of not paying for
-              insurance. Depending on the employer, different insurance packages
-              are available. Check with your automobile rental agency or car
-              dealership to be sure you understand your insurance provider.
-              Insurance coverage is typically recommended by rental providers.
-              You are covered in the event of an emergency or an accident, with
-              no major and unexpected costs. For this reason, both automobile
-              rental firms and car dealerships recommend insurance coverage.{" "}
-            </p>
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    Dubai Creek :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={DubaiCreekImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    The city has a rich culture to explore. Modern developments
+                    have added a contemporary touch to old establishments, of
+                    which Dubai Creek is a fine example. Located in the heart of
+                    the city, this saltwater estuary is the original site where
+                    the Bani Yas tribe established their first settlement. While
+                    at the Creek, a traditional abra ride is a must. At an
+                    unbelievable AED 1 per ticket, it's easily the best value
+                    tourist attraction in the city. Afterwards, visit the
+                    labyrinthine alleyways of the gold, spice and textile souks,
+                    to experience Dubai like a local.{" "}
+                  </p>
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    Dubai Mall :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={DubaiMallImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    Dubai Mall is the world's largest destination for shopping,
+                    entertainment and leisure, located next to the world's
+                    tallest building, the Burj Khalifa. Featuring over 1,200
+                    retail stores, two major department stores and hundreds of
+                    food and beverage outlets, Dubai Mall covers more than 1
+                    million sqm - an area equivalent to 200 football pitches.
+                    Even an entire day spent here is not enough to see it all.
+                    Along with its 1,200-plus shops and 150 restaurants, the
+                    venue is home to a range of other fun attractions.{" "}
+                  </p>
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    Skydive Dubai :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={SkydiveDubaiImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    If there's one thing every adventure-seeker must sign up
+                    for, it's a skydiving experience. Skydive Dubai provides
+                    tandem skydive opportunities, supervised by trained
+                    professionals. You'll have to book well in advance to secure
+                    a spot, but it's worth it as you dive through the clouds
+                    from 13,000 feet and take in views of the landmark Palm
+                    Jumeirah or rolling dunes of the desert. And you can keep
+                    reliving the epic experience thanks to perfectly-captured
+                    videos by the Skydive Dubai team. It's one for every
+                    braveheart's bucket list.{" "}
+                  </p>
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    Dubai Frame :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={DubaiFrameImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    Since opening in 2018, Dubai Frame has become a cultural
+                    landmark that connects the Dubai's past with its present and
+                    represents a remarkable engineering feat. Located within
+                    Dubai's famous Zabeel Park, this attraction lets you
+                    experience the transition between Old and New Dubai thanks
+                    to sweeping panoramic views of the city from 150m high. One
+                    of its striking features is the state-of-the-art clear glass
+                    bridge walkway, which connects parallel vertical towers so
+                    that, from the outside, the structure perfectly resembles a
+                    giant picture frame.{" "}
+                  </p>
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    Kite Beach :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={KiteBeachImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    The aptly-named Kite Beach is the perfect place to test out
+                    your watersports skills, although there's plenty to do out
+                    of the water at this popular spot too. Grab a smoothie from
+                    one of the many open-air cafes and restaurants, watch bikers
+                    and skaters fly by at the skate park, or enjoy a game of
+                    volleyball with friends on the sand. With plenty of beach
+                    activities, plus an incredible view of Burj Al Arab in the
+                    distance, you can easily spend a whole day here.{" "}
+                  </p>
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    City Walk :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={CityWalkImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    City Walk offers European-style pedestrian streets alongside
+                    a host of shopping and entertainment options - perfect for a
+                    pleasant day out. Take a walk along tree-lined avenues with
+                    shops and restaurants and spot artwork etched by some of the
+                    world's finest urban artists. Afterwards, treat your family
+                    to an afternoon of fun and head over to The Green Planet to
+                    see real wildlife in an indoor tropical rainforest setting.
+                    You can also catch a concert, live sports or a comedy show
+                    at the nearby Coca-Cola Arena, the Middle East's largest
+                    indoor arena.{" "}
+                  </p>
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    Dubai Marina :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={DubaiMarinaImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    One of the city's liveliest and most happening
+                    neighbourhoods is Dubai Marina. Marvel at iconic buildings
+                    as you stroll along Marina Walk or see the sights on a
+                    traditional dhow cruise. This Dubai hotspot is a priority on
+                    most visitors' holiday itineraries for good reason. With an
+                    array of waterside restaurants, buzzing lounges and
+                    irresistible retail therapy at Dubai Marina Mall, it's easy
+                    to while away the hours here. Feeling brave? Pump up the
+                    adrenaline at XLine, the world's longest urban zipline.{" "}
+                  </p>
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    Deep Dive Dubai :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={DeepDiveDubaiImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    The latest addition to the city's thriving sports and
+                    adventure activities scene, Deep Dive Dubai is the place to
+                    be for all aqua enthusiasts. The recreational centre's
+                    60.02m-deep pool is certified by Guinness World Records as
+                    the world's deepest swimming pool for diving. Aside from its
+                    remarkable depth, the pool features other unrivalled
+                    underwater additions, such as a 'sunken city', alongside
+                    year-round freediving and scuba diving courses and guided
+                    experiences.{" "}
+                  </p>
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    Burj Al Arab :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={BurjAlArabImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    For the first time since its launch, Dubai's famed Burj Al
+                    Arab has opened its doors to visitors, granting access to
+                    the hotel's ultra-luxurious interiors on an immersive
+                    90-minute tour. Not only will you get to explore the
+                    landmark's gilded suites, and enjoy its incomparable views
+                    of the city, but you'll also uncover the hotel's history and
+                    wealth of untold stories. You can also delve deeper and make
+                    the most of your experience with tour customisations.{" "}
+                  </p>
+
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    Museum of the Future :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={MuseumoftheFutureImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    One of Dubai's most famous architectural landmarks, the
+                    Museum of the Future takes pride of place along the city's
+                    superhighway, Sheikh Zayed Road. Founded by the Dubai Future
+                    Foundation, the museum explores how society could evolve in
+                    the coming decades using science and technology. Termed a
+                    'living museum', it incorporates elements of traditional
+                    exhibitions, immersive theatre and themed attractions, so
+                    visitors can look beyond the present and towards the
+                    future's limitless possibilities.{" "}
+                  </p>
+
+                  <h3 className="blog2-things-todo-inDubai-heading mb-3">
+                    Expo City Dubai :{" "}
+                  </h3>
+                  <div className="blog2-extra-imgs-div">
+                    <img
+                      src={ExpoCityDubaiImg}
+                      className="blog2-all-images pb-4"
+                      alt="Blog"
+                    />
+                  </div>
+                  <p>
+                    Building on the legacy of Expo 2020 Dubai, which welcomed
+                    192 nations and more than 24 million visitors, is the
+                    future-centric Expo City Dubai. Explore popular country
+                    pavilions including the falcon-inspired UAE Pavilion,
+                    award-winning Kingdom of Saudi Arabia Pavilion and reworked
+                    spaces for Luxembourg, Pakistan and Australia. Alif - the
+                    Mobility Pavilion and Terra - the Sustainability Pavilion
+                    have been transformed into interactive educational
+                    experiences, while the Opportunity Pavilion is now the Expo
+                    2020 Dubai Museum. Al Wasl Plaza, the Dubai Exhibition
+                    Centre, the Garden in the Sky observation tower and the
+                    Surreal water feature also remain at Expo City Dubai, which
+                    has its own metro station.{" "}
+                  </p>
+                </div>
+              </Col>
+            </Row>
           </div>
-
-          <div className="consultation-main-div"></div>
         </Container>
+        <div className="free-consultation-main-container">
+          <div className="free-consultation-main-div">
+            <FreeConsultationForm />
+          </div>
+        </div>
       </>
     </div>
   );

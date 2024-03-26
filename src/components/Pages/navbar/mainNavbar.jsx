@@ -20,10 +20,19 @@ function OffcanvasExample() {
   const userName = user_info?.result?.userName;
 
   console.log("Auth in local storage is --: ", auth);
-
+  
   useEffect(() => {
-    setIsHomePage(location.pathname === "/home" || location.pathname === "/");
+    setIsHomePage(location.pathname === "/home");
+    console.log("hevyevfyevfuevfuevfuevfuevfuevfuevfuevf")
   }, [location.pathname]);
+  
+  const isExactHomePage = location.pathname === "/home";
+
+  const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
+
+  console.log("isHomePage:", isHomePage);
+  console.log("isExactHomePage:", isExactHomePage);
+  console.log("logoImage:", logoImage);
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
@@ -32,7 +41,7 @@ function OffcanvasExample() {
       setTimeout(() => {
         window.location.reload();
       }, 100);
-      navigate(`/`);
+      navigate("/home");
     }
   };
 
@@ -45,7 +54,8 @@ function OffcanvasExample() {
               <div className="main-logo">
                 <a href="/home">
                   <Image
-                    src={`${isHomePage ? Whitelogo : Coloredlogo}`}
+                    // src={`${isHomePage ? Whitelogo : Coloredlogo}`}
+                    src={logoImage}
                     alt="Main Logo"
                     fluid
                   />
@@ -69,7 +79,8 @@ function OffcanvasExample() {
                   <div className="toggle-main-logo">
                     <a href="/home">
                       <Image
-                        src={`${isHomePage ? Whitelogo : Coloredlogo}`}
+                        // src={`${isHomePage ? Whitelogo : Coloredlogo}`}
+                        src={logoImage}
                         alt="Main Logo"
                         fluid
                       />
@@ -87,11 +98,7 @@ function OffcanvasExample() {
                     as={NavLink}
                     to="/home"
                     className={`navbar-all-menus ${
-                      location.pathname === "/home"
-                        ? "active"
-                        : "" || location.pathname === "/"
-                        ? "active"
-                        : ""
+                      location.pathname === "/home" ? "active" : ""
                     }`}
                     activeclassname="active"
                   >

@@ -226,7 +226,7 @@ const Footer = () => {
                     <div className="copyright-text">
                       {" "}
                       Copyright{" "}
-                      <a href="/" target="_blank">
+                      <a href="/home" target="_blank">
                         2023 Milele car Rental
                       </a>
                     </div>

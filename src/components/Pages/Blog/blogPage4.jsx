@@ -1,8 +1,9 @@
 import React from "react";
-import { Container, Row, Col, Modal } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import blog4_MainImg1 from "../../images/blog Images/blog4_main_Img1.png";
-import MainNavbar from "../navbar/navbar";
+import MainNavbar from "../navbar/mainNavbar";
+import FreeConsultationForm from "./freeConsultationBlogForm";
 
 const BlogPage4 = ({ blogData }) => {
   const blogNumInUrl = useLocation();
@@ -42,7 +43,7 @@ const BlogPage4 = ({ blogData }) => {
 
         <Container>
           <div className="blog-details-page">
-            <h2>{blogsData?.title}</h2>
+          <h2 className="mb-3">{blogsData?.title}</h2>
             <div className="blog-details-image-container">
               <img
                 src={blogsData?.imageUrl}
@@ -98,9 +99,12 @@ const BlogPage4 = ({ blogData }) => {
               satisfaction is our guarantee.
             </p>
           </div>
-
-          <div className="consultation-main-div"></div>
         </Container>
+        <div className="free-consultation-main-container">
+          <div className="free-consultation-main-div">
+            <FreeConsultationForm />
+          </div>
+        </div>
       </>
     </div>
   );

@@ -1,7 +1,8 @@
 import React from "react";
-import { Container, Row, Col, Modal } from "react-bootstrap";
+import { Container} from "react-bootstrap";
 import blog1_MainImg1 from "../../images/blog Images/blog1_main_Img1.png";
-import MainNavbar from "../navbar/navbar";
+import MainNavbar from "../navbar/mainNavbar";
+import FreeConsultationForm from "./freeConsultationBlogForm";
 
 const BlogPage1 = () => {
   const blogsData = {
@@ -35,7 +36,7 @@ const BlogPage1 = () => {
 
         <Container>
           <div className="blog-details-page">
-            <h2>{blogsData?.title}</h2>
+            <h2 className="mb-3">{blogsData?.title}</h2>
             <div className="blog-details-image-container">
               <img
                 src={blogsData?.imageUrl}
@@ -90,9 +91,12 @@ const BlogPage1 = () => {
               rental firms and car dealerships recommend insurance coverage.{" "}
             </p>
           </div>
-
-          <div className="consultation-main-div"></div>
         </Container>
+        <div className="free-consultation-main-container">
+          <div className="free-consultation-main-div">
+            <FreeConsultationForm />
+          </div>
+        </div>
       </>
     </div>
   );

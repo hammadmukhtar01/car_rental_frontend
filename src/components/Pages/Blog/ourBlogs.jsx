@@ -4,7 +4,6 @@ import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import { BsPersonCircle } from "react-icons/bs";
 import "./blogPage.css";
-import BlogDetail from "./blogPage1";
 import blog1_MainImg1 from "../../images/blog Images/blog1_main_Img1.png";
 import blog2_MainImg1 from "../../images/blog Images/blog2_main_Img1.png";
 import blog3_MainImg1 from "../../images/blog Images/blog3_main_Img1.png";
@@ -55,13 +54,6 @@ const OurBlogs = () => {
     1024: { items: 3 },
   };
 
-  // const truncateText = (text, maxLength) => {
-  //   if (text.length <= maxLength) {
-  //     return text;
-  //   }
-  //   return text.substring(0, maxLength) + '...';
-  // };
-
   const truncateText = (text, maxLength) => {
     if (text.length <= maxLength) {
       return text;
@@ -89,11 +81,10 @@ const OurBlogs = () => {
               <i className="lni lni-calendar"></i> {blogData.date}
             </span>
             <p className="text">{truncateText(blogData.text, 210)}</p>
-            {/* <p className="text">{blogData.text}</p> */}
 
-            <a href={`/blogPage${blogData.id}/${blogData.id}`} className="more">
+            <div href={`/blogPage${blogData.id}/${blogData.id}`} className="more">
               READ MORE
-            </a>
+            </div>
           </div>
         </div>
       </div>

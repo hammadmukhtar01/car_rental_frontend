@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 const ErrorPage = () => {
   const navigate = useNavigate();
   const errorPageBackButton = () => {
-    navigate("/");
+    navigate("/home");
   };
   return (
     <div className="wrapper">

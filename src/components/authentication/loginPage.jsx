@@ -19,7 +19,7 @@ const LoginPage = () => {
   useEffect(() => {
     const auth = localStorage.getItem("user");
     if (auth) {
-      navigate("/");
+      navigate("/home");
     }
   }, [navigate]);
 

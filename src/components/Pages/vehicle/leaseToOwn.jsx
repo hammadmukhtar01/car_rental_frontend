@@ -8,8 +8,13 @@ import kiaIcon from "../../images/Brands icons/KIA.png";
 import lexusIcon from "../../images/Brands icons/Lexus.png";
 import suzukiIcon from "../../images/Brands icons/Suzuki.png";
 import toyotaIcon from "../../images/Brands icons/Toyota.png";
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
+import Typography from "@mui/material/Typography";
 
 const QuickLeaseVehicles = () => {
+  const [estCarPrice, setEstCarPrice] = useState("");
+
   const carBrands = [
     { name: "hyundai", logo: hyundaiIcon, title: "Hyundai" },
     { name: "kia", logo: kiaIcon, title: "Kia" },
@@ -17,6 +22,63 @@ const QuickLeaseVehicles = () => {
     { name: "suzuki", logo: suzukiIcon, title: "Suzuki" },
     { name: "toyota", logo: toyotaIcon, title: "Toyota" },
   ];
+
+  const servicePackages = [
+    { carValue: "50,000", packagePrice: "2,500" },
+    { carValue: "100,000", packagePrice: "3,000" },
+    { carValue: "150,000", packagePrice: "3,500" },
+    { carValue: "200,000", packagePrice: "4,000" },
+    { carValue: "250,000", packagePrice: "4,500" },
+    { carValue: "300,000", packagePrice: "5,000" },
+    { carValue: "350,000", packagePrice: "5,500" },
+    { carValue: "400,000", packagePrice: "6,000" },
+    { carValue: "450,000", packagePrice: "7,500" },
+    { carValue: "500,000+", packagePrice: "12,500" },
+  ];
+
+  const durationMIN = 12;
+  const durationMAX = 60;
+  const durations = [
+    {
+      value: durationMIN,
+      label: "",
+    },
+    {
+      value: durationMAX,
+      label: "",
+    },
+  ];
+
+  const downPayMIN = 0;
+  const downPayMAX = 80;
+  const downPayment = [
+    {
+      value: downPayMIN,
+      label: "",
+    },
+    {
+      value: downPayMAX,
+      label: "",
+    },
+  ];
+
+  const [durationVal, setDurationVal] = React.useState(durationMIN);
+  const handleDurationChange = (_, newValue) => {
+    setDurationVal(newValue);
+  };
+
+  const [downPaymentVal, setDownPaymentVal] = React.useState(downPayMIN);
+  const handleDownPaymentChange = (_, newValue) => {
+    setDownPaymentVal(newValue);
+  };
+
+  const ltoSummaryData = [
+    { label: "Duration1", value: "6760 AED" },
+    { label: "Duration2", value: "620 AED" },
+    { label: "Duration3", value: "60 months" },
+    { label: "Duration4", value: "360 AED" },
+  ];
+
   // const { loading } = useReload();
 
   // if (loading) {
@@ -80,7 +142,7 @@ const QuickLeaseVehicles = () => {
         <br />
         <br />
         <Container>
-          <div className="lto-dealing-brands">
+          <section className="lto-dealing-brands">
             <Row>
               <Col
                 xl={5}
@@ -114,18 +176,223 @@ const QuickLeaseVehicles = () => {
                 ))}
               </Col>
             </Row>
-          </div>
+          </section>
           <br />
           <br />
 
-          <div className="lto-process">
+          <section className="lto-process">
             <div className="lto-process-heading">
               <h3>LEASE TO OWN PROCESS</h3>
             </div>
-            <div className="lto-process-icons-main-div">
-              
+            <div className="lto-process-icons-main-div"></div>
+          </section>
+
+          <section className="lto-calculator-main-section">
+            <div className="lto-calculator-main-div">
+              <h3>LEASE TO OWN CALCULATOR</h3>
+              <p>
+                Craft a bespoke lease to own financial plan based on the down
+                payment value, lease duration & vehicle preferences.
+              </p>
+              <br />
+              <div className="lto-calculator-container">
+                <div className="lto-calculator-div">
+                  <Row>
+                    <Col className="leasing-detail-div col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                      <h4>Leasing Details</h4>
+                      <br />
+                      <Row className="align-items-center">
+                        <label htmlFor="est_CarPrice">
+                          <Row>
+                            <Col className="text-left">
+                              <span>Estimated car price</span>
+                            </Col>
+                            <Col className="text-right">
+                              <span>(30,000 minimum)</span>
+                            </Col>
+                          </Row>
+                        </label>
+                      </Row>
+
+                      <div className="lto-calculator-input-group">
+                        <input
+                          className="form-control-consultation mt-2 col-12"
+                          id="est_CarPrice"
+                          name="estCarPrice"
+                          type="number"
+                          min={30000}
+                          autoComplete="estCarPrice"
+                          required
+                          placeholder="Enter Price"
+                          value={estCarPrice}
+                          onChange={(e) => {
+                            setEstCarPrice(e.target.value);
+                          }}
+                        />
+                      </div>
+                      <br />
+                      <br />
+
+                      <div className="lto-cal-detail-duration-main-div">
+                        <Row className="align-items-center">
+                          <Col className="text-left">
+                            <span>Duration</span>
+                          </Col>
+                          <Col className="text-right">
+                            <span>60 months</span>
+                          </Col>
+                        </Row>
+
+                        <Box className="lto-calculator-duration-box">
+                          <Typography
+                            className="lto-cal-duration-min-month"
+                            variant="body2"
+                            onClick={() => setDurationVal(durationMIN)}
+                            sx={{ cursor: "pointer" }}
+                          >
+                            {durationMIN}
+                          </Typography>
+
+                          <Slider
+                            className="lto-calculator-duration-slider"
+                            marks={durations}
+                            step={6}
+                            value={durationVal}
+                            valueLabelDisplay="auto"
+                            min={durationMIN}
+                            max={durationMAX}
+                            onChange={handleDurationChange}
+                          />
+
+                          <Typography
+                            className="lto-cal-duration-max-month"
+                            variant="body2"
+                            onClick={() => setDurationVal(durationMAX)}
+                            sx={{ cursor: "pointer" }}
+                          >
+                            {durationMAX}
+                          </Typography>
+                        </Box>
+                      </div>
+
+                      <br />
+                      <br />
+
+                      <div className="lto-cal-summary-down-payment-main-div">
+                        <Row className="align-items-center">
+                          <Col className="text-left">
+                            <span>Down Payment</span>
+                          </Col>
+                          <Col className="text-right">
+                            <span>20%</span>
+                          </Col>
+                        </Row>
+
+                        <Box className="lto-calculator-down-payment-box">
+                          <Typography
+                            className="lto-cal-down-payment-min-percentage"
+                            variant="body2"
+                            onClick={() => setDownPaymentVal(downPayMIN)}
+                            sx={{ cursor: "pointer" }}
+                          >
+                            {downPayMIN}
+                          </Typography>
+
+                          <Slider
+                            className="lto-calculator-down-payment-slider"
+                            marks={downPayment}
+                            step={10}
+                            value={downPaymentVal}
+                            valueLabelDisplay="auto"
+                            min={downPayMIN}
+                            max={downPayMAX}
+                            onChange={handleDownPaymentChange}
+                          />
+
+                          <Typography
+                            className="lto-cal-down-payment-max-percentage"
+                            variant="body2"
+                            onClick={() => setDownPaymentVal(downPayMAX)}
+                            sx={{ cursor: "pointer" }}
+                          >
+                            {downPayMAX}
+                          </Typography>
+                        </Box>
+                      </div>
+                    </Col>
+                    <Col className="lto-own-summary col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                      <h4>Lease to Own Summary</h4>
+                      <br />
+                      {ltoSummaryData.map((item, index) => (
+                        <Row key={index} className="align-items-center pt-2 pb-2">
+                          <Col className="text-left">
+                            <h5>{item.label}</h5>
+                          </Col>
+                          <Col className="text-right fs-5">
+                            <p>{item.value}</p>
+                          </Col>
+                        </Row>
+                      ))}
+                    </Col>
+                  </Row>
+                </div>
+              </div>
             </div>
-          </div>
+          </section>
+          <br />
+          <section className="lto-service-pkg-main-section">
+            <div className="ltoservice-pkg-main-div">
+              <h3>SERVICE PACKAGES</h3>
+              <p>
+                Comprehensive packages can provide valuable financial
+                protection, particularly for higher-value vehicles, enhancing
+                the rental experience with peace of mind.{" "}
+              </p>
+              <table className="lto-service-pkg-table">
+                <thead>
+                  <tr>
+                    <th className="lto-service-pkg-table-heading-1 ">
+                      CAR VALUE
+                    </th>
+                    <th className="lto-service-pkg-table-heading-2">
+                      SERVICE + WARRANTY PACKAGE PRICE
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {servicePackages.map((pkg, index) => (
+                    <tr key={index}>
+                      <td
+                        className={`lto-service-pkg-table-value service-pkg-table-value-1 col-lg-6 col-md-6 col-sm-12 col-xs-12 ${
+                          index === servicePackages.length - 1
+                            ? "last-child"
+                            : ""
+                        }`}
+                      >
+                        <span className="car-value-span">{pkg.carValue}</span>{" "}
+                        AED
+                      </td>
+                      <td
+                        className={`lto-service-pkg-table-value service-pkg-table-value-2 col-lg-6 col-md-6 col-sm-12 col-xs-12 ${
+                          index === servicePackages.length - 1
+                            ? "last-child"
+                            : ""
+                        }`}
+                      >
+                        <span className="service-warranty-value-span">
+                          {" "}
+                          {pkg.packagePrice}
+                        </span>{" "}
+                        AED
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <br />
+          <br />
         </Container>
       </>
     </div>

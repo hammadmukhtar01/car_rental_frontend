@@ -55,6 +55,97 @@
   max-width: 80px;
 }
 
+.lto-calculator-container {
+  /* padding: 20px; */
+  padding: 10px 20px;
+  border-radius: 15px;
+  background-color: rgb(217, 217, 217);
+}
+
+.lto-calculator-input-group {
+  position: relative;
+}
+
+.lto-calculator-input-group:after {
+  position: absolute;
+  right: 7px;
+  top: 17px;
+  content: "AED";
+}
+
+.lto-calculator-duration-box, .lto-calculator-down-payment-box {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lto-calculator-duration-slider, .lto-calculator-down-payment-slider {
+  color: #cc6119;
+  margin: 0px 20px;
+}
+.lto-cal-duration-min-month,
+.lto-cal-duration-max-month, 
+.lto-cal-down-payment-min-percentage,
+.lto-cal-down-payment-max-percentage {
+  color: rgb(168, 168, 168);
+  font-weight: 600 !important;
+  margin-top: 4px !important;
+}
+
+.leasing-detail-div {
+  background-color: white;
+  border-radius: 15px;
+  padding: 30px 30px;
+}
+
+.lto-own-summary {
+  padding: 30px 60px 30px 30px;
+}
+
+.lto-service-pkg-table {
+  width: 100%;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 5px;
+}
+
+.lto-service-pkg-table-heading-1,
+.lto-service-pkg-table-heading-2,
+.lto-service-pkg-table-value {
+  padding: 1rem;
+}
+
+.lto-service-pkg-table-heading-1,
+.lto-service-pkg-table-heading-2 {
+  background-color: #f1843c;
+  color: white;
+}
+
+.lto-service-pkg-table-heading-1 {
+  border-top-left-radius: 13px;
+}
+.lto-service-pkg-table-heading-2 {
+  border-top-right-radius: 13px;
+}
+
+.lto-service-pkg-table-value {
+  background-color: rgb(225, 225, 225);
+  font-weight: 400;
+}
+
+.service-pkg-table-value-1.last-child {
+  border-bottom-left-radius: 13px;
+}
+
+.service-pkg-table-value-2.last-child {
+  border-bottom-right-radius: 13px;
+}
+
+.service-warranty-value-span,
+.car-value-span {
+  font-weight: 700;
+}
+
 @media screen and (max-width: 576px) {
   .single-brand-logo-lto {
     max-width: 50px;
