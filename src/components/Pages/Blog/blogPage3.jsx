@@ -1,7 +1,7 @@
 import React from "react";
-import { Container} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import blog3_MainImg1 from "../../images/blog Images/blog3_main_Img1.png";
+import blog3_MainImg1 from "../../images/blog-images/blog3_main_Img1.png";
 import MainNavbar from "../navbar/mainNavbar";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 
@@ -43,7 +43,7 @@ const BlogPage3 = ({ blogData }) => {
 
         <Container>
           <div className="blog-details-page">
-          <h2 className="mb-3">{blogsData?.title}</h2>
+            <h2 className="mb-3">{blogsData?.title}</h2>
             <div className="blog-details-image-container">
               <img
                 src={blogsData?.imageUrl}
@@ -53,9 +53,7 @@ const BlogPage3 = ({ blogData }) => {
             </div>
             <p className="mt-4">{blogsData?.text}</p>
             <br />
-            <h3 className="blog3-navigation-app-heading">
-              Apple Maps App
-            </h3>
+            <h3 className="blog3-navigation-app-heading">Apple Maps App</h3>
             <p>
               Now use your Apple Maps app to get places. You can use it on your
               iPhone, iPad, Mac and Apple Watch and in the car with CarPlay.
@@ -106,9 +104,7 @@ const BlogPage3 = ({ blogData }) => {
               book it all through the CAFU app.{" "}
             </p>
 
-            <h3 className="blog3-navigation-app-heading">
-              RTA Smart Drive{" "}
-            </h3>
+            <h3 className="blog3-navigation-app-heading">RTA Smart Drive </h3>
 
             <p>
               No internet? No problem. With RTA Smart Drive you can plan,
@@ -138,11 +134,7 @@ const BlogPage3 = ({ blogData }) => {
           </div>
         </Container>
 
-        <div className="free-consultation-main-container">
-          <div className="free-consultation-main-div">
-            <FreeConsultationForm />
-          </div>
-        </div>
+        <FreeConsultationForm />
       </>
     </div>
   );

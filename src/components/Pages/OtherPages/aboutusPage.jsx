@@ -16,33 +16,48 @@ import {
 const reasons = [
   {
     icon: <SiLegacygames className="legacy-icon" />,
-    heading: "Legacy 1",
+    heading: "Our Legacy",
     description:
       "As part of Milele Corporations, we inherit a rich legacy built on a foundation of trust, innovation, and customer satisfaction. Our parent company stands as one of the foremost players in the import and export of new cars worldwide, solidifying its reputation as an industry powerhouse.",
+  },
+ 
+  {
+    icon: <SiAbbrobotstudio className="legacy-icon" />,
+    heading: "Unrivalled Fleet",
+    description:
+      "Experience the epitome of comfort, style, and performance with our extensive fleet of vehicles. From sleek city cars to Crossover SUVs, we offer a meticulously curated selection to ensure that every drive is a statement in luxury and reliability",
   },
   {
     icon: <Si4Chan className="legacy-icon" />,
-    heading: "Legacy 2",
+    heading: "Global Expertise, Local Excellence",
     description:
-      "As part of Milele Corporations, we inherit a rich legacy built on a foundation of trust, innovation, and customer satisfaction. Our parent company stands as one of the foremost players in the import and export of new cars worldwide, solidifying its reputation as an industry powerhouse.",
-  },
-  {
-    icon: <SiAbbrobotstudio className="legacy-icon" />,
-    heading: "Legacy 3",
-    description:
-      "As part of Milele Corporations, we inherit a rich legacy built on a foundation of trust, innovation, and customer satisfaction. Our parent company stands as one of the foremost players in the import and export of new cars worldwide, solidifying its reputation as an industry powerhouse.",
+      "Benefiting from the global expertise of Milele Corporations, Milele Car Rental blends international standards with a deep understanding of local markets. Our approach is rooted in the belief that every journey deserves to be exceptional, and our services are tailored to meet the diverse needs of our valued clients",
   },
   {
     icon: <SiAbbott className="legacy-icon" />,
-    heading: "Legacy 4",
+    heading: "Commitment to Quality",
     description:
-      "As part of Milele Corporations, we inherit a rich legacy built on a foundation of trust, innovation, and customer satisfaction. Our parent company stands as one of the foremost players in the import and export of new cars worldwide, solidifying its reputation as an industry powerhouse.",
+      "At Milele Car Rental, quality is not just a standard; it's a promise. Our vehicles undergo rigorous maintenance checks to ensure they meet the highest safety and performance standards. Your safetyand satisfaction are our top priorities.",
   },
   {
     icon: <SiAbletonlive className="legacy-icon" />,
-    heading: "Legacy 5",
+    heading: "Customer-Centric Approach",
     description:
-      "As part of Milele Corporations, we inherit a rich legacy built on a foundation of trust, innovation, and customer satisfaction. Our parent company stands as one of the foremost players in the import and export of new cars worldwide, solidifying its reputation as an industry powerhouse.",
+      "We take pride in our customer-centric philosophy. Whether you're a seasoned traveller, a business professional, or a family embarking on a vacation, our dedicated team is committed to making your car rental experience seamless, enjoyable, and hassle-free",
+  },
+
+  {
+    icon: <SiAbletonlive className="legacy-icon" />,
+    heading: "Innovation and Sustainability",
+    description:
+      " As part of the Milele family, we embrace innovation and sustainability. Our commitment to eco-friendly practices is reflected in our efforts to incorporate fuel-efficient vehicles into our fleet, contributing to a greener and more sustainable future.",
+  },
+
+  {
+    icon: <SiAbletonlive className="legacy-icon" />,
+    heading: "Your Journey, Our Priority",
+    description:
+      " Embark on your journey with the confidence that Milele Car Rental is dedicated to turning every drive into a memorable experience. With Milele Corporations' enduring legacy supporting us, we stand as your trusted partner for all your car rental needs.",
   },
 ];
 
@@ -75,11 +90,13 @@ const AboutusPage = () => {
                 </span>
                 <hr className="middle-hr-tag " />
               </div>
-              <br />
               <div className="about-us-section-1-container">
                 <div className="row p-4 d-flex align-items-center">
+                  <h4 className="about-us-main-heading pb-4">
+                    Milele Car Rental - A Milele Corporations Subsidiary
+                  </h4>
                   <div className="about-us-text-col col-lg-6 col-md-7 col-sm-12">
-                    <p>
+                    <p className="text-justify">
                       Welcome to Milele Car Rental, a proud subsidiary of Milele
                       Corporations, a global leader with over 35 years of
                       unparalleled experience in the automotive industry.
@@ -110,7 +127,7 @@ const AboutusPage = () => {
                 <div className="why-us-row-main-div row p-4">
                   {reasons.map((reason, index) => (
                     <div
-                      className="why-us-text-col col-lg-4 col-md-6"
+                      className="why-us-text-col col-lg-4 col-md-6 text-justify"
                       key={index}
                     >
                       <div className="row">

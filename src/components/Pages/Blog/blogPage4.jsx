@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import blog4_MainImg1 from "../../images/blog Images/blog4_main_Img1.png";
+import blog4_MainImg1 from "../../images/blog-images/blog4_main_Img1.png";
 import MainNavbar from "../navbar/mainNavbar";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 
@@ -43,7 +43,7 @@ const BlogPage4 = ({ blogData }) => {
 
         <Container>
           <div className="blog-details-page">
-          <h2 className="mb-3">{blogsData?.title}</h2>
+            <h2 className="mb-3">{blogsData?.title}</h2>
             <div className="blog-details-image-container">
               <img
                 src={blogsData?.imageUrl}
@@ -100,11 +100,7 @@ const BlogPage4 = ({ blogData }) => {
             </p>
           </div>
         </Container>
-        <div className="free-consultation-main-container">
-          <div className="free-consultation-main-div">
-            <FreeConsultationForm />
-          </div>
-        </div>
+        <FreeConsultationForm />
       </>
     </div>
   );

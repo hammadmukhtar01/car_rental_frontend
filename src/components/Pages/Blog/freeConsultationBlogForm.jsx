@@ -36,7 +36,7 @@ const FreeConsultationForm = () => {
                     GET FREE CONSULTATION FROM OUR SALESMEN RIGHT NOW
                   </h5>
                   <div className="free-consultation-buttons-div">
-                    <Row>
+                    <Row className="d-flex justify-content-center align-items-center">
                       <Col xl={4} lg={4} md={6} sm={12} xs={12}>
                         <input
                           className="form-control-consultation mt-2 col-12"
@@ -80,15 +80,11 @@ const FreeConsultationForm = () => {
 
                       <Col xl={4} lg={4} md={6} sm={12} xs={12} className="text-center">
                         <button
-                          type="submit"
-                          className="forgot-form-control animated-button submit"
-                        >
-                          <span className="button-text-span">
-                            <span className="transition"></span>
-                            <span className="gradient"></span>
-                            <span className="label">Contact Us</span>
-                          </span>
-                        </button>
+                        type="submit"
+                        className="free-consultation-contactUs-button submit col-lg-12"
+                      >
+                        <h4 className="button-text">Contact Us</h4>
+                      </button>
                       </Col>
                     </Row>
                   </div>

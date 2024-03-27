@@ -1,6 +1,6 @@
 import React from "react";
-import { Container} from "react-bootstrap";
-import blog1_MainImg1 from "../../images/blog Images/blog1_main_Img1.png";
+import { Container } from "react-bootstrap";
+import blog1_MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
 import MainNavbar from "../navbar/mainNavbar";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 
@@ -92,11 +92,7 @@ const BlogPage1 = () => {
             </p>
           </div>
         </Container>
-        <div className="free-consultation-main-container">
-          <div className="free-consultation-main-div">
-            <FreeConsultationForm />
-          </div>
-        </div>
+        <FreeConsultationForm />
       </>
     </div>
   );

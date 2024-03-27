@@ -1,8 +1,13 @@
 .lto-main-banner {
-  background-color: #cc6119;
+  /* Other styles */
+  background-image: url("../../images/lto-images/lto-main-bg.png");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: white;
   padding-top: 30px;
-  padding-bottom: 30px;
+  padding-bottom: 25em;
+  width: 100%;
 }
 
 .heading-5-lto,
@@ -73,18 +78,29 @@
   content: "AED";
 }
 
-.lto-calculator-duration-box, .lto-calculator-down-payment-box {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.lto-calculator-duration-box,
+.lto-calculator-down-payment-box {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
 
-.lto-calculator-duration-slider, .lto-calculator-down-payment-slider {
+.lto-calculator-duration-slider,
+.lto-calculator-down-payment-slider {
   color: #cc6119;
   margin: 0px 20px;
 }
 .lto-cal-duration-min-month,
-.lto-cal-duration-max-month, 
+.lto-cal-duration-max-month,
 .lto-cal-down-payment-min-percentage,
 .lto-cal-down-payment-max-percentage {
   color: rgb(168, 168, 168);
@@ -99,7 +115,7 @@
 }
 
 .lto-own-summary {
-  padding: 30px 60px 30px 30px;
+  padding: 30px 60px 30px 60px;
 }
 
 .lto-service-pkg-table {
@@ -146,12 +162,134 @@
   font-weight: 700;
 }
 
+.lto-lease-now-button {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #ed6e19e0;
+  color: white;
+  border-color: transparent;
+  transition: transform 0.11s ease-in-out;
+}
+
+.lto-lease-now-button:hover {
+  background-color: #cc6119;
+}
+
+.lto-lease-now-button:focus {
+  transform: scale(0.95);
+}
+
+.lto-lease-now-button:focus:not(:active) {
+  transform: scale(1);
+}
+
+.section-main {
+  background-color: #13428d;
+  background-size: cover;
+  background-position: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-main {
+  background-image: url("../../images/lto-images/lto-banner-bg-img-no-car.png");
+}
+.section-main > div:before {
+  content: " ";
+  position: absolute;
+  z-index: 2;
+  right: 10%;
+  bottom: -20%;
+  height: calc(100% - 60px);
+  width: calc(100% - 650px);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
+.section-main > div:before {
+  background-image: url("../../images/lto-images/lto-banner-img-car-only.png");
+}
+
+.main-container {
+  min-height: 450px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@media (min-width: 1651px) and (max-width: 1900px){
+.section-main>div:before {
+    width: calc(100% - 900px);
+}}
+
+@media (min-width: 1101px) and (max-width: 1650px){
+.section-main>div:before {
+    width: calc(100% - 600px);
+}}
+
+@media (min-width: 901px) and (max-width: 1100px){
+.section-main>div:before {
+    width: calc(100% - 520px);
+}}
+
+@media (min-width: 769px) and (max-width: 900px){
+.section-main>div:before {
+    width: calc(100% - 420px);
+    bottom: 260px;
+}}
+
+@media (min-width: 581px) and (max-width: 767px){
+.section-main>div:before {
+    width: calc(100% - 250px);
+    bottom: 110px;
+}}
+
+@media (min-width: 501px) and (max-width: 580px) {
+  .section-main > div:before {
+    width: calc(100% - 120px);
+    bottom: 120px;
+  }
+}
+
+@media (max-width: 500px){
+.section-main>div:before {
+    right: -110px;
+    width: 95%;
+    bottom: 120px;
+}}
+
+
+
+@media (max-width: 365px) {
+.section-main>div:before {
+    right: -110px;
+    width: 100%;
+    bottom: 140px;
+}}
+
+
+
+
 @media screen and (max-width: 576px) {
   .single-brand-logo-lto {
     max-width: 50px;
   }
   .dealing-brands-lto-icons-container {
     left: 0%;
+  }
+  .lto-own-summary {
+    padding: 30px;
+  }
+  .lto-process-main-heading,
+  .lto-calculator-main-heading,
+  .lto-cal-summary-heading {
+    font-size: 20px;
+  }
+  .lto-cal-summary-label-text {
+    font-size: 18px;
+  }
+  .lto-cal-summary-value-text {
+    font-size: 17px;
   }
 }
 
@@ -161,6 +299,15 @@
   }
   .dealing-brands-lto-text-col {
     border: none;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .lto-cal-summary-heading {
+    font-size: 20px;
+  }
+  .lto-cal-summary-label-text {
+    font-size: 18px;
   }
 }
 

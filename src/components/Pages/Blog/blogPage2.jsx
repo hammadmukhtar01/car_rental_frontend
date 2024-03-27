@@ -1,20 +1,20 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import blog2_MainImg1 from "../../images/blog Images/blog2_main_Img1.png";
+import blog2_MainImg1 from "../../images/blog-images/blog2_main_Img1.png";
 import MainNavbar from "../navbar/mainNavbar";
-import BurjKhalifaImg from "../../images/blog Images/blog2_Img1.png";
-import PalmJumeirahImg from "../../images/blog Images/blog2_Img2.png";
-import DubaiCreekImg from "../../images/blog Images/blog2_Img3.png";
-import DubaiMallImg from "../../images/blog Images/blog2_Img4.png";
-import SkydiveDubaiImg from "../../images/blog Images/blog2_Img5.png";
-import DubaiFrameImg from "../../images/blog Images/blog2_Img6.png";
-import KiteBeachImg from "../../images/blog Images/blog2_Img7.png";
-import CityWalkImg from "../../images/blog Images/blog2_Img8.png";
-import DubaiMarinaImg from "../../images/blog Images/blog2_Img9.png";
-import DeepDiveDubaiImg from "../../images/blog Images/blog2_Img10.png";
-import BurjAlArabImg from "../../images/blog Images/blog2_Img11.png";
-import MuseumoftheFutureImg from "../../images/blog Images/blog2_Img12.png";
-import ExpoCityDubaiImg from "../../images/blog Images/blog2_Img13.png";
+import BurjKhalifaImg from "../../images/blog-images/blog2_Img1.png";
+import PalmJumeirahImg from "../../images/blog-images/blog2_Img2.png";
+import DubaiCreekImg from "../../images/blog-images/blog2_Img3.png";
+import DubaiMallImg from "../../images/blog-images/blog2_Img4.png";
+import SkydiveDubaiImg from "../../images/blog-images/blog2_Img5.png";
+import DubaiFrameImg from "../../images/blog-images/blog2_Img6.png";
+import KiteBeachImg from "../../images/blog-images/blog2_Img7.png";
+import CityWalkImg from "../../images/blog-images/blog2_Img8.png";
+import DubaiMarinaImg from "../../images/blog-images/blog2_Img9.png";
+import DeepDiveDubaiImg from "../../images/blog-images/blog2_Img10.png";
+import BurjAlArabImg from "../../images/blog-images/blog2_Img11.png";
+import MuseumoftheFutureImg from "../../images/blog-images/blog2_Img12.png";
+import ExpoCityDubaiImg from "../../images/blog-images/blog2_Img13.png";
 import "react-phone-input-2/lib/style.css";
 import "../homePage/homepage.css";
 import FreeConsultationForm from "./freeConsultationBlogForm";
@@ -52,16 +52,13 @@ const BlogPage2 = () => {
         <Container>
           <div className="blog2-details-page">
             <div className="blog-details-image-container">
-            <h3 className="blog2-main-heading mb-3">
-              {blogsData?.title}
-            </h3>
+              <h3 className="blog2-main-heading mb-3">{blogsData?.title}</h3>
               <img
                 src={blogsData?.imageUrl}
                 className="blog-details-image"
                 alt="Blog"
               />
             </div>
-           
 
             <p className="mt-4">{blogsData?.text}</p>
             <br />
@@ -375,11 +372,7 @@ const BlogPage2 = () => {
             </Row>
           </div>
         </Container>
-        <div className="free-consultation-main-container">
-          <div className="free-consultation-main-div">
-            <FreeConsultationForm />
-          </div>
-        </div>
+        <FreeConsultationForm />
       </>
     </div>
   );

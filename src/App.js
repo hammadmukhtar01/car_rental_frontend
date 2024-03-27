@@ -20,7 +20,7 @@ import ResetPasswordPage from "./components/authentication/resetPasswordPage";
 import VehicleDetails from "./components/Pages/multipleStepsForm/vehicleDetails";
 import AddOnsDocuments from "./components/Pages/multipleStepsForm/addOnsDocuments";
 import ErrorPage from "./components/Pages/OtherPages/errorPage";
-import QuickLeaseVehicles from "./components/Pages/vehicle/leaseToOwn";
+import LeaseToOwnVehicles from "./components/Pages/vehicle/leaseToOwn";
 import TermsConditionsPage from "./components/Pages/OtherPages/termsConditionsPage";
 import BlogPage1 from "./components/Pages/Blog/blogPage1";
 import BlogPage2 from "./components/Pages/Blog/blogPage2";
@@ -43,7 +43,7 @@ function App() {
           {/* <Route path="/" exact element={<HomePage />} /> */}
           <Route path="/home" exact element={<HomePage />} />
           <Route path="/vehicles" element={<VehiclesPage />} />
-          <Route path="/quicklease" element={<QuickLeaseVehicles />} />
+          <Route path="/leaseToOwn" element={<LeaseToOwnVehicles />} />
           <Route path="/booking/:id" element={<BookingDetails />} />
           <Route path="/payment/:id" element={<PaymentPage />} />
           <Route path="/aboutus" element={<AboutusPage />} />

@@ -33,7 +33,7 @@ import makeAnimated from "react-select/animated";
 const PageSize = 8;
 const animatedComponents = makeAnimated();
 
-const QuickLeaseVehicles = () => {
+const LeaseToOwnVehicles = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isCarModelOpen, setIsCarModelOpen] = useState(true);
   const [isCarTypeOpen, setIsCarTypeOpen] = useState(true);
@@ -736,4 +736,4 @@ const QuickLeaseVehicles = () => {
   );
 };
 
-export default QuickLeaseVehicles;
+export default LeaseToOwnVehicles;

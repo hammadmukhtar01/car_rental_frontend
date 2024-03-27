@@ -1,10 +1,10 @@
 import React from "react";
-import { Container, Row, Col, Modal } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import blog1_MainImg1 from "../../images/blog Images/blog1_main_Img1.png";
-import blog2_MainImg1 from "../../images/blog Images/blog2_main_Img1.png";
-import blog3_MainImg1 from "../../images/blog Images/blog3_main_Img1.png";
-import blog4_MainImg1 from "../../images/blog Images/blog4_main_Img1.png";
+import blog1_MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
+import blog2_MainImg1 from "../../images/blog-images/blog2_main_Img1.png";
+import blog3_MainImg1 from "../../images/blog-images/blog3_main_Img1.png";
+import blog4_MainImg1 from "../../images/blog-images/blog4_main_Img1.png";
 import MainNavbar from "../navbar/navbar";
 
 const BlogPage4 = ({ blogData }) => {

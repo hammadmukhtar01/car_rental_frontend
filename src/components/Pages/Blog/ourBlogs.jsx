@@ -4,10 +4,10 @@ import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import { BsPersonCircle } from "react-icons/bs";
 import "./blogPage.css";
-import blog1_MainImg1 from "../../images/blog Images/blog1_main_Img1.png";
-import blog2_MainImg1 from "../../images/blog Images/blog2_main_Img1.png";
-import blog3_MainImg1 from "../../images/blog Images/blog3_main_Img1.png";
-import blog4_MainImg1 from "../../images/blog Images/blog4_main_Img1.png";
+import blog1_MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
+import blog2_MainImg1 from "../../images/blog-images/blog2_main_Img1.png";
+import blog3_MainImg1 from "../../images/blog-images/blog3_main_Img1.png";
+import blog4_MainImg1 from "../../images/blog-images/blog4_main_Img1.png";
 
 const OurBlogs = () => {
   const blogsData = [

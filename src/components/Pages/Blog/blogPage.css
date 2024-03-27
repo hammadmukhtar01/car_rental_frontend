@@ -55,22 +55,6 @@
   border-top: none;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .blog-style-one {
-    padding: 2px;
-  }
-  .blog-content {
-    padding: 25px;
-  }
-}
-@media (max-width: 767px) {
-  .blog-style-one {
-    padding: 20px;
-  }
-  .blog-content {
-    padding: 2px;
-  }
-}
 .blog-style-one .blog-content .blog-title {
   display: block;
   margin-bottom: 10px;
@@ -85,11 +69,7 @@
   transition: all 0.3s ease-out 0s;
   line-height: 30px;
 }
-@media (max-width: 767px) {
-  .blog-style-one .blog-content .blog-title a {
-    line-height: 24px;
-  }
-}
+
 .blog-style-one .blog-content .blog-title a:hover {
   color: #a34100;
 }
@@ -188,4 +168,62 @@
   font-weight: 700;
   text-align: center;
   padding: 5px;
+}
+
+.free-consultation-contactUs-button {
+  margin-top: 6px;
+  padding: 7px;
+  border-radius: 10px;
+  background-color: #ed6e19e0;
+  color: white;
+  border-color: transparent;
+  transition: transform 0.11s ease-in-out;
+}
+
+.free-consultation-contactUs-button:hover {
+  background-color: #cc6119;
+}
+
+.free-consultation-contactUs-button:focus {
+  transform: scale(0.95);
+}
+
+.free-consultation-contactUs-button:focus:not(:active) {
+  transform: scale(1);
+}
+
+@media screen and (max-width: 576px) {
+  .free-consultation-main-div {
+    padding: 30px 20px;
+  }
+
+  .free-consultation-text {
+    border-radius: 20px;
+    background-color: white;
+    padding: 20px 15px 30px 15px;
+  }
+
+  .free-consultation-heading {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .blog-style-one {
+    padding: 2px;
+  }
+  .blog-content {
+    padding: 25px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .blog-style-one {
+    padding: 20px;
+  }
+  .blog-content {
+    padding: 2px;
+  }
+  .blog-style-one .blog-content .blog-title a {
+    line-height: 24px;
+  }
 }

@@ -121,9 +121,9 @@ function OffcanvasExample() {
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item
-                      href="/quicklease"
+                      href="/leaseToOwn"
                       className={`navbar-sub-menus ${
-                        location.pathname.includes("/quicklease")
+                        location.pathname.includes("/leaseToOwn")
                           ? "active"
                           : ""
                       }`}
@@ -166,9 +166,9 @@ function OffcanvasExample() {
 
                   <Nav.Link
                     as={NavLink}
-                    to="/quicklease"
+                    to="/leaseToOwn"
                     className={`navbar-all-menus ${
-                      location.pathname === "/quicklease" ? "active" : ""
+                      location.pathname === "/leaseToOwn" ? "active" : ""
                     }`}
                     activeclassname="active"
                   >

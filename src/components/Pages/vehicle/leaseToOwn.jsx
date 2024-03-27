@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Container, Row, Col, Modal } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import MainNavbar from "../navbar/mainNavbar";
-import CarImg from "../../images/only-car-bg-home-banner.png";
 import "./leaseToOwn.css";
-import hyundaiIcon from "../../images/Brands icons/Hyundai.png";
-import kiaIcon from "../../images/Brands icons/KIA.png";
-import lexusIcon from "../../images/Brands icons/Lexus.png";
-import suzukiIcon from "../../images/Brands icons/Suzuki.png";
-import toyotaIcon from "../../images/Brands icons/Toyota.png";
+import hyundaiIcon from "../../images/lto-images/lto-brands-icons/Hyundai.png";
+import kiaIcon from "../../images/lto-images/lto-brands-icons/KIA.png";
+import lexusIcon from "../../images/lto-images/lto-brands-icons/Lexus.png";
+import suzukiIcon from "../../images/lto-images/lto-brands-icons/Suzuki.png";
+import toyotaIcon from "../../images/lto-images/lto-brands-icons/Toyota.png";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
+import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
+// import LTOBannerImg
 
-const QuickLeaseVehicles = () => {
+const LeaseToOwnVehicles = () => {
   const [estCarPrice, setEstCarPrice] = useState("");
 
   const carBrands = [
@@ -72,12 +73,93 @@ const QuickLeaseVehicles = () => {
     setDownPaymentVal(newValue);
   };
 
+  const calculateLeaseToOwnPrice = (
+    numOfYears,
+    totalSellingPrice,
+    downPaymentPercentage
+  ) => {
+    const downPaymentWithVAT = totalSellingPrice * downPaymentPercentage;
+    console.log("DonwPayment with vat ---- ", downPaymentWithVAT);
+    const downPaymentWithoutVAT = downPaymentWithVAT / 1.05;
+    const leasedAmouontPerYearWithoutDownPayment =
+      totalSellingPrice - downPaymentWithoutVAT;
+
+    const financeCostPeryear =
+      leasedAmouontPerYearWithoutDownPayment * 0.08 * numOfYears;
+
+    const leastAmountFinanceCostWithoutVAT =
+      leasedAmouontPerYearWithoutDownPayment + financeCostPeryear;
+    const leastAmountFinanceCostWithVAT =
+      leastAmountFinanceCostWithoutVAT * 1.05;
+
+    const monthlyInstallmentsPriceWithoutVAT =
+      leastAmountFinanceCostWithoutVAT / (12 * numOfYears);
+    const monthlyInstallmentsPriceWithVAT =
+      monthlyInstallmentsPriceWithoutVAT * 1.05;
+
+    const totalLeasedPaymentWithoutVAT =
+      monthlyInstallmentsPriceWithoutVAT * 12 * numOfYears;
+    const totalLeasedPaymentWithVAT =
+      monthlyInstallmentsPriceWithVAT * 12 * numOfYears;
+
+    const premiumFullInsurancePerYearWihtoutVAT =
+      totalSellingPrice * 1.1 * 0.03 * numOfYears;
+    const premiumFullInsurancePerYearWihtVAT =
+      premiumFullInsurancePerYearWihtoutVAT * 1.05;
+
+    const yearlyRegisterationWithoutVAT = 2000 * numOfYears;
+    const yearlyRegisterationWithVAT = yearlyRegisterationWithoutVAT * 1.05;
+
+    const someChargesCalculation =
+      (premiumFullInsurancePerYearWihtoutVAT + yearlyRegisterationWithoutVAT) *
+      1.08;
+
+    const monthlyRegisterationInsurancePriceWithoutVAT =
+      someChargesCalculation / (12 * numOfYears);
+    const monthlyRegisterationInsurancePriceWithVAT =
+      monthlyRegisterationInsurancePriceWithoutVAT * 1.05;
+
+    const finalPricePerMonthWithoutVATBeforeRound =
+      monthlyInstallmentsPriceWithoutVAT +
+      monthlyRegisterationInsurancePriceWithoutVAT;
+
+    const finalPricePerMonthWithoutVAT = Math.round(
+      finalPricePerMonthWithoutVATBeforeRound
+    );
+
+    const finalPricePerMonthWithVAT = Math.round(
+      finalPricePerMonthWithoutVATBeforeRound * 1.05
+    );
+
+    console.log(
+      `Final Price without VAT is: ${finalPricePerMonthWithoutVAT}\nFinal Price Including VAT is: ${finalPricePerMonthWithVAT}`
+    );
+    return finalPricePerMonthWithVAT;
+  };
+
   const ltoSummaryData = [
-    { label: "Duration1", value: "6760 AED" },
-    { label: "Duration2", value: "620 AED" },
-    { label: "Duration3", value: "60 months" },
-    { label: "Duration4", value: "360 AED" },
+    {
+      label: "Monthly Payment",
+      value: `${calculateLeaseToOwnPrice(
+        durationVal / 12,
+        estCarPrice,
+        downPaymentVal / 100
+      )} AED`,
+    },
+    {
+      label: "Down payment",
+      value: `${estCarPrice * (downPaymentVal / 100)} AED`,
+    },
+    { label: "Duration", value: `${durationVal} months` },
+    {
+      label: "Car Insurance estimate p/a",
+      value: `${estCarPrice * 0.011 * 0.03} AED`,
+    },
   ];
+
+  const handleLTOCalculatorForm = () => {
+    console.log("test");
+  };
 
   // const { loading } = useReload();
 
@@ -98,48 +180,63 @@ const QuickLeaseVehicles = () => {
             <MainNavbar />
           </div>
         </div>
-        <div className="lto-main-banner">
+        {/* <div className="lto-main-banner">
           <Container>
             <Row>
-              <Col lg={8} md={8} sm={8} xs={12}>
-                <h2>LEASE TO OWN</h2>
-                <br />
-                <h4 className="heading-4-lto">Build Your Own Leasing Plan</h4>
+              <Col lg={8} md={8} sm={12} xs={12}>
+                <h1>LEASE TO OWN</h1>
+                <h4 className="heading-4-lto pt-3">
+                  Build Your Own Leasing Plan
+                </h4>
                 <Row>
-                  <Col lg={4} md={4} sm={4} xs={4}>
+                  <Col lg={4} md={4} sm={4} xs={6} className="pt-2">
                     <span>LEASE TERM</span>
                     <h5 className="heading-5-lto">1-5 YEARS</h5>
                     <span>For Any Car</span>
                   </Col>
 
-                  <Col lg={4} md={4} sm={4} xs={4}>
+                  <Col lg={4} md={4} sm={4} xs={6} className="pt-2">
                     <span>DOWN PAYMENT</span>
                     <h5 className="heading-5-lto">FROM 0%</h5>
                     <span>No Hidden Fees</span>
                   </Col>
 
-                  <Col lg={4} md={4} sm={4} xs={4}>
+                  <Col lg={4} md={4} sm={4} xs={6} className="pt-2">
                     <span>CAR HANDOVER</span>
                     <h5 className="heading-5-lto">WITHIN 4 DAYS</h5>
                     <span>After a Down Payment</span>
                   </Col>
                 </Row>
               </Col>
-
-              <Col lg={4} md={4} sm={4} xs={4}>
-                <div className="main-banner-lto-img-container">
-                  <img
-                    className="main-car-img-lto"
-                    id="lto-car-img"
-                    src={CarImg}
-                    alt="lto-img"
-                  />
-                </div>
-              </Col>
             </Row>
           </Container>
-        </div>
+        </div> */}
         <br />
+        <div className="section-main">
+        <div className="container main-container">
+          
+           
+            <div className="main-features">
+                <div className="feature">
+                    <span className="main-tip">Lease term</span>
+                    <span className="feature-value">3 years</span>
+                    <span className="feature-tip">For any car</span>
+                </div>
+
+                <div className="feature">
+                    <span className="main-tip">Down payment</span>
+                    <span className="feature-value">From 20%</span>
+                    <span className="feature-tip">No hidden fees</span>
+                </div>
+                <div className="feature">
+                    <span className="main-tip">Car handover</span>
+                    <span className="feature-value">24-48 hours</span>
+                    <span className="feature-tip">After a down payment</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
         <br />
         <Container>
           <section className="lto-dealing-brands">
@@ -182,163 +279,188 @@ const QuickLeaseVehicles = () => {
 
           <section className="lto-process">
             <div className="lto-process-heading">
-              <h3>LEASE TO OWN PROCESS</h3>
+              <h3 className="lto-process-main-heading">LEASE TO OWN PROCESS</h3>
             </div>
             <div className="lto-process-icons-main-div"></div>
           </section>
 
-          <section className="lto-calculator-main-section">
-            <div className="lto-calculator-main-div">
-              <h3>LEASE TO OWN CALCULATOR</h3>
-              <p>
-                Craft a bespoke lease to own financial plan based on the down
-                payment value, lease duration & vehicle preferences.
-              </p>
-              <br />
-              <div className="lto-calculator-container">
-                <div className="lto-calculator-div">
-                  <Row>
-                    <Col className="leasing-detail-div col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                      <h4>Leasing Details</h4>
-                      <br />
-                      <Row className="align-items-center">
-                        <label htmlFor="est_CarPrice">
-                          <Row>
+          <form
+            action="#"
+            className="signin-form"
+            onSubmit={handleLTOCalculatorForm}
+          >
+            <section className="lto-calculator-main-section">
+              <div className="lto-calculator-main-div">
+                <h3 className="lto-calculator-main-heading">
+                  LEASE TO OWN CALCULATOR
+                </h3>
+                <p>
+                  Craft a bespoke lease to own financial plan based on the down
+                  payment value, lease duration & vehicle preferences.
+                </p>
+                <br />
+                <div className="lto-calculator-container">
+                  <div className="lto-calculator-div">
+                    <Row>
+                      <Col className="leasing-detail-div col-lg-6 col-md-6 col-sm-12 col-xs-12 col-12">
+                        <h4>Leasing Details</h4>
+                        <br />
+                        <Row className="align-items-center">
+                          <label htmlFor="est_CarPrice">
+                            <Row>
+                              <Col className="text-left">
+                                <span>Estimated car price</span>
+                              </Col>
+                              <Col className="text-right">
+                                <span>(30,000 minimum)</span>
+                              </Col>
+                            </Row>
+                          </label>
+                        </Row>
+
+                        <div className="lto-calculator-input-group">
+                          <input
+                            className="form-control-consultation mt-2 col-12"
+                            id="est_CarPrice"
+                            name="estCarPrice"
+                            type="number"
+                            min={30000}
+                            autoComplete="estCarPrice"
+                            required
+                            placeholder="Enter Price"
+                            value={estCarPrice}
+                            onChange={(e) => {
+                              const value = parseInt(e.target.value);
+                              if (!isNaN(value) && value >= 0) {
+                                setEstCarPrice(value);
+                              }
+                            }}
+                          />
+                        </div>
+                        <br />
+                        <br />
+
+                        <div className="lto-cal-detail-duration-main-div">
+                          <Row className="align-items-center">
                             <Col className="text-left">
-                              <span>Estimated car price</span>
+                              <span>Duration</span>{" "}
                             </Col>
                             <Col className="text-right">
-                              <span>(30,000 minimum)</span>
+                              <span>{durationVal} months</span>
                             </Col>
                           </Row>
-                        </label>
-                      </Row>
 
-                      <div className="lto-calculator-input-group">
-                        <input
-                          className="form-control-consultation mt-2 col-12"
-                          id="est_CarPrice"
-                          name="estCarPrice"
-                          type="number"
-                          min={30000}
-                          autoComplete="estCarPrice"
-                          required
-                          placeholder="Enter Price"
-                          value={estCarPrice}
-                          onChange={(e) => {
-                            setEstCarPrice(e.target.value);
-                          }}
-                        />
-                      </div>
-                      <br />
-                      <br />
+                          <Box className="lto-calculator-duration-box">
+                            <Typography
+                              className="lto-cal-duration-min-month"
+                              variant="body2"
+                              onClick={() => setDurationVal(durationMIN)}
+                              sx={{ cursor: "pointer" }}
+                            >
+                              {durationMIN}
+                            </Typography>
 
-                      <div className="lto-cal-detail-duration-main-div">
-                        <Row className="align-items-center">
-                          <Col className="text-left">
-                            <span>Duration</span>
-                          </Col>
-                          <Col className="text-right">
-                            <span>60 months</span>
-                          </Col>
-                        </Row>
+                            <Slider
+                              className="lto-calculator-duration-slider"
+                              marks={durations}
+                              step={12}
+                              value={durationVal}
+                              valueLabelDisplay="auto"
+                              min={durationMIN}
+                              max={durationMAX}
+                              onChange={handleDurationChange}
+                            />
 
-                        <Box className="lto-calculator-duration-box">
-                          <Typography
-                            className="lto-cal-duration-min-month"
-                            variant="body2"
-                            onClick={() => setDurationVal(durationMIN)}
-                            sx={{ cursor: "pointer" }}
+                            <Typography
+                              className="lto-cal-duration-max-month"
+                              variant="body2"
+                              onClick={() => setDurationVal(durationMAX)}
+                              sx={{ cursor: "pointer" }}
+                            >
+                              {durationMAX}
+                            </Typography>
+                          </Box>
+                        </div>
+
+                        <br />
+                        <br />
+
+                        <div className="lto-cal-summary-down-payment-main-div">
+                          <Row className="align-items-center">
+                            <Col className="text-left">
+                              <span>Down Payment</span>
+                            </Col>
+                            <Col className="text-right">
+                              <span>{downPaymentVal}%</span>
+                            </Col>
+                          </Row>
+
+                          <Box className="lto-calculator-down-payment-box">
+                            <Typography
+                              className="lto-cal-down-payment-min-percentage"
+                              variant="body2"
+                              onClick={() => setDownPaymentVal(downPayMIN)}
+                              sx={{ cursor: "pointer" }}
+                            >
+                              {downPayMIN}%
+                            </Typography>
+
+                            <Slider
+                              className="lto-calculator-down-payment-slider"
+                              marks={downPayment}
+                              step={10}
+                              value={downPaymentVal}
+                              valueLabelDisplay="auto"
+                              min={downPayMIN}
+                              max={downPayMAX}
+                              onChange={handleDownPaymentChange}
+                            />
+
+                            <Typography
+                              className="lto-cal-down-payment-max-percentage"
+                              variant="body2"
+                              onClick={() => setDownPaymentVal(downPayMAX)}
+                              sx={{ cursor: "pointer" }}
+                            >
+                              {downPayMAX}%
+                            </Typography>
+                          </Box>
+                        </div>
+                      </Col>
+                      <Col className="lto-own-summary col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <h4 className="lto-cal-summary-heading">
+                          Lease to Own Summary
+                        </h4>
+                        <br />
+                        {ltoSummaryData.map((item, index) => (
+                          <Row
+                            key={index}
+                            className="align-items-center pt-2 pb-2"
                           >
-                            {durationMIN}
-                          </Typography>
-
-                          <Slider
-                            className="lto-calculator-duration-slider"
-                            marks={durations}
-                            step={6}
-                            value={durationVal}
-                            valueLabelDisplay="auto"
-                            min={durationMIN}
-                            max={durationMAX}
-                            onChange={handleDurationChange}
-                          />
-
-                          <Typography
-                            className="lto-cal-duration-max-month"
-                            variant="body2"
-                            onClick={() => setDurationVal(durationMAX)}
-                            sx={{ cursor: "pointer" }}
-                          >
-                            {durationMAX}
-                          </Typography>
-                        </Box>
-                      </div>
-
-                      <br />
-                      <br />
-
-                      <div className="lto-cal-summary-down-payment-main-div">
-                        <Row className="align-items-center">
-                          <Col className="text-left">
-                            <span>Down Payment</span>
-                          </Col>
-                          <Col className="text-right">
-                            <span>20%</span>
-                          </Col>
-                        </Row>
-
-                        <Box className="lto-calculator-down-payment-box">
-                          <Typography
-                            className="lto-cal-down-payment-min-percentage"
-                            variant="body2"
-                            onClick={() => setDownPaymentVal(downPayMIN)}
-                            sx={{ cursor: "pointer" }}
-                          >
-                            {downPayMIN}
-                          </Typography>
-
-                          <Slider
-                            className="lto-calculator-down-payment-slider"
-                            marks={downPayment}
-                            step={10}
-                            value={downPaymentVal}
-                            valueLabelDisplay="auto"
-                            min={downPayMIN}
-                            max={downPayMAX}
-                            onChange={handleDownPaymentChange}
-                          />
-
-                          <Typography
-                            className="lto-cal-down-payment-max-percentage"
-                            variant="body2"
-                            onClick={() => setDownPaymentVal(downPayMAX)}
-                            sx={{ cursor: "pointer" }}
-                          >
-                            {downPayMAX}
-                          </Typography>
-                        </Box>
-                      </div>
-                    </Col>
-                    <Col className="lto-own-summary col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                      <h4>Lease to Own Summary</h4>
-                      <br />
-                      {ltoSummaryData.map((item, index) => (
-                        <Row key={index} className="align-items-center pt-2 pb-2">
-                          <Col className="text-left">
-                            <h5>{item.label}</h5>
-                          </Col>
-                          <Col className="text-right fs-5">
-                            <p>{item.value}</p>
-                          </Col>
-                        </Row>
-                      ))}
-                    </Col>
-                  </Row>
+                            <Col className="text-left">
+                              <h5 className="lto-cal-summary-label-text">
+                                {item.label}
+                              </h5>
+                            </Col>
+                            <Col className="lto-cal-summary-value-text text-right ">
+                              <p>{item.value}</p>
+                            </Col>
+                          </Row>
+                        ))}
+                        <br />
+                        <button
+                          type="submit"
+                          className="lto-lease-now-button submit col-lg-12"
+                        >
+                          <h4 className="button-text"> LEASE NOW</h4>
+                        </button>
+                      </Col>
+                    </Row>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </form>
           <br />
           <section className="lto-service-pkg-main-section">
             <div className="ltoservice-pkg-main-div">
@@ -351,11 +473,13 @@ const QuickLeaseVehicles = () => {
               <table className="lto-service-pkg-table">
                 <thead>
                   <tr>
-                    <th className="lto-service-pkg-table-heading-1 ">
-                      CAR VALUE
+                    <th className="lto-service-pkg-table-heading-1 col-6">
+                      <h5 className="car-value-th-1">CAR VALUE</h5>
                     </th>
-                    <th className="lto-service-pkg-table-heading-2">
-                      SERVICE + WARRANTY PACKAGE PRICE
+                    <th className="lto-service-pkg-table-heading-2 col-6">
+                      <h5 className="car-value-th-2">
+                        SERVICE + WARRANTY PACKAGE PRICE
+                      </h5>
                     </th>
                   </tr>
                 </thead>
@@ -363,7 +487,7 @@ const QuickLeaseVehicles = () => {
                   {servicePackages.map((pkg, index) => (
                     <tr key={index}>
                       <td
-                        className={`lto-service-pkg-table-value service-pkg-table-value-1 col-lg-6 col-md-6 col-sm-12 col-xs-12 ${
+                        className={`lto-service-pkg-table-value service-pkg-table-value-1 col-6 ${
                           index === servicePackages.length - 1
                             ? "last-child"
                             : ""
@@ -373,7 +497,7 @@ const QuickLeaseVehicles = () => {
                         AED
                       </td>
                       <td
-                        className={`lto-service-pkg-table-value service-pkg-table-value-2 col-lg-6 col-md-6 col-sm-12 col-xs-12 ${
+                        className={`lto-service-pkg-table-value service-pkg-table-value-2 col-6 ${
                           index === servicePackages.length - 1
                             ? "last-child"
                             : ""
@@ -394,9 +518,10 @@ const QuickLeaseVehicles = () => {
           <br />
           <br />
         </Container>
+        <FreeConsultationForm />
       </>
     </div>
   );
 };
 
-export default QuickLeaseVehicles;
+export default LeaseToOwnVehicles;
