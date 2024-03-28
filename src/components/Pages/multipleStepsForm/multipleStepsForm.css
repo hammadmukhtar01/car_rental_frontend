@@ -269,7 +269,7 @@ a.btn:hover {
   -webkit-transition: 0.3s;
 }
 .btn:before {
-  font-family: FontAwesome;
+  /* font-family: FontAwesome; */
   font-weight: normal;
   margin-right: 10px;
 }
@@ -291,7 +291,7 @@ a.btn:hover {
   margin-top: 40px;
 }
 .credit span:before {
-  font-family: FontAwesome;
+  /* font-family: FontAwesome; */
   color: #e41b17;
   content: "\f004";
 }
@@ -303,7 +303,7 @@ a.btn:hover {
   color: #1dbf73;
 }
 .credit a:hover:after {
-  font-family: FontAwesome;
+  /* font-family: FontAwesome; */
   content: "\f08e";
   font-size: 9pt;
   position: absolute;
@@ -350,7 +350,7 @@ article p {
 .set-glass:after,
 .to-active:after,
 .set-sticky:after {
-  font-family: FontAwesome;
+  /* font-family: FontAwesome; */
   font-size: 18pt;
   position: relative;
   float: right;

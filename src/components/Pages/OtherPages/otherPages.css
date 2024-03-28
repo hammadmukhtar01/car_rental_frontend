@@ -74,10 +74,6 @@
   /* margin: 20px; */
 }
 
-.accordion-header {
-  font-family: sans-serif;
-}
-
 .accordion-button.collapsed {
   font-size: 15px;
 }

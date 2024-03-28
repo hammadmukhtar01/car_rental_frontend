@@ -686,7 +686,7 @@
 .offer-heading,
 .testimonial-heading {
   color: #cc6119;
-  font-weight: 800;
+  /* font-weight: 800; */
 }
 
 .offers-car-container-row {

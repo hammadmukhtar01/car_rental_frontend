@@ -20,13 +20,14 @@ function OffcanvasExample() {
   const userName = user_info?.result?.userName;
 
   console.log("Auth in local storage is --: ", auth);
-  
+
   useEffect(() => {
-    setIsHomePage(location.pathname === "/home");
-    console.log("hevyevfyevfuevfuevfuevfuevfuevfuevfuevf")
+    setIsHomePage(location.pathname === "/home" || location.pathname === "/");
+    console.log("hevyevfyevfuevfuevfuevfuevfuevfuevfuevf");
   }, [location.pathname]);
-  
-  const isExactHomePage = location.pathname === "/home";
+
+  const isExactHomePage =
+    location.pathname === "/home" || location.pathname === "/";
 
   const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
 
@@ -98,7 +99,11 @@ function OffcanvasExample() {
                     as={NavLink}
                     to="/home"
                     className={`navbar-all-menus ${
-                      location.pathname === "/home" ? "active" : ""
+                      location.pathname === "/home"
+                        ? "active"
+                        : "" || location.pathname === "/"
+                        ? "active"
+                        : ""
                     }`}
                     activeclassname="active"
                   >
