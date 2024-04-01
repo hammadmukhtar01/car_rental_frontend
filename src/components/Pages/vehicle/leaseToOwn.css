@@ -1,13 +1,17 @@
-.lto-main-banner {
-  /* Other styles */
-  background-image: url("../../images/lto-images/lto-main-bg.png");
-  background-position: bottom;
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: white;
-  padding-top: 30px;
-  padding-bottom: 25em;
+#image-section {
   width: 100%;
+  height: auto;
+}
+
+.imgBox {
+  /* max-width: 400px; */
+  min-width: 200px;
+}
+
+.lto-headings {
+  color: #cc6119;
+  text-align: center;
+  font-weight: 600;
 }
 
 .heading-5-lto,
@@ -114,6 +118,11 @@ input[type="number"] {
   padding: 30px 30px;
 }
 
+.lto-cal-leasing-detail,
+.lto-cal-summary-heading {
+  font-weight: 600;
+}
+
 .lto-own-summary {
   padding: 30px 60px 30px 60px;
 }
@@ -182,93 +191,6 @@ input[type="number"] {
 .lto-lease-now-button:focus:not(:active) {
   transform: scale(1);
 }
-
-.section-main {
-  background-color: #13428d;
-  background-size: cover;
-  background-position: 50%;
-  position: relative;
-  overflow: hidden;
-}
-
-.section-main {
-  background-image: url("../../images/lto-images/lto-banner-bg-img-no-car.png");
-}
-.section-main > div:before {
-  content: " ";
-  position: absolute;
-  z-index: 2;
-  right: 10%;
-  bottom: -20%;
-  height: calc(100% - 60px);
-  width: calc(100% - 650px);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: 100% 100%;
-}
-.section-main > div:before {
-  background-image: url("../../images/lto-images/lto-banner-img-car-only.png");
-}
-
-.main-container {
-  min-height: 450px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-@media (min-width: 1651px) and (max-width: 1900px){
-.section-main>div:before {
-    width: calc(100% - 900px);
-}}
-
-@media (min-width: 1101px) and (max-width: 1650px){
-.section-main>div:before {
-    width: calc(100% - 600px);
-}}
-
-@media (min-width: 901px) and (max-width: 1100px){
-.section-main>div:before {
-    width: calc(100% - 520px);
-}}
-
-@media (min-width: 769px) and (max-width: 900px){
-.section-main>div:before {
-    width: calc(100% - 420px);
-    bottom: 260px;
-}}
-
-@media (min-width: 581px) and (max-width: 767px){
-.section-main>div:before {
-    width: calc(100% - 250px);
-    bottom: 110px;
-}}
-
-@media (min-width: 501px) and (max-width: 580px) {
-  .section-main > div:before {
-    width: calc(100% - 120px);
-    bottom: 120px;
-  }
-}
-
-@media (max-width: 500px){
-.section-main>div:before {
-    right: -110px;
-    width: 95%;
-    bottom: 120px;
-}}
-
-
-
-@media (max-width: 365px) {
-.section-main>div:before {
-    right: -110px;
-    width: 100%;
-    bottom: 140px;
-}}
-
-
-
 
 @media screen and (max-width: 576px) {
   .single-brand-logo-lto {

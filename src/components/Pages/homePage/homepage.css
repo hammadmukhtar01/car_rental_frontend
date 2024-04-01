@@ -533,6 +533,10 @@
   background-color: transparent !important;
 }
 
+.react-tel-input .selected-flag {
+  padding: 0 0 0 15px !important;
+}
+
 .css-wsp0cs-MultiValueGeneric {
   padding: 0px 0px 0px 6px !important;
   color: white !important;

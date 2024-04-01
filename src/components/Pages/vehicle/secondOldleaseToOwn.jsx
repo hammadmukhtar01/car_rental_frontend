@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import MainNavbar from "../navbar/mainNavbar";
 import "./leaseToOwn.css";
-import LTOMainBannerImg from "../../images/lto-images/lto-main-banner-img.png";
 import hyundaiIcon from "../../images/lto-images/lto-brands-icons/Hyundai.png";
 import kiaIcon from "../../images/lto-images/lto-brands-icons/KIA.png";
 import lexusIcon from "../../images/lto-images/lto-brands-icons/Lexus.png";
@@ -12,15 +11,10 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
+// import LTOBannerImg
 
 const LeaseToOwnVehicles = () => {
   const [estCarPrice, setEstCarPrice] = useState("");
-
-  function formatNumber(num) {
-    return new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(
-      num
-    );
-  }
 
   const carBrands = [
     { name: "hyundai", logo: hyundaiIcon, title: "Hyundai" },
@@ -31,40 +25,17 @@ const LeaseToOwnVehicles = () => {
   ];
 
   const servicePackages = [
-    { carValue: 50000, packagePrice: "2,500" },
-    { carValue: 100000, packagePrice: "3,000" },
-    { carValue: 150000, packagePrice: "3,500" },
-    { carValue: 200000, packagePrice: "4,000" },
-    { carValue: 250000, packagePrice: "4,500" },
-    { carValue: 300000, packagePrice: "5,000" },
-    { carValue: 350000, packagePrice: "5,500" },
-    { carValue: 400000, packagePrice: "6,000" },
-    { carValue: 450000, packagePrice: "7,500" },
-    { carValue: 500000, packagePrice: "12,500" },
+    { carValue: "50,000", packagePrice: "2,500" },
+    { carValue: "100,000", packagePrice: "3,000" },
+    { carValue: "150,000", packagePrice: "3,500" },
+    { carValue: "200,000", packagePrice: "4,000" },
+    { carValue: "250,000", packagePrice: "4,500" },
+    { carValue: "300,000", packagePrice: "5,000" },
+    { carValue: "350,000", packagePrice: "5,500" },
+    { carValue: "400,000", packagePrice: "6,000" },
+    { carValue: "450,000", packagePrice: "7,500" },
+    { carValue: "500,000+", packagePrice: "12,500" },
   ];
-
-  const findServiceCharge = (estCarPrice) => {
-    if (!estCarPrice) return "0";
-
-    let packagePrice = "0";
-    let foundPackage = false;
-
-    for (let i = 0; i < servicePackages.length; i++) {
-      if (estCarPrice <= servicePackages[i].carValue) {
-        packagePrice = servicePackages[i].packagePrice;
-        foundPackage = true;
-        break;
-      }
-    }
-    if (!foundPackage) {
-      packagePrice = servicePackages[servicePackages.length - 1].packagePrice;
-    }
-
-    return packagePrice;
-  };
-
-  const serviceChargeValue =
-    estCarPrice >= 30000 ? `${findServiceCharge(estCarPrice)} AED` : "0 AED";
 
   const durationMIN = 12;
   const durationMAX = 60;
@@ -107,10 +78,6 @@ const LeaseToOwnVehicles = () => {
     totalSellingPrice,
     downPaymentPercentage
   ) => {
-    if (!numOfYears || !totalSellingPrice || totalSellingPrice < 30000) {
-      return 0;
-    }
-
     const downPaymentWithVAT = totalSellingPrice * downPaymentPercentage;
     console.log("DonwPayment with vat ---- ", downPaymentWithVAT);
     const downPaymentWithoutVAT = downPaymentWithVAT / 1.05;
@@ -122,26 +89,26 @@ const LeaseToOwnVehicles = () => {
 
     const leastAmountFinanceCostWithoutVAT =
       leasedAmouontPerYearWithoutDownPayment + financeCostPeryear;
-    // const leastAmountFinanceCostWithVAT =
-    //   leastAmountFinanceCostWithoutVAT * 1.05;
+    const leastAmountFinanceCostWithVAT =
+      leastAmountFinanceCostWithoutVAT * 1.05;
 
     const monthlyInstallmentsPriceWithoutVAT =
       leastAmountFinanceCostWithoutVAT / (12 * numOfYears);
-    // const monthlyInstallmentsPriceWithVAT =
-    //   monthlyInstallmentsPriceWithoutVAT * 1.05;
+    const monthlyInstallmentsPriceWithVAT =
+      monthlyInstallmentsPriceWithoutVAT * 1.05;
 
-    // const totalLeasedPaymentWithoutVAT =
-    //   monthlyInstallmentsPriceWithoutVAT * 12 * numOfYears;
-    // const totalLeasedPaymentWithVAT =
-    //   monthlyInstallmentsPriceWithVAT * 12 * numOfYears;
+    const totalLeasedPaymentWithoutVAT =
+      monthlyInstallmentsPriceWithoutVAT * 12 * numOfYears;
+    const totalLeasedPaymentWithVAT =
+      monthlyInstallmentsPriceWithVAT * 12 * numOfYears;
 
     const premiumFullInsurancePerYearWihtoutVAT =
       totalSellingPrice * 1.1 * 0.03 * numOfYears;
-    // const premiumFullInsurancePerYearWihtVAT =
-    //   premiumFullInsurancePerYearWihtoutVAT * 1.05;
+    const premiumFullInsurancePerYearWihtVAT =
+      premiumFullInsurancePerYearWihtoutVAT * 1.05;
 
     const yearlyRegisterationWithoutVAT = 2000 * numOfYears;
-    // const yearlyRegisterationWithVAT = yearlyRegisterationWithoutVAT * 1.05;
+    const yearlyRegisterationWithVAT = yearlyRegisterationWithoutVAT * 1.05;
 
     const someChargesCalculation =
       (premiumFullInsurancePerYearWihtoutVAT + yearlyRegisterationWithoutVAT) *
@@ -149,8 +116,8 @@ const LeaseToOwnVehicles = () => {
 
     const monthlyRegisterationInsurancePriceWithoutVAT =
       someChargesCalculation / (12 * numOfYears);
-    // const monthlyRegisterationInsurancePriceWithVAT =
-    //   monthlyRegisterationInsurancePriceWithoutVAT * 1.05;
+    const monthlyRegisterationInsurancePriceWithVAT =
+      monthlyRegisterationInsurancePriceWithoutVAT * 1.05;
 
     const finalPricePerMonthWithoutVATBeforeRound =
       monthlyInstallmentsPriceWithoutVAT +
@@ -170,47 +137,23 @@ const LeaseToOwnVehicles = () => {
     return finalPricePerMonthWithVAT;
   };
 
-  const calculateCarInsuranceEstimate = (estCarPrice) => {
-    if (!estCarPrice || estCarPrice < 30000) {
-      return "0 AED";
-    }
-    const insuranceEstimate = Math.round(estCarPrice * 1.10 * 0.03);
-    return `${formatNumber(insuranceEstimate)} AED`;
-  };
-
   const ltoSummaryData = [
     {
       label: "Monthly Payment",
-      value:
-        estCarPrice >= 30000 && durationVal
-          ? `${formatNumber(
-              calculateLeaseToOwnPrice(
-                durationVal / 12,
-                estCarPrice,
-                downPaymentVal / 100
-              )
-            )} AED`
-          : "0 AED",
+      value: `${calculateLeaseToOwnPrice(
+        durationVal / 12,
+        estCarPrice,
+        downPaymentVal / 100
+      )} AED`,
     },
-
     {
       label: "Down payment",
-      value:
-        estCarPrice >= 30000
-          ? `${formatNumber(
-              Math.round(estCarPrice * (downPaymentVal / 100))
-            )} AED`
-          : "0 AED",
+      value: `${estCarPrice * (downPaymentVal / 100)} AED`,
     },
     { label: "Duration", value: `${durationVal} months` },
     {
       label: "Car Insurance estimate p/a",
-      value: calculateCarInsuranceEstimate(estCarPrice),
-    },
-
-    {
-      label: "Service Charges p/a (optional)",
-      value: serviceChargeValue,
+      value: `${estCarPrice * 0.011 * 0.03} AED`,
     },
   ];
 
@@ -229,7 +172,7 @@ const LeaseToOwnVehicles = () => {
   // }
 
   return (
-    <div id="main" className="pb-2 bg-white">
+    <div id="main" className="pb-2 ">
       <>
         <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
@@ -237,36 +180,106 @@ const LeaseToOwnVehicles = () => {
             <MainNavbar />
           </div>
         </div>
+        {/* <div className="lto-main-banner">
+          <Container>
+            <Row>
+              <Col lg={8} md={8} sm={12} xs={12}>
+                <h1>LEASE TO OWN</h1>
+                <h4 className="heading-4-lto pt-3">
+                  Build Your Own Leasing Plan
+                </h4>
+                <Row>
+                  <Col lg={4} md={4} sm={4} xs={6} className="pt-2">
+                    <span>LEASE TERM</span>
+                    <h5 className="heading-5-lto">1-5 YEARS</h5>
+                    <span>For Any Car</span>
+                  </Col>
 
+                  <Col lg={4} md={4} sm={4} xs={6} className="pt-2">
+                    <span>DOWN PAYMENT</span>
+                    <h5 className="heading-5-lto">FROM 0%</h5>
+                    <span>No Hidden Fees</span>
+                  </Col>
+
+                  <Col lg={4} md={4} sm={4} xs={6} className="pt-2">
+                    <span>CAR HANDOVER</span>
+                    <h5 className="heading-5-lto">WITHIN 4 DAYS</h5>
+                    <span>After a Down Payment</span>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Container>
+        </div> */}
+        <br />
+        <div className="section-main">
+        <div className="container main-container">
+          
+           
+            <div className="main-features">
+                <div className="feature">
+                    <span className="main-tip">Lease term</span>
+                    <span className="feature-value">3 years</span>
+                    <span className="feature-tip">For any car</span>
+                </div>
+
+                <div className="feature">
+                    <span className="main-tip">Down payment</span>
+                    <span className="feature-value">From 20%</span>
+                    <span className="feature-tip">No hidden fees</span>
+                </div>
+                <div className="feature">
+                    <span className="main-tip">Car handover</span>
+                    <span className="feature-value">24-48 hours</span>
+                    <span className="feature-tip">After a down payment</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+        <br />
         <Container>
-          <section className="lto-main-banner-section mt-3">
-            <div className="lto-main-banner-div">
-              <div className="imgBox">
-                <img
-                  src={LTOMainBannerImg}
-                  alt="abc"
-                  height="auto"
-                  width="40%"
-                  id="image-section"
-                />
-              </div>
-            </div>
-          </section>
-          <section className="lto-dealing-brands mt-3">
-            <div className="lto-our-brand-div">
-              <div className="lto-our-brand-heading">
-                <h3 className="lto-headings">OUR BRANDS</h3>
-              </div>
-            </div>
+          <section className="lto-dealing-brands">
+            <Row>
+              <Col
+                xl={5}
+                lg={4}
+                md={4}
+                sm={12}
+                xs={12}
+                className="dealing-brands-lto-text-col"
+              >
+                <h1 className="dealing-brands-lto-text">
+                  BRANDS <br className="br-tag-lg-screens" /> WE DEAL IN
+                </h1>
+              </Col>
+              <Col
+                className="dealing-brands-lto-icons-container"
+                xl={7}
+                lg={8}
+                md={8}
+                sm={12}
+                xs={12}
+              >
+                {carBrands.map((brand, index) => (
+                  <div key={index} className={`car-brands-lto-div`}>
+                    <img
+                      src={brand.logo}
+                      className="single-brand-logo-lto"
+                      title={brand.title}
+                      alt="Logo"
+                    />
+                  </div>
+                ))}
+              </Col>
+            </Row>
           </section>
           <br />
           <br />
 
           <section className="lto-process">
             <div className="lto-process-heading">
-              <h3 className="lto-process-main-heading lto-headings">
-                LEASE TO OWN PROCESS
-              </h3>
+              <h3 className="lto-process-main-heading">LEASE TO OWN PROCESS</h3>
             </div>
             <div className="lto-process-icons-main-div"></div>
           </section>
@@ -278,7 +291,7 @@ const LeaseToOwnVehicles = () => {
           >
             <section className="lto-calculator-main-section">
               <div className="lto-calculator-main-div">
-                <h3 className="lto-calculator-main-heading lto-headings">
+                <h3 className="lto-calculator-main-heading">
                   LEASE TO OWN CALCULATOR
                 </h3>
                 <p>
@@ -290,9 +303,7 @@ const LeaseToOwnVehicles = () => {
                   <div className="lto-calculator-div">
                     <Row>
                       <Col className="leasing-detail-div col-lg-6 col-md-6 col-sm-12 col-xs-12 col-12">
-                        <h4 className="lto-cal-leasing-detail">
-                          Leasing Details
-                        </h4>
+                        <h4>Leasing Details</h4>
                         <br />
                         <Row className="align-items-center">
                           <label htmlFor="est_CarPrice">
@@ -426,12 +437,12 @@ const LeaseToOwnVehicles = () => {
                             key={index}
                             className="align-items-center pt-2 pb-2"
                           >
-                            <Col className="text-left col-8">
+                            <Col className="text-left">
                               <h5 className="lto-cal-summary-label-text">
                                 {item.label}
                               </h5>
                             </Col>
-                            <Col className="lto-cal-summary-value-text text-right col-4">
+                            <Col className="lto-cal-summary-value-text text-right ">
                               <p>{item.value}</p>
                             </Col>
                           </Row>
@@ -451,7 +462,7 @@ const LeaseToOwnVehicles = () => {
             </section>
           </form>
           <br />
-          {/* <section className="lto-service-pkg-main-section">
+          <section className="lto-service-pkg-main-section">
             <div className="ltoservice-pkg-main-div">
               <h3>SERVICE PACKAGES</h3>
               <p>
@@ -502,11 +513,6 @@ const LeaseToOwnVehicles = () => {
                   ))}
                 </tbody>
               </table>
-            </div>
-          </section> */}
-          <section className="lto-testimonial-section">
-            <div className="lto-testimonial-div">
-              <h3 className="lto-headings">TESTIMONIALS</h3>
             </div>
           </section>
           <br />

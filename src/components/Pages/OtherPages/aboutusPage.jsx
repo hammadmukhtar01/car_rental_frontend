@@ -11,6 +11,8 @@ import {
   SiAbbrobotstudio,
   SiAbbott,
   SiAbletonlive,
+  SiCachet,
+  SiAbstract
 } from "react-icons/si";
 
 const reasons = [
@@ -47,14 +49,14 @@ const reasons = [
   },
 
   {
-    icon: <SiAbletonlive className="legacy-icon" />,
+    icon: <SiCachet className="legacy-icon" />,
     heading: "Innovation and Sustainability",
     description:
       " As part of the Milele family, we embrace innovation and sustainability. Our commitment to eco-friendly practices is reflected in our efforts to incorporate fuel-efficient vehicles into our fleet, contributing to a greener and more sustainable future.",
   },
 
   {
-    icon: <SiAbletonlive className="legacy-icon" />,
+    icon: <SiAbstract className="legacy-icon" />,
     heading: "Your Journey, Our Priority",
     description:
       " Embark on your journey with the confidence that Milele Car Rental is dedicated to turning every drive into a memorable experience. With Milele Corporations' enduring legacy supporting us, we stand as your trusted partner for all your car rental needs.",

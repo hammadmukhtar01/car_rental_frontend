@@ -104,11 +104,17 @@ const VehiclesPage = () => {
       dropoffLocTabV1 = storedFormFields.selectedTabDropOff;
 
       if (storedFormFields?.pickupLocationStateV1) {
-        console.log("in If state value is --------1---------: ", storedFormFields?.pickupLocationStateV1);
+        console.log(
+          "in If state value is --------1---------: ",
+          storedFormFields?.pickupLocationStateV1
+        );
         setPickupLocStateValue(storedFormFields?.pickupLocationStateV1);
       } else {
         pickupLocState1 = queryParams.get("pickupLocState");
-        console.log("in else state is -----------2---------: ", pickupLocState1);
+        console.log(
+          "in else state is -----------2---------: ",
+          pickupLocState1
+        );
         setPickupLocStateValue(pickupLocState1);
       }
 
@@ -179,7 +185,7 @@ const VehiclesPage = () => {
   const startDateParam = queryParams.get("startDate");
   const endDateParam = queryParams.get("endDate");
   const carTypeParam = queryParams.get("carType");
-  console.log("carTypeParam value is---", carTypeParam)
+  console.log("carTypeParam value is---", carTypeParam);
 
   const handlePickupModalClose = () => {
     setShowPickupModal(false);
@@ -305,8 +311,10 @@ const VehiclesPage = () => {
 
   useEffect(() => {
     if (carTypeParam) {
-      const paramCarTypes = carTypeParam.split(',');
-      const selectedTypes = carType.filter(type => paramCarTypes.includes(type));
+      const paramCarTypes = carTypeParam.split(",");
+      const selectedTypes = carType.filter((type) =>
+        paramCarTypes.includes(type)
+      );
       setSelectedCarTypes(selectedTypes);
     }
   }, [carTypeParam, carType]);
@@ -455,8 +463,25 @@ const VehiclesPage = () => {
   };
 
   const allCarsBookingButton = (tariffGroupId, startDate, endDate) => {
-    if (!pickUpTime || !dropOffTime) {
-      toast.error("pickup & dropoff time is missing.", {
+    const missingFields = [];
+    if (!pickupLocationMessage) {
+      missingFields.push("Pickup location");
+    }
+    if (!pickUpTime) {
+      missingFields.push("Pickup time");
+    }
+    if (!dropOffTime) {
+      missingFields.push("Dropoff time");
+    }
+    if (showDropoff && !dropoffLocationMessage) {
+      missingFields.push("Dropoff location");
+    }
+
+    if (missingFields.length > 0) {
+      const errorMessage = `${missingFields.join(
+        ", "
+      )} field(s) are missing.`;
+      toast.error(errorMessage, {
         autoClose: 1000,
         style: {
           border: "1px solid #c0c0c0",

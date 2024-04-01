@@ -8,13 +8,14 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "owl.carousel/dist/assets/owl.theme.green.css";
 import { BsPersonCircle } from "react-icons/bs";
-import carFleetImg1 from "../../images/suv-car-fleet-1.png";
-import carFleetImg2 from "../../images/sedan-car-fleet-2.png";
-import carFleetImg3 from "../../images/economy-car-fleet-3.png";
 import axios from "axios";
 
 const AnimatedCarSection = () => {
   const navigate = useNavigate();
+  const [chevroletImg, setChevroletImg] = useState("");
+  const [nissanImg, setNissanImg] = useState("");
+  const [hyundaiImg, setHyundaiImg] = useState("");
+  const [toyotaCorollaImg, setToyotaCorollaImg] = useState("");
 
   const [carsData, setCarsData] = useState([]);
 
@@ -63,19 +64,42 @@ const AnimatedCarSection = () => {
 
       const response = await axios.post(url, {}, { headers });
 
-      const filteredCarsData = response.data.result.items.filter(
-        (car) =>
-          car.title === "SUV" ||
-          car.title === "Economy" ||
-          car.title === "Sedan" ||
-          car.title === "Toyota Corolla" ||
-          car.title === "HatchBack"
-      );
-      setCarsData(filteredCarsData);
+      // const filteredCarsData = response.data.result.items.filter(
+      //   (car) =>
+      //     car.title === "Toyota Corolla" ||
+      //     car.title === "Nissan" ||
+      //     car.title === "Hyundai" ||
+      //     car.title === "Chevrolet"
+      // );
+      // setCarsData(filteredCarsData);
 
-      // setCarsData(response.data.result.items);
+      response.data.result.items.forEach((car) => {
+        switch (car.title) {
+          case "Chevrolet":
+            console.log("caaaaese 11111 -------")
+            setChevroletImg(car.displayImageUrl);
+            break;
+          case "Nissan":
+            console.log("caaaaese 222222222-------")
+            setNissanImg(car.displayImageUrl);
+            break;
+          case "Hyundai":
+            console.log("caaaaese 333333-------")
+
+            setHyundaiImg(car.displayImageUrl);
+            break;
+          case "Toyota Corolla":
+            console.log("caaaaese 444444-------")
+
+            setToyotaCorollaImg(car.displayImageUrl);
+            break;
+          default:
+            break;
+        }
+      });
+
       console.log(
-        "Result of all cars in fleeeeeet : ",
+        "Result of all cars in fleeeeeet animation car is --: ",
         response.data.result.items
       );
     } catch (error) {
@@ -87,26 +111,30 @@ const AnimatedCarSection = () => {
     fetchCarsData();
   }, [fetchCarsData]);
 
+  useEffect(() => {
+    if (chevroletImg && nissanImg && hyundaiImg && toyotaCorollaImg) {
+      window.$(".owl-carousel").trigger('refresh.owl.carousel');
+    }
+  }, [chevroletImg, nissanImg, hyundaiImg, toyotaCorollaImg]);
+
+  
+
   const imagesData = [
     {
-      displayImageUrl: carFleetImg2,
-      title: "SUV",
+      displayImageUrl: nissanImg,
+      title: "Nissan",
     },
     {
-      displayImageUrl: carFleetImg3,
-      title: "Economy",
+      displayImageUrl: hyundaiImg,
+      title: "Hyundai",
     },
     {
-      displayImageUrl: carFleetImg1,
-      title: "Sedan",
+      displayImageUrl: toyotaCorollaImg,
+      title: "Toyota Corolla",
     },
     {
-      displayImageUrl: carFleetImg2,
-      title: "HatchBack",
-    },
-    {
-      displayImageUrl: carFleetImg2,
-      title: "HatchBack",
+      displayImageUrl: chevroletImg,
+      title: "Chevrolet",
     },
   ];
 
@@ -132,7 +160,7 @@ const AnimatedCarSection = () => {
               <div className="styled-label">
                 <div className="location-label">
                   <BsPersonCircle className="mr-2 home-page-heading-icon" />
-                  <span className="fs-3">Our Fleet Cars:</span>
+                  <span className="fs-3"><b>Our Fleet Cars:</b></span>
                   <hr className="home-page-heading-underline" />
                 </div>
               </div>
