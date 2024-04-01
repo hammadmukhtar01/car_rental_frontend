@@ -1,20 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import MainNavbar from "../navbar/mainNavbar";
 import "./leaseToOwn.css";
 import LTOMainBannerImg from "../../images/lto-images/lto-main-banner-img.png";
-import hyundaiIcon from "../../images/lto-images/lto-brands-icons/Hyundai.png";
-import kiaIcon from "../../images/lto-images/lto-brands-icons/KIA.png";
-import lexusIcon from "../../images/lto-images/lto-brands-icons/Lexus.png";
-import suzukiIcon from "../../images/lto-images/lto-brands-icons/Suzuki.png";
-import toyotaIcon from "../../images/lto-images/lto-brands-icons/Toyota.png";
+// import hyundaiIcon from "../../images/lto-images/lto-brands-icons/Hyundai.png";
+// import kiaIcon from "../../images/lto-images/lto-brands-icons/KIA.png";
+// import lexusIcon from "../../images/lto-images/lto-brands-icons/Lexus.png";
+// import suzukiIcon from "../../images/lto-images/lto-brands-icons/Suzuki.png";
+// import toyotaIcon from "../../images/lto-images/lto-brands-icons/Toyota.png";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
+import LTOProcessImgWeb from "../../images/lto-images/lto-process-img-web-updated.png";
+import LTOProcessImgMob from "../../images/lto-images/lto-process-img-mob-updated.png";
+
+const LargeBanner = LTOProcessImgWeb;
+const SmallBanner = LTOProcessImgMob;
 
 const LeaseToOwnVehicles = () => {
   const [estCarPrice, setEstCarPrice] = useState("");
+  const [bannerImg, setBannerImg] = useState(LargeBanner);
+
+  const iconsContext = require.context(
+    "../../images/lto-images/lto-our-brands-all-icons",
+    false,
+    /\.png$/
+  );
+  const icons = iconsContext.keys().map((key) => iconsContext(key));
+  console.log(icons);
 
   function formatNumber(num) {
     return new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(
@@ -22,13 +36,31 @@ const LeaseToOwnVehicles = () => {
     );
   }
 
-  const carBrands = [
-    { name: "hyundai", logo: hyundaiIcon, title: "Hyundai" },
-    { name: "kia", logo: kiaIcon, title: "Kia" },
-    { name: "lexus", logo: lexusIcon, title: "Lexus" },
-    { name: "suzuki", logo: suzukiIcon, title: "Suzuki" },
-    { name: "toyota", logo: toyotaIcon, title: "Toyota" },
-  ];
+  useEffect(() => {
+    const changeBanner = () => {
+      if (window.innerWidth <= 767) {
+        setBannerImg(SmallBanner);
+      } else {
+        setBannerImg(LargeBanner);
+      }
+    };
+
+    changeBanner();
+
+    window.addEventListener("resize", changeBanner);
+
+    return () => {
+      window.removeEventListener("resize", changeBanner);
+    };
+  }, []);
+
+  // const carBrands = [
+  //   { name: "hyundai", logo: hyundaiIcon, title: "Hyundai" },
+  //   { name: "kia", logo: kiaIcon, title: "Kia" },
+  //   { name: "lexus", logo: lexusIcon, title: "Lexus" },
+  //   { name: "suzuki", logo: suzukiIcon, title: "Suzuki" },
+  //   { name: "toyota", logo: toyotaIcon, title: "Toyota" },
+  // ];
 
   const servicePackages = [
     { carValue: 50000, packagePrice: "2,500" },
@@ -174,7 +206,7 @@ const LeaseToOwnVehicles = () => {
     if (!estCarPrice || estCarPrice < 30000) {
       return "0 AED";
     }
-    const insuranceEstimate = Math.round(estCarPrice * 1.10 * 0.03);
+    const insuranceEstimate = Math.round(estCarPrice * 1.1 * 0.03);
     return `${formatNumber(insuranceEstimate)} AED`;
   };
 
@@ -257,6 +289,16 @@ const LeaseToOwnVehicles = () => {
               <div className="lto-our-brand-heading">
                 <h3 className="lto-headings">OUR BRANDS</h3>
               </div>
+              <div className="lto-brand-icons">
+                {icons.map((icon, index) => (
+                  <img
+                    key={index}
+                    src={icon}
+                    className="lto-single-brand-class"
+                    alt={`Icon ${index}`}
+                  />
+                ))}
+              </div>
             </div>
           </section>
           <br />
@@ -268,9 +310,19 @@ const LeaseToOwnVehicles = () => {
                 LEASE TO OWN PROCESS
               </h3>
             </div>
-            <div className="lto-process-icons-main-div"></div>
+            <div className="lto-main-banner-div">
+              <div className="imgBox">
+                <img
+                  src={bannerImg}
+                  alt="abc"
+                  height="auto"
+                  width="40%"
+                  id="image-section"
+                />
+              </div>
+            </div>
           </section>
-
+          <br />
           <form
             action="#"
             className="signin-form"
