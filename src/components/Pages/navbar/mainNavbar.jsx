@@ -9,6 +9,7 @@ import Image from "react-bootstrap/Image";
 import Whitelogo from "../../images/car_rental_logo_old.png";
 import Coloredlogo from "../../images/car_rental_logo.png";
 import { Col } from "react-bootstrap";
+import './navbar.css';
 
 function OffcanvasExample() {
   const [isHomePage, setIsHomePage] = useState(false);
@@ -57,7 +58,7 @@ function OffcanvasExample() {
                   <Image
                     // src={`${isHomePage ? Whitelogo : Coloredlogo}`}
                     src={logoImage}
-                    alt="Main Logo"
+                    alt="Main Logo lg"
                     fluid
                   />
                 </a>
@@ -67,7 +68,7 @@ function OffcanvasExample() {
           {/* Right Side */}
           <Col xs={9} style={{ display: "contents" }}>
             <Navbar.Toggle
-              className="hidden-toggle-button"
+              className="hidden-toggle-button white-navbar-toggler-icon"
               aria-controls="responsive-navbar-nav"
             />
             <Navbar.Offcanvas
@@ -80,9 +81,9 @@ function OffcanvasExample() {
                   <div className="toggle-main-logo">
                     <a href="/home">
                       <Image
-                        // src={`${isHomePage ? Whitelogo : Coloredlogo}`}
-                        src={logoImage}
-                        alt="Main Logo"
+                        // src={logoImage}
+                        src={Coloredlogo}
+                        alt="Main Logo Sm"
                         fluid
                       />
                     </a>

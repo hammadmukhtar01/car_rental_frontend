@@ -505,10 +505,6 @@ div.col-lg-10.navbar-nav {
   margin: 0px !important;
 }
 
-.navbar-toggler {
-  border-color: rgb(116, 116, 116) !important;
-}
-
 .navbar-menus {
   display: float;
   float: right;
@@ -542,6 +538,9 @@ div.col-lg-10.navbar-nav {
     margin: 5px 0;
     width: 100%;
     display: block;
+  }
+  .navbar-white .nav-link {
+    color: black !important;
   }
 }
 
