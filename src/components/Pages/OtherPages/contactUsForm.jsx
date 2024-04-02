@@ -180,7 +180,7 @@ const ContactUsForm = () => {
                 className="contactUs-form-control animated-button submit px-3"
                 // onClick={(e) => handleContactUsForm(e)}
               >
-                <span className="button-text-span">
+                <span className="button-text-span p-4">
                   <span className="transition"></span>
                   <span className="gradient"></span>
                   <span className="label">Submit</span>

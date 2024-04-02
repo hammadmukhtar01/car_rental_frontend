@@ -1,0 +1,177 @@
+{
+    "booking": {
+        "startDate": "2024-04-12T20:00:00.782Z",
+        "endDate": "2024-04-25T20:00:00.787Z",
+        "bookingType": 1,
+        "charges": [
+            {
+                "tariff": [
+                    {
+                        "id": 97430,
+                        "tariffGroupId": 8965,
+                        "order": 1,
+                        "subOrder": 1,
+                        "chargesTypeId": 1,
+                        "rateTypeId": 1,
+                        "from": 1,
+                        "to": 6,
+                        "weekEnd": false,
+                        "rate": 80,
+                        "rateNewDriver": 0,
+                        "notes": null,
+                        "included": false,
+                        "limit": 0,
+                        "excessRate": 0,
+                        "maxUnits": 0
+                    }
+                ],
+                "agreementId": 0,
+                "order": 1,
+                "vehicleId": null,
+                "chargesTypeId": 1,
+                "rateTypeId": 1,
+                "rate": 80,
+                "discountPercent": 0,
+                "excessRate": 0,
+                "limit": 0,
+                "included": false,
+                "reversed": 0,
+                "invoiced": 0,
+                "invoicedTax": 0,
+                "received": 0,
+                "accepted": true,
+                "units": 1,
+                "notes": "testing notes",
+                "charges": 80,
+                "tax": 0,
+                "applyOnClosing": false,
+                "isMandatory": true,
+                "taxable": false,
+                "isSeparatInvoice": false,
+                "extraHours": null,
+                "chargesType": {
+                    "id": 1,
+                    "name": "Rent",
+                    "detail": null,
+                    "chargesCategory": 1
+                },
+                "rateType": {
+                    "id": 1,
+                    "name": "/Day"
+                },
+                "invoiceToDriver": false,
+                "hasIncludedTariff": false
+            }
+        ],
+        "taxPercent": 10,
+        "customer": {
+            "id": "899058",
+            "firstName": "Hammad1",
+            "lastName": "Mukhtar",
+            "email": "hammad.mukhtar@milele.com",
+            "mobileNo": "0508805974",
+            "address": {
+                "addressLine1": "Milele motors testing1"
+            },
+            "locationId": "8028"
+        },
+        "pickupLocation": {},
+        "dropoffLocation": {},
+        "location": {
+            "id": "8023",
+            "l_id": "8023",
+            "name": "Milele Head Office AF-07",
+            "code": "MBR-SR07",
+            "time": "2024-04-15 22:20:10"
+        },
+        "closingLocation": {
+            "id": "8024",
+            "l_id": "8024",
+            "name": "Milele Head Office AF-03",
+            "code": "MBR-SR03",
+            "time": "2024-04-15 22:20:10"
+        },
+        "status": 0,
+        "bookingStatus": 1,
+        "movements": null,
+        "discount": 0,
+        "tax": 0,
+        "category": "",
+        "startDatePart": "2024-04-13T05:43:32.782Z",
+        "endDatePart": "2024-04-26T05:43:32.787Z",
+        "startDateHrs": "0",
+        "startDateMinutes": "0",
+        "endDateHrs": "0",
+        "endDateMinutes": "0",
+        "typeOfDrive": "",
+        "totalCharges": 80,
+        "tariffGroup": {
+            "tenantId": 0,
+            "title": "Chevrolet",
+            "subTitle": "LHD Captiva Premier 1.5P AT",
+            "notes": null,
+            "passengerCapacity": 7,
+            "smallBagsCapacity": 3,
+            "largeBagsCapacity": 1,
+            "acrissCategoryId": null,
+            "acrissTypeId": null,
+            "acrissTransDriveId": null,
+            "acrissFuelAcId": null,
+            "displayImageId": null,
+            "groupNo": 0,
+            "exteriorDiagramName": null,
+            "interiorDiagramName": null,
+            "safetyCheckTemplateId": null,
+            "skipBookingGatewayPayment": false,
+            "hideFromBookingPlugin": false,
+            "inActive": false,
+            "acrissCategory": {
+                "code": "R",
+                "name": "Standard Elite",
+                "id": 10
+            },
+            "acrissType": {
+                "code": "D",
+                "name": "4-5 Door",
+                "id": 3
+            },
+            "acrissTransDrive": {
+                "code": "A",
+                "name": "Automatic/Unspecified",
+                "id": 4
+            },
+            "acrissFuelAc": {
+                "code": "N",
+                "name": "Unspecified Fuel/Power Without Air",
+                "id": 2
+            },
+            "displayImage": {
+                "tenantId": 0,
+                "documentType": 0,
+                "guid": null,
+                "name": null,
+                "url": "https://speedclouddocs.blob.core.windows.net/container7431/302ba7d4-62bb-44be-8bf0-b94595c6cece.jpg?sv=2015-07-08&sr=c&si=rp&sig=DGWtjfCTk13zQvkASC6QcaVLKKPhzGi0Q8WUYZp7ytQ%3D",
+                "path": null,
+                "id": 0
+            },
+            "safetyCheckTemplate": null,
+            "id": 8965
+        },
+        "tariffGroupId": 8965,
+        "flightNo": "abc-123-xyz",
+        "flightDateTime": null,
+        "airline": null,
+        "terminal": null,
+        "notes": "GROUP A",
+        "notes2": null,
+        "isFlightDetail": false,
+        "isAnotherRemark": true,
+        "isTravelAbroad": false,
+        "IsBooking": true,
+        "closingLocationId": "7877",
+        "agreementCategory": 1
+    },
+    "amount": "80",
+    "skipBookingGatewayPayment": false,
+    "currency": "AED"
+}

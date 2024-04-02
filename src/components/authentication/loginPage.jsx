@@ -158,14 +158,14 @@ const LoginPage = () => {
                   </Form.Group>
 
                   <div className="form-group-3 col-lg-12">
-                    <div className="col-lg-6">
+                    <div className="col-lg-6 d-flex justify-content-center">
                       <p></p>
                       <button
                         type="submit"
                         className="login-form-control animated-button submit"
                         // onClick={(e) => handleLogin(e)}
                       >
-                        <span className="button-text-span">
+                        <span className="button-text-span p-4">
                           <span className="transition"></span>
                           <span className="gradient"></span>
                           <span className="label">Log In</span>

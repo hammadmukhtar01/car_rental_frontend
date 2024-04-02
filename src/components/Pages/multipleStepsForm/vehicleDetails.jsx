@@ -357,7 +357,7 @@ useEffect(() => {
           <>
             <div className="step1-car-location-details-container">
               <div className="step1-car-details">
-                <Row className="pl-3 pt-3">
+                <Row className="pl-3 pr-3 pt-3">
                   <h4 className="step1-car-name pl-3">{carTypeName}</h4>
                   <span className="step1-car-type pl-3">{carCategory} </span>
                   <Col lg={8} md={12} sm={12} xs={12}>
@@ -473,6 +473,7 @@ useEffect(() => {
                               </div>
                             </div>
                           </div>
+                          <br />
                         </div>
                       </div>
                     </div>
@@ -748,7 +749,7 @@ useEffect(() => {
                 </Row>
               </div>
               <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
-                <Col lg={3} md={4} sm={6} xs={8}>
+                <Col lg={3} md={4} sm={6} xs={8} className="d-flex justify-content-center ">
                   <div className="button-container">
                     <button
                       className="animated-button booking-text next"

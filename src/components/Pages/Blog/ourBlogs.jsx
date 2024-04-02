@@ -68,7 +68,7 @@ const OurBlogs = () => {
     >
       <div className="container">
         <div className="single-blog blog-style-one">
-          <div className="blog-image">
+          <div className="blog-image pb-3">
             <img src={blogData.imageUrl} alt="Blog" />
             <span className="category ">{blogData.category}</span>
           </div>

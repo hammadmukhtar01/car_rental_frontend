@@ -694,7 +694,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                   </div>
                 </div>
                 <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
-                  <Col lg={3} md={4} sm={6} xs={8}>
+                  <Col lg={3} md={4} sm={6} xs={8} className="d-flex justify-content-center">
                     <div className="button-container">
                       <button
                         className="animated-button booking-text action-button next"

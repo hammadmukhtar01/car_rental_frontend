@@ -57,12 +57,12 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
           <Route path="/resetpassword/:token" element={<ResetPasswordPage />} />
           <Route path="/bookingPage/:step" element={<VerificationForm />} />
-          <Route path="/bookingPage2" element={<AddOnsDocuments />} />
-          <Route path="/bookingPage3" element={<PaymentPage />} />
-          <Route path="/blogPage1/:id" element={<BlogPage1/>} />
-          <Route path="/blogPage2/:id" element={<BlogPage2/>} />
-          <Route path="/blogPage3/:id" element={<BlogPage3/>} />
-          <Route path="/blogPage4/:id" element={<BlogPage4/>} />
+          {/* <Route path="/bookingPage/2" element={<AddOnsDocuments />} /> */}
+          {/* <Route path="/bookingPage/3" element={<PaymentPage />} /> */}
+          <Route path="/blogPage1/1" element={<BlogPage1/>} />
+          <Route path="/blogPage2/2" element={<BlogPage2/>} />
+          <Route path="/blogPage3/3" element={<BlogPage3/>} />
+          <Route path="/blogPage4/4" element={<BlogPage4/>} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />

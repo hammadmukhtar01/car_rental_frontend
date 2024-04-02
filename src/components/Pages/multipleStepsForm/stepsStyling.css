@@ -324,7 +324,7 @@ h4 {
 .car-image-1 {
   max-width: inherit;                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 
-  -webkit-box-reflect:below -15em -webkit-gradient(linear, right top, right
+  -webkit-box-reflect:below -5em -webkit-gradient(linear, right top, right
         bottom, from(transparent), color-stop(30%, transparent), to(rgba(255, 255, 255, 0.4)));
 }
 

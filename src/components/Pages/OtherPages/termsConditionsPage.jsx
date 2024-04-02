@@ -23,15 +23,16 @@ const TermsConditionsPage = () => {
           <MainNavbar />
         </div>
       </div>
-      <div className="container pt-4 pb-5">
+      <div className="container pt-4 pb-2">
         <div className="styled-label text-center">
           <span>
             <b className="fs-3"> Terms & Conditions</b>
           </span>
           <hr className="middle-hr-tag" />
         </div>
+        <br />
         <div className="all-terms-conditions-main-container">
-          <div className="terms-conditions-main-div row pt-3 pb-3">
+          <div className="terms-conditions-main-div row  pb-3">
             <div className="term-conditions-h1 col-lg-6 col-md-6 col-sm-12 col-xs-12">
               <h5 className="terms-conditions-headings">PAYMENT</h5>
               <p>
@@ -109,7 +110,7 @@ const TermsConditionsPage = () => {
             </div>
           </div>
 
-          <div className="terms-conditions-main-div row pt-3 pb-3">
+          <div className="terms-conditions-main-div row  pb-3">
             <div className="term-conditions-h3 col-lg-6 col-md-6 col-sm-12 col-xs-12">
               <h5 className="terms-conditions-headings">INSURANCE</h5>
               <p>
@@ -131,7 +132,6 @@ const TermsConditionsPage = () => {
                 authorization or consent from MILELE hands over the vehicle to
                 any other person or has caused
               </p>
-              <div className="pb-5"></div>
               <h5 className="terms-conditions-headings">TRAFFIC FINES & VOILATIONS</h5>
               MILELE will pay the fines on regular basis to keep the traffic
               file active with the traffic authorities and will not notify the
@@ -157,7 +157,7 @@ const TermsConditionsPage = () => {
               the date of the offence.
             </div>
 
-            <div className="term-conditions-h4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div className="term-conditions-h4 col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-3">
               <h5 className="terms-conditions-headings">VEHICLE MISUSE</h5>
               <ul className="list-style-capital-alpha">
                 <li>
@@ -230,7 +230,7 @@ const TermsConditionsPage = () => {
             </div>
           </div>
 
-          <div className="terms-conditions-main-div row pt-3 pb-3">
+          <div className="terms-conditions-main-div row  pb-3">
             <div className="term-conditions-h5 col-lg-6 col-md-6 col-sm-12 col-xs-12">
               <h5 className="terms-conditions-headings">SERVICE & MAINTENANCE</h5>
 
@@ -295,8 +295,8 @@ const TermsConditionsPage = () => {
               </p>
             </div>
           </div>
+          
           <div className="term-conditions-h7 col-lg-12">
-            <div className="pb-5"></div>
             <h5 className="terms-conditions-headings">TERMINATION</h5>
             <p>
               Milele have the right to terminate the agreement into following
