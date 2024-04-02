@@ -181,7 +181,7 @@
         "startDateHrs": "0",
         "startDateMinutes": "0",
         "endDateHrs": "0",
-        "endDateMinutes": "0",
+        "endDateMinutes": "0",  
         "typeOfDrive": "",
         "totalCharges": 180,
         "tariffGroup": {
