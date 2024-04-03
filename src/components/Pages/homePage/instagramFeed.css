@@ -1,0 +1,27 @@
+.instagram-feed-div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.instagram-feed-div .col-lg-3.col-md-4.col-sm-6.col-12 {
+  padding: 5px !important;
+}
+
+.instagram-feed-div a img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 576px) {
+  .instagram-feed-div a img {
+    width: 67%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+    .instagram-feed-div a img {
+      width: 70%;
+      height: 200px;
+    }
+  }

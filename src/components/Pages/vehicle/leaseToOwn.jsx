@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 import LTOProcessImgWeb from "../../images/lto-images/lto-process-img-web-updated.png";
 import LTOProcessImgMob from "../../images/lto-images/lto-process-img-mob-updated.png";
+import InstagramFeed from "../homePage/instagramFeed";
 
 const LargeBanner = LTOProcessImgWeb;
 const SmallBanner = LTOProcessImgMob;
@@ -559,6 +560,7 @@ const LeaseToOwnVehicles = () => {
           <section className="lto-testimonial-section">
             <div className="lto-testimonial-div">
               <h3 className="lto-headings">TESTIMONIALS</h3>
+              <InstagramFeed />
             </div>
           </section>
           <br />
