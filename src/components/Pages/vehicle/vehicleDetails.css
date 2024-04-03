@@ -613,7 +613,8 @@ body {
 .flipBox_box > div {
   position: absolute;
   width: 1em;
-  box-shadow: 0 0 0.35em rgba(142, 142, 142, 0.467) inset;
+  /* box-shadow: 0 0 0.35em rgba(112, 64, 0, 0.467) inset; */
+  border: 1px solid rgba(180, 180, 180, 0.673);
 }
 
 .flipBox_box > div:nth-child(1) {
