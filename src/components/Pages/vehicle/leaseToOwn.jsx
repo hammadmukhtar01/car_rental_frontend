@@ -3,11 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import MainNavbar from "../navbar/mainNavbar";
 import "./leaseToOwn.css";
 import LTOMainBannerImg from "../../images/lto-images/lto-main-banner-img.png";
-// import hyundaiIcon from "../../images/lto-images/lto-brands-icons/Hyundai.png";
-// import kiaIcon from "../../images/lto-images/lto-brands-icons/KIA.png";
-// import lexusIcon from "../../images/lto-images/lto-brands-icons/Lexus.png";
-// import suzukiIcon from "../../images/lto-images/lto-brands-icons/Suzuki.png";
-// import toyotaIcon from "../../images/lto-images/lto-brands-icons/Toyota.png";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
@@ -54,14 +49,6 @@ const LeaseToOwnVehicles = () => {
       window.removeEventListener("resize", changeBanner);
     };
   }, []);
-
-  // const carBrands = [
-  //   { name: "hyundai", logo: hyundaiIcon, title: "Hyundai" },
-  //   { name: "kia", logo: kiaIcon, title: "Kia" },
-  //   { name: "lexus", logo: lexusIcon, title: "Lexus" },
-  //   { name: "suzuki", logo: suzukiIcon, title: "Suzuki" },
-  //   { name: "toyota", logo: toyotaIcon, title: "Toyota" },
-  // ];
 
   const servicePackages = [
     { carValue: 50000, packagePrice: "2,500" },
@@ -251,15 +238,7 @@ const LeaseToOwnVehicles = () => {
     console.log("test");
   };
 
-  // const { loading } = useReload();
 
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <ReloadingComponent />
-  //     </>
-  //   );
-  // }
 
   return (
     <div id="main" className="pb-2 bg-white">
