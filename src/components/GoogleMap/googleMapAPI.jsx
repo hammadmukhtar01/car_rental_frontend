@@ -6,7 +6,7 @@
 // const MapComponent = ({ selectedLocatio }) => {
 //   console.log("lat and long are: ", selectedLocatio)
 //   const { isLoaded, loadError } = useLoadScript({
-//     googleMapsApiKey: "AIzaSyAePasC96mT2mWIMAGi0aPUIAL5hKRnhOg",
+//     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
 //   });
 //   const mapRef = React.useRef();
 //   const onMapLoad = React.useCallback((map) => {

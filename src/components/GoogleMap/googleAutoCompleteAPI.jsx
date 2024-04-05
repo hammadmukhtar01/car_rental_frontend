@@ -11,7 +11,7 @@ const SearchLocationInput = ({
 }) => {
   const { placePredictions, getPlacePredictions, isPlacePredictionsLoading } =
     useGoogle({
-      apiKey: "AIzaSyAePasC96mT2mWIMAGi0aPUIAL5hKRnhOg",
+      apiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
     });
   const [value, setValue] = useState(previousLocationValue || "");
   console.log("In auto com google file value is; ", value);

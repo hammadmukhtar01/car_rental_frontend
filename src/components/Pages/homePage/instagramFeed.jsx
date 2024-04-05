@@ -16,8 +16,7 @@ const InstagramFeed = () => {
           resolution: "low_resolution",
           limit: 8,
           //   sort: "most recent",
-          accessToken:
-            "IGQWRQLTVnRUxkTUlhMW5lb29KYXdwRG5iQ19hWEJaelg5SVZAqb3hGQjdrRG9kYXU1REEtR2VDclBSamgzQ0ZAPRG50SFF0TmhELVZAvZAmJJR0t6NTdodjBYaF9UZA2ZAKZA2JCQlBYdHhJVkljY3RCODcxaEJfMjkzb0EZD",
+          accessToken: process.env.REACT_APP_INSTAGRAM_TOKEN_KEY,
             template: '<div class="col-lg-3 col-md-4 col-sm-6 col-12 text-center"><a href="{{link}}" target="_blank"><img src="{{image}}" alt="{{caption}}" class="img-fluid" /></a></div>',
         });
         userFeed.run();
