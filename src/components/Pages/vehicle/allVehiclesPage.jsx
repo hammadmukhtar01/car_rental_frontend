@@ -93,7 +93,7 @@ const VehiclesPage = () => {
     let pickupLocState1;
 
     if (storedFormFields) {
-      checkBoxStoredValue = storedFormFields.showDropoffV1 === 0;
+      checkBoxStoredValue = storedFormFields.showDropoffV1;
       console.log(
         "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
         checkBoxStoredValue

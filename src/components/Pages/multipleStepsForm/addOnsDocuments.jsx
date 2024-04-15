@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useCallback, useEffect } from "react";
 import { Container, Row, Col, Form, Modal } from "react-bootstrap";
 import {
@@ -5,8 +6,14 @@ import {
   BsFillShieldLockFill,
   BsFileEarmarkArrowUp,
 } from "react-icons/bs";
+// import dayjs from 'dayjs';
 import Select from "react-select";
 import axios from "axios";
+import DateTimePicker from "react-datetime-picker";
+import "react-datetime-picker/dist/DateTimePicker.css";
+import "react-calendar/dist/Calendar.css";
+import "react-clock/dist/Clock.css";
+// import { getJson, setOptions, localeAr } from '@mobiscroll/react';
 
 const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [firstName, setFirstName] = useState("");
@@ -23,6 +30,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [selectedAddOns, setSelectedAddOns] = useState([]);
   const [addOnsValuesData, setAddOnsValuesData] = useState([]);
   // const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
+
+  const [driverDateTime, setDriverDateTime] = useState(new Date());
+  const formattedDateTime = driverDateTime.toISOString();
 
   const fetchAddOnsChargesData = useCallback(async () => {
     try {
@@ -229,7 +239,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
     }),
   };
-
   return (
     <div>
       <div className="vehicle-details-location-main-div pt-3 pb-3">
@@ -241,11 +250,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               onSubmit={handleAddOnsDocumentStepForm}
             >
               <div className="step1-car-location-details-container">
-                <div className="step1-location-details pb-3 pt-3">
+                <div className="step1-location-details p-4">
                   <div className="location-label">
                     <div className="styled-label">
                       <BsPersonCircle className="mr-2 heading-icon" />
-                      <b>Driver's Details</b>
+                      <b>Customer's Details</b>
                       <hr className="heading-underline" />
                     </div>
                   </div>
@@ -325,6 +334,61 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                               />
                             </Form.Group>
                           </Col>
+                        </Row>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <br />
+                <div className="step1-location-details p-4">
+                  <div className="location-label">
+                    <div className="styled-label">
+                      <BsPersonCircle className="mr-2 heading-icon" />
+                      <b>Driver's Details</b>
+                      <hr className="heading-underline" />
+                    </div>
+                  </div>
+
+                  <div className="driver-details-form-container">
+                    <div className=" form-group pl-4 pr-4">
+                      <div className="">
+                        <Row>
+                          <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
+                            <Form.Group controlId="formKeyword">
+                              <div className="location-label">
+                                <label className="styled-label">
+                                  <b>Airline Ticket No.</b>
+                                </label>
+                              </div>
+                              <input
+                                className="form-control-location mt-2 col-12"
+                                required
+                                type="text"
+                                placeholder="Enter ticket number"
+                                value={airlineTicketNum}
+                                onChange={(e) =>
+                                  setAirlineTicketNum(e.target.value)
+                                }
+                              />
+                            </Form.Group>
+                          </Col>
+
+                          <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
+                            <Form.Group controlId="formKeyword">
+                              <div className="location-label">
+                                <label className="styled-label">
+                                  <b>Flight DateTime</b>
+                                </label>
+                              </div>
+                              <DateTimePicker
+                                required
+                                className="form-control-age mt-2 col-12"
+                                onChange={setDriverDateTime}
+                                value={driverDateTime}
+                              />
+                            </Form.Group>
+                          </Col>
                           <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
@@ -345,44 +409,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   setNationality(selectedOption.value);
                                 }}
                                 styles={selectStyles}
-                              />
-                            </Form.Group>
-                          </Col>
-
-                          <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
-                            <Form.Group controlId="formKeyword">
-                              <div className="location-label">
-                                <label className="styled-label">
-                                  <b>Driver's Age</b>
-                                </label>
-                              </div>
-                              <input
-                                className="form-control-age mt-2 col-12"
-                                type="number"
-                                required
-                                placeholder="Enter age"
-                                min={22}
-                                value={driversAge}
-                                onChange={(e) => setDriversAge(e.target.value)}
-                              />
-                            </Form.Group>
-                          </Col>
-                          <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
-                            <Form.Group controlId="formKeyword">
-                              <div className="location-label">
-                                <label className="styled-label">
-                                  <b>Airline Ticket No.</b>
-                                </label>
-                              </div>
-                              <input
-                                className="form-control-location mt-2 col-12"
-                                required
-                                type="text"
-                                placeholder="Enter ticket number"
-                                value={airlineTicketNum}
-                                onChange={(e) =>
-                                  setAirlineTicketNum(e.target.value)
-                                }
                               />
                             </Form.Group>
                           </Col>

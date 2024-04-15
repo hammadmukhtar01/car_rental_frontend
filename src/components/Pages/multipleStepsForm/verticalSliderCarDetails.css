@@ -1,5 +1,5 @@
 .css-8t49rw-MuiStepConnector-line {
-  min-height: 70px !important;
+  min-height: 50px !important;
   margin-bottom: 10px;
   /* margin-left: inherit; */
 }
@@ -16,7 +16,7 @@
 }
 
 .pick-drop-data {
-  /* padding: 20px 38px 38px 38px; */
+  padding: 30px 20px;
 }
 
 .customer-icon-stepper-container,
@@ -36,4 +36,13 @@
 
 .pick-drop-data {
   overflow: auto;
+}
+
+
+.react-datetime-picker__inputGroup__input:invalid {
+  background-color: transparent !important;
+}
+
+.react-datetime-picker__wrapper {
+  border: none !important;
 }

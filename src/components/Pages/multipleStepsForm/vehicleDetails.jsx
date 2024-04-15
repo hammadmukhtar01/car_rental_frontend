@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { useLocation } from "react-router";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { BsCpu, BsPerson, BsSuitcase } from "react-icons/bs";
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
@@ -22,6 +21,7 @@ import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import { FaMapMarkerAlt, FaTelegramPlane } from "react-icons/fa";
 import "./verticalSliderCarDetails.css";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const VehicleDetails = ({ nextStep }) => {
@@ -32,7 +32,7 @@ const VehicleDetails = ({ nextStep }) => {
   const [singleVehicleDetails, setSingleVehicleDetails] = useState({});
   const [numberOfDays, setNumberOfDays] = useState(0);
   // const [totalCharges, setTotalCharges] = useState("");
-
+  
   const carTypeInURL = useLocation();
   const queryParams = useMemo(() => new URLSearchParams(carTypeInURL.search), [carTypeInURL.search]);
   const TariffGroupId = queryParams.get("tariffGroupId");
@@ -43,7 +43,9 @@ const VehicleDetails = ({ nextStep }) => {
   const pickupLocParam = queryParams.get("pickupLoc");
   const pickupLocStateParam = queryParams.get("pickupLocState");
   const checkBoxValueParam = queryParams.get("checkBoxValue");
-  const [dropoffLocParam, setDropoffLocParam] = useState('');
+  const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
+
+
 
 useEffect(() => {
   if (checkBoxValueParam === "false") {
@@ -54,7 +56,6 @@ useEffect(() => {
 }, [checkBoxValueParam, pickupLocParam, queryParams]);
 
   console.log("state is ---- ", dropoffLocParam);
-  // const selectedAddressState = "Dubai";
 
   const deliveryCharges = {
     FUJAIRAH: 250,
@@ -169,7 +170,7 @@ useEffect(() => {
 
     {
       name: "NEW40",
-      value: 20,
+      value: 40,
     },
   ];
 
@@ -264,7 +265,7 @@ useEffect(() => {
     if (deliveryCharges[selectedState]) {
       return deliveryCharges[selectedState];
     } else {
-      return 0;
+      return 50;
     }
   };
 
@@ -285,9 +286,10 @@ useEffect(() => {
 
   const grandTotalDiscountedValue = () => {
     if (appliedCoupon) {
-      const discountedValue = Math.ceil(
-        (appliedCoupon.value * grandTotalPrice) / 100
-      );
+      // const discountedValue = Math.ceil(
+      //   (appliedCoupon.value * grandTotalPrice) / 100
+      // );
+      const discountedValue = appliedCoupon.value;
       return discountedValue;
     }
     return 0;
@@ -305,8 +307,13 @@ useEffect(() => {
   };
 
   const handleNextStep1 = () => {
-    const nextStepUrl = "/bookingPage/2";
+    const baseUrl = `/bookingPage/2`; 
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('page', '2');
+    urlParams.set('discountValue', grandTotalDiscountedValue()); 
+    const nextStepUrl = `${baseUrl}?${urlParams.toString()}`;
     window.location.href = nextStepUrl;
+ 
   };
 
   function CustomStepIcon({ locName, locDate, IconName, locTime }) {
@@ -529,7 +536,7 @@ useEffect(() => {
                                   <span className="price-label">
                                     Total Days:
                                   </span>
-                                  <div className="">
+                                  <div className="text-right">
                                     Days{" "}
                                     <span className="charges-value pl-1">
                                       {numberOfDays}
@@ -544,7 +551,7 @@ useEffect(() => {
                                   <span className="price-label">
                                     Rental Charges per day
                                   </span>
-                                  <div className="">
+                                  <div className="text-right">
                                     AED{" "}
                                     <span className="charges-value pl-1">
                                       {totalPrice}
@@ -559,7 +566,7 @@ useEffect(() => {
                                   <span className="price-label">
                                     Rental Charges / {numberOfDays} days
                                   </span>
-                                  <div className="">
+                                  <div className="text-right">
                                     AED{" "}
                                     <span className="charges-value pl-1">
                                       {totalAPIResponseCharges}
@@ -579,7 +586,7 @@ useEffect(() => {
                                   <span className="price-label">
                                     Delivery Charges:
                                   </span>
-                                  <div className="">
+                                  <div className="text-right">
                                     AED{" "}
                                     <span className="charges-value pl-1">
                                       {getDeliveryCharge()}
@@ -600,7 +607,7 @@ useEffect(() => {
                                   <span className="sub-total-price-label">
                                     Sub Total
                                   </span>
-                                  <div className="">
+                                  <div className="text-right">
                                     AED{" "}
                                     <span className="sub-total-price-value pl-1">
                                       {" "}
@@ -620,7 +627,7 @@ useEffect(() => {
                                       Tax Total
                                     </span>{" "}
                                   </div>
-                                  <div className="">
+                                  <div className="text-right">
                                     AED{" "}
                                     <span className="sub-total-price-value pl-1">
                                       {" "}
@@ -695,7 +702,7 @@ useEffect(() => {
                                     <div className="del-value-main-div pb-3">
                                       AED{" "}
                                       <span className="coupon-discount-value">
-                                        -{appliedCoupon.value}%
+                                        -{appliedCoupon.value}
                                       </span>
                                       <span className="deleted-grand-total-price-value pl-1">
                                         {" "}

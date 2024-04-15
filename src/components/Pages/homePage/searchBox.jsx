@@ -54,39 +54,44 @@ const SearchBox = () => {
       let checkBoxStoredValue;
 
       if (storedFormFields) {
-        checkBoxStoredValue = storedFormFields.showDropoffV1 === 0;
+        checkBoxStoredValue = storedFormFields?.showDropoffV1 === 0;
         console.log(
           "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
           checkBoxStoredValue
         );
         setShowDropoff(checkBoxStoredValue);
 
-        pickupLocTabV1 = storedFormFields.selectedTabPickUp;
-        dropoffLocTabV1 = storedFormFields.selectedTabDropOff;
+        pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
+        dropoffLocTabV1 = storedFormFields?.selectedTabDropOff;
+        pickupLocMainInput = storedFormFields?.pickupInputMessageV1;
+        setPickupLocationMessage(pickupLocMainInput);
 
-        if (storedFormFields.dateRangeV1) {
+        pickupLocMainInput = storedFormFields?.deliveryMapLocPickUp;
+        setPickupLocationMessage(pickupLocMainInput);
+
+        if (storedFormFields?.dateRangeV1) {
           storedStartDateRange = new Date(
-            storedFormFields.dateRangeV1.startDate
+            storedFormFields?.dateRangeV1.startDate
           );
-          storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+          storedEndDateRange = new Date(storedFormFields?.dateRangeV1?.endDate);
         }
         if (pickupLocTabV1 === "pick") {
-          pickupLocMainInput = storedFormFields.pickupInputMessageV1;
+          pickupLocMainInput = storedFormFields?.pickupInputMessageV1;
           setPickupLocationMessage(pickupLocMainInput);
         } else if (pickupLocTabV1 === "deliver") {
-          pickupLocMainInput = storedFormFields.deliveryMapLocPickUp;
+          pickupLocMainInput = storedFormFields?.deliveryMapLocPickUp;
           setPickupLocationMessage(pickupLocMainInput);
         }
         if (dropoffLocTabV1 === "pick") {
-          dropoffLocMainInput = storedFormFields.dropoffInputMessageV1;
+          dropoffLocMainInput = storedFormFields?.dropoffInputMessageV1;
           setDropoffLocationMessage(dropoffLocMainInput);
         } else if (dropoffLocTabV1 === "deliver") {
-          dropoffLocMainInput = storedFormFields.deliveryMapLocDropOff;
+          dropoffLocMainInput = storedFormFields?.deliveryMapLocDropOff;
           setDropoffLocationMessage(dropoffLocMainInput);
         }
-        const storedPickUpTime = storedFormFields.pickTimeV1 || "";
+        const storedPickUpTime = storedFormFields?.pickTimeV1 || "";
         setPickUpTime(storedPickUpTime);
-        const storedDropOffTime = storedFormFields.dropTimeV1 || "";
+        const storedDropOffTime = storedFormFields?.dropTimeV1 || "";
         setDropOffTime(storedDropOffTime);
       }
 
@@ -106,7 +111,7 @@ const SearchBox = () => {
   const { formFields, handleFieldChange } = UseGlobalFormFields({
     pickTimeV1: pickUpTime || "",
     dropTimeV1: dropOffTime || "",
-    dateRangeV1: "",
+    dateRangeV1: dateRange || "",
     showDropoffV1: 1,
   });
 
@@ -179,7 +184,7 @@ const SearchBox = () => {
 
   const handleDropoffCheckboxChange = () => {
     setShowDropoff(!showDropoff);
-    handleFieldChange("showDropoffV1", showDropoff ? 1 : 0);
+    handleFieldChange("showDropoffV1", !showDropoff ? 1 : 0);
   };
 
   const dateInputRef = useRef(null);

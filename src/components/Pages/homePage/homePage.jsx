@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import SearchBox from "./searchBox";
 import CarCards from "./carCards";
 import AnimatedCarSection from "./animatedCarSection";
-import TestimonialSlider from "./testimonialSlider";
 import NissanLogo from "../../images/nissanLogo.png";
 import PeugeotLogo from "../../images/peugeotLogo.jpg";
 import KiaLogo from "../../images/kiaLogo.png";
@@ -163,7 +162,7 @@ const HomePage = () => {
           <AnimatedCarSection />
 
           <OurBlogs />
-          {/* <TestimonialSlider /> */}
+
           <div className="instagram-feed-home-container container">
             <div className="styled-label ml-4">
               <div className="heading-icon-container-div">
