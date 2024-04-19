@@ -29,18 +29,14 @@ const reasons = [
     description:
       "Experience the epitome of comfort, style, and performance with our extensive fleet of vehicles. From sleek city cars to Crossover SUVs, we offer a meticulously curated selection to ensure that every drive is a statement in luxury and reliability",
   },
-  {
-    icon: <Si4Chan className="legacy-icon" />,
-    heading: "Global Expertise, Local Excellence",
-    description:
-      "Benefiting from the global expertise of Milele Corporations, Milele Car Rental blends international standards with a deep understanding of local markets. Our approach is rooted in the belief that every journey deserves to be exceptional, and our services are tailored to meet the diverse needs of our valued clients",
-  },
+ 
   {
     icon: <SiAbbott className="legacy-icon" />,
     heading: "Commitment to Quality",
     description:
       "At Milele Car Rental, quality is not just a standard; it's a promise. Our vehicles undergo rigorous maintenance checks to ensure they meet the highest safety and performance standards. Your safetyand satisfaction are our top priorities.",
   },
+
   {
     icon: <SiAbletonlive className="legacy-icon" />,
     heading: "Customer-Centric Approach",
@@ -60,6 +56,12 @@ const reasons = [
     heading: "Your Journey, Our Priority",
     description:
       " Embark on your journey with the confidence that Milele Car Rental is dedicated to turning every drive into a memorable experience. With Milele Corporations' enduring legacy supporting us, we stand as your trusted partner for all your car rental needs.",
+  },
+  {
+    icon: <Si4Chan className="legacy-icon" />,
+    heading: "Global Expertise, Local Excellence",
+    description:
+      "Benefiting from the global expertise of Milele Corporations, Milele Car Rental blends international standards with a deep understanding of local markets. Our approach is rooted in the belief that every journey deserves to be exceptional, and our services are tailored to meet the diverse needs of our valued clients",
   },
 ];
 

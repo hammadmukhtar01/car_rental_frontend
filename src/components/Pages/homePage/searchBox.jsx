@@ -41,6 +41,10 @@ const SearchBox = () => {
   ]);
 
   useEffect(() => {
+    console.log("ddddddd rrrrrrrrrrrrrrrr- ---- is: ", dateRange);
+  }, [dateRange]);
+
+  useEffect(() => {
     const reqLocalStorageData = localStorage.getItem("formFields");
     if (reqLocalStorageData) {
       const storedFormFields = JSON.parse(reqLocalStorageData);
@@ -63,24 +67,38 @@ const SearchBox = () => {
 
         pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
         dropoffLocTabV1 = storedFormFields?.selectedTabDropOff;
-        pickupLocMainInput = storedFormFields?.pickupInputMessageV1;
-        setPickupLocationMessage(pickupLocMainInput);
+        // pickupLocMainInput = storedFormFields?.pickupInputMessageV1;
+        // setPickupLocationMessage(pickupLocMainInput? pickupLocMainInput : '');
 
-        pickupLocMainInput = storedFormFields?.deliveryMapLocPickUp;
-        setPickupLocationMessage(pickupLocMainInput);
+        // pickupLocMainInput = storedFormFields?.deliveryMapLocPickUp;
+        // setPickupLocationMessage(pickupLocMainInput? pickupLocMainInput : '');
 
         if (storedFormFields?.dateRangeV1) {
           storedStartDateRange = new Date(
-            storedFormFields?.dateRangeV1.startDate
+            storedFormFields.dateRangeV1.startDate
           );
-          storedEndDateRange = new Date(storedFormFields?.dateRangeV1?.endDate);
+          storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+          if (
+            isNaN(storedStartDateRange.getTime()) ||
+            isNaN(storedEndDateRange.getTime())
+          ) {
+            storedStartDateRange = new Date(); // Fallback to current date
+            storedEndDateRange = new Date(
+              new Date().getTime() + 24 * 60 * 60 * 1000
+            ); // Fallback to tomorrow
+          }
         }
+
         if (pickupLocTabV1 === "pick") {
           pickupLocMainInput = storedFormFields?.pickupInputMessageV1;
-          setPickupLocationMessage(pickupLocMainInput);
+          setPickupLocationMessage(
+            pickupLocMainInput ? pickupLocMainInput : ""
+          );
         } else if (pickupLocTabV1 === "deliver") {
           pickupLocMainInput = storedFormFields?.deliveryMapLocPickUp;
-          setPickupLocationMessage(pickupLocMainInput);
+          setPickupLocationMessage(
+            pickupLocMainInput ? pickupLocMainInput : ""
+          );
         }
         if (dropoffLocTabV1 === "pick") {
           dropoffLocMainInput = storedFormFields?.dropoffInputMessageV1;
@@ -340,12 +358,12 @@ const SearchBox = () => {
                             type="text"
                             required
                             value={
-                              formFields.dateRangeV1.startDate &&
-                              formFields.dateRangeV1.endDate
+                              formFields?.dateRangeV1?.startDate &&
+                              formFields?.dateRangeV1?.endDate
                                 ? `${new Date(
-                                    formFields.dateRangeV1.startDate
+                                    formFields?.dateRangeV1?.startDate
                                   ).toLocaleDateString()} - ${new Date(
-                                    formFields.dateRangeV1.endDate
+                                    formFields?.dateRangeV1?.endDate
                                   ).toLocaleDateString()}`
                                 : "Select date range"
                             }
@@ -385,7 +403,6 @@ const SearchBox = () => {
                           date < new Date().setHours(0, 0, 0, 0)
                         }
                         onClose={() => setShowDatePicker(false)}
-                        // onClick={() => setShowDateRangeModal(true)}
                       />
                     </Modal>
 
@@ -397,6 +414,7 @@ const SearchBox = () => {
                       xs={12}
                     >
                       <Row>
+                        {/* Error  */}
                         <Col
                           xxl={showDropoff ? 6 : 12}
                           lg={showDropoff ? 6 : 12}
@@ -429,7 +447,7 @@ const SearchBox = () => {
                           </Form.Group>
                         </Col>
 
-                        {showDropoff && (
+                        {showDropoff ? (
                           <Col xxl={6} lg={6} md={6} sm={6} xs={12}>
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
@@ -452,7 +470,7 @@ const SearchBox = () => {
                               </div>
                             </Form.Group>
                           </Col>
-                        )}
+                        ) : null}
                       </Row>
                       <Row>
                         <div className="mt-2">

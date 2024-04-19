@@ -118,9 +118,18 @@ const VehiclesPage = () => {
         setPickupLocStateValue(pickupLocState1);
       }
 
-      if (storedFormFields.dateRangeV1) {
+      if (storedFormFields?.dateRangeV1) {
         storedStartDateRange = new Date(storedFormFields.dateRangeV1.startDate);
         storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+        if (
+          isNaN(storedStartDateRange.getTime()) ||
+          isNaN(storedEndDateRange.getTime())
+        ) {
+          storedStartDateRange = new Date();
+          storedEndDateRange = new Date(
+            new Date().getTime() + 24 * 60 * 60 * 1000
+          );
+        }
       }
       if (pickupLocTabV1 === "pick") {
         pickupLocMainInput = storedFormFields.pickupInputMessageV1;
@@ -478,9 +487,7 @@ const VehiclesPage = () => {
     }
 
     if (missingFields.length > 0) {
-      const errorMessage = `${missingFields.join(
-        ", "
-      )} field(s) are missing.`;
+      const errorMessage = `${missingFields.join(", ")} field(s) are missing.`;
       toast.error(errorMessage, {
         autoClose: 1000,
         style: {
@@ -840,7 +847,7 @@ const VehiclesPage = () => {
                               </Form.Group>
                             </Col>
 
-                            {showDropoff && (
+                            {showDropoff ? (
                               <Col xxl={6} lg={6} md={6} sm={6} xs={12}>
                                 <Form.Group controlId="formKeyword">
                                   <div className="location-label">
@@ -863,7 +870,7 @@ const VehiclesPage = () => {
                                   </div>
                                 </Form.Group>
                               </Col>
-                            )}
+                            ) : null}
                           </Row>
                           <Row>
                             <div className="mt-2">

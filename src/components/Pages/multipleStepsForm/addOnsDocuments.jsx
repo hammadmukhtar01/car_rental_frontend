@@ -9,10 +9,10 @@ import {
 // import dayjs from 'dayjs';
 import Select from "react-select";
 import axios from "axios";
-import DateTimePicker from "react-datetime-picker";
-import "react-datetime-picker/dist/DateTimePicker.css";
-import "react-calendar/dist/Calendar.css";
-import "react-clock/dist/Clock.css";
+// import DateTimePicker from "react-datetime-picker";
+// import "react-datetime-picker/dist/DateTimePicker.css";
+// import "react-calendar/dist/Calendar.css";
+// import "react-clock/dist/Clock.css";
 // import { getJson, setOptions, localeAr } from '@mobiscroll/react';
 
 const AddOnsDocuments = ({ prevStep, nextStep }) => {
@@ -381,12 +381,12 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   <b>Flight DateTime</b>
                                 </label>
                               </div>
-                              <DateTimePicker
+                              {/* <DateTimePicker
                                 required
                                 className="form-control-age mt-2 col-12"
                                 onChange={setDriverDateTime}
                                 value={driverDateTime}
-                              />
+                              /> */}
                             </Form.Group>
                           </Col>
                           <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
