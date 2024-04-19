@@ -1,8 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useCallback, useEffect, useMemo } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Modal, Form } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { BsCpu, BsPerson, BsSuitcase } from "react-icons/bs";
+import {
+  BsCpu,
+  BsPerson,
+  BsSuitcase,
+  BsFillShieldLockFill,
+  BsPersonCircle,
+  BsFileEarmarkArrowUp,
+} from "react-icons/bs";
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
 import { LuSnowflake } from "react-icons/lu";
 import { TiTick } from "react-icons/ti";
@@ -31,10 +38,18 @@ const VehicleDetails = ({ nextStep }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [singleVehicleDetails, setSingleVehicleDetails] = useState({});
   const [numberOfDays, setNumberOfDays] = useState(0);
+  const [addOnsValuesData, setAddOnsValuesData] = useState([]);
+  const [selectedAddOn, setSelectedAddOn] = useState(null);
+  const [selectedAddOns, setSelectedAddOns] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
   // const [totalCharges, setTotalCharges] = useState("");
-  
+
   const carTypeInURL = useLocation();
-  const queryParams = useMemo(() => new URLSearchParams(carTypeInURL.search), [carTypeInURL.search]);
+  const queryParams = useMemo(
+    () => new URLSearchParams(carTypeInURL.search),
+    [carTypeInURL.search]
+  );
   const TariffGroupId = queryParams.get("tariffGroupId");
   const StartDateTime = queryParams.get("startDate");
   const ReturnDateTime = queryParams.get("endDate");
@@ -45,15 +60,109 @@ const VehicleDetails = ({ nextStep }) => {
   const checkBoxValueParam = queryParams.get("checkBoxValue");
   const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
 
+  const fetchAddOnsChargesData = useCallback(async () => {
+    try {
+      const token =
+        "pwhUHSoPIOJmECDhAyhlP1X5ZvzD1W3dmhUOdpQ-BQtQzg1PNlv8invCvbT1qk3EsoJfM_v8Pj8ZJsPKXVoC-kZtg0p2mpAu4f5g8LiMWrGbqZ4QRY-1xJRJTcWF-t24jUgdng1-myn-TgDddhkldDmkOufYlMdkGQDpZtnUfQ00qgl58t65VCWwK29g4ZWq_Y9djzMDXsmSARNbtZD4TkjqEtIihGsxcffl8VEdO_f3oqDZamOk-mq9XrzlOxdU76g7WRmubIBctGiJPO8DV5crp-ccVfeZ_3TinZc6pmUABcezl9QxkrcbcgTGrRjMhpdqtXYOworyQjpjOfEhbTHYrkQFw-7yTJOJiUCIUMX05z97fE5DIi7GJg8-PL5xfzUyPgruvfnkHHmlFRWIFOkoEgf7FdcQ3S7EveRJZsHVxCKUKg-Dvjm4k7VyHE3uLhKurIgj4VzVSdRYGVRiggymUxvRT4h5Lr_nh2G1vzIrOG1R5vfb_93Pk5SelyNHoizjG_3nCfGbgWzwQ728Z6Vn22CAcbKemFRF7kVh0mg";
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
 
+      const url = `https://app.speedautosystems.com/api/services/app/chargesSetting/GetChargesSettings`;
 
-useEffect(() => {
-  if (checkBoxValueParam === "false") {
-    setDropoffLocParam(pickupLocParam);
-  } else {
-    setDropoffLocParam(queryParams.get("dropoffLoc"));
-  }
-}, [checkBoxValueParam, pickupLocParam, queryParams]);
+      const ModuleValue = {
+        module: 1,
+      };
+
+      const response = await axios.post(url, ModuleValue, { headers });
+      setAddOnsValuesData(response.data.result.items);
+      console.log(
+        "Result of our all speed add ons are : ",
+        response.data.result.items
+      );
+    } catch (error) {
+      console.error("Error fetching vehicle rates:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAddOnsChargesData();
+  }, [fetchAddOnsChargesData]);
+
+  const handleViewDetails = (addOn) => {
+    setSelectedAddOn(addOn);
+    setShowModal(true);
+  };
+
+  const handleCheckBoxChange = (id) => {
+    setSelectedAddOns((prevSelectedAddOns) => {
+      const index = prevSelectedAddOns.findIndex((addOn) => addOn.id === id);
+      if (index !== -1) {
+        const updatedAddOns = [...prevSelectedAddOns];
+        updatedAddOns.splice(index, 1);
+        return updatedAddOns;
+      } else {
+        const addOnToAdd = AddOnsData.find((addOn) => addOn.id === id);
+        return [...prevSelectedAddOns, addOnToAdd];
+      }
+    });
+  };
+
+  const totalAddOnsPriceSimple = () => {
+    return selectedAddOns.reduce((total, addOn) => {
+      return total + (addOn.pricePerTrip || 0);
+    }, 0);
+  };
+
+  const AddOnsData = [
+    {
+      id: 1,
+      addOnsName: "Tint",
+      pricePerTrip: 150,
+      IconName: BsFileEarmarkArrowUp,
+      checkBoxValue: 0,
+      addOnsDetail:
+        "1 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+    },
+
+    {
+      id: 2,
+      addOnsName: "Additional Driver",
+      pricePerTrip: 50,
+      checkBoxValue: 1,
+      IconName: BsPersonCircle,
+      addOnsDetail:
+        "2 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+    },
+    {
+      id: 3,
+      addOnsName: "Tissue Box",
+      pricePerTrip: 5,
+      IconName: BsFileEarmarkArrowUp,
+      checkBoxValue: 0,
+      addOnsDetail:
+        "1 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+    },
+
+    {
+      id: 4,
+      addOnsName: "Air Freshner",
+      pricePerTrip: 15,
+      IconName: BsFileEarmarkArrowUp,
+      checkBoxValue: 0,
+      addOnsDetail:
+        "1 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+    },
+  ];
+
+  useEffect(() => {
+    if (checkBoxValueParam === "false") {
+      setDropoffLocParam(pickupLocParam);
+    } else {
+      setDropoffLocParam(queryParams.get("dropoffLoc"));
+    }
+  }, [checkBoxValueParam, pickupLocParam, queryParams]);
 
   console.log("state is ---- ", dropoffLocParam);
 
@@ -307,13 +416,12 @@ useEffect(() => {
   };
 
   const handleNextStep1 = () => {
-    const baseUrl = `/bookingPage/2`; 
+    const baseUrl = `/bookingPage/2`;
     const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set('page', '2');
-    urlParams.set('discountValue', grandTotalDiscountedValue()); 
+    urlParams.set("page", "2");
+    urlParams.set("discountValue", grandTotalDiscountedValue());
     const nextStepUrl = `${baseUrl}?${urlParams.toString()}`;
     window.location.href = nextStepUrl;
- 
   };
 
   function CustomStepIcon({ locName, locDate, IconName, locTime }) {
@@ -484,6 +592,138 @@ useEffect(() => {
                         </div>
                       </div>
                     </div>
+
+                    <div className="step1-car-details p-4">
+                      <div className="location-label">
+                        <div className="styled-label">
+                          <BsFillShieldLockFill className="mr-2 heading-icon" />
+                          <b>Rental AddOns</b>
+                          <hr className="heading-underline" />
+                        </div>
+
+                        <div className="driver-details-form-container">
+                          <Row>
+                            <Col lg={12} md={12} sm={12} xs={12}>
+                              <div className=" form-group ">
+                                <Row className="d-flex">
+                                  {addOnsValuesData.map((AddOnsDataValues) => (
+                                    <Col
+                                      lg={5}
+                                      md={12}
+                                      sm={12}
+                                      xs={12}
+                                      className="add-on-container"
+                                      key={AddOnsDataValues?.chargesTypeId}
+                                    >
+                                      <Form.Group
+                                        controlId={`formKeyword_${AddOnsDataValues?.chargesTypeId}`}
+                                      >
+                                        <div className="row d-flex align-items-center">
+                                          <Col lg={1} md={2} sm={2} xs={2}>
+                                            <BsFileEarmarkArrowUp className="mr-2 heading-icon" />
+                                          </Col>
+                                          <Col lg={8} md={7} sm={7} xs={7}>
+                                            <div className="add-ons-label-name p-2">
+                                              <label className="add-ons-label">
+                                                <b>
+                                                  {
+                                                    AddOnsDataValues
+                                                      ?.chargesType?.name
+                                                  }
+                                                  {
+                                                    AddOnsDataValues?.chargesTypeId
+                                                  }
+                                                </b>
+                                                <br />
+                                                <span>
+                                                  AED{" "}
+                                                  {
+                                                    AddOnsDataValues?.rateType
+                                                      ?.name
+                                                  }
+                                                </span>
+                                                <br />
+                                                <a
+                                                  href={`#${AddOnsDataValues?.chargesTypeId}`}
+                                                  onClick={() =>
+                                                    handleViewDetails(
+                                                      AddOnsDataValues
+                                                    )
+                                                  }
+                                                  className="add-ons-view-details"
+                                                >
+                                                  View Details
+                                                </a>
+                                              </label>
+                                            </div>
+                                          </Col>
+                                          <Col lg={3} md={3} sm={3} xs={3}>
+                                            <div className="form-check form-switch form-switch-md float-end">
+                                              <input
+                                                className="form-check-input add-ons-toggle-input"
+                                                type="checkbox"
+                                                id={`flexSwitchCheckDefault_${AddOnsDataValues?.chargesTypeId}`}
+                                                onChange={() =>
+                                                  handleCheckBoxChange(
+                                                    AddOnsDataValues
+                                                      ?.chargesType?.id
+                                                  )
+                                                }
+                                              />
+                                            </div>
+                                          </Col>
+                                        </div>
+                                      </Form.Group>
+                                    </Col>
+                                  ))}
+                                </Row>
+                              </div>
+                            </Col>
+
+                            <Col lg={11} md={11} sm={12} xs={12}>
+                              <div className="total-addons-price text-right">
+                                <div>
+                                  <span className="fs-4 fw-medium">
+                                    {" "}
+                                    Total:
+                                  </span>{" "}
+                                  <span>AED</span>{" "}
+                                  <span className="total-addons-value fs-3 fw-semibold">
+                                    {totalAddOnsPriceSimple()}
+                                  </span>{" "}
+                                </div>
+                              </div>
+                            </Col>
+                          </Row>
+                        </div>
+                      </div>
+                      <Modal
+                        show={showModal}
+                        onHide={handleCloseModal}
+                        centered
+                        size="lg"
+                      >
+                        <Modal.Header closeButton>
+                          <Modal.Title>View Details</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                          {selectedAddOn && (
+                            <>
+                              <p>{selectedAddOn.addOnsDetail}</p>
+                            </>
+                          )}
+                        </Modal.Body>
+                        <Modal.Footer>
+                          <button
+                            className="btn btn-secondary"
+                            onClick={handleCloseModal}
+                          >
+                            Close
+                          </button>
+                        </Modal.Footer>
+                      </Modal>
+                    </div>
+                    <br />
                   </Col>
                   <Col lg={4} md={12} sm={12} xs={12}>
                     <div className="step1-car-location-details-container">
@@ -756,7 +996,13 @@ useEffect(() => {
                 </Row>
               </div>
               <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
-                <Col lg={3} md={4} sm={6} xs={8} className="d-flex justify-content-center ">
+                <Col
+                  lg={3}
+                  md={4}
+                  sm={6}
+                  xs={8}
+                  className="d-flex justify-content-center "
+                >
                   <div className="button-container">
                     <button
                       className="animated-button booking-text next"
