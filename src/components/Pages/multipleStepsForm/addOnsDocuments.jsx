@@ -19,7 +19,19 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [nationality, setNationality] = useState("");
   const [driversAge, setDriversAge] = useState("");
   const [airlineTicketNum, setAirlineTicketNum] = useState("");
-  const [driverDrivingLicense, setDriverDrivingLicense] = useState("");
+  // Driving License
+  const [drivingLicenseNum, setDrivingLicenseNum] = useState("");
+  const [drivingLicenseIssueBy, setDrivingLicenseIssueBy] = useState("");
+  const [drivingLicenseIssueDate, setDrivingLicenseIssueDate] = useState("");
+  const [drivingLicenseExpiryDate, setDrivingLicenseExpiryDate] = useState("");
+  const [drivingLicenseImg, setDrivingLicenseImg] = useState("");
+  const [isInternationalLicense, setIsInternationalLicense] = useState("");
+  // Passport
+  const [passportNum, setPassportNum] = useState("");
+  const [passportIssueBy, setPassportIssueBy] = useState("");
+  const [passportIssueDate, setPassportIssueDate] = useState("");
+  const [passportExpiryDate, setPassportExpiryDate] = useState("");
+  const [passportImg, setPassportImg] = useState("");
   const [driverPassport, setDriverPassport] = useState("");
   // const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
   const [selectedNationality, setSelectedNationality] = useState("");
@@ -75,6 +87,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const handleChange = (selectedOption) => {
     setSelectedNationality(selectedOption);
+    setDrivingLicenseIssueBy(selectedOption);
+    setPassportIssueBy(selectedOption);
     console.log("Selected nationality:", selectedOption);
   };
 
@@ -86,10 +100,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       console.log("First name is required");
     }
 
-    if (!lastName.trim()) {
-      isFormValid = false;
-      console.log("Last name is required");
-    }
+    // if (!lastName.trim()) {
+    //   isFormValid = false;
+    //   console.log("Last name is required");
+    // }
 
     if (!contactNum.trim()) {
       isFormValid = false;
@@ -117,7 +131,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       console.log("Ticket Number is required");
     }
 
-    if (!driverDrivingLicense.trim()) {
+    if (!drivingLicenseNum.trim()) {
       isFormValid = false;
       console.log("Lisence is required");
     }
@@ -143,7 +157,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       emailAddress,
       driversAge,
       airlineTicketNum,
-      driverDrivingLicense,
+      drivingLicenseNum,
       driverPassport
     );
 
@@ -404,7 +418,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>First Name</b>
+                                  <b>First Name *</b>
                                 </label>
                               </div>
                               <input
@@ -439,14 +453,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>Contact Number</b>
+                                  <b>Contact Number *</b>
                                 </label>
                               </div>
                               <input
                                 className="form-control-location mt-2 col-12"
                                 type="tel"
                                 required
-                                placeholder="contact number"
+                                placeholder="Contact number"
                                 value={contactNum}
                                 onChange={(e) => setContactNum(e.target.value)}
                               />
@@ -456,7 +470,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>Email</b>
+                                  <b>Email *</b>
                                 </label>
                               </div>
                               <input
@@ -478,11 +492,254 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                 </div>
 
                 <br />
+                <div className="step1-car-details p-4">
+                  <div className="location-label">
+                    <div className="styled-label">
+                      <BsFileEarmarkArrowUp className="mr-2 heading-icon" />
+                      <b>Documents Upload</b>
+                      <hr className="heading-underline" />
+                    </div>
+                    <div className="driver-details-form-container">
+                      <div className=" form-group pl-4 pr-4">
+                        <div className="">
+                          <Row>
+                            <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label">
+                                    <b>Passport No. *</b>
+                                  </label>
+                                </div>
+                                <input
+                                  className="form-control-location mt-2 col-12"
+                                  required
+                                  type="text"
+                                  placeholder="Passport no."
+                                  value={passportNum}
+                                  onChange={(e) =>
+                                    setPassportNum(e.target.value)
+                                  }
+                                />
+                              </Form.Group>
+                            </Col>
+                            <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label mb-3">
+                                    <b>Passport Issued By *</b>
+                                  </label>
+                                </div>
+                                <Select
+                                  options={nationality}
+                                  required
+                                  className="form-control-nationality col-12"
+                                  value={selectedNationality}
+                                  onChange={handleChange}
+                                  styles={selectStyles}
+                                />
+                              </Form.Group>
+                            </Col>
+
+                            <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label">
+                                    <b>Passport Issue Date *</b>
+                                  </label>
+                                </div>
+                                <input
+                                  className="form-control-location mt-2 col-12"
+                                  required
+                                  type="date"
+                                  placeholder="Issue Date"
+                                  value={passportIssueDate}
+                                  onChange={(e) =>
+                                    setPassportIssueDate(e.target.value)
+                                  }
+                                />
+                              </Form.Group>
+                            </Col>
+                            <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label">
+                                    <b>Passport Expiry Date *</b>
+                                  </label>
+                                </div>
+                                <input
+                                  className="form-control-location mt-2 col-12"
+                                  required
+                                  type="date"
+                                  placeholder="Issue Date"
+                                  value={passportExpiryDate}
+                                  onChange={(e) =>
+                                    setPassportExpiryDate(e.target.value)
+                                  }
+                                />
+                              </Form.Group>
+                            </Col>
+                            <Col xxl={4} lg={4} md={5} sm={8} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label">
+                                    <b>Passport Photo *</b>
+                                  </label>
+                                </div>
+                                <input
+                                  className="form-control-lname p-2 col-12 mt-2"
+                                  required
+                                  type="file"
+                                  placeholder="passport number"
+                                  value={passportImg}
+                                  onChange={(e) =>
+                                    setPassportImg(e.target.value)
+                                  }
+                                />
+                              </Form.Group>
+                            </Col>
+                          </Row>
+                          <br />
+                          <br />
+                          <Row>
+                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label">
+                                    <b>Driving License No. *</b>
+                                  </label>
+                                </div>
+                                <input
+                                  className="form-control-location mt-2 col-12"
+                                  required
+                                  type="text"
+                                  placeholder="Driving license no."
+                                  value={drivingLicenseNum}
+                                  onChange={(e) =>
+                                    setDrivingLicenseNum(e.target.value)
+                                  }
+                                />
+                              </Form.Group>
+                            </Col>
+                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label mb-3">
+                                    <b>Driving License Issued By *</b>
+                                  </label>
+                                </div>
+                                <Select
+                                  options={nationality}
+                                  required
+                                  className="form-control-nationality col-12"
+                                  value={selectedNationality}
+                                  onChange={handleChange}
+                                  styles={selectStyles}
+                                />
+                              </Form.Group>
+                            </Col>
+
+                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label">
+                                    <b>Driving License Issue Date *</b>
+                                  </label>
+                                </div>
+                                <input
+                                  className="form-control-location mt-2 col-12"
+                                  required
+                                  type="date"
+                                  placeholder="Issue Date"
+                                  value={drivingLicenseIssueDate}
+                                  onChange={(e) =>
+                                    setDrivingLicenseIssueDate(e.target.value)
+                                  }
+                                />
+                              </Form.Group>
+                            </Col>
+                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label">
+                                    <b>Driving License Expiry Date *</b>
+                                  </label>
+                                </div>
+                                <input
+                                  className="form-control-location mt-2 col-12"
+                                  required
+                                  type="date"
+                                  placeholder="Issue Date"
+                                  value={drivingLicenseExpiryDate}
+                                  onChange={(e) =>
+                                    setDrivingLicenseExpiryDate(e.target.value)
+                                  }
+                                />
+                              </Form.Group>
+                            </Col>
+                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label">
+                                    <b>Driving Lisence Photo *</b>
+                                  </label>
+                                </div>
+                                <input
+                                  className="form-control-fname p-2 col-12 mt-2"
+                                  required
+                                  type="file"
+                                  placeholder="driving license"
+                                  value={drivingLicenseImg}
+                                  onChange={(e) =>
+                                    setDrivingLicenseImg(e.target.value)
+                                  }
+                                />
+                              </Form.Group>
+                            </Col>
+                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label">
+                                    <b>Is Driving License International? *</b>
+                                  </label>
+                                </div>
+                                <div className="mt-2 d-flex">
+                                  <Form.Check
+                                    className="mb-1 col-4"
+                                    type="radio"
+                                    label="Yes"
+                                    name="internationalLicense"
+                                    value="Yes"
+                                    checked={isInternationalLicense === "Yes"}
+                                    onChange={() =>
+                                      setIsInternationalLicense("Yes")
+                                    }
+                                  />
+                                  <Form.Check
+                                    className="mb-1 col-4"
+                                    type="radio"
+                                    label="No"
+                                    name="internationalLicense"
+                                    value="No"
+                                    checked={isInternationalLicense === "No"}
+                                    onChange={() =>
+                                      setIsInternationalLicense("No")
+                                    }
+                                  />
+                                </div>
+                              </Form.Group>
+                            </Col>
+                          </Row>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
                 <div className="step1-location-details p-4">
                   <div className="location-label">
                     <div className="styled-label">
                       <BsPersonCircle className="mr-2 heading-icon" />
-                      <b>Driver's Details</b>
+                      <b>Driver's Details *</b>
                       <hr className="heading-underline" />
                     </div>
                   </div>
@@ -495,7 +752,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>Airline Ticket No.</b>
+                                  <b>Airline Ticket No. *</b>
                                 </label>
                               </div>
                               <input
@@ -515,7 +772,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>Flight DateTime</b>
+                                  <b>Flight DateTime *</b>
                                 </label>
                               </div>
                               <DateTimePicker
@@ -530,7 +787,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label mb-3">
-                                  <b>Nationality</b>
+                                  <b>Nationality *</b>
                                 </label>
                               </div>
                               <Select
@@ -550,66 +807,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                 </div>
                 <br />
 
-                <div className="step1-car-details p-4">
-                  <div className="location-label">
-                    <div className="styled-label">
-                      <BsFileEarmarkArrowUp className="mr-2 heading-icon" />
-                      <b>Documents Upload</b>
-                      <hr className="heading-underline" />
-                    </div>
-                    <div className="driver-details-form-container">
-                      <div className=" form-group pl-4 pr-4">
-                        <div className="">
-                          <Row>
-                            <Col xxl={2} lg={1}></Col>
-
-                            <Col xxl={3} lg={4} md={5} sm={8} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Driver's Driving Lisence</b>
-                                  </label>
-                                </div>
-                                <input
-                                  className="form-control-fname p-2 col-12"
-                                  required
-                                  type="file"
-                                  placeholder="driving license"
-                                  value={driverDrivingLicense}
-                                  onChange={(e) =>
-                                    setDriverDrivingLicense(e.target.value)
-                                  }
-                                />
-                              </Form.Group>
-                            </Col>
-                            <Col xxl={1} lg={1} md={1}></Col>
-
-                            <Col xxl={3} lg={4} md={5} sm={8} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Driver's Passport</b>
-                                  </label>
-                                </div>
-                                <input
-                                  className="form-control-lname p-2 col-12"
-                                  required
-                                  type="file"
-                                  placeholder="passport number"
-                                  value={driverPassport}
-                                  onChange={(e) =>
-                                    setDriverPassport(e.target.value)
-                                  }
-                                />
-                              </Form.Group>
-                            </Col>
-                            <Col xxl={2} lg={2}></Col>
-                          </Row>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
                   <Col lg={3} md={4} sm={6} xs={8} className="d-flex just">
                     <div className="button-container">
@@ -618,7 +815,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                         onClick={handleNextStep}
                       >
                         {" "}
-                        <span className="button-text-span">
+                        <span className="button-text-span p-4">
                           <span className="transition"></span>
                           <span className="gradient"></span>
                           <span className="label">Book & Pay</span>

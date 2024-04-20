@@ -93,7 +93,7 @@ const ContactUsForm = () => {
                 onFocus={handleFocus}
                 onBlur={handleBlur}
               />
-              <label htmlFor="lname">First Name</label>
+              <label htmlFor="lname">First Name *</label>
             </div>
 
             <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
@@ -109,7 +109,7 @@ const ContactUsForm = () => {
                 onFocus={handleFocus}
                 onBlur={handleBlur}
               />
-              <label htmlFor="lname">Last Name</label>
+              <label htmlFor="lname">Last Name *</label>
             </div>
 
             <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
@@ -125,7 +125,7 @@ const ContactUsForm = () => {
                 onFocus={handleFocus}
                 onBlur={handleBlur}
               />
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email *</label>
             </div>
 
             <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
@@ -141,7 +141,7 @@ const ContactUsForm = () => {
                 onFocus={handleFocus}
                 onBlur={handleBlur}
               />
-              <label htmlFor="phoneNumber">Phone Number</label>
+              <label htmlFor="phoneNumber">Phone Number *</label>
             </div>
 
             <div className=" mt-4">
@@ -153,7 +153,7 @@ const ContactUsForm = () => {
                 name="comment"
                 type="checkbox"
                 autoComplete="off"
-                placeholder="comment"
+                placeholder="Comment *"
                 required
                 value={formData.comment}
                 onChange={handleChange}

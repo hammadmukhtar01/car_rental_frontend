@@ -777,7 +777,7 @@ const VehiclesPage = () => {
                             <div className="date-label">
                               <label className="styled-label">
                                 <BsCalendar2Check className="mr-2" />
-                                <b>Pickup-Dropoff Date</b>
+                                <b>Pickup-Dropoff Date *</b>
                               </label>
                             </div>
                             <div onClick={handleDateClick} ref={dateInputRef}>
@@ -857,7 +857,7 @@ const VehiclesPage = () => {
                                 <div className="location-label">
                                   <label className="styled-label">
                                     <BsGeoAlt className="mr-2" />
-                                    <b>Pick-Up</b>
+                                    <b>Pick-Up *</b>
                                   </label>
                                 </div>
                                 <div className="custom-dropdown-container">
@@ -882,7 +882,7 @@ const VehiclesPage = () => {
                                   <div className="location-label">
                                     <label className="styled-label">
                                       <BsGeoAltFill className="mr-2" />
-                                      <b>Drop-Off</b>
+                                      <b>Drop-Off *</b>
                                     </label>
                                   </div>
                                   <div className="custom-dropdown-container">
@@ -970,7 +970,7 @@ const VehiclesPage = () => {
                           <Form.Group controlId="formKeyword">
                             <div className="location-label">
                               <label className="styled-label mb-3">
-                                <b>Pickup Time</b>
+                                <b>Pickup Time *</b>
                               </label>
                             </div>
                             <Select
@@ -999,7 +999,7 @@ const VehiclesPage = () => {
                           <Form.Group controlId="formKeyword">
                             <div className="location-label">
                               <label className="styled-label mb-3">
-                                <b>Dropoff Time</b>
+                                <b>Dropoff Time *</b>
                               </label>
                             </div>
                             <Select

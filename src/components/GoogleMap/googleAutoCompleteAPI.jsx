@@ -123,7 +123,7 @@ const SearchLocationInput = ({
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
-        <label htmlFor="locationName">Deliver To</label>
+        <label htmlFor="locationName">Deliver To *</label>
       </div>
       <div
         style={{

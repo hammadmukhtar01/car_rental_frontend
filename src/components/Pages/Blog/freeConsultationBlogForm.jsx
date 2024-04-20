@@ -45,7 +45,7 @@ const FreeConsultationForm = () => {
                           type="text"
                           autoComplete="customerName"
                           required
-                          placeholder="Your Name"
+                          placeholder="Your Name *"
                           value={customerName}
                           onChange={(e) => {
                             setCustomerName(e.target.value);
