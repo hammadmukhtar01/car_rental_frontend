@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { Container, Row, Col, Form, Modal } from "react-bootstrap";
-import {
-  BsPersonCircle,
-  BsFillShieldLockFill,
-  BsFileEarmarkArrowUp,
-} from "react-icons/bs";
+import { BsPersonCircle, BsFileEarmarkArrowUp } from "react-icons/bs";
 // import dayjs from 'dayjs';
 import Select from "react-select";
 import axios from "axios";
@@ -23,123 +19,63 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [nationality, setNationality] = useState("");
   const [driversAge, setDriversAge] = useState("");
   const [airlineTicketNum, setAirlineTicketNum] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [selectedAddOn, setSelectedAddOn] = useState(null);
   const [driverDrivingLicense, setDriverDrivingLicense] = useState("");
   const [driverPassport, setDriverPassport] = useState("");
-  const [selectedAddOns, setSelectedAddOns] = useState([]);
-  const [addOnsValuesData, setAddOnsValuesData] = useState([]);
   // const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
+  const [selectedNationality, setSelectedNationality] = useState("");
+  const [driverFlightDateTime, setDriverFlightDateTime] = useState(new Date());
+  const [bookingData, setBookingData] = useState(null);
 
-  const [driverDateTime, setDriverDateTime] = useState(new Date());
-  const formattedDateTime = driverDateTime.toISOString();
+  useEffect(() => {
+    const fetchNationalities = async () => {
+      try {
+        const response = await axios.get("https://restcountries.com/v3.1/all");
+        const nationalityOptions = response.data
+          .map((country) => ({
+            label: country.name.common,
+            value: country.cca2,
+          }))
+          .sort((a, b) => a.label.localeCompare(b.label));
 
-  const fetchAddOnsChargesData = useCallback(async () => {
+        setNationality(nationalityOptions);
+      } catch (error) {
+        console.error("Failed to fetch nationalities:", error);
+      }
+    };
+
+    fetchNationalities();
+  }, []);
+
+  const submitBooking = async (data) => {
+    console.log("submit booking start", data);
     try {
-      const token =
-        "pwhUHSoPIOJmECDhAyhlP1X5ZvzD1W3dmhUOdpQ-BQtQzg1PNlv8invCvbT1qk3EsoJfM_v8Pj8ZJsPKXVoC-kZtg0p2mpAu4f5g8LiMWrGbqZ4QRY-1xJRJTcWF-t24jUgdng1-myn-TgDddhkldDmkOufYlMdkGQDpZtnUfQ00qgl58t65VCWwK29g4ZWq_Y9djzMDXsmSARNbtZD4TkjqEtIihGsxcffl8VEdO_f3oqDZamOk-mq9XrzlOxdU76g7WRmubIBctGiJPO8DV5crp-ccVfeZ_3TinZc6pmUABcezl9QxkrcbcgTGrRjMhpdqtXYOworyQjpjOfEhbTHYrkQFw-7yTJOJiUCIUMX05z97fE5DIi7GJg8-PL5xfzUyPgruvfnkHHmlFRWIFOkoEgf7FdcQ3S7EveRJZsHVxCKUKg-Dvjm4k7VyHE3uLhKurIgj4VzVSdRYGVRiggymUxvRT4h5Lr_nh2G1vzIrOG1R5vfb_93Pk5SelyNHoizjG_3nCfGbgWzwQ728Z6Vn22CAcbKemFRF7kVh0mg";
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
       const headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       };
 
-      const url = `https://app.speedautosystems.com/api/services/app/chargesSetting/GetChargesSettings`;
-
-      const ModuleValue = {
-        module: 1,
+      const url =
+        "https://app.speedautosystems.com/api/services/app/BookingPluginCreation/CreateOrUpdateWebBookingForPlugin";
+      const payload = {
+        booking: data,
       };
 
-      const response = await axios.post(url, ModuleValue, { headers });
-      setAddOnsValuesData(response.data.result.items);
-      console.log(
-        "Result of our all speed add ons are : ",
-        response.data.result.items
-      );
-    } catch (error) {
-      console.error("Error fetching vehicle rates:", error);
-    }
-  }, []);
+      const response = await axios.post(url, payload, { headers });
+      console.log("Booking response--------:", response.data);
 
-  useEffect(() => {
-    fetchAddOnsChargesData();
-  }, [fetchAddOnsChargesData]);
-
-  const NationalityNames = [
-    { label: "Pakistan", value: "pakistan" },
-    { label: "Dubai", value: "dubai" },
-    { label: "Turkey", value: "turkey" },
-    { label: "India", value: "india" },
-    { label: "America", value: "america" },
-  ];
-
-  const AddOnsData = [
-    {
-      id: 1,
-      addOnsName: "Tint",
-      pricePerTrip: 150,
-      IconName: BsFileEarmarkArrowUp,
-      checkBoxValue: 0,
-      addOnsDetail:
-        "1 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
-    },
-
-    {
-      id: 2,
-      addOnsName: "Additional Driver",
-      pricePerTrip: 50,
-      checkBoxValue: 1,
-      IconName: BsPersonCircle,
-      addOnsDetail:
-        "2 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
-    },
-    {
-      id: 3,
-      addOnsName: "Tissue Box",
-      pricePerTrip: 5,
-      IconName: BsFileEarmarkArrowUp,
-      checkBoxValue: 0,
-      addOnsDetail:
-        "1 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
-    },
-
-    {
-      id: 4,
-      addOnsName: "Air Freshner",
-      pricePerTrip: 15,
-      IconName: BsFileEarmarkArrowUp,
-      checkBoxValue: 0,
-      addOnsDetail:
-        "1 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
-    },
-  ];
-
-  const handleCheckBoxChange = (id) => {
-    setSelectedAddOns((prevSelectedAddOns) => {
-      const index = prevSelectedAddOns.findIndex((addOn) => addOn.id === id);
-      if (index !== -1) {
-        const updatedAddOns = [...prevSelectedAddOns];
-        updatedAddOns.splice(index, 1);
-        return updatedAddOns;
-      } else {
-        const addOnToAdd = AddOnsData.find((addOn) => addOn.id === id);
-        return [...prevSelectedAddOns, addOnToAdd];
+      if (response.data.success === true) {
+        const nextStepUrl = "/bookingPage/3";
+        window.location.href = nextStepUrl;
       }
-    });
+    } catch (error) {
+      console.error("Error creating/updating booking:", error);
+    }
   };
 
-  const totalAddOnsPriceSimple = () => {
-    return selectedAddOns.reduce((total, addOn) => {
-      return total + (addOn.pricePerTrip || 0);
-    }, 0);
-  };
-
-  const handleViewDetails = (addOn) => {
-    setSelectedAddOn(addOn);
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleChange = (selectedOption) => {
+    setSelectedNationality(selectedOption);
+    console.log("Selected nationality:", selectedOption);
   };
 
   const handleNextStep = () => {
@@ -165,16 +101,16 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       console.log("Email is required");
     }
 
-    if (!nationality.trim()) {
+    if (!nationality) {
       console.log("nationlity value is: ", nationality);
       isFormValid = false;
       console.log("Nationality is required");
     }
 
-    if (!driversAge.trim()) {
-      isFormValid = false;
-      console.log("Age is required");
-    }
+    // if (!driversAge.trim()) {
+    //   isFormValid = false;
+    //   console.log("Age is required");
+    // }
 
     if (!airlineTicketNum.trim()) {
       isFormValid = false;
@@ -195,9 +131,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       console.log("");
       return;
     }
-
-    const nextStepUrl = "/bookingPage/3";
-    window.location.href = nextStepUrl;
   };
 
   const handleAddOnsDocumentStepForm = async (e) => {
@@ -208,12 +141,216 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       lastName,
       contactNum,
       emailAddress,
-      nationality,
       driversAge,
       airlineTicketNum,
       driverDrivingLicense,
       driverPassport
     );
+
+    const bookingData = {
+      bookingType: 0,
+      IsBooking: true,
+      bookingStatus: 0,
+      startDate: "2024-05-05T06:55:00.000Z",
+      endDate: "2024-06-16T06:16:00.000Z",
+      charges: [
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97430,
+            },
+          ],
+          chargesTypeId: 1,
+          rate: 150,
+          rateTypeId: 1,
+        },
+        // 1 below
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97433,
+            },
+          ],
+          chargesTypeId: 2,
+          rate: 10,
+          rateTypeId: 1,
+        },
+        // 2 Below
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97438,
+            },
+          ],
+          chargesTypeId: 3,
+          rate: 20,
+          rateTypeId: 1,
+        },
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97439,
+            },
+          ],
+          chargesTypeId: 4,
+          rate: 30,
+          rateTypeId: 1,
+        },
+        // 4 Below
+        {
+          accepted: false,
+          tariff: [],
+          chargesTypeId: 5,
+          rate: 40,
+          rateTypeId: 5,
+        },
+        // 5 Below
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97444,
+            },
+          ],
+          chargesTypeId: 54,
+          rate: 50,
+          rateTypeId: 6,
+        },
+        // 6 Below
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97443,
+            },
+          ],
+          chargesTypeId: 26,
+          rate: 60,
+          rateTypeId: 6,
+        },
+        // 7 below
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97446,
+            },
+          ],
+          chargesTypeId: 7,
+          rate: 70,
+          rateTypeId: 6,
+        },
+        // 8 Below
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97447,
+            },
+          ],
+          chargesTypeId: 32,
+          rate: 80,
+          rateTypeId: 1,
+        },
+        // 9 Below
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97448,
+            },
+          ],
+          chargesTypeId: 73,
+          rate: 90,
+          rateTypeId: 6,
+        },
+        // 10 Below
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97449,
+            },
+          ],
+          chargesTypeId: 74,
+          rate: 100,
+          rateTypeId: 6,
+        },
+        // 11 Below
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97450,
+            },
+          ],
+          chargesTypeId: 8,
+          rate: 110,
+          rateTypeId: 6,
+        },
+        // 12 Below
+        {
+          accepted: true,
+          tariff: [
+            {
+              id: 97451,
+            },
+          ],
+          chargesTypeId: 34,
+          rate: 120,
+          rateTypeId: 6,
+        },
+        // 13 Below
+        {
+          accepted: true,
+          tariff: [],
+          chargesTypeId: 19,
+          rate: 130,
+          rateTypeId: 6,
+        },
+        // 14 below
+        {
+          accepted: true,
+          tariff: [],
+          chargesTypeId: 67,
+          rate: 140,
+          rateTypeId: 6,
+        },
+        // 15 Below
+        {
+          accepted: true,
+          tariff: [],
+          chargesTypeId: 28,
+          rate: 150,
+          rateTypeId: 6,
+        },
+      ],
+      closingLocationId: 8033,
+      customer: {
+        id: 899443,
+        firstName: "Hammad Mukhtar",
+      },
+      customerId: 899443,
+      discount: 10,
+      driver: {
+        id: 899443,
+      },
+      driverId: 899443,
+      flightDateTime: "2024-06-13T06:16:00.000Z",
+      flightNo: "flight num test",
+      locationId: 8039,
+      notes: "API integration",
+      tariffGroupId: 8965,
+      tax: 200,
+      taxPercent: 5,
+      totalCharges: 100000,
+    };
+
+    submitBooking(bookingData);
   };
 
   const selectStyles = {
@@ -384,8 +521,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                               <DateTimePicker
                                 required
                                 className="form-control-age mt-2 col-12"
-                                onChange={setDriverDateTime}
-                                value={driverDateTime}
+                                onChange={setDriverFlightDateTime}
+                                value={driverFlightDateTime}
                               />
                             </Form.Group>
                           </Col>
@@ -397,17 +534,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 </label>
                               </div>
                               <Select
-                                options={NationalityNames}
+                                options={nationality}
                                 required
                                 className="form-control-nationality col-12"
-                                setNationality
-                                onChange={(selectedOption) => {
-                                  console.log(
-                                    "Selected optn is: ",
-                                    selectedOption
-                                  );
-                                  setNationality(selectedOption.value);
-                                }}
+                                value={selectedNationality}
+                                onChange={handleChange}
                                 styles={selectStyles}
                               />
                             </Form.Group>
@@ -418,129 +549,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                   </div>
                 </div>
                 <br />
-                <div className="step1-car-details p-4">
-                  <div className="location-label">
-                    <div className="styled-label">
-                      <BsFillShieldLockFill className="mr-2 heading-icon" />
-                      <b>Rental AddOns</b>
-                      <hr className="heading-underline" />
-                    </div>
 
-                    <div className="driver-details-form-container">
-                      <Row>
-                        <Col lg={12} md={12} sm={12} xs={12}>
-                          <div className=" form-group pl-4 pr-4">
-                            <Row className="d-flex">
-                              {addOnsValuesData.map((AddOnsDataValues) => (
-                                <Col
-                                  lg={5}
-                                  md={12}
-                                  sm={12}
-                                  xs={12}
-                                  className="add-on-container"
-                                  key={AddOnsDataValues?.chargesTypeId}
-                                >
-                                  <Form.Group
-                                    controlId={`formKeyword_${AddOnsDataValues?.chargesTypeId}`}
-                                  >
-                                    <div className="row d-flex align-items-center">
-                                      <Col lg={1} md={2} sm={2} xs={2}>
-                                        <BsFileEarmarkArrowUp className="mr-2 heading-icon" />
-                                      </Col>
-                                      <Col lg={8} md={7} sm={7} xs={7}>
-                                        <div className="add-ons-label-name p-2">
-                                          <label className="add-ons-label">
-                                            <b>
-                                              {
-                                                AddOnsDataValues?.chargesType
-                                                  ?.name
-                                              }
-                                              {AddOnsDataValues?.chargesTypeId}
-                                            </b>
-                                            <br />
-                                            <span>
-                                              AED{" "}
-                                              {AddOnsDataValues?.rateType?.name}
-                                            </span>
-                                            <br />
-                                            <a
-                                              href={`#${AddOnsDataValues?.chargesTypeId}`}
-                                              onClick={() =>
-                                                handleViewDetails(
-                                                  AddOnsDataValues
-                                                )
-                                              }
-                                              className="add-ons-view-details"
-                                            >
-                                              View Details
-                                            </a>
-                                          </label>
-                                        </div>
-                                      </Col>
-                                      <Col lg={3} md={3} sm={3} xs={3}>
-                                        <div className="form-check form-switch form-switch-md float-end">
-                                          <input
-                                            className="form-check-input add-ons-toggle-input"
-                                            type="checkbox"
-                                            id={`flexSwitchCheckDefault_${AddOnsDataValues?.chargesTypeId}`}
-                                            onChange={() =>
-                                              handleCheckBoxChange(
-                                                AddOnsDataValues?.chargesType
-                                                  ?.id
-                                              )
-                                            }
-                                          />
-                                        </div>
-                                      </Col>
-                                    </div>
-                                  </Form.Group>
-                                </Col>
-                              ))}
-                            </Row>
-                          </div>
-                        </Col>
-
-                        <Col lg={11} md={11} sm={12} xs={12}>
-                          <div className="total-addons-price text-right">
-                            <div>
-                              <span className="fs-4 fw-medium"> Total:</span>{" "}
-                              <span>AED</span>{" "}
-                              <span className="total-addons-value fs-3 fw-semibold">
-                                {totalAddOnsPriceSimple()}
-                              </span>{" "}
-                            </div>
-                          </div>
-                        </Col>
-                      </Row>
-                    </div>
-                  </div>
-                  <Modal
-                    show={showModal}
-                    onHide={handleCloseModal}
-                    centered
-                    size="lg"
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title>View Details</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      {selectedAddOn && (
-                        <>
-                          <p>{selectedAddOn.addOnsDetail}</p>
-                        </>
-                      )}
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <button
-                        className="btn btn-secondary"
-                        onClick={handleCloseModal}
-                      >
-                        Close
-                      </button>
-                    </Modal.Footer>
-                  </Modal>
-                </div>
-                <br />
                 <div className="step1-car-details p-4">
                   <div className="location-label">
                     <div className="styled-label">

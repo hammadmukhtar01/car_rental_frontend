@@ -290,8 +290,7 @@ const VehiclesPage = () => {
 
   const fetchCarsData = useCallback(async () => {
     try {
-      const token =
-        "pwhUHSoPIOJmECDhAyhlP1X5ZvzD1W3dmhUOdpQ-BQtQzg1PNlv8invCvbT1qk3EsoJfM_v8Pj8ZJsPKXVoC-kZtg0p2mpAu4f5g8LiMWrGbqZ4QRY-1xJRJTcWF-t24jUgdng1-myn-TgDddhkldDmkOufYlMdkGQDpZtnUfQ00qgl58t65VCWwK29g4ZWq_Y9djzMDXsmSARNbtZD4TkjqEtIihGsxcffl8VEdO_f3oqDZamOk-mq9XrzlOxdU76g7WRmubIBctGiJPO8DV5crp-ccVfeZ_3TinZc6pmUABcezl9QxkrcbcgTGrRjMhpdqtXYOworyQjpjOfEhbTHYrkQFw-7yTJOJiUCIUMX05z97fE5DIi7GJg8-PL5xfzUyPgruvfnkHHmlFRWIFOkoEgf7FdcQ3S7EveRJZsHVxCKUKg-Dvjm4k7VyHE3uLhKurIgj4VzVSdRYGVRiggymUxvRT4h5Lr_nh2G1vzIrOG1R5vfb_93Pk5SelyNHoizjG_3nCfGbgWzwQ728Z6Vn22CAcbKemFRF7kVh0mg";
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
       const headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -333,10 +332,17 @@ const VehiclesPage = () => {
     fetchCarsData();
   };
 
+  const categoryMap = {
+    "Standard": "Sedan",
+    "Small SUV 5 Seater": "SUV",
+    "Compact": "Hatchback",
+    "Fullsize": "Station Wagon"
+  };
+  
+
   const fetchAllCategories = useCallback(async () => {
     try {
-      const token =
-        "pwhUHSoPIOJmECDhAyhlP1X5ZvzD1W3dmhUOdpQ-BQtQzg1PNlv8invCvbT1qk3EsoJfM_v8Pj8ZJsPKXVoC-kZtg0p2mpAu4f5g8LiMWrGbqZ4QRY-1xJRJTcWF-t24jUgdng1-myn-TgDddhkldDmkOufYlMdkGQDpZtnUfQ00qgl58t65VCWwK29g4ZWq_Y9djzMDXsmSARNbtZD4TkjqEtIihGsxcffl8VEdO_f3oqDZamOk-mq9XrzlOxdU76g7WRmubIBctGiJPO8DV5crp-ccVfeZ_3TinZc6pmUABcezl9QxkrcbcgTGrRjMhpdqtXYOworyQjpjOfEhbTHYrkQFw-7yTJOJiUCIUMX05z97fE5DIi7GJg8-PL5xfzUyPgruvfnkHHmlFRWIFOkoEgf7FdcQ3S7EveRJZsHVxCKUKg-Dvjm4k7VyHE3uLhKurIgj4VzVSdRYGVRiggymUxvRT4h5Lr_nh2G1vzIrOG1R5vfb_93Pk5SelyNHoizjG_3nCfGbgWzwQ728Z6Vn22CAcbKemFRF7kVh0mg";
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
       const headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -345,10 +351,24 @@ const VehiclesPage = () => {
       const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/getSettings`;
       const response = await axios.post(url, {}, { headers });
 
-      setCarCategoriesData(response.data.result.categories);
+      const requiredCategories = [
+        "Standard",
+        "Small SUV 5 Seater",
+        "Compact",
+        "Fullsize",
+      ];
+
+      const filteredAndRenamedCategories = response.data.result.categories
+        .filter((category) => requiredCategories.includes(category.name))
+        .map((category) => ({
+          ...category,
+          name: categoryMap[category.name] || category.name,
+        }));
+
+      setCarCategoriesData(filteredAndRenamedCategories);
       console.log(
-        "All Categories of cars are :------- ",
-        response.data.result.categories
+        "Filtered and renamed categories of cars are :------- ",
+        filteredAndRenamedCategories
       );
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
@@ -358,6 +378,15 @@ const VehiclesPage = () => {
   useEffect(() => {
     fetchAllCategories();
   }, [fetchAllCategories]);
+
+  useEffect(() => {
+    const newSelectedCategories = selectedCategories.map((selected) => {
+      const foundCategory = carCategoriesData.find(category => category.code === selected.value);
+      return foundCategory ? { ...selected, label: foundCategory.name } : selected;
+    });
+    setSelectedCategories(newSelectedCategories);
+  }, [carCategoriesData]);
+  
 
   const carFeaturesWithIcons = [
     {
@@ -1110,7 +1139,7 @@ const VehiclesPage = () => {
                         <div className="car-type-filter-container d-flex justify-content-between">
                           <div className="car-type-icon-title">
                             <BsJustify className="mr-2" />
-                            <b>Car Type</b>
+                            <b>Models</b>
                           </div>
                           <div className="car-type-open-close-modal ">
                             {isCarTypeOpen ? (
@@ -1283,8 +1312,10 @@ const VehiclesPage = () => {
                             <div className="car-name-div">
                               <span className="car-name text-end">
                                 {" "}
-                                <b>{car?.acrissCategory?.name} | </b>(
-                                {car?.title})
+                                <b>{car?.title}</b> | (
+                                  {categoryMap[car?.acrissCategory?.name] || car?.acrissCategory?.name})
+                                {/* <b>{car?.acrissCategory?.name} | </b>( */}
+                                {/* ) */}
                               </span>
                             </div>
                             <div className="car-image-container ">

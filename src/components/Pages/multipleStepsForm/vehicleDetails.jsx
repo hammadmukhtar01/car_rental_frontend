@@ -60,10 +60,53 @@ const VehicleDetails = ({ nextStep }) => {
   const checkBoxValueParam = queryParams.get("checkBoxValue");
   const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
 
+  const AddOnsData = useMemo(
+    () => [
+      {
+        id: 2,
+        addOnsName: "CDW",
+        pricePerTrip: 100,
+        IconName: BsFileEarmarkArrowUp,
+        checkBoxValue: 0,
+        addOnsDetail:
+          "CDW Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+      },
+
+      {
+        id: 3,
+        addOnsName: "PAI",
+        pricePerTrip: 50,
+        checkBoxValue: 1,
+        IconName: BsPersonCircle,
+        addOnsDetail:
+          "PAI Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+      },
+      {
+        id: 19,
+        addOnsName: "Baby Seat",
+        pricePerTrip: 115,
+        IconName: BsFileEarmarkArrowUp,
+        checkBoxValue: 0,
+        addOnsDetail:
+          "Baby Seat Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+      },
+
+      {
+        id: 67,
+        addOnsName: "Airport Surcharges",
+        pricePerTrip: 100,
+        IconName: BsFileEarmarkArrowUp,
+        checkBoxValue: 0,
+        addOnsDetail:
+          "Airport Surcharges Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+      },
+    ],
+    []
+  );
+
   const fetchAddOnsChargesData = useCallback(async () => {
     try {
-      const token =
-        "pwhUHSoPIOJmECDhAyhlP1X5ZvzD1W3dmhUOdpQ-BQtQzg1PNlv8invCvbT1qk3EsoJfM_v8Pj8ZJsPKXVoC-kZtg0p2mpAu4f5g8LiMWrGbqZ4QRY-1xJRJTcWF-t24jUgdng1-myn-TgDddhkldDmkOufYlMdkGQDpZtnUfQ00qgl58t65VCWwK29g4ZWq_Y9djzMDXsmSARNbtZD4TkjqEtIihGsxcffl8VEdO_f3oqDZamOk-mq9XrzlOxdU76g7WRmubIBctGiJPO8DV5crp-ccVfeZ_3TinZc6pmUABcezl9QxkrcbcgTGrRjMhpdqtXYOworyQjpjOfEhbTHYrkQFw-7yTJOJiUCIUMX05z97fE5DIi7GJg8-PL5xfzUyPgruvfnkHHmlFRWIFOkoEgf7FdcQ3S7EveRJZsHVxCKUKg-Dvjm4k7VyHE3uLhKurIgj4VzVSdRYGVRiggymUxvRT4h5Lr_nh2G1vzIrOG1R5vfb_93Pk5SelyNHoizjG_3nCfGbgWzwQ728Z6Vn22CAcbKemFRF7kVh0mg";
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
       const headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -76,15 +119,21 @@ const VehicleDetails = ({ nextStep }) => {
       };
 
       const response = await axios.post(url, ModuleValue, { headers });
-      setAddOnsValuesData(response.data.result.items);
-      console.log(
-        "Result of our all speed add ons are : ",
-        response.data.result.items
-      );
+      const fetchedAddOns = response.data.result.items;
+
+      const mergedAddOns = fetchedAddOns.map((addOn) => ({
+        ...addOn,
+        ...AddOnsData.find(
+          (localAddOn) => localAddOn.id === addOn.chargesTypeId
+        ),
+      }));
+
+      setAddOnsValuesData(mergedAddOns.filter((addOn) => addOn.addOnsName));
+      console.log("Merged add-ons:", mergedAddOns);
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
-  }, []);
+  }, [AddOnsData]);
 
   useEffect(() => {
     fetchAddOnsChargesData();
@@ -114,47 +163,6 @@ const VehicleDetails = ({ nextStep }) => {
       return total + (addOn.pricePerTrip || 0);
     }, 0);
   };
-
-  const AddOnsData = [
-    {
-      id: 1,
-      addOnsName: "Tint",
-      pricePerTrip: 150,
-      IconName: BsFileEarmarkArrowUp,
-      checkBoxValue: 0,
-      addOnsDetail:
-        "1 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
-    },
-
-    {
-      id: 2,
-      addOnsName: "Additional Driver",
-      pricePerTrip: 50,
-      checkBoxValue: 1,
-      IconName: BsPersonCircle,
-      addOnsDetail:
-        "2 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
-    },
-    {
-      id: 3,
-      addOnsName: "Tissue Box",
-      pricePerTrip: 5,
-      IconName: BsFileEarmarkArrowUp,
-      checkBoxValue: 0,
-      addOnsDetail:
-        "1 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
-    },
-
-    {
-      id: 4,
-      addOnsName: "Air Freshner",
-      pricePerTrip: 15,
-      IconName: BsFileEarmarkArrowUp,
-      checkBoxValue: 0,
-      addOnsDetail:
-        "1 Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
-    },
-  ];
 
   useEffect(() => {
     if (checkBoxValueParam === "false") {
@@ -190,8 +198,7 @@ const VehicleDetails = ({ nextStep }) => {
   const fetchSingleCarDetails = useCallback(async () => {
     let data = { TariffGroupId, StartDateTime, ReturnDateTime };
     try {
-      const token =
-        "pwhUHSoPIOJmECDhAyhlP1X5ZvzD1W3dmhUOdpQ-BQtQzg1PNlv8invCvbT1qk3EsoJfM_v8Pj8ZJsPKXVoC-kZtg0p2mpAu4f5g8LiMWrGbqZ4QRY-1xJRJTcWF-t24jUgdng1-myn-TgDddhkldDmkOufYlMdkGQDpZtnUfQ00qgl58t65VCWwK29g4ZWq_Y9djzMDXsmSARNbtZD4TkjqEtIihGsxcffl8VEdO_f3oqDZamOk-mq9XrzlOxdU76g7WRmubIBctGiJPO8DV5crp-ccVfeZ_3TinZc6pmUABcezl9QxkrcbcgTGrRjMhpdqtXYOworyQjpjOfEhbTHYrkQFw-7yTJOJiUCIUMX05z97fE5DIi7GJg8-PL5xfzUyPgruvfnkHHmlFRWIFOkoEgf7FdcQ3S7EveRJZsHVxCKUKg-Dvjm4k7VyHE3uLhKurIgj4VzVSdRYGVRiggymUxvRT4h5Lr_nh2G1vzIrOG1R5vfb_93Pk5SelyNHoizjG_3nCfGbgWzwQ728Z6Vn22CAcbKemFRF7kVh0mg";
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
       const headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -389,7 +396,10 @@ const VehicleDetails = ({ nextStep }) => {
   };
 
   const subTotalValue =
-    calculateTotalPrice() + totalAPIResponseCharges + getDeliveryCharge();
+    calculateTotalPrice() +
+    totalAPIResponseCharges +
+    getDeliveryCharge() +
+    totalAddOnsPriceSimple();
   const taxTotal = Math.floor((5 * subTotalValue) / 100);
   const grandTotalPrice = subTotalValue + taxTotal;
 
@@ -413,6 +423,7 @@ const VehicleDetails = ({ nextStep }) => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setShowModal(false);
   };
 
   const handleNextStep1 = () => {
@@ -575,8 +586,8 @@ const VehicleDetails = ({ nextStep }) => {
                               </div>
                             </div>
                           </div>
-                          <br />
-                          <div className="car-description-div">
+                          {/* <br /> */}
+                          {/* <div className="car-description-div">
                             <div className="car-description-div2-heading m-2">
                               <b> Description: </b>
                             </div>
@@ -587,8 +598,7 @@ const VehicleDetails = ({ nextStep }) => {
                                 {baseAPIResponsePath?.subTitle}
                               </div>
                             </div>
-                          </div>
-                          <br />
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -608,7 +618,7 @@ const VehicleDetails = ({ nextStep }) => {
                                 <Row className="d-flex">
                                   {addOnsValuesData.map((AddOnsDataValues) => (
                                     <Col
-                                      lg={5}
+                                      lg={8}
                                       md={12}
                                       sm={12}
                                       xs={12}
@@ -626,16 +636,17 @@ const VehicleDetails = ({ nextStep }) => {
                                             <div className="add-ons-label-name p-2">
                                               <label className="add-ons-label">
                                                 <b>
-                                                  {
-                                                    AddOnsDataValues
-                                                      ?.chargesType?.name
-                                                  }
-                                                  {
-                                                    AddOnsDataValues?.chargesTypeId
-                                                  }
+                                                  {AddOnsDataValues?.addOnsName}
+                                                  {/* {AddOnsDataValues?.chargesTypeId} */}
                                                 </b>
                                                 <br />
                                                 <span>
+                                                  <b>
+                                                    {" "}
+                                                    {
+                                                      AddOnsDataValues?.pricePerTrip
+                                                    }
+                                                  </b>{" "}
                                                   AED{" "}
                                                   {
                                                     AddOnsDataValues?.rateType
@@ -677,21 +688,6 @@ const VehicleDetails = ({ nextStep }) => {
                                     </Col>
                                   ))}
                                 </Row>
-                              </div>
-                            </Col>
-
-                            <Col lg={11} md={11} sm={12} xs={12}>
-                              <div className="total-addons-price text-right">
-                                <div>
-                                  <span className="fs-4 fw-medium">
-                                    {" "}
-                                    Total:
-                                  </span>{" "}
-                                  <span>AED</span>{" "}
-                                  <span className="total-addons-value fs-3 fw-semibold">
-                                    {totalAddOnsPriceSimple()}
-                                  </span>{" "}
-                                </div>
                               </div>
                             </Col>
                           </Row>
@@ -830,6 +826,21 @@ const VehicleDetails = ({ nextStep }) => {
                                     AED{" "}
                                     <span className="charges-value pl-1">
                                       {getDeliveryCharge()}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div
+                                  // key={charge._id}
+                                  className="price-row p-1"
+                                  style={{ lineHeight: "100%" }}
+                                >
+                                  <span className="price-label">
+                                    Add-Ons Total
+                                  </span>
+                                  <div className="text-right">
+                                    AED{" "}
+                                    <span className="charges-value pl-1">
+                                      {totalAddOnsPriceSimple()}
                                     </span>
                                   </div>
                                 </div>
