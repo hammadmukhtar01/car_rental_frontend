@@ -17,7 +17,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [lastName, setLastName] = useState("");
   const [contactNum, setContactNum] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
-
   const [nationality, setNationality] = useState("");
   // Driving License
   const [drivingLicenseNum, setDrivingLicenseNum] = useState("");
@@ -32,18 +31,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [passportIssueDate, setPassportIssueDate] = useState("");
   const [passportExpiryDate, setPassportExpiryDate] = useState("");
   const [passportImg, setPassportImg] = useState("");
-  const [driverPassport, setDriverPassport] = useState("");
   // const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
-  const [driversAge, setDriversAge] = useState("");
   const [selectedNationality, setSelectedNationality] = useState("");
   const [driverFlightDateTime, setDriverFlightDateTime] = useState(new Date());
   const [airlineTicketNum, setAirlineTicketNum] = useState("");
 
-  const [locationsList, setLocationsList] = useState("");
   const [pickupLocationId, setPickupLocationId] = useState(null);
   const [dropoffLocationId, setDropoffLocationId] = useState(null);
 
+  const [newCustomerId, setNewCustomerId] = useState("");
   const [bookingData, setBookingData] = useState(null);
+  const [createCustomerData, setCreateCustomerData] = useState(null);
 
   const bookingDocURL = useLocation();
   const queryParams = useMemo(
@@ -52,7 +50,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   );
   const TariffGroupIdParam = queryParams.get("tariffGroupId");
   const addOnsFromUrl = queryParams.get("addOns").split(",").map(Number);
-  console.log("addOnsFromUrl ", addOnsFromUrl);
 
   const startDateValue = queryParams.get("startDate");
   const returnDateValue = queryParams.get("endDate");
@@ -136,10 +133,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         setDropoffLocationId(matchedDropoffLocation.id);
       }
 
-      console.log(
-        "List of available locations in Speed:",
-        fetchedAvailableLocations
-      );
+      // console.log(
+      //   "List of available locations in Speed:",
+      //   fetchedAvailableLocations
+      // );
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
@@ -148,6 +145,62 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   useEffect(() => {
     fetchAvailableLocationsData();
   }, [fetchAvailableLocationsData]);
+
+  // Create Customer API
+
+  const createCustomer = async (data) => {
+    console.log("create customer", data);
+    try {
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const url =
+        "https://app.speedautosystems.com/api/services/app/person/CreateOrUpdatePerson";
+      const payload = {
+        person: data,
+      };
+
+      const response = await axios.post(url, payload, { headers });
+      setNewCustomerId(response?.data?.result);
+      console.log("create customer response--------:", response?.data?.result);
+
+      if (response.data.success === true) {
+        alert("success");
+        getCustomerDetails();
+      }
+    } catch (error) {
+      console.error("Error creating/updating customer:", error);
+    }
+  };
+
+  // get Customer Detail API
+
+  const getCustomerDetails = async () => {
+    console.log("Get customer customer");
+    try {
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+      const url =
+        "https://app.speedautosystems.com/api/services/app/person/GetPersonForEdit";
+
+      const response = await axios.post(
+        url,
+        { id: newCustomerId },
+        { headers }
+      );
+      // set(response?.data?.result);
+      console.log("create customer response--------:", response?.data?.result);
+    } catch (error) {
+      console.error("Error creating/updating customer:", error);
+    }
+  };
+  // Booking API
 
   const submitBooking = async (data) => {
     console.log("submit booking start", data);
@@ -178,17 +231,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const handleChange = (selectedOption) => {
     setSelectedNationality(selectedOption);
-    console.log("Selected nationality:", selectedOption);
   };
 
   const handlePassportChange = (selectedOption) => {
     setPassportIssueBy(selectedOption);
-    console.log("Selected setPassportIssueBy:", selectedOption);
   };
 
   const handleDrivingLicenseChange = (selectedOption) => {
     setDrivingLicenseIssueBy(selectedOption);
-    console.log("Selected setDrivingLicenseIssueBy:", selectedOption);
   };
 
   const handleNextStep = () => {
@@ -235,11 +285,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       console.log("Lisence is required");
     }
 
-    if (!driverPassport.trim()) {
-      isFormValid = false;
-      console.log("Passport is required");
-    }
-
     if (!isFormValid) {
       console.log("");
       return;
@@ -254,11 +299,59 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       lastName,
       contactNum,
       emailAddress,
-      driversAge,
       airlineTicketNum,
-      drivingLicenseNum,
-      driverPassport
+      drivingLicenseNum
     );
+
+    // Creating Customer Data
+
+    const createCustomerData = {
+      email: emailAddress,
+      firstName: firstName,
+      lastName: lastName,
+      mobileNo: contactNum,
+      identityDocuments: [
+        {
+          documentNo: drivingLicenseNum,
+          expiryDate: drivingLicenseExpiryDate,
+          identityDocumentType: 4,
+          isInternational: isInternationalLicense,
+          issueDate: drivingLicenseIssueDate,
+          gallaryImages: [
+            {
+              url: drivingLicenseImg,
+            },
+          ],
+          images: [
+            {
+              url: drivingLicenseImg,
+            },
+          ],
+          issuedBy: drivingLicenseIssueBy.label,
+        },
+        {
+          documentNo: passportNum,
+          expiryDate: passportExpiryDate,
+          identityDocumentType: 2,
+          issueDate: passportIssueDate,
+          gallaryImages: [
+            {
+              url: passportImg,
+            },
+          ],
+          images: [
+            {
+              url: passportImg,
+            },
+          ],
+          issuedBy: passportIssueBy.label,
+        },
+      ],
+    };
+
+    await createCustomer(createCustomerData);
+
+    // Booking Data
 
     const bookingData = {
       bookingType: 0,
@@ -656,14 +749,13 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     <b>Passport Issue Date *</b>
                                   </label>
                                 </div>
-                                <input
-                                  className="form-control-location mt-2 col-12"
+                                <DateTimePicker
                                   required
-                                  type="date"
-                                  placeholder="Issue Date"
+                                  className="form-control-age mt-2 col-12"
                                   value={passportIssueDate}
-                                  onChange={(e) =>
-                                    setPassportIssueDate(e.target.value)
+                                  onChange={setPassportIssueDate}
+                                  maxDate={
+                                    new Date(new Date().setHours(0, 0, 0, 0))
                                   }
                                 />
                               </Form.Group>
@@ -675,15 +767,12 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     <b>Passport Expiry Date *</b>
                                   </label>
                                 </div>
-                                <input
-                                  className="form-control-location mt-2 col-12"
+                                <DateTimePicker
                                   required
-                                  type="date"
-                                  placeholder="Issue Date"
+                                  className="form-control-age mt-2 col-12"
                                   value={passportExpiryDate}
-                                  onChange={(e) =>
-                                    setPassportExpiryDate(e.target.value)
-                                  }
+                                  onChange={setPassportExpiryDate}
+                                  minDate={new Date(new Date())}
                                 />
                               </Form.Group>
                             </Col>
@@ -754,14 +843,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     <b>Driving License Issue Date *</b>
                                   </label>
                                 </div>
-                                <input
-                                  className="form-control-location mt-2 col-12"
+
+                                <DateTimePicker
                                   required
-                                  type="date"
-                                  placeholder="Issue Date"
+                                  className="form-control-age mt-2 col-12"
                                   value={drivingLicenseIssueDate}
-                                  onChange={(e) =>
-                                    setDrivingLicenseIssueDate(e.target.value)
+                                  onChange={setDrivingLicenseIssueDate}
+                                  maxDate={
+                                    new Date(new Date().setHours(0, 0, 0, 0))
                                   }
                                 />
                               </Form.Group>
@@ -773,15 +862,12 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     <b>Driving License Expiry Date *</b>
                                   </label>
                                 </div>
-                                <input
-                                  className="form-control-location mt-2 col-12"
+                                <DateTimePicker
                                   required
-                                  type="date"
-                                  placeholder="Issue Date"
+                                  className="form-control-age mt-2 col-12"
                                   value={drivingLicenseExpiryDate}
-                                  onChange={(e) =>
-                                    setDrivingLicenseExpiryDate(e.target.value)
-                                  }
+                                  onChange={setDrivingLicenseExpiryDate}
+                                  minDate={new Date(new Date())}
                                 />
                               </Form.Group>
                             </Col>
@@ -817,10 +903,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     type="radio"
                                     label="Yes"
                                     name="internationalLicense"
-                                    value="Yes"
-                                    checked={isInternationalLicense === "Yes"}
+                                    value="true"
+                                    checked={isInternationalLicense === "true"}
                                     onChange={() =>
-                                      setIsInternationalLicense("Yes")
+                                      setIsInternationalLicense("true")
                                     }
                                   />
                                   <Form.Check
@@ -828,10 +914,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     type="radio"
                                     label="No"
                                     name="internationalLicense"
-                                    value="No"
-                                    checked={isInternationalLicense === "No"}
+                                    value="false"
+                                    checked={isInternationalLicense === "false"}
                                     onChange={() =>
-                                      setIsInternationalLicense("No")
+                                      setIsInternationalLicense("false")
                                     }
                                   />
                                 </div>

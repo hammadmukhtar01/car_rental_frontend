@@ -66,32 +66,41 @@ const AnimatedCarSection = () => {
 
       // const filteredCarsData = response.data.result.items.filter(
       //   (car) =>
-      //     car.title === "Toyota Corolla" ||
-      //     car.title === "Nissan" ||
-      //     car.title === "Hyundai" ||
-      //     car.title === "Chevrolet"
+      //     car.acrissCategory?.name === "Toyota Corolla" ||
+      //     car.acrissCategory?.name === "Nissan" ||
+      //     car.acrissCategory?.name === "Hyundai" ||
+      //     car.acrissCategory?.name === "Chevrolet"
       // );
       // setCarsData(filteredCarsData);
+      console.log(
+        "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+        response.data.result.items
+      );
 
       response.data.result.items.forEach((car) => {
-        switch (car.title) {
-          case "Chevrolet":
-            console.log("caaaaese 11111 -------")
-            setChevroletImg(car.displayImageUrl);
+        console.log(
+          "before acriss cat : ",
+          car.acrissCategory?.name,
+          car.displayImageUrl
+        );
+        switch (car.acrissCategory?.name) {
+          case "Standard":
+            console.log("caaaaese 11111 -------");
+            setChevroletImg(car?.displayImageUrl);
             break;
-          case "Nissan":
-            console.log("caaaaese 222222222-------")
-            setNissanImg(car.displayImageUrl);
+          case "Small SUV 5 Seater":
+            console.log("caaaaese 222222222-------");
+            setNissanImg(car?.displayImageUrl);
             break;
-          case "Hyundai":
-            console.log("caaaaese 333333-------")
+          case "Compact":
+            console.log("caaaaese 333333-------");
 
-            setHyundaiImg(car.displayImageUrl);
+            setHyundaiImg(car?.displayImageUrl);
             break;
-          case "Toyota Corolla":
-            console.log("caaaaese 444444-------")
+          case "Fullsize":
+            console.log("caaaaese 444444-------");
 
-            setToyotaCorollaImg(car.displayImageUrl);
+            setToyotaCorollaImg(car?.displayImageUrl);
             break;
           default:
             break;
@@ -113,34 +122,32 @@ const AnimatedCarSection = () => {
 
   useEffect(() => {
     if (chevroletImg && nissanImg && hyundaiImg && toyotaCorollaImg) {
-      window.$(".owl-carousel").trigger('refresh.owl.carousel');
+      window.$(".owl-carousel").trigger("refresh.owl.carousel");
     }
   }, [chevroletImg, nissanImg, hyundaiImg, toyotaCorollaImg]);
-
-  
 
   const imagesData = [
     {
       displayImageUrl: nissanImg,
-      title: "Nissan",
+      acrissCategory: "Standard",
     },
     {
       displayImageUrl: hyundaiImg,
-      title: "Hyundai",
+      acrissCategory: "Small SUV 5 Seater",
     },
     {
       displayImageUrl: toyotaCorollaImg,
-      title: "Toyota Corolla",
+      acrissCategory: "Compact",
     },
     {
       displayImageUrl: chevroletImg,
-      title: "Chevrolet",
+      acrissCategory: "Fullsize",
     },
   ];
 
   carsData.forEach((car) => {
     const existingIndex = imagesData.findIndex(
-      (item) => item.title === car.title
+      (item) => item.acrissCategory === car.acrissCategory.name
     );
     if (existingIndex !== -1) {
       imagesData[existingIndex].displayImageUrl = car.displayImageUrl;
@@ -160,7 +167,9 @@ const AnimatedCarSection = () => {
               <div className="styled-label">
                 <div className="location-label">
                   <BsPersonCircle className="mr-2 home-page-heading-icon" />
-                  <span className="fs-3"><b>Our Fleet Cars:</b></span>
+                  <span className="fs-3">
+                    <b>Our Fleet Cars:</b>
+                  </span>
                   <hr className="home-page-heading-underline" />
                 </div>
               </div>
@@ -178,7 +187,9 @@ const AnimatedCarSection = () => {
                               src={data?.displayImageUrl}
                               alt={`Slide ${index + 1}`}
                               className="img-fluid slider-item"
-                              onClick={() => handleImageClick(data?.title)}
+                              onClick={() =>
+                                handleImageClick(data?.acrissCategory?.name)
+                              }
                             />
                           </div>
                         </div>
