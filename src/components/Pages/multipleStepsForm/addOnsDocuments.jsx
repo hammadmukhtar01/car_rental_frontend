@@ -4,6 +4,7 @@ import { Container, Row, Col, Form, Modal } from "react-bootstrap";
 import { BsPersonCircle, BsFileEarmarkArrowUp } from "react-icons/bs";
 // import dayjs from 'dayjs';
 import Select from "react-select";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
@@ -16,9 +17,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [lastName, setLastName] = useState("");
   const [contactNum, setContactNum] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
+
   const [nationality, setNationality] = useState("");
-  const [driversAge, setDriversAge] = useState("");
-  const [airlineTicketNum, setAirlineTicketNum] = useState("");
   // Driving License
   const [drivingLicenseNum, setDrivingLicenseNum] = useState("");
   const [drivingLicenseIssueBy, setDrivingLicenseIssueBy] = useState("");
@@ -34,9 +34,58 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [passportImg, setPassportImg] = useState("");
   const [driverPassport, setDriverPassport] = useState("");
   // const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
+  const [driversAge, setDriversAge] = useState("");
   const [selectedNationality, setSelectedNationality] = useState("");
   const [driverFlightDateTime, setDriverFlightDateTime] = useState(new Date());
+  const [airlineTicketNum, setAirlineTicketNum] = useState("");
+
+  const [locationsList, setLocationsList] = useState("");
+  const [pickupLocationId, setPickupLocationId] = useState(null);
+  const [dropoffLocationId, setDropoffLocationId] = useState(null);
+
   const [bookingData, setBookingData] = useState(null);
+
+  const bookingDocURL = useLocation();
+  const queryParams = useMemo(
+    () => new URLSearchParams(bookingDocURL.search),
+    [bookingDocURL.search]
+  );
+  const TariffGroupIdParam = queryParams.get("tariffGroupId");
+  const addOnsFromUrl = queryParams.get("addOns").split(",").map(Number);
+  console.log("addOnsFromUrl ", addOnsFromUrl);
+
+  const startDateValue = queryParams.get("startDate");
+  const returnDateValue = queryParams.get("endDate");
+  const pickupTimeParam = queryParams.get("pickupTime");
+  const dropoffTimeParam = queryParams.get("dropoffTime");
+
+  const [pickupHour, pickupMinute] = pickupTimeParam.split(":");
+  const startDateTime = new Date(startDateValue);
+  startDateTime.setHours(parseInt(pickupHour, 10));
+  startDateTime.setMinutes(parseInt(pickupMinute, 10));
+  const startDateTimeISO = startDateTime.toISOString();
+
+  const [dropoffHour, dropoffMinute] = dropoffTimeParam.split(":");
+  const dropoffDateTime = new Date(returnDateValue);
+  dropoffDateTime.setHours(parseInt(dropoffHour, 10));
+  dropoffDateTime.setMinutes(parseInt(dropoffMinute, 10));
+  const dropoffDateTimeISO = dropoffDateTime.toISOString();
+
+  const discountedValueParam = queryParams.get("discountValue");
+  const totalGrandPriceParam = queryParams.get("grandTotalCharges");
+
+  const taxPercentage = 5;
+  const taxValue = Math.ceil((taxPercentage * totalGrandPriceParam) / 100);
+
+  const totalGrandPriceWithTax = totalGrandPriceParam + taxValue;
+
+  const pickupLocParam = queryParams.get("pickupLoc");
+  const dropoffLocParam = queryParams.get("dropoffLoc");
+  const pickdropCombineLoc = `pickup: ${pickupLocParam}, dropoff: ${dropoffLocParam}`;
+
+  const pickupLocStateParam = queryParams.get("pickupLocState");
+  const dropoffLocStateParam = queryParams.get("dropoffLocState");
+  const checkBoxValueParam = queryParams.get("checkBoxValue");
 
   useEffect(() => {
     const fetchNationalities = async () => {
@@ -57,6 +106,48 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
     fetchNationalities();
   }, []);
+
+  const fetchAvailableLocationsData = useCallback(async () => {
+    try {
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const url = `http://app.speedautosystems.com/api/services/app/webBooking/GetLocations`;
+
+      const response = await axios.post(url, {}, { headers });
+      const fetchedAvailableLocations = response.data.result.items;
+
+      const matchedPickupLocation = fetchedAvailableLocations.find(
+        (location) =>
+          location.name.toUpperCase() === pickupLocStateParam.toUpperCase()
+      );
+      const matchedDropoffLocation = fetchedAvailableLocations.find(
+        (location) =>
+          location.name.toUpperCase() === dropoffLocStateParam.toUpperCase()
+      );
+
+      if (matchedPickupLocation) {
+        setPickupLocationId(matchedPickupLocation.id);
+      }
+      if (matchedDropoffLocation) {
+        setDropoffLocationId(matchedDropoffLocation.id);
+      }
+
+      console.log(
+        "List of available locations in Speed:",
+        fetchedAvailableLocations
+      );
+    } catch (error) {
+      console.error("Error fetching vehicle rates:", error);
+    }
+  }, [dropoffLocStateParam, pickupLocStateParam]);
+
+  useEffect(() => {
+    fetchAvailableLocationsData();
+  }, [fetchAvailableLocationsData]);
 
   const submitBooking = async (data) => {
     console.log("submit booking start", data);
@@ -87,9 +178,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const handleChange = (selectedOption) => {
     setSelectedNationality(selectedOption);
-    setDrivingLicenseIssueBy(selectedOption);
-    setPassportIssueBy(selectedOption);
     console.log("Selected nationality:", selectedOption);
+  };
+
+  const handlePassportChange = (selectedOption) => {
+    setPassportIssueBy(selectedOption);
+    console.log("Selected setPassportIssueBy:", selectedOption);
+  };
+
+  const handleDrivingLicenseChange = (selectedOption) => {
+    setDrivingLicenseIssueBy(selectedOption);
+    console.log("Selected setDrivingLicenseIssueBy:", selectedOption);
   };
 
   const handleNextStep = () => {
@@ -165,8 +264,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       bookingType: 0,
       IsBooking: true,
       bookingStatus: 0,
-      startDate: "2024-05-05T06:55:00.000Z",
-      endDate: "2024-06-16T06:16:00.000Z",
+      startDate: startDateTimeISO,
+      endDate: dropoffDateTimeISO,
       charges: [
         {
           accepted: true,
@@ -343,28 +442,38 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           rateTypeId: 6,
         },
       ],
-      closingLocationId: 8033,
+      closingLocationId: dropoffLocationId,
       customer: {
         id: 899443,
         firstName: "Hammad Mukhtar",
       },
       customerId: 899443,
-      discount: 10,
+      discount: discountedValueParam,
       driver: {
         id: 899443,
       },
       driverId: 899443,
-      flightDateTime: "2024-06-13T06:16:00.000Z",
-      flightNo: "flight num test",
-      locationId: 8039,
-      notes: "API integration",
-      tariffGroupId: 8965,
-      tax: 200,
-      taxPercent: 5,
-      totalCharges: 100000,
+      flightDateTime: driverFlightDateTime,
+      flightNo: airlineTicketNum,
+      locationId: pickupLocationId,
+      notes: pickdropCombineLoc,
+      tariffGroupId: TariffGroupIdParam,
+      tax: taxValue,
+      taxPercent: taxPercentage,
+      totalCharges: totalGrandPriceWithTax,
     };
 
-    submitBooking(bookingData);
+    const updatedBookingData = {
+      ...bookingData,
+      charges: bookingData.charges.map((charge) => ({
+        ...charge,
+        accepted: addOnsFromUrl.includes(charge.chargesTypeId),
+      })),
+    };
+
+    console.log("Updated Booking Data:", updatedBookingData);
+
+    // await submitBooking(updatedBookingData);
   };
 
   const selectStyles = {
@@ -533,8 +642,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   options={nationality}
                                   required
                                   className="form-control-nationality col-12"
-                                  value={selectedNationality}
-                                  onChange={handleChange}
+                                  value={passportIssueBy}
+                                  onChange={handlePassportChange}
                                   styles={selectStyles}
                                 />
                               </Form.Group>
@@ -631,8 +740,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   options={nationality}
                                   required
                                   className="form-control-nationality col-12"
-                                  value={selectedNationality}
-                                  onChange={handleChange}
+                                  value={drivingLicenseIssueBy}
+                                  onChange={handleDrivingLicenseChange}
                                   styles={selectStyles}
                                 />
                               </Form.Group>

@@ -58,7 +58,7 @@ const SearchBox = () => {
       let checkBoxStoredValue;
 
       if (storedFormFields) {
-        checkBoxStoredValue = storedFormFields?.showDropoffV1 === 0;
+        checkBoxStoredValue = storedFormFields?.showDropoffV1 === 1;
         console.log(
           "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
           checkBoxStoredValue
@@ -130,7 +130,7 @@ const SearchBox = () => {
     pickTimeV1: pickUpTime || "",
     dropTimeV1: dropOffTime || "",
     dateRangeV1: dateRange || "",
-    showDropoffV1: 1,
+    showDropoffV1: 0,
   });
 
   const handlePickupTimeChange = (selectedOption) => {
@@ -266,7 +266,7 @@ const SearchBox = () => {
     console.log(
       `pickup time is: ${pickUpTime} and dropoff time is: ${dropOffTime} and pickup loc msg is: ${pickupLocationMessage} and dropoff loc msg is: ${dropoffLocationMessage}`
     );
-    if (!pickUpTime || !dropOffTime || !pickupLocationMessage) {
+    if (!pickUpTime || !dropOffTime || !pickupLocationMessage || (showDropoff === true && !dropoffLocationMessage)) {
       toast.error("Some inputs are missing.", {
         autoClose: 1000,
         style: {

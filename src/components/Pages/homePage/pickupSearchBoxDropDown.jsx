@@ -117,6 +117,7 @@ function PickupLocationModal({
     } else if (selectedTab === "pick") {
       message = `Samari Retails - Milele head office AF-07`;
       handleFieldChange("pickupInputMessageV1", message);
+      handleFieldChange("pickupLocationStateV1", "Dubai");
     }
     console.log("Select tab------------------", selectedTab)
 

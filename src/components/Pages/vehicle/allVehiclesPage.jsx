@@ -67,6 +67,7 @@ const VehiclesPage = () => {
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
   const [pickupLocStateValue, setPickupLocStateValue] = useState("");
+  const [dropoffLocStateValue, setDropoffLocStateValue] = useState("");
 
   const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(
     window.innerWidth > 425 ? true : false
@@ -93,15 +94,25 @@ const VehiclesPage = () => {
     let pickupLocState1;
 
     if (storedFormFields) {
-      checkBoxStoredValue = storedFormFields.showDropoffV1;
+      checkBoxStoredValue = storedFormFields?.showDropoffV1;
       console.log(
         "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
         checkBoxStoredValue
       );
-      setShowDropoff(checkBoxStoredValue);
+      if (!checkBoxStoredValue) {
+        console.log("In falseeeeeeeeeeee----------flaseeeeeee-----");
+        handleFieldChange("pickupLocationStateV1", "Dubai");
+      } else if (checkBoxStoredValue) {
+        setShowDropoff(checkBoxStoredValue);
+      }
 
+      console.log("");
       pickupLocTabV1 = storedFormFields.selectedTabPickUp;
       dropoffLocTabV1 = storedFormFields.selectedTabDropOff;
+
+      // if (storedFormFields?.selectedTabPickUp.toUpperCase() === "PICK") {
+      //   setPickupLocStateValue("Dubai");
+      // }
 
       if (storedFormFields?.pickupLocationStateV1) {
         console.log(
@@ -177,7 +188,7 @@ const VehiclesPage = () => {
     pickTimeV1: pickUpTime || "",
     dropTimeV1: dropOffTime || "",
     dateRangeV1: "",
-    showDropoffV1: 1,
+    showDropoffV1: 0,
   });
 
   const [showPickupModal, setShowPickupModal] = useState(false);
@@ -212,6 +223,10 @@ const VehiclesPage = () => {
     const pickupTimeParam = queryParams.get("pickupTime");
     if (pickupTimeParam && !pickUpTime) {
       setPickUpTime(pickupTimeParam);
+    }
+    if (showDropoff === false) {
+      setDropoffLocStateValue(pickupLocStateValue);
+      setDropoffLocationMessage(pickupLocationMessage);
     }
   }, [queryParams, pickUpTime]);
 
@@ -333,12 +348,11 @@ const VehiclesPage = () => {
   };
 
   const categoryMap = {
-    "Standard": "Sedan",
+    Standard: "Sedan",
     "Small SUV 5 Seater": "SUV",
-    "Compact": "Hatchback",
-    "Fullsize": "Station Wagon"
+    Compact: "Hatchback",
+    Fullsize: "Station Wagon",
   };
-  
 
   const fetchAllCategories = useCallback(async () => {
     try {
@@ -381,12 +395,15 @@ const VehiclesPage = () => {
 
   useEffect(() => {
     const newSelectedCategories = selectedCategories.map((selected) => {
-      const foundCategory = carCategoriesData.find(category => category.code === selected.value);
-      return foundCategory ? { ...selected, label: foundCategory.name } : selected;
+      const foundCategory = carCategoriesData.find(
+        (category) => category.code === selected.value
+      );
+      return foundCategory
+        ? { ...selected, label: foundCategory.name }
+        : selected;
     });
     setSelectedCategories(newSelectedCategories);
   }, [carCategoriesData]);
-  
 
   const carFeaturesWithIcons = [
     {
@@ -497,7 +514,7 @@ const VehiclesPage = () => {
 
   const handleDropoffCheckboxChange = () => {
     setShowDropoff(!showDropoff);
-    handleFieldChange("showDropoffV1", showDropoff ? 1 : 0);
+    handleFieldChange("showDropoffV1", !showDropoff ? 1 : 0);
   };
 
   const allCarsBookingButton = (tariffGroupId, startDate, endDate) => {
@@ -528,10 +545,12 @@ const VehiclesPage = () => {
       });
       return;
     }
+    console.log("dshowDropoff value is: ", showDropoff);
 
     console.log("All Cars Booking Button");
+
     navigate(
-      `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}&checkBoxValue=${showDropoff}`
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}&dropoffLocState=${dropoffLocStateValue}&checkBoxValue=${showDropoff}`
     );
   };
 
@@ -834,8 +853,8 @@ const VehiclesPage = () => {
                           />
                         </Modal>
                         <Col
-                          xxl={4}
-                          lg={4}
+                          xxl={5}
+                          lg={5}
                           md={showDropoff ? 9 : 6}
                           sm={12}
                           xs={12}
@@ -1024,7 +1043,7 @@ const VehiclesPage = () => {
                           </Form.Group>
                         </Col>
 
-                        <Col
+                        {/* <Col
                           xxl={1}
                           lg={1}
                           md={3}
@@ -1049,7 +1068,7 @@ const VehiclesPage = () => {
                             </button>
                             <ToastContainer />
                           </div>
-                        </Col>
+                        </Col> */}
                       </Row>
                     </form>
                   </Col>
@@ -1313,8 +1332,9 @@ const VehiclesPage = () => {
                               <span className="car-name text-end">
                                 {" "}
                                 <b>{car?.title}</b> | (
-                                  {categoryMap[car?.acrissCategory?.name] || car?.acrissCategory?.name})
-                                {/* <b>{car?.acrissCategory?.name} | </b>( */}
+                                {categoryMap[car?.acrissCategory?.name] ||
+                                  car?.acrissCategory?.name}
+                                ){/* <b>{car?.acrissCategory?.name} | </b>( */}
                                 {/* ) */}
                               </span>
                             </div>

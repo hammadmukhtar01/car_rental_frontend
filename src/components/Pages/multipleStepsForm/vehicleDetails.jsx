@@ -429,8 +429,13 @@ const VehicleDetails = ({ nextStep }) => {
   const handleNextStep1 = () => {
     const baseUrl = `/bookingPage/2`;
     const urlParams = new URLSearchParams(window.location.search);
+    const selectedAddOnsIds = selectedAddOns.map((addOn) => addOn.id).join(",");
+
     urlParams.set("page", "2");
     urlParams.set("discountValue", grandTotalDiscountedValue());
+    urlParams.set("grandTotalCharges", grandTotalPriceWithDiscount);
+    urlParams.set("addOns", selectedAddOnsIds);
+
     const nextStepUrl = `${baseUrl}?${urlParams.toString()}`;
     window.location.href = nextStepUrl;
   };
