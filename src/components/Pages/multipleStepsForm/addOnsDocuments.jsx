@@ -40,15 +40,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [dropoffLocationId, setDropoffLocationId] = useState(null);
 
   const [newCustomerId, setNewCustomerId] = useState("");
+  const [newCustomerDetail, setNewCustomerDetail] = useState("");
   const [bookingData, setBookingData] = useState(null);
   const [createCustomerData, setCreateCustomerData] = useState(null);
+  const [paymentUrl, setPaymentUrl] = useState("");
 
   const bookingDocURL = useLocation();
   const queryParams = useMemo(
     () => new URLSearchParams(bookingDocURL.search),
     [bookingDocURL.search]
   );
-  const TariffGroupIdParam = queryParams.get("tariffGroupId");
+  const TariffGroupIdParam = parseInt(queryParams.get("tariffGroupId"));
   const addOnsFromUrl = queryParams.get("addOns").split(",").map(Number);
 
   const startDateValue = queryParams.get("startDate");
@@ -70,11 +72,15 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const discountedValueParam = queryParams.get("discountValue");
   const totalGrandPriceParam = queryParams.get("grandTotalCharges");
+  const deliveryChargesParam = parseInt(
+    queryParams.get("totalDeliveryCharges")
+  );
 
   const taxPercentage = 5;
   const taxValue = Math.ceil((taxPercentage * totalGrandPriceParam) / 100);
 
-  const totalGrandPriceWithTax = totalGrandPriceParam + taxValue;
+  const totalGrandPriceWithTax =
+    parseInt(totalGrandPriceParam) + parseFloat(taxValue);
 
   const pickupLocParam = queryParams.get("pickupLoc");
   const dropoffLocParam = queryParams.get("dropoffLoc");
@@ -83,6 +89,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const pickupLocStateParam = queryParams.get("pickupLocState");
   const dropoffLocStateParam = queryParams.get("dropoffLocState");
   const checkBoxValueParam = queryParams.get("checkBoxValue");
+
+  const today = new Date();
+  const invoiceExpiryDate = new Date(today);
+  invoiceExpiryDate.setDate(today.getDate() + 5);
+  const paymentLinkExpiryDate = invoiceExpiryDate.toISOString().split("T")[0];
 
   useEffect(() => {
     const fetchNationalities = async () => {
@@ -149,7 +160,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   // Create Customer API
 
   const createCustomer = async (data) => {
-    console.log("create customer", data);
+    console.log("creatingg customer", data);
     try {
       const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
       const headers = {
@@ -164,12 +175,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       };
 
       const response = await axios.post(url, payload, { headers });
-      setNewCustomerId(response?.data?.result);
-      console.log("create customer response--------:", response?.data?.result);
+      console.log(
+        "===createddddd customer response--------:",
+        response?.data?.result
+      );
+      // setNewCustomerId(response?.data?.result);
 
-      if (response.data.success === true) {
-        alert("success");
-        getCustomerDetails();
+      if (response.data && response.data.success && response.data.result) {
+        console.log("create customer success if method console - - - - - -- ");
+        getCustomerDetails(response?.data?.result);
+      } else {
+        console.error("Unexpected response structure:", response.data);
       }
     } catch (error) {
       console.error("Error creating/updating customer:", error);
@@ -178,8 +194,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   // get Customer Detail API
 
-  const getCustomerDetails = async () => {
-    console.log("Get customer customer");
+  const getCustomerDetails = async (customerID) => {
     try {
       const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
       const headers = {
@@ -188,22 +203,252 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       };
       const url =
         "https://app.speedautosystems.com/api/services/app/person/GetPersonForEdit";
+      const requestNewCustomerId = {
+        id: customerID,
+      };
 
-      const response = await axios.post(
-        url,
-        { id: newCustomerId },
-        { headers }
+      const response = await axios.post(url, requestNewCustomerId, { headers });
+      setNewCustomerDetail(response?.data?.result);
+      console.log("get customer response--------:", response?.data?.result);
+      createBooking(
+        response?.data?.result?.id,
+        response?.data?.result?.firstName
       );
-      // set(response?.data?.result);
-      console.log("create customer response--------:", response?.data?.result);
     } catch (error) {
       console.error("Error creating/updating customer:", error);
     }
   };
+
+  const createBooking = async (newId, customerFName) => {
+    console.log(
+      "before setting value to booking data, newId is:",
+      newId,
+      "\nand first name --- is: ",
+      customerFName,
+      "\ntotal charges are: ",
+      totalGrandPriceWithTax
+    );
+
+    const charges = [
+      {
+        accepted: true,
+        tariff: [
+          {
+            id: 97430,
+          },
+        ],
+        chargesTypeId: 1,
+        rate: 150,
+        rateTypeId: 1,
+      },
+      // 1 below
+      {
+        accepted: addOnsFromUrl.includes(2),
+        tariff: [
+          {
+            id: 97433,
+          },
+        ],
+        chargesTypeId: 2,
+        rate: 10,
+        rateTypeId: 1,
+      },
+      // 2 Below
+      {
+        accepted: addOnsFromUrl.includes(3),
+        tariff: [
+          {
+            id: 97438,
+          },
+        ],
+        chargesTypeId: 3,
+        rate: 20,
+        rateTypeId: 1,
+      },
+      {
+        accepted: addOnsFromUrl.includes(4),
+        tariff: [
+          {
+            id: 97439,
+          },
+        ],
+        chargesTypeId: 4,
+        rate: 30,
+        rateTypeId: 1,
+      },
+      // 4 Below
+      {
+        accepted: addOnsFromUrl.includes(5),
+        tariff: [],
+        chargesTypeId: 5,
+        rate: 40,
+        rateTypeId: 5,
+      },
+      // 5 Below
+      {
+        accepted: addOnsFromUrl.includes(54),
+        tariff: [
+          {
+            id: 97444,
+          },
+        ],
+        chargesTypeId: 54,
+        rate: 50,
+        rateTypeId: 6,
+      },
+      // 6 Below
+      {
+        accepted: true,
+        tariff: [
+          {
+            id: 97443,
+          },
+        ],
+        chargesTypeId: 26,
+        rate: deliveryChargesParam,
+        rateTypeId: 6,
+      },
+      // 7 below
+      {
+        accepted: addOnsFromUrl.includes(7),
+        tariff: [
+          {
+            id: 97446,
+          },
+        ],
+        chargesTypeId: 7,
+        rate: 70,
+        rateTypeId: 6,
+      },
+      // 8 Below
+      {
+        accepted: addOnsFromUrl.includes(32),
+        tariff: [
+          {
+            id: 97447,
+          },
+        ],
+        chargesTypeId: 32,
+        rate: 80,
+        rateTypeId: 1,
+      },
+      // 9 Below
+      {
+        accepted: addOnsFromUrl.includes(73),
+        tariff: [
+          {
+            id: 97448,
+          },
+        ],
+        chargesTypeId: 73,
+        rate: 90,
+        rateTypeId: 6,
+      },
+      // 10 Below
+      {
+        accepted: addOnsFromUrl.includes(74),
+        tariff: [
+          {
+            id: 97449,
+          },
+        ],
+        chargesTypeId: 74,
+        rate: 100,
+        rateTypeId: 6,
+      },
+      // 11 Below
+      {
+        accepted: addOnsFromUrl.includes(8),
+        tariff: [
+          {
+            id: 97450,
+          },
+        ],
+        chargesTypeId: 8,
+        rate: 110,
+        rateTypeId: 6,
+      },
+      // 12 Below
+      {
+        accepted: addOnsFromUrl.includes(34),
+        tariff: [
+          {
+            id: 97451,
+          },
+        ],
+        chargesTypeId: 34,
+        rate: 120,
+        rateTypeId: 6,
+      },
+      // 13 Below
+      {
+        accepted: addOnsFromUrl.includes(19),
+        tariff: [],
+        chargesTypeId: 19,
+        rate: 130,
+        rateTypeId: 6,
+      },
+      // 14 below
+      {
+        accepted: addOnsFromUrl.includes(67),
+        tariff: [],
+        chargesTypeId: 67,
+        rate: 140,
+        rateTypeId: 6,
+      },
+      // 15 Below
+      {
+        accepted: addOnsFromUrl.includes(28),
+        tariff: [],
+        chargesTypeId: 28,
+        rate: 150,
+        rateTypeId: 6,
+      },
+    ];
+
+    const bookingData = {
+      bookingType: 0,
+      IsBooking: true,
+      bookingStatus: 0,
+      startDate: startDateTimeISO,
+      endDate: dropoffDateTimeISO,
+      charges: charges,
+      closingLocationId: dropoffLocationId,
+      customer: {
+        id: newId,
+        firstName: customerFName,
+      },
+      customerId: newId,
+      discount: parseInt(discountedValueParam),
+      driver: {
+        id: newId,
+      },
+      driverId: newId,
+      flightDateTime: driverFlightDateTime.toISOString(),
+      flightNo: airlineTicketNum,
+      locationId: pickupLocationId,
+      notes: pickdropCombineLoc,
+      tariffGroupId: TariffGroupIdParam,
+      tax: taxValue,
+      taxPercent: taxPercentage,
+      totalCharges: totalGrandPriceWithTax,
+    };
+
+    const updatedBookingData = {
+      ...bookingData,
+      charges: bookingData.charges.map((charge) => ({
+        ...charge,
+        accepted: addOnsFromUrl.includes(charge.chargesTypeId),
+      })),
+    };
+    console.log("Updated Booking Data:", bookingData);
+    submitBooking(bookingData);
+  };
+
   // Booking API
 
   const submitBooking = async (data) => {
-    console.log("submit booking start", data);
+    console.log("submit booking start");
     try {
       const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
       const headers = {
@@ -217,12 +462,19 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         booking: data,
       };
 
+      console.log("Before exact booking, payload data is: ", payload);
       const response = await axios.post(url, payload, { headers });
-      console.log("Booking response--------:", response.data);
+      console.log("Finallll Booking response--------:", response?.data);
+      console.log(
+        "After Booking checking customer detail response--------:",
+        newCustomerDetail
+      );
 
       if (response.data.success === true) {
-        const nextStepUrl = "/bookingPage/3";
-        window.location.href = nextStepUrl;
+        console.log("booking done successfully. Time for Payment");
+        getAccessToken();
+        // const nextStepUrl = "/bookingPage/3";
+        // window.location.href = nextStepUrl;
       }
     } catch (error) {
       console.error("Error creating/updating booking:", error);
@@ -302,14 +554,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       airlineTicketNum,
       drivingLicenseNum
     );
-
     // Creating Customer Data
 
     const createCustomerData = {
-      email: emailAddress,
       firstName: firstName,
       lastName: lastName,
       mobileNo: contactNum,
+      contactNo: contactNum,
+      email: emailAddress,
       identityDocuments: [
         {
           documentNo: drivingLicenseNum,
@@ -350,223 +602,90 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     };
 
     await createCustomer(createCustomerData);
+  };
 
-    // Booking Data
+  // Payment APIs
 
-    const bookingData = {
-      bookingType: 0,
-      IsBooking: true,
-      bookingStatus: 0,
-      startDate: startDateTimeISO,
-      endDate: dropoffDateTimeISO,
-      charges: [
+  const getAccessToken = async () => {
+    const Payment_Req_Access_Token =
+      process.env.REACT_APP_NETWORK_PAYMENT_REQ_ACCESS_TOKEN;
+    console.log(
+      "Payment_Req_Access_Token value is: ",
+      Payment_Req_Access_Token
+    );
+    const url =
+      "https://api-gateway.sandbox.ngenius-payments.com/identity/auth/access-token";
+    const options = {
+      headers: {
+        accept: "application/vnd.ni-identity.v1+json",
+        authorization: `Basic ${Payment_Req_Access_Token}`,
+        "Content-Type": "application/vnd.ni-identity.v1+json",
+      },
+    };
+
+    try {
+      const response = await axios.post(url, {}, options);
+      if (response.data && response.data.access_token) {
+        console.log("Access Token Received:", response.data.access_token);
+        createInvoice(response.data.access_token);
+      }
+    } catch (error) {
+      console.error("Failed to fetch access token:", error);
+    }
+  };
+
+  const createInvoice = async (accessToken) => {
+    const url =
+      "https://api-gateway.sandbox.ngenius-payments.com/invoices/outlets/0e93daef-8a7b-40fc-ae21-6cb36ce40c1d/invoice";
+    const body = {
+      firstName: firstName,
+      lastName: lastName,
+      email: emailAddress,
+      transactionType: "PURCHASE",
+      emailSubject: "Click to Pay: Milele Car Rental Invoice",
+      invoiceExpiryDate: paymentLinkExpiryDate,
+      paymentAttempts: 3,
+      redirectUrl: "https://milelecarrental.com/booking-success",
+      items: [
         {
-          accepted: true,
-          tariff: [
-            {
-              id: 97430,
-            },
-          ],
-          chargesTypeId: 1,
-          rate: 150,
-          rateTypeId: 1,
-        },
-        // 1 below
-        {
-          accepted: true,
-          tariff: [
-            {
-              id: 97433,
-            },
-          ],
-          chargesTypeId: 2,
-          rate: 10,
-          rateTypeId: 1,
-        },
-        // 2 Below
-        {
-          accepted: true,
-          tariff: [
-            {
-              id: 97438,
-            },
-          ],
-          chargesTypeId: 3,
-          rate: 20,
-          rateTypeId: 1,
-        },
-        {
-          accepted: true,
-          tariff: [
-            {
-              id: 97439,
-            },
-          ],
-          chargesTypeId: 4,
-          rate: 30,
-          rateTypeId: 1,
-        },
-        // 4 Below
-        {
-          accepted: false,
-          tariff: [],
-          chargesTypeId: 5,
-          rate: 40,
-          rateTypeId: 5,
-        },
-        // 5 Below
-        {
-          accepted: true,
-          tariff: [
-            {
-              id: 97444,
-            },
-          ],
-          chargesTypeId: 54,
-          rate: 50,
-          rateTypeId: 6,
-        },
-        // 6 Below
-        {
-          accepted: true,
-          tariff: [
-            {
-              id: 97443,
-            },
-          ],
-          chargesTypeId: 26,
-          rate: 60,
-          rateTypeId: 6,
-        },
-        // 7 below
-        {
-          accepted: true,
-          tariff: [
-            {
-              id: 97446,
-            },
-          ],
-          chargesTypeId: 7,
-          rate: 70,
-          rateTypeId: 6,
-        },
-        // 8 Below
-        {
-          accepted: true,
-          tariff: [
-            {
-              id: 97447,
-            },
-          ],
-          chargesTypeId: 32,
-          rate: 80,
-          rateTypeId: 1,
-        },
-        // 9 Below
-        {
-          accepted: true,
-          tariff: [
-            {
-              id: 97448,
-            },
-          ],
-          chargesTypeId: 73,
-          rate: 90,
-          rateTypeId: 6,
-        },
-        // 10 Below
-        {
-          accepted: true,
-          tariff: [
-            {
-              id: 97449,
-            },
-          ],
-          chargesTypeId: 74,
-          rate: 100,
-          rateTypeId: 6,
-        },
-        // 11 Below
-        {
-          accepted: true,
-          tariff: [
-            {
-              id: 97450,
-            },
-          ],
-          chargesTypeId: 8,
-          rate: 110,
-          rateTypeId: 6,
-        },
-        // 12 Below
-        {
-          accepted: true,
-          tariff: [
-            {
-              id: 97451,
-            },
-          ],
-          chargesTypeId: 34,
-          rate: 120,
-          rateTypeId: 6,
-        },
-        // 13 Below
-        {
-          accepted: true,
-          tariff: [],
-          chargesTypeId: 19,
-          rate: 130,
-          rateTypeId: 6,
-        },
-        // 14 below
-        {
-          accepted: true,
-          tariff: [],
-          chargesTypeId: 67,
-          rate: 140,
-          rateTypeId: 6,
-        },
-        // 15 Below
-        {
-          accepted: true,
-          tariff: [],
-          chargesTypeId: 28,
-          rate: 150,
-          rateTypeId: 6,
+          description: TariffGroupIdParam,
+          totalPrice: {
+            currencyCode: "AED",
+            value: totalGrandPriceWithTax * 100,
+          },
+          quantity: 1,
         },
       ],
-      closingLocationId: dropoffLocationId,
-      customer: {
-        id: 899443,
-        firstName: "Hammad Mukhtar",
+      total: {
+        currencyCode: "AED",
+        value: totalGrandPriceWithTax * 100,
       },
-      customerId: 899443,
-      discount: discountedValueParam,
-      driver: {
-        id: 899443,
+      message:
+        "Thank you for booking at Milele Car Rental. By clicking on the below link and processing your payment successful, your booking will be confirmed..",
+    };
+    const options = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/vnd.ni-invoice.v1+json",
       },
-      driverId: 899443,
-      flightDateTime: driverFlightDateTime,
-      flightNo: airlineTicketNum,
-      locationId: pickupLocationId,
-      notes: pickdropCombineLoc,
-      tariffGroupId: TariffGroupIdParam,
-      tax: taxValue,
-      taxPercent: taxPercentage,
-      totalCharges: totalGrandPriceWithTax,
     };
 
-    const updatedBookingData = {
-      ...bookingData,
-      charges: bookingData.charges.map((charge) => ({
-        ...charge,
-        accepted: addOnsFromUrl.includes(charge.chargesTypeId),
-      })),
-    };
-
-    console.log("Updated Booking Data:", updatedBookingData);
-
-    // await submitBooking(updatedBookingData);
+    try {
+      const response = await axios.post(url, body, options);
+      if (
+        response.data &&
+        response.data._links &&
+        response.data._links.payment
+      ) {
+        console.log(
+          "Invoice Created, Payment URL:",
+          response.data._links.payment.href
+        );
+        setPaymentUrl(response.data._links.payment.href);
+      }
+    } catch (error) {
+      console.error("Failed to create invoice:", error);
+    }
   };
 
   const selectStyles = {

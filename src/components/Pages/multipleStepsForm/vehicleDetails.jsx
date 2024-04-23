@@ -57,6 +57,7 @@ const VehicleDetails = ({ nextStep }) => {
   const dropoffTimeParam = queryParams.get("dropoffTime");
   const pickupLocParam = queryParams.get("pickupLoc");
   const pickupLocStateParam = queryParams.get("pickupLocState");
+  const dropoffLocStateParam = queryParams.get("dropoffLocState");
   const checkBoxValueParam = queryParams.get("checkBoxValue");
   const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
 
@@ -376,13 +377,19 @@ const VehicleDetails = ({ nextStep }) => {
   ];
 
   const getDeliveryCharge = () => {
-    const selectedState = pickupLocStateParam.toUpperCase();
+    const selectedStatePickup = pickupLocStateParam.toUpperCase();
+    const selectedStateDropoff = dropoffLocStateParam.toUpperCase();
 
-    if (deliveryCharges[selectedState]) {
-      return deliveryCharges[selectedState];
-    } else {
-      return 50;
-    }
+    const pickupCharge =
+      deliveryCharges[selectedStatePickup] !== undefined
+        ? deliveryCharges[selectedStatePickup]
+        : 50;
+    const dropoffCharge =
+      deliveryCharges[selectedStateDropoff] !== undefined
+        ? deliveryCharges[selectedStateDropoff]
+        : 50;
+
+    return pickupCharge + dropoffCharge;
   };
 
   const calculateTotalPrice = () => {
@@ -435,6 +442,7 @@ const VehicleDetails = ({ nextStep }) => {
     urlParams.set("discountValue", grandTotalDiscountedValue());
     urlParams.set("grandTotalCharges", grandTotalPriceWithDiscount);
     urlParams.set("addOns", selectedAddOnsIds);
+    urlParams.set("totalDeliveryCharges", getDeliveryCharge());
 
     const nextStepUrl = `${baseUrl}?${urlParams.toString()}`;
     window.location.href = nextStepUrl;
