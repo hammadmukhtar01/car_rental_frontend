@@ -77,7 +77,7 @@ const AnimatedCarSection = () => {
         response.data.result.items
       );
 
-      response.data.result.items.forEach((car) => {
+      response.data.result.items?.forEach((car) => {
         console.log(
           "before acriss cat : ",
           car.acrissCategory?.name,
