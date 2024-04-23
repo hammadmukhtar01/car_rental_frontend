@@ -66,8 +66,8 @@ const VehiclesPage = () => {
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
-  const [pickupLocStateValue, setPickupLocStateValue] = useState("");
-  const [dropoffLocStateValue, setDropoffLocStateValue] = useState("");
+  const [pickupLocStateValue, setPickupLocStateValue] = useState("DUBAI");
+  const [dropoffLocStateValue, setDropoffLocStateValue] = useState("DUBAI");
 
   const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(
     window.innerWidth > 425 ? true : false
