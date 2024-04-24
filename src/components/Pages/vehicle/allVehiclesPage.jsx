@@ -91,6 +91,7 @@ const VehiclesPage = () => {
     let dropoffLocTabV1;
     let checkBoxStoredValue;
     let pickupLocParam;
+    let dropoffLocParam;
     let pickupLocState1;
 
     if (storedFormFields) {
@@ -162,6 +163,14 @@ const VehiclesPage = () => {
         if (pickupLocParam && !pickupLocationMessage) {
           console.log("1-1-1-1-1");
           setPickupLocationMessage(pickupLocParam);
+        }
+      }
+
+      if (formFields?.deliveryMapLocDropOff === "") {
+        dropoffLocParam = queryParams.get("dropoffLoc");
+        if (dropoffLocParam && !dropoffLocationMessage) {
+          console.log("2-2-2-2");
+          setDropoffLocationMessage(dropoffLocParam);
         }
       }
 

@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import VehicleDetails from "./vehicleDetails";
-import AddOnsDocuments from "./addOnsDocuments";
-import PaymentPage from "./paymentPage";
+import AddOnsDocuments from "./documentsAndBooking";
+import AfterBookingPage from "./afterBookingPage";
 import ProgressBar from "./progressBar";
 import MainNavbar from "../navbar/mainNavbar";
 import { useReload } from "../../PrivateComponents/utils";
@@ -31,7 +31,7 @@ function VerificationForm() {
       case 2:
         return <AddOnsDocuments prevStep={prevStep} nextStep={nextStep} />;
       case 3:
-        return <PaymentPage prevStep={prevStep} />;
+        return <AfterBookingPage prevStep={prevStep} />;
       default:
         return null;
     }

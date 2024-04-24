@@ -297,7 +297,7 @@ const SearchBox = () => {
 
     const startDate = startLocalDate.toISOString().split("T")[0];
     const endDate = endLocalDate.toISOString().split("T")[0];
-    const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}`;
+    const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}`;
 
     navigate(url);
   };

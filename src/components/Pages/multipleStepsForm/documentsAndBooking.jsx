@@ -44,6 +44,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [bookingData, setBookingData] = useState(null);
   const [createCustomerData, setCreateCustomerData] = useState(null);
   const [paymentUrl, setPaymentUrl] = useState("");
+  const [bookingStatus, setBookingStatus] = useState("");
 
   const bookingDocURL = useLocation();
   const queryParams = useMemo(
@@ -182,7 +183,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       // setNewCustomerId(response?.data?.result);
 
       if (response.data && response.data.success && response.data.result) {
-        console.log("create customer success if method console - - - - - -- ");
+        console.log(
+          "create customer success if method console - - - - - -- done"
+        );
+        alert("alert customer created...");
         getCustomerDetails(response?.data?.result);
       } else {
         console.error("Unexpected response structure:", response.data);
@@ -208,18 +212,33 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       };
 
       const response = await axios.post(url, requestNewCustomerId, { headers });
+
       setNewCustomerDetail(response?.data?.result);
-      console.log("get customer response--------:", response?.data?.result);
-      createBooking(
-        response?.data?.result?.id,
-        response?.data?.result?.firstName
-      );
+      if (response?.data?.success) {
+        alert("alert customer get details...");
+        console.log("get customer response--------:", response?.data?.result);
+        createBooking(
+          response?.data?.result?.id,
+          response?.data?.result?.firstName,
+          response?.data?.result?.lastName,
+          response?.data?.result?.mobileNo,
+          response?.data?.result?.email
+        );
+      } else {
+        console.log("User ID is incorrect");
+      }
     } catch (error) {
       console.error("Error creating/updating customer:", error);
     }
   };
 
-  const createBooking = async (newId, customerFName) => {
+  const createBooking = async (
+    newId,
+    customerFName,
+    customerLName,
+    customerMobileNo,
+    customerEmail
+  ) => {
     console.log(
       "before setting value to booking data, newId is:",
       newId,
@@ -417,6 +436,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       customer: {
         id: newId,
         firstName: customerFName,
+        lastName: customerLName,
+        mobileNo: customerMobileNo,
+        email: customerEmail,
       },
       customerId: newId,
       discount: parseInt(discountedValueParam),
@@ -470,11 +492,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         newCustomerDetail
       );
 
-      if (response.data.success === true) {
+      setBookingStatus(response?.data?.success);
+      const responseResult = response?.data?.success;
+
+      if (responseResult === true) {
+        const bookingStatus = "success";
+        alert("Booking status is: ", bookingStatus);
         console.log("booking done successfully. Time for Payment");
+        alert("alert booking fully created...");
         getAccessToken();
-        // const nextStepUrl = "/bookingPage/3";
-        // window.location.href = nextStepUrl;
+        const nextStepUrl = `/bookingPage/3&booking-${bookingStatus}`;
+        window.location.href = nextStepUrl;
       }
     } catch (error) {
       console.error("Error creating/updating booking:", error);
@@ -560,7 +588,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       firstName: firstName,
       lastName: lastName,
       mobileNo: contactNum,
-      contactNo: contactNum,
       email: emailAddress,
       identityDocuments: [
         {
@@ -626,6 +653,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     try {
       const response = await axios.post(url, {}, options);
       if (response.data && response.data.access_token) {
+        alert("alert access token for payment link is creating...");
         console.log("Access Token Received:", response.data.access_token);
         createInvoice(response.data.access_token);
       }
@@ -645,7 +673,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       emailSubject: "Click to Pay: Milele Car Rental Invoice",
       invoiceExpiryDate: paymentLinkExpiryDate,
       paymentAttempts: 3,
-      redirectUrl: "https://milelecarrental.com/booking-success",
+      redirectUrl: "https://milelecarrental.com/bookingPage/3&booking-success",
       items: [
         {
           description: TariffGroupIdParam,
@@ -681,6 +709,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           "Invoice Created, Payment URL:",
           response.data._links.payment.href
         );
+        alert("alert payment link sent...");
         setPaymentUrl(response.data._links.payment.href);
       }
     } catch (error) {

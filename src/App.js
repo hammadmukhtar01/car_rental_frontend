@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import BookingDetails from "./components/Pages/Booking/bookingDetails";
-import PaymentPage from "./components/Pages/multipleStepsForm/paymentPage";
+import AfterBookingPage from "./components/Pages/multipleStepsForm/afterBookingPage";
 import Footer from "./components/Pages/footer/footer";
 import HomePage from "./components/Pages/homePage/homePage";
 import VehiclesPage from "./components/Pages/vehicle/allVehiclesPage";
@@ -18,7 +18,7 @@ import FixedNumLocButtons from "./components/Pages/navbar/locationNumberIcons";
 import ForgotPasswordPage from "./components/authentication/forgotPassword";
 import ResetPasswordPage from "./components/authentication/resetPasswordPage";
 import VehicleDetails from "./components/Pages/multipleStepsForm/vehicleDetails";
-import AddOnsDocuments from "./components/Pages/multipleStepsForm/addOnsDocuments";
+import AddOnsDocuments from "./components/Pages/multipleStepsForm/documentsAndBooking";
 import ErrorPage from "./components/Pages/OtherPages/errorPage";
 import LeaseToOwnVehicles from "./components/Pages/vehicle/leaseToOwn";
 import TermsConditionsPage from "./components/Pages/OtherPages/termsConditionsPage";
@@ -45,7 +45,7 @@ function App() {
           <Route path="/vehicles" element={<VehiclesPage />} />
           <Route path="/leaseToOwn" element={<LeaseToOwnVehicles />} />
           <Route path="/booking/:id" element={<BookingDetails />} />
-          <Route path="/payment/:id" element={<PaymentPage />} />
+          <Route path="/afterpayment/:id" element={<AfterBookingPage />} />
           <Route path="/aboutus" element={<AboutusPage />} />
           <Route path="/faqs" element={<FaqsPage />} />
           <Route path="/terms&Conditions" element={<TermsConditionsPage />} />

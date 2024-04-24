@@ -110,7 +110,7 @@ const BookingDetails = () => {
       if (response.status === 201) {
         console.log("Product created successfully");
         alert("Booking in Progress. Please procceed with payment");
-        navigate(`/payment/${bookingDetailsId}`);
+        navigate(`/afterpayment/${bookingDetailsId}`);
       } else {
         console.log("Product creation failed");
         alert("Product creation failed");
