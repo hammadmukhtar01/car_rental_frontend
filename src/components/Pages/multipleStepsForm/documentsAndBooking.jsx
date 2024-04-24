@@ -124,7 +124,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         "Content-Type": "application/json",
       };
 
-      const url = `http://app.speedautosystems.com/api/services/app/webBooking/GetLocations`;
+      const url = `https://app.speedautosystems.com/api/services/app/webBooking/GetLocations`;
 
       const response = await axios.post(url, {}, { headers });
       const fetchedAvailableLocations = response.data.result.items;
