@@ -501,8 +501,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         console.log("booking done successfully. Time for Payment");
         alert("alert booking fully created...");
         getAccessToken();
-        const nextStepUrl = `/bookingPage/3&booking-${bookingStatus}`;
-        window.location.href = nextStepUrl;
+        
       }
     } catch (error) {
       console.error("Error creating/updating booking:", error);
@@ -711,6 +710,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         );
         alert("alert payment link sent...");
         setPaymentUrl(response.data._links.payment.href);
+        const nextStepUrl = `/bookingPage/3&booking-${bookingStatus}`;
+        window.location.href = nextStepUrl;
       }
     } catch (error) {
       console.error("Failed to create invoice:", error);
