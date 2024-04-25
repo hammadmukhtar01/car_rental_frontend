@@ -501,7 +501,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         console.log("booking done successfully. Time for Payment");
         alert("alert booking fully created...");
         getAccessToken();
-        
       }
     } catch (error) {
       console.error("Error creating/updating booking:", error);
@@ -641,16 +640,16 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     );
     const url =
       "https://api-gateway.sandbox.ngenius-payments.com/identity/auth/access-token";
-    const options = {
-      headers: {
-        accept: "application/vnd.ni-identity.v1+json",
-        authorization: `Basic ${Payment_Req_Access_Token}`,
-        "Content-Type": "application/vnd.ni-identity.v1+json",
-      },
+
+    const headers = {
+      accept: "application/vnd.ni-identity.v1+json",
+      authorization: `Basic ${Payment_Req_Access_Token}`,
+      // "Content-Type": "application/vnd.ni-identity.v1+json",
+      "Content-Type": "application/json",
     };
 
     try {
-      const response = await axios.post(url, {}, options);
+      const response = await axios.post(url, {}, { headers });
       if (response.data && response.data.access_token) {
         alert("alert access token for payment link is creating...");
         console.log("Access Token Received:", response.data.access_token);
@@ -690,15 +689,13 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       message:
         "Thank you for booking at Milele Car Rental. By clicking on the below link and processing your payment successful, your booking will be confirmed..",
     };
-    const options = {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/vnd.ni-invoice.v1+json",
-      },
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/vnd.ni-invoice.v1+json",
     };
 
     try {
-      const response = await axios.post(url, body, options);
+      const response = await axios.post(url, body, { headers });
       if (
         response.data &&
         response.data._links &&

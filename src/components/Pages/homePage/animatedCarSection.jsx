@@ -154,8 +154,26 @@ const AnimatedCarSection = () => {
     }
   });
 
+  const mapCategoryToNavigationValue = (category) => {
+    switch (category) {
+      case "Standard":
+        return "Sedan";
+      case "Small SUV 5 Seater":
+        return "SUV";
+      case "Compact":
+        return "HatchBack";
+      case "Fullsize":
+        return "Station Wagon";
+      default:
+        return category; 
+    }
+  };
+  
+
   const handleImageClick = (carType) => {
-    navigate(`/vehicles?carType=${carType}`);
+    const navigationValue = mapCategoryToNavigationValue(carType);
+    console.log("Car type clicked is: ", navigationValue)
+    navigate(`/vehicles?carCategory=${navigationValue}`);
   };
 
   return (
@@ -188,7 +206,7 @@ const AnimatedCarSection = () => {
                               alt={`Slide ${index + 1}`}
                               className="img-fluid slider-item"
                               onClick={() =>
-                                handleImageClick(data?.acrissCategory?.name)
+                                handleImageClick(data?.acrissCategory)
                               }
                             />
                           </div>

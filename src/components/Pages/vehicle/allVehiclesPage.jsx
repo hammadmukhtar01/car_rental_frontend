@@ -213,8 +213,8 @@ const VehiclesPage = () => {
   // const dropoffTimeParam = queryParams.get("dropoffTime");
   const startDateParam = queryParams.get("startDate");
   const endDateParam = queryParams.get("endDate");
-  const carTypeParam = queryParams.get("carType");
-  console.log("carTypeParam value is---", carTypeParam);
+  const carCategoryParam = queryParams.get("carCategory");
+  console.log("carCategoryParam  value is---", carCategoryParam);
 
   const handlePickupModalClose = () => {
     setShowPickupModal(false);
@@ -341,16 +341,6 @@ const VehiclesPage = () => {
     fetchCarsData();
   }, [dateRange, fetchCarsData]);
 
-  useEffect(() => {
-    if (carTypeParam) {
-      const paramCarTypes = carTypeParam.split(",");
-      const selectedTypes = carType.filter((type) =>
-        paramCarTypes.includes(type)
-      );
-      setSelectedCarTypes(selectedTypes);
-    }
-  }, [carTypeParam, carType]);
-
   const handleSearchCarButton = async (e) => {
     e.preventDefault();
     fetchCarsData();
@@ -359,7 +349,7 @@ const VehiclesPage = () => {
   const categoryMap = {
     Standard: "Sedan",
     "Small SUV 5 Seater": "SUV",
-    Compact: "Hatchback",
+    Compact: "HatchBack",
     Fullsize: "Station Wagon",
   };
 
@@ -381,7 +371,7 @@ const VehiclesPage = () => {
         "Fullsize",
       ];
 
-      const filteredAndRenamedCategories = response.data.result.categories
+      const filteredAndRenamedCategories = response?.data?.result?.categories
         .filter((category) => requiredCategories.includes(category.name))
         .map((category) => ({
           ...category,
@@ -412,7 +402,24 @@ const VehiclesPage = () => {
         : selected;
     });
     setSelectedCategories(newSelectedCategories);
+    carCategoryFromURL();
   }, [carCategoriesData]);
+
+  const carCategoryFromURL = () => {
+    console.log(
+      `car category data is: ${carCategoriesData} ---------- param value is ${carCategoryParam}`
+    );
+    if (carCategoriesData && carCategoryParam) {
+      console.log("In iff of car cetorgtrg");
+      const selectedOptions = carCategoriesData
+        .filter((category) => category.name === carCategoryParam)
+        .map((category) => ({
+          label: category.name,
+          value: category.code,
+        }));
+      setSelectedCategories(selectedOptions);
+    }
+  };
 
   const carFeaturesWithIcons = [
     {
