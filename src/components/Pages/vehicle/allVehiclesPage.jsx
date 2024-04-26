@@ -214,7 +214,7 @@ const VehiclesPage = () => {
   const startDateParam = queryParams.get("startDate");
   const endDateParam = queryParams.get("endDate");
   const carCategoryParam = queryParams.get("carCategory");
-  console.log("carCategoryParam  value is---", carCategoryParam);
+  // console.log("carCategoryParam value is---", carCategoryParam);
 
   const handlePickupModalClose = () => {
     setShowPickupModal(false);
@@ -331,7 +331,7 @@ const VehiclesPage = () => {
       setCarType(titles);
 
       setCarsData(response.data.result.items);
-      console.log("Result of all cars is : ", response.data.result.items);
+      // console.log("Result of all cars is : ", response.data.result.items);
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
@@ -370,11 +370,17 @@ const VehiclesPage = () => {
         "Compact",
         "Fullsize",
       ];
+      console.log("R22222222222 aw API Response:", response.data.res);
+
+      console.log(
+        "Raw categories response 1111111111:",
+        response.data.result.categories
+      );
 
       const filteredAndRenamedCategories = response?.data?.result?.categories
         .filter((category) => requiredCategories.includes(category.name))
         .map((category) => ({
-          ...category,
+          id: category?.id,
           name: categoryMap[category.name] || category.name,
         }));
 
@@ -392,34 +398,101 @@ const VehiclesPage = () => {
     fetchAllCategories();
   }, [fetchAllCategories]);
 
-  useEffect(() => {
-    const newSelectedCategories = selectedCategories.map((selected) => {
-      const foundCategory = carCategoriesData.find(
-        (category) => category.code === selected.value
-      );
-      return foundCategory
-        ? { ...selected, label: foundCategory.name }
-        : selected;
-    });
-    setSelectedCategories(newSelectedCategories);
-    carCategoryFromURL();
-  }, [carCategoriesData]);
+  const normalizedCarCategories = useMemo(
+    () =>
+      carCategoriesData.map((cat) => ({
+        ...cat,
+        name: cat.name.toUpperCase(),
+      })),
+    [carCategoriesData]
+  );
 
-  const carCategoryFromURL = () => {
+  const enhanceCategoryData = useCallback(() => {
+    const categoryDetailsMap = new Map();
+    const categoryMap = {
+      Standard: "Sedan",
+      "Small SUV 5 Seater": "SUV",
+      Compact: "HatchBack",
+      Fullsize: "Station Wagon",
+    };
+
+    carsData.forEach((car) => {
+      if (car.acrissCategory) {
+        const key = `${car.acrissCategory.code}-${car.acrissCategory.name}`;
+        if (!categoryDetailsMap.has(key)) {
+          // Use the categoryMap to rename the category name
+          const renamedName =
+            categoryMap[car.acrissCategory.name] || car.acrissCategory.name;
+          categoryDetailsMap.set(key, {
+            id: car.acrissCategory.id,
+            name: renamedName,
+            code: car.acrissCategory.code,
+          });
+        }
+      }
+    });
+
+    const updatedCategories = [...categoryDetailsMap.values()];
+    setCarCategoriesData(updatedCategories);
     console.log(
-      `car category data is: ${carCategoriesData} ---------- param value is ${carCategoryParam}`
+      "Enhanced Category Details with Renamed Names:",
+      updatedCategories
     );
-    if (carCategoriesData && carCategoryParam) {
-      console.log("In iff of car cetorgtrg");
-      const selectedOptions = carCategoriesData
-        .filter((category) => category.name === carCategoryParam)
-        .map((category) => ({
-          label: category.name,
-          value: category.code,
-        }));
-      setSelectedCategories(selectedOptions);
+  }, [carsData]);
+
+  useEffect(() => {
+    if (carsData.length > 0) {
+      enhanceCategoryData();
     }
-  };
+  }, [carsData, enhanceCategoryData]); // Ensure this runs every time carsData updates
+
+  // useEffect(() => {
+  //   console.log("useeffect select category -- ", selectedCategories);
+  //   const newSelectedCategories = selectedCategories.map((selected) => {
+  //     const foundCategory = carCategoriesData.find(
+  //       (category) => category.id === selected.value
+  //     );
+  //     return foundCategory
+  //       ? { ...selected, label: foundCategory.name }
+  //       : selected;
+  //   });
+  //   setSelectedCategories(newSelectedCategories);
+  //   carCategoryFromURL();
+  // }, [carCategoriesData]);
+
+  useEffect(() => {
+    console.log(
+      "normalizedCarCategories normalizedCarCategories normalizedCarCategories on URL:",
+      normalizedCarCategories
+    );
+    console.log(
+      "carCategoryParam carCategoryParam carCategoryParam on URL:",
+      carCategoryParam
+    );
+    if (carCategoryParam && normalizedCarCategories.length > 0) {
+      const matchedCategory = normalizedCarCategories.find((cat) => {
+        const isMatch =
+          cat.name.toUpperCase() === carCategoryParam.toUpperCase();
+        console.log(
+          `Comparing ${cat.name.toUpperCase()} with ${carCategoryParam.toUpperCase()}: ${isMatch}`
+        );
+        return isMatch;
+      });
+      console.log(
+        "matchedCategory matchedCategory matchedCategory on URL:",
+        matchedCategory
+      );
+      if (matchedCategory) {
+        setSelectedCategories([
+          { label: matchedCategory.name, value: matchedCategory.id },
+        ]);
+      }
+    }
+  }, [carCategoryParam, normalizedCarCategories]);
+
+  console.log("Selected Categories Based on URL:", selectedCategories);
+
+  console.log("Normalized Car Categories:", normalizedCarCategories);
 
   const carFeaturesWithIcons = [
     {
@@ -467,7 +540,7 @@ const VehiclesPage = () => {
     dataArray.push(dataObject);
   });
 
-  console.log("Data Array is: --- ", dataArray);
+  // console.log("Data Array is: --- ", dataArray);
 
   const sortByDropDown = [
     { label: "Recommended", value: "Recommended" },
@@ -570,52 +643,148 @@ const VehiclesPage = () => {
     );
   };
 
+  // const filterCars = useMemo(() => {
+  //   const filteredCars = carsData.filter((car) => {
+  //     const typeMatch =
+  //       selectedCarTypes.length === 0 || selectedCarTypes.includes(car.title);
+
+  //     const carCategoryNames = carCategoriesData.map((cat) =>
+  //       cat.name.toUpperCase()
+  //     );
+  //     const categoryMatch =
+  //       selectedCategories.length === 0 ||
+  //       selectedCategories.some((selectedCategory) => {
+  //         const valueMatch = selectedCategory.value === car.acrissCategory.id;
+  //         const labelMatch = carCategoryNames.includes(
+  //           selectedCategory.label.toUpperCase()
+  //         );
+
+  //         return valueMatch && labelMatch;
+  //       });
+
+  //     const priceMatch =
+  //       (minPrice === "" || car.rate >= minPrice) &&
+  //       (maxPrice === "" || car.rate <= maxPrice);
+
+  //     return typeMatch && categoryMatch && priceMatch;
+  //   });
+
+  //   let sortedFilteredCars = [...filteredCars];
+
+  //   switch (sortBy) {
+  //     case "LowToHigh":
+  //       sortedFilteredCars.sort((a, b) => a.rate - b.rate);
+  //       break;
+  //     case "HighToLow":
+  //       sortedFilteredCars.sort((a, b) => b.rate - a.rate);
+  //       break;
+  //     case "Recommended":
+  //       sortedFilteredCars.sort((a, b) => b.discount - a.discount);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   return sortedFilteredCars;
+  // }, [
+  //   carsData,
+  //   maxPrice,
+  //   minPrice,
+  //   selectedCarTypes,
+  //   selectedCategories,
+  //   sortBy,
+  //   carCategoriesData,
+  // ]);
+
+  // const handleCategoryChange = (selectedOptions) => {
+  //   setSelectedCategories(selectedOptions);
+  //   console.log("Selected categories ------- :", selectedOptions);
+  // };
+
+  useEffect(() => {
+    console.log("Normalized Car Categories: ", normalizedCarCategories);
+    console.log("Selected Categories from URL: ", selectedCategories);
+  }, [normalizedCarCategories, selectedCategories]);
+
   const filterCars = useMemo(() => {
-    const filteredCars = carsData.filter((car) => {
-      const typeMatch =
-        selectedCarTypes.length === 0 || selectedCarTypes.includes(car.title);
-      const categoryMatch =
-        selectedCategories.length === 0 ||
-        selectedCategories.some(
-          (selectedCategory) =>
-            selectedCategory.value === car.acrissCategory.code
+    console.log("Starting to filter cars with the following data:");
+    console.log("Cars Data:", carsData);
+    console.log("Normalized Categories:", normalizedCarCategories);
+    console.log("Selected Categories:", selectedCategories);
+
+    return carsData
+      .filter((car) => {
+        const typeMatch =
+          selectedCarTypes.length === 0 || selectedCarTypes.includes(car.title);
+
+        const currentCarCategory = normalizedCarCategories.find(
+          (cat) => cat.id === car.acrissCategory.id
         );
-      const priceMatch =
-        (minPrice === "" || car.rate >= minPrice) &&
-        (maxPrice === "" || car.rate <= maxPrice);
+        console.log(
+          "Current car category for",
+          car.title,
+          ":",
+          currentCarCategory
+        );
 
-      return typeMatch && categoryMatch && priceMatch;
-    });
+        const categoryMatch =
+          selectedCategories.length === 0 ||
+          selectedCategories.some((selectedCategory) => {
+            const valueMatch =
+              selectedCategory.value === currentCarCategory?.id;
+            const labelMatch =
+              selectedCategory.label.toUpperCase() ===
+              currentCarCategory?.name.toUpperCase();
 
-    let sortedFilteredCars = [...filteredCars];
+            console.log(
+              `Comparing ${selectedCategory.label.toUpperCase()} with ${currentCarCategory?.name.toUpperCase()}:`,
+              labelMatch
+            );
+            return valueMatch && labelMatch;
+          });
 
-    switch (sortBy) {
-      case "LowToHigh":
-        sortedFilteredCars.sort((a, b) => a.rate - b.rate);
-        break;
-      case "HighToLow":
-        sortedFilteredCars.sort((a, b) => b.rate - a.rate);
-        break;
-      case "Recommended":
-        sortedFilteredCars.sort((a, b) => b.discount - a.discount);
-        break;
-      default:
-        break;
-    }
+        const priceMatch =
+          (minPrice === "" || car.rate >= minPrice) &&
+          (maxPrice === "" || car.rate <= maxPrice);
 
-    return sortedFilteredCars;
+        return typeMatch && categoryMatch && priceMatch;
+      })
+      .sort((a, b) => {
+        switch (sortBy) {
+          case "LowToHigh":
+            return a.rate - b.rate;
+          case "HighToLow":
+            return b.rate - a.rate;
+          case "Recommended":
+            return b.discount - a.discount;
+          default:
+            return 0;
+        }
+      });
   }, [
     carsData,
-    maxPrice,
     minPrice,
+    maxPrice,
     selectedCarTypes,
     selectedCategories,
     sortBy,
+    normalizedCarCategories,
   ]);
 
+  console.log("Filtered Cars:", filterCars);
+
   const handleCategoryChange = (selectedOptions) => {
-    setSelectedCategories(selectedOptions);
-    console.log("Selected categories ------- :", selectedOptions);
+    console.log(`In handle changse: selectedOptions is: `, selectedOptions);
+    setSelectedCategories(
+      selectedOptions.map((option) => {
+        const category = carCategoriesData.find(
+          (cat) =>
+            cat.id === option.id &&
+            cat.name.toUpperCase() === option.label.toUpperCase()
+        );
+        return category ? { id: category.id, label: category.name } : option;
+      })
+    );
+    console.log("Updated selected categories:", selectedOptions);
   };
 
   const currentTableData = useMemo(() => {
@@ -1149,7 +1318,7 @@ const VehiclesPage = () => {
                                 isMulti
                                 components={animatedComponents}
                                 options={carCategoriesData?.map((category) => ({
-                                  value: category?.code,
+                                  value: category?.id,
                                   label: category?.name,
                                 }))}
                                 value={selectedCategories}

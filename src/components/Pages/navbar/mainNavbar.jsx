@@ -20,7 +20,7 @@ function OffcanvasExample() {
   const user_info = auth?.data;
   const userName = user_info?.result?.userName;
 
-  console.log("Auth in local storage is --: ", auth);
+  // console.log("Auth in local storage is --: ", auth);
 
   useEffect(() => {
     setIsHomePage(location.pathname === "/home" || location.pathname === "/");
@@ -32,9 +32,9 @@ function OffcanvasExample() {
 
   const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
 
-  console.log("isHomePage:", isHomePage);
-  console.log("isExactHomePage:", isExactHomePage);
-  console.log("logoImage:", logoImage);
+  // console.log("isHomePage:", isHomePage);
+  // console.log("isExactHomePage:", isExactHomePage);
+  // console.log("logoImage:", logoImage);
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");

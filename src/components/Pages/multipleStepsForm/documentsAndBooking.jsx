@@ -644,8 +644,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     const headers = {
       accept: "application/vnd.ni-identity.v1+json",
       authorization: `Basic ${Payment_Req_Access_Token}`,
-      // "Content-Type": "application/vnd.ni-identity.v1+json",
-      "Content-Type": "application/json",
+      "Content-Type": "application/vnd.ni-identity.v1+json",
     };
 
     try {
