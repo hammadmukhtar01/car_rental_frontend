@@ -87,7 +87,7 @@ function PickupLocationModal({
 
   const { formFields, handleFieldChange } = UseGlobalFormFields({
     deliveryMapLocPickUp: "",
-    selectedTabPickUp: "",
+    selectedTabPickUp: "pick",
     completeAddress: deliverToAddressValue || "",
     pickupLocationStateV1: pickupLocationState || "",
     pickupInputMessageV1: updatePickupLocationMessage || "",

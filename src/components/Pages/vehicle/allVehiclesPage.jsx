@@ -69,6 +69,22 @@ const VehiclesPage = () => {
   const [pickupLocStateValue, setPickupLocStateValue] = useState("DUBAI");
   const [dropoffLocStateValue, setDropoffLocStateValue] = useState("DUBAI");
 
+  const [showPickupModal, setShowPickupModal] = useState(false);
+  const [showDropoffModal, setShowDropoffModal] = useState(false);
+  const [inputPickupFieldValue, setPickupInputFieldValue] = useState("");
+  const [inputDropoffFieldValue, setDropoffInputFieldValue] = useState("");
+
+  const carTypeInURL = useLocation();
+  const queryParams = new URLSearchParams(carTypeInURL.search);
+  // const initialCarType = queryParams.get("carType");
+  const x = queryParams.get("pickupLoc");
+  // const pickupTimeParam = queryParams.get("pickupTime");
+  // const dropoffTimeParam = queryParams.get("dropoffTime");
+  const startDateParam = queryParams.get("startDate");
+  const endDateParam = queryParams.get("endDate");
+  const carCategoryParam = queryParams.get("carCategory");
+  // console.log("carCategoryParam value is---", carCategoryParam);
+
   const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(
     window.innerWidth > 425 ? true : false
   );
@@ -94,26 +110,24 @@ const VehiclesPage = () => {
     let dropoffLocParam;
     let pickupLocState1;
 
+    console.log("111");
+
     if (storedFormFields) {
+      console.log("222");
       checkBoxStoredValue = storedFormFields?.showDropoffV1;
       console.log(
         "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
         checkBoxStoredValue
       );
       if (!checkBoxStoredValue) {
-        console.log("In falseeeeeeeeeeee----------flaseeeeeee-----");
         handleFieldChange("pickupLocationStateV1", "Dubai");
       } else if (checkBoxStoredValue) {
         setShowDropoff(checkBoxStoredValue);
       }
 
-      console.log("");
       pickupLocTabV1 = storedFormFields.selectedTabPickUp;
       dropoffLocTabV1 = storedFormFields.selectedTabDropOff;
 
-      // if (storedFormFields?.selectedTabPickUp.toUpperCase() === "PICK") {
-      //   setPickupLocStateValue("Dubai");
-      // }
 
       if (storedFormFields?.pickupLocationStateV1) {
         console.log(
@@ -152,9 +166,11 @@ const VehiclesPage = () => {
       }
       if (dropoffLocTabV1 === "pick") {
         dropoffLocMainInput = storedFormFields.dropoffInputMessageV1;
+        console.log(`dropoffLocMainInput ss ${dropoffLocMainInput}`);
         setDropoffLocationMessage(dropoffLocMainInput);
       } else if (dropoffLocTabV1 === "deliver") {
         dropoffLocMainInput = storedFormFields.deliveryMapLocDropOff;
+        console.log(`dropoffLocMainInput ss ${dropoffLocMainInput}`);
         setDropoffLocationMessage(dropoffLocMainInput);
       }
 
@@ -200,22 +216,6 @@ const VehiclesPage = () => {
     showDropoffV1: 0,
   });
 
-  const [showPickupModal, setShowPickupModal] = useState(false);
-  const [showDropoffModal, setShowDropoffModal] = useState(false);
-  const [inputPickupFieldValue, setPickupInputFieldValue] = useState("");
-  const [inputDropoffFieldValue, setDropoffInputFieldValue] = useState("");
-
-  const carTypeInURL = useLocation();
-  const queryParams = new URLSearchParams(carTypeInURL.search);
-  // const initialCarType = queryParams.get("carType");
-  // const pickupLocParam = queryParams.get("pickupLoc");
-  // const pickupTimeParam = queryParams.get("pickupTime");
-  // const dropoffTimeParam = queryParams.get("dropoffTime");
-  const startDateParam = queryParams.get("startDate");
-  const endDateParam = queryParams.get("endDate");
-  const carCategoryParam = queryParams.get("carCategory");
-  // console.log("carCategoryParam value is---", carCategoryParam);
-
   const handlePickupModalClose = () => {
     setShowPickupModal(false);
   };
@@ -240,7 +240,6 @@ const VehiclesPage = () => {
   }, [queryParams, pickUpTime]);
 
   const handlePickUpTimeChange = (selectedOption) => {
-    console.log("Selected time option is: ", selectedOption);
     setPickUpTime(selectedOption.value);
     handleFieldChange("pickTimeV1", selectedOption.value);
   };
@@ -253,7 +252,6 @@ const VehiclesPage = () => {
   // }, [queryParams, dropOffTime]);
 
   const handleDropOffTimeChange = (selectedOption) => {
-    console.log("Selected time option is: ", selectedOption);
     setDropOffTime(selectedOption.value);
     handleFieldChange("dropTimeV1", selectedOption.value);
   };
@@ -308,7 +306,6 @@ const VehiclesPage = () => {
 
   useEffect(() => {
     if (pickUpDate && dropOffDate) {
-      console.log(`pickup is: ${pickUpDate} and drop off is ${dropOffDate}`);
     }
   }, [pickUpDate, dropOffDate]);
 
@@ -370,12 +367,11 @@ const VehiclesPage = () => {
         "Compact",
         "Fullsize",
       ];
-      console.log("R22222222222 aw API Response:", response.data.res);
 
-      console.log(
-        "Raw categories response 1111111111:",
-        response.data.result.categories
-      );
+      // console.log(
+      //   "Raw categories response 1111111111:",
+      //   response.data.result.categories
+      // );
 
       const filteredAndRenamedCategories = response?.data?.result?.categories
         .filter((category) => requiredCategories.includes(category.name))
@@ -385,10 +381,6 @@ const VehiclesPage = () => {
         }));
 
       setCarCategoriesData(filteredAndRenamedCategories);
-      console.log(
-        "Filtered and renamed categories of cars are :------- ",
-        filteredAndRenamedCategories
-      );
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
@@ -434,10 +426,6 @@ const VehiclesPage = () => {
 
     const updatedCategories = [...categoryDetailsMap.values()];
     setCarCategoriesData(updatedCategories);
-    console.log(
-      "Enhanced Category Details with Renamed Names:",
-      updatedCategories
-    );
   }, [carsData]);
 
   useEffect(() => {
@@ -461,27 +449,16 @@ const VehiclesPage = () => {
   // }, [carCategoriesData]);
 
   useEffect(() => {
-    console.log(
-      "normalizedCarCategories normalizedCarCategories normalizedCarCategories on URL:",
-      normalizedCarCategories
-    );
-    console.log(
-      "carCategoryParam carCategoryParam carCategoryParam on URL:",
-      carCategoryParam
-    );
     if (carCategoryParam && normalizedCarCategories.length > 0) {
       const matchedCategory = normalizedCarCategories.find((cat) => {
         const isMatch =
           cat.name.toUpperCase() === carCategoryParam.toUpperCase();
-        console.log(
-          `Comparing ${cat.name.toUpperCase()} with ${carCategoryParam.toUpperCase()}: ${isMatch}`
-        );
+        // console.log(
+        //   `Comparing ${cat.name.toUpperCase()} with ${carCategoryParam.toUpperCase()}: ${isMatch}`
+        // );
         return isMatch;
       });
-      console.log(
-        "matchedCategory matchedCategory matchedCategory on URL:",
-        matchedCategory
-      );
+
       if (matchedCategory) {
         setSelectedCategories([
           { label: matchedCategory.name, value: matchedCategory.id },
@@ -489,10 +466,6 @@ const VehiclesPage = () => {
       }
     }
   }, [carCategoryParam, normalizedCarCategories]);
-
-  console.log("Selected Categories Based on URL:", selectedCategories);
-
-  console.log("Normalized Car Categories:", normalizedCarCategories);
 
   const carFeaturesWithIcons = [
     {
@@ -643,73 +616,11 @@ const VehiclesPage = () => {
     );
   };
 
-  // const filterCars = useMemo(() => {
-  //   const filteredCars = carsData.filter((car) => {
-  //     const typeMatch =
-  //       selectedCarTypes.length === 0 || selectedCarTypes.includes(car.title);
-
-  //     const carCategoryNames = carCategoriesData.map((cat) =>
-  //       cat.name.toUpperCase()
-  //     );
-  //     const categoryMatch =
-  //       selectedCategories.length === 0 ||
-  //       selectedCategories.some((selectedCategory) => {
-  //         const valueMatch = selectedCategory.value === car.acrissCategory.id;
-  //         const labelMatch = carCategoryNames.includes(
-  //           selectedCategory.label.toUpperCase()
-  //         );
-
-  //         return valueMatch && labelMatch;
-  //       });
-
-  //     const priceMatch =
-  //       (minPrice === "" || car.rate >= minPrice) &&
-  //       (maxPrice === "" || car.rate <= maxPrice);
-
-  //     return typeMatch && categoryMatch && priceMatch;
-  //   });
-
-  //   let sortedFilteredCars = [...filteredCars];
-
-  //   switch (sortBy) {
-  //     case "LowToHigh":
-  //       sortedFilteredCars.sort((a, b) => a.rate - b.rate);
-  //       break;
-  //     case "HighToLow":
-  //       sortedFilteredCars.sort((a, b) => b.rate - a.rate);
-  //       break;
-  //     case "Recommended":
-  //       sortedFilteredCars.sort((a, b) => b.discount - a.discount);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   return sortedFilteredCars;
-  // }, [
-  //   carsData,
-  //   maxPrice,
-  //   minPrice,
-  //   selectedCarTypes,
-  //   selectedCategories,
-  //   sortBy,
-  //   carCategoriesData,
-  // ]);
-
-  // const handleCategoryChange = (selectedOptions) => {
-  //   setSelectedCategories(selectedOptions);
-  //   console.log("Selected categories ------- :", selectedOptions);
-  // };
-
-  useEffect(() => {
-    console.log("Normalized Car Categories: ", normalizedCarCategories);
-    console.log("Selected Categories from URL: ", selectedCategories);
-  }, [normalizedCarCategories, selectedCategories]);
-
   const filterCars = useMemo(() => {
-    console.log("Starting to filter cars with the following data:");
-    console.log("Cars Data:", carsData);
-    console.log("Normalized Categories:", normalizedCarCategories);
-    console.log("Selected Categories:", selectedCategories);
+    // console.log("Starting to filter cars with the following data:");
+    // console.log("Cars Data:", carsData);
+    // console.log("Normalized Categories:", normalizedCarCategories);
+    // console.log("Selected Categories:", selectedCategories);
 
     return carsData
       .filter((car) => {
@@ -718,12 +629,6 @@ const VehiclesPage = () => {
 
         const currentCarCategory = normalizedCarCategories.find(
           (cat) => cat.id === car.acrissCategory.id
-        );
-        console.log(
-          "Current car category for",
-          car.title,
-          ":",
-          currentCarCategory
         );
 
         const categoryMatch =
@@ -735,10 +640,6 @@ const VehiclesPage = () => {
               selectedCategory.label.toUpperCase() ===
               currentCarCategory?.name.toUpperCase();
 
-            console.log(
-              `Comparing ${selectedCategory.label.toUpperCase()} with ${currentCarCategory?.name.toUpperCase()}:`,
-              labelMatch
-            );
             return valueMatch && labelMatch;
           });
 
@@ -769,8 +670,6 @@ const VehiclesPage = () => {
     sortBy,
     normalizedCarCategories,
   ]);
-
-  console.log("Filtered Cars:", filterCars);
 
   const handleCategoryChange = (selectedOptions) => {
     console.log(`In handle changse: selectedOptions is: `, selectedOptions);
@@ -830,9 +729,6 @@ const VehiclesPage = () => {
     setPickUpDate(pickupDate);
     setDropOffDate(dropoffDate);
 
-    console.log("Pickup Date:", pickupDate);
-    console.log("Dropoff Date:", dropoffDate);
-
     const updatedStartDate = startDate
       ? new Date(startDate.getTime() + 24 * 60 * 60 * 1000)
       : null;
@@ -852,8 +748,6 @@ const VehiclesPage = () => {
   };
 
   useEffect(() => {
-    console.log("Start Date from URL:", startDate);
-    console.log("End Date from URL:", endDate);
     if (startDate && endDate) {
       const timeDifference = endDate.getTime() - startDate.getTime();
       const totalDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
