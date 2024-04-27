@@ -43,6 +43,17 @@ const PageSize = 8;
 const animatedComponents = makeAnimated();
 
 const VehiclesPage = () => {
+  const carTypeInURL = useLocation();
+  const queryParams = new URLSearchParams(carTypeInURL.search);
+  // const initialCarType = queryParams.get("carType");
+  const pickupLocParam = queryParams.get("pickupLoc");
+  const dropoffLocParam = queryParams.get("dropoffLoc");
+  // const pickupTimeParam = queryParams.get("pickupTime");
+  // const dropoffTimeParam = queryParams.get("dropoffTime");
+  const startDateParam = queryParams.get("startDate");
+  const endDateParam = queryParams.get("endDate");
+  const carCategoryParam = queryParams.get("carCategory");
+
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
   const [showDropoff, setShowDropoff] = useState(false);
@@ -63,8 +74,12 @@ const VehiclesPage = () => {
   const [selectedCarTypes, setSelectedCarTypes] = useState([]);
   const [carCategoriesData, setCarCategoriesData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pickupLocationMessage, setPickupLocationMessage] = useState("");
-  const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
+  const [pickupLocationMessage, setPickupLocationMessage] = useState(
+    pickupLocParam || ""
+  );
+  const [dropoffLocationMessage, setDropoffLocationMessage] = useState(
+    dropoffLocParam || ""
+  );
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
   const [pickupLocStateValue, setPickupLocStateValue] = useState("DUBAI");
   const [dropoffLocStateValue, setDropoffLocStateValue] = useState("DUBAI");
@@ -73,17 +88,6 @@ const VehiclesPage = () => {
   const [showDropoffModal, setShowDropoffModal] = useState(false);
   const [inputPickupFieldValue, setPickupInputFieldValue] = useState("");
   const [inputDropoffFieldValue, setDropoffInputFieldValue] = useState("");
-
-  const carTypeInURL = useLocation();
-  const queryParams = new URLSearchParams(carTypeInURL.search);
-  // const initialCarType = queryParams.get("carType");
-  const x = queryParams.get("pickupLoc");
-  // const pickupTimeParam = queryParams.get("pickupTime");
-  // const dropoffTimeParam = queryParams.get("dropoffTime");
-  const startDateParam = queryParams.get("startDate");
-  const endDateParam = queryParams.get("endDate");
-  const carCategoryParam = queryParams.get("carCategory");
-  // console.log("carCategoryParam value is---", carCategoryParam);
 
   const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(
     window.innerWidth > 425 ? true : false
@@ -97,104 +101,71 @@ const VehiclesPage = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   useEffect(() => {
-    const storedFormFields = JSON.parse(localStorage.getItem("formFields"));
-    console.log("Stored date range is: ", storedFormFields);
+    const storedFormFields =
+      JSON.parse(localStorage.getItem("formFields")) || {};
+    const queryParams = new URLSearchParams(window.location.search);
     let storedStartDateRange;
     let storedEndDateRange;
-    let pickupLocMainInput;
-    let dropoffLocMainInput;
-    let pickupLocTabV1;
-    let dropoffLocTabV1;
-    let checkBoxStoredValue;
-    let pickupLocParam;
-    let dropoffLocParam;
-    let pickupLocState1;
+    const {
+      showDropoffV1: storedShowDropoff = false,
+      selectedTabPickUp,
+      selectedTabDropOff,
+      pickupLocationStateV1,
+      dateRangeV1,
+      pickupInputMessageV1,
+      deliveryMapLocPickUp,
+      dropoffInputMessageV1,
+      deliveryMapLocDropOff,
+      pickTimeV1,
+      dropTimeV1,
+    } = storedFormFields;
 
-    console.log("111");
+    setShowDropoff(storedShowDropoff);
 
-    if (storedFormFields) {
-      console.log("222");
-      checkBoxStoredValue = storedFormFields?.showDropoffV1;
-      console.log(
-        "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
-        checkBoxStoredValue
+    setPickUpTime(pickTimeV1 || "");
+    setDropOffTime(dropTimeV1 || "");
+
+    if (!pickupLocParam) {
+      setPickupLocStateValue(
+        pickupLocationStateV1 || queryParams.get("pickupLocState") || "Dubai"
       );
-      if (!checkBoxStoredValue) {
-        handleFieldChange("pickupLocationStateV1", "Dubai");
-      } else if (checkBoxStoredValue) {
-        setShowDropoff(checkBoxStoredValue);
-      }
+      const pickupLocation =
+        selectedTabPickUp === "pick"
+          ? pickupInputMessageV1
+          : deliveryMapLocPickUp;
+      const dropoffLocation =
+        selectedTabDropOff === "pick"
+          ? dropoffInputMessageV1
+          : deliveryMapLocDropOff;
 
-      pickupLocTabV1 = storedFormFields.selectedTabPickUp;
-      dropoffLocTabV1 = storedFormFields.selectedTabDropOff;
+      setPickupLocationMessage(pickupLocation || pickupLocParam || "");
+      console.log(
+        "setDropoffLocationMessage off loc is before set: ",
+        dropoffLocation || dropoffLocParam || ""
+      );
 
-
-      if (storedFormFields?.pickupLocationStateV1) {
-        console.log(
-          "in If state value is --------1---------: ",
-          storedFormFields?.pickupLocationStateV1
-        );
-        setPickupLocStateValue(storedFormFields?.pickupLocationStateV1);
-      } else {
-        pickupLocState1 = queryParams.get("pickupLocState");
-        console.log(
-          "in else state is -----------2---------: ",
-          pickupLocState1
-        );
-        setPickupLocStateValue(pickupLocState1);
-      }
-
-      if (storedFormFields?.dateRangeV1) {
-        storedStartDateRange = new Date(storedFormFields.dateRangeV1.startDate);
-        storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
-        if (
-          isNaN(storedStartDateRange.getTime()) ||
-          isNaN(storedEndDateRange.getTime())
-        ) {
-          storedStartDateRange = new Date();
-          storedEndDateRange = new Date(
-            new Date().getTime() + 24 * 60 * 60 * 1000
-          );
-        }
-      }
-      if (pickupLocTabV1 === "pick") {
-        pickupLocMainInput = storedFormFields.pickupInputMessageV1;
-        setPickupLocationMessage(pickupLocMainInput);
-      } else if (pickupLocTabV1 === "deliver") {
-        pickupLocMainInput = storedFormFields.deliveryMapLocPickUp;
-        setPickupLocationMessage(pickupLocMainInput);
-      }
-      if (dropoffLocTabV1 === "pick") {
-        dropoffLocMainInput = storedFormFields.dropoffInputMessageV1;
-        console.log(`dropoffLocMainInput ss ${dropoffLocMainInput}`);
-        setDropoffLocationMessage(dropoffLocMainInput);
-      } else if (dropoffLocTabV1 === "deliver") {
-        dropoffLocMainInput = storedFormFields.deliveryMapLocDropOff;
-        console.log(`dropoffLocMainInput ss ${dropoffLocMainInput}`);
-        setDropoffLocationMessage(dropoffLocMainInput);
-      }
-
-      if (formFields?.deliveryMapLocPickUp === "") {
-        pickupLocParam = queryParams.get("pickupLoc");
-        if (pickupLocParam && !pickupLocationMessage) {
-          console.log("1-1-1-1-1");
-          setPickupLocationMessage(pickupLocParam);
-        }
-      }
-
-      if (formFields?.deliveryMapLocDropOff === "") {
-        dropoffLocParam = queryParams.get("dropoffLoc");
-        if (dropoffLocParam && !dropoffLocationMessage) {
-          console.log("2-2-2-2");
-          setDropoffLocationMessage(dropoffLocParam);
-        }
-      }
-
-      const storedPickUpTime = storedFormFields.pickTimeV1 || "";
-      setPickUpTime(storedPickUpTime);
-      const storedDropOffTime = storedFormFields.dropTimeV1 || "";
-      setDropOffTime(storedDropOffTime);
+      setDropoffLocationMessage(dropoffLocation || dropoffLocParam || "");
+      console.log("Drop off loc is now: ", dropoffLocationMessage);
     }
+
+    if (storedFormFields?.dateRangeV1) {
+      storedStartDateRange = new Date(storedFormFields.dateRangeV1.startDate);
+      storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+      if (
+        isNaN(storedStartDateRange.getTime()) ||
+        isNaN(storedEndDateRange.getTime())
+      ) {
+        storedStartDateRange = new Date();
+        storedEndDateRange = new Date(
+          new Date().getTime() + 24 * 60 * 60 * 1000
+        );
+      }
+    }
+
+    const storedPickUpTime = storedFormFields.pickTimeV1 || "";
+    setPickUpTime(storedPickUpTime);
+    const storedDropOffTime = storedFormFields.dropTimeV1 || "";
+    setDropOffTime(storedDropOffTime);
 
     setDateRange([
       {
@@ -212,9 +183,16 @@ const VehiclesPage = () => {
   const { formFields, handleFieldChange } = UseGlobalFormFields({
     pickTimeV1: pickUpTime || "",
     dropTimeV1: dropOffTime || "",
+    pickupInputMessageV1: pickupLocationMessage || "",
     dateRangeV1: "",
     showDropoffV1: 0,
   });
+
+  useEffect(() => {
+    console.log(
+      `useeffect useeffect useeffect dropoffLocationMessage useeffect is : ${dropoffLocationMessage}`
+    );
+  }, [dropoffLocationMessage]);
 
   const handlePickupModalClose = () => {
     setShowPickupModal(false);
@@ -452,7 +430,7 @@ const VehiclesPage = () => {
     if (carCategoryParam && normalizedCarCategories.length > 0) {
       const matchedCategory = normalizedCarCategories.find((cat) => {
         const isMatch =
-          cat.name.toUpperCase() === carCategoryParam.toUpperCase();
+          cat?.name?.toUpperCase() === carCategoryParam?.toUpperCase();
         // console.log(
         //   `Comparing ${cat.name.toUpperCase()} with ${carCategoryParam.toUpperCase()}: ${isMatch}`
         // );
@@ -637,8 +615,8 @@ const VehiclesPage = () => {
             const valueMatch =
               selectedCategory.value === currentCarCategory?.id;
             const labelMatch =
-              selectedCategory.label.toUpperCase() ===
-              currentCarCategory?.name.toUpperCase();
+              selectedCategory?.label?.toUpperCase() ===
+              currentCarCategory?.name?.toUpperCase();
 
             return valueMatch && labelMatch;
           });
@@ -678,7 +656,7 @@ const VehiclesPage = () => {
         const category = carCategoriesData.find(
           (cat) =>
             cat.id === option.id &&
-            cat.name.toUpperCase() === option.label.toUpperCase()
+            cat?.name?.toUpperCase() === option?.label?.toUpperCase()
         );
         return category ? { id: category.id, label: category.name } : option;
       })

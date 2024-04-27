@@ -92,7 +92,7 @@ function OffcanvasExample() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav
-                  className={`justify-content-end flex-grow-1 ${
+                  className={`navbar-menus-container-div justify-content-end flex-grow-1 ${
                     isHomePage ? "navbar-white" : "navbar-black"
                   }`}
                 >
@@ -230,14 +230,14 @@ function OffcanvasExample() {
                   </>
                 ) : (
                   <>
-                    <Nav.Link
+                    {/* <Nav.Link
                       as={NavLink}
                       to="/login"
                       className="auth-menu"
                       activeclassname="active"
                     >
                       <b className="login-menu">Login</b>
-                    </Nav.Link>
+                    </Nav.Link> */}
 
                     <Nav.Link
                       as={NavLink}
@@ -245,7 +245,7 @@ function OffcanvasExample() {
                       className="auth-menu"
                       activeclassname="active"
                     >
-                      <b className="signup-menu">Sign Up</b>
+                      <b className="signup-menu">Login  | Sign Up</b>
                     </Nav.Link>
                   </>
                 )}

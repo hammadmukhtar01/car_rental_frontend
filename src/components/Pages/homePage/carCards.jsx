@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { BsPersonCircle } from "react-icons/bs";
-import LargeBanner1 from "../../images/web-offer-banner-2.jpg";
-import SmallBanner2 from "../../images/web-offer-banner.jpg";
+import LargeBanner1 from "../../images/web-offer-banner-2.png";
+// import SmallBanner2 from "../../images/web-offer-banner.jpg";
 
 const LargeBanner = LargeBanner1;
-const SmallBanner = SmallBanner2;
+const SmallBanner = LargeBanner1;
 
 const Carousel = () => {
   const [bannerImg, setBannerImg] = useState(LargeBanner);

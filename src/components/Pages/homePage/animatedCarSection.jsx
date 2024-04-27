@@ -165,14 +165,13 @@ const AnimatedCarSection = () => {
       case "Fullsize":
         return "Station Wagon";
       default:
-        return category; 
+        return category;
     }
   };
-  
 
   const handleImageClick = (carType) => {
     const navigationValue = mapCategoryToNavigationValue(carType);
-    console.log("Car type clicked is: ", navigationValue)
+    console.log("Car type clicked is: ", navigationValue);
     navigate(`/vehicles?carCategory=${navigationValue}`);
   };
 
@@ -198,7 +197,9 @@ const AnimatedCarSection = () => {
                   {imagesData.map((data, index) => (
                     <div className="animated-imgs-container" key={index}>
                       <div className="slider-card slider-imgs">
-                        <h2 className="text-center pt-3">{data?.title}</h2>
+                        <h2 className="text-center pt-3">
+                          {mapCategoryToNavigationValue(data?.acrissCategory)}
+                        </h2>
                         <div className="d-flex justify-content-center align-items-center mb-4">
                           <div className="animated-car-anchor-tag">
                             <img

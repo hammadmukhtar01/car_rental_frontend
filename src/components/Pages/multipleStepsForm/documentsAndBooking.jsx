@@ -1137,6 +1137,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 value={selectedNationality}
                                 onChange={handleChange}
                                 styles={selectStyles}
+                                menuIsOpen={true}
                               />
                             </Form.Group>
                           </Col>

@@ -279,6 +279,10 @@
   box-shadow: 2px 1px 18px #a39f9f;
 }
 
+.all-cars-container-div {
+  transition: opa;
+}
+
 .total-days {
   color: #cc6119;
   font-weight: 600;
