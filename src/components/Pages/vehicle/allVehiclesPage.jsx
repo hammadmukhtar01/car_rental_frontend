@@ -183,7 +183,8 @@ const VehiclesPage = () => {
   const { formFields, handleFieldChange } = UseGlobalFormFields({
     pickTimeV1: pickUpTime || "",
     dropTimeV1: dropOffTime || "",
-    pickupInputMessageV1: pickupLocationMessage || "",
+    // pickupInputMessageV1: pickupLocationMessage || "",
+    // dropoffInputMessageV1: pickupLocationMessage || "",
     dateRangeV1: "",
     showDropoffV1: 0,
   });
@@ -213,7 +214,7 @@ const VehiclesPage = () => {
     }
     if (showDropoff === false) {
       setDropoffLocStateValue(pickupLocStateValue);
-      setDropoffLocationMessage(pickupLocationMessage);
+      setDropoffLocationMessage(dropoffLocationMessage);
     }
   }, [queryParams, pickUpTime]);
 
