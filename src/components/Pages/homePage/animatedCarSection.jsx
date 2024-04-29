@@ -73,32 +73,27 @@ const AnimatedCarSection = () => {
       // );
       // setCarsData(filteredCarsData);
       console.log(
-        "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+        "repss",
         response.data.result.items
       );
 
       response.data.result.items?.forEach((car) => {
-        console.log(
-          "before acriss cat : ",
-          car.acrissCategory?.name,
-          car.displayImageUrl
-        );
+        // console.log(
+        //   "before acriss cat : ",
+        //   car.acrissCategory?.name,
+        //   car.displayImageUrl
+        // );
         switch (car.acrissCategory?.name) {
           case "Standard":
-            console.log("caaaaese 11111 -------");
             setChevroletImg(car?.displayImageUrl);
             break;
           case "Small SUV 5 Seater":
-            console.log("caaaaese 222222222-------");
             setNissanImg(car?.displayImageUrl);
             break;
           case "Compact":
-            console.log("caaaaese 333333-------");
-
             setHyundaiImg(car?.displayImageUrl);
             break;
           case "Fullsize":
-            console.log("caaaaese 444444-------");
 
             setToyotaCorollaImg(car?.displayImageUrl);
             break;

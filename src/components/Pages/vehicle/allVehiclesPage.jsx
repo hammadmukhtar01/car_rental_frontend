@@ -100,82 +100,163 @@ const VehiclesPage = () => {
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
 
+  // useEffect(() => {
+  //   const storedFormFields =
+  //     JSON.parse(localStorage.getItem("formFields")) || {};
+  //   const queryParams = new URLSearchParams(window.location.search);
+  //   let storedStartDateRange;
+  //   let storedEndDateRange;
+  //   const {
+  //     showDropoffV1: storedShowDropoff = false,
+  //     selectedTabPickUp,
+  //     selectedTabDropOff,
+  //     pickupLocationStateV1,
+  //     dateRangeV1,
+  //     pickupInputMessageV1,
+  //     deliveryMapLocPickUp,
+  //     dropoffInputMessageV1,
+  //     deliveryMapLocDropOff,
+  //     pickTimeV1,
+  //     dropTimeV1,
+  //   } = storedFormFields;
+
+  //   setShowDropoff(storedShowDropoff);
+
+  //   setPickUpTime(pickTimeV1 || "");
+  //   setDropOffTime(dropTimeV1 || "");
+
+  //   if (!pickupLocParam) {
+  //     setPickupLocStateValue(
+  //       pickupLocationStateV1 || queryParams.get("pickupLocState") || "Dubai"
+  //     );
+  //     const pickupLocation =
+  //       selectedTabPickUp === "pick"
+  //         ? pickupInputMessageV1
+  //         : deliveryMapLocPickUp;
+  //     const dropoffLocation =
+  //       selectedTabDropOff === "pick"
+  //         ? dropoffInputMessageV1
+  //         : deliveryMapLocDropOff;
+
+  //     setPickupLocationMessage(pickupLocation || pickupLocParam || "");
+  //     console.log(
+  //       "setDropoffLocationMessage off loc is before set: ",
+  //       dropoffLocation || dropoffLocParam || ""
+  //     );
+
+  //     setDropoffLocationMessage(dropoffLocation || dropoffLocParam || "");
+  //     console.log("Drop off loc is now: ", dropoffLocationMessage);
+  //   }
+
+  //   if (storedFormFields?.dateRangeV1) {
+  //     storedStartDateRange = new Date(storedFormFields.dateRangeV1.startDate);
+  //     storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+  //     if (
+  //       isNaN(storedStartDateRange.getTime()) ||
+  //       isNaN(storedEndDateRange.getTime())
+  //     ) {
+  //       storedStartDateRange = new Date();
+  //       storedEndDateRange = new Date(
+  //         new Date().getTime() + 24 * 60 * 60 * 1000
+  //       );
+  //     }
+  //   }
+
+  //   const storedPickUpTime = storedFormFields.pickTimeV1 || "";
+  //   setPickUpTime(storedPickUpTime);
+  //   const storedDropOffTime = storedFormFields.dropTimeV1 || "";
+  //   setDropOffTime(storedDropOffTime);
+
+  //   setDateRange([
+  //     {
+  //       startDate: storedStartDateRange || new Date(),
+  //       endDate:
+  //         storedEndDateRange ||
+  //         new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+  //       key: "selection",
+  //     },
+  //   ]);
+  // }, []);
+
   useEffect(() => {
-    const storedFormFields =
-      JSON.parse(localStorage.getItem("formFields")) || {};
-    const queryParams = new URLSearchParams(window.location.search);
-    let storedStartDateRange;
-    let storedEndDateRange;
-    const {
-      showDropoffV1: storedShowDropoff = false,
-      selectedTabPickUp,
-      selectedTabDropOff,
-      pickupLocationStateV1,
-      dateRangeV1,
-      pickupInputMessageV1,
-      deliveryMapLocPickUp,
-      dropoffInputMessageV1,
-      deliveryMapLocDropOff,
-      pickTimeV1,
-      dropTimeV1,
-    } = storedFormFields;
+    const reqLocalStorageData = localStorage.getItem("formFields");
+    if (reqLocalStorageData) {
+      const storedFormFields = JSON.parse(reqLocalStorageData);
+      console.log("Stored date range is: ", storedFormFields);
+      let storedStartDateRange;
+      let storedEndDateRange;
+      let pickupLocMainInput;
+      let dropoffLocMainInput;
+      let pickupLocTabV1;
+      let dropoffLocTabV1;
+      let checkBoxStoredValue;
 
-    setShowDropoff(storedShowDropoff);
-
-    setPickUpTime(pickTimeV1 || "");
-    setDropOffTime(dropTimeV1 || "");
-
-    if (!pickupLocParam) {
-      setPickupLocStateValue(
-        pickupLocationStateV1 || queryParams.get("pickupLocState") || "Dubai"
-      );
-      const pickupLocation =
-        selectedTabPickUp === "pick"
-          ? pickupInputMessageV1
-          : deliveryMapLocPickUp;
-      const dropoffLocation =
-        selectedTabDropOff === "pick"
-          ? dropoffInputMessageV1
-          : deliveryMapLocDropOff;
-
-      setPickupLocationMessage(pickupLocation || pickupLocParam || "");
-      console.log(
-        "setDropoffLocationMessage off loc is before set: ",
-        dropoffLocation || dropoffLocParam || ""
-      );
-
-      setDropoffLocationMessage(dropoffLocation || dropoffLocParam || "");
-      console.log("Drop off loc is now: ", dropoffLocationMessage);
-    }
-
-    if (storedFormFields?.dateRangeV1) {
-      storedStartDateRange = new Date(storedFormFields.dateRangeV1.startDate);
-      storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
-      if (
-        isNaN(storedStartDateRange.getTime()) ||
-        isNaN(storedEndDateRange.getTime())
-      ) {
-        storedStartDateRange = new Date();
-        storedEndDateRange = new Date(
-          new Date().getTime() + 24 * 60 * 60 * 1000
+      if (storedFormFields) {
+        checkBoxStoredValue = storedFormFields?.showDropoffV1 === 1;
+        console.log(
+          "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
+          checkBoxStoredValue
         );
+        setShowDropoff(checkBoxStoredValue);
+
+        pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
+        dropoffLocTabV1 = storedFormFields?.selectedTabDropOff;
+        // pickupLocMainInput = storedFormFields?.pickupInputMessageV1;
+        // setPickupLocationMessage(pickupLocMainInput? pickupLocMainInput : '');
+
+        // pickupLocMainInput = storedFormFields?.deliveryMapLocPickUp;
+        // setPickupLocationMessage(pickupLocMainInput? pickupLocMainInput : '');
+
+        if (storedFormFields?.dateRangeV1) {
+          storedStartDateRange = new Date(
+            storedFormFields.dateRangeV1.startDate
+          );
+          storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+          if (
+            isNaN(storedStartDateRange.getTime()) ||
+            isNaN(storedEndDateRange.getTime())
+          ) {
+            storedStartDateRange = new Date(); // Fallback to current date
+            storedEndDateRange = new Date(
+              new Date().getTime() + 24 * 60 * 60 * 1000
+            ); // Fallback to tomorrow
+          }
+        }
+
+        if (pickupLocTabV1 === "pick") {
+          pickupLocMainInput = storedFormFields?.pickupInputMessageV1;
+          setPickupLocationMessage(
+            pickupLocMainInput ? pickupLocMainInput : ""
+          );
+        } else if (pickupLocTabV1 === "deliver") {
+          pickupLocMainInput = storedFormFields?.deliveryMapLocPickUp;
+          setPickupLocationMessage(
+            pickupLocMainInput ? pickupLocMainInput : ""
+          );
+        }
+        if (dropoffLocTabV1 === "pick") {
+          dropoffLocMainInput = storedFormFields?.dropoffInputMessageV1;
+          setDropoffLocationMessage(dropoffLocMainInput);
+        } else if (dropoffLocTabV1 === "deliver") {
+          dropoffLocMainInput = storedFormFields?.deliveryMapLocDropOff;
+          setDropoffLocationMessage(dropoffLocMainInput);
+        }
+        const storedPickUpTime = storedFormFields?.pickTimeV1 || "";
+        setPickUpTime(storedPickUpTime);
+        const storedDropOffTime = storedFormFields?.dropTimeV1 || "";
+        setDropOffTime(storedDropOffTime);
       }
+
+      setDateRange([
+        {
+          startDate: storedStartDateRange || new Date(),
+          endDate:
+            storedEndDateRange ||
+            new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+          key: "selection",
+        },
+      ]);
     }
-
-    const storedPickUpTime = storedFormFields.pickTimeV1 || "";
-    setPickUpTime(storedPickUpTime);
-    const storedDropOffTime = storedFormFields.dropTimeV1 || "";
-    setDropOffTime(storedDropOffTime);
-
-    setDateRange([
-      {
-        startDate: storedStartDateRange || new Date(),
-        endDate:
-          storedEndDateRange ||
-          new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-        key: "selection",
-      },
-    ]);
   }, []);
 
   const navigate = useNavigate();
@@ -558,7 +639,12 @@ const VehiclesPage = () => {
     handleFieldChange("showDropoffV1", !showDropoff ? 1 : 0);
   };
 
-  const allCarsBookingButton = (tariffGroupId, startDate, endDate) => {
+  const allCarsBookingButton = (
+    tariffGroupId,
+    vehicleName,
+    startDate,
+    endDate
+  ) => {
     const missingFields = [];
     if (!pickupLocationMessage) {
       missingFields.push("Pickup location");
@@ -572,7 +658,7 @@ const VehiclesPage = () => {
     if (showDropoff && !dropoffLocationMessage) {
       missingFields.push("Dropoff location");
     }
-
+    console.log("missingFields", missingFields);
     if (missingFields.length > 0) {
       const errorMessage = `${missingFields.join(", ")} field(s) are missing.`;
       toast.error(errorMessage, {
@@ -591,7 +677,7 @@ const VehiclesPage = () => {
     console.log("All Cars Booking Button");
 
     navigate(
-      `/bookingPage/1?tariffGroupId=${tariffGroupId}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}&dropoffLocState=${dropoffLocStateValue}&checkBoxValue=${showDropoff}`
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}&dropoffLocState=${dropoffLocStateValue}&checkBoxValue=${showDropoff}`
     );
   };
 
@@ -1124,9 +1210,9 @@ const VehiclesPage = () => {
                                 </span>
                               </span>
                             </button>
-                            <ToastContainer />
-                          </div>
-                        </Col> */}
+                            </div>
+                          </Col> */}
+                        <ToastContainer />
                       </Row>
                     </form>
                   </Col>
@@ -1401,6 +1487,10 @@ const VehiclesPage = () => {
                                 onClick={() =>
                                   allCarsBookingButton(
                                     car?.tariffGroupId,
+                                    `${car?.title} - ${
+                                      categoryMap[car?.acrissCategory?.name] ||
+                                      car?.acrissCategory?.name
+                                    }`,
                                     startDate,
                                     endDate
                                   )
@@ -1547,6 +1637,11 @@ const VehiclesPage = () => {
                                         );
                                         allCarsBookingButton(
                                           car?.tariffGroupId,
+                                          `${car?.title} - ${
+                                            categoryMap[
+                                              car?.acrissCategory?.name
+                                            ] || car?.acrissCategory?.name
+                                          }`,
                                           datePickerStartDate,
                                           datePickerEndDate
                                         );

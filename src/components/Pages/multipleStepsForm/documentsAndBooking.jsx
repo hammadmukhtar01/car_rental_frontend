@@ -2,7 +2,8 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { Container, Row, Col, Form, Modal } from "react-bootstrap";
 import { BsPersonCircle, BsFileEarmarkArrowUp } from "react-icons/bs";
-// import dayjs from 'dayjs';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -52,6 +53,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     [bookingDocURL.search]
   );
   const TariffGroupIdParam = parseInt(queryParams.get("tariffGroupId"));
+  const TariffVehicleNameParam = queryParams.get("vehicleName");
   const addOnsFromUrl = queryParams.get("addOns").split(",").map(Number);
 
   const startDateValue = queryParams.get("startDate");
@@ -499,8 +501,18 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         const bookingStatus = "success";
         alert("Booking status is: ", bookingStatus);
         console.log("booking done successfully. Time for Payment");
-        alert("alert booking fully created...");
-        getAccessToken();
+
+        toast.success("Booking Done Successfully", {
+          autoClose: 2000,
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            lineHeight: "18px",
+            fontSize: "14px",
+          },
+        });
+
+        createInvoice();
       }
     } catch (error) {
       console.error("Error creating/updating booking:", error);
@@ -520,51 +532,71 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   };
 
   const handleNextStep = () => {
-    let isFormValid = true;
-
-    if (!firstName.trim()) {
-      isFormValid = false;
-      console.log("First name is required");
+    const customerDetailsMissingFields = [];
+    if (!firstName) {
+      customerDetailsMissingFields.push("First Name");
+    }
+    if (!contactNum) {
+      customerDetailsMissingFields.push("Contact Number");
+    }
+    if (!emailAddress) {
+      customerDetailsMissingFields.push("Email Address");
     }
 
-    // if (!lastName.trim()) {
-    //   isFormValid = false;
-    //   console.log("Last name is required");
-    // }
-
-    if (!contactNum.trim()) {
-      isFormValid = false;
-      console.log("Contact Num is required");
+    console.log(
+      "1-----customerDetailsMissingFields",
+      customerDetailsMissingFields
+    );
+    if (customerDetailsMissingFields.length > 0) {
+      const errorMessage = `${customerDetailsMissingFields.join(
+        ", "
+      )} field(s) are missing.`;
+      toast.error(errorMessage, {
+        autoClose: 3000,
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          lineHeight: "18px",
+          fontSize: "14px",
+        },
+      });
+      return;
     }
 
-    if (!emailAddress.trim()) {
-      isFormValid = false;
-      console.log("Email is required");
+    const customerDocumentsMissingFields = [];
+    if (!passportNum) {
+      customerDocumentsMissingFields.push("Passport Number");
+    }
+    if (!passportIssueBy) {
+      customerDocumentsMissingFields.push("Passport Issued Country");
+    }
+    if (!passportIssueDate) {
+      customerDocumentsMissingFields.push("Passport Issued Date");
+    }
+    if (!passportExpiryDate) {
+      customerDocumentsMissingFields.push("Passport Expiry Date");
+    }
+    if (!passportImg) {
+      customerDocumentsMissingFields.push("Passport Image");
     }
 
-    if (!nationality) {
-      console.log("nationlity value is: ", nationality);
-      isFormValid = false;
-      console.log("Nationality is required");
-    }
-
-    // if (!driversAge.trim()) {
-    //   isFormValid = false;
-    //   console.log("Age is required");
-    // }
-
-    if (!airlineTicketNum.trim()) {
-      isFormValid = false;
-      console.log("Ticket Number is required");
-    }
-
-    if (!drivingLicenseNum.trim()) {
-      isFormValid = false;
-      console.log("Lisence is required");
-    }
-
-    if (!isFormValid) {
-      console.log("");
+    console.log(
+      "2-------customerDetailsMissingFields",
+      customerDocumentsMissingFields
+    );
+    if (customerDocumentsMissingFields.length > 0) {
+      const errorMessage = `${customerDocumentsMissingFields.join(
+        ", "
+      )} field(s) are missing.`;
+      toast.error(errorMessage, {
+        autoClose: 3000,
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          lineHeight: "18px",
+          fontSize: "14px",
+        },
+      });
       return;
     }
   };
@@ -630,38 +662,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   };
 
   // Payment APIs
-
-  const getAccessToken = async () => {
-    const Payment_Req_Access_Token =
-      process.env.REACT_APP_NETWORK_PAYMENT_REQ_ACCESS_TOKEN;
-    console.log(
-      "Payment_Req_Access_Token value is: ",
-      Payment_Req_Access_Token
-    );
-    const url =
-      "https://api-gateway.sandbox.ngenius-payments.com/identity/auth/access-token";
-
-    const headers = {
-      accept: "application/vnd.ni-identity.v1+json",
-      authorization: `Basic ${Payment_Req_Access_Token}`,
-      "Content-Type": "application/vnd.ni-identity.v1+json",
-    };
-
-    try {
-      const response = await axios.post(url, {}, { headers });
-      if (response.data && response.data.access_token) {
-        alert("alert access token for payment link is creating...");
-        console.log("Access Token Received:", response.data.access_token);
-        createInvoice(response.data.access_token);
-      }
-    } catch (error) {
-      console.error("Failed to fetch access token:", error);
-    }
-  };
-
-  const createInvoice = async (accessToken) => {
-    const url =
-      "https://api-gateway.sandbox.ngenius-payments.com/invoices/outlets/0e93daef-8a7b-40fc-ae21-6cb36ce40c1d/invoice";
+  const createInvoice = async () => {
+    const url = "http://localhost:8000/api/v1/invoice/createPaymentInvoice";
     const body = {
       firstName: firstName,
       lastName: lastName,
@@ -673,7 +675,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       redirectUrl: "https://milelecarrental.com/bookingPage/3&booking-success",
       items: [
         {
-          description: TariffGroupIdParam,
+          description: TariffVehicleNameParam,
           totalPrice: {
             currencyCode: "AED",
             value: totalGrandPriceWithTax * 100,
@@ -688,24 +690,24 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       message:
         "Thank you for booking at Milele Car Rental. By clicking on the below link and processing your payment successful, your booking will be confirmed..",
     };
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/vnd.ni-invoice.v1+json",
-    };
 
+    console.log(`before hitting API, body is: `, body);
     try {
-      const response = await axios.post(url, body, { headers });
-      if (
-        response.data &&
-        response.data._links &&
-        response.data._links.payment
-      ) {
-        console.log(
-          "Invoice Created, Payment URL:",
-          response.data._links.payment.href
-        );
-        alert("alert payment link sent...");
-        setPaymentUrl(response.data._links.payment.href);
+      const response = await axios.post(url, body);
+      console.log(`response of payment API is: `, response.data);
+
+      if (response.data && response.data.status === "success") {
+        await toast.info("Generating Payment link", {
+          autoClose: 3000,
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            lineHeight: "18px",
+            fontSize: "14px",
+          },
+        });
+        console.log("Invoice Created, Payment URL:", response.data.status);
+        setPaymentUrl(response.data.status);
         const nextStepUrl = `/bookingPage/3&booking-${bookingStatus}`;
         window.location.href = nextStepUrl;
       }
@@ -895,7 +897,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   </label>
                                 </div>
                                 <DateTimePicker
-                                  required
+                                  // required
                                   className="form-control-age mt-2 col-12"
                                   value={passportIssueDate}
                                   onChange={setPassportIssueDate}
@@ -913,7 +915,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   </label>
                                 </div>
                                 <DateTimePicker
-                                  required
+                                  // required
                                   className="form-control-age mt-2 col-12"
                                   value={passportExpiryDate}
                                   onChange={setPassportExpiryDate}
@@ -990,7 +992,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 </div>
 
                                 <DateTimePicker
-                                  required
+                                  // required
                                   className="form-control-age mt-2 col-12"
                                   value={drivingLicenseIssueDate}
                                   onChange={setDrivingLicenseIssueDate}
@@ -1008,7 +1010,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   </label>
                                 </div>
                                 <DateTimePicker
-                                  required
+                                  // required
                                   className="form-control-age mt-2 col-12"
                                   value={drivingLicenseExpiryDate}
                                   onChange={setDrivingLicenseExpiryDate}
@@ -1097,7 +1099,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                               </div>
                               <input
                                 className="form-control-location mt-2 col-12"
-                                required
                                 type="text"
                                 placeholder="Enter ticket number"
                                 value={airlineTicketNum}
@@ -1116,14 +1117,13 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 </label>
                               </div>
                               <DateTimePicker
-                                required
                                 className="form-control-age mt-2 col-12"
                                 onChange={setDriverFlightDateTime}
                                 value={driverFlightDateTime}
                               />
                             </Form.Group>
                           </Col>
-                          <Col xxl={3} lg={4} md={6} sm={6} xs={12} >
+                          <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label mb-3">
@@ -1132,7 +1132,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                               </div>
                               <Select
                                 options={nationality}
-                                required
                                 className="form-control-nationality col-12 nationality-dropdown"
                                 value={selectedNationality}
                                 onChange={handleChange}
@@ -1161,6 +1160,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                           <span className="label">Book & Pay</span>
                         </span>
                       </button>
+                      <ToastContainer />
                     </div>
                   </Col>
                 </div>

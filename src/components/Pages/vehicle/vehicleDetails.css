@@ -342,6 +342,10 @@ span.select2-selection_arrow b {
   transition: opacity 0.6s ease;
 }
 
+.single-car-container-div:hover .car-image {
+  transform: scale(1.1);
+  transition: 0.4s ease-in-out;}
+
 .offers-car-container-row:hover > :not(:hover) {
   opacity: 0.6;
 }
