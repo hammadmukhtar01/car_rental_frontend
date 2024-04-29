@@ -1123,7 +1123,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                               />
                             </Form.Group>
                           </Col>
-                          <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
+                          <Col xxl={3} lg={4} md={6} sm={6} xs={12} >
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label mb-3">
@@ -1133,11 +1133,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                               <Select
                                 options={nationality}
                                 required
-                                className="form-control-nationality col-12"
+                                className="form-control-nationality col-12 nationality-dropdown"
                                 value={selectedNationality}
                                 onChange={handleChange}
                                 styles={selectStyles}
-                                menuIsOpen={true}
                               />
                             </Form.Group>
                           </Col>

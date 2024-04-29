@@ -262,8 +262,9 @@
   background-color: #cc6119;
   color: white;
   border-radius: 6px;
-  padding-top: 3px;
-  padding-bottom: 4px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  font-size: 15px;
 }
 
 div.col-lg-10.navbar-nav {

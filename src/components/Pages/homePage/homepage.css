@@ -581,6 +581,10 @@
   border-radius: 6px;
 }
 
+.css-1nmdiq5-menu {
+  margin-left: -10px;
+}
+
 .css-t3ipsp-control {
   box-shadow: none !important;
 }
@@ -590,7 +594,9 @@
   border-color: none;
   box-shadow: none;
 }
-
+.nationality-dropdown .css-1nmdiq5-menu .css-1n6sfyn-MenuList {
+  max-height: 165px !important;
+}
 .css-1n6sfyn-MenuList::selection {
   background-color: white !important;
 }

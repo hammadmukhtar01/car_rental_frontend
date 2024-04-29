@@ -24,7 +24,6 @@ function OffcanvasExample() {
 
   useEffect(() => {
     setIsHomePage(location.pathname === "/home" || location.pathname === "/");
-    console.log("hevyevfyevfuevfuevfuevfuevfuevfuevfuevf");
   }, [location.pathname]);
 
   const isExactHomePage =
