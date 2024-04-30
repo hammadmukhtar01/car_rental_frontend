@@ -32,14 +32,14 @@ const Carousel = () => {
       <div className="offers-car-container">
         <div className="container">
           <div className="styled-label">
-            <div className="heading-icon-container-div">
+            <div className="offer-heading-icon-container-div">
               <BsPersonCircle className="mr-2 home-page-heading-icon" />
               <span>
-                <b className="fs-3">Offers:</b>
+                <b className="fs-3">Offers</b>
               </span>
             </div>
-            <hr className="home-page-heading-underline col-2" />
           </div>
+          <br />
           <div className="main-banner-img-container">
             <img
               className="main-banner-img"

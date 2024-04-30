@@ -752,10 +752,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               <div className="step1-car-location-details-container">
                 <div className="step1-location-details p-4">
                   <div className="location-label">
-                    <div className="styled-label">
+                    <div className="booking-doc-headings styled-label">
                       <BsPersonCircle className="mr-2 heading-icon" />
                       <b>Customer's Details</b>
-                      <hr className="heading-underline" />
                     </div>
                   </div>
 
@@ -841,12 +840,12 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                 </div>
 
                 <br />
+                <br />
                 <div className="step1-car-details p-4">
                   <div className="location-label">
-                    <div className="styled-label">
+                    <div className="booking-doc-headings styled-label">
                       <BsFileEarmarkArrowUp className="mr-2 heading-icon" />
                       <b>Documents Upload</b>
-                      <hr className="heading-underline" />
                     </div>
                     <div className="driver-details-form-container">
                       <div className=" form-group pl-4 pr-4">
@@ -1079,13 +1078,12 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                 <br />
                 <div className="step1-location-details p-4">
                   <div className="location-label">
-                    <div className="styled-label">
+                    <div className="booking-doc-headings styled-label">
                       <BsPersonCircle className="mr-2 heading-icon" />
-                      <b>Driver's Details *</b>
-                      <hr className="heading-underline" />
+                      <b>Driver's Details </b>
                     </div>
                   </div>
-
+                  <br />
                   <div className="driver-details-form-container">
                     <div className=" form-group pl-4 pr-4">
                       <div className="">

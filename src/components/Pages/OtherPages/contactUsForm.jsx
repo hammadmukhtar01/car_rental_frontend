@@ -67,13 +67,12 @@ const ContactUsForm = () => {
       <>
         <div className="styled-label mt-2">
           <div className="heading-icon-container-div d-flex justify-content-center">
-            <span>
+            <span className="contactUs-form-heading">
               <b className="fs-3">Contact Us Form</b>
             </span>
           </div>
-          <hr className="middle-hr-tag text-center " />
         </div>
-
+<br />
         <form
           action="#"
           className="signup-form"

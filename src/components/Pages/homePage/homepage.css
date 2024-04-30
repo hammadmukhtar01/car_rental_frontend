@@ -443,7 +443,7 @@
 }
 
 .home-page-horizontal-line-2 {
-  padding: 40px 4px;
+  padding: 50px 4px 30px 4px;
   background-color: #cc6119;
   text-align: center;
   word-spacing: 1px;
@@ -455,6 +455,76 @@
   font-weight: 600;
   word-spacing: 10px;
   letter-spacing: 1px;
+}
+
+.rent-drive-explore-div1,
+.rent-drive-explore-div2 {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.rent-drive-explore-div1 {
+  animation: showup 5s infinite;
+}
+
+.rent-drive-explore-div2 {
+  animation: reveal 5s infinite;
+}
+
+.rent-drive-explore-div2 span {
+  animation: slidein 5s infinite;
+}
+
+@keyframes showup {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slidein {
+  0% {
+    margin-left: -800px;
+  }
+  20% {
+    margin-left: -800px;
+  }
+  35% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 0px;
+  }
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    /* width: 0px; */
+  }
+  20% {
+    opacity: 1;
+    /* width: 0px; */
+  }
+  30% {
+    /* width: 355px; */
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    /* width: 555px; */
+  }
 }
 
 .search-box-home-page {

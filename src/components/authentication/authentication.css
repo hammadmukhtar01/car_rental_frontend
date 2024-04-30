@@ -103,6 +103,8 @@
 
 .have-account-text {
   font-size: 26px;
+  color: #cc6119;
+  text-decoration: underline;
 }
 
 .login-row,
@@ -120,6 +122,11 @@
   border: none;
   font-weight: 600;
   border-radius: 4px;
+}
+
+.forgot-password-heading {
+  color: rgb(255, 255, 255);
+    display: inline-flex;
 }
 
 .forgot-password,

@@ -265,7 +265,7 @@ const SignupPage = () => {
                       <p className="mt-2 text-center">
                         Already have an account?{" "}
                         <a href="/login" className="click-here ms-1">
-                          Click here
+                          Log In
                         </a>
                       </p>
                     </div>

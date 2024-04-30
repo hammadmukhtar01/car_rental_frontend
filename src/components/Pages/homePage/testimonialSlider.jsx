@@ -79,11 +79,7 @@ const Carousel = () => {
                 { length: Math.floor(testimonial.rating) },
                 (_, i) => (
                   <li key={i}>
-                    <MDBIcon
-                      icon="star"
-                      size="sm"
-                      className="text-warning"
-                    />
+                    <MDBIcon icon="star" size="sm" className="text-warning" />
                   </li>
                 )
               )}
@@ -106,14 +102,13 @@ const Carousel = () => {
   return (
     <div className="testimonial-container pt-3">
       <div className="container">
-        <div className="styled-label ml-4">
-          <div className="heading-icon-container-div">
+        <div className="testimonial-heading-icon-container-div">
+          <div className="styled-label ml-4">
             <BsPersonCircle className="mr-2 home-page-heading-icon" />
             <span>
-              <b className="fs-3">Testimonials</b>
+              <b className="fs-3">Testimonialss</b>
             </span>
           </div>
-          <hr className="home-page-heading-underline col-2" />
         </div>
         <AliceCarousel
           mouseTracking
@@ -132,14 +127,3 @@ const Carousel = () => {
 };
 
 export default Carousel;
-
-
-
-
-
-
-
-
-
-
-

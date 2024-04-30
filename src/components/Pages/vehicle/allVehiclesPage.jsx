@@ -1459,8 +1459,8 @@ const VehiclesPage = () => {
                   <>
                     <h3 className="pb-2 all-cars-heading">
                       All Cars
-                      <hr className="middle-hr-tag" />
                     </h3>
+                    <br />
                     <Row className="offers-car-container-row">
                       {currentTableData.map((car, index) => (
                         <Col

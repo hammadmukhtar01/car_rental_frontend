@@ -12,7 +12,7 @@ import {
   SiAbbott,
   SiAbletonlive,
   SiCachet,
-  SiAbstract
+  SiAbstract,
 } from "react-icons/si";
 
 const reasons = [
@@ -22,14 +22,14 @@ const reasons = [
     description:
       "As part of Milele Corporations, we inherit a rich legacy built on a foundation of trust, innovation, and customer satisfaction. Our parent company stands as one of the foremost players in the import and export of new cars worldwide, solidifying its reputation as an industry powerhouse.",
   },
- 
+
   {
     icon: <SiAbbrobotstudio className="legacy-icon" />,
     heading: "Unrivalled Fleet",
     description:
       "Experience the epitome of comfort, style, and performance with our extensive fleet of vehicles. From sleek city cars to Crossover SUVs, we offer a meticulously curated selection to ensure that every drive is a statement in luxury and reliability",
   },
- 
+
   {
     icon: <SiAbbott className="legacy-icon" />,
     heading: "Commitment to Quality",
@@ -83,16 +83,10 @@ const AboutusPage = () => {
         <div className="container mt-4 mb-4">
           <section className="about-us-main-section-1 pt-3 pb-3">
             <div className="about-us-section-1">
-              {/* <div className="about-us-section-heading text-center">
-                <h3>
-                  <b>About US</b>
-                </h3>
-              </div> */}
               <div className="styled-label text-center">
-                <span>
+                <span className="about-us-headings ">
                   <b className="fs-3">About Us</b>
                 </span>
-                <hr className="middle-hr-tag " />
               </div>
               <div className="about-us-section-1-container">
                 <div className="row p-4 d-flex align-items-center">
@@ -122,10 +116,9 @@ const AboutusPage = () => {
           <section className="about-us-main-section-2 mt-5 pt-3 pb-3">
             <div className="about-us-section-1">
               <div className="styled-label text-center">
-                <span>
+                <span className="about-us-headings ">
                   <b className="fs-3">Why Us</b>
                 </span>
-                <hr className="middle-hr-tag " />
               </div>
               <div className="about-us-section-1-container">
                 <div className="why-us-row-main-div row p-4">
@@ -142,7 +135,7 @@ const AboutusPage = () => {
                               <b>{reason.heading}</b>
                             </h5>
                           </div>
-                          <div className="legacy-description">
+                          <div className="legacy-description ">
                             <p>{reason.description}</p>
                           </div>
                         </div>

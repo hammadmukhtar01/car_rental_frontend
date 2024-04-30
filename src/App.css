@@ -5,6 +5,35 @@
   /* height: 100vh;  */
 }
 
+.terms-conditions-main-heading,
+.blog-heading-icon-container-div,
+.offer-heading-icon-container-div,
+.insta-testimonial-heading-icon-container-div,
+.rental-addons-main-heading,
+.booking-doc-headings,
+.about-us-headings,
+.contactUs-form-heading,
+.faqs-main-heading {
+  padding-bottom: 5px;
+  border-bottom: 2px solid;
+  display: inline-flex;
+}
+
+.all-cars-heading {
+  padding-bottom: 5px;
+  border-bottom: 2px solid;
+}
+
+.terms-condition-section-div,
+.terms-conditions-headings-main {
+  border: 1px solid #cc6119;
+  padding: 15px;
+}
+
+.terms-conditions-headings-main {
+  color: #cc6119;
+}
+
 .middle-hr-tag {
   margin-bottom: 1rem !important;
   opacity: 0.9;
@@ -135,7 +164,7 @@
 }
 
 .top-page-horizontal-line {
-  padding: 6px 4px;
+  padding: 14px 4px;
   background-color: #cc6119;
   text-align: center;
   word-spacing: 1px;
@@ -154,14 +183,36 @@
 }
 
 .top-horizontal-line-text {
-  font-size: 14px;
-  text-transform: uppercase;
-  color: white;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 900;
   line-height: 3px;
   word-spacing: 2px;
-  letter-spacing: 1px;
+  background-image: linear-gradient(
+    to bottom right,
+    violet,
+    indigo,
+    green,
+    white
+  );
+  background-size: 200% 200%;
+  color: transparent;
+  background-position: 50% 100%;
+  -moz-background-clip: text;
+  -webkit-background-clip: text;
+  text-transform: uppercase;
+  margin: 10px 0;
+  animation: rainbowAnimation 10s infinite backwards;
 }
+
+@keyframes rainbowAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: -100% 100%;
+  }
+}
+
 
 .booking-details-container {
   background-color: #dedede;
@@ -386,4 +437,7 @@
 }
 
 @media screen and (max-width: 576px) {
+  .top-horizontal-line-text {
+    font-size: 16px;
+  }
 }

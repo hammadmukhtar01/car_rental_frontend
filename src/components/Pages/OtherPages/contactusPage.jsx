@@ -33,10 +33,9 @@ const ContactusPage = () => {
             className="elementor elementor-3104 pt-xl-4"
           >
             <div className="styled-label text-center pt-3 pb-5">
-              <span>
+              <span className="contactUs-form-heading">
                 <b className="fs-3">Contact Us</b>
               </span>
-              <hr className="middle-hr-tag " />
             </div>
             <section className="contact-us-section-1">
               <div className="row">

@@ -55,7 +55,7 @@
   border-top: none;
 }
 
-.blog-style-one .blog-content  {
+.blog-style-one .blog-content {
   display: block;
   margin-bottom: 10px;
 }
@@ -68,6 +68,16 @@
   -o-transition: all 0.3s ease-out 0s;
   transition: all 0.3s ease-out 0s;
   line-height: 30px;
+}
+
+.blog1-main-heading,
+.blog2-main-heading,
+.blog3-main-heading,
+.blog4-main-heading {
+  color: #d95c09;
+  padding-bottom: 5px;
+  border-bottom: 2px solid;
+  display: inline-flex;
 }
 
 .blog-style-one .blog-content .blog-title a:hover {

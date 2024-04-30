@@ -69,7 +69,7 @@ const AnimatedCarSection = () => {
               <div className="styled-label">
                 <div className="location-label">
                   <BsPersonCircle className="mr-2 home-page-heading-icon" />
-                  <span className="fs-3">Our Fleet Cars:</span>
+                  <span className="fs-3">Our Fleet Cars</span>
                   <hr className="home-page-heading-underline" />
                 </div>
               </div>

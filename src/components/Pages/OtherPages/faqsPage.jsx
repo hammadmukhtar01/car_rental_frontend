@@ -139,10 +139,9 @@ const FaqsPage = () => {
       </div>
       <div className="container pt-4 pb-5">
         <div className="styled-label text-center">
-          <span>
+          <span className="faqs-main-heading">
             <b className="fs-3"> Frequently Asked Questions!</b>
           </span>
-          <hr className="middle-hr-tag" />
         </div>
         <div className="faqs-main-div">
           <MDBContainer className="mt-4">

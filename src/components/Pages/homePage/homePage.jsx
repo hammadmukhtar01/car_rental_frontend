@@ -89,7 +89,12 @@ const HomePage = () => {
             </div>
             <div className="home-page-horizontal-line-2">
               <h1 className="home-page-horizontal-line-2-text">
-                Rent, Drive, Explore Dubai
+                <div className="rent-drive-explore-div1">Rent</div>
+                <div className="rent-drive-explore-div2">
+                  <span className="rent-drive-explore-span">
+                    , Drive, Explore Dubai
+                  </span>
+                </div>
               </h1>
             </div>
           </div>
@@ -125,7 +130,7 @@ const HomePage = () => {
                 <div className="heading-icon-container-div">
                   <BsPersonCircle className="mr-2 home-page-heading-icon" />
                   <span>
-                    <b className="fs-3">Collaborated Top Brands:</b>
+                    <b className="fs-3">Collaborated Top Brands</b>
                   </span>
                 </div>
                 <hr className="home-page-heading-underline " />
@@ -164,14 +169,13 @@ const HomePage = () => {
           <OurBlogs />
 
           <div className="instagram-feed-home-container container">
-            <div className="styled-label ml-4">
-              <div className="heading-icon-container-div">
+            <div className="styled-label">
+              <div className="insta-testimonial-heading-icon-container-div">
                 <BsPersonCircle className="mr-2 home-page-heading-icon" />
                 <span>
                   <b className="fs-3">Testimonials</b>
                 </span>
               </div>
-              <hr className="home-page-heading-underline col-2" />
             </div>
             <InstagramFeed />
           </div>

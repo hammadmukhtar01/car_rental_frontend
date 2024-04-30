@@ -618,12 +618,12 @@ const VehicleDetails = ({ nextStep }) => {
 
                     <div className="step1-car-details p-4">
                       <div className="location-label">
-                        <div className="styled-label">
+                        <div className="rental-addons-main-heading styled-label">
                           <BsFillShieldLockFill className="mr-2 heading-icon" />
                           <b>Rental AddOns</b>
-                          <hr className="heading-underline" />
                         </div>
-
+                        <br />
+                        <br />
                         <div className="driver-details-form-container">
                           <Row>
                             <Col lg={12} md={12} sm={12} xs={12}>

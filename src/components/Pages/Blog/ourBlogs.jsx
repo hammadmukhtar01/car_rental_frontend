@@ -94,14 +94,13 @@ const OurBlogs = () => {
     <div>
       <section className="blog-area mt-4">
         <div className="container">
-          <div className="styled-label ml-4">
-            <div className="heading-icon-container-div">
+          <div className="styled-label">
+            <div className="blog-heading-icon-container-div">
               <BsPersonCircle className="mr-2 home-page-heading-icon" />
               <span>
                 <b className="fs-3">Our Blogs</b>
               </span>
             </div>
-            <hr className="home-page-heading-underline col-2" />
           </div>
           <AliceCarousel
             mouseTracking

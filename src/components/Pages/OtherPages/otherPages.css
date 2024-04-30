@@ -49,7 +49,7 @@
 
 .why-us-text-col:hover {
   transform: scale(0.95);
-  transition: 0.6s ease-in-out;
+  transition: 0.4s ease-in-out;
 }
 
 .legacy-icon {
@@ -61,7 +61,7 @@
   padding: 30px;
   background-color: #f3f3f3;
   border-radius: 10px;
-  max-height: 48vh;
+  /* max-height: 48vh; */
 }
 .about-us-main-heading {
   color: #cc6119;
@@ -72,6 +72,17 @@
 .why-us-text-col {
   padding: 4px 24px 24px 24px;
   /* margin: 20px; */
+}
+
+.legacy-description {
+  margin-top: 16px;
+  text-align: justify;
+  color: black;
+  text-decoration: none !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .accordion-button.collapsed {
@@ -138,17 +149,17 @@
   height: 100%;
 }
 
-@media screen and (max-width:1200px) {
+/* @media screen and (max-width: 1200px) {
   .why-us-single-container {
     height: 65vh;
   }
 }
 
-@media screen and (max-width:1024px) {
+@media screen and (max-width: 1024px) {
   .why-us-single-container {
     height: 77vh;
   }
-}
+} */
 
 @media screen and (max-width: 991px) {
   .border-div-img::after {
@@ -159,50 +170,50 @@
     left: 45%;
     height: 100%;
   }
-  .why-us-single-container {
+  /* .why-us-single-container {
     height: 55vh;
-  }
+  } */
 }
 
-@media screen and (max-width:912px) {
+/* @media screen and (max-width: 912px) {
   .why-us-single-container {
     height: 32vh;
   }
 }
 
-@media screen and (min-width:820px) and (max-width:853px) {
+@media screen and (min-width: 820px) and (max-width: 853px) {
   .why-us-single-container {
     height: 35vh;
   }
 }
 
-@media screen and (max-width:810px) {
+@media screen and (max-width: 810px) {
   .why-us-single-container {
     height: 55vh;
   }
 }
 
-@media screen and (max-width:787px) {
+@media screen and (max-width: 787px) {
   .why-us-single-container {
     height: 42vh;
   }
-}
+} */
 
 @media screen and (max-width: 767px) {
   .contact-us-map-container,
   .border-div-img::after {
     display: none;
   }
-  .why-us-single-container {
+  /* .why-us-single-container {
     height: auto;
-  }
+  } */
 }
 
-@media screen and (max-width:576px) {
+/* @media screen and (max-width: 576px) {
   .why-us-single-container {
     height: auto;
   }
-}
+} */
 
 .contact-us-address-text {
   font-size: 15px;
