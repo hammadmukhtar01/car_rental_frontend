@@ -587,7 +587,6 @@ const SearchBox = () => {
                       <div className="button-container">
                         <button
                           className="animated-search-button"
-                          // onClick={handleSearchCarButton}
                         >
                           {" "}
                           <span className="button-text-span">

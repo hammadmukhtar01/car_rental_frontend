@@ -1029,6 +1029,14 @@ const VehicleDetails = ({ nextStep }) => {
                 >
                   <div className="button-container">
                     <button
+                      onClick={() => handleNextStep1()}
+                      className="map-loc-middle py-3"
+                    >
+                      <span href="" className="animate-button btn4">
+                        Start Booking
+                      </span>
+                    </button>
+                    {/* <button
                       className="animated-button booking-text next"
                       onClick={() => handleNextStep1()}
                     >
@@ -1038,7 +1046,7 @@ const VehicleDetails = ({ nextStep }) => {
                         <span className="gradient"></span>
                         <span className="label">Start Booking</span>
                       </span>
-                    </button>
+                    </button> */}
                   </div>
                 </Col>
               </div>

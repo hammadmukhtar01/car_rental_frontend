@@ -158,21 +158,25 @@ const LoginPage = () => {
                   </Form.Group>
 
                   <div className="form-group-3 col-lg-12">
-                    <div className="col-lg-6 d-flex justify-content-center">
-                      <p></p>
-                      <button
+                    <p></p>
+                    <br />
+                    <br />
+                    <button className="middle">
+                      <span href="" className="animate-button btn4">
+                        Log In
+                      </span>
+                    </button>
+                    {/* <button
                         type="submit"
                         className="login-form-control animated-button submit"
-                        // onClick={(e) => handleLogin(e)}
                       >
                         <span className="button-text-span p-4">
                           <span className="transition"></span>
                           <span className="gradient"></span>
                           <span className="label">Log In</span>
                         </span>
-                      </button>
-                      <ToastContainer />
-                    </div>
+                      </button> */}
+                    <ToastContainer />
                   </div>
                   <div className="form-group-0 pt-4">
                     <div className="col-lg-12">

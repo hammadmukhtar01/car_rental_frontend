@@ -32,7 +32,11 @@ const ForgotPasswordPage = () => {
       if (result.status === 200 && result.data.status === "success") {
         toast.success("Check your email for password reset link.", {
           autoClose: 2000,
-          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            fontSize: "14px",
+          },
           onClose: () => {
             navigate("/home");
           },
@@ -40,7 +44,11 @@ const ForgotPasswordPage = () => {
       } else {
         toast.warning("Email not found. Try again with a correct email.", {
           autoClose: 3000,
-          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px", },
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            fontSize: "14px",
+          },
         });
       }
     } catch (error) {
@@ -79,8 +87,9 @@ const ForgotPasswordPage = () => {
           <div className="forgot-row justify-content-center">
             <div className="col-lg-6 ">
               <div className="forgot-wrap ">
-                <p className=" have-account-text"> Forgot Password...</p>
-
+                <p className=" have-account-text text-center mb-4 mt-2">
+                  Forgot Password
+                </p>
                 <form
                   action="#"
                   className="signin-form"
@@ -114,17 +123,23 @@ const ForgotPasswordPage = () => {
                   <div className="form-group-3 col-lg-12">
                     <div className="col-lg-6 d-flex justify-content-center">
                       <p></p>
-                      <button
+                      <br />
+                      <br />
+                      <button className="middle">
+                        <span href="" className="animate-button btn4">
+                          Submit
+                        </span>
+                      </button>
+                      {/* <button
                         type="submit"
                         className="forgot-form-control animated-button submit"
-                        // onClick={handleForgotPasswordClick}
                       >
                         <span className="button-text-span p-4">
                           <span className="transition"></span>
                           <span className="gradient"></span>
                           <span className="label">Submit</span>
                         </span>
-                      </button>
+                      </button> */}
                       <ToastContainer />
                     </div>
                   </div>

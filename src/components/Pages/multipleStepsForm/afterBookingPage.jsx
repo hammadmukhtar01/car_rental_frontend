@@ -219,7 +219,15 @@ const AfterBookingPage = () => {
             {" "}
             <b>A payment link has been sent to your email.</b>
           </p>
-          <button
+
+          <br />
+          <br />
+          <button onClick={errorPageBackButton} className="middle">
+            <span href="" className="animate-button btn4">
+              <b>Back to home</b>
+            </span>
+          </button>
+          {/* <button
             className="animated-button booking-text action-button next"
             onClick={errorPageBackButton}
           >
@@ -230,7 +238,7 @@ const AfterBookingPage = () => {
                 <b>Back to home</b>
               </span>
             </span>
-          </button>
+          </button> */}
         </div>
       </div>
     </>

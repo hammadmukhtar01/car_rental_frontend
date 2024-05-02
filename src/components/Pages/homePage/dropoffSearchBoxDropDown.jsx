@@ -97,7 +97,6 @@ function DropoffLocationModal({
 
     handleFieldChange("selectedTabDropOff", selectedTab);
 
-
     if (formFields) {
       if (formFields.selectedTabDropOff === "pick") {
         updateDropoffLocationMessage(
@@ -214,7 +213,16 @@ function DropoffLocationModal({
                     </div>
 
                     <div className="col-lg-4">
-                      <div className="button-container rent-button-in-map text-center mt-3 mb-2">
+                      <button
+                        onClick={handleInputSubmit}
+                        className="map-loc-middle py-3"
+                      >
+                        <span href="" className="animate-button btn4">
+                          Create Account
+                        </span>
+                      </button>
+
+                      {/* <div className="button-container rent-button-in-map text-center mt-3 mb-2">
                         <button
                           type="button"
                           className="animated-button pt-2 pb-2"
@@ -226,7 +234,7 @@ function DropoffLocationModal({
                             <span className="label">Start Booking</span>
                           </span>
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -299,7 +307,15 @@ function DropoffLocationModal({
                     </div>
 
                     <div className="col-lg-4">
-                      <div className="button-container rent-button-in-map text-center mt-3 mb-2">
+                      <button
+                        onClick={handleInputSubmit}
+                        className="map-loc-middle py-3"
+                      >
+                        <span href="" className="animate-button btn4">
+                          Start Booking
+                        </span>
+                      </button>
+                      {/* <div className="button-container rent-button-in-map text-center mt-3 mb-2">
                         <button
                           type="button"
                           className="animated-button pt-2 pb-2"
@@ -311,7 +327,7 @@ function DropoffLocationModal({
                             <span className="label">Start Booking</span>
                           </span>
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

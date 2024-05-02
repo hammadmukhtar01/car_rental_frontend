@@ -72,7 +72,7 @@ const ContactUsForm = () => {
             </span>
           </div>
         </div>
-<br />
+        <br />
         <form
           action="#"
           className="signup-form"
@@ -174,17 +174,23 @@ const ContactUsForm = () => {
           <div className="form-group-3 col-lg-12 pb-4">
             <div className="col-lg-6 col-md-6 d-flex justify-content-center">
               <p></p>
-              <button
+              <br />
+              <br />
+              <button className="middle">
+                <span href="" className="animate-button btn4">
+                  Submit
+                </span>
+              </button>
+              {/* <button
                 type="submit"
                 className="contactUs-form-control animated-button submit px-3"
-                // onClick={(e) => handleContactUsForm(e)}
               >
                 <span className="button-text-span p-4">
                   <span className="transition"></span>
                   <span className="gradient"></span>
                   <span className="label">Submit</span>
                 </span>
-              </button>
+              </button> */}
               <ToastContainer />
             </div>
           </div>

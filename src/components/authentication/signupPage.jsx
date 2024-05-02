@@ -60,7 +60,11 @@ const SignupPage = () => {
       if (response.data.status === "success") {
         toast.success("Account Created Successfully!", {
           autoClose: 2000,
-          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            fontSize: "14px",
+          },
           onClose: () => {
             navigate("/home");
           },
@@ -68,13 +72,22 @@ const SignupPage = () => {
       } else {
         toast.warning("Some fields are missing", {
           autoClose: 3000,
-          style: { border: "1px solid #c0c0c0", fontWeight: "400", fontSize: "14px" },
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            fontSize: "14px",
+          },
         });
       }
     } catch (error) {
       toast.error(`${error.response.data.message}`, {
         autoClose: 3000,
-        style: { border: "1px solid #c0c0c0", fontWeight: "400", lineHeight: "18px", fontSize: "14px" },
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          lineHeight: "18px",
+          fontSize: "14px",
+        },
       });
     }
   };
@@ -272,19 +285,28 @@ const SignupPage = () => {
                   </div>
                   <br />
                   <div className="form-group-3 col-lg-12">
-                      <p></p>
+                    <p></p>
+                    <br />
+                    <br />
+                    <button className="middle">
+                      <span href="" className="animate-button btn4">
+                        Create Account
+                      </span>
+                    </button>
+                    {/* 
                       <button
                         type="submit"
                         className="createAccount-form-control animated-button submit px-3"
-                        // onClick={(e) => handleSignUp(e)}
                       >
+                       
                         <span className="button-text-span p-2">
                           <span className="transition"></span>
                           <span className="gradient"></span>
                           <span className="label">Create Account </span>
-                        </span>
+                        </span> 
                       </button>
-                      <ToastContainer />
+                        */}
+                    <ToastContainer />
                   </div>
                 </form>
               </div>

@@ -79,8 +79,9 @@ const ResetPasswordPage = () => {
           <div className="forgot-row justify-content-center">
             <div className="col-lg-6 ">
               <div className="forgot-wrap ">
-                <p className=" have-account-text"> Reset Password...</p>
-
+                <p className=" have-account-text text-center mb-4 mt-2">
+                  Reset Password
+                </p>
                 <form
                   action="#"
                   className="reset-password-form"
@@ -137,12 +138,19 @@ const ResetPasswordPage = () => {
                   </Form.Group>
 
                   <div className="form-group-3 col-lg-12">
-                    <div className="col-lg-6">
+                    <p></p>
+                    <br />
+                    <br />
+                    <button className="middle">
+                      <span href="" className="animate-button btn4">
+                        Submit
+                      </span>
+                    </button>
+                    {/* <div className="col-lg-6">
                       <p></p>
                       <button
                         type="submit"
                         className="forgot-form-control animated-button submit"
-                        // onClick={handleForgotPasswordClick}
                       >
                         <span className="button-text-span">
                           <span className="transition"></span>
@@ -151,7 +159,7 @@ const ResetPasswordPage = () => {
                         </span>
                       </button>
                       <ToastContainer />
-                    </div>
+                    </div> */}
                   </div>
                   <br />
                   <div className="form-group-0">

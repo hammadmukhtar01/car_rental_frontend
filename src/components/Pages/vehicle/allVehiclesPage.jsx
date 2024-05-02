@@ -1457,9 +1457,7 @@ const VehiclesPage = () => {
                   </Row>
 
                   <>
-                    <h3 className="pb-2 all-cars-heading">
-                      All Cars
-                    </h3>
+                    <h3 className="pb-2 all-cars-heading">All Cars</h3>
                     <br />
                     <Row className="offers-car-container-row">
                       {currentTableData.map((car, index) => (
@@ -1630,7 +1628,7 @@ const VehiclesPage = () => {
                                 {numberOfDays > 0 ? (
                                   <>
                                     <button
-                                      className="animated-button"
+                                      className="map-loc-middle"
                                       onClick={() => {
                                         console.log(
                                           `--------------------------Start date is ---- ${datePickerStartDate} \n End Date is ---- ${datePickerEndDate}`
@@ -1647,9 +1645,13 @@ const VehiclesPage = () => {
                                         );
                                       }}
                                     >
-                                      <span className="button-text-span">
-                                        <span className="transition"></span>
-                                        <span className="gradient"></span>
+                                      <span
+                                        href=""
+                                        className="animate-button btn4"
+                                      >
+                                        {/* <span className="button-text-span"> */}
+                                        {/* <span className="transition"></span>
+                                        <span className="gradient"></span> */}
                                         <span className="label">
                                           Pay Now{" "}
                                           <span className="pay-now-price-md-lg">
@@ -1668,7 +1670,7 @@ const VehiclesPage = () => {
                                 ) : (
                                   <>
                                     <div className="button-container">
-                                      <button
+                                      {/* <button
                                         className="animated-button"
                                         onClick={allCarsBookingButton}
                                       >
@@ -1678,6 +1680,17 @@ const VehiclesPage = () => {
                                           <span className="label">
                                             Rent Now
                                           </span>
+                                        </span>
+                                      </button> */}
+                                      <button
+                                        onClick={allCarsBookingButton}
+                                        className="map-loc-middle py-3"
+                                      >
+                                        <span
+                                          href=""
+                                          className="animate-button btn4"
+                                        >
+                                          Rent Now
                                         </span>
                                       </button>
                                     </div>

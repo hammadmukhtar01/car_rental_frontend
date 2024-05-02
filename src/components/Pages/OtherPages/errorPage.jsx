@@ -213,7 +213,13 @@ const ErrorPage = () => {
           {" "}
           We can't find the page you're looking for.
         </p>
-        <button
+        <br />
+        <button onClick={errorPageBackButton} className="middle">
+          <span href="" className="animate-button btn4">
+            Return Home
+          </span>
+        </button>
+        {/* <button
           className="animated-button booking-text action-button next"
           onClick={errorPageBackButton}
         >
@@ -222,7 +228,7 @@ const ErrorPage = () => {
             <span className="gradient"></span>
             <span className="label">Back to home</span>
           </span>
-        </button>
+        </button> */}
       </div>
     </div>
   );

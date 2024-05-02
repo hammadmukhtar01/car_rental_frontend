@@ -38,7 +38,10 @@ const LeaseToOwnVehicles = () => {
   const [isCarModelOpen, setIsCarModelOpen] = useState(true);
   const [isCarTypeOpen, setIsCarTypeOpen] = useState(true);
   const [isNumOfyearsOpen, setIsNumOfyearsOpen] = useState(true);
-  const [selectedNumOfYears, setSelectedNumOfYears] = useState({label: "1 year", value: 1});
+  const [selectedNumOfYears, setSelectedNumOfYears] = useState({
+    label: "1 year",
+    value: 1,
+  });
   const [showModal, setShowModal] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     carModels: [],
@@ -459,7 +462,7 @@ const LeaseToOwnVehicles = () => {
                     </div>{" "}
                     {isCarModelOpen && (
                       <div className="filter-content">
-                          <div className="card-body car-type-filter">
+                        <div className="card-body car-type-filter">
                           <form>
                             {carModels.map((model, index) => (
                               <label
@@ -677,6 +680,17 @@ const LeaseToOwnVehicles = () => {
                                 </div>
                                 <div className="lease-car-button send-inquiry-button">
                                   <button
+                                    onClick={handleSendInquiryButton}
+                                    className="map-loc-middle py-3"
+                                  >
+                                    <span
+                                      href=""
+                                      className="animate-button btn4"
+                                    >
+                                      Send Inquiry
+                                    </span>
+                                  </button>
+                                  {/* <button
                                     className="animated-button"
                                     onClick={handleSendInquiryButton}
                                   >
@@ -687,7 +701,7 @@ const LeaseToOwnVehicles = () => {
                                         Send Inquiry
                                       </span>
                                     </span>
-                                  </button>
+                                  </button> */}
                                 </div>
                               </div>
                             </div>

@@ -119,9 +119,9 @@ function PickupLocationModal({
       handleFieldChange("pickupInputMessageV1", message);
       handleFieldChange("pickupLocationStateV1", "Dubai");
     }
-    console.log("Select tab------------------", selectedTab)
+    console.log("Select tab------------------", selectedTab);
 
-      handleFieldChange("selectedTabPickUp", selectedTab);
+    handleFieldChange("selectedTabPickUp", selectedTab);
 
     if (formFields) {
       if (formFields.selectedTabPickUp === "pick") {
@@ -218,7 +218,15 @@ function PickupLocationModal({
                     </div>
 
                     <div className="col-lg-4">
-                      <div className="button-container rent-button-in-map text-center mt-3 mb-2">
+                      <button
+                        onClick={handleInputSubmit}
+                        className="map-loc-middle py-3"
+                      >
+                        <span href="" className="animate-button btn4">
+                          Start Booking
+                        </span>
+                      </button>
+                      {/* <div className="button-container rent-button-in-map text-center mt-3 mb-2">
                         <button
                           type="button"
                           className="animated-button pt-2 pb-2"
@@ -230,7 +238,7 @@ function PickupLocationModal({
                             <span className="label">Start Booking</span>
                           </span>
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -293,7 +301,15 @@ function PickupLocationModal({
                     </div>
 
                     <div className="col-lg-4">
-                      <div className="button-container rent-button-in-map text-center mt-3 mb-2">
+                      <button
+                        onClick={handleInputSubmit}
+                        className="map-loc-middle py-3"
+                      >
+                        <span href="" className="animate-button btn4">
+                          Start Booking
+                        </span>
+                      </button>
+                      {/* <div className="button-container rent-button-in-map text-center mt-3 mb-2">
                         <button
                           type="button"
                           className="animated-button pt-2 pb-2"
@@ -305,7 +321,7 @@ function PickupLocationModal({
                             <span className="label">Start Booking</span>
                           </span>
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
