@@ -1196,6 +1196,9 @@ option:disabled {
     object-fit: contain;
     aspect-ratio: 2/1;
   }
+  .home-page-horizontal-line-2-text {
+    font-size: 30px;
+  }
 }
 
 @media screen and (max-width: 991px) {
@@ -1213,5 +1216,11 @@ option:disabled {
     position: relative;
     object-fit: cover;
     aspect-ratio: 2/1;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .home-page-horizontal-line-2-text {
+    font-size: 20px;
   }
 }
