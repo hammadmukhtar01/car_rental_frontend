@@ -450,7 +450,7 @@
 }
 
 .home-page-horizontal-line-2-text {
-  font-size: 60px;
+  font-size: 50px;
   color: white;
   font-weight: 600;
   word-spacing: 10px;
@@ -559,6 +559,9 @@
     position: relative;
     object-fit: fill;
     aspect-ratio: 2/1;
+  }
+  .home-page-horizontal-line-2-text {
+    font-size: 28px;
   }
 }
 
@@ -1197,7 +1200,7 @@ option:disabled {
     aspect-ratio: 2/1;
   }
   .home-page-horizontal-line-2-text {
-    font-size: 30px;
+    font-size: 25px;
   }
 }
 
@@ -1221,6 +1224,6 @@ option:disabled {
 
 @media screen and (max-width: 375px) {
   .home-page-horizontal-line-2-text {
-    font-size: 20px;
+    font-size: 18px;
   }
 }

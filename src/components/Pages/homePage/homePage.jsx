@@ -78,11 +78,11 @@ const HomePage = () => {
           <div className="search-box-home-page-container">
             <div className="bg-img-banner-main">
               <div className="banner-container" />
-              <img
+              {/* <img
                 className="only-car-banner-container"
                 src={OnlyCar}
                 alt="test"
-              />
+              /> */}
             </div>
             <div className="search-box-home-page mt-3">
               <SearchBox />

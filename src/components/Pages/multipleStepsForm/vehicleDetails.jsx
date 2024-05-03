@@ -70,17 +70,26 @@ const VehicleDetails = ({ nextStep }) => {
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
-          "CDW Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+          "Optional coverage that limits the renter's liability in case of damage to the rental vehicle due to collision.",
       },
 
       {
         id: 3,
         addOnsName: "PAI",
         pricePerTrip: 50,
-        checkBoxValue: 1,
+        checkBoxValue: 0,
         IconName: BsPersonCircle,
         addOnsDetail:
-          "PAI Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+          "Coverage providing personal accident insurance for the driver and passengers during the rental period.",
+      },
+      {
+        id: 5,
+        addOnsName: "Mileage",
+        pricePerTrip: 50,
+        checkBoxValue: 0,
+        IconName: BsPersonCircle,
+        addOnsDetail:
+          "Additional miles beyond the standard limit included in the rental agreement, charged per mile/kilometer.",
       },
       {
         id: 19,
@@ -89,7 +98,39 @@ const VehicleDetails = ({ nextStep }) => {
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
-          "Baby Seat Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+          "Child safety seat suitable for infants or toddlers, ensuring safe transportation for young passengers.",
+      },
+      {
+        id: 54,
+        // Extra1Charges -> Tint
+        addOnsName: "Tint",
+        pricePerTrip: 54,
+        IconName: BsFileEarmarkArrowUp,
+        checkBoxValue: 0,
+        addOnsDetail:
+          "Dark window tinting for added privacy and sun protection during the rental period.",
+      },
+
+      {
+        id: 55,
+        // Extra1Charges -> Mobile Holder
+        addOnsName: "Mobile Holder",
+        pricePerTrip: 55,
+        IconName: BsFileEarmarkArrowUp,
+        checkBoxValue: 0,
+        addOnsDetail:
+          "Convenient mount to securely hold smartphones for GPS navigation or hands-free calling.",
+      },
+
+      {
+        id: 58,
+        // Extra1Charges -> Sunshades
+        addOnsName: "Sunshades",
+        pricePerTrip: 58,
+        IconName: BsFileEarmarkArrowUp,
+        checkBoxValue: 0,
+        addOnsDetail:
+          "Shades for car windows to reduce heat and glare, providing a more comfortable interior.",
       },
 
       {
@@ -99,7 +140,7 @@ const VehicleDetails = ({ nextStep }) => {
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
-          "Airport Surcharges Detail Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam natus quia provident ipsa, eius aut totam fugiat nostrum. Assumenda, deserunt commodi. Quibusdam dolorum in corrupti ipsum. Ducimus nostrum itaque quas?",
+          "Convenient pick-up service directly from the airport terminal to start the rental seamlessly.",
       },
     ],
     []
@@ -173,8 +214,6 @@ const VehicleDetails = ({ nextStep }) => {
     }
   }, [checkBoxValueParam, pickupLocParam, queryParams]);
 
-  console.log("state is ---- ", dropoffLocParam);
-
   const deliveryCharges = {
     FUJAIRAH: 250,
     "AL AIN": 200,
@@ -238,10 +277,6 @@ const VehicleDetails = ({ nextStep }) => {
   const carlargeSafetyBags = baseAPIResponsePath?.largeBagsCapacity;
   const carsmallSafetyBags = baseAPIResponsePath?.smallBagsCapacity;
   const carTotalSafetyBags = carlargeSafetyBags + carsmallSafetyBags;
-
-  console.log(
-    `Passengers are ${carPassengerCapacity} and Fuel type is: ${carFuelType} and car type is ${carManualAutomaticType} and carDoors are ${carDoorstype} and total bags are ${carTotalSafetyBags}`
-  );
 
   const carFeaturesWithIcons = [
     {
