@@ -160,6 +160,51 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     fetchAvailableLocationsData();
   }, [fetchAvailableLocationsData]);
 
+  const handlePassportImgChange = (e) => {
+    const file = e.target.files[0];
+    console.log(`handlePassportImgChange --- `, file);
+    getCustomerUploadedImgUrl(file, "Passport");
+  };
+
+  const handleDrivingLicenseImgChange = (e) => {
+    const file = e.target.files[0];
+    console.log(`handleDrivingLicenseImgChange --- `, file?.name);
+    getCustomerUploadedImgUrl(file, "Driving License");
+  };
+
+  // Get Customer's Documents URL
+
+  const getCustomerUploadedImgUrl = async (file, documentType) => {
+    try {
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      };
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const url = `https://app.speedautosystems.com/api/UploadFile`;
+
+      const response = await axios.post(url, formData, { headers });
+      const fetchedRequiredImgUrl = response?.data?.Result?.url;
+
+      console.log(
+        `fetchedRequiredImgUrl response for ${documentType} is: -- ${JSON.stringify(
+          fetchedRequiredImgUrl
+        )}`
+      );
+
+      documentType.toUpperCase() === "PASSPORT"
+        ? setDrivingLicenseImg(fetchedRequiredImgUrl)
+        : setPassportImg(fetchedRequiredImgUrl);
+    } catch (error) {
+      console.error("Error while creating img url of documents", error);
+    }
+  };
+
   // Create Customer API
 
   const createCustomer = async (data) => {
@@ -184,13 +229,23 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       );
       // setNewCustomerId(response?.data?.result);
 
-      if (response.data && response.data.success && response.data.result) {
+      if (response?.data && response?.data?.success && response?.data?.result) {
         console.log(
           "create customer success if method console - - - - - -- done"
         );
         alert("alert customer created...");
         getCustomerDetails(response?.data?.result);
       } else {
+        const errorMessage = response?.data?.error?.message;
+        toast.error(errorMessage, {
+          autoClose: 2000,
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            lineHeight: "18px",
+            fontSize: "14px",
+          },
+        });
         console.error("Unexpected response structure:", response.data);
       }
     } catch (error) {
@@ -934,10 +989,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   required
                                   type="file"
                                   placeholder="passport number"
-                                  value={passportImg}
-                                  onChange={(e) =>
-                                    setPassportImg(e.target.value)
-                                  }
+                                  // value={passportImg}
+                                  onChange={(e) => handlePassportImgChange(e)}
                                 />
                               </Form.Group>
                             </Col>
@@ -1029,9 +1082,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   required
                                   type="file"
                                   placeholder="driving license"
-                                  value={drivingLicenseImg}
+                                  // value={drivingLicenseImg}
                                   onChange={(e) =>
-                                    setDrivingLicenseImg(e.target.value)
+                                    handleDrivingLicenseImgChange(e)
                                   }
                                 />
                               </Form.Group>
