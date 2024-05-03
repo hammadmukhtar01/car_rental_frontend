@@ -63,9 +63,18 @@
   border-radius: 10px;
   /* max-height: 48vh; */
 }
-.about-us-main-heading {
+
+.about-us-main-heading-1, .about-us-mapped-data-container {
+  padding: 20px 20px 0px 20px;
+  text-align: justify;
+}
+
+.about-us-main-heading-span {
   color: #cc6119;
-  padding-left: 25px;
+}
+
+.about-us-all-heading h4 {
+  font-weight: bolder;
 }
 
 .about-us-text-col,
@@ -243,17 +252,78 @@
   color: #cc6119;
 }
 
-.list-style-small-alpha {
-  list-style-type: lower-alpha;
+/* Style (a)  */
+.custom-list-double-brackets-a {
+  list-style: none;
+  counter-reset: list-counter;
 }
 
+.custom-list-double-brackets-a li {
+  position: relative;
+}
+
+.custom-list-double-brackets-a li:before {
+  content: "(" counter(list-counter, lower-alpha) ")";
+  counter-increment: list-counter;
+  position: absolute;
+  left: -2em;
+  color: rgb(238, 147, 0);
+}
+
+/* Style a)  */
+
+.custom-list-right-brackets-a {
+  list-style: none;
+  counter-reset: list-counter;
+}
+
+.custom-list-right-brackets-a li {
+  position: relative;
+}
+
+.custom-list-right-brackets-a li:before {
+  content:  counter(list-counter, lower-alpha) ")";
+  counter-increment: list-counter;
+  position: absolute;
+  left: -2em;
+  color: rgb(238, 147, 0);
+}
+
+
+
+/* Style (i) */
+.list-style-capital-alpha .custom-list-double-brackets-roman {
+  list-style: none;
+  counter-reset: list-counter;
+}
+
+.list-style-capital-alpha .custom-list-double-brackets-roman li {
+  position: relative;
+}
+
+.list-style-capital-alpha .custom-list-double-brackets-roman li:before {
+  content: "(" counter(list-counter, lower-roman) ")";
+  counter-increment: list-counter;
+  position: absolute;
+  left: -2em; 
+  color: rgb(238, 147, 0);
+}
+
+.custom-list-double-brackets-roman-alpha-dot {
+  list-style: lower-alpha;
+  font-weight: 400;
+}
+.custom-list-double-brackets-roman-alpha-dot li::marker {
+  color: gray;
+}
+/* 
 .list-style-small-alpha li::marker,
 .list-style-capital-alpha li::marker,
 .list-style-lower-roman li::marker,
 .list-style-numbers li::marker {
   color: #cc6119;
   font-weight: bold;
-}
+} */
 
 .list-style-capital-alpha {
   list-style-type: upper-alpha;
@@ -268,10 +338,10 @@
 }
 
 ul li {
-  line-height: 30px;
+  /* line-height: 30px; */
 }
 .colored-bold-line {
   text-transform: uppercase;
   color: #cc6119;
-  font-weight: 600;
+  font-weight: 400;
 }

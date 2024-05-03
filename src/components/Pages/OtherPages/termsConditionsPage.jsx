@@ -28,23 +28,22 @@ const TermsConditionsPage = () => {
           <span className="terms-conditions-main-heading">
             <b className="fs-3"> Terms & Conditions</b>
           </span>
-          {/* <hr className="middle-hr-tag" /> */}
         </div>
         <br />
         <div className="all-terms-conditions-main-container">
           <div className="terms-conditions-main-div row  pb-3">
-            <div className=" term-conditions-h1 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div className=" term-conditions-h1  ">
               <h5 className="terms-conditions-headings-main">PAYMENT</h5>
-              <p>
+              <span>
                 Rental is calculated on 24hour basis. Rental payments to be paid
                 in advance and non-rental payment will be billed separately and
                 needs to be settled on receiving the invoices by email. <br />{" "}
-                <br /> MILELE has a right to charge an additional amount per
+                <br /> Milele has a right to charge an additional amount per
                 month, in case payments are not made on due date. <br /> <br />
                 The Customer shall pay a fine outstanding debt amounting:
-              </p>
+              </span>
 
-              <ul className="list-style-small-alpha mt-3">
+              <ul className="custom-list-double-brackets-a">
                 <li>
                   to 20% if the debt is not paid in full between 10thand 20th
                   days after statement of Account/invoices was sent to customers
@@ -62,11 +61,11 @@ const TermsConditionsPage = () => {
               </ul>
             </div>
 
-            <div className=" term-conditions-h2 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div className=" term-conditions-h2 ">
               <h5 className="terms-conditions-headings-main">
                 VEHICLE CHECK-OUT & CHECK-IN REPORT
               </h5>
-              <ul className="list-style-small-alpha">
+              <ul className="custom-list-right-brackets-a">
                 <li>
                   Vehicle check out & check in report must be verified & signed
                   barHirer.
@@ -113,7 +112,7 @@ const TermsConditionsPage = () => {
           </div>
 
           <div className=" terms-conditions-main-div row  pb-3">
-            <div className="term-conditions-h3 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div className="term-conditions-h3  ">
               <h5 className="terms-conditions-headings-main">INSURANCE</h5>
               <p>
                 The HIRER shall pay to MILELE in respect of each and every
@@ -142,7 +141,7 @@ const TermsConditionsPage = () => {
               Hirer of any fines which may have caused by the Hirer except for
               Any Block/Red fines with OR without black point issued by the
               traffic authorities, which should be resolved by the Hirer within
-              24 hours, to avoid lessors traffic file being blocked.{" "}
+              24 hours, to avoid lessors traffic file being blocked. <br />
               <span className="colored-bold-line">
                 <strong>NOTE:</strong> ANY BLACK POINTS PANALTY WHATSO EVER WILL
                 BE PAID BY CUSTOMER DIRECTLY.
@@ -161,7 +160,7 @@ const TermsConditionsPage = () => {
               the date of the offence.
             </div>
 
-            <div className="term-conditions-h4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div className="term-conditions-h4 mt-4">
               <h5 className="terms-conditions-headings-main">VEHICLE MISUSE</h5>
               <ul className="list-style-capital-alpha">
                 <li>
@@ -170,9 +169,8 @@ const TermsConditionsPage = () => {
                   consideration to other road users.
                 </li>
                 <li>The vehicle will not be used:</li>
-                <p></p>
 
-                <ul className="list-style-lower-roman">
+                <ul className="custom-list-double-brackets-roman">
                   <li>
                     in any manner which would or might render the insurance
                     void.
@@ -201,41 +199,38 @@ const TermsConditionsPage = () => {
                     testing, driving tuition or similar purposes.
                   </li>
                   <li>
-                    by any person who:
-                    <br />
-                    <ol className="list-style-small-alpha">
-                      <li>is not properly licensed to drive the vehicle,</li>
-                      <li>
-                        has given a fictitious or false name, age, address or
-                        license details.
-                      </li>
-                      <li>is under the influence of alcohol or drugs</li>
-                      <li>
-                        has at any time been convicted of any motoring offense
-                        unless details have been disclosed to MILELE.
-                      </li>
-                      <li>
-                        is under the age of 21 years, without the prior written
-                        consent of the owner.
-                      </li>
-                    </ol>
-                    <p></p>
-                  </li>
-
-                  <li>
                     to carry any sort of alcoholic drinks, additionally in case
                     the vehicle is impounded/detained by the police the HIRER
                     will be liable to pay the owner all charges (including
                     accrued rental), losses, cause, damages, fines and penalties
                     and expenses by this reason or in respect thereof.
                   </li>
+                  <li>by any person who:</li>
                 </ul>
+                <ol>
+                  <ol className="custom-list-double-brackets-roman-alpha-dot">
+                    <li>is not properly licensed to drive the vehicle,</li>
+                    <li>
+                      has given a fictitious or false name, age, address or
+                      license details.
+                    </li>
+                    <li>is under the influence of alcohol or drugs</li>
+                    <li>
+                      has at any time been convicted of any motoring offense
+                      unless details have been disclosed to MILELE.
+                    </li>
+                    <li>
+                      is under the age of 21 years, without the prior written
+                      consent of the owner.
+                    </li>
+                  </ol>
+                </ol>
               </ul>
             </div>
           </div>
 
           <div className=" terms-conditions-main-div row  pb-3">
-            <div className="term-conditions-h5 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div className="term-conditions-h5  ">
               <h5 className=" terms-conditions-headings-main">
                 SERVICE & MAINTENANCE
               </h5>
@@ -269,7 +264,7 @@ const TermsConditionsPage = () => {
               </p>
             </div>
 
-            <div className="term-conditions-h6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div className="term-conditions-h6  ">
               <h5 className="terms-conditions-headings-main">
                 VEHICLE RESPONSIBILITY
               </h5>
@@ -304,7 +299,7 @@ const TermsConditionsPage = () => {
             </div>
           </div>
 
-          <div className="terms-condition-section-div term-conditions-h7 col-lg-12">
+          {/* <div className="terms-condition-section-div term-conditions-h7 col-lg-12">
             <h5 className="terms-conditions-headings">TERMINATION</h5>
             <p>
               Milele have the right to terminate the agreement into following
@@ -355,7 +350,7 @@ const TermsConditionsPage = () => {
                 MILELE without providing prior notice to the HIRER.
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
