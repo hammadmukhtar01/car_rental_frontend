@@ -135,6 +135,10 @@ input[type="number"] {
   font-weight: 600;
 }
 
+.invalid-input {
+  border-color: red !important; 
+}
+
 .lto-own-summary {
   padding: 30px 60px 30px 60px;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import MainNavbar from "../navbar/mainNavbar";
@@ -17,6 +18,8 @@ const SmallBanner = LTOProcessImgMob;
 const LeaseToOwnVehicles = () => {
   const [estCarPrice, setEstCarPrice] = useState("");
   const [bannerImg, setBannerImg] = useState(LargeBanner);
+  const [userInteractedLTOInput, setUserInteractedLTOInput] = useState(false);
+  const [isLeasingCarPriceValid, setIsLeasingCarPriceValid] = useState(true);
 
   const iconsContext = require.context(
     "../../images/lto-images/lto-our-brands-all-icons",
@@ -49,6 +52,22 @@ const LeaseToOwnVehicles = () => {
       window.removeEventListener("resize", changeBanner);
     };
   }, []);
+
+  useEffect(() => {
+    if (userInteractedLTOInput) {
+      setIsLeasingCarPriceValid(estCarPrice >= 30000);
+    }
+  }, [estCarPrice, userInteractedLTOInput]);
+
+  const validateLeasingCarInput = (e) => {
+    const value = parseInt(e.target.value);
+    if (!isNaN(value) && value >= 0) {
+      setEstCarPrice(value);
+      setUserInteractedLTOInput(true);
+    }
+    setIsLeasingCarPriceValid(estCarPrice >= 30000 && userInteractedLTOInput);
+
+  };
 
   const servicePackages = [
     { carValue: 50000, packagePrice: "2,500" },
@@ -238,8 +257,6 @@ const LeaseToOwnVehicles = () => {
     console.log("test");
   };
 
-
-
   return (
     <div id="main" className="pb-2 bg-white">
       <>
@@ -306,7 +323,8 @@ const LeaseToOwnVehicles = () => {
           <form
             action="#"
             className="signin-form"
-            onSubmit={handleLTOCalculatorForm}
+            // onSubmit={handleLTOCalculatorForm}
+            onSubmit={(e) => e.preventDefault()}
           >
             <section className="lto-calculator-main-section">
               <div className="lto-calculator-main-div">
@@ -332,7 +350,13 @@ const LeaseToOwnVehicles = () => {
                               <Col className="text-left">
                                 <span>Estimated car price</span>
                               </Col>
-                              <Col className="text-right">
+                              <Col
+                                className={`text-right ${
+                                  !isLeasingCarPriceValid &&
+                                  userInteractedLTOInput &&
+                                  "text-danger"
+                                }`}
+                              >
                                 <span>(30,000 minimum)</span>
                               </Col>
                             </Row>
@@ -341,7 +365,9 @@ const LeaseToOwnVehicles = () => {
 
                         <div className="lto-calculator-input-group">
                           <input
-                            className="form-control-consultation mt-2 col-12"
+                            className={`form-control-consultation mt-2 col-12 ${
+                              isLeasingCarPriceValid ? "" : "invalid-input"
+                            }`}
                             id="est_CarPrice"
                             name="estCarPrice"
                             type="number"
@@ -350,12 +376,7 @@ const LeaseToOwnVehicles = () => {
                             required
                             placeholder="Enter Price"
                             value={estCarPrice}
-                            onChange={(e) => {
-                              const value = parseInt(e.target.value);
-                              if (!isNaN(value) && value >= 0) {
-                                setEstCarPrice(value);
-                              }
-                            }}
+                            onChange={validateLeasingCarInput}
                           />
                         </div>
                         <br />
