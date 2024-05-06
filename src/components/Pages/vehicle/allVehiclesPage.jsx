@@ -88,7 +88,10 @@ const VehiclesPage = () => {
   const [showDropoffModal, setShowDropoffModal] = useState(false);
   const [inputPickupFieldValue, setPickupInputFieldValue] = useState("");
   const [inputDropoffFieldValue, setDropoffInputFieldValue] = useState("");
-
+  const [activeSelection, setActiveSelection] = useState({
+    startDate: false,
+    endDate: false,
+  });
   const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(
     window.innerWidth > 425 ? true : false
   );
@@ -782,6 +785,7 @@ const VehiclesPage = () => {
   const dateInputRef = useRef(null);
 
   const handleDateClick = () => {
+    setActiveSelection({ startDate: false, endDate: false });
     setShowDatePicker(true);
   };
 
@@ -793,6 +797,15 @@ const VehiclesPage = () => {
 
     setPickUpDate(pickupDate);
     setDropOffDate(dropoffDate);
+
+    setActiveSelection((prev) => ({
+      startDate: true,
+      endDate: prev.startDate ? true : false,
+    }));
+
+    if (activeSelection.startDate && endDate) {
+      setShowDateRangeModal(false);
+    }
 
     const updatedStartDate = startDate
       ? new Date(startDate.getTime() + 24 * 60 * 60 * 1000)

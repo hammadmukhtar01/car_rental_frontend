@@ -31,6 +31,10 @@ const SearchBox = () => {
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
   const [inputPickupFieldValue, setPickupInputFieldValue] = useState("");
   const [inputDropoffFieldValue, setDropoffInputFieldValue] = useState("");
+  const [activeSelection, setActiveSelection] = useState({
+    startDate: false,
+    endDate: false,
+  });
 
   const [dateRange, setDateRange] = useState([
     {
@@ -208,6 +212,7 @@ const SearchBox = () => {
   const dateInputRef = useRef(null);
 
   const handleDateClick = () => {
+    setActiveSelection({ startDate: false, endDate: false });
     setShowDatePicker(true);
   };
 
@@ -220,8 +225,17 @@ const SearchBox = () => {
     setPickUpDate(pickupDate);
     setDropOffDate(dropoffDate);
 
+    setActiveSelection(prev => ({
+      startDate: true,
+      endDate: prev.startDate ? true : false
+  }));
+
     console.log("Pickup Date:", pickupDate);
     console.log("Dropoff Date:", dropoffDate);
+
+    if (activeSelection.startDate && endDate) {
+      setShowDateRangeModal(false);
+    }
 
     const updatedStartDate = startDate
       ? new Date(startDate.getTime() + 24 * 60 * 60 * 1000)
@@ -266,7 +280,12 @@ const SearchBox = () => {
     console.log(
       `pickup time is: ${pickUpTime} and dropoff time is: ${dropOffTime} and pickup loc msg is: ${pickupLocationMessage} and dropoff loc msg is: ${dropoffLocationMessage}`
     );
-    if (!pickUpTime || !dropOffTime || !pickupLocationMessage || (showDropoff === true && !dropoffLocationMessage)) {
+    if (
+      !pickUpTime ||
+      !dropOffTime ||
+      !pickupLocationMessage ||
+      (showDropoff === true && !dropoffLocationMessage)
+    ) {
       toast.error("Some inputs are missing.", {
         autoClose: 1000,
         style: {
@@ -371,21 +390,6 @@ const SearchBox = () => {
                             readOnly
                           />
                         </div>
-                        {/* {showDatePicker && (
-                          <div onClick={(e) => e.stopPropagation()}>
-                            <DateRange
-                              editableDateInputs={true}
-                              onChange={handleDateChange}
-                              moveRangeOnFirstSelection={false}
-                              ranges={dateRange}
-                              rangeColors={["#cc6119"]}
-                              disabledDay={(date) =>
-                                date < new Date().setHours(0, 0, 0, 0)
-                              }
-                              onClose={() => setShowDatePicker(false)}
-                            />
-                          </div>
-                        )} */}
                       </Form.Group>
                     </Col>
                     <Modal
@@ -585,9 +589,7 @@ const SearchBox = () => {
 
                     <Col xxl={1} lg={1} md={3} sm={6} xs={6} className="pt-5">
                       <div className="button-container">
-                        <button
-                          className="animated-search-button"
-                        >
+                        <button className="animated-search-button">
                           {" "}
                           <span className="button-text-span">
                             <span className="transition"></span>
