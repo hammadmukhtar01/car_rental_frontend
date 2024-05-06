@@ -25,7 +25,6 @@
   border-bottom: 2px solid;
 }
 
-
 .terms-conditions-headings-main {
   font-weight: 600;
 }
@@ -159,11 +158,71 @@
   height: 100vh;
 }
 
-.top-page-horizontal-line {
+/* .top-page-horizontal-line {
   padding: 14px 4px;
   background-color: #cc6119;
   text-align: center;
   word-spacing: 1px;
+} */
+
+.top-page-horizontal-line {
+  /* display: flex; */
+  justify-content: center;
+  background: #e87a28;
+  padding: 10px 20px;
+}
+
+.content-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.left-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  white-space: nowrap;
+}
+
+.right-content {
+  display: block;
+}
+
+.top-contact-button {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+.top-contact-button span {
+  margin-left: 10px;
+}
+
+.right-content a {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.top-contact-button:hover {
+  text-decoration: none;
+  color: black;
+}
+.social-media-icons-top-bar {
+  padding: 2px;
+  color: white;
+  font-size: 20px;
+}
+
+.social-media-icons-top-bar:hover {
+  border-radius: 30px;
+  background-color: white;
+  color: #e87a28;
 }
 
 .tag-line-heading-home-page {
@@ -208,7 +267,6 @@
     background-position: -100% 100%;
   }
 }
-
 
 .booking-details-container {
   background-color: #dedede;
@@ -429,6 +487,13 @@
     margin: 5px 0;
     width: 100%;
     display: block;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .left-content,
+  .right-content {
+    display: flex;
   }
 }
 

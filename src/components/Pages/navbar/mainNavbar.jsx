@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
@@ -6,7 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Image from "react-bootstrap/Image";
-import Whitelogo from "../../images/car_rental_logo_old.png";
+// import Whitelogo from "../../images/car_rental_logo_old.png";
 import Coloredlogo from "../../images/car_rental_logo.png";
 import { Col } from "react-bootstrap";
 import './navbar.css';
@@ -29,7 +30,8 @@ function OffcanvasExample() {
   const isExactHomePage =
     location.pathname === "/home" || location.pathname === "/";
 
-  const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
+  // const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
+  const logoImage = Coloredlogo;
 
   // console.log("isHomePage:", isHomePage);
   // console.log("isExactHomePage:", isExactHomePage);

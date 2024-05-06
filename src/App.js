@@ -19,6 +19,7 @@ import ForgotPasswordPage from "./components/authentication/forgotPassword";
 import ResetPasswordPage from "./components/authentication/resetPasswordPage";
 import VehicleDetails from "./components/Pages/multipleStepsForm/vehicleDetails";
 import AddOnsDocuments from "./components/Pages/multipleStepsForm/documentsAndBooking";
+import MainNavbar from "./components/Pages/navbar/mainNavbar";
 import ErrorPage from "./components/Pages/OtherPages/errorPage";
 import LeaseToOwnVehicles from "./components/Pages/vehicle/leaseToOwn";
 import TermsConditionsPage from "./components/Pages/OtherPages/termsConditionsPage";
@@ -26,20 +27,83 @@ import BlogPage1 from "./components/Pages/Blog/blogPage1";
 import BlogPage2 from "./components/Pages/Blog/blogPage2";
 import BlogPage3 from "./components/Pages/Blog/blogPage3";
 import BlogPage4 from "./components/Pages/Blog/blogPage4";
+import { BiPhone, BiMailSend } from "react-icons/bi";
+import { FaTwitter, FaYoutube, FaInstagram, FaFacebookF } from "react-icons/fa";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import { Row, Col } from "react-bootstrap";
 
 function App() {
+  const phoneNumber = "+971544519432";
+  const email = "info@milelecarrental.com";
+
   return (
     <>
       <div className="App">
-        {/* <div className="">
-          <MainNavbar />
-        </div> */}
         <div className="top-page-horizontal-line">
-          <span className="top-horizontal-line-text">
-            Milele Motors, Car Rental System
-          </span>
+          <Row className="justify-content-center">
+            <Col className="left-content col-lg-6 col pl-4">
+              <a
+                href={`mailto:${email}`}
+                className="top-contact-button top-email-link"
+              >
+                <BiMailSend />
+                <span>{email}</span>
+              </a>
+              <a
+                href={`tel:${phoneNumber}`}
+                className="top-contact-button top-phone-call-link"
+              >
+                <BiPhone />
+                <span>{phoneNumber}</span>
+              </a>
+            </Col>
+
+            <Col className="right-content col-lg-6 col text-right">
+              <Tooltip title="Facebook">
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaFacebookF className="social-media-icons-top-bar" />
+                </a>
+              </Tooltip>
+              <Tooltip title="Instagram">
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaInstagram className="social-media-icons-top-bar" />
+                </a>
+              </Tooltip>
+              <Tooltip title="Twitter">
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaTwitter className="social-media-icons-top-bar" />
+                </a>
+              </Tooltip>
+              <Tooltip title="YouTube">
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaYoutube className="social-media-icons-top-bar" />
+                </a>
+              </Tooltip>
+            </Col>
+          </Row>
         </div>
-        <Routes>  
+        <div className="">
+          <MainNavbar />
+        </div>
+        <Routes>
           <Route path="/" exact element={<HomePage />} />
           <Route path="/home" exact element={<HomePage />} />
           <Route path="/vehicles" element={<VehiclesPage />} />
@@ -59,10 +123,10 @@ function App() {
           <Route path="/bookingPage/:step" element={<VerificationForm />} />
           {/* <Route path="/bookingPage/2" element={<AddOnsDocuments />} /> */}
           {/* <Route path="/bookingPage/3" element={<PaymentPage />} /> */}
-          <Route path="/blogPage1/1" element={<BlogPage1/>} />
-          <Route path="/blogPage2/2" element={<BlogPage2/>} />
-          <Route path="/blogPage3/3" element={<BlogPage3/>} />
-          <Route path="/blogPage4/4" element={<BlogPage4/>} />
+          <Route path="/blogPage1/1" element={<BlogPage1 />} />
+          <Route path="/blogPage2/2" element={<BlogPage2 />} />
+          <Route path="/blogPage3/3" element={<BlogPage3 />} />
+          <Route path="/blogPage4/4" element={<BlogPage4 />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />

@@ -352,7 +352,7 @@ const SearchBox = () => {
   return (
     <>
       <div className="bg-img-container ">
-        <MainNavbar />
+        {/* <MainNavbar /> */}
         <div className="container">
           <div className="search-box-container pb-4">
             <Row>

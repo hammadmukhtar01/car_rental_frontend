@@ -11,6 +11,9 @@ import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 import LTOProcessImgWeb from "../../images/lto-images/lto-process-img-web-updated.png";
 import LTOProcessImgMob from "../../images/lto-images/lto-process-img-mob-updated.png";
 import InstagramFeed from "../homePage/instagramFeed";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LargeBanner = LTOProcessImgWeb;
 const SmallBanner = LTOProcessImgMob;
@@ -27,7 +30,6 @@ const LeaseToOwnVehicles = () => {
     /\.png$/
   );
   const icons = iconsContext.keys().map((key) => iconsContext(key));
-  console.log(icons);
 
   function formatNumber(num) {
     return new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(
@@ -66,7 +68,6 @@ const LeaseToOwnVehicles = () => {
       setUserInteractedLTOInput(true);
     }
     setIsLeasingCarPriceValid(estCarPrice >= 30000 && userInteractedLTOInput);
-
   };
 
   const servicePackages = [
@@ -253,8 +254,64 @@ const LeaseToOwnVehicles = () => {
     },
   ];
 
+  const leaseNowAPICall = async () => {};
+
   const handleLTOCalculatorForm = () => {
     console.log("test");
+    leaseNowAPICall();
+  };
+
+  const [formData, setFormData] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    phoneNumber: "",
+    comment: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFocus = (e) => {
+    const inputGroup = e.target.closest(".inputgroup");
+    if (inputGroup) {
+      inputGroup.classList.add("input-filled");
+    }
+  };
+
+  const handleBlur = (e) => {
+    const inputGroup = e.target.closest(".inputgroup");
+    if (inputGroup) {
+      if (e.target.value === "") {
+        inputGroup.classList.remove("input-filled");
+      }
+    }
+  };
+
+  const handleContactUsSubmitButton = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/contactUsForm/create`,
+        formData
+      );
+      console.log("Contact Us response is: --- ", response.data.message);
+      // alert("Success Msssg");
+      if (response.data.status === "success") {
+        // navigate("/home");
+
+        toast.success("Thank You for Car Leasing. Check your email.", {
+          autoClose: 3000,
+          style: { border: "1px solid #c0c0c0", fontSize: "14px" },
+        });
+      } else {
+        alert("Email/Password missing...");
+      }
+    } catch (error) {
+      console.log("Signup failed:", error.response.data.message);
+    }
   };
 
   return (
@@ -323,8 +380,8 @@ const LeaseToOwnVehicles = () => {
           <form
             action="#"
             className="signin-form"
-            // onSubmit={handleLTOCalculatorForm}
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleLTOCalculatorForm}
+            // onSubmit={(e) => e.preventDefault()}
           >
             <section className="lto-calculator-main-section">
               <div className="lto-calculator-main-div">
@@ -496,6 +553,7 @@ const LeaseToOwnVehicles = () => {
                         >
                           <h4 className="button-text"> LEASE NOW</h4>
                         </button>
+                        <ToastContainer />
                       </Col>
                     </Row>
                   </div>
