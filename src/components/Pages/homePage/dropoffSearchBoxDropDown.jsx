@@ -221,20 +221,6 @@ function DropoffLocationModal({
                           Create Account
                         </span>
                       </button>
-
-                      {/* <div className="button-container rent-button-in-map text-center mt-3 mb-2">
-                        <button
-                          type="button"
-                          className="animated-button pt-2 pb-2"
-                          onClick={handleInputSubmit}
-                        >
-                          <span className="button-text-span">
-                            <span className="transition"></span>
-                            <span className="gradient"></span>
-                            <span className="label">Start Booking</span>
-                          </span>
-                        </button>
-                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -315,19 +301,6 @@ function DropoffLocationModal({
                           Start Booking
                         </span>
                       </button>
-                      {/* <div className="button-container rent-button-in-map text-center mt-3 mb-2">
-                        <button
-                          type="button"
-                          className="animated-button pt-2 pb-2"
-                          onClick={handleInputSubmit}
-                        >
-                          <span className="button-text-span">
-                            <span className="transition"></span>
-                            <span className="gradient"></span>
-                            <span className="label">Start Booking</span>
-                          </span>
-                        </button>
-                      </div> */}
                     </div>
                   </div>
                 </div>

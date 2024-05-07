@@ -32,6 +32,7 @@ import { FaYoutube, FaInstagram, FaFacebookF } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 import Tooltip from "@mui/material/Tooltip";
 import { Row, Col } from "react-bootstrap";
+import { HeightProvider } from "./components/Pages/homePage/HeightContext";
 
 function App() {
   const phoneNumber = "+971544519432";
@@ -106,32 +107,35 @@ function App() {
         <div className="">
           <MainNavbar />
         </div>
-        <Routes>
-          <Route path="/" exact element={<HomePage />} />
-          <Route path="/home" exact element={<HomePage />} />
-          <Route path="/vehicles" element={<VehiclesPage />} />
-          <Route path="/leaseToOwn" element={<LeaseToOwnVehicles />} />
-          <Route path="/booking/:id" element={<BookingDetails />} />
-          <Route path="/afterpayment/:id" element={<AfterBookingPage />} />
-          <Route path="/aboutus" element={<AboutusPage />} />
-          <Route path="/faqs" element={<FaqsPage />} />
-          <Route path="/terms&Conditions" element={<TermsConditionsPage />} />
-          <Route path="/contactus" element={<ContactusPage />} />
-          <Route path="/myProfile/:id" element={<ContactusPage />} />
-          <Route path="/myBookings/:id" element={<CustomerBookingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
-          <Route path="/resetpassword/:token" element={<ResetPasswordPage />} />
-          <Route path="/bookingPage/:step" element={<VerificationForm />} />
-          {/* <Route path="/bookingPage/2" element={<AddOnsDocuments />} /> */}
-          {/* <Route path="/bookingPage/3" element={<PaymentPage />} /> */}
-          <Route path="/blogPage1/1" element={<BlogPage1 />} />
-          <Route path="/blogPage2/2" element={<BlogPage2 />} />
-          <Route path="/blogPage3/3" element={<BlogPage3 />} />
-          <Route path="/blogPage4/4" element={<BlogPage4 />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
+          <Routes>
+            <Route path="/" exact element={<HomePage />} />
+            <Route path="/home" exact element={<HomePage />} />
+            <Route path="/vehicles" element={<VehiclesPage />} />
+            <Route path="/leaseToOwn" element={<LeaseToOwnVehicles />} />
+            <Route path="/booking/:id" element={<BookingDetails />} />
+            <Route path="/afterpayment/:id" element={<AfterBookingPage />} />
+            <Route path="/aboutus" element={<AboutusPage />} />
+            <Route path="/faqs" element={<FaqsPage />} />
+            <Route path="/terms&Conditions" element={<TermsConditionsPage />} />
+            <Route path="/contactus" element={<ContactusPage />} />
+            <Route path="/myProfile/:id" element={<ContactusPage />} />
+            <Route path="/myBookings/:id" element={<CustomerBookingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
+            <Route
+              path="/resetpassword/:token"
+              element={<ResetPasswordPage />}
+            />
+            <Route path="/bookingPage/:step" element={<VerificationForm />} />
+            {/* <Route path="/bookingPage/2" element={<AddOnsDocuments />} /> */}
+            {/* <Route path="/bookingPage/3" element={<PaymentPage />} /> */}
+            <Route path="/blogPage1/1" element={<BlogPage1 />} />
+            <Route path="/blogPage2/2" element={<BlogPage2 />} />
+            <Route path="/blogPage3/3" element={<BlogPage3 />} />
+            <Route path="/blogPage4/4" element={<BlogPage4 />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
         <Footer />
         <FixedNumLocButtons />
       </div>

@@ -147,20 +147,6 @@ const ResetPasswordPage = () => {
                         Submit
                       </span>
                     </button>
-                    {/* <div className="col-lg-6">
-                      <p></p>
-                      <button
-                        type="submit"
-                        className="forgot-form-control animated-button submit"
-                      >
-                        <span className="button-text-span">
-                          <span className="transition"></span>
-                          <span className="gradient"></span>
-                          <span className="label">Submit</span>
-                        </span>
-                      </button>
-                      <ToastContainer />
-                    </div> */}
                   </div>
                   <br />
                   <div className="form-group-0">

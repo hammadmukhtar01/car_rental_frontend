@@ -690,18 +690,6 @@ const LeaseToOwnVehicles = () => {
                                       Send Inquiry
                                     </span>
                                   </button>
-                                  {/* <button
-                                    className="animated-button"
-                                    onClick={handleSendInquiryButton}
-                                  >
-                                    <span className="button-text-span">
-                                      <span className="transition"></span>
-                                      <span className="gradient"></span>
-                                      <span className="label">
-                                        Send Inquiry
-                                      </span>
-                                    </span>
-                                  </button> */}
                                 </div>
                               </div>
                             </div>

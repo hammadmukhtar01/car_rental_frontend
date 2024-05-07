@@ -126,7 +126,7 @@
 
 .forgot-password-heading {
   color: rgb(255, 255, 255);
-    display: inline-flex;
+  display: inline-flex;
 }
 
 .forgot-password,
@@ -200,7 +200,7 @@
   font-weight: 500;
 }
 
-.inputgroup label, 
+.inputgroup label,
 .readOnlyInputGroup label {
   font-size: 75%;
   position: absolute;
@@ -216,7 +216,7 @@
 }
 
 .inputgroup input:focus + label,
-.readOnlyInputGroup label  {
+.readOnlyInputGroup label {
   transform: translatey(-50%) scale(0.9);
   margin: -3.3em;
   margin-left: 2.3em;
@@ -226,7 +226,8 @@
   font-size: 85%;
 }
 
-.inputgroup.input-filled label, .inputgroup label{
+.inputgroup.input-filled label,
+.inputgroup label {
   transform: translatey(-50%) scale(0.9);
   margin: -3.3em;
   margin-left: 2.3em;
@@ -247,8 +248,8 @@
 
 /* Sign Up  */
 
-.map-loc-middle{
-  background-color:  inherit;
+.map-loc-middle {
+  background-color: inherit;
   border: none;
   /* position: absolute; */
   /* top: 50%; */
@@ -256,16 +257,7 @@
   transform: translate(0%, 0%);
 }
 
-.middle{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  background-color:  inherit;
-  border: none;
-}
-
-.animate-button{
+.animate-button {
   position: relative;
   display: block;
   font-size: 14px;
@@ -273,36 +265,12 @@
   padding: 10px 30px;
   text-transform: uppercase;
   overflow: hidden;
-  transition: 1s all ease;
   border-radius: 20px;
-}
-.animate-button::before{
-  background: #e87a28;
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  z-index: -1;
-  transition: all 0.6s ease;
-}
-
-
-.btn4::before{
-  width: 100%;
-  height: 0%;
-  transform: translate(-50%,-50%) rotate(-45deg);
-}
-.btn4:hover::before{
+  background-color: #e87a28;
   color: white;
-  height: 380%;
 }
 
 .animate-button:hover {
-  color: white;
+  color: #e87a28;
+  background-color: white;
 }
-
-
-
-
-

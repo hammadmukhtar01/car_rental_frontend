@@ -293,19 +293,6 @@ const SignupPage = () => {
                         Create Account
                       </span>
                     </button>
-                    {/* 
-                      <button
-                        type="submit"
-                        className="createAccount-form-control animated-button submit px-3"
-                      >
-                       
-                        <span className="button-text-span p-2">
-                          <span className="transition"></span>
-                          <span className="gradient"></span>
-                          <span className="label">Create Account </span>
-                        </span> 
-                      </button>
-                        */}
                     <ToastContainer />
                   </div>
                 </form>

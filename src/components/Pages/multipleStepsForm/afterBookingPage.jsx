@@ -227,18 +227,6 @@ const AfterBookingPage = () => {
               <b>Back to home</b>
             </span>
           </button>
-          {/* <button
-            className="animated-button booking-text action-button next"
-            onClick={errorPageBackButton}
-          >
-            <span className="button-text-span p-4">
-              <span className="transition"></span>
-              <span className="gradient"></span>
-              <span className="label">
-                <b>Back to home</b>
-              </span>
-            </span>
-          </button> */}
         </div>
       </div>
     </>

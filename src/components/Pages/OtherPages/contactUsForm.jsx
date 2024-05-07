@@ -181,16 +181,6 @@ const ContactUsForm = () => {
                   Submit
                 </span>
               </button>
-              {/* <button
-                type="submit"
-                className="contactUs-form-control animated-button submit px-3"
-              >
-                <span className="button-text-span p-4">
-                  <span className="transition"></span>
-                  <span className="gradient"></span>
-                  <span className="label">Submit</span>
-                </span>
-              </button> */}
               <ToastContainer />
             </div>
           </div>

@@ -1199,7 +1199,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
                 <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
                   <Col lg={3} md={4} sm={6} xs={8} className="d-flex just">
-                    <div className="button-container">
                       <button
                         onClick={handleNextStep}
                         className="map-loc-middle py-3"
@@ -1208,19 +1207,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                           Book & Pay
                         </span>
                       </button>
-                      {/* <button
-                        className="animated-button booking-text action-button next"
-                        onClick={handleNextStep}
-                      >
-                        {" "}
-                        <span className="button-text-span p-4">
-                          <span className="transition"></span>
-                          <span className="gradient"></span>
-                          <span className="label">Book & Pay</span>
-                        </span>
-                      </button> */}
                       <ToastContainer />
-                    </div>
                   </Col>
                 </div>
               </div>

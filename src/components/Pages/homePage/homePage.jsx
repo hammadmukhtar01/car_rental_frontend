@@ -9,7 +9,6 @@ import KiaLogo from "../../images/kiaLogo.png";
 import HyundaiLogo from "../../images/hyundaiLogo.jpg";
 import CheveroletLogo from "../../images/CheveroletLogo.png";
 import OurBlogs from "../Blog/ourBlogs";
-import ClientLogoSection from "./ourClients";
 import "./ourClients.css";
 import { BsPersonCircle } from "react-icons/bs";
 import { useReload } from "../../PrivateComponents/utils";
@@ -78,11 +77,11 @@ const HomePage = () => {
           <div className="search-box-home-page-container">
             <div className="bg-img-banner-main">
               <div className="banner-container" />
-              {/* <img
+              <img
                 className="only-car-banner-container"
                 src={OnlyCar}
                 alt="test"
-              /> */}
+              />
             </div>
             <div className="search-box-home-page mt-3">
               <SearchBox />

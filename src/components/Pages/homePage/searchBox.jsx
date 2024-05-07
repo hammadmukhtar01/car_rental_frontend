@@ -225,10 +225,10 @@ const SearchBox = () => {
     setPickUpDate(pickupDate);
     setDropOffDate(dropoffDate);
 
-    setActiveSelection(prev => ({
+    setActiveSelection((prev) => ({
       startDate: true,
-      endDate: prev.startDate ? true : false
-  }));
+      endDate: prev.startDate ? true : false,
+    }));
 
     console.log("Pickup Date:", pickupDate);
     console.log("Dropoff Date:", dropoffDate);
@@ -587,21 +587,13 @@ const SearchBox = () => {
                       </Form.Group>
                     </Col>
 
-                    <Col xxl={1} lg={1} md={3} sm={6} xs={6} className="pt-5">
-                      <div className="button-container">
-                        <button className="animated-search-button">
-                          {" "}
-                          <span className="button-text-span">
-                            <span className="transition"></span>
-                            <span className="gradient"></span>
-                            <span className="label">
-                              {" "}
-                              <LuSearch />{" "}
-                            </span>
+                    <Col xxl={1} lg={1} md={3} sm={6} xs={6} className="search-box-search-button-div">
+                        <button className="search-box-search-button">
+                          <span href="" className="">
+                            <LuSearch />
                           </span>
                         </button>
                         <ToastContainer />
-                      </div>
                     </Col>
                   </Row>
                 </form>

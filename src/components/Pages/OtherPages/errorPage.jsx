@@ -219,16 +219,6 @@ const ErrorPage = () => {
             Return Home
           </span>
         </button>
-        {/* <button
-          className="animated-button booking-text action-button next"
-          onClick={errorPageBackButton}
-        >
-          <span className="button-text-span">
-            <span className="transition"></span>
-            <span className="gradient"></span>
-            <span className="label">Back to home</span>
-          </span>
-        </button> */}
       </div>
     </div>
   );

@@ -1199,32 +1199,6 @@ const VehiclesPage = () => {
                             />
                           </Form.Group>
                         </Col>
-
-                        {/* <Col
-                          xxl={1}
-                          lg={1}
-                          md={3}
-                          sm={6}
-                          xs={6}
-                          className="pt-5"
-                        >
-                          <div className="button-container">
-                            <button
-                              className="animated-search-button"
-                              onClick={handleSearchCarButton}
-                            >
-                              {" "}
-                              <span className="button-text-span">
-                                <span className="transition"></span>
-                                <span className="gradient"></span>
-                                <span className="label">
-                                  {" "}
-                                  <LuSearch />{" "}
-                                </span>
-                              </span>
-                            </button>
-                            </div>
-                          </Col> */}
                         <ToastContainer />
                       </Row>
                     </form>
@@ -1683,18 +1657,6 @@ const VehiclesPage = () => {
                                 ) : (
                                   <>
                                     <div className="button-container">
-                                      {/* <button
-                                        className="animated-button"
-                                        onClick={allCarsBookingButton}
-                                      >
-                                        <span className="button-text-span">
-                                          <span className="transition"></span>
-                                          <span className="gradient"></span>
-                                          <span className="label">
-                                            Rent Now
-                                          </span>
-                                        </span>
-                                      </button> */}
                                       <button
                                         onClick={allCarsBookingButton}
                                         className="map-loc-middle py-3"

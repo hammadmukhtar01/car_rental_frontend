@@ -346,9 +346,6 @@ span.select2-selection_arrow b {
   transform: scale(1.1);
   transition: 0.4s ease-in-out;}
 
-.offers-car-container-row:hover > :not(:hover) {
-  opacity: 0.6;
-}
 
 
 

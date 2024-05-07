@@ -1062,7 +1062,6 @@ const VehicleDetails = ({ nextStep }) => {
                   xs={8}
                   className="d-flex justify-content-center "
                 >
-                  <div className="button-container">
                     <button
                       onClick={() => handleNextStep1()}
                       className="map-loc-middle py-3"
@@ -1071,18 +1070,6 @@ const VehicleDetails = ({ nextStep }) => {
                         Start Booking
                       </span>
                     </button>
-                    {/* <button
-                      className="animated-button booking-text next"
-                      onClick={() => handleNextStep1()}
-                    >
-                      {" "}
-                      <span className="button-text-span">
-                        <span className="transition"></span>
-                        <span className="gradient"></span>
-                        <span className="label">Start Booking</span>
-                      </span>
-                    </button> */}
-                  </div>
                 </Col>
               </div>
             </div>

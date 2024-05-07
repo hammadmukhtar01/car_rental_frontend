@@ -166,16 +166,7 @@ const LoginPage = () => {
                         Log In
                       </span>
                     </button>
-                    {/* <button
-                        type="submit"
-                        className="login-form-control animated-button submit"
-                      >
-                        <span className="button-text-span p-4">
-                          <span className="transition"></span>
-                          <span className="gradient"></span>
-                          <span className="label">Log In</span>
-                        </span>
-                      </button> */}
+
                     <ToastContainer />
                   </div>
                   <div className="form-group-0 pt-4">

@@ -271,6 +271,26 @@
   background-position: top; */
 }
 
+.search-box-search-button-div {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.search-box-search-button {
+  margin-top: 20px;
+  border: 1px solid #e87a28;
+  border-radius: 30px;
+  padding: 10px 15px;
+  background-color: #e87a28;
+  color: white;
+}
+
+.search-box-search-button:hover {
+  color: #e87a28;
+  background-color: white;
+}
+
 .all-cars-search-box-container {
   /* border: 1px solid rgb(184, 184, 184); */
   border-radius: 6px;
@@ -303,7 +323,7 @@
 .bg-img-banner-main {
   background-image: url("../../images/no-car-bg-home-banner-11.jpg");
   width: 100%;
-  height: 75vh;
+  height: 77vh;
   background-size: cover;
   background-position: top;
   position: relative;
@@ -336,7 +356,7 @@
   }
   .bg-img-banner-main {
     position: relative;
-    height: 40vh;
+    /* height: 40vh; */
   }
   .search-box-home-page {
     position: absolute;
@@ -347,7 +367,7 @@
   }
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 991px) {
   /* .bg-img-banner-main {
     position: relative;
     height: 90vh;
@@ -377,8 +397,12 @@
   }
   .bg-img-banner-main {
     position: relative;
-    height: 40vh;
+    height: 39vh;
   }
+  .search-box-search-button-div {
+    align-content: flex-end;
+  }
+
   /* .search-box-home-page {
     position: absolute;
     top: 0;
@@ -391,20 +415,6 @@
   .only-car-banner-container {
     display: none;
   }
-  .bg-img-banner-main {
-    position: relative;
-    height: 60vh;
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .only-car-banner-container {
-    display: none;
-  }
-  .bg-img-banner-main {
-    position: relative;
-    height: 80vh;
-  }
 }
 
 @media screen and (max-width: 425px) {
@@ -413,17 +423,24 @@
   }
   .bg-img-banner-main {
     position: relative;
-    height: 80vh;
+    /* height: 80vh; */
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 325px) {
   .only-car-banner-container {
     display: none;
   }
   .bg-img-banner-main {
     position: relative;
-    height: 107vh;
+    height: 97vh;
+  }
+}
+
+@media screen and (min-width: 326px) and (max-width: 375px) {
+  .bg-img-banner-main {
+    position: relative;
+    height: 102vh;
   }
 }
 
@@ -562,18 +579,6 @@
   }
   .home-page-horizontal-line-2-text {
     font-size: 28px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .search-box-home-page {
-    /* background-size: cover;  */
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  .search-box-home-page {
-    /* background-size: cover;  */
   }
 }
 
@@ -1126,26 +1131,6 @@ option:disabled {
 .alice-carousel__next-btn {
   margin-left: 40px;
 }
-
-@media screen and (max-width: 576px) {
-  .custom-dropdown {
-    width: 100%;
-  }
-  .submit-button {
-    margin-top: 15px;
-  }
-  .pickup-locations-button-col,
-  .dropoff-locations-button-col {
-    display: inline !important;
-  }
-  .alice-carousel__prev-btn {
-    margin-left: -10px;
-  }
-
-  .alice-carousel__next-btn {
-    margin-left: -7px;
-  }
-}
 @media screen and (min-width: 576px) and (max-width: 767px) {
   .custom-dropdown {
     width: 209%;
@@ -1159,6 +1144,10 @@ option:disabled {
 
   .alice-carousel__next-btn {
     margin-left: 35px;
+  }
+  .bg-img-banner-main {
+    position: relative;
+    height: 60vh;
   }
 }
 
@@ -1176,12 +1165,41 @@ option:disabled {
 }
 
 @media screen and (max-width: 576px) {
+  .custom-dropdown {
+    width: 100%;
+  }
+  .submit-button {
+    margin-top: 15px;
+  }
+  .pickup-locations-button-col,
+  .dropoff-locations-button-col {
+    display: inline !important;
+  }
+  .alice-carousel__prev-btn {
+    margin-left: -10px;
+  }
+
   .slider-card {
     padding: 5px 50px 0px 50px;
   }
   .alice-carousel__next-btn {
     text-align: right !important;
+    margin-left: -7px;
     width: 85% !important;
+  }
+  .only-car-banner-container {
+    display: none;
+  }
+  .bg-img-banner-main {
+    position: relative;
+    height: 102vh;
+  }
+}
+
+@media screen and (min-width: 376px) and (max-width: 430px) {
+  .bg-img-banner-main {
+    position: relative;
+    height: 80vh;
   }
 }
 

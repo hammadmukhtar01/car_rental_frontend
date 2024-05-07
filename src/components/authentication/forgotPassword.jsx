@@ -131,16 +131,7 @@ const ForgotPasswordPage = () => {
                           Submit
                         </span>
                       </button>
-                      {/* <button
-                        type="submit"
-                        className="forgot-form-control animated-button submit"
-                      >
-                        <span className="button-text-span p-4">
-                          <span className="transition"></span>
-                          <span className="gradient"></span>
-                          <span className="label">Submit</span>
-                        </span>
-                      </button> */}
+                      
                       <ToastContainer />
                     </div>
                   </div>
