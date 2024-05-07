@@ -69,12 +69,12 @@ const BlogPage4 = ({ blogData }) => {
   return (
     <div id="main" className="pb-2 ">
       <>
-        <div className="navbar-bg-img-container">
+        {/* <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
             <MainNavbar />
           </div>
-        </div>
+        </div> */}
 
         <Container>
           <div className="blog-details-page">

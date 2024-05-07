@@ -104,7 +104,7 @@
 } */
 
 .home-page-heading-underline {
-  border: 1px solid #cc6119;
+  border: 1px solid #e87a28;
   opacity: 0.8;
   /* width: 260px; */
 }
@@ -199,7 +199,7 @@
   border: 1px solid rgb(204, 204, 204);
   border-radius: 10px;
   padding: 18px;
-  color: #cc6119;
+  color: #e87a28;
   background-color: white;
   margin: 5px 10px;
   transition: transform 0.1s ease-in-out;
@@ -252,7 +252,7 @@
 }
 
 .styled-label {
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .search-box-container {
@@ -284,7 +284,7 @@
 } */
 
 .total-days {
-  color: #cc6119;
+  color: #e87a28;
   font-weight: 600;
 }
 
@@ -444,7 +444,7 @@
 
 .home-page-horizontal-line-2 {
   padding: 50px 4px 30px 4px;
-  background-color: #cc6119;
+  background-color: #e87a28;
   text-align: center;
   word-spacing: 1px;
 }
@@ -630,7 +630,7 @@
 }
 
 .css-1p3m7a8-multiValue {
-  background-color: #cc6119 !important;
+  background-color: #e87a28 !important;
   color: white;
 }
 
@@ -675,7 +675,7 @@
 }
 
 .css-tr4s17-option {
-  background-color: #cc6119 !important;
+  background-color: #e87a28 !important;
 }
 
 .css-d7l1ni-option {
@@ -704,7 +704,7 @@
 
 .diff-dropoff-loc-lable label {
   font-weight: 600;
-  color: #cc6119;
+  color: #e87a28;
 }
 
 /* Car cards CSS  */
@@ -778,7 +778,7 @@
 
 .offer-heading,
 .testimonial-heading {
-  color: #cc6119;
+  color: #e87a28;
   /* font-weight: 800; */
 }
 
@@ -824,7 +824,7 @@
   transform: rotate(135deg);
   width: 52px;
   position: absolute;
-  border-bottom: 2px solid #cc6119;
+  border-bottom: 2px solid #e87a28;
   height: 100px;
   top: 3px;
   left: 27px;
@@ -834,7 +834,7 @@
   transform: rotate(135deg);
   width: 116px;
   position: absolute;
-  border-bottom: 2px solid #cc6119;
+  border-bottom: 2px solid #e87a28;
   height: 100px;
   top: 26px;
   left: 18px;
@@ -863,7 +863,7 @@ html {
   overflow: visible !important;
 }
 .owl-carousel .owl-item.active.center .slider-card {
-  /* box-shadow: 1px 1px 12px #cc6119; */
+  /* box-shadow: 1px 1px 12px #e87a28; */
   /* border: 1px solid rgb(194, 194, 194); */
   box-shadow: 1px 1px 16px rgba(186, 186, 186, 0.8);
 }
@@ -987,7 +987,7 @@ html {
   text-align: center;
   font-size: 20px;
   margin-bottom: 10px;
-  color: #cc6119;
+  color: #e87a28;
   font-weight: 700;
 }
 
@@ -1031,9 +1031,9 @@ html {
 
 .alice-carousel__prev-btn-item:hover,
 .alice-carousel__next-btn-item:hover {
-  color: #cc6119 !important;
+  color: #e87a28 !important;
   background-color: white !important;
-  box-shadow: 1px 1px 5px #cc6119;
+  box-shadow: 1px 1px 5px #e87a28;
 }
 
 .alice-carousel__prev-btn-item:active,
@@ -1044,7 +1044,7 @@ html {
 
 .alice-carousel__dots-item:not(.__custom):hover,
 .alice-carousel__dots-item:not(.__custom).__active {
-  background-color: #cc6119 !important;
+  background-color: #e87a28 !important;
 }
 
 .alice-carousel__dots-item:not(.__custom) {
@@ -1103,7 +1103,7 @@ html {
 
 option:disabled {
   color: white !important;
-  background-color: #cc6119 !important;
+  background-color: #e87a28 !important;
 }
 
 .pickup-location-col-container,

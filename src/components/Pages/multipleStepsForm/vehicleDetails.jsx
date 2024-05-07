@@ -621,7 +621,7 @@ const VehicleDetails = ({ nextStep }) => {
                                           <FaArrowTrendUp
                                             className="mr-2"
                                             style={{
-                                              color: "#cc6119",
+                                              color: "#e87a28",
                                               fontSize: "20px",
                                             }}
                                           />{" "}

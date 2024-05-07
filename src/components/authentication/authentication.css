@@ -90,9 +90,9 @@
   background: #fff;
 }
 .login-wrap .social a:hover {
-  background: #cc6119;
+  background: #e87a28;
   color: #fff;
-  border-color: #cc6119;
+  border-color: #e87a28;
 }
 
 .justify-content-center {
@@ -103,7 +103,7 @@
 
 .have-account-text {
   font-size: 26px;
-  color: #cc6119;
+  color: #e87a28;
   text-decoration: underline;
 }
 
@@ -118,7 +118,7 @@
   height: 55px;
   border-radius: 0;
   padding: 13px 0;
-  background-color: #cc6119;
+  background-color: #e87a28;
   border: none;
   font-weight: 600;
   border-radius: 4px;
@@ -131,7 +131,7 @@
 
 .forgot-password,
 .click-here {
-  color: #cc6119;
+  color: #e87a28;
   text-decoration: underline;
 }
 
@@ -166,11 +166,11 @@
   display: inline-block;
   padding: 10px 40px;
   margin: 0 30px;
-  border: 1px solid #cc6119;
+  border: 1px solid #e87a28;
   box-shadow: none;
   border-radius: 6px;
-  background-color: #cc6119;
-  color: #cc6119;
+  background-color: #e87a28;
+  color: #e87a28;
   font-size: 11px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
@@ -269,7 +269,7 @@
   position: relative;
   display: block;
   font-size: 14px;
-  border: 2px solid #cc6119;
+  border: 2px solid #e87a28;
   padding: 10px 30px;
   text-transform: uppercase;
   overflow: hidden;
@@ -277,7 +277,7 @@
   border-radius: 20px;
 }
 .animate-button::before{
-  background: #cc6119;
+  background: #e87a28;
   content: "";
   position: absolute;
   top: 50%;

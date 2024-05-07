@@ -62,7 +62,7 @@
 }
 
 .price-value {
-  color: #cc6119;
+  color: #e87a28;
   float: right !important;
 }
 .price-booking-button-div {
@@ -99,7 +99,7 @@ ul.pagination-container.pagination-bar {
   font-size: 14px;
   border-right: 0.12em solid white;
   border-top: 0.12em solid white;
-  box-shadow: 1px 0px 3px #cc6119;
+  box-shadow: 1px 0px 3px #e87a28;
 }
 
 .pagination-item.dots:hover {
@@ -115,7 +115,7 @@ ul.pagination-container.pagination-bar {
 }
 
 .pagination-item.selected {
-  background-color: #cc6119;
+  background-color: #e87a28;
   color: white;
   box-shadow: none;
 }
@@ -182,7 +182,7 @@ ul.pagination-container.pagination-bar {
 
 .rating-div,
 .car-title-div {
-  color: "#cc6119";
+  color: "#e87a28";
   padding: 12px 10px 4px 10px;
 }
 
@@ -197,7 +197,7 @@ ul.pagination-container.pagination-bar {
 
 .value-del-line {
   text-decoration-color: red;
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .per-specificDay-heading {
@@ -206,11 +206,11 @@ ul.pagination-container.pagination-bar {
 
 .AED-text {
   text-decoration-color: red;
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .final-discounted-value-span {
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .price-per-specificDay-container:hover {
@@ -356,7 +356,7 @@ span.select2-selection_arrow b {
   transform: rotate(135deg);
   width: 45px;
   position: absolute;
-  border-bottom: 2px solid #cc6119;
+  border-bottom: 2px solid #e87a28;
   height: 64px;
   top: 6px;
   left: 27px;
@@ -366,7 +366,7 @@ span.select2-selection_arrow b {
   transform: rotate(135deg);
   width: 101px;
   position: absolute;
-  border-bottom: 2px solid #cc6119;
+  border-bottom: 2px solid #e87a28;
   height: 59px;
   top: 27px;
   left: 18px;
@@ -433,7 +433,7 @@ span.select2-selection_arrow b {
   font-size: 18px;
   line-height: 1;
   font-weight: 400;
-  color: #cc6119;
+  color: #e87a28;
 }
 
 @media (min-width: 1024px) {
@@ -460,7 +460,7 @@ span.select2-selection_arrow b {
 }
 
 .filters-text {
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .filters-heading {
@@ -470,11 +470,11 @@ span.select2-selection_arrow b {
   background-color: white;
   padding: 20px 10px;
   border-radius: 6px;
-  /* background-color: #cc6119; */
+  /* background-color: #e87a28; */
 }
 
 .clear-filters {
-  color: #cc6119;
+  color: #e87a28;
   cursor: pointer;
 }
 
@@ -629,31 +629,31 @@ body {
 }
 
 .flipBox_box > div:nth-child(1) {
-  background-image: linear-gradient(#cc6119, white);
+  background-image: linear-gradient(#e87a28, white);
   transform: rotateY(0deg) translateX(50%) rotateY(90deg);
   height: 100%;
 }
 
 .flipBox_box > div:nth-child(2) {
-  background-image: linear-gradient(#cc6119, white);
+  background-image: linear-gradient(#e87a28, white);
   transform: rotateY(90deg) translateX(50%) rotateY(90deg);
   height: 100%;
 }
 
 .flipBox_box > div:nth-child(3) {
-  background-image: linear-gradient(#cc6119, white);
+  background-image: linear-gradient(#e87a28, white);
   transform: rotateY(180deg) translateX(50%) rotateY(90deg);
   height: 100%;
 }
 
 .flipBox_box > div:nth-child(4) {
-  background-image: linear-gradient(#cc6119, white);
+  background-image: linear-gradient(#e87a28, white);
   transform: rotateY(270deg) translateX(50%) rotateY(90deg);
   height: 100%;
 }
 
 .flipBox_box > div:nth-child(5) {
-  background-color: #cc6119;
+  background-color: #e87a28;
   transform: rotateX(90deg) translateY(-0.5em);
   transform-origin: top;
   height: 1em;
@@ -801,7 +801,7 @@ body {
   color: white !important;
   padding: 10px 27px !important;
   background-image: url("data:image/svg+xml;utf8,<svg width='9px' height='6px' viewBox='0 0 9 6' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><g id='Artboard' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' transform='translate(-636.000000, -171.000000)' fill-opacity='1'><g id='input' transform='translate(172.000000, 37.000000)' fill='%230E242F' fill-rule='nonzero'><g id='Group-9' transform='translate(323.000000, 127.000000)'><path d='M142.280245,7.23952813 C141.987305,6.92353472 141.512432,6.92361662 141.219585,7.23971106 C140.926739,7.5558055 140.926815,8.06821394 141.219755,8.38420735 L145.498801,13 L149.780245,8.38162071 C150.073185,8.0656273 150.073261,7.55321886 149.780415,7.23712442 C149.487568,6.92102998 149.012695,6.92094808 148.719755,7.23694149 L145.498801,10.7113732 L142.280245,7.23952813 Z' id='arrow' fill='white'></path></g></g></g></svg>") !important;
-  background-color: #cc6119 !important;
+  background-color: #e87a28 !important;
 }
 
 .rdrDayNumber span {
@@ -828,15 +828,15 @@ body {
 }
 
 .rdrInRange {
-  background: #cc6119 !important;
+  background: #e87a28 !important;
   border-left-color: white;
   border-right-color: white;
 }
 .rdrStartEdge {
-  background-color: #cc6119 !important;
+  background-color: #e87a28 !important;
 }
 .rdrEndEdge {
-  background-color: #cc6119 !important;
+  background-color: #e87a28 !important;
 }
 
 .rdrStartEdge:hover {
@@ -850,7 +850,7 @@ body {
 } */
 
 .all-cars-heading {
-  color: #cc6119;
+  color: #e87a28;
   font-weight: 600;
   text-align: center;
 }

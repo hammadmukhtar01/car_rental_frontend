@@ -883,9 +883,9 @@ const VehiclesPage = () => {
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
       cursor: "pointer",
-      backgroundColor: isSelected ? "#cc6119" : "white",
+      backgroundColor: isSelected ? "#e87a28" : "white",
       ":hover": {
-        backgroundColor: isSelected ? "#cc6119" : "rgb(229, 229, 229)",
+        backgroundColor: isSelected ? "#e87a28" : "rgb(229, 229, 229)",
       },
     }),
   };
@@ -907,9 +907,9 @@ const VehiclesPage = () => {
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
       cursor: "pointer",
-      backgroundColor: isSelected ? "#cc6119" : "white",
+      backgroundColor: isSelected ? "#e87a28" : "white",
       ":hover": {
-        backgroundColor: isSelected ? "#cc6119" : "#cc6119",
+        backgroundColor: isSelected ? "#e87a28" : "#e87a28",
         color: isSelected ? "gray" : "white",
       },
     }),
@@ -928,12 +928,12 @@ const VehiclesPage = () => {
   return (
     <div id="main" className="pb-2 ">
       <>
-        <div className="navbar-bg-img-container">
+        {/* <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
             <MainNavbar />
           </div>
-        </div>
+        </div> */}
         <div className="all-cars-main-container-div container">
           <div className="vehicles-page-main-container">
             <div className="searchbox-container">
@@ -1001,7 +1001,7 @@ const VehiclesPage = () => {
                             onChange={handleDateChange}
                             moveRangeOnFirstSelection={false}
                             ranges={dateRange}
-                            rangeColors={["#cc6119"]}
+                            rangeColors={["#e87a28"]}
                             disabledDay={(date) =>
                               date < new Date().setHours(0, 0, 0, 0)
                             }

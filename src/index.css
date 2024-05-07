@@ -63,7 +63,7 @@ body {
   text-decoration: none;
   text-align: center;
   color: white !important;
-  /* color: #cc6119 !important; */
+  /* color: #e87a28 !important; */
   position: relative;
 }
 
@@ -93,13 +93,13 @@ body {
 
 .phone-call-link-lease-section:hover {
   background-color: white;
-  box-shadow: 1px 1px 12px 1px #cc6119;
+  box-shadow: 1px 1px 12px 1px #e87a28;
   border: 1px solid rgb(214, 214, 214);
 }
 
 .phone-call-link-lease-section:hover svg {
   background-color: white;
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .whatsapp-link-lease-section:hover svg {
@@ -181,12 +181,12 @@ body {
 .phone-call-link,
 .map-link,
 .phone-call-link-lease-section {
-  background-color: #cc6119;
+  background-color: #e87a28;
   /* background-color: white; */
 }
 
 .spin-the-wheel-link {
-  background-color: #cc6119;
+  background-color: #e87a28;
 }
 
 .whatsapp-link,
@@ -215,7 +215,7 @@ code {
 }
 
 ul.elementor-contact-tabs-list {
-  background-color: #cc6119 !important;
+  background-color: #e87a28 !important;
   list-style: none;
 }
 
@@ -240,7 +240,7 @@ ul.elementor-contact-tabs-list {
 
 .phone-call-link,
 .map-link {
-  background-color: #cc6119;
+  background-color: #e87a28;
 }
 
 .whatsapp-link {
@@ -303,7 +303,7 @@ ul.elementor-contact-tabs-list {
 }
 
 .menu-items.active {
-  background-color: #cc6119;
+  background-color: #e87a28;
   color: white !important;
 }
 
@@ -312,13 +312,13 @@ ul.elementor-contact-tabs-list {
 }
 
 #footer-copyright .copyright-text a {
-  color: #cc6119 !important;
+  color: #e87a28 !important;
 }
 .copyright-socials ul li a {
-  color: #cc6119 !important;
+  color: #e87a28 !important;
 }
 .footer_widgets_wrapper .widget_socials li a:hover {
-  background-color: #cc6119 !important;
+  background-color: #e87a28 !important;
 }
 
 .navbar1-container {
@@ -345,7 +345,7 @@ ul.elementor-contact-tabs-list {
 }
 
 .header-main-socs .clearfix li a:hover {
-  background-color: #cc6119;
+  background-color: #e87a28;
 }
 
 .top-info-wrap {

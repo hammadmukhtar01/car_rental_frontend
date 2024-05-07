@@ -9,7 +9,7 @@
 }
 
 .lto-headings {
-  color: #cc6119;
+  color: #e87a28;
   text-align: center;
   font-weight: 600;
 }
@@ -69,7 +69,7 @@
 .car-brands-lto-div {
   border-radius: 10px;
   padding: 10px 5px;
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .single-brand-logo-lto {
@@ -112,7 +112,7 @@ input[type="number"] {
 
 .lto-calculator-duration-slider,
 .lto-calculator-down-payment-slider {
-  color: #cc6119;
+  color: #e87a28;
   margin: 0px 20px;
 }
 .lto-cal-duration-min-month,
@@ -197,7 +197,7 @@ input[type="number"] {
 }
 
 .lto-lease-now-button:hover {
-  background-color: #cc6119;
+  background-color: #e87a28;
 }
 
 .lto-lease-now-button:focus {

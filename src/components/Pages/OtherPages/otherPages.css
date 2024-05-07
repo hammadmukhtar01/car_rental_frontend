@@ -4,12 +4,12 @@
 }
 
 .accordion-button:hover {
-  background-color: #cc6119;
+  background-color: #e87a28;
   color: white;
 }
 
 .accordion-button:not(.collapsed) {
-  background-color: #cc6119;
+  background-color: #e87a28;
   color: aliceblue;
   box-shadow: none;
 }
@@ -35,7 +35,7 @@
 
 .why-us-icon-div {
   /* border: 1px solid black; */
-  background-color: #cc6119;
+  background-color: #e87a28;
   width: fit-content;
   padding: 10px;
   border-radius: 50px;
@@ -70,7 +70,7 @@
 }
 
 .about-us-main-heading-span {
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .about-us-all-heading h4 {
@@ -141,7 +141,7 @@
 
 .aboutUs-heading-underline {
   /* left: 33%; */
-  border: 1px solid #cc6119;
+  border: 1px solid #e87a28;
   opacity: 0.8;
 }
 
@@ -249,7 +249,7 @@
 }
 
 .terms-conditions-headings {
-  color: #cc6119;
+  color: #e87a28;
 }
 
 /* Style (a)  */
@@ -321,7 +321,7 @@
 .list-style-capital-alpha li::marker,
 .list-style-lower-roman li::marker,
 .list-style-numbers li::marker {
-  color: #cc6119;
+  color: #e87a28;
   font-weight: bold;
 } */
 
@@ -342,6 +342,6 @@ ul li {
 }
 .colored-bold-line {
   text-transform: uppercase;
-  color: #cc6119;
+  color: #e87a28;
   font-weight: 400;
 }

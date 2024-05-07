@@ -788,9 +788,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
       cursor: "pointer",
-      backgroundColor: isSelected ? "#cc6119" : "white",
+      backgroundColor: isSelected ? "#e87a28" : "white",
       ":hover": {
-        backgroundColor: isSelected ? "#cc6119" : "rgb(229, 229, 229)",
+        backgroundColor: isSelected ? "#e87a28" : "rgb(229, 229, 229)",
       },
     }),
   };
@@ -814,7 +814,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                   </div>
 
                   <div className="driver-details-form-container">
-                    <div className=" form-group pl-4 pr-4">
+                    <div className=" form-group  pr-4">
                       <div className="">
                         <Row>
                           <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
@@ -903,7 +903,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                       <b>Documents Upload</b>
                     </div>
                     <div className="driver-details-form-container">
-                      <div className=" form-group pl-4 pr-4">
+                      <div className=" form-group  pr-4">
                         <div className="">
                           <Row>
                             <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
@@ -1138,7 +1138,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                   </div>
                   <br />
                   <div className="driver-details-form-container">
-                    <div className=" form-group pl-4 pr-4">
+                    <div className=" form-group  pr-4">
                       <div className="">
                         <Row>
                           <Col xxl={3} lg={4} md={6} sm={6} xs={12}>

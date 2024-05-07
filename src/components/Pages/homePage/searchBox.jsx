@@ -338,9 +338,9 @@ const SearchBox = () => {
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
       cursor: "pointer",
-      backgroundColor: isSelected ? "#cc6119" : "white",
+      backgroundColor: isSelected ? "#e87a28" : "white",
       ":hover": {
-        backgroundColor: isSelected ? "#cc6119" : "rgb(229, 229, 229)",
+        backgroundColor: isSelected ? "#e87a28" : "rgb(229, 229, 229)",
       },
     }),
   };
@@ -402,7 +402,7 @@ const SearchBox = () => {
                         onChange={handleDateChange}
                         moveRangeOnFirstSelection={false}
                         ranges={dateRange}
-                        rangeColors={["#cc6119"]}
+                        rangeColors={["#e87a28"]}
                         disabledDay={(date) =>
                           date < new Date().setHours(0, 0, 0, 0)
                         }

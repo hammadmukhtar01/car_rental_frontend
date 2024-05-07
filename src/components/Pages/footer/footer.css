@@ -31,13 +31,13 @@
 }
 
 .subscription-button {
-  background-color: #cc6119;
+  background-color: #e87a28;
   color: white;
 }
 
 .single-social-media-icons {
   margin: 0px 15px;
-  background-color: #cc6119;
+  background-color: #e87a28;
   padding: 0px 10px 7px 10px;
   cursor: pointer;
   font-size: 23px;
@@ -53,7 +53,7 @@
 }
 
 .single-social-media-icons:hover .social-media-icon-tag {
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .copyright-text {
@@ -125,7 +125,7 @@
 .social-media-icons-container .icon,
 .social-media-icons-container .icon .tooltip,
 .social-media-icons-container .icon .tooltip::before {
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .social-media-icons-container .icon:hover span,

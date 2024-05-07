@@ -317,12 +317,12 @@ const LeaseToOwnVehicles = () => {
   return (
     <div id="main" className="pb-2 bg-white">
       <>
-        <div className="navbar-bg-img-container">
+        {/* <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
             <MainNavbar />
           </div>
-        </div>
+        </div> */}
 
         <Container>
           <section className="lto-main-banner-section mt-3">

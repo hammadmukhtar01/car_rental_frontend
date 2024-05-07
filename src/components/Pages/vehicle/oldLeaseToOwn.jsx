@@ -331,9 +331,9 @@ const LeaseToOwnVehicles = () => {
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
       cursor: "pointer",
-      backgroundColor: isSelected ? "#cc6119" : "white",
+      backgroundColor: isSelected ? "#e87a28" : "white",
       ":hover": {
-        backgroundColor: isSelected ? "#cc6119" : "#cc6119",
+        backgroundColor: isSelected ? "#e87a28" : "#e87a28",
         color: isSelected ? "gray" : "white",
       },
     }),
@@ -352,12 +352,12 @@ const LeaseToOwnVehicles = () => {
   return (
     <div id="main" className="pb-2 ">
       <>
-        <div className="navbar-bg-img-container">
+        {/* <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
             <MainNavbar />
           </div>
-        </div>
+        </div> */}
         <div className="styled-label text-center pb-3">
           <span>
             <b className="fs-3 mt-2 mb-2">Lease To Own</b>

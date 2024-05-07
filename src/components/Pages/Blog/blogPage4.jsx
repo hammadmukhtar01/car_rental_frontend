@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
@@ -34,12 +35,12 @@ const BlogPage4 = ({ blogData }) => {
   return (
     <div id="main" className="pb-2 ">
       <>
-        <div className="navbar-bg-img-container">
+        {/* <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
             <MainNavbar />
           </div>
-        </div>
+        </div> */}
 
         <Container>
           <br />

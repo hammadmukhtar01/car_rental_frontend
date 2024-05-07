@@ -20,12 +20,12 @@ const ContactusPage = () => {
   return (
     <>
       <div id="main" className="">
-        <div className="navbar-bg-img-container">
+        {/* <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
             <MainNavbar />
           </div>
-        </div>
+        </div> */}
         <div className="contactUs-container container">
           <div
             data-elementor-type="wp-page"

@@ -68,11 +68,11 @@ const AboutusPage = () => {
   return (
     <>
       <div id="main">
-        <div className="navbar-bg-img-container">
+        {/* <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             <MainNavbar />
           </div>
-        </div>
+        </div> */}
         <div className="container mt-4 mb-4">
           <section className="about-us-main-section-1 pt-3 pb-3">
             <div className="about-us-section-1">

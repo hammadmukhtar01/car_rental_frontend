@@ -15,7 +15,7 @@ const selectStyles = {
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
       cursor: "pointer",
-      backgroundColor: isFocused ? "white" : isSelected ? "#cc6119" : "white",
+      backgroundColor: isFocused ? "white" : isSelected ? "#e87a28" : "white",
       ":hover": {
         backgroundColor: "rgb(229, 229, 229)",
       },

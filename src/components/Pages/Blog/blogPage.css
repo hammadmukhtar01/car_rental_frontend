@@ -17,7 +17,7 @@
   position: relative;
 }
 .blog-style-one .blog-image .category {
-  background-color: #cc6119;
+  background-color: #e87a28;
   color: var(--white);
   font-size: 13px;
   padding: 7px 20px;
@@ -97,7 +97,7 @@
 .blog-style-one .blog-content .more {
   text-transform: uppercase;
   font-weight: 600;
-  color: #cc6119;
+  color: #e87a28;
   display: inline-block;
 }
 .more {
@@ -152,7 +152,7 @@
 
 .blog-title {
   text-decoration: underline;
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .blog-details-image {
@@ -189,7 +189,7 @@
   font-weight: 700;
   text-align: center;
   padding: 5px;
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .free-consultation-contactUs-button {
@@ -203,7 +203,7 @@
 }
 
 .free-consultation-contactUs-button:hover {
-  background-color: #cc6119;
+  background-color: #e87a28;
 }
 
 .free-consultation-contactUs-button:focus {

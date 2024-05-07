@@ -8,7 +8,7 @@ h4 {
 }
 
 .location-heading {
-  color: #cc6119;
+  color: #e87a28;
   font-weight: 600;
 }
 
@@ -57,7 +57,7 @@ h4 {
 
 .booking-detail-heading {
   font-weight: 700;
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .total-days-row {
@@ -87,7 +87,7 @@ h4 {
 .discounted-value {
   font-size: 16px;
   font-weight: 700;
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .sub-total-price-label {
@@ -96,14 +96,14 @@ h4 {
 }
 
 .grand-total-price-label {
-  color: #cc6119;
+  color: #e87a28;
   font-weight: 700;
   font-size: 20px;
 }
 
 .grand-total-price-value,
 .deleted-grand-total-price-value {
-  color: #cc6119;
+  color: #e87a28;
   font-weight: 700;
   font-size: 30px;
 }
@@ -123,7 +123,7 @@ h4 {
 }
 
 .features-icons-heading {
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .features-scroll-container {
@@ -145,7 +145,7 @@ h4 {
 .car-features-div2-heading,
 .car-description-div2-heading {
   font-weight: 400;
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .car-features-text-2 {
@@ -206,7 +206,7 @@ h4 {
 /* 2nd step Booking & Documents  */
 
 .heading-underline {
-  border: 1px solid #cc6119;
+  border: 1px solid #e87a28;
   opacity: 0.8;
   width: 200px;
 }
@@ -255,7 +255,7 @@ h4 {
   padding: 0 1rem;
   color: #fff;
   font-size: 15px;
-  border: 1px solid #cc6119;
+  border: 1px solid #e87a28;
   border-radius: 6px 0 0 6px;
   background-color: transparent;
 }
@@ -266,7 +266,7 @@ h4 {
   border: none;
   box-shadow: none;
   border-radius: 0 6px 6px 0;
-  background-color: #cc6119;
+  background-color: #e87a28;
   color: #fff;
   font-size: 15px;
   cursor: pointer;
@@ -313,7 +313,7 @@ h4 {
 }
 
 .btn.btn-secondary {
-  background-color: #cc6119;
+  background-color: #e87a28;
   border: none;
   box-shadow: none;
 }

@@ -150,7 +150,7 @@ const SearchLocationInput = ({
               >
                 <FaMapMarkerAlt
                   className="single-suggested-location-marker mr-2"
-                  style={{ color: "#cc6119" }}
+                  style={{ color: "#e87a28" }}
                 />
                 <List.Item.Meta title={item.description} />
               </List.Item>

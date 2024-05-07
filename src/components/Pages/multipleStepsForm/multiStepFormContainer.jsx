@@ -5,12 +5,12 @@ import ProgressBar from "./progressBar";
 function MultiStepFormContainer({ children, currentStep }) {
   return (
     <div className="multi_step_form co">
-      <div className="navbar-bg-img-container">
+      {/* <div className="navbar-bg-img-container">
         <div className="booking-page-banner-navbar">
           {" "}
           <MainNavbar />
         </div>
-      </div>
+      </div> */}
       <form id="msform">
         <div className="progress-bar-div">
           <ProgressBar step={currentStep} />

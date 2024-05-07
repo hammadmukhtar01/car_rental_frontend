@@ -7,7 +7,7 @@
 }
 
 .booking-details-button:hover {
-  background-color: #cc6119;
+  background-color: #e87a28;
   /* color: white; */
 }
 
@@ -20,7 +20,7 @@
 .table th {
   font-size: 16px;
   text-transform: capitalize;
-  background-color: #cc6119;
+  background-color: #e87a28;
   color: white;
   padding: 15px 2px;
 }

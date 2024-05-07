@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
@@ -93,12 +93,12 @@ const LoginPage = () => {
 
   return (
     <>
-      <div className="navbar-bg-img-container">
+      {/* <div className="navbar-bg-img-container">
         <div className="booking-page-banner-navbar">
           {" "}
           <MainNavbar />
         </div>
-      </div>
+      </div> */}
       <section className="ftco-section">
         <div className="container pt-4">
           <div className="login-row justify-content-center">

@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "./authentication.css";
 import MainNavbar from "../Pages/navbar/mainNavbar";
@@ -104,12 +104,12 @@ const SignupPage = () => {
 
   return (
     <>
-      <div className="navbar-bg-img-container">
+      {/* <div className="navbar-bg-img-container">
         <div className="booking-page-banner-navbar">
           {" "}
           <MainNavbar />
         </div>
-      </div>
+      </div> */}
       <section className="ftco-section">
         <div className="container">
           <div className="login-row justify-content-center">

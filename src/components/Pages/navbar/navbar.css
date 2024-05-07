@@ -31,7 +31,7 @@
   align-items: center;
   justify-content: center;
   -webkit-box-reflect: below 0
-    linear-gradient(transparent, transparent, #cc6119);
+    linear-gradient(transparent, transparent, #e87a28);
 }
 .loader-container .loader {
   position: absolute;
@@ -126,7 +126,7 @@
 }
 
 .navbar-sub-menus:hover {
-  background-color: #cc6119;
+  background-color: #e87a28;
   color: white;
 }
 
@@ -161,16 +161,16 @@
 
 .dropdown-toggle.nav-link:hover,
 .dropdown-toggle.nav-link:focus {
-  /* background-color: #cc6119; */
+  /* background-color: #e87a28; */
   /* color: green !important; */
-  color: #cc6119 !important;
+  color: #e87a28 !important;
 }
 
 .navbar-all-menus.active,
 .auth-menu.active,
 .navbar-sub-menus.active {
   /* color: green !important; */
-  color: #cc6119 !important;
+  color: #e87a28 !important;
 }
 
 .login-menu,
@@ -193,9 +193,9 @@
 
 .navbar-all-menus:hover,
 #user-nav-dropdown:hover {
-  /* background-color: #cc6119; */
+  /* background-color: #e87a28; */
   /* color: green !important; */
-  color: #cc6119 !important;
+  color: #e87a28 !important;
   cursor: copy;
 }
 
@@ -208,7 +208,7 @@
 }
 
 .navbar-white .navbar-all-menus.active {
-  color: #cc6119 !important;
+  color: #e87a28 !important;
 }
 
 .navbar-white .navbar-all-menus.active::before {
@@ -235,7 +235,7 @@
   bottom: 0;
   width: 100%;
   height: 2px;
-  background: #cc6119;
+  background: #e87a28;
   -webkit-transform: translateY(5px);
   -moz-transform: translateY(5px);
   transform: translateY(5px);
@@ -246,7 +246,7 @@
 }
 
 .navbar-white .navbar-all-menus:hover {
-  color: #cc6119 !important;
+  color: #e87a28 !important;
 }
 
 .right-dropdown .dropdown-menu {
@@ -255,11 +255,11 @@
 }
 
 .login-menu {
-  color: #cc6119;
+  color: #e87a28;
 }
 
 .signup-menu {
-  background-color: #cc6119;
+  background-color: #e87a28;
   color: white;
   border-radius: 6px;
   padding-top: 7px;
@@ -313,7 +313,7 @@ nav a {
   bottom: 0;
   width: 100%;
   height: 2px;
-  background: #cc6119;
+  background: #e87a28;
   opacity: 0;
   -webkit-transform: translateY(5px);
   -moz-transform: translateY(5px);

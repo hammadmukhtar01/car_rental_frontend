@@ -131,7 +131,7 @@
   line-height: 36px;
   font-size: 22px;
   margin-bottom: 10px;
-  background: #cc6119;
+  background: #e87a28;
   display: inline-block;
   border-radius: 50%;
   color: #ffffff;
@@ -163,7 +163,7 @@
   position: absolute;
   top: 4px;
   right: 0;
-  background: #cc6119;
+  background: #e87a28;
   display: inline-block;
   border-radius: 50%;
   color: #ffffff;
@@ -223,11 +223,11 @@
   width: 150%;
 }
 .multi_step_form #msform #progressbar li.active {
-  color: #cc6119;
+  color: #e87a28;
 }
 .multi_step_form #msform #progressbar li.active:before,
 .multi_step_form #msform #progressbar li.active:after {
-  background: #cc6119;
+  background: #e87a28;
   color: white;
   border: none;
 }
@@ -487,20 +487,20 @@ code {
 }
 
 .add-ons-view-details {
-  color: #cc6119;
+  color: #e87a28;
   font-weight: 500;
   text-decoration: none;
 }
 
 .add-ons-view-details:hover {
-  color: #cc6119;
+  color: #e87a28;
   font-weight: 500;
   text-decoration: underline !important;
 }
 
 .add-ons-toggle-input:checked {
-  background-color: #cc6119;
-  border-color: #cc6119;
+  background-color: #e87a28;
+  border-color: #e87a28;
   box-shadow: none;
 }
 
@@ -523,13 +523,13 @@ code {
 }
 
 .form-check-input:checked {
-  background-color: #cc6119;
-  border-color: #cc6119;
+  background-color: #e87a28;
+  border-color: #e87a28;
 }
 
 .form-check-input:focus { 
-  border-color: #cc6119;
-  box-shadow: 0 0 0 0 #cc6119;
+  border-color: #e87a28;
+  box-shadow: 0 0 0 0 #e87a28;
 }
 
 .form-switch.form-switch-sm {

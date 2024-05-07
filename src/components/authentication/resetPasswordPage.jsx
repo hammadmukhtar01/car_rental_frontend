@@ -69,12 +69,12 @@ const ResetPasswordPage = () => {
 
   return (
     <>
-      <div className="navbar-bg-img-container">
+      {/* <div className="navbar-bg-img-container">
         <div className="booking-page-banner-navbar">
           {" "}
           <MainNavbar />
         </div>
-      </div>
+      </div> */}
       <section className="ftco-section">
         <div className="container pt-2">
           <div className="forgot-row justify-content-center">

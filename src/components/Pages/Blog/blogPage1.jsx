@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Container } from "react-bootstrap";
 import blog1_MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
@@ -27,12 +28,12 @@ const BlogPage1 = () => {
   return (
     <div id="main" className="pb-2 ">
       <>
-        <div className="navbar-bg-img-container">
+        {/* <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">
             {" "}
             <MainNavbar />
           </div>
-        </div>
+        </div> */}
 
         <Container>
           <br />
