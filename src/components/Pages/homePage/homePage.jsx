@@ -78,7 +78,7 @@ const HomePage = () => {
             <div className="bg-img-banner-main">
               <div className="banner-container" />
               <img
-                className="only-car-banner-container"
+                className="only-car-banner-container-2"
                 src={OnlyCar}
                 alt="test"
               />
@@ -88,10 +88,11 @@ const HomePage = () => {
             </div>
             <div className="home-page-horizontal-line-2">
               <h1 className="home-page-horizontal-line-2-text">
-                <div className="rent-drive-explore-div1">Rent</div>
-                <div className="rent-drive-explore-div2">
+                <div className="rent-drive-explore-div1">Rent </div>
+                <div className="rent-drive-explore-div2">, 
                   <span className="rent-drive-explore-span">
-                    , Drive, Explore Dubai
+                    {" "}
+                    Drive, Explore Dubai
                   </span>
                 </div>
               </h1>
