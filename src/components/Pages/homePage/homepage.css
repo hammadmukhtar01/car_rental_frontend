@@ -1,12 +1,11 @@
 .bg-img-banner-main {
-  position: relative;
+  /* position: relative; */
   overflow: hidden;
   background-image: url("../../images/no-car-bg-home-banner-11.jpg");
   width: 100%;
   height: 65vh;
   background-size: cover;
   background-position: top;
-  /* position: relative; */
   position: initial;
   background-repeat: no-repeat;
 }
@@ -29,7 +28,7 @@
   width: auto;
   max-height: 100%;
   object-fit: contain;
-  z-index: 2;
+  z-index: 1;
 }
 
 .home-page-heading-underline {
@@ -289,6 +288,7 @@
     left: 0% !important;
     right: 0% !important;
     z-index: 1;
+    pointer-events: auto;
   }
 }
 
@@ -348,9 +348,9 @@
   } */
 }
 
-@media screen and (min-width: 991px) and (max-width: 1024px) and (min-height: 600px) {
+@media screen and (min-width: 991px) and (max-width: 1024px) and (min-height: 1000px) {
   .bg-img-banner-main {
-    /* height: 80vh; */
+    height: 50vh;
   }
 }
 
@@ -366,6 +366,7 @@
   left: 10%;
   right: 10%;
   z-index: 1;
+  pointer-events: auto;
 }
 
 .home-page-horizontal-line-2 {

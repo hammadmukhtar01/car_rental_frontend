@@ -104,7 +104,7 @@ function App() {
             </Col>
           </Row>
         </div>
-        <div className="">
+        <div className="navbar-div-container">
           <MainNavbar />
         </div>
           <Routes>

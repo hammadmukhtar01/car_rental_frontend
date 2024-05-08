@@ -6,6 +6,11 @@
   /* height: 100vh;  */
 }
 
+.navbar-div-container {
+  position: relative;
+  z-index: 999;
+}
+
 .terms-conditions-main-heading,
 .blog-heading-icon-container-div,
 .offer-heading-icon-container-div,
