@@ -14,7 +14,6 @@ const SearchLocationInput = ({
       apiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
     });
   const [value, setValue] = useState(previousLocationValue || "");
-  console.log("In auto com google file value is; ", value);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const inputRef = useRef(null);
@@ -143,7 +142,7 @@ const SearchLocationInput = ({
                 }
                 style={{
                   backgroundColor:
-                    selectedLocation === item.description ? "#ff0000" : "",
+                    selectedLocation === item.description ? "#e87a28" : "",
                   color: selectedLocation === item.description ? "#fff" : "",
                   cursor: "pointer",
                 }}

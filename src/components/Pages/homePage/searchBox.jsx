@@ -31,6 +31,7 @@ const SearchBox = () => {
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
   const [inputPickupFieldValue, setPickupInputFieldValue] = useState("");
   const [inputDropoffFieldValue, setDropoffInputFieldValue] = useState("");
+  
   const [activeSelection, setActiveSelection] = useState({
     startDate: false,
     endDate: false,
@@ -53,6 +54,8 @@ const SearchBox = () => {
     if (reqLocalStorageData) {
       const storedFormFields = JSON.parse(reqLocalStorageData);
       console.log("Stored date range is: ", storedFormFields);
+      let pickupCompleteAddressValue;
+      let dropoffCompleteAddressValue;
       let storedStartDateRange;
       let storedEndDateRange;
       let pickupLocMainInput;
@@ -68,6 +71,9 @@ const SearchBox = () => {
           checkBoxStoredValue
         );
         setShowDropoff(checkBoxStoredValue);
+
+        pickupCompleteAddressValue = storedEndDateRange?.inputPickupFieldValue;
+        dropoffCompleteAddressValue = storedEndDateRange?.inputDropoffFieldValue;
 
         pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
         dropoffLocTabV1 = storedFormFields?.selectedTabDropOff;
@@ -136,6 +142,8 @@ const SearchBox = () => {
     dateRangeV1: dateRange || "",
     showDropoffV1: 0,
   });
+
+  console.log(`1223452134234---3-4-3-3-31--32-43-2324-: ${pickupLocation}`)
 
   const handlePickupTimeChange = (selectedOption) => {
     console.log("Selected time option is: ", selectedOption);
@@ -277,9 +285,6 @@ const SearchBox = () => {
 
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
-    console.log(
-      `pickup time is: ${pickUpTime} and dropoff time is: ${dropOffTime} and pickup loc msg is: ${pickupLocationMessage} and dropoff loc msg is: ${dropoffLocationMessage}`
-    );
     if (
       !pickUpTime ||
       !dropOffTime ||
@@ -589,7 +594,7 @@ const SearchBox = () => {
 
                     <Col xxl={1} lg={1} md={3} sm={6} xs={6} className="search-box-search-button-div">
                         <button className="search-box-search-button">
-                          <span href="" className="">
+                          <span className="">
                             <LuSearch />
                           </span>
                         </button>

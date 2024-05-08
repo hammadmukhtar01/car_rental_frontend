@@ -120,6 +120,11 @@
   margin: 1px -12px;
 }
 
+.single-blog.blog-style-one {
+  border: 1px solid rgba(210, 210, 210, 0.803);
+  border-radius: 12px;
+}
+
 .text {
   margin-top: 16px;
   text-align: justify;
@@ -215,6 +220,9 @@
 .free-consultation-contactUs-button:focus:not(:active) {
   transform: scale(1);
 }
+
+
+
 
 @media screen and (max-width: 576px) {
   .free-consultation-main-div {

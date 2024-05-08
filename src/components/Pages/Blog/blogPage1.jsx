@@ -26,7 +26,7 @@ const BlogPage1 = () => {
   // }
 
   return (
-    <div id="main" className="pb-2 ">
+    <div id="main">
       <>
         {/* <div className="navbar-bg-img-container">
           <div className="booking-page-banner-navbar">

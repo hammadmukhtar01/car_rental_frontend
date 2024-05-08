@@ -44,7 +44,7 @@ const ContactusPage = () => {
                     <ul className="elementor-contact-tabs-list">
                       <li className="">
                         <span className="tab-item p-2">
-                          <span className="renting-text">
+                          <span className="renting-text pt-3 pb-3">
                             <b>Renting</b>{" "}
                           </span>
                         </span>

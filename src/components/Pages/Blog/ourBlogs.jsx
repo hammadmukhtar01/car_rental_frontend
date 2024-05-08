@@ -102,6 +102,7 @@ const OurBlogs = () => {
               </span>
             </div>
           </div>
+          <br />
           <AliceCarousel
             mouseTracking
             items={blogsData.map(generateBlogItem)}

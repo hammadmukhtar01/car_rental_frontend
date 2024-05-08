@@ -175,7 +175,7 @@ const HomePage = () => {
               <div className="insta-testimonial-heading-icon-container-div">
                 <BsPersonCircle className="mr-2 home-page-heading-icon" />
                 <span>
-                  <b className="fs-3">Testimonials</b>
+                  <b className="fs-3">Instagram Feed</b>
                 </span>
               </div>
             </div>

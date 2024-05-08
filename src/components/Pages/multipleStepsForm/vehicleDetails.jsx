@@ -280,13 +280,13 @@ const VehicleDetails = ({ nextStep }) => {
 
   const carFeaturesWithIcons = [
     {
-      name: "Person Seats",
+      name: "Seater",
       value: carPassengerCapacity,
       featureIcon: BsPerson,
     },
 
     {
-      name: "Doors",
+      name: "",
       value: carDoorstype,
       featureIcon: GiCarDoor,
     },
@@ -297,21 +297,21 @@ const VehicleDetails = ({ nextStep }) => {
     },
 
     {
-      name: "Safety Bags",
+      name: "Luggage Bags",
       value: carTotalSafetyBags,
       featureIcon: BsSuitcase,
     },
     {
-      name: "AC",
+      name: "Air Conditioner",
       value: null,
       featureIcon: LuSnowflake,
     },
 
-    {
-      name: " Engine",
-      value: carFuelType,
-      featureIcon: BsCpu,
-    },
+    // {
+    //   name: " Engine",
+    //   value: carFuelType,
+    //   featureIcon: BsCpu,
+    // },
   ];
 
   const couponsData = [
@@ -651,7 +651,7 @@ const VehicleDetails = ({ nextStep }) => {
                       </div>
                     </div>
 
-                    <div className="step1-car-details p-4">
+                    <div className="step1-car-details pt-4">
                       <div className="location-label">
                         <div className="rental-addons-main-heading styled-label">
                           <BsFillShieldLockFill className="mr-2 heading-icon" />
@@ -1066,7 +1066,7 @@ const VehicleDetails = ({ nextStep }) => {
                       onClick={() => handleNextStep1()}
                       className="map-loc-middle py-3"
                     >
-                      <span href="" className="animate-button btn4">
+                      <span className="animate-button btn4">
                         Start Booking
                       </span>
                     </button>

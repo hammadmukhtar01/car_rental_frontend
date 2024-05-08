@@ -222,7 +222,7 @@ function PickupLocationModal({
                         onClick={handleInputSubmit}
                         className="map-loc-middle py-3"
                       >
-                        <span href="" className="animate-button btn4">
+                        <span className="animate-button btn4">
                           Start Booking
                         </span>
                       </button>
@@ -292,7 +292,7 @@ function PickupLocationModal({
                         onClick={handleInputSubmit}
                         className="map-loc-middle py-3"
                       >
-                        <span href="" className="animate-button btn4">
+                        <span className="animate-button btn4">
                           Start Booking
                         </span>
                       </button>

@@ -21,7 +21,7 @@ const FreeConsultationForm = () => {
   // }
 
   return (
-    <div id="main" className="pb-2 ">
+    <div id="main">
       <>
         <div className="free-consultation-main-container">
           <div className="free-consultation-main-div">

@@ -215,7 +215,7 @@ const ErrorPage = () => {
         </p>
         <br />
         <button onClick={errorPageBackButton} className="middle">
-          <span href="" className="animate-button btn4">
+          <span className="animate-button btn4">
             Return Home
           </span>
         </button>

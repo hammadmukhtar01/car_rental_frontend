@@ -39,7 +39,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const [pickupLocationId, setPickupLocationId] = useState(null);
   const [dropoffLocationId, setDropoffLocationId] = useState(null);
-
   const [newCustomerId, setNewCustomerId] = useState("");
   const [newCustomerDetail, setNewCustomerDetail] = useState("");
   const [bookingData, setBookingData] = useState(null);
@@ -87,11 +86,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const pickupLocParam = queryParams.get("pickupLoc");
   const dropoffLocParam = queryParams.get("dropoffLoc");
-  const pickdropCombineLoc = `pickup: ${pickupLocParam}, dropoff: ${dropoffLocParam}`;
+  const checkBoxValueParam = queryParams.get("checkBoxValue");
+
+  let pickdropCombineLoc;
+  if (checkBoxValueParam === true) {
+    pickdropCombineLoc = `pickup: ${pickupLocParam}, dropoff: ${dropoffLocParam}`;
+  } else {
+    pickdropCombineLoc = `pickup: ${pickupLocParam}, dropoff: ${pickupLocParam}`;
+  }
 
   const pickupLocStateParam = queryParams.get("pickupLocState");
   const dropoffLocStateParam = queryParams.get("dropoffLocState");
-  const checkBoxValueParam = queryParams.get("checkBoxValue");
 
   const today = new Date();
   const invoiceExpiryDate = new Date(today);
@@ -198,8 +203,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       );
 
       documentType.toUpperCase() === "PASSPORT"
-        ? setDrivingLicenseImg(fetchedRequiredImgUrl)
-        : setPassportImg(fetchedRequiredImgUrl);
+        ? setPassportImg(fetchedRequiredImgUrl)
+        : setDrivingLicenseImg(fetchedRequiredImgUrl);
     } catch (error) {
       console.error("Error while creating img url of documents", error);
     }
@@ -1199,15 +1204,13 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
                 <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
                   <Col lg={3} md={4} sm={6} xs={8} className="d-flex just">
-                      <button
-                        onClick={handleNextStep}
-                        className="map-loc-middle py-3"
-                      >
-                        <span href="" className="animate-button btn4">
-                          Book & Pay
-                        </span>
-                      </button>
-                      <ToastContainer />
+                    <button
+                      onClick={handleNextStep}
+                      className="map-loc-middle py-3"
+                    >
+                      <span className="animate-button btn4">Book & Pay</span>
+                    </button>
+                    <ToastContainer />
                   </Col>
                 </div>
               </div>
