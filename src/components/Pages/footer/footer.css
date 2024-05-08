@@ -1,6 +1,43 @@
-.footer-main-container {
-  background-color: #232628;
+
+.footer-heading {
+  font-weight: 600;
+  padding-top: 42px;
 }
+
+.footer-info-list a {
+  text-decoration: none;
+  color: black;
+}
+
+.footer-info-list a:hover {
+  text-decoration: none;
+  color: #e87a28;
+}
+
+.footer-main-container {
+  background-color: rgb(242, 242, 242);
+}
+
+@media screen and (max-width: 1399px) {
+  .footer-heading {
+    padding-top: 30px;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .footer-heading {
+    padding-top: 15px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .footer-heading {
+    padding-top: 28px;
+  }
+}
+
+
+/* Old Footer Css  */
 
 .footer-text-gray {
   color: gray;

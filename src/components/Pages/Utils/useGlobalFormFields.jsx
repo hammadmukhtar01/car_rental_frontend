@@ -9,11 +9,9 @@ const UseGlobalFormFields = (initialState) => {
     const currentTime = new Date().getTime();
 
     if (storedFields && storedTimestamp) {
-      // Check if stored data is within the expiration time
       if (currentTime - parseInt(storedTimestamp, 10) < SIX_HOURS_IN_MS) {
         return JSON.parse(storedFields);
       } else {
-        // Clear stored data if expired
         localStorage.removeItem("formFields");
         localStorage.removeItem("formFieldsTimestamp");
       }

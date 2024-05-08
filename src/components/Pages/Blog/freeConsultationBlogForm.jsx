@@ -78,7 +78,7 @@ const FreeConsultationForm = () => {
                         />
                       </Col>
 
-                      <Col xl={4} lg={4} md={6} sm={12} xs={12} className="text-center">
+                      <Col xl={4} lg={4} md={6} sm={12} xs={12} className="text-center free-consultation-button-col">
                         <button
                         type="submit"
                         className="free-consultation-contactUs-button submit col-lg-12"

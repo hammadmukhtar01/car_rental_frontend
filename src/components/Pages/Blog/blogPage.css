@@ -61,7 +61,7 @@
 }
 .blog-style-one .blog-content .blog-title a {
   font-weight: 600;
-  color: #c85304;
+  color: #e87a28;
   -webkit-transition: all 0.3s ease-out 0s;
   -moz-transition: all 0.3s ease-out 0s;
   -ms-transition: all 0.3s ease-out 0s;
@@ -74,14 +74,14 @@
 .blog2-main-heading,
 .blog3-main-heading,
 .blog4-main-heading {
-  color: #d95c09;
+  color: #e87a28;
   padding-bottom: 5px;
   border-bottom: 2px solid;
   display: inline-flex;
 }
 
 .blog-style-one .blog-content .blog-title a:hover {
-  color: #a34100;
+  color: #e87a28;
 }
 .blog-style-one .blog-content span {
   font-size: 14px;
@@ -105,7 +105,7 @@
 }
 
 .blog-style-one .blog-content .more:hover {
-  color: #a34100;
+  color: #e87a28;
 }
 
 .category:hover {
@@ -143,7 +143,7 @@
 }
 
 .category:hover {
-  box-shadow: 1px 1px 1px 1px #a34100;
+  box-shadow: 1px 1px 1px 1px #e87a28;
 }
 
 .blog-item {
@@ -171,12 +171,12 @@
 .blog1-diff-carrental-lease-heading,
 .blog2-things-todo-inDubai-heading,
 .blog3-navigation-app-heading {
-  color: #df8142;
+  color: #e87a28;
 }
 
 .free-consultation-main-div {
   padding: 30px 40px;
-  background-color: #e5762d;
+  background-color: #e87a28;
 }
 
 .free-consultation-text {
@@ -196,14 +196,16 @@
   margin-top: 6px;
   padding: 7px;
   border-radius: 10px;
-  background-color: #ed6e19e0;
+  background-color: #e87a28;
   color: white;
-  border-color: transparent;
+  border: none;
   transition: transform 0.11s ease-in-out;
 }
 
 .free-consultation-contactUs-button:hover {
-  background-color: #e87a28;
+  background-color: white;
+  border: 1px solid #e87a28 !important;
+  color: #e87a28;
 }
 
 .free-consultation-contactUs-button:focus {

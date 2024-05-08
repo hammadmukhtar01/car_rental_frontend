@@ -25,6 +25,7 @@ import BannerMain from "../../images/no-car-bg-home-banner.png";
 import OnlyCar from "../../images/only-car-bg-home-banner.png";
 import testCar from "../../images/no-car-bg-home-banner-1.jpg";
 import InstagramFeed from "./instagramFeed";
+import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -89,7 +90,8 @@ const HomePage = () => {
             <div className="home-page-horizontal-line-2">
               <h1 className="home-page-horizontal-line-2-text">
                 <div className="rent-drive-explore-div1">Rent </div>
-                <div className="rent-drive-explore-div2">, 
+                <div className="rent-drive-explore-div2">
+                  ,
                   <span className="rent-drive-explore-span">
                     {" "}
                     Drive, Explore Dubai
@@ -179,6 +181,7 @@ const HomePage = () => {
             </div>
             <InstagramFeed />
           </div>
+          <FreeConsultationForm />
         </div>
       </div>
     </div>
