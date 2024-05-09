@@ -31,7 +31,7 @@ const Footer = () => {
       footerContactUsData: (
         <>
           <b className="ml-2">Main Office Address:</b> <br /> <span className="pl-1 ">
-          Showroom 93, Auto Market <br />
+          Showroom 11, Auto Market <br />
           </span> <span className="pl-1">Ras Al Khor - Dubai, UAE</span>
         </>
       ),
