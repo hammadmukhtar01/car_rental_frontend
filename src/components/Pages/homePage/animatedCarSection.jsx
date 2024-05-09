@@ -8,15 +8,14 @@ import "owl.carousel/dist/owl.carousel.min.js";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "owl.carousel/dist/assets/owl.theme.green.css";
-import { BsPersonCircle } from "react-icons/bs";
 import axios from "axios";
 
 const AnimatedCarSection = () => {
   const navigate = useNavigate();
-  const [chevroletImg, setChevroletImg] = useState("");
-  const [nissanImg, setNissanImg] = useState("");
-  const [hyundaiImg, setHyundaiImg] = useState("");
-  const [toyotaCorollaImg, setToyotaCorollaImg] = useState("");
+  const [sedanImg, setSedanImg] = useState("");
+  const [suvImg, setSUVImg] = useState("");
+  const [hatchBackImg, setHatchBackImg] = useState("");
+  const [stationWagonImg, setStationWagonImg] = useState("");
 
   const [carsData, setCarsData] = useState([]);
 
@@ -85,17 +84,16 @@ const AnimatedCarSection = () => {
         // );
         switch (car.acrissCategory?.name) {
           case "Standard":
-            setChevroletImg(car?.displayImageUrl);
+            setSedanImg(car?.displayImageUrl);
             break;
           case "Small SUV 5 Seater":
-            setNissanImg(car?.displayImageUrl);
+            setSUVImg(car?.displayImageUrl);
             break;
           case "Compact":
-            setHyundaiImg(car?.displayImageUrl);
+            setHatchBackImg(car?.displayImageUrl);
             break;
           case "Fullsize":
-
-            setToyotaCorollaImg(car?.displayImageUrl);
+            setStationWagonImg(car?.displayImageUrl);
             break;
           default:
             break;
@@ -116,26 +114,26 @@ const AnimatedCarSection = () => {
   }, [fetchCarsData]);
 
   useEffect(() => {
-    if (chevroletImg && nissanImg && hyundaiImg && toyotaCorollaImg) {
+    if (sedanImg && suvImg && hatchBackImg && stationWagonImg) {
       window.$(".owl-carousel").trigger("refresh.owl.carousel");
     }
-  }, [chevroletImg, nissanImg, hyundaiImg, toyotaCorollaImg]);
+  }, [sedanImg, suvImg, hatchBackImg, stationWagonImg]);
 
   const imagesData = [
     {
-      displayImageUrl: nissanImg,
+      displayImageUrl: sedanImg,
       acrissCategory: "Standard",
     },
     {
-      displayImageUrl: hyundaiImg,
+      displayImageUrl: suvImg,
       acrissCategory: "Small SUV 5 Seater",
     },
     {
-      displayImageUrl: toyotaCorollaImg,
+      displayImageUrl: hatchBackImg,
       acrissCategory: "Compact",
     },
     {
-      displayImageUrl: chevroletImg,
+      displayImageUrl: stationWagonImg,
       acrissCategory: "Fullsize",
     },
   ];
@@ -176,13 +174,19 @@ const AnimatedCarSection = () => {
         <div className="container">
           <div className="bg-white">
             <h2 className="offer-heading pl-3 bg-white">
-              <div className="styled-label">
+              {/* <div className="styled-label">
                 <div className="location-label">
-                  <BsPersonCircle className="mr-2 home-page-heading-icon" />
-                  <span className="fs-3">
-                    <b>Our Fleet Cars</b>
+                  <span className="fs-3 fleet-car-homePage-heading">
+                    <b>Fleet Cars</b>
                   </span>
                   <hr className="home-page-heading-underline" />
+                </div>
+              </div> */}
+              <div className="styled-label text-center">
+                <div className="insta-testimonial-heading-icon-container-div">
+                  <span>
+                    <b className="fs-3">Fleet Cars</b>
+                  </span>
                 </div>
               </div>
             </h2>

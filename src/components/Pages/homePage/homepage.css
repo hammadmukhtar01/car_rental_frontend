@@ -52,13 +52,16 @@
   /* width: 100%; */
   position: relative;
   object-fit: cover;
-
   max-width: 100%;
   height: auto;
 }
 
-.heading-icon-container-div {
+.heading-icon-container-div,
+.fleet-car-homePage-heading,
+.blog-homePage-heading {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .car-movement {
@@ -492,21 +495,40 @@
   }
 }
 
+.form-control-lto-input {
+  border: 1px solid rgb(184, 184, 184);
+}
+
 .form-control-location,
 .form-control-login,
 .form-control-consultation,
-.form-control-age {
+.form-control-age,
+.form-control-lto-input {
   height: 45px;
   /* width: 215px; */
-  border: 1px solid rgb(184, 184, 184) !important;
   border-radius: 6px;
   padding: 10px 10px;
   box-shadow: none;
   font-size: 14px;
   background-color: white !important;
 }
+.form-control-location,
+.form-control-login,
+.form-control-age {
+  border: 1px solid rgb(184, 184, 184) !important;
+}
 
 .form-control-consultation-number {
+  height: 45px !important;
+  border: 1px solid #e87a28 !important;
+  border-radius: 6px;
+  padding: 0px;
+  box-shadow: none;
+  font-size: 14px;
+  background-color: white !important;
+}
+
+.form-control-contact-us-phone-input {
   height: 45px !important;
   border: 1px solid rgb(184, 184, 184) !important;
   border-radius: 6px;
@@ -514,6 +536,10 @@
   box-shadow: none;
   font-size: 14px;
   background-color: white !important;
+}
+
+.form-control-consultation {
+  border: 1px solid #e87a28 !important;
 }
 
 .react-tel-input .form-control {
@@ -601,10 +627,15 @@
   color: white !important;
 }
 
+.css-187mznn-MuiSlider-root {
+  color: #e87a28 !important;
+}
+
 .form-control-location:focus,
 .form-control-consultation:focus,
 .form-control-login:focus,
-.form-control-age:focus {
+.form-control-age:focus,
+.form-control-lto-input:focus {
   outline: none;
 }
 
@@ -615,6 +646,11 @@
   box-shadow: none;
   font-size: 14px;
   background-color: white !important;
+}
+
+.contact-us-label h6 {
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .diff-dropoff-loc-lable label {

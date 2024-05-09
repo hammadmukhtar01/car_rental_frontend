@@ -47,8 +47,15 @@
   height: 20%;
 }
 
+.home-page-single-brand-class {
+  margin: 2px;
+  padding: 6px;
+  width: 13%;
+  height: 20%;
+}
+
 .dealing-brands-lto-icons-container {
-  background-color: #ec7d33;
+  background-color: #e87a28;
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -136,7 +143,7 @@ input[type="number"] {
 }
 
 .invalid-input {
-  border-color: red !important; 
+  border-color: red !important;
 }
 
 .lto-own-summary {
@@ -190,22 +197,15 @@ input[type="number"] {
 .lto-lease-now-button {
   padding: 10px;
   border-radius: 10px;
-  background-color: #ed6e19e0;
+  background-color: #e87a28;
   color: white;
-  border-color: transparent;
-  transition: transform 0.11s ease-in-out;
+  border: 1px solid #e87a28;
 }
 
 .lto-lease-now-button:hover {
-  background-color: #e87a28;
-}
-
-.lto-lease-now-button:focus {
-  transform: scale(0.95);
-}
-
-.lto-lease-now-button:focus:not(:active) {
-  transform: scale(1);
+  color: #e87a28;
+  background-color: white;
+  border: 1px solid #e87a28;
 }
 
 @media screen and (min-width: 1200px) {
@@ -271,5 +271,10 @@ input[type="number"] {
     margin: 1px;
     padding: 5px 10px;
     width: 20%;
+  }
+  .home-page-single-brand-class {
+    margin: 1px;
+    padding: 5px;
+    width: 25%;
   }
 }

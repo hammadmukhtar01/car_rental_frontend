@@ -3,27 +3,19 @@ import React, { useState } from "react";
 import SearchBox from "./searchBox";
 import CarCards from "./carCards";
 import AnimatedCarSection from "./animatedCarSection";
-import NissanLogo from "../../images/nissanLogo.png";
-import PeugeotLogo from "../../images/peugeotLogo.jpg";
-import KiaLogo from "../../images/kiaLogo.png";
-import HyundaiLogo from "../../images/hyundaiLogo.jpg";
-import CheveroletLogo from "../../images/CheveroletLogo.png";
+import NissanLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 7.png";
+import PeugeotLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 23.png";
+import KiaLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 10.png";
+import HyundaiLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 11.png";
+import CheveroletLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 22.png";
 import OurBlogs from "../Blog/ourBlogs";
 import "./ourClients.css";
-import { BsPersonCircle } from "react-icons/bs";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 // import SpinTheWheel from "../spinTheWheel/spinTheWheel";
-import { RxColorWheel } from "react-icons/rx";
 import { ImSpinner4 } from "react-icons/im";
 import { Modal } from "react-bootstrap";
-import GoogleMapAPI from "../../GoogleMap/googleMapAPI";
-import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
-import MapComponent from "../../GoogleMap/googleMapAPI";
-import TestAutoComInput from "../../GoogleMap/testSearchInput";
-import BannerMain from "../../images/no-car-bg-home-banner.png";
 import OnlyCar from "../../images/only-car-bg-home-banner.png";
-import testCar from "../../images/no-car-bg-home-banner-1.jpg";
 import InstagramFeed from "./instagramFeed";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 
@@ -130,18 +122,30 @@ const HomePage = () => {
             <div className="car-brands-icons-container p-3">
               <div className="styled-label">
                 <div className="heading-icon-container-div">
-                  <BsPersonCircle className="mr-2 home-page-heading-icon" />
-                  <span>
-                    <b className="fs-3">Collaborated Top Brands</b>
+                  <span className="text-center">
+                    <b className="fs-3">Collaborated Brands</b>
                   </span>
                 </div>
                 <hr className="home-page-heading-underline " />
               </div>
 
-              <div
+              <section className="lto-dealing-brands mt-3">
+                <div className="lto-our-brand-div">
+                  <div className="lto-brand-icons">
+                    {carBrands.map((carBrandsName, index) => (
+                      <img
+                        key={index}
+                        src={carBrandsName.logo}
+                        className="home-page-single-brand-class"
+                        alt={`Icon ${index}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* <div
                 className="car-brands-slider-container"
-                // onMouseEnter={handleMouseEnter}
-                // onMouseLeave={handleMouseLeave}
               >
                 <div className={`car-brands-slider`}>
                   {carBrands.map((brand, index) => (
@@ -159,7 +163,7 @@ const HomePage = () => {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -171,9 +175,8 @@ const HomePage = () => {
           <OurBlogs />
 
           <div className="instagram-feed-home-container container">
-            <div className="styled-label">
+            <div className="styled-label text-center">
               <div className="insta-testimonial-heading-icon-container-div">
-                <BsPersonCircle className="mr-2 home-page-heading-icon" />
                 <span>
                   <b className="fs-3">Instagram Feed</b>
                 </span>

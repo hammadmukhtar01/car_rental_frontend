@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars*/
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useReload } from "../../PrivateComponents/utils";
@@ -7,6 +7,8 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const ContactUsForm = () => {
   const [formData, setFormData] = useState({
@@ -37,8 +39,35 @@ const ContactUsForm = () => {
     }
   };
 
+  const validateInput = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10}$/;
+
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email address.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return false;
+    }
+
+    if (!phoneRegex.test(formData.phoneNumber)) {
+      toast.error("Please enter a valid phone number.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return false;
+    }
+
+    return true;
+  };
+
   const handleContactUsSubmitButton = async (e) => {
     e.preventDefault();
+
+    if (!validateInput()) {
+      return;
+    }
 
     try {
       const response = await axios.post(
@@ -46,44 +75,73 @@ const ContactUsForm = () => {
         formData
       );
       console.log("Contact Us response is: --- ", response.data.message);
-      // alert("Success Msssg");
-      if (response.data.status === "success") {
-        // navigate("/home");
 
+      if (response.data.status === "success") {
         toast.success("Thank You for Contacting Us.", {
           autoClose: 3000,
           style: { border: "1px solid #c0c0c0", fontSize: "14px" },
         });
+        setFormData({
+          fname: "",
+          lname: "",
+          email: "",
+          phoneNumber: "",
+          comment: "",
+        });
       } else {
-        alert("Email/Password missing...");
+        toast.error("Failed to send your message. Please try again.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
       }
     } catch (error) {
-      console.log("Signup failed:", error.response.data.message);
+      console.log("Error:", error.response.data);
+
+      if (error.response && error.response.data && error.response.data.error) {
+        const errors = error.response.data.error.errors;
+        console.log("Error:", error.response.data);
+
+        if (errors.email) {
+          toast.error(errors.email.message, {
+            position: "top-right",
+            autoClose: 3000,
+          });
+        }
+        if (errors.phoneNumber) {
+          toast.error(errors.phoneNumber.message, {
+            position: "top-right",
+            autoClose: 3000,
+          });
+        }
+      } else {
+        toast.error(`Submission failed: ${error.message}`, {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
     }
   };
 
   return (
     <div>
       <>
-        <div className="styled-label mt-2">
-          <div className="heading-icon-container-div d-flex justify-content-center">
-            <span className="contactUs-form-heading">
-              <b className="fs-3">Contact Us Form</b>
-            </span>
-          </div>
-        </div>
-        <br />
         <form
           action="#"
           className="signup-form"
           onSubmit={handleContactUsSubmitButton}
         >
           <div className="form-group row">
-            <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
+            <div className="col-lg-6 col-md-6 col-sm-6 pt-4">
+              <label className="contact-us-label" htmlFor="lname">
+                <h6>
+                  {" "}
+                  First Name<span className="required-field-star">*</span>
+                </h6>
+              </label>
               <input
                 type="text"
                 autoComplete="off"
-                className="form-control"
+                className="form-control form-control-contact-us"
                 id="fname"
                 name="fname"
                 required
@@ -92,14 +150,19 @@ const ContactUsForm = () => {
                 onFocus={handleFocus}
                 onBlur={handleBlur}
               />
-              <label htmlFor="lname">First Name *</label>
             </div>
 
-            <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
+            <div className="col-lg-6 col-md-6 col-sm-6 pt-4">
+              <label className="contact-us-label" htmlFor="lname">
+                <h6>
+                  {" "}
+                  Last Name<span className="required-field-star">*</span>
+                </h6>
+              </label>
               <input
                 type="text"
                 autoComplete="off"
-                className="form-control"
+                className="form-control form-control-contact-us"
                 id="lname"
                 name="lname"
                 required
@@ -108,51 +171,101 @@ const ContactUsForm = () => {
                 onFocus={handleFocus}
                 onBlur={handleBlur}
               />
-              <label htmlFor="lname">Last Name *</label>
             </div>
+          </div>
 
-            <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
-              <input
-                className="form-control"
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="off"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-              />
-              <label htmlFor="email">Email *</label>
+          <div className="form-group row">
+            <div className="second-row-contact-us-form col-lg-6 col-md-6 col-sm-6">
+              <div className="row ">
+                <div>
+                  <label className="contact-us-label" htmlFor="email">
+                    <h6>
+                      {" "}
+                      Email<span className="required-field-star">*</span>
+                    </h6>
+                  </label>
+
+                  <input
+                    className="form-control form-control-contact-us"
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="off"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="pt-4">
+                  <label className="contact-us-label" htmlFor="phoneNumber ">
+                    <h6>
+                      {" "}
+                      Phone Number<span className="required-field-star">*</span>
+                    </h6>
+                  </label>
+
+                  {/* <input
+                    className="form-control form-control-contact-us"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="tel"
+                    autoComplete="off"
+                    required
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  /> */}
+
+                  <PhoneInput
+                    className="form-control form-control-contact-us-phone-input form-control-consultation-number col-12"
+                    country={"ae"}
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    placeholder="00 000 0000"
+                    showDropdown={false}
+                    disableDropdown={true}
+                    countryCodeEditable={false}
+                    onChange={(phone) => {
+                      if (phone.length <= 12) {
+                        const formattedPhone = phone.replace(/\D/g, "");
+                        if (
+                          formattedPhone.startsWith("971") &&
+                          formattedPhone.length === 12
+                        ) {
+                          handleChange(formattedPhone);
+                        } else {
+                          console.log("Invalid UAE phone number");
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              </div>
             </div>
+            <div className=" col-lg-6 col-md-6 col-sm-6 pt-4">
+              <label className="contact-us-label" htmlFor="comment">
+                <h6>
+                  {" "}
+                  Additional Comments{" "}
+                  <span className="required-field-star">*</span>
+                </h6>
+              </label>
 
-            <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
-              <input
-                className="form-control"
-                id="phoneNumber"
-                name="phoneNumber"
-                type="tel"
-                autoComplete="off"
-                required
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-              />
-              <label htmlFor="phoneNumber">Phone Number *</label>
-            </div>
-
-            <div className=" mt-4">
               <textarea
-                className="col-md-12 form-control-contact-us"
-                cols="60"
-                rows="5"
+                className="form-control form-control-contact-us"
+                cols="auto"
+                rows="6"
                 id="comment"
                 name="comment"
                 type="checkbox"
                 autoComplete="off"
-                placeholder="Comment *"
+                placeholder="Comment"
                 required
                 value={formData.comment}
                 onChange={handleChange}
@@ -161,7 +274,7 @@ const ContactUsForm = () => {
               />
             </div>
 
-            <label>
+            {/* <label>
               <div className="mt-2">
                 <Form.Check
                   className="diff-dropoff-loc-lable"
@@ -169,17 +282,12 @@ const ContactUsForm = () => {
                   label=" Subscribe and Get latest updates and offers by Email"
                 />
               </div>
-            </label>
+            </label>*/}
           </div>
           <div className="form-group-3 col-lg-12 pb-4">
-            <div className="col-lg-6 col-md-6 d-flex justify-content-center">
-              <p></p>
-              <br />
-              <br />
+            <div className="col-lg-12 col-md-6 d-flex justify-content-end">
               <button className="middle">
-                <span className="animate-button btn4">
-                  Submit
-                </span>
+                <span className="animate-button btn4">Submit</span>
               </button>
               <ToastContainer />
             </div>

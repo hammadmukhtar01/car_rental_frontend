@@ -5,7 +5,6 @@ import { BsGeoAltFill, BsGeoAlt, BsCalendar2Check } from "react-icons/bs";
 import "./homepage.css";
 import PickupLocationModal from "./pickupSearchBoxDropDown";
 import DropoffLocationModal from "./dropoffSearchBoxDropDown";
-import MainNavbar from "../navbar/mainNavbar";
 import { DateRange } from "react-date-range";
 import { LuSearch } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
@@ -373,7 +372,7 @@ const SearchBox = () => {
                         <div className="date-label">
                           <label className="styled-label">
                             <BsCalendar2Check className="mr-2" />
-                            <b>Pickup-Dropoff Date *</b>
+                            <b>Pick & Drop Date *</b>
                           </label>
                         </div>
                         <div onClick={handleDateClick} ref={dateInputRef}>

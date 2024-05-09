@@ -324,20 +324,20 @@ const LeaseToOwnVehicles = () => {
           </div>
         </div> */}
 
-        <Container>
-          <section className="lto-main-banner-section mt-3">
-            <div className="lto-main-banner-div">
-              <div className="imgBox">
-                <img
-                  src={LTOMainBannerImg}
-                  alt="abc"
-                  height="auto"
-                  width="40%"
-                  id="image-section"
-                />
-              </div>
+        <section className="lto-main-banner-section mt-3">
+          <div className="lto-main-banner-div">
+            <div className="imgBox">
+              <img
+                src={LTOMainBannerImg}
+                alt="abc"
+                height="auto"
+                width="40%"
+                id="image-section"
+              />
             </div>
-          </section>
+          </div>
+        </section>
+        <Container>
           <section className="lto-dealing-brands mt-3">
             <div className="lto-our-brand-div">
               <div className="lto-our-brand-heading">
@@ -422,7 +422,7 @@ const LeaseToOwnVehicles = () => {
 
                         <div className="lto-calculator-input-group">
                           <input
-                            className={`form-control-consultation mt-2 col-12 ${
+                            className={`form-control-lto-input mt-2 col-12 ${
                               isLeasingCarPriceValid ? "" : "invalid-input"
                             }`}
                             id="est_CarPrice"
@@ -617,7 +617,7 @@ const LeaseToOwnVehicles = () => {
           </section> */}
           <section className="lto-testimonial-section">
             <div className="lto-testimonial-div">
-              <h3 className="lto-headings">TESTIMONIALS</h3>
+              <h3 className="lto-headings">Instagram Feeds</h3>
               <InstagramFeed />
             </div>
           </section>

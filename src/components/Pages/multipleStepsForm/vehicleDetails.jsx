@@ -371,7 +371,7 @@ const VehicleDetails = ({ nextStep }) => {
     }
 
     if (!foundCoupon) {
-      toast.error("Invalid coupon code. Please enter a valid coupon code.", {
+      toast.error("Invalid coupon code. Please enter a valid one.", {
         autoClose: 3000,
         style: {
           lineHeight: "20px",

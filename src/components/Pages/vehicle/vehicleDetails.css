@@ -344,10 +344,8 @@ span.select2-selection_arrow b {
 
 .single-car-container-div:hover .car-image {
   transform: scale(1.1);
-  transition: 0.4s ease-in-out;}
-
-
-
+  transition: 0.4s ease-in-out;
+}
 
 #hr-value-allcars-1 {
   transform: rotate(135deg);
@@ -436,6 +434,13 @@ span.select2-selection_arrow b {
 @media (min-width: 1024px) {
   .product-panel__price {
     font-size: 23px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .form-check-label,
+  .car-name {
+    font-size: smaller;
   }
 }
 

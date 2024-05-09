@@ -1,7 +1,6 @@
 import React from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import { BsPersonCircle } from "react-icons/bs";
 import "./blogPage.css";
 import blog1_MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
 import blog2_MainImg1 from "../../images/blog-images/blog2_main_Img1.png";
@@ -81,7 +80,10 @@ const OurBlogs = () => {
             </span>
             <p className="text">{truncateText(blogData.text, 210)}</p>
 
-            <div href={`/blogPage${blogData.id}/${blogData.id}`} className="more">
+            <div
+              href={`/blogPage${blogData.id}/${blogData.id}`}
+              className="more"
+            >
               READ MORE
             </div>
           </div>
@@ -94,11 +96,10 @@ const OurBlogs = () => {
     <div>
       <section className="blog-area mt-4">
         <div className="container">
-          <div className="styled-label">
-            <div className="blog-heading-icon-container-div">
-              <BsPersonCircle className="mr-2 home-page-heading-icon" />
+          <div className="styled-label text-center">
+            <div className="blogs-heading-icon-container-div">
               <span>
-                <b className="fs-3">Our Blogs</b>
+                <b className="fs-3">Blogs</b>
               </span>
             </div>
           </div>

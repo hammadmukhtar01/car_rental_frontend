@@ -30,8 +30,9 @@ const Footer = () => {
     {
       footerContactUsData: (
         <>
-          <b>Main Office Address:</b> <br /> Showroom 93, Auto Market Ras Al
-          Khor - Dubai, UAE
+          <b className="ml-2">Main Office Address:</b> <br /> <span className="pl-1 ">
+          Showroom 93, Auto Market <br />
+          </span> <span className="pl-1">Ras Al Khor - Dubai, UAE</span>
         </>
       ),
       IconName: FaMapMarkerAlt,
@@ -78,11 +79,6 @@ const Footer = () => {
     },
 
     {
-      headingName: "Help Center (Pending----)",
-      hrefLink: "#6",
-    },
-
-    {
       headingName: "Privacy Policy",
       hrefLink: "/terms&Conditions",
     },
@@ -112,7 +108,7 @@ const Footer = () => {
 
                   <Row className="footer-data-row">
                     <div className="footer-info-data">
-                      <p className="text-justify">
+                      <p className="">
                         We strive to offer clients affordable corporate and
                         individual long term lease solutions, which takes away
                         all the administrative hassles. No matter if you are a

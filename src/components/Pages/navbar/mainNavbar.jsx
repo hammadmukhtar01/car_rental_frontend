@@ -10,10 +10,13 @@ import Image from "react-bootstrap/Image";
 // import Whitelogo from "../../images/car_rental_logo_old.png";
 import Coloredlogo from "../../images/car_rental_logo.png";
 import { Col } from "react-bootstrap";
-import './navbar.css';
+import "./navbar.css";
 
 function OffcanvasExample() {
   const [isHomePage, setIsHomePage] = useState(false);
+  const [showOffCanvas, setShowOffCanvas] = useState(false);
+  const toggleOffCanvas = () => setShowOffCanvas(!showOffCanvas);
+
   const navigate = useNavigate();
   const location = useLocation();
   const auth = JSON.parse(localStorage.getItem("user"));
@@ -50,12 +53,12 @@ function OffcanvasExample() {
 
   return (
     <>
-      <Container className="">
+      <Container>
         <Navbar key={"lg"} expand={"lg"} className={`p-0 `}>
           <Col lg={2} md={3} xs={6}>
             <Navbar.Brand>
               <div className="main-logo">
-                <a href="/home">
+                <a href="/home" onClick={() => setShowOffCanvas(false)}>
                   <Image
                     // src={`${isHomePage ? Whitelogo : Coloredlogo}`}
                     src={logoImage}
@@ -69,6 +72,7 @@ function OffcanvasExample() {
           {/* Right Side */}
           <Col xs={9} style={{ display: "contents" }}>
             <Navbar.Toggle
+              onClick={toggleOffCanvas}
               className="hidden-toggle-button white-navbar-toggler-icon"
               aria-controls="responsive-navbar-nav"
             />
@@ -76,11 +80,13 @@ function OffcanvasExample() {
               id={`offcanvasNavbar-expand-lg`}
               aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
               placement="end"
+              show={showOffCanvas}
+              onHide={toggleOffCanvas}
             >
               <Offcanvas.Header closeButton>
                 <Navbar.Brand>
                   <div className="toggle-main-logo">
-                    <a href="/home">
+                    <a href="/home" onClick={() => setShowOffCanvas(false)}>
                       <Image
                         // src={logoImage}
                         src={Coloredlogo}
@@ -108,6 +114,7 @@ function OffcanvasExample() {
                         : ""
                     }`}
                     activeclassname="active"
+                    onClick={() => setShowOffCanvas(false)}
                   >
                     Home
                   </Nav.Link>
@@ -145,6 +152,7 @@ function OffcanvasExample() {
                       location.pathname === "/vehicles" ? "active" : ""
                     }`}
                     activeclassname="active"
+                    onClick={() => setShowOffCanvas(false)}
                   >
                     Fleet
                   </Nav.Link>
@@ -156,6 +164,7 @@ function OffcanvasExample() {
                       location.pathname === "/aboutus" ? "active" : ""
                     }`}
                     activeclassname="active"
+                    onClick={() => setShowOffCanvas(false)}
                   >
                     About Us
                   </Nav.Link>
@@ -167,6 +176,7 @@ function OffcanvasExample() {
                       location.pathname === "/terms&Conditions" ? "active" : ""
                     }`}
                     activeclassname="active"
+                    onClick={() => setShowOffCanvas(false)}
                   >
                     T&Cs
                   </Nav.Link>
@@ -178,6 +188,7 @@ function OffcanvasExample() {
                       location.pathname === "/leaseToOwn" ? "active" : ""
                     }`}
                     activeclassname="active"
+                    onClick={() => setShowOffCanvas(false)}
                   >
                     LTO
                   </Nav.Link>
@@ -189,6 +200,7 @@ function OffcanvasExample() {
                       location.pathname === "/contactus" ? "active" : ""
                     }`}
                     activeclassname="active"
+                    onClick={() => setShowOffCanvas(false)}
                   >
                     Contact Us
                   </Nav.Link>
@@ -199,6 +211,7 @@ function OffcanvasExample() {
                       location.pathname === "/faqs" ? "active" : ""
                     }`}
                     activeclassname="active"
+                    onClick={() => setShowOffCanvas(false)}
                   >
                     FAQs
                   </Nav.Link>
@@ -246,7 +259,7 @@ function OffcanvasExample() {
                       className="auth-menu"
                       activeclassname="active"
                     >
-                      <b className="signup-menu">Login  | Sign Up</b>
+                      <b className="signup-menu">Login | Sign Up</b>
                     </Nav.Link>
                   </>
                 )}

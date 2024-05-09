@@ -6,8 +6,13 @@
   /* height: 100vh;  */
 }
 
+.required-field-star {
+  color: #e87a28;
+  font-weight: 200;
+}
+
 .navbar-div-container {
-  position: relative;
+  position: relative; 
   z-index: 999;
 }
 
@@ -15,6 +20,7 @@
 .blog-heading-icon-container-div,
 .offer-heading-icon-container-div,
 .insta-testimonial-heading-icon-container-div,
+.blogs-heading-icon-container-div,
 .rental-addons-main-heading,
 .booking-doc-headings,
 .about-us-headings,
@@ -23,6 +29,7 @@
   padding-bottom: 5px;
   border-bottom: 2px solid;
   display: inline-flex;
+  align-items: center;
 }
 
 .all-cars-heading {
@@ -320,7 +327,7 @@
   /* width: 210px !important; */
   border: none;
   border-radius: 0;
-  font-weight: 800;
+  font-weight: 100;
   padding: 0 0 5px 0;
   background-color: transparent;
   box-shadow: none;

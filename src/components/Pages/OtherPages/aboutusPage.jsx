@@ -1,19 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import MainNavbar from "../navbar/mainNavbar";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import HashLoader from "react-spinners/ClipLoader";
 import AboutUsImg from "../../images/bgImg3-removebg-preview.png";
-import {
-  SiLegacygames,
-  Si4Chan,
-  SiAbbrobotstudio,
-  SiAbbott,
-  SiAbletonlive,
-  SiCachet,
-  SiAbstract,
-} from "react-icons/si";
+import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 
 const aboutUsParagraphs = [
   {
@@ -74,36 +65,13 @@ const AboutusPage = () => {
           </div>
         </div> */}
         <div className="container mt-4 mb-4">
-          <section className="about-us-main-section-1 pt-3 pb-3">
+          <section className="about-us-main-section-1 pb-3">
             <div className="about-us-section-1">
-              <div className="styled-label text-center">
+              <div className="styled-label text-center mb-3">
                 <span className="about-us-headings ">
                   <b className="fs-3">About Us</b>
                 </span>
               </div>
-              {/* <div className="about-us-section-1-container">
-                <div className="row p-4 d-flex align-items-center">
-                  <h4 className="about-us-main-heading pb-4">
-                    Milele Car Rental - A Milele Corporations Subsidiary
-                  </h4>
-                  <div className="about-us-text-col col-lg-6 col-md-7 col-sm-12">
-                    <p className="text-justify">
-                      Welcome to Milele Car Rental, a proud subsidiary of Milele
-                      Corporations, a global leader with over 35 years of
-                      unparalleled experience in the automotive industry.
-                      Nestled under the esteemed Milele umbrella, we bring you a
-                      legacy of excellence, reliability, and a commitment to
-                      providing exceptional car rental services.
-                    </p>
-                  </div>
-                  <div className="about-us-img-col col-lg-6 col-md-5 col-sm-12">
-                    <div className="border-div-img">
-                      <img src={AboutUsImg} alt="about-us-img" />
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-
               <div className="about-us-main-heading-1">
                 <h2>
                   <strong>
@@ -125,49 +93,17 @@ const AboutusPage = () => {
               <div className="about-us-mapped-data-container">
                 {aboutUsParagraphs.map((aboutUsData, index) => (
                   <div className="about-us-all-heading" key={index}>
-                    <h4>
-                      {aboutUsData.heading}
-                    </h4>
+                    <h5 className="pt-1 pb-1">
+                      <b> {aboutUsData.heading}:</b>{" "}
+                    </h5>
                     <p>{aboutUsData.description}</p>
+                    <br />
                   </div>
                 ))}
               </div>
             </div>
           </section>
-
-          {/* <section className="about-us-main-section-2 mt-5 pt-3 pb-3">
-            <div className="about-us-section-1">
-              <div className="styled-label text-center">
-                <span className="about-us-headings ">
-                  <b className="fs-3">Why Us</b>
-                </span>
-              </div>
-              <div className="about-us-section-1-container">
-                <div className="why-us-row-main-div row p-4">
-                  {reasons.map((reason, index) => (
-                    <div
-                      className="why-us-text-col col-lg-4 col-md-6 text-justify"
-                      key={index}
-                    >
-                      <div className="row">
-                        <div className=" why-us-single-container">
-                          <div className="why-us-icon-div">{reason.icon}</div>
-                          <div className="legacy-heading mt-2 mb-2">
-                            <h5>
-                              <b>{reason.heading}</b>
-                            </h5>
-                          </div>
-                          <div className="legacy-description ">
-                            <p>{reason.description}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section> */}
+          <FreeConsultationForm/>
         </div>
       </div>
     </>

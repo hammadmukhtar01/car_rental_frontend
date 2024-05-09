@@ -104,7 +104,6 @@ const Carousel = () => {
       <div className="container">
         <div className="testimonial-heading-icon-container-div">
           <div className="styled-label ml-4">
-            <BsPersonCircle className="mr-2 home-page-heading-icon" />
             <span>
               <b className="fs-3">Testimonialss</b>
             </span>

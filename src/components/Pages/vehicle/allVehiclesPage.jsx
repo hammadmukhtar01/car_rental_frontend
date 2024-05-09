@@ -1556,60 +1556,6 @@ const VehiclesPage = () => {
 
                             <hr className="discount-line" />
 
-                            {numberOfDays <= 0 && (
-                              <>
-                                <div className="price-day-main-div">
-                                  <div className="row">
-                                    {durations?.map((duration, index) => (
-                                      <div
-                                        key={index}
-                                        className="col-xxl-4 col-lg-6 col-md-6 col-sm-6 col-8 pt-2"
-                                      >
-                                        <div className="card price-per-specificDay-container">
-                                          <div className="card-body price-day-div">
-                                            <div className="card-text">
-                                              <span className="per-specificDay-heading">
-                                                Per {duration}
-                                              </span>
-                                              <br />
-                                              {/* {car.discount > 0 && (
-                                                <>
-                                                  <del className="value-del-line">
-                                                    {car.originalPrice *
-                                                      durationValues[
-                                                        index
-                                                      ]}{" "}
-                                                  </del>{" "}
-                                                  <span className="AED-text">
-                                                    
-                                                  </span>{" "}
-                                                </>
-                                              )}{" "} */}
-                                              {/* {car.discount <= 0 && (
-                                                <>
-                                                  <span className="p-1 mr-2"></span>
-                                                </>
-                                              )} */}
-                                              <span className="final-discounted-value-span">
-                                                {/* {calculateSalePrice(
-                                                  car.originalPrice,
-                                                  car.discount
-                                                ) * durationValues[index]}{" "}
-                                                AED{" "} */}
-                                                {car.rate *
-                                                  durationValues[index]}{" "}
-                                                AED{" "}
-                                              </span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                                <br />
-                              </>
-                            )}
                             <div className="d-flex justify-content-center">
                               <div className="col-xxl-10 col-lg-11 col-md-12 col-sm-8 col-12 d-flex justify-content-center">
                                 {numberOfDays > 0 ? (
@@ -1632,24 +1578,10 @@ const VehiclesPage = () => {
                                         );
                                       }}
                                     >
-                                      <span
-                                        href=""
-                                        className="animate-button btn4"
-                                      >
-                                        {/* <span className="button-text-span"> */}
-                                        {/* <span className="transition"></span>
-                                        <span className="gradient"></span> */}
+                                      <span className="animate-button btn4 pay-now-button">
                                         <span className="label">
-                                          Pay Now{" "}
-                                          <span className="pay-now-price-md-lg">
-                                            <span>|</span> AED:{" "}
-                                            {car?.rate * numberOfDays} |{" "}
-                                            {numberOfDays} days
-                                          </span>
-                                          <div className="pay-now-price-xs">
-                                            AED: {car?.rate * numberOfDays} |{" "}
-                                            {numberOfDays} days
-                                          </div>
+                                          Pay Now {car?.rate * numberOfDays}/{" "}
+                                          {numberOfDays} day(s)
                                         </span>
                                       </span>
                                     </button>
@@ -1658,7 +1590,16 @@ const VehiclesPage = () => {
                                   <>
                                     <div className="button-container">
                                       <button
-                                        onClick={allCarsBookingButton}
+                                        onClick={allCarsBookingButton(
+                                          car?.tariffGroupId,
+                                          `${car?.title} - ${
+                                            categoryMap[
+                                              car?.acrissCategory?.name
+                                            ] || car?.acrissCategory?.name
+                                          }`,
+                                          datePickerStartDate,
+                                          datePickerEndDate
+                                        )}
                                         className="map-loc-middle py-3"
                                       >
                                         <span

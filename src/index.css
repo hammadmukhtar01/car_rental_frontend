@@ -2,7 +2,8 @@
 
 * {
   /* font-family: "Montserrat", sans-serif; */
-  font-family: "Helvetica";
+  font-family: "Poppins";
+  /* font-family: "Helvetica"; */
   font-optical-sizing: auto;
   /* font-weight: 100; */
 }
@@ -399,6 +400,11 @@ ul.header-menu {
 .colored-separator {
   padding: 0px 14px 5px 14px;
   color: white;
+}
+
+.heading-font {
+  color:#e87a28 ;
+  padding-bottom: 5px;
 }
 
 .swiper-container.items-per-view-3 {
