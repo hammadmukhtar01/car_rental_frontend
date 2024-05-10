@@ -65,7 +65,7 @@ const VehicleDetails = ({ nextStep }) => {
     () => [
       {
         id: 2,
-        addOnsName: "CDW",
+        addOnsName: "CDW (Collision Damage Waiver)",
         pricePerTrip: 100,
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
@@ -75,7 +75,7 @@ const VehicleDetails = ({ nextStep }) => {
 
       {
         id: 3,
-        addOnsName: "PAI",
+        addOnsName: "PAI (Personal Accident Insurance)",
         pricePerTrip: 50,
         checkBoxValue: 0,
         IconName: BsPersonCircle,

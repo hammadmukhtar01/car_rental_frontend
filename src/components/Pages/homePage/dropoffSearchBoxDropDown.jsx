@@ -5,6 +5,8 @@ import "./pickupdropoffModal.css";
 import { Form } from "react-bootstrap";
 import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
 import UseGlobalFormFields from "../Utils/useGlobalFormFields";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DropoffLocationModal({
   show,
@@ -83,6 +85,21 @@ function DropoffLocationModal({
   };
 
   const handleInputSubmit = () => {
+    if (selectedTab === "deliver") {
+      if (!formFields?.deliveryMapLocDropOff?.trim()) {
+        const errorMessage = "Please fill the required field.";
+        toast.error(errorMessage, {
+          autoClose: 3000,
+          style: {
+            color: "#e87a28",
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            fontSize: "14px",
+          },
+        });
+        return;
+      }
+    }
     let message = "";
     console.log("Selected tab Value is-------:", selectedTab);
     if (selectedTab === "deliver") {
@@ -218,9 +235,10 @@ function DropoffLocationModal({
                         className="map-loc-middle py-3"
                       >
                         <span className="animate-button btn4">
-                          Create Account
+                          Start Booking
                         </span>
                       </button>
+                      <ToastContainer />
                     </div>
                   </div>
                 </div>

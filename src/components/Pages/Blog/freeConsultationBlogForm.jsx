@@ -30,10 +30,10 @@ const FreeConsultationForm = () => {
       );
       console.log(
         "freeConsultationForm response is: --- ",
-        response.data.message
+        response?.data?.message
       );
 
-      if (response.data.status === "success") {
+      if (response?.data?.status === "success") {
         toast.success(
           "Thank you for seeking our consultation. We will get back to you soon at the provided number.",
           {
@@ -50,26 +50,26 @@ const FreeConsultationForm = () => {
         });
       }
     } catch (error) {
-      console.log("Error:", error.response.data);
+      console.log("Error:", error?.response?.data || error);
 
-      if (error.response && error.response.data && error.response.data.error) {
-        const errors = error.response.data.error.errors;
-        console.log("Error:", error.response.data);
+      if (error?.response && error?.response?.data && error?.response?.data?.error) {
+        const errors = error?.response?.data?.error?.errors;
+        console.log("Error:", error?.response?.data);
 
-        if (errors.email) {
-          toast.error(errors.email.message, {
+        if (errors?.email) {
+          toast.error(errors?.email?.message, {
             position: "top-right",
             autoClose: 3000,
           });
         }
-        if (errors.phoneNumber) {
-          toast.error(errors.phoneNumber.message, {
+        if (errors?.phoneNumber) {
+          toast.error(errors?.phoneNumber?.message, {
             position: "top-right",
             autoClose: 3000,
           });
         }
       } else {
-        toast.error(`Submission failed: ${error.message}`, {
+        toast.error(`Submission failed: ${error?.message}`, {
           position: "top-right",
           autoClose: 3000,
         });

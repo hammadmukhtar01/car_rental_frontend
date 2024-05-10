@@ -5,6 +5,8 @@ import "./pickupdropoffModal.css";
 import { Form } from "react-bootstrap";
 import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
 import UseGlobalFormFields from "../Utils/useGlobalFormFields";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import FormDataContext from "../Utils/FormDataContext";
 
 function PickupLocationModal({
@@ -108,6 +110,21 @@ function PickupLocationModal({
   };
 
   const handleInputSubmit = () => {
+    if (selectedTab === "deliver") {
+      if (!formFields?.deliveryMapLocPickUp?.trim()) {
+        const errorMessage = "Please fill the required field.";
+        toast.error(errorMessage, {
+          autoClose: 3000,
+          style: {
+            color: "#e87a28",
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            fontSize: "14px",
+          },
+        });
+        return;
+      }
+    }
     let message = "";
     console.log("Selected tab Value is-------:", selectedTab);
     if (selectedTab === "deliver") {
@@ -182,11 +199,9 @@ function PickupLocationModal({
                     <div className="col-lg-4">
                       <Form.Group controlId="formKeyword">
                         <SearchLocationInput
-                          // onChange={handleInputChange}
                           previousLocationValue={
                             formFields.deliveryMapLocPickUp
                           }
-                          // setLocationName={setSelectedLocationName}
                           setLocationName={(value) =>
                             handleFieldChange("deliveryMapLocPickUp", value)
                           }
@@ -226,6 +241,7 @@ function PickupLocationModal({
                           Start Booking
                         </span>
                       </button>
+                      <ToastContainer />
                     </div>
                   </div>
                 </div>

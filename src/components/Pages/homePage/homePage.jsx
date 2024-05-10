@@ -13,6 +13,9 @@ import "./ourClients.css";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 // import SpinTheWheel from "../spinTheWheel/spinTheWheel";
+
+// Imp TestAutoComInput import for google map locations responsiveness
+import TestAutoComInput from "../../GoogleMap/testSearchInput";
 import { ImSpinner4 } from "react-icons/im";
 import { Modal } from "react-bootstrap";
 import OnlyCar from "../../images/only-car-bg-home-banner.png";
