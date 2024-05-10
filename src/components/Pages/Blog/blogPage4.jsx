@@ -8,8 +8,8 @@ import FreeConsultationForm from "./freeConsultationBlogForm";
 
 const BlogPage4 = ({ blogData }) => {
   const blogNumInUrl = useLocation();
-  const queryParams = new URLSearchParams(blogNumInUrl.search);
-  const blogNumberParam = queryParams.get("blogID");
+  const queryParams = new URLSearchParams(blogNumInUrl?.search);
+  const blogNumberParam = queryParams?.get("blogID");
 
   const blogsData = {
     id: 4,

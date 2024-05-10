@@ -42,7 +42,7 @@ const LoginPage = () => {
         }
       );
 
-      let resultedData = result.data;
+      let resultedData = result?.data;
       console.log("Result in login page is: ", resultedData);
 
       if (resultedData.success === true) {
@@ -70,7 +70,7 @@ const LoginPage = () => {
         });
       }
     } catch (error) {
-      toast.error(`${error.response.data.message}`, {
+      toast.error(`${error?.response?.data?.message}`, {
         autoClose: 3000,
         style: {
           border: "1px solid #c0c0c0",

@@ -22,7 +22,7 @@ const CustomerProfilePage = () => {
         const response = await axios.get(
           `http://localhost:8000/api/v1/additionalBooking/one/${id}`
         );
-        setBookingDetails(response.data.data);
+        setBookingDetails(response?.data?.data);
       } catch (error) {
         console.error("Error fetching complex features icons:", error);
       }
@@ -35,11 +35,11 @@ const CustomerProfilePage = () => {
     <div>
       <div className="card-section">
         <h3>Booking Details</h3>
-        <BookingDetails label="Pickup Date" value={bookingDetails.pickupDateTime} />
-        <BookingDetails label="Pickup Location" value={bookingDetails.pickupLocation} />
-        <BookingDetails label="Return Date" value={bookingDetails.returnDateTime} />
-        <BookingDetails label="Return Location" value={bookingDetails.returnLocation} />
-        <BookingDetails label="Number of Booking Days" value={bookingDetails.noOfBookingDays} />
+        <BookingDetails label="Pickup Date" value={bookingDetails?.pickupDateTime} />
+        <BookingDetails label="Pickup Location" value={bookingDetails?.pickupLocation} />
+        <BookingDetails label="Return Date" value={bookingDetails?.returnDateTime} />
+        <BookingDetails label="Return Location" value={bookingDetails?.returnLocation} />
+        <BookingDetails label="Number of Booking Days" value={bookingDetails?.noOfBookingDays} />
       </div>
     </div>
   );

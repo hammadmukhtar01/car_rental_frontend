@@ -38,7 +38,7 @@ const ClientLogoSection = () => {
 
       <div className="container">
         <div className="row">
-          {clientLogos.map((logo, index) => (
+          {clientLogos?.map((logo, index) => (
             <div className="col-md-3 col-6" key={index}>
               <div className="single-client text-center">
                 <img src={logo} alt={`Logo ${index + 1}`} />

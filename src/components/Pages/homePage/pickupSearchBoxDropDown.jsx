@@ -96,7 +96,7 @@ function PickupLocationModal({
   });
 
   useEffect(() => {
-    setSelectedTab(formFields.selectedTabPickUp);
+    setSelectedTab(formFields?.selectedTabPickUp);
   }, [formFields?.selectedTabPickUp]);
 
   useEffect(() => {
@@ -141,7 +141,7 @@ function PickupLocationModal({
     handleFieldChange("selectedTabPickUp", selectedTab);
 
     if (formFields) {
-      if (formFields.selectedTabPickUp === "pick") {
+      if (formFields?.selectedTabPickUp === "pick") {
         updatePickupLocationMessage(
           formFields?.pickupInputMessageV1 ||
             "Samari Retails - Milele head office AF-07"
@@ -200,7 +200,7 @@ function PickupLocationModal({
                       <Form.Group controlId="formKeyword">
                         <SearchLocationInput
                           previousLocationValue={
-                            formFields.deliveryMapLocPickUp
+                            formFields?.deliveryMapLocPickUp
                           }
                           setLocationName={(value) =>
                             handleFieldChange("deliveryMapLocPickUp", value)

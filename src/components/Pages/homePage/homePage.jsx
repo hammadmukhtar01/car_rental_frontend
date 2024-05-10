@@ -36,12 +36,12 @@ const HomePage = () => {
 
   const handleMouseEnter = () => {
     const slider = document.querySelector(".car-brands-slider");
-    slider.classList.add("paused");
+    slider?.classList.add("paused");
   };
 
   const handleMouseLeave = () => {
     const slider = document.querySelector(".car-brands-slider");
-    slider.classList.remove("paused");
+    slider?.classList.remove("paused");
   };
 
   const handleCloseModal = () => {
@@ -135,10 +135,10 @@ const HomePage = () => {
               <section className="lto-dealing-brands mt-3">
                 <div className="lto-our-brand-div">
                   <div className="lto-brand-icons">
-                    {carBrands.map((carBrandsName, index) => (
+                    {carBrands?.map((carBrandsName, index) => (
                       <img
                         key={index}
-                        src={carBrandsName.logo}
+                        src={carBrandsName?.logo}
                         className="home-page-single-brand-class"
                         alt={`Icon ${index}`}
                       />

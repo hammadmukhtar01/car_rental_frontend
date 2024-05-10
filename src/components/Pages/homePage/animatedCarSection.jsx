@@ -65,18 +65,18 @@ const AnimatedCarSection = () => {
 
       // const filteredCarsData = response.data.result.items.filter(
       //   (car) =>
-      //     car.acrissCategory?.name === "Toyota Corolla" ||
-      //     car.acrissCategory?.name === "Nissan" ||
-      //     car.acrissCategory?.name === "Hyundai" ||
-      //     car.acrissCategory?.name === "Chevrolet"
+      //     car?.acrissCategory?.name === "Toyota Corolla" ||
+      //     car?.acrissCategory?.name === "Nissan" ||
+      //     car?.acrissCategory?.name === "Hyundai" ||
+      //     car?.acrissCategory?.name === "Chevrolet"
       // );
       // setCarsData(filteredCarsData);
       console.log(
         "repss",
-        response.data.result.items
+        response?.data?.result?.items
       );
 
-      response.data.result.items?.forEach((car) => {
+      response?.data?.result?.items?.forEach((car) => {
         // console.log(
         //   "before acriss cat : ",
         //   car.acrissCategory?.name,
@@ -102,7 +102,7 @@ const AnimatedCarSection = () => {
 
       console.log(
         "Result of all cars in fleeeeeet animation car is --: ",
-        response.data.result.items
+        response?.data?.result?.items
       );
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
@@ -138,12 +138,12 @@ const AnimatedCarSection = () => {
     },
   ];
 
-  carsData.forEach((car) => {
-    const existingIndex = imagesData.findIndex(
-      (item) => item.acrissCategory === car.acrissCategory.name
+  carsData?.forEach((car) => {
+    const existingIndex = imagesData?.findIndex(
+      (item) => item?.acrissCategory === car?.acrissCategory?.name
     );
     if (existingIndex !== -1) {
-      imagesData[existingIndex].displayImageUrl = car.displayImageUrl;
+      imagesData[existingIndex].displayImageUrl = car?.displayImageUrl;
     }
   });
 

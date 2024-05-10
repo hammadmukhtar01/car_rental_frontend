@@ -5,12 +5,11 @@ import blog1_MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
 import blog2_MainImg1 from "../../images/blog-images/blog2_main_Img1.png";
 import blog3_MainImg1 from "../../images/blog-images/blog3_main_Img1.png";
 import blog4_MainImg1 from "../../images/blog-images/blog4_main_Img1.png";
-import MainNavbar from "../navbar/navbar";
 
 const BlogPage4 = ({ blogData }) => {
   const blogNumInUrl = useLocation();
-  const queryParams = new URLSearchParams(blogNumInUrl.search);
-  const blogNumberParam = queryParams.get("blogID");
+  const queryParams = new URLSearchParams(blogNumInUrl?.search);
+  const blogNumberParam = queryParams?.get("blogID");
 
   const blogsData = [
     {
@@ -52,8 +51,8 @@ const BlogPage4 = ({ blogData }) => {
 
   console.log("Blog data is: ----", blogNumberParam);
 
-  const selectedBlog = blogsData.find(
-    (blog) => blog.id === parseInt(blogNumberParam)
+  const selectedBlog = blogsData?.find(
+    (blog) => blog?.id === parseInt(blogNumberParam)
   );
 
   // const { loading } = useReload();

@@ -8,8 +8,8 @@ import FreeConsultationForm from "./freeConsultationBlogForm";
 
 const BlogPage3 = ({ blogData }) => {
   const blogNumInUrl = useLocation();
-  const queryParams = new URLSearchParams(blogNumInUrl.search);
-  const blogNumberParam = queryParams.get("blogID");
+  const queryParams = new URLSearchParams(blogNumInUrl?.search);
+  const blogNumberParam = queryParams?.get("blogID");
 
   const blogsData = {
     id: 3,
@@ -62,7 +62,7 @@ const BlogPage3 = ({ blogData }) => {
             <p>
               Now use your Apple Maps app to get places. You can use it on your
               iPhone, iPad, Mac and Apple Watch and in the car with CarPlay.
-              Whether you want to use your car or go walking, you’ll get the
+              Whether you want to use your car or go walking, you'll get the
               right directions. You can also share a list of your favourite
               locations using this app. Besides offering real-time updates and
               routes to follow, Apple Maps can also share ETA with friends and

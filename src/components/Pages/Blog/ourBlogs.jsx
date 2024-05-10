@@ -53,35 +53,35 @@ const OurBlogs = () => {
   };
 
   const truncateText = (text, maxLength) => {
-    if (text.length <= maxLength) {
+    if (text?.length <= maxLength) {
       return text;
     }
-    return text.substring(0, maxLength) + "...";
+    return text?.substring(0, maxLength) + "...";
   };
 
   const generateBlogItem = (blogData) => (
     <a
-      key={blogData.id}
+      key={blogData?.id}
       className="blog-item"
-      href={`/blogPage${blogData.id}/${blogData.id}`}
+      href={`/blogPage${blogData?.id}/${blogData?.id}`}
     >
       <div className="container">
         <div className="single-blog blog-style-one">
           <div className="blog-image pb-3">
-            <img src={blogData.imageUrl} alt="Blog" />
-            <span className="category ">{blogData.category}</span>
+            <img src={blogData?.imageUrl} alt="Blog" />
+            <span className="category ">{blogData?.category}</span>
           </div>
           <div className="blog-content">
             <h5 className="blog-title">
-              <div className="blog-title">{blogData.title}</div>
+              <div className="blog-title">{blogData?.title}</div>
             </h5>
             <span className="blog-date">
-              <i className="lni lni-calendar"></i> {blogData.date}
+              <i className="lni lni-calendar"></i> {blogData?.date}
             </span>
-            <p className="text">{truncateText(blogData.text, 210)}</p>
+            <p className="text">{truncateText(blogData?.text, 210)}</p>
 
             <div
-              href={`/blogPage${blogData.id}/${blogData.id}`}
+              href={`/blogPage${blogData?.id}/${blogData?.id}`}
               className="more"
             >
               READ MORE
@@ -106,7 +106,7 @@ const OurBlogs = () => {
           <br />
           <AliceCarousel
             mouseTracking
-            items={blogsData.map(generateBlogItem)}
+            items={blogsData?.map(generateBlogItem)}
             responsive={responsive}
             controlsStrategy="alternate"
             infinite

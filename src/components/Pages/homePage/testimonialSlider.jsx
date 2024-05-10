@@ -8,7 +8,6 @@ import {
   MDBIcon,
   MDBTypography,
 } from "mdb-react-ui-kit";
-import { BsPersonCircle } from "react-icons/bs";
 
 const testimonials = [
   {
@@ -45,12 +44,12 @@ const responsive = {
 };
 
 const handleTestimonialClick = (testimonial) => {
-  console.log(`Clicked on testimonial by ${testimonial.name}`);
+  console.log(`Clicked on testimonial by ${testimonial?.name}`);
 };
 
 const Carousel = () => {
   const generateTestimonialItem = (testimonial) => (
-    <div key={testimonial.name} className="item">
+    <div key={testimonial?.name} className="item">
       <MDBContainer>
         <MDBRow className="text-center" style={{ padding: "inherit" }}>
           <MDBCol
@@ -59,31 +58,31 @@ const Carousel = () => {
           >
             <div className="d-flex justify-content-center mb-4">
               <img
-                src={testimonial.avatar}
+                src={testimonial?.avatar}
                 className="rounded-circle shadow-1-strong testimonial-user-img mt-4"
                 width="150"
                 height="150"
-                alt={`Avatar of ${testimonial.name}`}
+                alt={`Avatar of ${testimonial?.name}`}
               />
             </div>
-            <h5 className="mb-3">{testimonial.name}</h5>
+            <h5 className="mb-3">{testimonial?.name}</h5>
             <p className="px-xl-3">
               <MDBIcon icon="quote-left" className="pe-2" />
-              {testimonial.text}
+              {testimonial?.text}
             </p>
             <MDBTypography
               listUnStyled
               className="d-flex justify-content-center mb-0 review-stars-div mb-4"
             >
               {Array.from(
-                { length: Math.floor(testimonial.rating) },
+                { length: Math.floor(testimonial?.rating) },
                 (_, i) => (
                   <li key={i}>
                     <MDBIcon icon="star" size="sm" className="text-warning" />
                   </li>
                 )
               )}
-              {testimonial.rating % 1 !== 0 && (
+              {testimonial?.rating % 1 !== 0 && (
                 <li>
                   <MDBIcon
                     icon="star-half-alt"
@@ -111,7 +110,7 @@ const Carousel = () => {
         </div>
         <AliceCarousel
           mouseTracking
-          items={testimonials.map(generateTestimonialItem)}
+          items={testimonials?.map(generateTestimonialItem)}
           responsive={responsive}
           controlsStrategy="alternate"
           infinite

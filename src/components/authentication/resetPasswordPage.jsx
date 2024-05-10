@@ -31,7 +31,7 @@ const ResetPasswordPage = () => {
 
       console.log("Result in reset password page is: ", result);
 
-      if (result.status === 201) {
+      if (result?.status === 201) {
         toast.success("Password Updated successfully.", {
           autoClose: 2000,
           style: {
@@ -45,7 +45,7 @@ const ResetPasswordPage = () => {
         });
       }
     } catch (error) {
-      toast.error(`${error.response.data.message}`, {
+      toast.error(`${error?.response?.data?.message}`, {
         autoClose: 3000,
         style: {
           border: "1px solid #c0c0c0",

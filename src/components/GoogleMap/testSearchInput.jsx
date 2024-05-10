@@ -8,7 +8,7 @@ const loadScript = (url, callback) => {
 
   if (script.readyState) {
     script.onreadystatechange = function () {
-      if (script.readyState === "loaded" || script.readyState === "complete") {
+      if (script.readyState === "loaded" || script?.readyState === "complete") {
         script.onreadystatechange = null;
         callback();
       }
@@ -45,7 +45,7 @@ const SearchLocationInput = ({ setSelectedLocationss }) => {
     const addressObject = await autoComplete.getPlace();
     console.log("Before formatting, address is ----- : ", addressObject);
 
-    const query = addressObject.formatted_address;
+    const query = addressObject?.formatted_address;
     updateQuery(query);
     console.log({ query });
 

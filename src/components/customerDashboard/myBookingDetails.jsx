@@ -17,7 +17,7 @@ const ResponsiveExample = () => {
         const response = await axios.get(
           `http://localhost:8000/api/v1/booking/userSpecificAllBookings/${id}`
         );
-        setBookings(response.data.bookings);
+        setBookings(response?.data?.bookings);
       } catch (error) {
         console.error("Error fetching complex features icons:", error);
       }
@@ -79,51 +79,51 @@ const ResponsiveExample = () => {
           <Table responsive striped>
             <thead>
               <tr>
-                {bookingStatusTableHeadings.map((heading, index) => (
+                {bookingStatusTableHeadings?.map((heading, index) => (
                   <th key={index}>{heading}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {bookings.map((booking, index) => (
-                <React.Fragment key={booking._id}>
+              {bookings?.map((booking, index) => (
+                <React.Fragment key={booking?._id}>
                   <tr>
                     <td className="align-middle">
                       <b>{index + 1}.</b>
                     </td>
-                    <td className="align-middle">{booking.carId}</td>
+                    <td className="align-middle">{booking?.carId}</td>
                     <td className="align-middle">
                       {/* Add Car Model here */}111
                     </td>
-                    <td className="align-middle">{booking.bookingno}</td>
+                    <td className="align-middle">{booking?.bookingno}</td>
                     <td className="align-middle">
                       <span
                         className={`customer-booking-status ${
-                          booking.paymentStatus === "Pending"
+                          booking?.paymentStatus === "Pending"
                             ? "bg-danger"
                             : "bg-success"
                         }`}
                       >
                         {" "}
-                        <b>{booking.paymentStatus}</b>{" "}
+                        <b>{booking?.paymentStatus}</b>{" "}
                       </span>
                     </td>
-                    <td className="align-middle">{booking.totalPrice}</td>
+                    <td className="align-middle">{booking?.totalPrice}</td>
                     <td className="align-middle">
                       <span
                         className={`customer-payment-status ${
-                          booking.bookingStatus === "Pending"
+                          booking?.bookingStatus === "Pending"
                             ? "bg-danger"
                             : "bg-success"
                         }`}
                       >
                         {" "}
-                        <b>{booking.bookingStatus}</b>{" "}
+                        <b>{booking?.bookingStatus}</b>{" "}
                       </span>
                     </td>
-                    <td className="align-middle">{booking.totalPrice * 1}</td>
+                    <td className="align-middle">{booking?.totalPrice * 1}</td>
                     <td className="align-middle">
-                      {new Date(booking.createdAt).toLocaleDateString()}
+                      {new Date(booking?.createdAt).toLocaleDateString()}
                     </td>
                     <td className="d-flex justify-content-center">
                       <button
@@ -131,19 +131,19 @@ const ResponsiveExample = () => {
                         onClick={() =>
                           isCardVisible
                             ? handleHideDetailsClick()
-                            : handleViewDetailsClick(booking._id)
+                            : handleViewDetailsClick(booking?._id)
                         }
                       >
-                        {isCardVisible && selectedBookingId === booking._id
+                        {isCardVisible && selectedBookingId === booking?._id
                           ? "Hide Details"
                           : "View Details"}
                       </button>
                     </td>
                   </tr>
 
-                  {isCardVisible && selectedBookingId === booking._id && (
+                  {isCardVisible && selectedBookingId === booking?._id && (
                     <tr>
-                      <td colSpan={bookingStatusTableHeadings.length}>
+                      <td colSpan={bookingStatusTableHeadings?.length}>
                        <CustomerProfilePage/>
                       </td>
                     </tr>

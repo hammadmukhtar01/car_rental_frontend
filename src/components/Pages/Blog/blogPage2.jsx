@@ -126,7 +126,7 @@ const BlogPage2 = () => {
                   <p>
                     Palm Jumeirah is one of the largest manmade islands in the
                     world and a triumph of human ingenuity. Locals and tourists
-                    alike flock to its vast array of high-end hotels – Waldorf
+                    alike flock to its vast array of high-end hotels - Waldorf
                     Astoria, Fairmont, One&Only, Jumeirah Zabeel Saray and,
                     perhaps most notably, Atlantis, The Palm. Getting here is
                     simple, thanks to the monorail running down the 'trunk',

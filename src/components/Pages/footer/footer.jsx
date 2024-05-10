@@ -142,7 +142,7 @@ const Footer = () => {
                               {" "}
                               <footerContactUsList.IconName />{" "}
                             </strong>{" "}
-                            {footerContactUsList.footerContactUsData}{" "}
+                            {footerContactUsList?.footerContactUsData}{" "}
                           </span>
                         </div>
                       ))}
@@ -164,11 +164,11 @@ const Footer = () => {
                     <div className="footer-info-data">
                       {footerInformation.map((footerInfoList, index) => (
                         <div className="footer-info-list pt-2 pb-2" key={index}>
-                          <a href={footerInfoList.hrefLink}>
+                          <a href={footerInfoList?.hrefLink}>
                             <span>
                               {" "}
                               <strong>{">"}</strong>{" "}
-                              {footerInfoList.headingName}{" "}
+                              {footerInfoList?.headingName}{" "}
                             </span>
                           </a>
                         </div>

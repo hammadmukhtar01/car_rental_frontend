@@ -23,8 +23,8 @@ const BookingDetails = () => {
   const navigate = useNavigate();
 
   const customer_info = JSON.parse(localStorage.getItem("user"));
-  const customer_token = customer_info.token
-  const customer_id = customer_info.data._id
+  const customer_token = customer_info?.token
+  const customer_id = customer_info?.data?._id
   console.log(
     "User info of local storage in Booking details page is",
    customer_info
@@ -32,18 +32,18 @@ const BookingDetails = () => {
 
   const car_id = id;
   console.log("Car ID in Booking details page is", car_id);
-  const actualPrice = data.originalPrice * noOfBookingDays;
+  const actualPrice = data?.originalPrice * noOfBookingDays;
   const discountedPrice =
-    (data.originalPrice - data.salePrice) * noOfBookingDays;
+    (data?.originalPrice - data?.salePrice) * noOfBookingDays;
   const totalPriceValue =
     isNaN(actualPrice) || isNaN(discountedPrice)
       ? 0
       : actualPrice - discountedPrice;
 
   const calculateTotalAdditionalPrice = () => {
-    if (data && data.additionalCharges) {
-      return data.additionalCharges.reduce(
-        (total, charge) => total + charge.value,
+    if (data && data?.additionalCharges) {
+      return data?.additionalCharges?.reduce(
+        (total, charge) => total + charge?.value,
         0
       );
     }
@@ -56,8 +56,8 @@ const BookingDetails = () => {
         const response = await axios.get(
           `http://localhost:8000/api/v1/car/getSingleCar/${id}`
         );
-        console.log("Vehicles Page data is: ", response.data);
-        setData(response.data.data);
+        console.log("Vehicles Page data is: ", response?.data);
+        setData(response?.data?.data);
       } catch (error) {
         console.error("Error fetching car data:", error);
       }
@@ -104,10 +104,10 @@ const BookingDetails = () => {
         }
       );
 
-      console.log("Booking created successfully:", response.data);
-      const bookingDetailsId = response.data.additionalBookingDetails.additionalBookings._id ;
+      console.log("Booking created successfully:", response?.data);
+      const bookingDetailsId = response?.data?.additionalBookingDetails?.additionalBookings?._id ;
       console.log(`Booking details id is : ${bookingDetailsId}`);
-      if (response.status === 201) {
+      if (response?.status === 201) {
         console.log("Product created successfully");
         alert("Booking in Progress. Please procceed with payment");
         navigate(`/afterpayment/${bookingDetailsId}`);
@@ -403,8 +403,8 @@ const BookingDetails = () => {
               <span className="price-label">Actual Price:</span>
               <span className="price-value">
                 {" "}
-                {data.originalPrice} * {noOfBookingDays} ={" "}
-                {data.originalPrice * noOfBookingDays} | AED
+                {data?.originalPrice} * {noOfBookingDays} ={" "}
+                {data?.originalPrice * noOfBookingDays} | AED
               </span>{" "}
             </div>
             <div className="price-row" style={{ lineHeight: "300%" }}>

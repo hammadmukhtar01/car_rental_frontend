@@ -131,11 +131,11 @@ const FreeConsultationForm = () => {
                           disableDropdown={true}
                           countryCodeEditable={false}
                           onChange={(phone) => {
-                            if (phone.length <= 12) {
-                              const formattedPhone = phone.replace(/\D/g, "");
+                            if (phone?.length <= 12) {
+                              const formattedPhone = phone?.replace(/\D/g, "");
                               if (
-                                formattedPhone.startsWith("971") &&
-                                formattedPhone.length === 12
+                                formattedPhone?.startsWith("971") &&
+                                formattedPhone?.length === 12
                               ) {
                                 setPhoneNumber(formattedPhone);
                               } else {

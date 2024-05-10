@@ -63,7 +63,7 @@ function DropoffLocationModal({
   });
 
   useEffect(() => {
-    setSelectedTab(formFields.selectedTabDropOff);
+    setSelectedTab(formFields?.selectedTabDropOff);
   }, [formFields?.selectedTabDropOff]);
 
   useEffect(() => {
@@ -103,7 +103,7 @@ function DropoffLocationModal({
     let message = "";
     console.log("Selected tab Value is-------:", selectedTab);
     if (selectedTab === "deliver") {
-      message = `${formFields.deliveryMapLocDropOff || ""}`;
+      message = `${formFields?.deliveryMapLocDropOff || ""}`;
       console.log("1---Messg before update value...", message);
       handleFieldChange("deliveryMapLocDropOff", message);
     } else if (selectedTab === "pick") {
@@ -115,7 +115,7 @@ function DropoffLocationModal({
     handleFieldChange("selectedTabDropOff", selectedTab);
 
     if (formFields) {
-      if (formFields.selectedTabDropOff === "pick") {
+      if (formFields?.selectedTabDropOff === "pick") {
         updateDropoffLocationMessage(
           formFields?.dropoffInputMessageV1 ||
             "Samari Retails - Milele head office AF-07"
@@ -185,7 +185,7 @@ function DropoffLocationModal({
                         /> */}
                         <SearchLocationInput
                           previousLocationValue={
-                            formFields.deliveryMapLocDropOff
+                            formFields?.deliveryMapLocDropOff
                           }
                           setLocationName={(value) =>
                             handleFieldChange("deliveryMapLocDropOff", value)

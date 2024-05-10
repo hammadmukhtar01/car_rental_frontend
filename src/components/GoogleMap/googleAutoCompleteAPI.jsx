@@ -26,7 +26,7 @@ const SearchLocationInput = ({
   }, []);
 
   const handleClickOutside = (event) => {
-    if (inputRef.current && !inputRef.current.contains(event.target)) {
+    if (inputRef?.current && !inputRef?.current?.contains(event.target)) {
       setShowSuggestions(false);
     }
   };
@@ -59,8 +59,8 @@ const SearchLocationInput = ({
           عجمان: "Ajman",
         };
 
-        const state = place.address_components.find((component) =>
-          component.types.includes("administrative_area_level_1")
+        const state = place?.address_components?.find((component) =>
+          component?.types?.includes("administrative_area_level_1")
         );
 
         let stateName = state ? state.long_name : null;
@@ -69,8 +69,8 @@ const SearchLocationInput = ({
         }
         console.log("State:", stateName);
         setSelectedLocationss({
-          lat: place.geometry.location.lat(),
-          lng: place.geometry.location.lng(),
+          lat: place?.geometry?.location?.lat(),
+          lng: place?.geometry?.location?.lng(),
         });
         onStateChange(stateName || "");
       }
@@ -138,12 +138,12 @@ const SearchLocationInput = ({
               <List.Item
                 className="pl-3 list-group-item single-suggested-location d-flex align-items-center "
                 onClick={() =>
-                  handleSelectLocation(item.description, item.place_id)
+                  handleSelectLocation(item?.description, item?.place_id)
                 }
                 style={{
                   backgroundColor:
-                    selectedLocation === item.description ? "#e87a28" : "",
-                  color: selectedLocation === item.description ? "#fff" : "",
+                    selectedLocation === item?.description ? "#e87a28" : "",
+                  color: selectedLocation === item?.description ? "#fff" : "",
                   cursor: "pointer",
                 }}
               >
@@ -151,7 +151,7 @@ const SearchLocationInput = ({
                   className="single-suggested-location-marker mr-2"
                   style={{ color: "#e87a28" }}
                 />
-                <List.Item.Meta title={item.description} />
+                <List.Item.Meta title={item?.description} />
               </List.Item>
             )}
           />

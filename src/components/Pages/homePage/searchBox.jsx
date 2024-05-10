@@ -84,12 +84,12 @@ const SearchBox = () => {
 
         if (storedFormFields?.dateRangeV1) {
           storedStartDateRange = new Date(
-            storedFormFields.dateRangeV1.startDate
+            storedFormFields?.dateRangeV1?.startDate
           );
-          storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+          storedEndDateRange = new Date(storedFormFields?.dateRangeV1?.endDate);
           if (
-            isNaN(storedStartDateRange.getTime()) ||
-            isNaN(storedEndDateRange.getTime())
+            isNaN(storedStartDateRange?.getTime()) ||
+            isNaN(storedEndDateRange?.getTime())
           ) {
             storedStartDateRange = new Date(); // Fallback to current date
             storedEndDateRange = new Date(
@@ -146,14 +146,14 @@ const SearchBox = () => {
 
   const handlePickupTimeChange = (selectedOption) => {
     console.log("Selected time option is: ", selectedOption);
-    setPickUpTime(selectedOption.value);
-    handleFieldChange("pickTimeV1", selectedOption.value);
+    setPickUpTime(selectedOption?.value);
+    handleFieldChange("pickTimeV1", selectedOption?.value);
   };
 
   const handleDropoffTimeChange = (selectedOption) => {
     console.log("Selected time option is: ", selectedOption);
-    setDropOffTime(selectedOption.value);
-    handleFieldChange("dropTimeV1", selectedOption.value);
+    setDropOffTime(selectedOption?.value);
+    handleFieldChange("dropTimeV1", selectedOption?.value);
   };
 
   const generateTimeSlots = () => {
@@ -224,10 +224,10 @@ const SearchBox = () => {
   };
 
   const handleDateChange = (ranges) => {
-    const { startDate, endDate } = ranges.selection;
+    const { startDate, endDate } = ranges?.selection;
 
-    const pickupDate = startDate ? startDate.toLocaleDateString() : null;
-    const dropoffDate = endDate ? endDate.toLocaleDateString() : null;
+    const pickupDate = startDate ? startDate?.toLocaleDateString() : null;
+    const dropoffDate = endDate ? endDate?.toLocaleDateString() : null;
 
     setPickUpDate(pickupDate);
     setDropOffDate(dropoffDate);
@@ -240,26 +240,26 @@ const SearchBox = () => {
     console.log("Pickup Date:", pickupDate);
     console.log("Dropoff Date:", dropoffDate);
 
-    if (activeSelection.startDate && endDate) {
+    if (activeSelection?.startDate && endDate) {
       setShowDateRangeModal(false);
     }
 
     const updatedStartDate = startDate
-      ? new Date(startDate.getTime() + 24 * 60 * 60 * 1000)
+      ? new Date(startDate?.getTime() + 24 * 60 * 60 * 1000)
       : null;
     const updatedEndDate = endDate
-      ? new Date(endDate.getTime() + 24 * 60 * 60 * 1000)
+      ? new Date(endDate?.getTime() + 24 * 60 * 60 * 1000)
       : null;
 
     const dateRangeObject = {
-      startDate: updatedStartDate.toISOString().split("T")[0],
-      endDate: updatedEndDate.toISOString().split("T")[0],
+      startDate: updatedStartDate?.toISOString().split("T")[0],
+      endDate: updatedEndDate?.toISOString().split("T")[0],
       // key: "selection",
     };
 
     handleFieldChange("dateRangeV1", dateRangeObject);
 
-    setDateRange([ranges.selection]);
+    setDateRange([ranges?.selection]);
   };
 
   useEffect(() => {
@@ -267,8 +267,8 @@ const SearchBox = () => {
       console.log("Clicked outside");
       if (
         showDatePicker &&
-        dateInputRef.current &&
-        !dateInputRef.current.contains(event.target)
+        dateInputRef?.current &&
+        !dateInputRef?.current?.contains(event.target)
       ) {
         console.log("Closing datepicker");
         setShowDatePicker(false);
@@ -301,7 +301,7 @@ const SearchBox = () => {
       return;
     }
 
-    if (!dateRange[0].startDate || !dateRange[0].endDate) {
+    if (!dateRange[0]?.startDate || !dateRange[0]?.endDate) {
       toast.warn("Date must be chosen", {
         autoClose: 1000,
         style: { border: "1px solid #c0c0c0", fontSize: "14px" },
@@ -310,16 +310,16 @@ const SearchBox = () => {
     }
 
     const startLocalDate = new Date(
-      dateRange[0].startDate.getTime() -
-        dateRange[0].startDate.getTimezoneOffset() * 60000
+      dateRange[0]?.startDate?.getTime() -
+        dateRange[0]?.startDate?.getTimezoneOffset() * 60000
     );
     const endLocalDate = new Date(
-      dateRange[0].endDate.getTime() -
-        dateRange[0].endDate.getTimezoneOffset() * 60000
+      dateRange[0]?.endDate?.getTime() -
+        dateRange[0]?.endDate?.getTimezoneOffset() * 60000
     );
 
-    const startDate = startLocalDate.toISOString().split("T")[0];
-    const endDate = endLocalDate.toISOString().split("T")[0];
+    const startDate = startLocalDate?.toISOString()?.split("T")[0];
+    const endDate = endLocalDate?.toISOString()?.split("T")[0];
     const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}`;
 
     navigate(url);
@@ -385,9 +385,9 @@ const SearchBox = () => {
                               formFields?.dateRangeV1?.endDate
                                 ? `${new Date(
                                     formFields?.dateRangeV1?.startDate
-                                  ).toLocaleDateString()} - ${new Date(
+                                  )?.toLocaleDateString()} - ${new Date(
                                     formFields?.dateRangeV1?.endDate
-                                  ).toLocaleDateString()}`
+                                  )?.toLocaleDateString()}`
                                 : "Select date range"
                             }
                             onClick={() => setShowDateRangeModal(true)}
@@ -548,13 +548,13 @@ const SearchBox = () => {
                           options={timeOptions}
                           required
                           className="form-control-pickup-time col-12"
-                          value={timeOptions.find(
-                            (option) => option.value === formFields.pickTimeV1
+                          value={timeOptions?.find(
+                            (option) => option?.value === formFields?.pickTimeV1
                           )}
                           onChange={handlePickupTimeChange}
                           // onChange={(selectedOption) => {
                           //   console.log("Selected option is: ", selectedOption);
-                          //   setPickUpTime(selectedOption.value);
+                          //   setPickUpTime(selectedOption?.value);
                           // }}
                           styles={selectStyles}
                         />
@@ -572,19 +572,19 @@ const SearchBox = () => {
                           options={timeOptions}
                           required
                           className="form-control-dropoff-time col-12"
-                          value={timeOptions.find(
-                            (option) => option.value === formFields.dropTimeV1
+                          value={timeOptions?.find(
+                            (option) => option?.value === formFields?.dropTimeV1
                           )}
                           onChange={handleDropoffTimeChange}
-                          // value={timeOptions.find(
-                          //   (option) => option.value === dropOffTime
+                          // value={timeOptions?.find(
+                          //   (option) => option?.value === dropOffTime
                           // )}
                           // onChange={(selectedOption) => {
                           //   console.log(
                           //     "Selected Dropoff option is: ",
                           //     selectedOption
                           //   );
-                          //   setDropOffTime(selectedOption.value);
+                          //   setDropOffTime(selectedOption?.value);
                           // }}
                           styles={selectStyles}
                         />

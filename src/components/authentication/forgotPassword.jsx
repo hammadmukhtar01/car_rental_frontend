@@ -28,9 +28,9 @@ const ForgotPasswordPage = () => {
         }
       );
 
-      console.log("Result in Forgot Pass page is: ", result.data);
+      console.log("Result in Forgot Pass page is: ", result?.data);
 
-      if (result.status === 200 && result.data.status === "success") {
+      if (result?.status === 200 && result?.data?.status === "success") {
         toast.success("Check your email for password reset link.", {
           autoClose: 2000,
           style: {
@@ -53,7 +53,7 @@ const ForgotPasswordPage = () => {
         });
       }
     } catch (error) {
-      toast.error(`${error.response.data.message}`, {
+      toast.error(`${error?.response?.data?.message}`, {
         autoClose: 3000,
         style: {
           border: "1px solid #c0c0c0",

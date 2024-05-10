@@ -55,9 +55,9 @@ const SignupPage = () => {
         "http://localhost:8000/api/v1/customer/create",
         formData
       );
-      console.log("sign up response is: --- ", response.data);
+      console.log("sign up response is: --- ", response?.data);
 
-      if (response.data.status === "success") {
+      if (response?.data?.status === "success") {
         toast.success("Account Created Successfully!", {
           autoClose: 2000,
           style: {
@@ -80,7 +80,7 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      toast.error(`${error.response.data.message}`, {
+      toast.error(`${error?.response?.data?.message}`, {
         autoClose: 3000,
         style: {
           border: "1px solid #c0c0c0",
@@ -136,7 +136,7 @@ const SignupPage = () => {
                         id="username"
                         name="name"
                         required
-                        value={formData.name}
+                        value={formData?.name}
                         onChange={handleChange}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
@@ -152,7 +152,7 @@ const SignupPage = () => {
                         type="email"
                         autoComplete="off"
                         required
-                        value={formData.email}
+                        value={formData?.email}
                         onChange={handleChange}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
@@ -224,7 +224,7 @@ const SignupPage = () => {
                         type="password"
                         autoComplete="off"
                         required
-                        value={formData.password}
+                        value={formData?.password}
                         onChange={handleChange}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
@@ -240,7 +240,7 @@ const SignupPage = () => {
                         type="password"
                         autoComplete="off"
                         required
-                        value={formData.passwordConfirm}
+                        value={formData?.passwordConfirm}
                         onChange={handleChange}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
@@ -264,7 +264,7 @@ const SignupPage = () => {
                         type="tel"
                         autoComplete="off"
                         required
-                        value={formData.phoneNumber}
+                        value={formData?.phoneNumber}
                         onChange={handleChange}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
