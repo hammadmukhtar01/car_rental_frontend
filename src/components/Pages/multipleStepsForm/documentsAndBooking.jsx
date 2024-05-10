@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
+// /* eslint-disable no-unused-vars */
 import React, { useState, useCallback, useEffect, useMemo } from "react";
-import { Container, Row, Col, Form, Modal } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import { BsPersonCircle, BsFileEarmarkArrowUp } from "react-icons/bs";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,11 +27,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [drivingLicenseImg, setDrivingLicenseImg] = useState("");
   const [isInternationalLicense, setIsInternationalLicense] = useState("");
   // Passport
-  const [passportNum, setPassportNum] = useState("");
-  const [passportIssueBy, setPassportIssueBy] = useState("");
-  const [passportIssueDate, setPassportIssueDate] = useState("");
-  const [passportExpiryDate, setPassportExpiryDate] = useState("");
-  const [passportImg, setPassportImg] = useState("");
+  // const [passportNum, setPassportNum] = useState("");
+  // const [passportIssueBy, setPassportIssueBy] = useState("");
+  // const [passportIssueDate, setPassportIssueDate] = useState("");
+  // const [passportExpiryDate, setPassportExpiryDate] = useState("");
+  // const [passportImg, setPassportImg] = useState("");
   // const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
   const [selectedNationality, setSelectedNationality] = useState("");
   const [driverFlightDateTime, setDriverFlightDateTime] = useState(new Date());
@@ -39,10 +39,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const [pickupLocationId, setPickupLocationId] = useState(null);
   const [dropoffLocationId, setDropoffLocationId] = useState(null);
-  const [newCustomerId, setNewCustomerId] = useState("");
   const [newCustomerDetail, setNewCustomerDetail] = useState("");
-  const [bookingData, setBookingData] = useState(null);
-  const [createCustomerData, setCreateCustomerData] = useState(null);
   const [paymentUrl, setPaymentUrl] = useState("");
   const [bookingStatus, setBookingStatus] = useState("");
 
@@ -165,11 +162,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     fetchAvailableLocationsData();
   }, [fetchAvailableLocationsData]);
 
-  const handlePassportImgChange = (e) => {
-    const file = e.target.files[0];
-    console.log(`handlePassportImgChange --- `, file);
-    getCustomerUploadedImgUrl(file, "Passport");
-  };
+  // const handlePassportImgChange = (e) => {
+  //   const file = e.target.files[0];
+  //   console.log(`handlePassportImgChange --- `, file);
+  //   getCustomerUploadedImgUrl(file, "Passport");
+  // };
 
   const handleDrivingLicenseImgChange = (e) => {
     const file = e.target.files[0];
@@ -201,10 +198,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           fetchedRequiredImgUrl
         )}`
       );
+      setDrivingLicenseImg(fetchedRequiredImgUrl)
 
-      documentType.toUpperCase() === "PASSPORT"
-        ? setPassportImg(fetchedRequiredImgUrl)
-        : setDrivingLicenseImg(fetchedRequiredImgUrl);
+      // documentType.toUpperCase() === "PASSPORT"
+      //   ? setPassportImg(fetchedRequiredImgUrl)
+      //   : setDrivingLicenseImg(fetchedRequiredImgUrl);
     } catch (error) {
       console.error("Error while creating img url of documents", error);
     }
@@ -232,7 +230,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         "===createddddd customer response--------:",
         response?.data?.result
       );
-      // setNewCustomerId(response?.data?.result);
 
       if (response?.data && response?.data?.success && response?.data?.result) {
         console.log(
@@ -518,13 +515,13 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       totalCharges: totalGrandPriceWithTax,
     };
 
-    const updatedBookingData = {
-      ...bookingData,
-      charges: bookingData.charges.map((charge) => ({
-        ...charge,
-        accepted: addOnsFromUrl.includes(charge.chargesTypeId),
-      })),
-    };
+    // const updatedBookingData = {
+    //   ...bookingData,
+    //   charges: bookingData.charges.map((charge) => ({
+    //     ...charge,
+    //     accepted: addOnsFromUrl.includes(charge.chargesTypeId),
+    //   })),
+    // };
     console.log("Updated Booking Data:", bookingData);
     submitBooking(bookingData);
   };
@@ -583,9 +580,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     setSelectedNationality(selectedOption);
   };
 
-  const handlePassportChange = (selectedOption) => {
-    setPassportIssueBy(selectedOption);
-  };
+  // const handlePassportChange = (selectedOption) => {
+  //   setPassportIssueBy(selectedOption);
+  // };
 
   const handleDrivingLicenseChange = (selectedOption) => {
     setDrivingLicenseIssueBy(selectedOption);
@@ -624,20 +621,20 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     }
 
     const customerDocumentsMissingFields = [];
-    if (!passportNum) {
-      customerDocumentsMissingFields.push("Passport Number");
+    if (!drivingLicenseNum) {
+      customerDocumentsMissingFields.push("Driving License Number");
     }
-    if (!passportIssueBy) {
-      customerDocumentsMissingFields.push("Passport Issued Country");
+    if (!drivingLicenseIssueBy) {
+      customerDocumentsMissingFields.push("Driving License Issued Country");
     }
-    if (!passportIssueDate) {
-      customerDocumentsMissingFields.push("Passport Issued Date");
+    if (!drivingLicenseIssueDate) {
+      customerDocumentsMissingFields.push("Driving License Issued Date");
     }
-    if (!passportExpiryDate) {
-      customerDocumentsMissingFields.push("Passport Expiry Date");
+    if (!drivingLicenseExpiryDate) {
+      customerDocumentsMissingFields.push("Driving License Expiry Date");
     }
-    if (!passportImg) {
-      customerDocumentsMissingFields.push("Passport Image");
+    if (!drivingLicenseImg) {
+      customerDocumentsMissingFields.push("Driving License Image");
     }
 
     console.log(
@@ -698,23 +695,23 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           ],
           issuedBy: drivingLicenseIssueBy.label,
         },
-        {
-          documentNo: passportNum,
-          expiryDate: passportExpiryDate,
-          identityDocumentType: 2,
-          issueDate: passportIssueDate,
-          gallaryImages: [
-            {
-              url: passportImg,
-            },
-          ],
-          images: [
-            {
-              url: passportImg,
-            },
-          ],
-          issuedBy: passportIssueBy.label,
-        },
+        // {
+        //   documentNo: passportNum,
+        //   expiryDate: passportExpiryDate,
+        //   identityDocumentType: 2,
+        //   issueDate: passportIssueDate,
+        //   gallaryImages: [
+        //     {
+        //       url: passportImg,
+        //     },
+        //   ],
+        //   images: [
+        //     {
+        //       url: passportImg,
+        //     },
+        //   ],
+        //   issuedBy: passportIssueBy.label,
+        // },
       ],
     };
 
@@ -910,7 +907,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                     <div className="driver-details-form-container">
                       <div className=" form-group  pr-4">
                         <div className="">
-                          <Row>
+                          {/* <Row>
                             <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
                               <Form.Group controlId="formKeyword">
                                 <div className="location-label">
@@ -1000,7 +997,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                               </Form.Group>
                             </Col>
                           </Row>
-                          <br />
+                          <br /> */}
                           <br />
                           <Row>
                             <Col xxl={4} lg={4} md={6} sm={8} xs={12}>

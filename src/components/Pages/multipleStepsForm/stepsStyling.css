@@ -28,10 +28,9 @@ h4 {
   font-weight: 600;
 }
 
-.step1-location-details,
-.step1-car-details {
+.step1-car-details,
+.step1-location-details {
   padding: 15px;
-  border: 1px solid rgb(218, 218, 218);
   border-radius: 6px;
   padding: 10px;
   background-color: #fbfbfb;
@@ -323,10 +322,16 @@ h4 {
 }
 
 .car-image-1 {
-  max-width: inherit;                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+  max-width: inherit;
 
-  -webkit-box-reflect:below -5em -webkit-gradient(linear, right top, right
-        bottom, from(transparent), color-stop(30%, transparent), to(rgba(255, 255, 255, 0.4)));
+  -webkit-box-reflect: below -5em -webkit-gradient(
+      linear,
+      right top,
+      right bottom,
+      from(transparent),
+      color-stop(30%, transparent),
+      to(rgba(255, 255, 255, 0.4))
+    );
 }
 
 @media screen and (max-width: 991px) {
