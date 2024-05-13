@@ -82,9 +82,7 @@
 }
 
 .navbar-light .navbar-toggler-icon {
-  background-image: 
-  /* url("data:image/svg+xml;charset=UTF8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23fff' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); */
-    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
 .hidden-toggle-button {
@@ -102,10 +100,6 @@
 
 .space-after-navbar {
   padding: 20px;
-}
-
-.main-logo {
-  /* max-width: 70%; */
 }
 
 .auth-menu {
@@ -138,7 +132,6 @@
 #user-nav-dropdown {
   color: black;
   border: 1px solid rgb(189, 189, 189);
-  /* border-radius: 10px; */
 }
 
 .welcome-text {
@@ -146,9 +139,6 @@
 }
 
 .navbar-all-menus {
-  /* color: black; */
-  /* border: 1px solid rgb(189, 189, 189); */
-  /* border-radius: 10px; */
   margin: 0px 1px;
   padding: 10px 18px !important;
   font-weight: bolder;
@@ -161,15 +151,12 @@
 
 .dropdown-toggle.nav-link:hover,
 .dropdown-toggle.nav-link:focus {
-  /* background-color: #e87a28; */
-  /* color: green !important; */
   color: #e87a28 !important;
 }
 
 .navbar-all-menus.active,
 .auth-menu.active,
 .navbar-sub-menus.active {
-  /* color: green !important; */
   color: #e87a28 !important;
 }
 
@@ -193,18 +180,12 @@
 
 .navbar-all-menus:hover,
 #user-nav-dropdown:hover {
-  /* background-color: #e87a28; */
-  /* color: green !important; */
   color: #e87a28 !important;
   cursor: copy;
 }
 
 .navbar-light .navbar-nav .nav-link {
   color: black;
-}
-
-.navbar-white .nav-link {
-  /* color: white !important; */
 }
 
 .navbar-white .navbar-all-menus.active {

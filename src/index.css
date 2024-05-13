@@ -1,21 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 * {
-  /* font-family: "Montserrat", sans-serif; */
   font-family: "Poppins";
-  /* font-family: "Helvetica"; */
   font-optical-sizing: auto;
-  /* font-weight: 100; */
 }
-
-/* @font-face {
-  font-family: 'Montserrat';
-  src: url('./fonts/static/Montserrat-Regular.ttf') format('truetype');
-} */
 
 body {
   margin: 0;
-  font-family: 'Montserrat'; 
+  font-family: "Montserrat";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -64,13 +56,8 @@ body {
   text-decoration: none;
   text-align: center;
   color: white !important;
-  /* color: #e87a28 !important; */
   position: relative;
 }
-
-/* .lease-car-button {
-  padding: 0px 14px;
-} */
 
 .whatsapp-link-lease-section {
   padding: 12px;
@@ -162,7 +149,6 @@ body {
   }
 }
 
-/* Apply the animation to .whatsapp-link-lease-section elements */
 .whatsapp-link-lease-section::before {
   content: "";
   position: absolute;
@@ -174,7 +160,7 @@ body {
 
 .whatsapp-link-lease-section:hover::before {
   left: 0;
-  animation: wave-effect 1s ease-out infinite; /* Apply the animation here */
+  animation: wave-effect 1s ease-out infinite;
   border-radius: 50px;
   background: inherit;
 }
@@ -183,7 +169,6 @@ body {
 .map-link,
 .phone-call-link-lease-section {
   background-color: #e87a28;
-  /* background-color: white; */
 }
 
 .spin-the-wheel-link {
@@ -193,7 +178,6 @@ body {
 .whatsapp-link,
 .whatsapp-link-lease-section {
   background-color: rgba(0, 128, 0, 0.883);
-  /* background-color: white; */
 }
 
 .rotate {
@@ -211,76 +195,10 @@ body {
   font-size: 26px;
 }
 
-code {
-  /* font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace; */
-}
-
 ul.elementor-contact-tabs-list {
   background-color: #e87a28 !important;
   list-style: none;
 }
-
-/* .contact-buttons-container {
-  position: fixed;
-  bottom: 30px;
-  display: flex;
-  flex-direction: column;
-  left: 94%;
-}
-
-.contact-button {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 18px;
-  border-radius: 50px;
-  text-decoration: none;
-  text-align: center;
-  color: white !important;
-}
-
-.phone-call-link,
-.map-link {
-  background-color: #e87a28;
-}
-
-.whatsapp-link {
-  background-color: green;
-}
-.whatsapp-link:hover {
-  background-color: greenyellow;
-}
-
-.whatsapp-link::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 30%;
-  z-index: -1;
-  opacity: 0;
-}
-
-.whatsapp-link::before {
-  left: 0;
-  animation: identifier 1s ease-out infinite;
-  border-radius: 50px;
-  background: inherit;
-}
-@keyframes identifier {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.5);
-  }
-}
-
-.contact-button svg {
-  margin-right: 0px;
-  font-size: 25px;
-} */
 
 .all-vehicles-container {
   padding: 2rem 4rem 1rem 6rem;
@@ -288,7 +206,6 @@ ul.elementor-contact-tabs-list {
 
 .single-feature-container,
 .lease-page-single-feature-container {
-  /* border: 1px solid gray; */
   box-shadow: 1px 1px 3px 0px #aba8a7;
   border-radius: 43px;
   margin: 0px 7px;
@@ -403,7 +320,7 @@ ul.header-menu {
 }
 
 .heading-font {
-  color:#e87a28 ;
+  color: #e87a28;
   padding-bottom: 5px;
 }
 

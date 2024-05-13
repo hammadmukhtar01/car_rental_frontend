@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import MainNavbar from "../navbar/mainNavbar";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,12 +22,6 @@ const ContactusPage = () => {
   return (
     <>
       <div id="main" className="">
-        {/* <div className="navbar-bg-img-container">
-          <div className="booking-page-banner-navbar">
-            {" "}
-            <MainNavbar />
-          </div>
-        </div> */}
         <div className="contactUs-container container">
           <div
             data-elementor-type="wp-page"

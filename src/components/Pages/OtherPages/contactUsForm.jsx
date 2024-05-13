@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars*/
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { Form } from "react-bootstrap";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import axios from "axios";
-import { useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PhoneInput from "react-phone-input-2";
@@ -134,8 +132,6 @@ const ContactUsForm = () => {
                 required
                 value={formData?.fname}
                 onChange={handleChange}
-                // onFocus={handleFocus}
-                // onBlur={handleBlur}
               />
             </div>
 
@@ -155,8 +151,6 @@ const ContactUsForm = () => {
                 required
                 value={formData?.lname}
                 onChange={handleChange}
-                // onFocus={handleFocus}
-                // onBlur={handleBlur}
               />
             </div>
           </div>
@@ -181,8 +175,6 @@ const ContactUsForm = () => {
                     required
                     value={formData?.email}
                     onChange={handleChange}
-                    // onFocus={handleFocus}
-                    // onBlur={handleBlur}
                   />
                 </div>
               </div>
@@ -245,20 +237,10 @@ const ContactUsForm = () => {
                 required
                 value={formData?.comment}
                 onChange={handleChange}
-                // onFocus={handleFocus}
-                // onBlur={handleBlur}
               />
             </div>
 
-            {/* <label>
-              <div className="mt-2">
-                <Form.Check
-                  className="diff-dropoff-loc-lable"
-                  type="checkbox"
-                  label=" Subscribe and Get latest updates and offers by Email"
-                />
-              </div>
-            </label>*/}
+           
           </div>
           <div className="form-group-3 col-lg-12 pb-4">
             <div className="col-lg-12 col-md-6 d-flex justify-content-end">

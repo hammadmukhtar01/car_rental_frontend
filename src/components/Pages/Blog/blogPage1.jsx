@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { Container } from "react-bootstrap";
 import blog1_MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
-import MainNavbar from "../navbar/mainNavbar";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 
 const BlogPage1 = () => {
@@ -28,13 +26,6 @@ const BlogPage1 = () => {
   return (
     <div id="main">
       <>
-        {/* <div className="navbar-bg-img-container">
-          <div className="booking-page-banner-navbar">
-            {" "}
-            <MainNavbar />
-          </div>
-        </div> */}
-
         <Container>
           <br />
           <div className="blog-details-page">

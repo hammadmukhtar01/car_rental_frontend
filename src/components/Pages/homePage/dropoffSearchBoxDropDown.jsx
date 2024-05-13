@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import MapComponent from "../../GoogleMap/googleMapAPI";
 import "./pickupdropoffModal.css";
 import { Form } from "react-bootstrap";
@@ -30,11 +29,11 @@ function DropoffLocationModal({
     initialInputFieldValue
   );
   const [selectedTab, setSelectedTab] = useState("");
-  const [selectedLocationName, setSelectedLocationName] = useState(
+  const [selectedLocationName] = useState(
     initialInputFieldValue || ""
   );
-  const [dropoffLocationState, setPickupLocationState] = useState("");
-  const [deliverToAddressValue, setDeliverToAddressValue] = useState("");
+  const [dropoffLocationState] = useState("");
+  const [deliverToAddressValue] = useState("");
 
   console.log("Old loc is: ", selectedLocationName);
 
@@ -179,10 +178,6 @@ function DropoffLocationModal({
                   <div className="row">
                     <div className="col-lg-4">
                       <Form.Group controlId="formKeyword">
-                        {/* <SearchLocationInput
-                          onChange={handleInputChange}
-                          setSelectedLocationss={setSelectedLocationss}
-                        /> */}
                         <SearchLocationInput
                           previousLocationValue={
                             formFields?.deliveryMapLocDropOff
@@ -197,20 +192,6 @@ function DropoffLocationModal({
                     </div>
                     <div className="col-lg-4">
                       <div className="inputgroup">
-                        {/* <input
-                          type="text"
-                          autoComplete="off"
-                          className="form-control"
-                          id="locationDetail"
-                          name="locationDetail"
-                          required
-                          value={locationDetail}
-                          onChange={(e) => {
-                            setLocationDetail(e.target.value);
-                          }}
-                          onFocus={handleFocus}
-                          onBlur={handleBlur}
-                        /> */}
                         <input
                           type="text"
                           autoComplete="off"
@@ -260,19 +241,6 @@ function DropoffLocationModal({
                   <div className="row">
                     <div className="col-lg-4">
                       <div className="readOnlyInputGroup">
-                        {/* <input
-                          type="text"
-                          autoComplete="off"
-                          className="form-control"
-                          id="dropoffLocationName"
-                          name="dropoffLocationName"
-                          required
-                          readOnly
-                          value={dropoffLocationName}
-                          onChange={(e) => {
-                            setDropoffLocationName(e.target.value);
-                          }}
-                        /> */}
                         <input
                           type="text"
                           autoComplete="off"

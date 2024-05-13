@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { Container, Row, Col, Modal, Form } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {
-  BsCpu,
   BsPerson,
   BsSuitcase,
   BsFillShieldLockFill,
@@ -17,10 +15,7 @@ import Modals from "./imageEnlarger";
 import { RxCross2 } from "react-icons/rx";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Car1 from "../../images/suv-car-fleet-1.png";
-import { MdRadioButtonChecked } from "react-icons/md";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import { TbListDetails } from "react-icons/tb";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -28,7 +23,7 @@ import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import { FaMapMarkerAlt, FaTelegramPlane } from "react-icons/fa";
 import "./verticalSliderCarDetails.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const VehicleDetails = ({ nextStep }) => {
@@ -42,8 +37,6 @@ const VehicleDetails = ({ nextStep }) => {
   const [selectedAddOn, setSelectedAddOn] = useState(null);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
   const [showModal, setShowModal] = useState(false);
-
-  // const [totalCharges, setTotalCharges] = useState("");
 
   const carTypeInURL = useLocation();
   const queryParams = useMemo(
@@ -267,7 +260,6 @@ const VehicleDetails = ({ nextStep }) => {
   const totalAPIResponseCharges = singleVehicleDetails?.totalCharges;
 
   const carPassengerCapacity = baseAPIResponsePath?.passengerCapacity;
-  const carFuelType = baseAPIResponsePath?.acrissFuelAc?.name;
   const carManualAutomaticType =
     baseAPIResponsePath?.acrissTransDrive?.name?.split("/")[0];
   const carDoorstype =
@@ -306,12 +298,6 @@ const VehicleDetails = ({ nextStep }) => {
       value: null,
       featureIcon: LuSnowflake,
     },
-
-    // {
-    //   name: " Engine",
-    //   value: carFuelType,
-    //   featureIcon: BsCpu,
-    // },
   ];
 
   const couponsData = [
@@ -393,24 +379,6 @@ const VehicleDetails = ({ nextStep }) => {
     e.preventDefault();
   };
 
-  const additionalCharges = [
-    // {
-    //   _id: 1,
-    //   name: "Total Days",
-    //   value: 200,
-    // },
-    // {
-    //   _id: 2,
-    //   name: "Rental Charges / 3 days",
-    //   value: 200,
-    // },
-    // {
-    //   _id: 1,
-    //   name: "Charge ",
-    //   value: 200,
-    // },
-  ];
-
   const getDeliveryCharge = () => {
     const selectedStatePickup = pickupLocStateParam?.toUpperCase();
     const selectedStateDropoff = dropoffLocStateParam?.toUpperCase();
@@ -427,29 +395,13 @@ const VehicleDetails = ({ nextStep }) => {
     return pickupCharge + dropoffCharge;
   };
 
-  const calculateTotalPrice = () => {
-    if (additionalCharges) {
-      return additionalCharges?.reduce(
-        (total, charge) => total + charge?.value,
-        0
-      );
-    }
-    return 0;
-  };
-
   const subTotalValue =
-    calculateTotalPrice() +
-    totalAPIResponseCharges +
-    getDeliveryCharge() +
-    totalAddOnsPriceSimple();
+    totalAPIResponseCharges + getDeliveryCharge() + totalAddOnsPriceSimple();
   const taxTotal = Math.floor((5 * subTotalValue) / 100);
   const grandTotalPrice = subTotalValue + taxTotal;
 
   const grandTotalDiscountedValue = () => {
     if (appliedCoupon) {
-      // const discountedValue = Math.ceil(
-      //   (appliedCoupon?.value * grandTotalPrice) / 100
-      // );
       const discountedValue = appliedCoupon?.value;
       return discountedValue;
     }
@@ -471,7 +423,9 @@ const VehicleDetails = ({ nextStep }) => {
   const handleNextStep1 = () => {
     const baseUrl = `/bookingPage/2`;
     const urlParams = new URLSearchParams(window.location.search);
-    const selectedAddOnsIds = selectedAddOns?.map((addOn) => addOn?.id).join(",");
+    const selectedAddOnsIds = selectedAddOns
+      ?.map((addOn) => addOn?.id)
+      .join(",");
 
     urlParams?.set("page", "2");
     urlParams?.set("discountValue", grandTotalDiscountedValue());
@@ -547,16 +501,6 @@ const VehicleDetails = ({ nextStep }) => {
                           >
                             <div className="pt-3 text-center">
                               <div className="carousel-container">
-                                {/* <Carousel className="crsl">
-                                  {images?.map((image) => (
-                                    <img
-                                      key={image?.id}
-                                      src={image?.download_url}
-                                      alt={image?.author}
-                                    ></img>
-                                  ))}
-                                </Carousel> */}
-
                                 <img
                                   src={carImg}
                                   alt={`Car-1`}
@@ -608,7 +552,7 @@ const VehicleDetails = ({ nextStep }) => {
                             <div className="car-features-text-2 pt-2">
                               <div className="car-features-div">
                                 <Row>
-                                  {carAdditionalFeatures.map(
+                                  {carAdditionalFeatures?.map(
                                     (additionalFeatures, index) => (
                                       <Col
                                         lg={4}
@@ -634,19 +578,6 @@ const VehicleDetails = ({ nextStep }) => {
                               </div>
                             </div>
                           </div>
-                          {/* <br /> */}
-                          {/* <div className="car-description-div">
-                            <div className="car-description-div2-heading m-2">
-                              <b> Description: </b>
-                            </div>
-                            <hr className="hr-line-heading-scroll" />
-
-                            <div>
-                              <div className="car-description-text-2">
-                                {baseAPIResponsePath?.subTitle}
-                              </div>
-                            </div>
-                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -685,7 +616,6 @@ const VehicleDetails = ({ nextStep }) => {
                                               <label className="add-ons-label">
                                                 <b>
                                                   {AddOnsDataValues?.addOnsName}
-                                                  {/* {AddOnsDataValues?.chargesTypeId} */}
                                                 </b>
                                                 <br />
                                                 <span>
@@ -771,7 +701,6 @@ const VehicleDetails = ({ nextStep }) => {
                   </Col>
                   <Col lg={4} md={12} sm={12} xs={12}>
                     <div className="step1-car-location-details-container">
-                      {/* <VerticalSliderCarDetails /> */}
                       <Box
                         sx={{ width: "100%" }}
                         className="customer-icon-stepper-container"
@@ -861,9 +790,7 @@ const VehicleDetails = ({ nextStep }) => {
                                 <hr />
                               </>
                               <>
-                                {/* {additionalCharges?.map((charge) => ( */}
                                 <div
-                                  // key={charge?._id}
                                   className="price-row p-1"
                                   style={{ lineHeight: "100%" }}
                                 >
@@ -878,7 +805,6 @@ const VehicleDetails = ({ nextStep }) => {
                                   </div>
                                 </div>
                                 <div
-                                  // key={charge?._id}
                                   className="price-row p-1"
                                   style={{ lineHeight: "100%" }}
                                 >
@@ -892,7 +818,6 @@ const VehicleDetails = ({ nextStep }) => {
                                     </span>
                                   </div>
                                 </div>
-                                {/* ))} */}
                                 <hr />
                               </>
                               <div className="charges-section-2">
@@ -1062,14 +987,12 @@ const VehicleDetails = ({ nextStep }) => {
                   xs={8}
                   className="d-flex justify-content-center "
                 >
-                    <button
-                      onClick={() => handleNextStep1()}
-                      className="map-loc-middle py-3"
-                    >
-                      <span className="animate-button btn4">
-                        Start Booking
-                      </span>
-                    </button>
+                  <button
+                    onClick={() => handleNextStep1()}
+                    className="map-loc-middle py-3"
+                  >
+                    <span className="animate-button btn4">Start Booking</span>
+                  </button>
                 </Col>
               </div>
             </div>

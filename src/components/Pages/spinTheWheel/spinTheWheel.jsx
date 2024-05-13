@@ -49,7 +49,6 @@ export default function SpinTheWheel() {
 
   return (
     <div className="container">
-      {/* Background Celebration Animation */}
       <div className="celebration-animation"></div>
 
       {/* Spin Wheel Container */}

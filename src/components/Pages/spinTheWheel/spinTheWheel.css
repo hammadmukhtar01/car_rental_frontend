@@ -1,20 +1,3 @@
-/* .spin-wheel-component-class{
-    max-width: 70% !important;
-    max-height: 50% !important;
-}
-
-#canvas {
-    max-width: 170% !important;
-    max-height: 100% !important;
-}
-
-@media screen and (min-width:991px) {
-    #canvas {
-        margin-left: 70px;
-    }
-    
-} */
-
 
 #game {
 	width: 400px;
@@ -26,17 +9,6 @@
 	position: fixed;
 }
 
-/* #body-header {
-	background-image: url('../../images/spinTheWheel//back.jpg');
-	background-size: 5%;
-}
-
-#confetti{
-	background-image:	url('../../images/spinTheWheel/spin-n-win-logo.png');
-    background-size:	contain;                      
-    background-repeat:	no-repeat;
-    background-position: center center;
-} */
 
 .pin {
 	position: absolute;

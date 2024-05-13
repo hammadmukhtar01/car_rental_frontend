@@ -30,7 +30,7 @@ const SearchBox = () => {
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
   const [inputPickupFieldValue, setPickupInputFieldValue] = useState("");
   const [inputDropoffFieldValue, setDropoffInputFieldValue] = useState("");
-  
+
   const [activeSelection, setActiveSelection] = useState({
     startDate: false,
     endDate: false,
@@ -72,15 +72,11 @@ const SearchBox = () => {
         setShowDropoff(checkBoxStoredValue);
 
         pickupCompleteAddressValue = storedEndDateRange?.inputPickupFieldValue;
-        dropoffCompleteAddressValue = storedEndDateRange?.inputDropoffFieldValue;
+        dropoffCompleteAddressValue =
+          storedEndDateRange?.inputDropoffFieldValue;
 
         pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
         dropoffLocTabV1 = storedFormFields?.selectedTabDropOff;
-        // pickupLocMainInput = storedFormFields?.pickupInputMessageV1;
-        // setPickupLocationMessage(pickupLocMainInput? pickupLocMainInput : '');
-
-        // pickupLocMainInput = storedFormFields?.deliveryMapLocPickUp;
-        // setPickupLocationMessage(pickupLocMainInput? pickupLocMainInput : '');
 
         if (storedFormFields?.dateRangeV1) {
           storedStartDateRange = new Date(
@@ -91,10 +87,10 @@ const SearchBox = () => {
             isNaN(storedStartDateRange?.getTime()) ||
             isNaN(storedEndDateRange?.getTime())
           ) {
-            storedStartDateRange = new Date(); // Fallback to current date
+            storedStartDateRange = new Date();
             storedEndDateRange = new Date(
               new Date().getTime() + 24 * 60 * 60 * 1000
-            ); // Fallback to tomorrow
+            );
           }
         }
 
@@ -142,7 +138,7 @@ const SearchBox = () => {
     showDropoffV1: 0,
   });
 
-  console.log(`1223452134234---3-4-3-3-31--32-43-2324-: ${pickupLocation}`)
+  console.log(`1223452134234---3-4-3-3-31--32-43-2324-: ${pickupLocation}`);
 
   const handlePickupTimeChange = (selectedOption) => {
     console.log("Selected time option is: ", selectedOption);
@@ -197,7 +193,6 @@ const SearchBox = () => {
     }
     setPickupLocation(option);
     setShowPickupModal(false);
-    // setPickupLocationMessage(option);
   };
 
   const handleDropOffButtonClick = (option) => {
@@ -208,7 +203,6 @@ const SearchBox = () => {
     }
     setDropoffLocation(option);
     setShowDropoffModal(false);
-    // setDropoffLocationMessage(option);
   };
 
   const handleDropoffCheckboxChange = () => {
@@ -254,7 +248,6 @@ const SearchBox = () => {
     const dateRangeObject = {
       startDate: updatedStartDate?.toISOString().split("T")[0],
       endDate: updatedEndDate?.toISOString().split("T")[0],
-      // key: "selection",
     };
 
     handleFieldChange("dateRangeV1", dateRangeObject);
@@ -356,7 +349,6 @@ const SearchBox = () => {
   return (
     <>
       <div className="bg-img-container ">
-        {/* <MainNavbar /> */}
         <div className="container">
           <div className="search-box-container pb-4">
             <Row>
@@ -552,10 +544,6 @@ const SearchBox = () => {
                             (option) => option?.value === formFields?.pickTimeV1
                           )}
                           onChange={handlePickupTimeChange}
-                          // onChange={(selectedOption) => {
-                          //   console.log("Selected option is: ", selectedOption);
-                          //   setPickUpTime(selectedOption?.value);
-                          // }}
                           styles={selectStyles}
                         />
                       </Form.Group>
@@ -576,28 +564,25 @@ const SearchBox = () => {
                             (option) => option?.value === formFields?.dropTimeV1
                           )}
                           onChange={handleDropoffTimeChange}
-                          // value={timeOptions?.find(
-                          //   (option) => option?.value === dropOffTime
-                          // )}
-                          // onChange={(selectedOption) => {
-                          //   console.log(
-                          //     "Selected Dropoff option is: ",
-                          //     selectedOption
-                          //   );
-                          //   setDropOffTime(selectedOption?.value);
-                          // }}
                           styles={selectStyles}
                         />
                       </Form.Group>
                     </Col>
 
-                    <Col xxl={1} lg={1} md={3} sm={6} xs={6} className="search-box-search-button-div">
-                        <button className="search-box-search-button">
-                          <span className="">
-                            <LuSearch />
-                          </span>
-                        </button>
-                        <ToastContainer />
+                    <Col
+                      xxl={1}
+                      lg={1}
+                      md={3}
+                      sm={6}
+                      xs={6}
+                      className="search-box-search-button-div"
+                    >
+                      <button className="search-box-search-button">
+                        <span className="">
+                          <LuSearch />
+                        </span>
+                      </button>
+                      <ToastContainer />
                     </Col>
                   </Row>
                 </form>

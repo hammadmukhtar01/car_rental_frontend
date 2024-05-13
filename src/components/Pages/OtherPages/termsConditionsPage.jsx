@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import "./otherPages.css";
-import MainNavbar from "../navbar/mainNavbar";
-// import { useReload } from "../../PrivateComponents/utils";
-// import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
+import { useReload } from "../../PrivateComponents/utils";
+import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 
 const TermsConditionsPage = () => {
   // const { loading } = useReload();
@@ -18,12 +17,7 @@ const TermsConditionsPage = () => {
 
   return (
     <>
-      {/* <div className="navbar-bg-img-container">
-        <div className="booking-page-banner-navbar">
-          {" "}
-          <MainNavbar />
-        </div>
-      </div> */}
+    
       <div className="container pt-4 pb-2">
         <div className="styled-label text-center">
           <span className="terms-conditions-main-heading">
@@ -300,58 +294,7 @@ const TermsConditionsPage = () => {
             </div>
           </div>
 
-          {/* <div className="terms-condition-section-div term-conditions-h7 col-lg-12">
-            <h5 className="terms-conditions-headings">TERMINATION</h5>
-            <p>
-              Milele have the right to terminate the agreement into following
-              points:
-            </p>
-            <ul className="list-style-numbers">
-              <li>In Case of non-payment or Due Payments</li>
-              <li>Breach by customer on of the terms of agreement</li>
-            </ul>
-            <p>
-              Milele has right to terminate the agreement and recover the
-              vehicle without any approval from the customer.
-              <br />
-              The customer is not entitled to claim any compensation and is not
-              entitled to demand any refund of any amounts paid. <br />
-              In case of termination any provision related to payments,
-              violations or compensation that customer must pay will remain in
-              effect until Due Payment process is completed.
-            </p>
-          </div>
-          <br />
-          <div className="terms-condition-section-div term-conditions-h4">
-            <p>
-              The HIRER hereby releases and indemnifies MILELE from any and
-              against any liability or loss or damage to any property (including
-              costs relating thereto) left, stored or transported by the HIRER
-              in or upon the vehicle before or after the return of the vehicle
-              to MILELE. <br /> <br /> MILELE whilst taking all precautions and
-              using its best efforts to prevent such happenings shall not be
-              liable for any loss or damage arising from any fault or defect in
-              form of mechanical failure of the vehicle or any consequential
-              loss or damage. <br /> <br /> If any breach of the terms of this
-              Agreement Is committed then MILELE shall be entitled, but without
-              prejudice to any other rights any remedies he may have, to
-              terminate the rental of the Vehicle and to recover possession
-              thereof and the insurance cover provided by MILELE shall cease
-              forth with. Where this Agreement requires approval of MILELE, such
-              approval must be in writing. <br /> <br />
-            </p>
-            <ul>
-              <li>
-                {" "}
-                This Agreement shall be governed by and construed according to
-                the laws of the United Arab Emirates.{" "}
-              </li>
-              <li>
-                The terms and conditions are subject to change at any time by
-                MILELE without providing prior notice to the HIRER.
-              </li>
-            </ul>
-          </div> */}
+        
         </div>
       </div>
     </>

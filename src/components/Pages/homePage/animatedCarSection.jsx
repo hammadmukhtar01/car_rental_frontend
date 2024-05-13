@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router";
 import "owl.carousel";
@@ -17,7 +16,7 @@ const AnimatedCarSection = () => {
   const [hatchBackImg, setHatchBackImg] = useState("");
   const [stationWagonImg, setStationWagonImg] = useState("");
 
-  const [carsData, setCarsData] = useState([]);
+  const [carsData] = useState([]);
 
   useEffect(() => {
     window.$(".owl-carousel").owlCarousel({
@@ -63,25 +62,9 @@ const AnimatedCarSection = () => {
 
       const response = await axios.post(url, {}, { headers });
 
-      // const filteredCarsData = response.data.result.items.filter(
-      //   (car) =>
-      //     car?.acrissCategory?.name === "Toyota Corolla" ||
-      //     car?.acrissCategory?.name === "Nissan" ||
-      //     car?.acrissCategory?.name === "Hyundai" ||
-      //     car?.acrissCategory?.name === "Chevrolet"
-      // );
-      // setCarsData(filteredCarsData);
-      console.log(
-        "repss",
-        response?.data?.result?.items
-      );
+      console.log("repss", response?.data?.result?.items);
 
       response?.data?.result?.items?.forEach((car) => {
-        // console.log(
-        //   "before acriss cat : ",
-        //   car.acrissCategory?.name,
-        //   car.displayImageUrl
-        // );
         switch (car.acrissCategory?.name) {
           case "Standard":
             setSedanImg(car?.displayImageUrl);
@@ -174,14 +157,6 @@ const AnimatedCarSection = () => {
         <div className="container">
           <div className="bg-white">
             <h2 className="offer-heading pl-3 bg-white">
-              {/* <div className="styled-label">
-                <div className="location-label">
-                  <span className="fs-3 fleet-car-homePage-heading">
-                    <b>Fleet Cars</b>
-                  </span>
-                  <hr className="home-page-heading-underline" />
-                </div>
-              </div> */}
               <div className="styled-label text-center">
                 <div className="insta-testimonial-heading-icon-container-div">
                   <span>

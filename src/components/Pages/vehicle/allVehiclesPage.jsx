@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import React, {
   useState,
   useEffect,
@@ -19,16 +17,13 @@ import {
   BsSuitcase,
 } from "react-icons/bs";
 import { GiGearStickPattern } from "react-icons/gi";
-import { LuSnowflake, LuSearch } from "react-icons/lu";
+import { LuSnowflake } from "react-icons/lu";
 import "./vehicleDetails.css";
 import PickupLocationModal from "../homePage/pickupSearchBoxDropDown";
 import DropoffLocationModal from "../homePage/dropoffSearchBoxDropDown";
 import Pagination from "./pagination";
-import MainNavbar from "../navbar/mainNavbar";
 import { useNavigate, useLocation } from "react-router-dom";
 import { DateRange } from "react-date-range";
-// import { useReload } from "../../PrivateComponents/utils";
-// import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
@@ -44,12 +39,11 @@ const animatedComponents = makeAnimated();
 
 const VehiclesPage = () => {
   const carTypeInURL = useLocation();
-  const queryParams = new URLSearchParams(carTypeInURL?.search);
-  // const initialCarType = queryParams.get("carType");
+  const queryParams = useMemo(() => {
+    return new URLSearchParams(carTypeInURL?.search);
+  }, [carTypeInURL?.search]);
   const pickupLocParam = queryParams?.get("pickupLoc");
   const dropoffLocParam = queryParams?.get("dropoffLoc");
-  // const pickupTimeParam = queryParams?.get("pickupTime");
-  // const dropoffTimeParam = queryParams?.get("dropoffTime");
   const startDateParam = queryParams?.get("startDate");
   const endDateParam = queryParams?.get("endDate");
   const carCategoryParam = queryParams?.get("carCategory");
@@ -66,8 +60,6 @@ const VehiclesPage = () => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [sortBy, setSortBy] = useState("Recommended");
-  const durations = ["Day", "Week", "Month"];
-  const durationValues = [1, 7, 30];
   const [carsData, setCarsData] = useState([]);
   const [carType, setCarType] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -81,7 +73,7 @@ const VehiclesPage = () => {
     dropoffLocParam || ""
   );
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
-  const [pickupLocStateValue, setPickupLocStateValue] = useState("DUBAI");
+  const [pickupLocStateValue] = useState("DUBAI");
   const [dropoffLocStateValue, setDropoffLocStateValue] = useState("DUBAI");
 
   const [showPickupModal, setShowPickupModal] = useState(false);
@@ -102,84 +94,6 @@ const VehiclesPage = () => {
     window.innerWidth > 425 ? true : false
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
-
-  // useEffect(() => {
-  //   const storedFormFields =
-  //     JSON.parse(localStorage.getItem("formFields")) || {};
-  //   const queryParams = new URLSearchParams(window.location.search);
-  //   let storedStartDateRange;
-  //   let storedEndDateRange;
-  //   const {
-  //     showDropoffV1: storedShowDropoff = false,
-  //     selectedTabPickUp,
-  //     selectedTabDropOff,
-  //     pickupLocationStateV1,
-  //     dateRangeV1,
-  //     pickupInputMessageV1,
-  //     deliveryMapLocPickUp,
-  //     dropoffInputMessageV1,
-  //     deliveryMapLocDropOff,
-  //     pickTimeV1,
-  //     dropTimeV1,
-  //   } = storedFormFields;
-
-  //   setShowDropoff(storedShowDropoff);
-
-  //   setPickUpTime(pickTimeV1 || "");
-  //   setDropOffTime(dropTimeV1 || "");
-
-  //   if (!pickupLocParam) {
-  //     setPickupLocStateValue(
-  //       pickupLocationStateV1 || queryParams.get("pickupLocState") || "Dubai"
-  //     );
-  //     const pickupLocation =
-  //       selectedTabPickUp === "pick"
-  //         ? pickupInputMessageV1
-  //         : deliveryMapLocPickUp;
-  //     const dropoffLocation =
-  //       selectedTabDropOff === "pick"
-  //         ? dropoffInputMessageV1
-  //         : deliveryMapLocDropOff;
-
-  //     setPickupLocationMessage(pickupLocation || pickupLocParam || "");
-  //     console.log(
-  //       "setDropoffLocationMessage off loc is before set: ",
-  //       dropoffLocation || dropoffLocParam || ""
-  //     );
-
-  //     setDropoffLocationMessage(dropoffLocation || dropoffLocParam || "");
-  //     console.log("Drop off loc is now: ", dropoffLocationMessage);
-  //   }
-
-  //   if (storedFormFields?.dateRangeV1) {
-  //     storedStartDateRange = new Date(storedFormFields.dateRangeV1.startDate);
-  //     storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
-  //     if (
-  //       isNaN(storedStartDateRange.getTime()) ||
-  //       isNaN(storedEndDateRange.getTime())
-  //     ) {
-  //       storedStartDateRange = new Date();
-  //       storedEndDateRange = new Date(
-  //         new Date().getTime() + 24 * 60 * 60 * 1000
-  //       );
-  //     }
-  //   }
-
-  //   const storedPickUpTime = storedFormFields.pickTimeV1 || "";
-  //   setPickUpTime(storedPickUpTime);
-  //   const storedDropOffTime = storedFormFields.dropTimeV1 || "";
-  //   setDropOffTime(storedDropOffTime);
-
-  //   setDateRange([
-  //     {
-  //       startDate: storedStartDateRange || new Date(),
-  //       endDate:
-  //         storedEndDateRange ||
-  //         new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-  //       key: "selection",
-  //     },
-  //   ]);
-  // }, []);
 
   useEffect(() => {
     const reqLocalStorageData = localStorage?.getItem("formFields");
@@ -204,11 +118,6 @@ const VehiclesPage = () => {
 
         pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
         dropoffLocTabV1 = storedFormFields?.selectedTabDropOff;
-        // pickupLocMainInput = storedFormFields?.pickupInputMessageV1;
-        // setPickupLocationMessage(pickupLocMainInput? pickupLocMainInput : '');
-
-        // pickupLocMainInput = storedFormFields?.deliveryMapLocPickUp;
-        // setPickupLocationMessage(pickupLocMainInput? pickupLocMainInput : '');
 
         if (storedFormFields?.dateRangeV1) {
           storedStartDateRange = new Date(
@@ -219,10 +128,10 @@ const VehiclesPage = () => {
             isNaN(storedStartDateRange?.getTime()) ||
             isNaN(storedEndDateRange?.getTime())
           ) {
-            storedStartDateRange = new Date(); // Fallback to current date
+            storedStartDateRange = new Date();
             storedEndDateRange = new Date(
               new Date().getTime() + 24 * 60 * 60 * 1000
-            ); // Fallback to tomorrow
+            );
           }
         }
 
@@ -267,8 +176,6 @@ const VehiclesPage = () => {
   const { formFields, handleFieldChange } = UseGlobalFormFields({
     pickTimeV1: pickUpTime || "",
     dropTimeV1: dropOffTime || "",
-    // pickupInputMessageV1: pickupLocationMessage || "",
-    // dropoffInputMessageV1: pickupLocationMessage || "",
     dateRangeV1: "",
     showDropoffV1: 0,
   });
@@ -278,19 +185,6 @@ const VehiclesPage = () => {
       `useeffect useeffect useeffect dropoffLocationMessage useeffect is : ${dropoffLocationMessage}`
     );
   }, [dropoffLocationMessage]);
-
-  const handlePickupModalClose = () => {
-    setShowPickupModal(false);
-  };
-
-  const handlePickupLocationChange = (location) => {
-    setPickupLocationMessage(location);
-  };
-
-  const handlePickupLocationModalOpen = () => {
-    setShowPickupModal(true);
-  };
-
   useEffect(() => {
     const pickupTimeParam = queryParams.get("pickupTime");
     if (pickupTimeParam && !pickUpTime) {
@@ -300,19 +194,18 @@ const VehiclesPage = () => {
       setDropoffLocStateValue(pickupLocStateValue);
       setDropoffLocationMessage(dropoffLocationMessage);
     }
-  }, [queryParams, pickUpTime]);
+  }, [
+    queryParams,
+    pickUpTime,
+    showDropoff,
+    pickupLocStateValue,
+    dropoffLocationMessage,
+  ]);
 
   const handlePickUpTimeChange = (selectedOption) => {
     setPickUpTime(selectedOption?.value);
     handleFieldChange("pickTimeV1", selectedOption?.value);
   };
-
-  // useEffect(() => {
-  //   const dropoffTimeParam = queryParams?.get("dropoffTime");
-  //   if (dropoffTimeParam && !dropOffTime) {
-  //     setDropOffTime(dropoffTimeParam);
-  //   }
-  // }, [queryParams, dropOffTime]);
 
   const handleDropOffTimeChange = (selectedOption) => {
     setDropOffTime(selectedOption?.value);
@@ -323,7 +216,6 @@ const VehiclesPage = () => {
     setPickupInputFieldValue(value);
   };
 
-  // console.log(`Start param dateeeeee ${startDateParam}\nEEEEEEEE ${endDateParam}`)
   const defaultStartDate = new Date();
   const defaultEndDate = new Date(
     defaultStartDate?.getTime() + 24 * 60 * 60 * 1000
@@ -363,9 +255,9 @@ const VehiclesPage = () => {
   const datePickerStartDate = encodeURIComponent(
     startDateFunc?.toISOString()
   )?.split("T")[0];
-  const datePickerEndDate = encodeURIComponent(endDateFunc?.toISOString()).split(
-    "T"
-  )[0];
+  const datePickerEndDate = encodeURIComponent(
+    endDateFunc?.toISOString()
+  ).split("T")[0];
 
   useEffect(() => {
     if (pickUpDate && dropOffDate) {
@@ -391,7 +283,6 @@ const VehiclesPage = () => {
       setCarType(titles);
 
       setCarsData(response?.data?.result?.items);
-      // console.log("Result of all cars is : ", response?.data?.result?.items);
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
@@ -401,17 +292,15 @@ const VehiclesPage = () => {
     fetchCarsData();
   }, [dateRange, fetchCarsData]);
 
-  const handleSearchCarButton = async (e) => {
-    e.preventDefault();
-    fetchCarsData();
-  };
-
-  const categoryMap = {
-    Standard: "Sedan",
-    "Small SUV 5 Seater": "SUV",
-    Compact: "HatchBack",
-    Fullsize: "Station Wagon",
-  };
+  const categoryMap = useMemo(
+    () => ({
+      Standard: "Sedan",
+      "Small SUV 5 Seater": "SUV",
+      Compact: "HatchBack",
+      Fullsize: "Station Wagon",
+    }),
+    []
+  );
 
   const fetchAllCategories = useCallback(async () => {
     try {
@@ -431,11 +320,6 @@ const VehiclesPage = () => {
         "Fullsize",
       ];
 
-      // console.log(
-      //   "Raw categories response 1111111111:",
-      //   response?.data?.result?.categories
-      // );
-
       const filteredAndRenamedCategories = response?.data?.result?.categories
         .filter((category) => requiredCategories?.includes(category?.name))
         .map((category) => ({
@@ -447,7 +331,7 @@ const VehiclesPage = () => {
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
-  }, []);
+  }, [categoryMap]);
 
   useEffect(() => {
     fetchAllCategories();
@@ -495,30 +379,13 @@ const VehiclesPage = () => {
     if (carsData?.length > 0) {
       enhanceCategoryData();
     }
-  }, [carsData, enhanceCategoryData]); // Ensure this runs every time carsData updates
-
-  // useEffect(() => {
-  //   console.log("useeffect select category -- ", selectedCategories);
-  //   const newSelectedCategories = selectedCategories?.map((selected) => {
-  //     const foundCategory = carCategoriesData?.find(
-  //       (category) => category?.id === selected?.value
-  //     );
-  //     return foundCategory
-  //       ? { ...selected, label: foundCategory?.name }
-  //       : selected;
-  //   });
-  //   setSelectedCategories(newSelectedCategories);
-  //   carCategoryFromURL();
-  // }, [carCategoriesData]);
+  }, [carsData, enhanceCategoryData]);
 
   useEffect(() => {
     if (carCategoryParam && normalizedCarCategories?.length > 0) {
       const matchedCategory = normalizedCarCategories?.find((cat) => {
         const isMatch =
           cat?.name?.toUpperCase() === carCategoryParam?.toUpperCase();
-        // console.log(
-        //   `Comparing ${cat?.name?.toUpperCase()} with ${carCategoryParam?.toUpperCase()}: ${isMatch}`
-        // );
         return isMatch;
       });
 
@@ -537,11 +404,6 @@ const VehiclesPage = () => {
       featureIcon: BsPerson,
     },
 
-    // {
-    //   name: "Doors",
-    //   value: 5,
-    //   featureIcon: GiCarDoor,
-    // },
     {
       name: "Automatic",
       value: "A",
@@ -575,8 +437,6 @@ const VehiclesPage = () => {
     };
     dataArray?.push(dataObject);
   });
-
-  // console.log("Data Array is: --- ", dataArray);
 
   const sortByDropDown = [
     { label: "Recommended", value: "Recommended" },
@@ -685,15 +545,11 @@ const VehiclesPage = () => {
   };
 
   const filterCars = useMemo(() => {
-    // console.log("Starting to filter cars with the following data:");
-    // console.log("Cars Data:", carsData);
-    // console.log("Normalized Categories:", normalizedCarCategories);
-    // console.log("Selected Categories:", selectedCategories);
-
     return carsData
-    ?.filter((car) => {
+      ?.filter((car) => {
         const typeMatch =
-          selectedCarTypes?.length === 0 || selectedCarTypes?.includes(car?.title);
+          selectedCarTypes?.length === 0 ||
+          selectedCarTypes?.includes(car?.title);
 
         const currentCarCategory = normalizedCarCategories?.find(
           (cat) => cat?.id === car?.acrissCategory?.id
@@ -817,7 +673,6 @@ const VehiclesPage = () => {
     const dateRangeObject = {
       startDate: updatedStartDate?.toISOString()?.split("T")[0],
       endDate: updatedEndDate?.toISOString()?.split("T")[0],
-      // key: "selection",
     };
 
     handleFieldChange("dateRangeV1", dateRangeObject);
@@ -928,12 +783,6 @@ const VehiclesPage = () => {
   return (
     <div id="main" className="pb-2 ">
       <>
-        {/* <div className="navbar-bg-img-container">
-          <div className="booking-page-banner-navbar">
-            {" "}
-            <MainNavbar />
-          </div>
-        </div> */}
         <div className="all-cars-main-container-div container">
           <div className="vehicles-page-main-container">
             <div className="searchbox-container">
@@ -974,20 +823,6 @@ const VehiclesPage = () => {
                                 readOnly
                               />
                             </div>
-                            {/* {showDatePicker && (
-                              <div onClick={(e) => e.stopPropagation()}>
-                                <DateRange
-                                  editableDateInputs={true}
-                                  onChange={handleDateChange}
-                                  moveRangeOnFirstSelection={false}
-                                  ranges={dateRange}
-                                  disabledDay={(date) =>
-                                    date < new Date().setHours(0, 0, 0, 0)
-                                  }
-                                  onClose={() => setShowDatePicker(false)}
-                                />
-                              </div>
-                            )} */}
                           </Form.Group>
                         </Col>
 
@@ -1006,7 +841,6 @@ const VehiclesPage = () => {
                               date < new Date().setHours(0, 0, 0, 0)
                             }
                             onClose={() => setShowDatePicker(false)}
-                            // onClick={() => setShowDateRangeModal(true)}
                           />
                         </Modal>
                         <Col
@@ -1046,7 +880,6 @@ const VehiclesPage = () => {
                                       console.log("On change in pickup")
                                     }
                                     onClick={() => setShowPickupModal(true)}
-                                    // onClick={handlePickupLocationModalOpen}
                                   />
                                 </div>
                               </Form.Group>
@@ -1092,7 +925,6 @@ const VehiclesPage = () => {
                         <Modal
                           show={showPickupModal}
                           onHide={() => setShowPickupModal(false)}
-                          // onHide={handlePickupModalClose}
                           size="xl"
                         >
                           <Modal.Header closeButton>
@@ -1157,14 +989,6 @@ const VehiclesPage = () => {
                                 (option) =>
                                   option?.value === formFields?.pickTimeV1
                               )}
-                              // onChange={(selectedOption) => {
-                              //   console.log(
-                              //     "Selected option is: ",
-                              //     selectedOption
-                              //   );
-                              //   setPickUpTime(selectedOption.value);
-                              // }}
-                              // value={{ value: pickUpTime, label: pickUpTime }}
                               onChange={handlePickUpTimeChange}
                               styles={selectStyles}
                             />
@@ -1186,14 +1010,6 @@ const VehiclesPage = () => {
                                 (option) =>
                                   option?.value === formFields?.dropTimeV1
                               )}
-                              // onChange={(selectedOption) => {
-                              //   console.log(
-                              //     "Selected Dropoff option is: ",
-                              //     selectedOption
-                              //   );
-                              //   setDropOffTime(selectedOption?.value);
-                              // }}
-                              // value={{ value: dropOffTime, label: dropOffTime }}
                               onChange={handleDropOffTimeChange}
                               styles={selectStyles}
                             />
@@ -1463,8 +1279,7 @@ const VehiclesPage = () => {
                                 <b>{car?.title}</b> | (
                                 {categoryMap[car?.acrissCategory?.name] ||
                                   car?.acrissCategory?.name}
-                                ){/* <b>{car?.acrissCategory?.name} | </b>( */}
-                                {/* ) */}
+                                )
                               </span>
                             </div>
                             <div className="car-image-container ">
@@ -1502,14 +1317,7 @@ const VehiclesPage = () => {
                                         case "Person Seats":
                                           value = carData?.passengerCapacity;
                                           break;
-                                        // case "Doors":
-                                        //   const [doorRange = carData?.type] = carData?.type?.split(/[-/]/);
-                                        //   const [doorRange = carData?.type] =
-                                        //     carData?.type?.includes("%")
-                                        //       ? carData?.type?.split("")
-                                        //       : [carData?.type];
-                                        //   value = doorRange;
-                                        //   break;
+
                                         case "Automatic":
                                           value = carData?.transmission
                                             ? carData?.transmission
@@ -1543,9 +1351,6 @@ const VehiclesPage = () => {
                                             </>
                                           )}
                                           <span className="">{value}</span>
-                                          {/* {featureIndex < carFeaturesWithIcons?.length - 1 && (
-                                              <span className="car-features-vertical-line mr-2 ml-2">|</span>
-                                            )} */}
                                         </span>
                                       ) : null;
                                     }

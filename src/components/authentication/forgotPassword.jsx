@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MainNavbar from "../Pages/navbar/mainNavbar";
 import { Form } from "react-bootstrap";
 import { useReload } from "../PrivateComponents/utils";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
@@ -77,12 +75,6 @@ const ForgotPasswordPage = () => {
 
   return (
     <>
-      {/* <div className="navbar-bg-img-container">
-        <div className="booking-page-banner-navbar">
-          {" "}
-          <MainNavbar />
-        </div>
-      </div> */}
       <section className="ftco-section">
         <div className="container pt-2">
           <div className="forgot-row justify-content-center">
@@ -127,11 +119,9 @@ const ForgotPasswordPage = () => {
                       <br />
                       <br />
                       <button className="middle">
-                        <span className="animate-button btn4">
-                          Submit
-                        </span>
+                        <span className="animate-button btn4">Submit</span>
                       </button>
-                      
+
                       <ToastContainer />
                     </div>
                   </div>

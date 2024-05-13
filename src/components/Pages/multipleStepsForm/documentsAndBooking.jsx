@@ -11,7 +11,6 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
-// import { getJson, setOptions, localeAr } from '@mobiscroll/react';
 
 const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [firstName, setFirstName] = useState("");
@@ -27,12 +26,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [drivingLicenseImg, setDrivingLicenseImg] = useState("");
   const [isInternationalLicense, setIsInternationalLicense] = useState("");
   // Passport
-  // const [passportNum, setPassportNum] = useState("");
-  // const [passportIssueBy, setPassportIssueBy] = useState("");
-  // const [passportIssueDate, setPassportIssueDate] = useState("");
-  // const [passportExpiryDate, setPassportExpiryDate] = useState("");
-  // const [passportImg, setPassportImg] = useState("");
-  // const [complexFeaturesIcons, setComplexFeaturesIcons] = useState([]);
+
   const [selectedNationality, setSelectedNationality] = useState("");
   const [driverFlightDateTime, setDriverFlightDateTime] = useState(new Date());
   const [airlineTicketNum, setAirlineTicketNum] = useState("");
@@ -149,10 +143,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         setDropoffLocationId(matchedDropoffLocation?.id);
       }
 
-      // console.log(
-      //   "List of available locations in Speed:",
-      //   fetchedAvailableLocations
-      // );
+  
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
@@ -162,11 +153,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     fetchAvailableLocationsData();
   }, [fetchAvailableLocationsData]);
 
-  // const handlePassportImgChange = (e) => {
-  //   const file = e.target.files[0];
-  //   console.log(`handlePassportImgChange --- `, file);
-  //   getCustomerUploadedImgUrl(file, "Passport");
-  // };
+  
 
   const handleDrivingLicenseImgChange = (e) => {
     const file = e.target.files[0];
@@ -200,9 +187,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       );
       setDrivingLicenseImg(fetchedRequiredImgUrl)
 
-      // documentType.toUpperCase() === "PASSPORT"
-      //   ? setPassportImg(fetchedRequiredImgUrl)
-      //   : setDrivingLicenseImg(fetchedRequiredImgUrl);
+    
     } catch (error) {
       console.error("Error while creating img url of documents", error);
     }
@@ -515,13 +500,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       totalCharges: totalGrandPriceWithTax,
     };
 
-    // const updatedBookingData = {
-    //   ...bookingData,
-    //   charges: bookingData.charges.map((charge) => ({
-    //     ...charge,
-    //     accepted: addOnsFromUrl.includes(charge.chargesTypeId),
-    //   })),
-    // };
+    
     console.log("Updated Booking Data:", bookingData);
     submitBooking(bookingData);
   };
@@ -580,9 +559,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     setSelectedNationality(selectedOption);
   };
 
-  // const handlePassportChange = (selectedOption) => {
-  //   setPassportIssueBy(selectedOption);
-  // };
 
   const handleDrivingLicenseChange = (selectedOption) => {
     setDrivingLicenseIssueBy(selectedOption);
@@ -695,23 +671,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           ],
           issuedBy: drivingLicenseIssueBy.label,
         },
-        // {
-        //   documentNo: passportNum,
-        //   expiryDate: passportExpiryDate,
-        //   identityDocumentType: 2,
-        //   issueDate: passportIssueDate,
-        //   gallaryImages: [
-        //     {
-        //       url: passportImg,
-        //     },
-        //   ],
-        //   images: [
-        //     {
-        //       url: passportImg,
-        //     },
-        //   ],
-        //   issuedBy: passportIssueBy?.label,
-        // },
+      
       ],
     };
 
@@ -907,97 +867,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                     <div className="driver-details-form-container">
                       <div className=" form-group  pr-4">
                         <div className="">
-                          {/* <Row>
-                            <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Passport No. *</b>
-                                  </label>
-                                </div>
-                                <input
-                                  className="form-control-location mt-2 col-12"
-                                  required
-                                  type="text"
-                                  placeholder="Passport no."
-                                  value={passportNum}
-                                  onChange={(e) =>
-                                    setPassportNum(e.target.value)
-                                  }
-                                />
-                              </Form.Group>
-                            </Col>
-                            <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label mb-3">
-                                    <b>Passport Issued By *</b>
-                                  </label>
-                                </div>
-                                <Select
-                                  options={nationality}
-                                  required
-                                  className="form-control-nationality col-12"
-                                  value={passportIssueBy}
-                                  onChange={handlePassportChange}
-                                  styles={selectStyles}
-                                />
-                              </Form.Group>
-                            </Col>
-
-                            <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Passport Issue Date *</b>
-                                  </label>
-                                </div>
-                                <DateTimePicker
-                                  // required
-                                  className="form-control-age mt-2 col-12"
-                                  value={passportIssueDate}
-                                  onChange={setPassportIssueDate}
-                                  maxDate={
-                                    new Date(new Date().setHours(0, 0, 0, 0))
-                                  }
-                                />
-                              </Form.Group>
-                            </Col>
-                            <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Passport Expiry Date *</b>
-                                  </label>
-                                </div>
-                                <DateTimePicker
-                                  // required
-                                  className="form-control-age mt-2 col-12"
-                                  value={passportExpiryDate}
-                                  onChange={setPassportExpiryDate}
-                                  minDate={new Date(new Date())}
-                                />
-                              </Form.Group>
-                            </Col>
-                            <Col xxl={4} lg={4} md={5} sm={8} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Passport Photo *</b>
-                                  </label>
-                                </div>
-                                <input
-                                  className="form-control-lname p-2 col-12 mt-2"
-                                  required
-                                  type="file"
-                                  placeholder="passport number"
-                                  // value={passportImg}
-                                  onChange={(e) => handlePassportImgChange(e)}
-                                />
-                              </Form.Group>
-                            </Col>
-                          </Row>
-                          <br /> */}
+                          
                           <br />
                           <Row>
                             <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
@@ -1046,7 +916,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 </div>
 
                                 <DateTimePicker
-                                  // required
                                   className="form-control-age mt-2 col-12"
                                   value={drivingLicenseIssueDate}
                                   onChange={setDrivingLicenseIssueDate}
@@ -1064,7 +933,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   </label>
                                 </div>
                                 <DateTimePicker
-                                  // required
                                   className="form-control-age mt-2 col-12"
                                   value={drivingLicenseExpiryDate}
                                   onChange={setDrivingLicenseExpiryDate}

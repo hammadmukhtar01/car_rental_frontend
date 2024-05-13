@@ -48,12 +48,6 @@ h4 {
   border-right: 8px solid black;
 }
 
-/* .car-prices-details-container {
-  border-color: rgb(216, 216, 216);
-  border-style: solid;
-  border-width: 0px 0px 0px 1px;
-} */
-
 .booking-detail-heading {
   font-weight: 700;
   color: #e87a28;
@@ -75,10 +69,8 @@ h4 {
 }
 
 .price-details-div {
-  /* margin-top: 5px; */
   border-radius: 6px;
   padding: 0px 0px 20px 0px;
-  /* padding: 10px 0px 20px 0px; */
 }
 
 .charges-value,
@@ -118,7 +110,6 @@ h4 {
   height: 790px;
   position: absolute;
   left: 56%;
-  /* top: 0; */
 }
 
 .features-icons-heading {
@@ -126,11 +117,7 @@ h4 {
 }
 
 .features-scroll-container {
-  /* max-height: 350px; */
-  /* overflow-y: auto; */
   line-height: 35px;
-  /* display: flex; */
-  /* flex-wrap: wrap; */
 }
 
 .features-values {
@@ -171,15 +158,11 @@ h4 {
 
 .car-description-div {
   border: 1px solid rgb(235, 235, 235);
-  /* box-shadow: 1px 1px 4px #aaaaaa; */
-  /* border-radius: 6px; */
 }
 
 .car-description-text-2 {
   font-size: 14px;
   padding: 10px;
-  /* max-height: 110px; */
-  /* overflow-y: auto; */
 }
 
 .hr-line-heading-scroll {
@@ -276,11 +259,6 @@ h4 {
   background-color: #a24303;
 }
 
-/* .input:focus, .input:focus-visible {
-  border-color: #3898EC;
-  outline: none;
-} */
-
 .remove-coupon-btn {
   background-color: rgba(206, 2, 2, 0.809);
   box-shadow: none;
@@ -298,7 +276,6 @@ h4 {
   align-items: center;
   z-index: 999;
 }
-
 
 .btn.btn-secondary {
   background-color: #e87a28;

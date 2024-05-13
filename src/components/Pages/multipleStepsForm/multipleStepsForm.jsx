@@ -1,18 +1,16 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import VehicleDetails from "./vehicleDetails";
 import AddOnsDocuments from "./documentsAndBooking";
 import AfterBookingPage from "./afterBookingPage";
 import ProgressBar from "./progressBar";
-import MainNavbar from "../navbar/mainNavbar";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 
 function VerificationForm() {
   const { step } = useParams();
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(parseInt(step) || 1);
+  const [currentStep] = useState(parseInt(step) || 1);
 
   const nextStep = () => {
     const next = currentStep + 1;
@@ -53,12 +51,6 @@ function VerificationForm() {
 
   return (
     <div className="multi_step_form co">
-      {/* <div className="navbar-bg-img-container">
-        <div className="booking-page-banner-navbar">
-          {" "}
-          <MainNavbar />
-        </div>
-      </div> */}
       <div id="msform">
         <div className="progress-bar-div">
           <ProgressBar step={currentStep} />

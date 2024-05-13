@@ -5,7 +5,6 @@
   display: flex;
   justify-content: space-evenly;
   border-radius: 10px;
-  /* border: 1px solid gray; */
 }
 
 .pickup-loc-option,
@@ -52,7 +51,6 @@ ul.dropoff-loc-list li.active {
   background-color: #e67931;
   cursor: pointer;
   color: white;
-  /* transform: scale(1.05); */
   transition: transform 0.5s ease-in-out !important;
 }
 
@@ -62,7 +60,6 @@ ul.dropoff-loc-list li:hover {
   background-color: #e67931;
   cursor: pointer;
   color: white;
-  /* transform: scale(1.05); */
   transition: transform 0.5s ease-in-out !important;
 }
 
@@ -105,7 +102,6 @@ ul.dropoff-loc-list li:first-child:hover {
 .pickup-not-selected:hover,
 .dropoff-not-selected:hover,
 .deliver-me-not-selected:hover {
-  /* color: black; */
   cursor: pointer;
   transform: scale(0.95);
   transition: transform 0.4s ease-in-out !important;
@@ -122,15 +118,12 @@ ul.dropoff-loc-list li:first-child:hover {
 .deliver-to-me-single-list,
 .pickup-single-list,
 .dropoff-single-list {
-  /* display: flex; */
-  /* align-items: center */
   padding-top: 12px;
 }
 
 .pickup-single-list.active,
 .dropoff-single-list.active,
 .deliver-to-me-single-list.active {
-  /* background-color: #ae4600; */
   color: rgb(188, 85, 22);
   font-weight: 600;
   box-shadow: 0px 0px 6px 0px #e87a28;

@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import MainNavbar from "../navbar/mainNavbar";
 import "./leaseToOwn.css";
 import LTOMainBannerImg from "../../images/lto-images/lto-main-banner-img.png";
 import Box from "@mui/material/Box";
@@ -12,9 +10,6 @@ import LTOProcessImgWeb from "../../images/lto-images/lto-process-img-web-update
 import LTOProcessImgMob from "../../images/lto-images/lto-process-img-mob-updated.png";
 import { Modal } from "react-bootstrap";
 import InstagramFeed from "../homePage/instagramFeed";
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import LeaseNowFormDetails from "./leaseNowDetailsForm";
 
 const LargeBanner = LTOProcessImgWeb;
@@ -169,26 +164,14 @@ const LeaseToOwnVehicles = () => {
 
     const leastAmountFinanceCostWithoutVAT =
       leasedAmouontPerYearWithoutDownPayment + financeCostPeryear;
-    // const leastAmountFinanceCostWithVAT =
-    //   leastAmountFinanceCostWithoutVAT * 1.05;
 
     const monthlyInstallmentsPriceWithoutVAT =
       leastAmountFinanceCostWithoutVAT / (12 * numOfYears);
-    // const monthlyInstallmentsPriceWithVAT =
-    //   monthlyInstallmentsPriceWithoutVAT * 1.05;
-
-    // const totalLeasedPaymentWithoutVAT =
-    //   monthlyInstallmentsPriceWithoutVAT * 12 * numOfYears;
-    // const totalLeasedPaymentWithVAT =
-    //   monthlyInstallmentsPriceWithVAT * 12 * numOfYears;
 
     const premiumFullInsurancePerYearWihtoutVAT =
       totalSellingPrice * 1.1 * 0.03 * numOfYears;
-    // const premiumFullInsurancePerYearWihtVAT =
-    //   premiumFullInsurancePerYearWihtoutVAT * 1.05;
 
     const yearlyRegisterationWithoutVAT = 2000 * numOfYears;
-    // const yearlyRegisterationWithVAT = yearlyRegisterationWithoutVAT * 1.05;
 
     const someChargesCalculation =
       (premiumFullInsurancePerYearWihtoutVAT + yearlyRegisterationWithoutVAT) *
@@ -196,8 +179,6 @@ const LeaseToOwnVehicles = () => {
 
     const monthlyRegisterationInsurancePriceWithoutVAT =
       someChargesCalculation / (12 * numOfYears);
-    // const monthlyRegisterationInsurancePriceWithVAT =
-    //   monthlyRegisterationInsurancePriceWithoutVAT * 1.05;
 
     const finalPricePerMonthWithoutVATBeforeRound =
       monthlyInstallmentsPriceWithoutVAT +
@@ -276,13 +257,6 @@ const LeaseToOwnVehicles = () => {
   return (
     <div id="main" className="pb-2 bg-white">
       <>
-        {/* <div className="navbar-bg-img-container">
-          <div className="booking-page-banner-navbar">
-            {" "}
-            <MainNavbar />
-          </div>
-        </div> */}
-
         <section className="lto-main-banner-section mt-3">
           <div className="lto-main-banner-div">
             <div className="imgBox">
@@ -340,7 +314,6 @@ const LeaseToOwnVehicles = () => {
             action="#"
             className="lto-calculator-form"
             onSubmit={handleLTOCalculatorForm}
-            // onSubmit={(e) => e.preventDefault()}
           >
             <section className="lto-calculator-main-section">
               <div className="lto-calculator-main-div">
@@ -512,7 +485,6 @@ const LeaseToOwnVehicles = () => {
                         >
                           <h4 className="button-text"> LEASE NOW</h4>
                         </button>
-                        <ToastContainer />
                       </Col>
                     </Row>
                     <Modal show={showModal} onHide={handleCloseModal} size="lg">
@@ -543,59 +515,6 @@ const LeaseToOwnVehicles = () => {
             </section>
           </form>
           <br />
-          {/* <section className="lto-service-pkg-main-section">
-            <div className="ltoservice-pkg-main-div">
-              <h3>SERVICE PACKAGES</h3>
-              <p>
-                Comprehensive packages can provide valuable financial
-                protection, particularly for higher-value vehicles, enhancing
-                the rental experience with peace of mind.{" "}
-              </p>
-              <table className="lto-service-pkg-table">
-                <thead>
-                  <tr>
-                    <th className="lto-service-pkg-table-heading-1 col-6">
-                      <h5 className="car-value-th-1">CAR VALUE</h5>
-                    </th>
-                    <th className="lto-service-pkg-table-heading-2 col-6">
-                      <h5 className="car-value-th-2">
-                        SERVICE + WARRANTY PACKAGE PRICE
-                      </h5>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {servicePackages?.map((pkg, index) => (
-                    <tr key={index}>
-                      <td
-                        className={`lto-service-pkg-table-value service-pkg-table-value-1 col-6 ${
-                          index === servicePackages?.length - 1
-                            ? "last-child"
-                            : ""
-                        }`}
-                      >
-                        <span className="car-value-span">{pkg?.carValue}</span>{" "}
-                        AED
-                      </td>
-                      <td
-                        className={`lto-service-pkg-table-value service-pkg-table-value-2 col-6 ${
-                          index === servicePackages?.length - 1
-                            ? "last-child"
-                            : ""
-                        }`}
-                      >
-                        <span className="service-warranty-value-span">
-                          {" "}
-                          {pkg?.packagePrice}
-                        </span>{" "}
-                        AED
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section> */}
           <section className="lto-testimonial-section">
             <div className="lto-testimonial-div">
               <h3 className="lto-headings">Instagram Feeds</h3>

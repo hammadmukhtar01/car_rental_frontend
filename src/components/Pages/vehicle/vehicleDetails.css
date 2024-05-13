@@ -1,5 +1,4 @@
 .crsl {
-  /* width: 1100px; */
   margin: auto;
 }
 
@@ -7,9 +6,6 @@
   padding-top: 16px;
 }
 
-.vehiclePage-container {
-  /* background-color: rgb(237, 237, 237); */
-}
 .csontainer {
   padding: 0px !important;
 }
@@ -20,7 +16,6 @@
 
 .carousel-container {
   max-width: 100%;
-  /* overflow: hidden; */
 }
 
 .carousel .thumb.selected,
@@ -177,7 +172,6 @@ ul.pagination-container.pagination-bar {
   padding: 15px 10px;
   margin: 15px 1px;
   background-color: white;
-  /* box-shadow: 8px 8px 4px #eadcd4; */
 }
 
 .rating-div,
@@ -298,7 +292,6 @@ span.select2-selection_arrow b {
 }
 
 .select2-container .select2-search--inline .select2-search__field {
-  /* padding: 4px !important; */
   height: 20px !important;
   margin-top: 1px !important;
 }
@@ -333,7 +326,6 @@ span.select2-selection_arrow b {
 .single-car-container-div {
   border: 1px solid rgb(217, 217, 217);
   border-radius: 4px;
-  /* box-shadow: 4px 3px 12px #d3d3d3; */
   padding: 10px 10px;
 }
 
@@ -385,36 +377,11 @@ span.select2-selection_arrow b {
   padding: 10px 10px;
 }
 
-.test-div {
-  /* flex: 1; */
-}
-
 .car-details-div {
   flex: 1;
   display: flex;
   justify-content: flex-end;
 }
-
-/* #tag {
-  position:relative;
-  color:black;
-  width:60px;
-  height:60px;
-  top:-30px;
-  left:-30px;
-  transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg); 
-  -webkit-transform: rotate(-45deg); 
-  -o-transform: rotate(-45deg); 
-  -moz-transform: rotate(-45deg); 
-}
-
-#price {
-  width:100%;
-  bottom:0;
-  position:absolute;
-  text-align:center;
-} */
 
 .product-panel__price span {
   display: block;
@@ -466,13 +433,11 @@ span.select2-selection_arrow b {
 }
 
 .filters-heading {
-  /* color: white; */
   font-weight: 500;
   border: 1px solid #cccccc;
   background-color: white;
   padding: 20px 10px;
   border-radius: 6px;
-  /* background-color: #e87a28; */
 }
 
 .clear-filters {
@@ -505,22 +470,6 @@ span.select2-selection_arrow b {
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
-
-/*
- *, *::before, *::after {
-  box-sizing: border-box;
-}
-
-body {
-  background-color: #ddd;
-  color: #000;
-  min-height: 100vh;
-  margin: 0;
-  padding: 3em 1em;
-  display: grid;
-  place-items: center;
-  perspective: 750px;
-} */
 
 .car-type-filter * :not(:empty) {
   transform-style: preserve-3d;
@@ -626,7 +575,6 @@ body {
 .flipBox_box > div {
   position: absolute;
   width: 1em;
-  /* box-shadow: 0 0 0.35em rgba(112, 64, 0, 0.467) inset; */
   border: 1px solid rgba(180, 180, 180, 0.673);
 }
 
@@ -764,30 +712,11 @@ body {
   }
 }
 
-/* .rdrDayDisabled .rdrInRange,
-.rdrDayDisabled .rdrStartEdge,
-.rdrDayDisabled .rdrEndEdge,
-.rdrDayDisabled .rdrSelected,
-.rdrDayDisabled .rdrDayStartPreview,
-.rdrDayDisabled .rdrDayInPreview,
-.rdrDayDisabled .rdrDayEndPreview {
-  background-color: white;
-}
-
-.rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
-.rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
-.rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
-.rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
-  color: rgb(205, 205, 205) !important;
-  font-size: small;
-} */
-
 .rdrCalendarWrapper {
   border: 1px solid #e3e3e3;
   border-radius: 6px;
   position: absolute;
   z-index: 999;
-  /* font-size: 14.9px !important; */
 }
 
 .rdrDayDisabled {
@@ -844,13 +773,6 @@ body {
 .rdrStartEdge:hover {
   border-color: red !important;
 }
-
-/* .form-check-input[type="checkbox"] {
-  border-radius: 0px;
-  border: 1px solid #a9a9a9;
-  cursor: pointer;
-} */
-
 .all-cars-heading {
   color: #e87a28;
   font-weight: 600;
@@ -864,12 +786,6 @@ body {
 
 .car-features-vertical-line {
   color: #d0d0d0;
-}
-
-.single-car-container-div {
-  /* background-color: white; */
-  /* background: rgb(41,28,5); */
-  /* background: linear-gradient(214deg, rgba(41,28,5,1) 0%, rgba(212,208,202,1) 21%, rgba(11,7,1,1) 100%); */
 }
 
 @media screen and (max-width: 575px) {

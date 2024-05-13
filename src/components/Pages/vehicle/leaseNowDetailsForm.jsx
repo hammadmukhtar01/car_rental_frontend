@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars*/
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { Form } from "react-bootstrap";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import axios from "axios";

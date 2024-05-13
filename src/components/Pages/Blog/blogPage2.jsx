@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import blog2_MainImg1 from "../../images/blog-images/blog2_main_Img1.png";
-import MainNavbar from "../navbar/mainNavbar";
 import BurjKhalifaImg from "../../images/blog-images/blog2_Img1.png";
 import PalmJumeirahImg from "../../images/blog-images/blog2_Img2.png";
 import DubaiCreekImg from "../../images/blog-images/blog2_Img3.png";
@@ -43,13 +41,6 @@ const BlogPage2 = () => {
   return (
     <div id="main">
       <>
-        {/* <div className="navbar-bg-img-container">
-          <div className="booking-page-banner-navbar">
-            {" "}
-            <MainNavbar />
-          </div>
-        </div> */}
-
         <Container>
           <br />
           <div className="blog2-details-page">

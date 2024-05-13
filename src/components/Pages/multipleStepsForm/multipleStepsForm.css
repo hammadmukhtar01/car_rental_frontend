@@ -10,14 +10,11 @@
 /* Progress bar Css  */
 
 .multi_step_form {
-  /* background: #f6f9fb; */
   display: block;
   overflow-x: hidden;
 }
 .multi_step_form #msform {
   position: relative;
-  /* padding: 50px; */
-  /* background: #d0d0d0; */
   z-index: 1;
 }
 .multi_step_form #msform .tittle {
@@ -179,14 +176,12 @@
 }
 
 .multi_step_form #msform #progressbar {
-  /* margin-bottom: 30px; */
   overflow: hidden;
 }
 .multi_step_form #msform #progressbar li {
   list-style-type: none;
   color: rgb(82, 82, 82);
   font-weight: 500;
-  /* font-size: 9px; */
   width: calc(100% / 3);
   float: left;
   position: relative;
@@ -269,7 +264,6 @@ a.btn:hover {
   -webkit-transition: 0.3s;
 }
 .btn:before {
-  /* font-family: FontAwesome; */
   font-weight: normal;
   margin-right: 10px;
 }
@@ -291,7 +285,6 @@ a.btn:hover {
   margin-top: 40px;
 }
 .credit span:before {
-  /* font-family: FontAwesome; */
   color: #e41b17;
   content: "\f004";
 }
@@ -303,7 +296,6 @@ a.btn:hover {
   color: #1dbf73;
 }
 .credit a:hover:after {
-  /* font-family: FontAwesome; */
   content: "\f08e";
   font-size: 9pt;
   position: absolute;
@@ -350,7 +342,6 @@ article p {
 .set-glass:after,
 .to-active:after,
 .set-sticky:after {
-  /* font-family: FontAwesome; */
   font-size: 18pt;
   position: relative;
   float: right;
@@ -402,22 +393,14 @@ code {
   .vertical-line-car-details-page {
     display: none;
   }
-
-  /* .features-values {
-    padding: 0px 10px;
-  } */
 }
 
 @media screen and (min-width: 576px) and (max-width: 767px) {
   .progress-bar-div {
     display: none;
   }
-  /* .features-values {
-    padding: 0px 40px;
-  } */
 
   .features-scroll-container {
-    /* display: flex; */
     max-height: 373px;
     overflow-y: visible;
     flex-direction: row;
@@ -431,9 +414,6 @@ code {
 }
 
 @media screen and (max-width: 576px) {
-  /* .features-values {
-    padding: 0px 40px;
-  } */
   .coupon-apply-button-div {
     display: contents;
   }
@@ -527,7 +507,7 @@ code {
   border-color: #e87a28;
 }
 
-.form-check-input:focus { 
+.form-check-input:focus {
   border-color: #e87a28;
   box-shadow: 0 0 0 0 #e87a28;
 }

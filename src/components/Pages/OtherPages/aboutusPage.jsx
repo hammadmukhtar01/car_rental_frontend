@@ -3,7 +3,6 @@ import React from "react";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import HashLoader from "react-spinners/ClipLoader";
-import AboutUsImg from "../../images/bgImg3-removebg-preview.png";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 
 const aboutUsParagraphs = [
@@ -59,11 +58,7 @@ const AboutusPage = () => {
   return (
     <>
       <div id="main">
-        {/* <div className="navbar-bg-img-container">
-          <div className="booking-page-banner-navbar">
-            <MainNavbar />
-          </div>
-        </div> */}
+      
         <div className="container mt-4 mb-4">
           <section className="about-us-main-section-1 pb-3">
             <div className="about-us-section-1">

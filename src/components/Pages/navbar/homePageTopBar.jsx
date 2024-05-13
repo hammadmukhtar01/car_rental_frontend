@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { BiSolidPhone } from "react-icons/bi";
 import { IoMailSharp } from "react-icons/io5";

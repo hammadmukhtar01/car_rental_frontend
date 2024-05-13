@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -6,10 +5,7 @@ import axios from "axios";
 const BookingDetails = () => {
   const { id } = useParams();
   const [data, setData] = useState([]);
-  const [customerId, setCustomerId] = useState("");
-  const [carId, setCarId] = useState("");
   const [noOfBookingDays, setNoOfBookingDays] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(0);
   const [pickupDateTime, setPickupDateTime] = useState("");
   const [pickupLocation, setPickupLocation] = useState("");
   const [returnDateTime, setReturnDateTime] = useState("");
@@ -366,7 +362,6 @@ const BookingDetails = () => {
                     id="comments"
                     name="comments"
                     rows={4}
-                    //  cols={25}
                     required
                     placeholder="Additional Comments"
                     value={comments}

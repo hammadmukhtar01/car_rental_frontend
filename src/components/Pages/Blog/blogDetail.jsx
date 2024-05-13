@@ -66,20 +66,17 @@ const BlogPage4 = ({ blogData }) => {
   // }
 
   return (
-    <div id="main" >
+    <div id="main">
       <>
-        {/* <div className="navbar-bg-img-container">
-          <div className="booking-page-banner-navbar">
-            {" "}
-            <MainNavbar />
-          </div>
-        </div> */}
-
         <Container>
           <div className="blog-details-page">
             <h2>{selectedBlog?.title}</h2>
             <div className="blog-details-image-container">
-              <img src={selectedBlog?.imageUrl} className="blog-details-image" alt="Blog" />
+              <img
+                src={selectedBlog?.imageUrl}
+                className="blog-details-image"
+                alt="Blog"
+              />
             </div>
             <p>{selectedBlog?.text}</p>
           </div>

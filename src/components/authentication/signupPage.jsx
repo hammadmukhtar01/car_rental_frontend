@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "./authentication.css";
-import MainNavbar from "../Pages/navbar/mainNavbar";
 import { useReload } from "../PrivateComponents/utils";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import { useNavigate } from "react-router";
@@ -104,12 +102,6 @@ const SignupPage = () => {
 
   return (
     <>
-      {/* <div className="navbar-bg-img-container">
-        <div className="booking-page-banner-navbar">
-          {" "}
-          <MainNavbar />
-        </div>
-      </div> */}
       <section className="ftco-section">
         <div className="container">
           <div className="login-row justify-content-center">
@@ -122,12 +114,6 @@ const SignupPage = () => {
                   onSubmit={handleSubmit}
                 >
                   <div className="form-group row">
-                    {/* <label
-                      htmlFor="username"
-                      className={`col-lg-5 col-md-5 col-form-label signup-page-labels`}
-                    >
-                      Full Name
-                    </label> */}
                     <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
                       <input
                         type="text"
@@ -161,61 +147,7 @@ const SignupPage = () => {
                     </div>
                   </div>
 
-                  {/* <div className="form-group row">
-                    <label
-                      htmlFor="email"
-                      className={`col-lg-5 col-md-5 col-form-label signup-page-labels`}
-                    >
-                      Email
-                    </label>
-                    <div className="inputgroup col-lg-6 col-md-6">
-                      <input
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        type="email"
-                        autoComplete="off"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                      />
-                      <label htmlFor="email">email</label>
-                    </div>
-                  </div> */}
-
-                  {/* <div className="form-group row">
-                    <label
-                      htmlFor="password"
-                      className={`col-lg-5 col-md-5 col-form-label signup-page-labels`}
-                    >
-                      Password
-                    </label>
-                    <div className="inputgroup col-lg-6 col-md-6">
-                      <input
-                        className="form-control"
-                        id="password"
-                        name="password"
-                        type="password"
-                        autoComplete="off"
-                        required
-                        value={formData.password}
-                        onChange={handleChange}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                      />
-                      <label htmlFor="password">password</label>
-                    </div>
-                  </div> */}
-
                   <div className="form-group row">
-                    {/* <label
-                      htmlFor="confirmPassword"
-                      className={`col-lg-5 col-md-5 col-form-label signup-page-labels`}
-                    >
-                      Confirm Password
-                    </label> */}
                     <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
                       <input
                         className="form-control"
@@ -250,12 +182,6 @@ const SignupPage = () => {
                   </div>
 
                   <div className="form-group row">
-                    {/* <label
-                      htmlFor="phoneNumber"
-                      className={`col-lg-5 col-md-5 col-form-label signup-page-labels`}
-                    >
-                      Phone Number
-                    </label> */}
                     <div className="inputgroup col-lg-6 col-md-6 col-sm-12">
                       <input
                         className="form-control"

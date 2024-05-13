@@ -221,9 +221,6 @@
   transform: scale(1);
 }
 
-
-
-
 @media screen and (max-width: 576px) {
   .free-consultation-main-div {
     padding: 30px 20px;

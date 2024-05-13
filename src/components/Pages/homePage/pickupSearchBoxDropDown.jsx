@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import MapComponent from "../../GoogleMap/googleMapAPI";
 import "./pickupdropoffModal.css";
@@ -7,7 +6,6 @@ import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
 import UseGlobalFormFields from "../Utils/useGlobalFormFields";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import FormDataContext from "../Utils/FormDataContext";
 
 function PickupLocationModal({
   show,
@@ -34,19 +32,11 @@ function PickupLocationModal({
   );
   const [selectedTab, setSelectedTab] = useState("");
 
-  const [selectedLocationName, setSelectedLocationName] = useState(
-    initialInputFieldValue || ""
-  );
-  const [pickupLocationState, setPickupLocationState] = useState("");
-  const [deliverToAddressValue, setDeliverToAddressValue] = useState("");
+  const [selectedLocationName] = useState(initialInputFieldValue || "");
+  const [pickupLocationState] = useState("");
+  const [deliverToAddressValue] = useState("");
 
   console.log("Old loc is: ", selectedLocationName);
-
-  // const [pickupLocationName, setPickupLocationName] =
-  //   useState("Samari retails");
-  // const [pickUpLocationDetail, setPickUpLocationDetail] = useState(
-  //   "Milele head office AF-07"
-  // );
 
   const handleFocus = (e) => {
     const inputGroup = e.target.closest(".inputgroup");
@@ -272,9 +262,6 @@ function PickupLocationModal({
                           required
                           readOnly
                           value={"Samari retail111"}
-                          // onChange={(e) => {
-                          //   setPickupLocationName(e.target.value);
-                          // }}
                         />
                         <label htmlFor="pickupLocationName">
                           PickUp Location
@@ -293,9 +280,6 @@ function PickupLocationModal({
                           readOnly
                           required
                           value={"Milele head office AF-07"}
-                          // onChange={(e) => {
-                          //   setPickUpLocationDetail(e.target.value);
-                          // }}
                         />
                         <label htmlFor="pickUpLocationDetail">
                           Address Detail

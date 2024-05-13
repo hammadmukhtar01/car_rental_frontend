@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import MainNavbar from "../Pages/navbar/mainNavbar";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import { useReload } from "../PrivateComponents/utils";
 import { toast, ToastContainer } from "react-toastify";
@@ -20,7 +18,6 @@ const ResetPasswordPage = () => {
   const handleForgotPasswordClick = async (e) => {
     e.preventDefault();
 
-    // console.warn("Data: ", user, password);
     let data = { password, passwordConfirm };
 
     try {
@@ -69,12 +66,6 @@ const ResetPasswordPage = () => {
 
   return (
     <>
-      {/* <div className="navbar-bg-img-container">
-        <div className="booking-page-banner-navbar">
-          {" "}
-          <MainNavbar />
-        </div>
-      </div> */}
       <section className="ftco-section">
         <div className="container pt-2">
           <div className="forgot-row justify-content-center">
@@ -143,10 +134,9 @@ const ResetPasswordPage = () => {
                     <br />
                     <br />
                     <button className="middle">
-                      <span className="animate-button btn4">
-                        Submit
-                      </span>
+                      <span className="animate-button btn4">Submit</span>
                     </button>
+                    <ToastContainer />
                   </div>
                   <br />
                   <div className="form-group-0">

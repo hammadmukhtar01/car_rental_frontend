@@ -34,22 +34,8 @@ const HomePage = () => {
     { name: "nissan", logo: NissanLogo, title: "Nissan" },
   ];
 
-  const handleMouseEnter = () => {
-    const slider = document.querySelector(".car-brands-slider");
-    slider?.classList.add("paused");
-  };
-
-  const handleMouseLeave = () => {
-    const slider = document.querySelector(".car-brands-slider");
-    slider?.classList.remove("paused");
-  };
-
   const handleCloseModal = () => {
     setShowModal(false);
-  };
-
-  const openMapModal = () => {
-    setShowModal(true);
   };
 
   // const { loading } = useReload();
@@ -61,11 +47,6 @@ const HomePage = () => {
   //     </>
   //   );
   // }
-  // const [selectedLocationss, setSelectedLocationss] = useState({
-  //   lat: 28.7041,
-  //   lng: 77.1025,
-  // });
-
   return (
     <div className="">
       <div id="main">
@@ -97,17 +78,6 @@ const HomePage = () => {
           </div>
 
           <CarCards />
-
-          {/* <Celebration/> */}
-          {/* <div className="spin-wheel-buttons-container">
-            <a
-              href="#spin-the-wheel"
-              onClick={openMapModal}
-              className="contact-button spin-the-wheel-link"
-            >
-              <ImSpinner4 className="rotate" />
-            </a>
-          </div> */}
 
           <Modal show={showModal} onHide={handleCloseModal} size="lg">
             <Modal.Header closeButton>
@@ -146,33 +116,9 @@ const HomePage = () => {
                   </div>
                 </div>
               </section>
-
-              {/* <div
-                className="car-brands-slider-container"
-              >
-                <div className={`car-brands-slider`}>
-                  {carBrands.map((brand, index) => (
-                    <div
-                      key={index}
-                      className={`car-brand animated-logo`}
-                      style={{ background: "white" }}
-                    >
-                      <img
-                        src={brand.logo}
-                        className="brands-logo-images"
-                        title={brand.title}
-                        alt="Logo"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div> */}
             </div>
           </div>
 
-          {/* <GoogleMapAPI/> */}
-
-          {/* <ClientLogoSection /> */}
           <AnimatedCarSection />
 
           <OurBlogs />

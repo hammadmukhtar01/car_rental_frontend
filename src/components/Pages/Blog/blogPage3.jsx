@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import blog3_MainImg1 from "../../images/blog-images/blog3_main_Img1.png";
-import MainNavbar from "../navbar/mainNavbar";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 
 const BlogPage3 = ({ blogData }) => {
@@ -33,15 +31,8 @@ const BlogPage3 = ({ blogData }) => {
   // }
 
   return (
-    <div id="main" >
+    <div id="main">
       <>
-        {/* <div className="navbar-bg-img-container">
-          <div className="booking-page-banner-navbar">
-            {" "}
-            <MainNavbar />
-          </div>
-        </div> */}
-
         <Container>
           <br />
           <div className="blog-details-page">

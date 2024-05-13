@@ -4,7 +4,6 @@
 }
 
 .imgBox {
-  /* max-width: 400px; */
   min-width: 200px;
 }
 
@@ -26,8 +25,6 @@
 .main-car-img-lto {
   background-repeat: no-repeat;
   background-size: contain;
-  /* height: 40vh; */
-  /* width: 100%; */
   position: relative;
   object-fit: cover;
   max-width: 100%;
@@ -84,7 +81,6 @@
 }
 
 .lto-calculator-container {
-  /* padding: 20px; */
   padding: 10px 20px;
   border-radius: 15px;
   background-color: rgb(217, 217, 217);

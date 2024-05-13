@@ -3,9 +3,6 @@ import { FaPhone, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 import { Modal } from "react-bootstrap";
 
 const FixedNumLocButtons = () => {
-  // const latitude = 25.177316;
-  // const longitude = 55.376264;
-  // const mapLink = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
   const phoneNumber = "+971508805974";
   const whatsappLink = `https://wa.me/${phoneNumber.replace(/\D/g, "")}`;
 

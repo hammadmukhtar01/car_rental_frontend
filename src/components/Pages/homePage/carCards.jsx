@@ -30,13 +30,6 @@ const Carousel = () => {
     <div className="testimonial-container pt-4 offer-car-main-section">
       <div className="offers-car-container">
         <div className="container">
-          {/* <div className="styled-label">
-            <div className="offer-heading-icon-container-div">
-              <span>
-                <b className="fs-3">Offers</b>
-              </span>
-            </div>
-          </div> */}
           <br />
           <div className="main-banner-img-container">
             <img

@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import "./authentication.css";
-import MainNavbar from "../Pages/navbar/mainNavbar";
 import { useReload } from "../PrivateComponents/utils";
 import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import axios from "axios";
@@ -59,7 +57,6 @@ const LoginPage = () => {
           },
         });
       } else {
-        // alert("Email/Password missing...");
         toast.warning("Email/Password missing...", {
           autoClose: 3000,
           style: {
@@ -93,12 +90,6 @@ const LoginPage = () => {
 
   return (
     <>
-      {/* <div className="navbar-bg-img-container">
-        <div className="booking-page-banner-navbar">
-          {" "}
-          <MainNavbar />
-        </div>
-      </div> */}
       <section className="ftco-section">
         <div className="container pt-4">
           <div className="login-row justify-content-center">

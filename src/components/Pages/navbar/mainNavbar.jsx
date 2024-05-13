@@ -7,7 +7,6 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Image from "react-bootstrap/Image";
-// import Whitelogo from "../../images/car_rental_logo_old.png";
 import Coloredlogo from "../../images/car_rental_logo.png";
 import { Col } from "react-bootstrap";
 import "./navbar.css";
@@ -24,8 +23,6 @@ function OffcanvasExample() {
   const user_info = auth?.data;
   const userName = user_info?.result?.userName;
 
-  // console.log("Auth in local storage is --: ", auth);
-
   useEffect(() => {
     setIsHomePage(location?.pathname === "/home" || location?.pathname === "/");
   }, [location?.pathname]);
@@ -35,10 +32,6 @@ function OffcanvasExample() {
 
   // const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
   const logoImage = Coloredlogo;
-
-  // console.log("isHomePage:", isHomePage);
-  // console.log("isExactHomePage:", isExactHomePage);
-  // console.log("logoImage:", logoImage);
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
@@ -118,33 +111,6 @@ function OffcanvasExample() {
                   >
                     Home
                   </Nav.Link>
-                  {/* <NavDropdown
-                    title="Vehicles"
-                    id={`offcanvasNavbarDropdown-expand-lg`}
-                    className={`navbar-dropdown-title ${
-                      isVehiclesPage ? "active" : ""
-                    }`}
-                  >
-                    <NavDropdown.Item
-                      href="/vehicles"
-                      className={`navbar-sub-menus ${
-                        location.pathname.includes("/vehicles") ? "active" : ""
-                      }`}
-                    >
-                      For Rent
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item
-                      href="/leaseToOwn"
-                      className={`navbar-sub-menus ${
-                        location.pathname.includes("/leaseToOwn")
-                          ? "active"
-                          : ""
-                      }`}
-                    >
-                      For Lease
-                    </NavDropdown.Item>
-                  </NavDropdown> */}
                   <Nav.Link
                     as={NavLink}
                     to="/vehicles"
@@ -244,15 +210,6 @@ function OffcanvasExample() {
                   </>
                 ) : (
                   <>
-                    {/* <Nav.Link
-                      as={NavLink}
-                      to="/login"
-                      className="auth-menu"
-                      activeclassname="active"
-                    >
-                      <b className="login-menu">Login</b>
-                    </Nav.Link> */}
-
                     <Nav.Link
                       as={NavLink}
                       to="/signup"

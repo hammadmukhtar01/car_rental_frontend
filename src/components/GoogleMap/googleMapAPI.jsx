@@ -1,41 +1,4 @@
 /* eslint-disable no-unused-vars */
-// import React from "react";
-// import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
-// // import { REACT_APP_GOOGLE_MAPS_KEY } from "../constants/constants";
-
-// const MapComponent = ({ selectedLocatio }) => {
-//   console.log("lat and long are: ", selectedLocatio)
-//   const { isLoaded, loadError } = useLoadScript({
-//     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
-//   });
-//   const mapRef = React.useRef();
-//   const onMapLoad = React.useCallback((map) => {
-//     mapRef.current = map;
-//   }, []);
-//   if (loadError) return "Error";
-//   if (!isLoaded) return "Maps";
-
-//   return (
-//     <div style={{ marginTop: "50px" }}>
-//       <GoogleMap
-//         mapContainerStyle={{
-//           height: "800px",
-//         }}
-//         center={selectedLocatio}
-//         zoom={13}
-//         onLoad={onMapLoad}
-//       >
-//         <MarkerF
-//           position={selectedLocatio}
-//           icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
-//         />
-//       </GoogleMap>
-//     </div>
-//   );
-// };
-
-// export default MapComponent;
-
 import React, { useEffect, useState } from "react";
 
 function MapComponent({ selectedLocationss }) {
@@ -64,4 +27,3 @@ function MapComponent({ selectedLocationss }) {
 }
 
 export default MapComponent;
-

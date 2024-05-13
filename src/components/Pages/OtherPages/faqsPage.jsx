@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import "./otherPages.css";
-import MainNavbar from "../navbar/mainNavbar";
 import {
   MDBAccordion,
   MDBAccordionItem,
@@ -131,12 +130,6 @@ const FaqsPage = () => {
 
   return (
     <>
-      {/* <div className="navbar-bg-img-container">
-        <div className="booking-page-banner-navbar">
-          {" "}
-          <MainNavbar />
-        </div>
-      </div> */}
       <div className="container pt-4 pb-5">
         <div className="styled-label text-center">
           <span className="faqs-main-heading">
