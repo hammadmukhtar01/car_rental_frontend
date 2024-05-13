@@ -341,9 +341,6 @@
   list-style-type: decimal;
 }
 
-ul li {
-  /* line-height: 30px; */
-}
 .colored-bold-line {
   text-transform: uppercase;
   color: #e87a28;

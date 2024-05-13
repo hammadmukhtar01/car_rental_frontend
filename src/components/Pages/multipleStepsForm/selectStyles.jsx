@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const selectStyles = {
     control: (provided, { hasValue }) => ({
       ...provided,

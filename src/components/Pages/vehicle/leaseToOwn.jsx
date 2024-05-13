@@ -96,15 +96,15 @@ const LeaseToOwnVehicles = () => {
     let packagePrice = "0";
     let foundPackage = false;
 
-    for (let i = 0; i < servicePackages.length; i++) {
-      if (estCarPrice <= servicePackages[i].carValue) {
-        packagePrice = servicePackages[i].packagePrice;
+    for (let i = 0; i < servicePackages?.length; i++) {
+      if (estCarPrice <= servicePackages[i]?.carValue) {
+        packagePrice = servicePackages[i]?.packagePrice;
         foundPackage = true;
         break;
       }
     }
     if (!foundPackage) {
-      packagePrice = servicePackages[servicePackages.length - 1].packagePrice;
+      packagePrice = servicePackages[servicePackages?.length - 1].packagePrice;
     }
 
     return packagePrice;
@@ -303,7 +303,7 @@ const LeaseToOwnVehicles = () => {
                 <h3 className="lto-headings">OUR BRANDS</h3>
               </div>
               <div className="lto-brand-icons">
-                {icons.map((icon, index) => (
+                {icons?.map((icon, index) => (
                   <img
                     key={index}
                     src={icon}
@@ -490,18 +490,18 @@ const LeaseToOwnVehicles = () => {
                           Lease to Own Summary
                         </h4>
                         <br />
-                        {ltoSummaryData.map((item, index) => (
+                        {ltoSummaryData?.map((item, index) => (
                           <Row
                             key={index}
                             className="align-items-center pt-2 pb-2"
                           >
                             <Col className="text-left col-8">
                               <h5 className="lto-cal-summary-label-text">
-                                {item.label}
+                                {item?.label}
                               </h5>
                             </Col>
                             <Col className="lto-cal-summary-value-text text-right col-4">
-                              <p>{item.value}</p>
+                              <p>{item?.value}</p>
                             </Col>
                           </Row>
                         ))}
@@ -565,28 +565,28 @@ const LeaseToOwnVehicles = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {servicePackages.map((pkg, index) => (
+                  {servicePackages?.map((pkg, index) => (
                     <tr key={index}>
                       <td
                         className={`lto-service-pkg-table-value service-pkg-table-value-1 col-6 ${
-                          index === servicePackages.length - 1
+                          index === servicePackages?.length - 1
                             ? "last-child"
                             : ""
                         }`}
                       >
-                        <span className="car-value-span">{pkg.carValue}</span>{" "}
+                        <span className="car-value-span">{pkg?.carValue}</span>{" "}
                         AED
                       </td>
                       <td
                         className={`lto-service-pkg-table-value service-pkg-table-value-2 col-6 ${
-                          index === servicePackages.length - 1
+                          index === servicePackages?.length - 1
                             ? "last-child"
                             : ""
                         }`}
                       >
                         <span className="service-warranty-value-span">
                           {" "}
-                          {pkg.packagePrice}
+                          {pkg?.packagePrice}
                         </span>{" "}
                         AED
                       </td>

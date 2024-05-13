@@ -49,13 +49,6 @@ function CustomStepIcon({ locName, IconName, locTime }) {
 }
 
 const CustomIconStepper = () => {
-  const carTypeInURL = useLocation();
-  const queryParams = new URLSearchParams(carTypeInURL.search);
-  const tariffGroupIdParam = queryParams.get("tariffGroupId");
-  const startDateParam = queryParams.get("startDate");
-  const endDateParam = queryParams.get("endDate");
-  const pickupTimeParam = queryParams.get("pickupTime");
-  const dropoffTimeParam = queryParams.get("dropoffTime");
 
   return (
     <Box sx={{ width: "100%" }} className="customer-icon-stepper-container">
@@ -64,18 +57,18 @@ const CustomIconStepper = () => {
         <hr style={{ opacity: "1" }} />
       </div>
       <Stepper
-        activeStep={steps.length - 1}
+        activeStep={steps?.length - 1}
         orientation="vertical"
         className="pick-drop-data"
       >
-        {steps.map((label, index) => (
+        {steps?.map((label, index) => (
           <Step key={index}>
             <StepLabel
               StepIconComponent={() => (
                 <CustomStepIcon
-                  locName={label.locName}
-                  IconName={label.locIcon}
-                  locTime={label.locTime}
+                  locName={label?.locName}
+                  IconName={label?.locIcon}
+                  locTime={label?.locTime}
                 />
               )}
             />

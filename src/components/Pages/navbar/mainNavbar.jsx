@@ -19,7 +19,7 @@ function OffcanvasExample() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const auth = JSON.parse(localStorage.getItem("user"));
+  const auth = JSON.parse(localStorage?.getItem("user"));
   const authStatusCode = auth?.statusText;
   const user_info = auth?.data;
   const userName = user_info?.result?.userName;
@@ -27,11 +27,11 @@ function OffcanvasExample() {
   // console.log("Auth in local storage is --: ", auth);
 
   useEffect(() => {
-    setIsHomePage(location.pathname === "/home" || location.pathname === "/");
-  }, [location.pathname]);
+    setIsHomePage(location?.pathname === "/home" || location?.pathname === "/");
+  }, [location?.pathname]);
 
   const isExactHomePage =
-    location.pathname === "/home" || location.pathname === "/";
+    location?.pathname === "/home" || location?.pathname === "/";
 
   // const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
   const logoImage = Coloredlogo;
@@ -43,7 +43,7 @@ function OffcanvasExample() {
   const handleLogout = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
     if (confirmLogout) {
-      localStorage.removeItem("user");
+      localStorage?.removeItem("user");
       setTimeout(() => {
         window.location.reload();
       }, 100);

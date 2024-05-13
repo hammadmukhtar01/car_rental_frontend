@@ -47,18 +47,18 @@ const VehicleDetails = ({ nextStep }) => {
 
   const carTypeInURL = useLocation();
   const queryParams = useMemo(
-    () => new URLSearchParams(carTypeInURL.search),
-    [carTypeInURL.search]
+    () => new URLSearchParams(carTypeInURL?.search),
+    [carTypeInURL?.search]
   );
-  const TariffGroupId = queryParams.get("tariffGroupId");
-  const StartDateTime = queryParams.get("startDate");
-  const ReturnDateTime = queryParams.get("endDate");
-  const pickupTimeParam = queryParams.get("pickupTime");
-  const dropoffTimeParam = queryParams.get("dropoffTime");
-  const pickupLocParam = queryParams.get("pickupLoc");
-  const pickupLocStateParam = queryParams.get("pickupLocState");
-  const dropoffLocStateParam = queryParams.get("dropoffLocState");
-  const checkBoxValueParam = queryParams.get("checkBoxValue");
+  const TariffGroupId = queryParams?.get("tariffGroupId");
+  const StartDateTime = queryParams?.get("startDate");
+  const ReturnDateTime = queryParams?.get("endDate");
+  const pickupTimeParam = queryParams?.get("pickupTime");
+  const dropoffTimeParam = queryParams?.get("dropoffTime");
+  const pickupLocParam = queryParams?.get("pickupLoc");
+  const pickupLocStateParam = queryParams?.get("pickupLocState");
+  const dropoffLocStateParam = queryParams?.get("dropoffLocState");
+  const checkBoxValueParam = queryParams?.get("checkBoxValue");
   const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
 
   const AddOnsData = useMemo(
@@ -161,16 +161,16 @@ const VehicleDetails = ({ nextStep }) => {
       };
 
       const response = await axios.post(url, ModuleValue, { headers });
-      const fetchedAddOns = response.data.result.items;
+      const fetchedAddOns = response?.data?.result?.items;
 
-      const mergedAddOns = fetchedAddOns.map((addOn) => ({
+      const mergedAddOns = fetchedAddOns?.map((addOn) => ({
         ...addOn,
-        ...AddOnsData.find(
-          (localAddOn) => localAddOn.id === addOn.chargesTypeId
+        ...AddOnsData?.find(
+          (localAddOn) => localAddOn?.id === addOn?.chargesTypeId
         ),
       }));
 
-      setAddOnsValuesData(mergedAddOns.filter((addOn) => addOn.addOnsName));
+      setAddOnsValuesData(mergedAddOns?.filter((addOn) => addOn?.addOnsName));
       console.log("Merged add-ons:", mergedAddOns);
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
@@ -188,21 +188,21 @@ const VehicleDetails = ({ nextStep }) => {
 
   const handleCheckBoxChange = (id) => {
     setSelectedAddOns((prevSelectedAddOns) => {
-      const index = prevSelectedAddOns.findIndex((addOn) => addOn.id === id);
+      const index = prevSelectedAddOns?.findIndex((addOn) => addOn?.id === id);
       if (index !== -1) {
         const updatedAddOns = [...prevSelectedAddOns];
-        updatedAddOns.splice(index, 1);
+        updatedAddOns?.splice(index, 1);
         return updatedAddOns;
       } else {
-        const addOnToAdd = AddOnsData.find((addOn) => addOn.id === id);
+        const addOnToAdd = AddOnsData?.find((addOn) => addOn?.id === id);
         return [...prevSelectedAddOns, addOnToAdd];
       }
     });
   };
 
   const totalAddOnsPriceSimple = () => {
-    return selectedAddOns.reduce((total, addOn) => {
-      return total + (addOn.pricePerTrip || 0);
+    return selectedAddOns?.reduce((total, addOn) => {
+      return total + (addOn?.pricePerTrip || 0);
     }, 0);
   };
 
@@ -210,7 +210,7 @@ const VehicleDetails = ({ nextStep }) => {
     if (checkBoxValueParam === "false") {
       setDropoffLocParam(pickupLocParam);
     } else {
-      setDropoffLocParam(queryParams.get("dropoffLoc"));
+      setDropoffLocParam(queryParams?.get("dropoffLoc"));
     }
   }, [checkBoxValueParam, pickupLocParam, queryParams]);
 
@@ -226,8 +226,8 @@ const VehicleDetails = ({ nextStep }) => {
 
   useEffect(() => {
     if (StartDateTime && ReturnDateTime) {
-      const startTimeStamp = new Date(StartDateTime).getTime();
-      const endTimeStamp = new Date(ReturnDateTime).getTime();
+      const startTimeStamp = new Date(StartDateTime)?.getTime();
+      const endTimeStamp = new Date(ReturnDateTime)?.getTime();
       const timeDifference = endTimeStamp - startTimeStamp;
       const totalDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
@@ -247,8 +247,8 @@ const VehicleDetails = ({ nextStep }) => {
       const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/GetVehicleRateDetail`;
       const response = await axios.post(url, data, { headers });
 
-      setSingleVehicleDetails(response.data.result);
-      console.log("Complete Details of a cars is : ", response.data.result);
+      setSingleVehicleDetails(response?.data?.result);
+      console.log("Complete Details of a cars is : ", response?.data?.result);
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
@@ -357,11 +357,11 @@ const VehicleDetails = ({ nextStep }) => {
   const applyCoupon = (e) => {
     e.preventDefault();
 
-    const foundCoupon = couponsData.find(
-      (coupon) => coupon.name === couponCode
+    const foundCoupon = couponsData?.find(
+      (coupon) => coupon?.name === couponCode
     );
 
-    if (couponCode.trim() === "") {
+    if (couponCode?.trim() === "") {
       toast.warning("Please enter a coupon code", {
         autoClose: 3000,
         style: { border: "1px solid #c0c0c0", fontSize: "14px" },
@@ -412,8 +412,8 @@ const VehicleDetails = ({ nextStep }) => {
   ];
 
   const getDeliveryCharge = () => {
-    const selectedStatePickup = pickupLocStateParam.toUpperCase();
-    const selectedStateDropoff = dropoffLocStateParam.toUpperCase();
+    const selectedStatePickup = pickupLocStateParam?.toUpperCase();
+    const selectedStateDropoff = dropoffLocStateParam?.toUpperCase();
 
     const pickupCharge =
       deliveryCharges[selectedStatePickup] !== undefined
@@ -429,8 +429,8 @@ const VehicleDetails = ({ nextStep }) => {
 
   const calculateTotalPrice = () => {
     if (additionalCharges) {
-      return additionalCharges.reduce(
-        (total, charge) => total + charge.value,
+      return additionalCharges?.reduce(
+        (total, charge) => total + charge?.value,
         0
       );
     }
@@ -448,9 +448,9 @@ const VehicleDetails = ({ nextStep }) => {
   const grandTotalDiscountedValue = () => {
     if (appliedCoupon) {
       // const discountedValue = Math.ceil(
-      //   (appliedCoupon.value * grandTotalPrice) / 100
+      //   (appliedCoupon?.value * grandTotalPrice) / 100
       // );
-      const discountedValue = appliedCoupon.value;
+      const discountedValue = appliedCoupon?.value;
       return discountedValue;
     }
     return 0;
@@ -471,15 +471,15 @@ const VehicleDetails = ({ nextStep }) => {
   const handleNextStep1 = () => {
     const baseUrl = `/bookingPage/2`;
     const urlParams = new URLSearchParams(window.location.search);
-    const selectedAddOnsIds = selectedAddOns.map((addOn) => addOn.id).join(",");
+    const selectedAddOnsIds = selectedAddOns?.map((addOn) => addOn?.id).join(",");
 
-    urlParams.set("page", "2");
-    urlParams.set("discountValue", grandTotalDiscountedValue());
-    urlParams.set("grandTotalCharges", grandTotalPriceWithDiscount);
-    urlParams.set("addOns", selectedAddOnsIds);
-    urlParams.set("totalDeliveryCharges", getDeliveryCharge());
+    urlParams?.set("page", "2");
+    urlParams?.set("discountValue", grandTotalDiscountedValue());
+    urlParams?.set("grandTotalCharges", grandTotalPriceWithDiscount);
+    urlParams?.set("addOns", selectedAddOnsIds);
+    urlParams?.set("totalDeliveryCharges", getDeliveryCharge());
 
-    const nextStepUrl = `${baseUrl}?${urlParams.toString()}`;
+    const nextStepUrl = `${baseUrl}?${urlParams?.toString()}`;
     window.location.href = nextStepUrl;
   };
 
@@ -487,7 +487,7 @@ const VehicleDetails = ({ nextStep }) => {
     function formatDate(dateString) {
       const options = { day: "2-digit", month: "short", year: "numeric" };
       const date = new Date(dateString);
-      return date.toLocaleDateString("en-US", options);
+      return date?.toLocaleDateString("en-US", options);
     }
 
     const formattedDate = formatDate(locDate);
@@ -548,11 +548,11 @@ const VehicleDetails = ({ nextStep }) => {
                             <div className="pt-3 text-center">
                               <div className="carousel-container">
                                 {/* <Carousel className="crsl">
-                                  {images.map((image) => (
+                                  {images?.map((image) => (
                                     <img
-                                      key={image.id}
-                                      src={image.download_url}
-                                      alt={image.author}
+                                      key={image?.id}
+                                      src={image?.download_url}
+                                      alt={image?.author}
                                     ></img>
                                   ))}
                                 </Carousel> */}
@@ -578,15 +578,15 @@ const VehicleDetails = ({ nextStep }) => {
                                   fluid
                                   className="features-scroll-container"
                                 >
-                                  {carFeaturesWithIcons.map(
+                                  {carFeaturesWithIcons?.map(
                                     (carFeaturesIcons, index) => (
                                       <Row key={index}>
                                         <Col lg={12} md={12} sm={12} xs={12}>
                                           <div className="features-values">
                                             <carFeaturesIcons.featureIcon className="mr-1 " />{" "}
                                             <span className="features-icon-name">
-                                              {carFeaturesIcons.value}{" "}
-                                              {carFeaturesIcons.name}
+                                              {carFeaturesIcons?.value}{" "}
+                                              {carFeaturesIcons?.name}
                                             </span>
                                           </div>
                                         </Col>
@@ -664,7 +664,7 @@ const VehicleDetails = ({ nextStep }) => {
                             <Col lg={12} md={12} sm={12} xs={12}>
                               <div className=" form-group ">
                                 <Row className="d-flex">
-                                  {addOnsValuesData.map((AddOnsDataValues) => (
+                                  {addOnsValuesData?.map((AddOnsDataValues) => (
                                     <Col
                                       lg={8}
                                       md={12}
@@ -753,7 +753,7 @@ const VehicleDetails = ({ nextStep }) => {
                         <Modal.Body>
                           {selectedAddOn && (
                             <>
-                              <p>{selectedAddOn.addOnsDetail}</p>
+                              <p>{selectedAddOn?.addOnsDetail}</p>
                             </>
                           )}
                         </Modal.Body>
@@ -781,19 +781,19 @@ const VehicleDetails = ({ nextStep }) => {
                           <hr style={{ opacity: "1" }} />
                         </div>
                         <Stepper
-                          activeStep={steps.length - 1}
+                          activeStep={steps?.length - 1}
                           orientation="vertical"
                           className="pick-drop-data col-11"
                         >
-                          {steps.map((label, index) => (
+                          {steps?.map((label, index) => (
                             <Step key={index}>
                               <StepLabel
                                 StepIconComponent={() => (
                                   <CustomStepIcon
-                                    locName={label.locName}
-                                    locDate={label.locDate}
-                                    IconName={label.locIcon}
-                                    locTime={label.locTime}
+                                    locName={label?.locName}
+                                    locDate={label?.locDate}
+                                    IconName={label?.locIcon}
+                                    locTime={label?.locTime}
                                   />
                                 )}
                               />
@@ -861,9 +861,9 @@ const VehicleDetails = ({ nextStep }) => {
                                 <hr />
                               </>
                               <>
-                                {/* {additionalCharges.map((charge) => ( */}
+                                {/* {additionalCharges?.map((charge) => ( */}
                                 <div
-                                  // key={charge._id}
+                                  // key={charge?._id}
                                   className="price-row p-1"
                                   style={{ lineHeight: "100%" }}
                                 >
@@ -878,7 +878,7 @@ const VehicleDetails = ({ nextStep }) => {
                                   </div>
                                 </div>
                                 <div
-                                  // key={charge._id}
+                                  // key={charge?._id}
                                   className="price-row p-1"
                                   style={{ lineHeight: "100%" }}
                                 >

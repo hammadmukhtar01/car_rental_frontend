@@ -146,23 +146,23 @@ const FaqsPage = () => {
         <div className="faqs-main-div">
           <MDBContainer className="mt-4">
             <MDBRow>
-              {faqItems.map((faqItem) => (
+              {faqItems?.map((faqItem) => (
                 <MDBCol
                   xl={6}
                   lg={6}
                   md={6}
                   sm={12}
                   xs={12}
-                  key={faqItem.id}
+                  key={faqItem?.id}
                   className="pb-4 single-faq-main-div"
                 >
                   <MDBAccordion>
                     <MDBAccordionItem
-                      collapseId={faqItem.id}
-                      headerTitle={faqItem.question}
+                      collapseId={faqItem?.id}
+                      headerTitle={faqItem?.question}
                     >
                       <div
-                        dangerouslySetInnerHTML={{ __html: faqItem.answer }}
+                        dangerouslySetInnerHTML={{ __html: faqItem?.answer }}
                       />
                     </MDBAccordionItem>
                   </MDBAccordion>

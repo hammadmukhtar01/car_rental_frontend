@@ -8,7 +8,7 @@ const ProgressBar = ({ step }) => {
   return (
    <div className="main-bar-div">
      <ul id="progressbar" className='text-center'>
-      {steps.map((title, index) => (
+      {steps?.map((title, index) => (
         <li key={index} className={index + 1 <= step ? 'active' : ''}>
           <b>{title}</b>
         </li>

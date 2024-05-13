@@ -44,15 +44,15 @@ const animatedComponents = makeAnimated();
 
 const VehiclesPage = () => {
   const carTypeInURL = useLocation();
-  const queryParams = new URLSearchParams(carTypeInURL.search);
+  const queryParams = new URLSearchParams(carTypeInURL?.search);
   // const initialCarType = queryParams.get("carType");
-  const pickupLocParam = queryParams.get("pickupLoc");
-  const dropoffLocParam = queryParams.get("dropoffLoc");
-  // const pickupTimeParam = queryParams.get("pickupTime");
-  // const dropoffTimeParam = queryParams.get("dropoffTime");
-  const startDateParam = queryParams.get("startDate");
-  const endDateParam = queryParams.get("endDate");
-  const carCategoryParam = queryParams.get("carCategory");
+  const pickupLocParam = queryParams?.get("pickupLoc");
+  const dropoffLocParam = queryParams?.get("dropoffLoc");
+  // const pickupTimeParam = queryParams?.get("pickupTime");
+  // const dropoffTimeParam = queryParams?.get("dropoffTime");
+  const startDateParam = queryParams?.get("startDate");
+  const endDateParam = queryParams?.get("endDate");
+  const carCategoryParam = queryParams?.get("carCategory");
 
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
@@ -182,7 +182,7 @@ const VehiclesPage = () => {
   // }, []);
 
   useEffect(() => {
-    const reqLocalStorageData = localStorage.getItem("formFields");
+    const reqLocalStorageData = localStorage?.getItem("formFields");
     if (reqLocalStorageData) {
       const storedFormFields = JSON.parse(reqLocalStorageData);
       console.log("Stored date range is: ", storedFormFields);
@@ -212,12 +212,12 @@ const VehiclesPage = () => {
 
         if (storedFormFields?.dateRangeV1) {
           storedStartDateRange = new Date(
-            storedFormFields.dateRangeV1.startDate
+            storedFormFields?.dateRangeV1.startDate
           );
-          storedEndDateRange = new Date(storedFormFields.dateRangeV1.endDate);
+          storedEndDateRange = new Date(storedFormFields?.dateRangeV1?.endDate);
           if (
-            isNaN(storedStartDateRange.getTime()) ||
-            isNaN(storedEndDateRange.getTime())
+            isNaN(storedStartDateRange?.getTime()) ||
+            isNaN(storedEndDateRange?.getTime())
           ) {
             storedStartDateRange = new Date(); // Fallback to current date
             storedEndDateRange = new Date(
@@ -303,20 +303,20 @@ const VehiclesPage = () => {
   }, [queryParams, pickUpTime]);
 
   const handlePickUpTimeChange = (selectedOption) => {
-    setPickUpTime(selectedOption.value);
-    handleFieldChange("pickTimeV1", selectedOption.value);
+    setPickUpTime(selectedOption?.value);
+    handleFieldChange("pickTimeV1", selectedOption?.value);
   };
 
   // useEffect(() => {
-  //   const dropoffTimeParam = queryParams.get("dropoffTime");
+  //   const dropoffTimeParam = queryParams?.get("dropoffTime");
   //   if (dropoffTimeParam && !dropOffTime) {
   //     setDropOffTime(dropoffTimeParam);
   //   }
   // }, [queryParams, dropOffTime]);
 
   const handleDropOffTimeChange = (selectedOption) => {
-    setDropOffTime(selectedOption.value);
-    handleFieldChange("dropTimeV1", selectedOption.value);
+    setDropOffTime(selectedOption?.value);
+    handleFieldChange("dropTimeV1", selectedOption?.value);
   };
 
   const handleInputFieldChange = (value) => {
@@ -326,7 +326,7 @@ const VehiclesPage = () => {
   // console.log(`Start param dateeeeee ${startDateParam}\nEEEEEEEE ${endDateParam}`)
   const defaultStartDate = new Date();
   const defaultEndDate = new Date(
-    defaultStartDate.getTime() + 24 * 60 * 60 * 1000
+    defaultStartDate?.getTime() + 24 * 60 * 60 * 1000
   );
 
   const [dateRange, setDateRange] = useState([
@@ -337,33 +337,33 @@ const VehiclesPage = () => {
     },
   ]);
 
-  const startDate = useMemo(() => dateRange[0].startDate, [dateRange]);
-  const endDate = useMemo(() => dateRange[0].endDate, [dateRange]);
+  const startDate = useMemo(() => dateRange[0]?.startDate, [dateRange]);
+  const endDate = useMemo(() => dateRange[0]?.endDate, [dateRange]);
 
   const startDateFunc = new Date(startDate);
   if (
-    startDateFunc.toISOString().split("T")[0] ===
-      new Date().toISOString().split("T")[0] ||
-    startDateFunc.toISOString().split("T")[0] === startDateParam
+    startDateFunc?.toISOString()?.split("T")[0] ===
+      new Date().toISOString()?.split("T")[0] ||
+    startDateFunc?.toISOString()?.split("T")[0] === startDateParam
   ) {
-    startDateFunc.setDate(startDateFunc.getDate());
-  } else startDateFunc.setDate(startDateFunc.getDate() + 1);
+    startDateFunc?.setDate(startDateFunc?.getDate());
+  } else startDateFunc?.setDate(startDateFunc?.getDate() + 1);
 
   const endDateFunc = new Date(endDate);
   if (
-    endDateFunc.toISOString().split("T")[0] ===
-      new Date(defaultStartDate.getTime() + 24 * 60 * 60 * 1000)
-        .toISOString()
-        .split("T")[0] ||
-    endDateFunc.toISOString().split("T")[0] === endDateParam
+    endDateFunc?.toISOString()?.split("T")[0] ===
+      new Date(defaultStartDate?.getTime() + 24 * 60 * 60 * 1000)
+        ?.toISOString()
+        ?.split("T")[0] ||
+    endDateFunc?.toISOString()?.split("T")[0] === endDateParam
   ) {
-    endDateFunc.setDate(endDateFunc.getDate());
-  } else endDateFunc.setDate(endDateFunc.getDate() + 1);
+    endDateFunc?.setDate(endDateFunc?.getDate());
+  } else endDateFunc?.setDate(endDateFunc?.getDate() + 1);
 
   const datePickerStartDate = encodeURIComponent(
-    startDateFunc.toISOString()
-  ).split("T")[0];
-  const datePickerEndDate = encodeURIComponent(endDateFunc.toISOString()).split(
+    startDateFunc?.toISOString()
+  )?.split("T")[0];
+  const datePickerEndDate = encodeURIComponent(endDateFunc?.toISOString()).split(
     "T"
   )[0];
 
@@ -381,17 +381,17 @@ const VehiclesPage = () => {
       };
 
       const startDate = encodeURIComponent(
-        dateRange[0].startDate.toISOString()
+        dateRange[0]?.startDate?.toISOString()
       );
-      const endDate = encodeURIComponent(dateRange[0].endDate.toISOString());
+      const endDate = encodeURIComponent(dateRange[0]?.endDate?.toISOString());
       const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/SearchVehicleRates?startDate=${startDate}&endDate=${endDate}`;
 
       const response = await axios.post(url, {}, { headers });
-      const titles = response.data.result.items.map((item) => item.title);
+      const titles = response?.data?.result?.items?.map((item) => item?.title);
       setCarType(titles);
 
-      setCarsData(response.data.result.items);
-      // console.log("Result of all cars is : ", response.data.result.items);
+      setCarsData(response?.data?.result?.items);
+      // console.log("Result of all cars is : ", response?.data?.result?.items);
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
@@ -433,14 +433,14 @@ const VehiclesPage = () => {
 
       // console.log(
       //   "Raw categories response 1111111111:",
-      //   response.data.result.categories
+      //   response?.data?.result?.categories
       // );
 
       const filteredAndRenamedCategories = response?.data?.result?.categories
-        .filter((category) => requiredCategories.includes(category.name))
+        .filter((category) => requiredCategories?.includes(category?.name))
         .map((category) => ({
           id: category?.id,
-          name: categoryMap[category.name] || category.name,
+          name: categoryMap[category?.name] || category?.name,
         }));
 
       setCarCategoriesData(filteredAndRenamedCategories);
@@ -455,9 +455,9 @@ const VehiclesPage = () => {
 
   const normalizedCarCategories = useMemo(
     () =>
-      carCategoriesData.map((cat) => ({
+      carCategoriesData?.map((cat) => ({
         ...cat,
-        name: cat.name.toUpperCase(),
+        name: cat?.name?.toUpperCase(),
       })),
     [carCategoriesData]
   );
@@ -471,40 +471,40 @@ const VehiclesPage = () => {
       Fullsize: "Station Wagon",
     };
 
-    carsData.forEach((car) => {
-      if (car.acrissCategory) {
-        const key = `${car.acrissCategory.code}-${car.acrissCategory.name}`;
-        if (!categoryDetailsMap.has(key)) {
+    carsData?.forEach((car) => {
+      if (car?.acrissCategory) {
+        const key = `${car?.acrissCategory?.code}-${car?.acrissCategory?.name}`;
+        if (!categoryDetailsMap?.has(key)) {
           // Use the categoryMap to rename the category name
           const renamedName =
-            categoryMap[car.acrissCategory.name] || car.acrissCategory.name;
-          categoryDetailsMap.set(key, {
-            id: car.acrissCategory.id,
+            categoryMap[car?.acrissCategory?.name] || car?.acrissCategory?.name;
+          categoryDetailsMap?.set(key, {
+            id: car?.acrissCategory?.id,
             name: renamedName,
-            code: car.acrissCategory.code,
+            code: car?.acrissCategory?.code,
           });
         }
       }
     });
 
-    const updatedCategories = [...categoryDetailsMap.values()];
+    const updatedCategories = [...categoryDetailsMap?.values()];
     setCarCategoriesData(updatedCategories);
   }, [carsData]);
 
   useEffect(() => {
-    if (carsData.length > 0) {
+    if (carsData?.length > 0) {
       enhanceCategoryData();
     }
   }, [carsData, enhanceCategoryData]); // Ensure this runs every time carsData updates
 
   // useEffect(() => {
   //   console.log("useeffect select category -- ", selectedCategories);
-  //   const newSelectedCategories = selectedCategories.map((selected) => {
-  //     const foundCategory = carCategoriesData.find(
-  //       (category) => category.id === selected.value
+  //   const newSelectedCategories = selectedCategories?.map((selected) => {
+  //     const foundCategory = carCategoriesData?.find(
+  //       (category) => category?.id === selected?.value
   //     );
   //     return foundCategory
-  //       ? { ...selected, label: foundCategory.name }
+  //       ? { ...selected, label: foundCategory?.name }
   //       : selected;
   //   });
   //   setSelectedCategories(newSelectedCategories);
@@ -512,19 +512,19 @@ const VehiclesPage = () => {
   // }, [carCategoriesData]);
 
   useEffect(() => {
-    if (carCategoryParam && normalizedCarCategories.length > 0) {
-      const matchedCategory = normalizedCarCategories.find((cat) => {
+    if (carCategoryParam && normalizedCarCategories?.length > 0) {
+      const matchedCategory = normalizedCarCategories?.find((cat) => {
         const isMatch =
           cat?.name?.toUpperCase() === carCategoryParam?.toUpperCase();
         // console.log(
-        //   `Comparing ${cat.name.toUpperCase()} with ${carCategoryParam.toUpperCase()}: ${isMatch}`
+        //   `Comparing ${cat?.name?.toUpperCase()} with ${carCategoryParam?.toUpperCase()}: ${isMatch}`
         // );
         return isMatch;
       });
 
       if (matchedCategory) {
         setSelectedCategories([
-          { label: matchedCategory.name, value: matchedCategory.id },
+          { label: matchedCategory?.name, value: matchedCategory?.id },
         ]);
       }
     }
@@ -562,18 +562,18 @@ const VehiclesPage = () => {
 
   const dataArray = [];
 
-  carsData.forEach((item) => {
+  carsData?.forEach((item) => {
     const dataObject = {
-      category: item.acrissCategory?.name,
-      fuel: item.acrissFuelAc?.name,
-      type: item.acrissType?.name,
-      transmission: item.acrissTransDrive?.name,
+      category: item?.acrissCategory?.name,
+      fuel: item?.acrissFuelAc?.name,
+      type: item?.acrissType?.name,
+      transmission: item?.acrissTransDrive?.name,
       passengerCapacity: item?.passengerCapacity,
       smallBagsCapacity: item?.smallBagsCapacity,
       largeBagsCapacity: item?.largeBagsCapacity,
       tariffGroupId: item?.tariffGroupId,
     };
-    dataArray.push(dataObject);
+    dataArray?.push(dataObject);
   });
 
   // console.log("Data Array is: --- ", dataArray);
@@ -592,15 +592,15 @@ const VehiclesPage = () => {
     while (!(hour === 23 && minute === 30)) {
       let formattedHour;
       if (hour <= 12) {
-        formattedHour = hour.toString().padStart(2, "0");
+        formattedHour = hour?.toString().padStart(2, "0");
       } else {
         const newhour = hour - 12;
         formattedHour = newhour.toString().padStart(2, "0");
       }
 
-      const formattedMinute = minute.toString().padStart(2, "0");
+      const formattedMinute = minute?.toString()?.padStart(2, "0");
       const time = `${formattedHour}:${formattedMinute} ${ampm}`;
-      timeSlots.push({ label: time, value: time });
+      timeSlots?.push({ label: time, value: time });
 
       minute += 30;
       if (minute === 60) {
@@ -650,20 +650,20 @@ const VehiclesPage = () => {
   ) => {
     const missingFields = [];
     if (!pickupLocationMessage) {
-      missingFields.push("Pickup location");
+      missingFields?.push("Pickup location");
     }
     if (!pickUpTime) {
-      missingFields.push("Pickup time");
+      missingFields?.push("Pickup time");
     }
     if (!dropOffTime) {
-      missingFields.push("Dropoff time");
+      missingFields?.push("Dropoff time");
     }
     if (showDropoff && !dropoffLocationMessage) {
-      missingFields.push("Dropoff location");
+      missingFields?.push("Dropoff location");
     }
     console.log("missingFields", missingFields);
-    if (missingFields.length > 0) {
-      const errorMessage = `${missingFields.join(", ")} field(s) are missing.`;
+    if (missingFields?.length > 0) {
+      const errorMessage = `${missingFields?.join(", ")} field(s) are missing.`;
       toast.error(errorMessage, {
         autoClose: 1000,
         style: {
@@ -691,19 +691,19 @@ const VehiclesPage = () => {
     // console.log("Selected Categories:", selectedCategories);
 
     return carsData
-      .filter((car) => {
+    ?.filter((car) => {
         const typeMatch =
-          selectedCarTypes.length === 0 || selectedCarTypes.includes(car.title);
+          selectedCarTypes?.length === 0 || selectedCarTypes?.includes(car?.title);
 
-        const currentCarCategory = normalizedCarCategories.find(
-          (cat) => cat.id === car.acrissCategory.id
+        const currentCarCategory = normalizedCarCategories?.find(
+          (cat) => cat?.id === car?.acrissCategory?.id
         );
 
         const categoryMatch =
-          selectedCategories.length === 0 ||
-          selectedCategories.some((selectedCategory) => {
+          selectedCategories?.length === 0 ||
+          selectedCategories?.some((selectedCategory) => {
             const valueMatch =
-              selectedCategory.value === currentCarCategory?.id;
+              selectedCategory?.value === currentCarCategory?.id;
             const labelMatch =
               selectedCategory?.label?.toUpperCase() ===
               currentCarCategory?.name?.toUpperCase();
@@ -712,19 +712,19 @@ const VehiclesPage = () => {
           });
 
         const priceMatch =
-          (minPrice === "" || car.rate >= minPrice) &&
-          (maxPrice === "" || car.rate <= maxPrice);
+          (minPrice === "" || car?.rate >= minPrice) &&
+          (maxPrice === "" || car?.rate <= maxPrice);
 
         return typeMatch && categoryMatch && priceMatch;
       })
       .sort((a, b) => {
         switch (sortBy) {
           case "LowToHigh":
-            return a.rate - b.rate;
+            return a?.rate - b?.rate;
           case "HighToLow":
-            return b.rate - a.rate;
+            return b?.rate - a?.rate;
           case "Recommended":
-            return b.discount - a.discount;
+            return b?.discount - a?.discount;
           default:
             return 0;
         }
@@ -742,13 +742,13 @@ const VehiclesPage = () => {
   const handleCategoryChange = (selectedOptions) => {
     console.log(`In handle changse: selectedOptions is: `, selectedOptions);
     setSelectedCategories(
-      selectedOptions.map((option) => {
-        const category = carCategoriesData.find(
+      selectedOptions?.map((option) => {
+        const category = carCategoriesData?.find(
           (cat) =>
-            cat.id === option.id &&
+            cat?.id === option?.id &&
             cat?.name?.toUpperCase() === option?.label?.toUpperCase()
         );
-        return category ? { id: category.id, label: category.name } : option;
+        return category ? { id: category?.id, label: category?.name } : option;
       })
     );
     console.log("Updated selected categories:", selectedOptions);
@@ -757,7 +757,7 @@ const VehiclesPage = () => {
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    return filterCars.slice(firstPageIndex, lastPageIndex);
+    return filterCars?.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, filterCars]);
 
   useEffect(() => {
@@ -766,8 +766,8 @@ const VehiclesPage = () => {
 
   const handleCarTypeCheckboxChange = (type) => {
     setSelectedCarTypes((prev) => {
-      if (prev.includes(type)) {
-        return prev.filter((t) => t !== type);
+      if (prev?.includes(type)) {
+        return prev?.filter((t) => t !== type);
       } else {
         return [...prev, type];
       }
@@ -790,44 +790,44 @@ const VehiclesPage = () => {
   };
 
   const handleDateChange = (ranges) => {
-    const { startDate, endDate } = ranges.selection;
+    const { startDate, endDate } = ranges?.selection;
 
-    const pickupDate = startDate ? startDate.toLocaleDateString() : null;
-    const dropoffDate = endDate ? endDate.toLocaleDateString() : null;
+    const pickupDate = startDate ? startDate?.toLocaleDateString() : null;
+    const dropoffDate = endDate ? endDate?.toLocaleDateString() : null;
 
     setPickUpDate(pickupDate);
     setDropOffDate(dropoffDate);
 
     setActiveSelection((prev) => ({
       startDate: true,
-      endDate: prev.startDate ? true : false,
+      endDate: prev?.startDate ? true : false,
     }));
 
-    if (activeSelection.startDate && endDate) {
+    if (activeSelection?.startDate && endDate) {
       setShowDateRangeModal(false);
     }
 
     const updatedStartDate = startDate
-      ? new Date(startDate.getTime() + 24 * 60 * 60 * 1000)
+      ? new Date(startDate?.getTime() + 24 * 60 * 60 * 1000)
       : null;
     const updatedEndDate = endDate
-      ? new Date(endDate.getTime() + 24 * 60 * 60 * 1000)
+      ? new Date(endDate?.getTime() + 24 * 60 * 60 * 1000)
       : null;
 
     const dateRangeObject = {
-      startDate: updatedStartDate.toISOString().split("T")[0],
-      endDate: updatedEndDate.toISOString().split("T")[0],
+      startDate: updatedStartDate?.toISOString()?.split("T")[0],
+      endDate: updatedEndDate?.toISOString()?.split("T")[0],
       // key: "selection",
     };
 
     handleFieldChange("dateRangeV1", dateRangeObject);
 
-    setDateRange([ranges.selection]);
+    setDateRange([ranges?.selection]);
   };
 
   useEffect(() => {
     if (startDate && endDate) {
-      const timeDifference = endDate.getTime() - startDate.getTime();
+      const timeDifference = endDate?.getTime() - startDate?.getTime();
       const totalDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
       console.log("Number of days:", totalDays);
       setNumberOfDays(totalDays);
@@ -961,12 +961,12 @@ const VehiclesPage = () => {
                                 className="form-control-date mt-2 col-12"
                                 type="text"
                                 value={
-                                  formFields.dateRangeV1.startDate &&
-                                  formFields.dateRangeV1.endDate
+                                  formFields?.dateRangeV1?.startDate &&
+                                  formFields?.dateRangeV1?.endDate
                                     ? `${new Date(
-                                        formFields.dateRangeV1.startDate
+                                        formFields?.dateRangeV1?.startDate
                                       ).toLocaleDateString()} - ${new Date(
-                                        formFields.dateRangeV1.endDate
+                                        formFields?.dateRangeV1?.endDate
                                       ).toLocaleDateString()}`
                                     : "Select date range"
                                 }
@@ -1153,9 +1153,9 @@ const VehiclesPage = () => {
                               options={timeOptions}
                               required
                               className="form-control-pickup-time col-12"
-                              value={timeOptions.find(
+                              value={timeOptions?.find(
                                 (option) =>
-                                  option.value === formFields.pickTimeV1
+                                  option?.value === formFields?.pickTimeV1
                               )}
                               // onChange={(selectedOption) => {
                               //   console.log(
@@ -1182,16 +1182,16 @@ const VehiclesPage = () => {
                               options={timeOptions}
                               required
                               className="form-control-dropoff-time col-12"
-                              value={timeOptions.find(
+                              value={timeOptions?.find(
                                 (option) =>
-                                  option.value === formFields.dropTimeV1
+                                  option?.value === formFields?.dropTimeV1
                               )}
                               // onChange={(selectedOption) => {
                               //   console.log(
                               //     "Selected Dropoff option is: ",
                               //     selectedOption
                               //   );
-                              //   setDropOffTime(selectedOption.value);
+                              //   setDropOffTime(selectedOption?.value);
                               // }}
                               // value={{ value: dropOffTime, label: dropOffTime }}
                               onChange={handleDropOffTimeChange}
@@ -1320,7 +1320,7 @@ const VehiclesPage = () => {
                                 className="form-check-input"
                                 type="checkbox"
                                 value={type}
-                                checked={selectedCarTypes.includes(type)}
+                                checked={selectedCarTypes?.includes(type)}
                                 onChange={() =>
                                   handleCarTypeCheckboxChange(type)
                                 }
@@ -1490,7 +1490,7 @@ const VehiclesPage = () => {
                               </div>
                             </div>
                             <div className="all-vehicles-features-icons features-scroll-container text-center">
-                              {dataArray.map((carData, dataIndex) => (
+                              {dataArray?.map((carData, dataIndex) => (
                                 <span key={dataIndex}>
                                   {carFeaturesWithIcons?.map(
                                     (carFeature, featureIndex) => {
@@ -1503,17 +1503,17 @@ const VehiclesPage = () => {
                                           value = carData?.passengerCapacity;
                                           break;
                                         // case "Doors":
-                                        //   const [doorRange = carData.type] = carData.type.split(/[-/]/);
-                                        //   const [doorRange = carData.type] =
-                                        //     carData.type.includes("%")
-                                        //       ? carData.type.split("")
-                                        //       : [carData.type];
+                                        //   const [doorRange = carData?.type] = carData?.type?.split(/[-/]/);
+                                        //   const [doorRange = carData?.type] =
+                                        //     carData?.type?.includes("%")
+                                        //       ? carData?.type?.split("")
+                                        //       : [carData?.type];
                                         //   value = doorRange;
                                         //   break;
                                         case "Automatic":
-                                          value = carData.transmission
-                                            ? carData.transmission
-                                                .split("/")[0]
+                                          value = carData?.transmission
+                                            ? carData?.transmission
+                                                ?.split("/")[0]
                                                 .charAt(0)
                                             : "N";
                                           break;
@@ -1543,7 +1543,7 @@ const VehiclesPage = () => {
                                             </>
                                           )}
                                           <span className="">{value}</span>
-                                          {/* {featureIndex < carFeaturesWithIcons.length - 1 && (
+                                          {/* {featureIndex < carFeaturesWithIcons?.length - 1 && (
                                               <span className="car-features-vertical-line mr-2 ml-2">|</span>
                                             )} */}
                                         </span>

@@ -108,14 +108,14 @@ const Review = () => {
           </div>
           <div className="col-sm-6">
             <h4>Rating breakdown</h4>
-            {ratingData.map((item, index) => (
+            {ratingData?.map((item, index) => (
               <div key={index} className="pull-left">
                 <div
                   className="pull-left"
                   style={{ width: "60px", lineHeight: "1" }}
                 >
                   <div style={{ height: "12px", margin: "5px 0" }}>
-                    {item.rating}{" "}
+                    {item?.rating}{" "}
                     <span className="glyphicon glyphicon-star"></span>
                   </div>
                 </div>
@@ -125,21 +125,21 @@ const Review = () => {
                     style={{ height: "9px", margin: "8px 0" }}
                   >
                     <div
-                      className={`progress-bar ${item.progressClass}`}
+                      className={`progress-bar ${item?.progressClass}`}
                       role="progressbar"
-                      aria-valuenow={item.rating}
+                      aria-valuenow={item?.rating}
                       aria-valuemin="0"
                       aria-valuemax="5"
-                      style={{ width: `${item.progressValue}%` }}
+                      style={{ width: `${item?.progressValue}%` }}
                     >
                       <span className="sr-only">
-                        {item.progressValue}% Complete (danger)
+                        {item?.progressValue}% Complete (danger)
                       </span>
                     </div>
                   </div>
                 </div>
                 <div className="pull-right" style={{ marginLeft: "10px" }}>
-                  {item.count}
+                  {item?.count}
                 </div>
               </div>
             ))}

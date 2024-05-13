@@ -45,34 +45,34 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const bookingDocURL = useLocation();
   const queryParams = useMemo(
-    () => new URLSearchParams(bookingDocURL.search),
-    [bookingDocURL.search]
+    () => new URLSearchParams(bookingDocURL?.search),
+    [bookingDocURL?.search]
   );
-  const TariffGroupIdParam = parseInt(queryParams.get("tariffGroupId"));
-  const TariffVehicleNameParam = queryParams.get("vehicleName");
-  const addOnsFromUrl = queryParams.get("addOns").split(",").map(Number);
+  const TariffGroupIdParam = parseInt(queryParams?.get("tariffGroupId"));
+  const TariffVehicleNameParam = queryParams?.get("vehicleName");
+  const addOnsFromUrl = queryParams?.get("addOns").split(",").map(Number);
 
-  const startDateValue = queryParams.get("startDate");
-  const returnDateValue = queryParams.get("endDate");
-  const pickupTimeParam = queryParams.get("pickupTime");
-  const dropoffTimeParam = queryParams.get("dropoffTime");
+  const startDateValue = queryParams?.get("startDate");
+  const returnDateValue = queryParams?.get("endDate");
+  const pickupTimeParam = queryParams?.get("pickupTime");
+  const dropoffTimeParam = queryParams?.get("dropoffTime");
 
-  const [pickupHour, pickupMinute] = pickupTimeParam.split(":");
+  const [pickupHour, pickupMinute] = pickupTimeParam?.split(":");
   const startDateTime = new Date(startDateValue);
   startDateTime.setHours(parseInt(pickupHour, 10));
   startDateTime.setMinutes(parseInt(pickupMinute, 10));
-  const startDateTimeISO = startDateTime.toISOString();
+  const startDateTimeISO = startDateTime?.toISOString();
 
-  const [dropoffHour, dropoffMinute] = dropoffTimeParam.split(":");
+  const [dropoffHour, dropoffMinute] = dropoffTimeParam?.split(":");
   const dropoffDateTime = new Date(returnDateValue);
   dropoffDateTime.setHours(parseInt(dropoffHour, 10));
   dropoffDateTime.setMinutes(parseInt(dropoffMinute, 10));
-  const dropoffDateTimeISO = dropoffDateTime.toISOString();
+  const dropoffDateTimeISO = dropoffDateTime?.toISOString();
 
-  const discountedValueParam = queryParams.get("discountValue");
-  const totalGrandPriceParam = queryParams.get("grandTotalCharges");
+  const discountedValueParam = queryParams?.get("discountValue");
+  const totalGrandPriceParam = queryParams?.get("grandTotalCharges");
   const deliveryChargesParam = parseInt(
-    queryParams.get("totalDeliveryCharges")
+    queryParams?.get("totalDeliveryCharges")
   );
 
   const taxPercentage = 5;
@@ -81,9 +81,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const totalGrandPriceWithTax =
     parseInt(totalGrandPriceParam) + parseFloat(taxValue);
 
-  const pickupLocParam = queryParams.get("pickupLoc");
-  const dropoffLocParam = queryParams.get("dropoffLoc");
-  const checkBoxValueParam = queryParams.get("checkBoxValue");
+  const pickupLocParam = queryParams?.get("pickupLoc");
+  const dropoffLocParam = queryParams?.get("dropoffLoc");
+  const checkBoxValueParam = queryParams?.get("checkBoxValue");
 
   let pickdropCombineLoc;
   if (checkBoxValueParam === true) {
@@ -92,24 +92,24 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     pickdropCombineLoc = `pickup: ${pickupLocParam}, dropoff: ${pickupLocParam}`;
   }
 
-  const pickupLocStateParam = queryParams.get("pickupLocState");
-  const dropoffLocStateParam = queryParams.get("dropoffLocState");
+  const pickupLocStateParam = queryParams?.get("pickupLocState");
+  const dropoffLocStateParam = queryParams?.get("dropoffLocState");
 
   const today = new Date();
   const invoiceExpiryDate = new Date(today);
   invoiceExpiryDate.setDate(today.getDate() + 5);
-  const paymentLinkExpiryDate = invoiceExpiryDate.toISOString().split("T")[0];
+  const paymentLinkExpiryDate = invoiceExpiryDate?.toISOString().split("T")[0];
 
   useEffect(() => {
     const fetchNationalities = async () => {
       try {
         const response = await axios.get("https://restcountries.com/v3.1/all");
-        const nationalityOptions = response.data
+        const nationalityOptions = response?.data
           .map((country) => ({
-            label: country.name.common,
-            value: country.cca2,
+            label: country?.name?.common,
+            value: country?.cca2,
           }))
-          .sort((a, b) => a.label.localeCompare(b.label));
+          .sort((a, b) => a?.label?.localeCompare(b?.label));
 
         setNationality(nationalityOptions);
       } catch (error) {
@@ -131,22 +131,22 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       const url = `https://app.speedautosystems.com/api/services/app/webBooking/GetLocations`;
 
       const response = await axios.post(url, {}, { headers });
-      const fetchedAvailableLocations = response.data.result.items;
+      const fetchedAvailableLocations = response?.data?.result?.items;
 
-      const matchedPickupLocation = fetchedAvailableLocations.find(
+      const matchedPickupLocation = fetchedAvailableLocations?.find(
         (location) =>
-          location.name.toUpperCase() === pickupLocStateParam.toUpperCase()
+          location?.name?.toUpperCase() === pickupLocStateParam?.toUpperCase()
       );
-      const matchedDropoffLocation = fetchedAvailableLocations.find(
+      const matchedDropoffLocation = fetchedAvailableLocations?.find(
         (location) =>
-          location.name.toUpperCase() === dropoffLocStateParam.toUpperCase()
+          location?.name?.toUpperCase() === dropoffLocStateParam?.toUpperCase()
       );
 
       if (matchedPickupLocation) {
-        setPickupLocationId(matchedPickupLocation.id);
+        setPickupLocationId(matchedPickupLocation?.id);
       }
       if (matchedDropoffLocation) {
-        setDropoffLocationId(matchedDropoffLocation.id);
+        setDropoffLocationId(matchedDropoffLocation?.id);
       }
 
       // console.log(
@@ -248,7 +248,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             fontSize: "14px",
           },
         });
-        console.error("Unexpected response structure:", response.data);
+        console.error("Unexpected response structure:", response?.data);
       }
     } catch (error) {
       console.error("Error creating/updating customer:", error);
@@ -321,7 +321,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 1 below
       {
-        accepted: addOnsFromUrl.includes(2),
+        accepted: addOnsFromUrl?.includes(2),
         tariff: [
           {
             id: 97433,
@@ -333,7 +333,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 2 Below
       {
-        accepted: addOnsFromUrl.includes(3),
+        accepted: addOnsFromUrl?.includes(3),
         tariff: [
           {
             id: 97438,
@@ -344,7 +344,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         rateTypeId: 1,
       },
       {
-        accepted: addOnsFromUrl.includes(4),
+        accepted: addOnsFromUrl?.includes(4),
         tariff: [
           {
             id: 97439,
@@ -356,7 +356,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 4 Below
       {
-        accepted: addOnsFromUrl.includes(5),
+        accepted: addOnsFromUrl?.includes(5),
         tariff: [],
         chargesTypeId: 5,
         rate: 40,
@@ -364,7 +364,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 5 Below
       {
-        accepted: addOnsFromUrl.includes(54),
+        accepted: addOnsFromUrl?.includes(54),
         tariff: [
           {
             id: 97444,
@@ -388,7 +388,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 7 below
       {
-        accepted: addOnsFromUrl.includes(7),
+        accepted: addOnsFromUrl?.includes(7),
         tariff: [
           {
             id: 97446,
@@ -400,7 +400,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 8 Below
       {
-        accepted: addOnsFromUrl.includes(32),
+        accepted: addOnsFromUrl?.includes(32),
         tariff: [
           {
             id: 97447,
@@ -412,7 +412,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 9 Below
       {
-        accepted: addOnsFromUrl.includes(73),
+        accepted: addOnsFromUrl?.includes(73),
         tariff: [
           {
             id: 97448,
@@ -424,7 +424,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 10 Below
       {
-        accepted: addOnsFromUrl.includes(74),
+        accepted: addOnsFromUrl?.includes(74),
         tariff: [
           {
             id: 97449,
@@ -436,7 +436,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 11 Below
       {
-        accepted: addOnsFromUrl.includes(8),
+        accepted: addOnsFromUrl?.includes(8),
         tariff: [
           {
             id: 97450,
@@ -448,7 +448,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 12 Below
       {
-        accepted: addOnsFromUrl.includes(34),
+        accepted: addOnsFromUrl?.includes(34),
         tariff: [
           {
             id: 97451,
@@ -460,7 +460,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 13 Below
       {
-        accepted: addOnsFromUrl.includes(19),
+        accepted: addOnsFromUrl?.includes(19),
         tariff: [],
         chargesTypeId: 19,
         rate: 130,
@@ -468,7 +468,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 14 below
       {
-        accepted: addOnsFromUrl.includes(67),
+        accepted: addOnsFromUrl?.includes(67),
         tariff: [],
         chargesTypeId: 67,
         rate: 140,
@@ -476,7 +476,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 15 Below
       {
-        accepted: addOnsFromUrl.includes(28),
+        accepted: addOnsFromUrl?.includes(28),
         tariff: [],
         chargesTypeId: 28,
         rate: 150,
@@ -505,7 +505,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         id: newId,
       },
       driverId: newId,
-      flightDateTime: driverFlightDateTime.toISOString(),
+      flightDateTime: driverFlightDateTime?.toISOString(),
       flightNo: airlineTicketNum,
       locationId: pickupLocationId,
       notes: pickdropCombineLoc,
@@ -591,21 +591,21 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const handleNextStep = () => {
     const customerDetailsMissingFields = [];
     if (!firstName) {
-      customerDetailsMissingFields.push("First Name");
+      customerDetailsMissingFields?.push("First Name");
     }
     if (!contactNum) {
-      customerDetailsMissingFields.push("Contact Number");
+      customerDetailsMissingFields?.push("Contact Number");
     }
     if (!emailAddress) {
-      customerDetailsMissingFields.push("Email Address");
+      customerDetailsMissingFields?.push("Email Address");
     }
 
     console.log(
       "1-----customerDetailsMissingFields",
       customerDetailsMissingFields
     );
-    if (customerDetailsMissingFields.length > 0) {
-      const errorMessage = `${customerDetailsMissingFields.join(
+    if (customerDetailsMissingFields?.length > 0) {
+      const errorMessage = `${customerDetailsMissingFields?.join(
         ", "
       )} field(s) are missing.`;
       toast.error(errorMessage, {
@@ -622,27 +622,27 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
     const customerDocumentsMissingFields = [];
     if (!drivingLicenseNum) {
-      customerDocumentsMissingFields.push("Driving License Number");
+      customerDocumentsMissingFields?.push("Driving License Number");
     }
     if (!drivingLicenseIssueBy) {
-      customerDocumentsMissingFields.push("Driving License Issued Country");
+      customerDocumentsMissingFields?.push("Driving License Issued Country");
     }
     if (!drivingLicenseIssueDate) {
-      customerDocumentsMissingFields.push("Driving License Issued Date");
+      customerDocumentsMissingFields?.push("Driving License Issued Date");
     }
     if (!drivingLicenseExpiryDate) {
-      customerDocumentsMissingFields.push("Driving License Expiry Date");
+      customerDocumentsMissingFields?.push("Driving License Expiry Date");
     }
     if (!drivingLicenseImg) {
-      customerDocumentsMissingFields.push("Driving License Image");
+      customerDocumentsMissingFields?.push("Driving License Image");
     }
 
     console.log(
       "2-------customerDetailsMissingFields",
       customerDocumentsMissingFields
     );
-    if (customerDocumentsMissingFields.length > 0) {
-      const errorMessage = `${customerDocumentsMissingFields.join(
+    if (customerDocumentsMissingFields?.length > 0) {
+      const errorMessage = `${customerDocumentsMissingFields?.join(
         ", "
       )} field(s) are missing.`;
       toast.error(errorMessage, {
@@ -710,7 +710,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         //       url: passportImg,
         //     },
         //   ],
-        //   issuedBy: passportIssueBy.label,
+        //   issuedBy: passportIssueBy?.label,
         // },
       ],
     };
@@ -751,9 +751,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     console.log(`before hitting API, body is: `, body);
     try {
       const response = await axios.post(url, body);
-      console.log(`response of payment API is: `, response.data);
+      console.log(`response of payment API is: `, response?.data);
 
-      if (response.data && response.data.status === "success") {
+      if (response?.data && response?.data?.status === "success") {
         await toast.info("Generating Payment link", {
           autoClose: 3000,
           style: {
@@ -763,8 +763,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             fontSize: "14px",
           },
         });
-        console.log("Invoice Created, Payment URL:", response.data.status);
-        setPaymentUrl(response.data.status);
+        console.log("Invoice Created, Payment URL:", response?.data?.status);
+        setPaymentUrl(response?.data?.status);
         const nextStepUrl = `/bookingPage/3&booking-${bookingStatus}`;
         window.location.href = nextStepUrl;
       }

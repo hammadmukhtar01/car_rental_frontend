@@ -1,5 +1,4 @@
 import React from "react";
-import MainNavbar from "../navbar/mainNavbar";
 import ProgressBar from "./progressBar";
 
 function MultiStepFormContainer({ children, currentStep }) {

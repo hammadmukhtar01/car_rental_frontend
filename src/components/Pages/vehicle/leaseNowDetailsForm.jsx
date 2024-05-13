@@ -230,7 +230,7 @@ const LeaseNowFormDetails = ({
                     className="form-control form-control-lto-userDetails-phone-input form-control-consultation-number col-12"
                     country={"ae"}
                     name="phoneNumber"
-                    value={formData.phoneNumber}
+                    value={formData?.phoneNumber}
                     placeholder="00 000 0000"
                     showDropdown={false}
                     disableDropdown={false}
@@ -239,8 +239,8 @@ const LeaseNowFormDetails = ({
                       const formattedPhone = phone.replace(/\D/g, "");
 
                       if (
-                        formattedPhone.length <=
-                        country.dialCode.length + 9
+                        formattedPhone?.length <=
+                        country?.dialCode?.length + 9
                       ) {
                         setFormData({
                           ...formData,

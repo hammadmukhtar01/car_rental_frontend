@@ -91,12 +91,12 @@ const AboutusPage = () => {
                 </p>
               </div>
               <div className="about-us-mapped-data-container">
-                {aboutUsParagraphs.map((aboutUsData, index) => (
+                {aboutUsParagraphs?.map((aboutUsData, index) => (
                   <div className="about-us-all-heading" key={index}>
                     <h5 className="pt-1 pb-1">
-                      <b> {aboutUsData.heading}:</b>{" "}
+                      <b> {aboutUsData?.heading}:</b>{" "}
                     </h5>
-                    <p>{aboutUsData.description}</p>
+                    <p>{aboutUsData?.description}</p>
                     <br />
                   </div>
                 ))}
