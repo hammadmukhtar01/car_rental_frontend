@@ -363,7 +363,7 @@ const SearchBox = () => {
               <Col>
                 <form
                   action="#"
-                  className="signin-form"
+                  className="search-input-fields-form"
                   onSubmit={handleSearchVehicleButtonHomePage}
                 >
                   <Row>

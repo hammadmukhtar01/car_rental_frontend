@@ -243,7 +243,8 @@
   color: #e87a28;
 }
 
-.second-row-contact-us-form {
+.second-row-contact-us-form,
+.second-row-lto-userDetails-form {
   padding-top: 1.5rem;
 }
 
@@ -350,7 +351,8 @@ ul li {
 }
 
 @media screen and (max-width: 576px) {
-  .second-row-contact-us-form {
+  .second-row-contact-us-form,
+  .second-row-lto-userDetails-form {
     padding-top: 0.1rem;
   }
 }

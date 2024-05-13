@@ -143,7 +143,7 @@ const BookingDetails = () => {
         {/* Left Side - Col-9 */}
 
         <div className="col-lg-9 col-md-6">
-          <form action="#" className="signin-form">
+          <form action="#" className="booking-details-form">
             <div className="form-group row">
               <div className="col-lg-6">
                 <label htmlFor="city" className="col-lg-6 col-form-label">

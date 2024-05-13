@@ -286,7 +286,7 @@ const LeaseToOwnVehicles = () => {
 
           <form
             action="#"
-            className="signin-form"
+            className="lto-calculator-form"
             onSubmit={handleLTOCalculatorForm}
           >
             <section className="lto-calculator-main-section">

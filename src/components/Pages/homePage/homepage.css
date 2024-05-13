@@ -3,7 +3,7 @@
   overflow: hidden;
   background-image: url("../../images/no-car-bg-home-banner-11.jpg");
   width: 100%;
-  height: 65vh;
+  height: 500px;
   background-size: cover;
   background-position: top;
   position: initial;
@@ -21,12 +21,12 @@
 
 .only-car-banner-container-2 {
   position: absolute;
-  top: -15%;
+  top: -7%;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: auto;
-  max-height: 100%;
+  max-height: 90%;
   object-fit: contain;
   z-index: 1;
 }
@@ -321,13 +321,13 @@
   }
   .bg-img-banner-main {
     position: relative;
-    height: 45vh;
+    /* height: 45vh; */
   }
 }
 
 @media screen and (max-width: 476px) {
   .bg-img-banner-main {
-    height: 75vh;
+    /* height: 75vh; */
   }
 }
 
@@ -337,7 +337,7 @@
   }
   .bg-img-banner-main {
     position: relative;
-    height: 80vh;
+    /* height: 80vh; */
   }
 }
 
@@ -353,7 +353,7 @@
 
 @media screen and (min-width: 991px) and (max-width: 1024px) and (min-height: 1000px) {
   .bg-img-banner-main {
-    height: 50vh;
+    /* height: 50vh; */
   }
 }
 
@@ -528,7 +528,8 @@
   background-color: white !important;
 }
 
-.form-control-contact-us-phone-input {
+.form-control-contact-us-phone-input,
+.form-control-lto-userDetails-phone-input {
   height: 45px !important;
   border: 1px solid rgb(184, 184, 184) !important;
   border-radius: 6px;
@@ -639,7 +640,8 @@
   outline: none;
 }
 
-.form-control-contact-us {
+.form-control-contact-us,
+.form-control-lto-userDetails {
   border: 1px solid rgb(184, 184, 184) !important;
   border-radius: 6px;
   padding: 10px 10px;
@@ -648,7 +650,8 @@
   background-color: white !important;
 }
 
-.contact-us-label h6 {
+.contact-us-label h6,
+.lto-userDetails-label h6 {
   font-weight: 600;
   letter-spacing: 1px;
 }
@@ -1145,30 +1148,20 @@ option:disabled {
 @media screen and (max-width: 920px) {
   .bg-img-banner-main {
     position: relative;
-    height: 55vh;
+    /* height: 55vh; */
   }
 }
 @media screen and (max-width: 576px) {
   .bg-img-banner-main {
     position: relative;
-    height: 85vh;
-  }
-}
-
-@media screen and (min-width: 376px) and (max-width: 430px) {
-  .bg-img-banner-main {
-    position: relative;
-    height: 83vh;
+    height: 700px;
+    /* height: 85vh; */
   }
 }
 
 @media screen and (max-width: 375px) {
   .home-page-horizontal-line-2-text {
     font-size: 18px;
-  }
-  .bg-img-banner-main {
-    position: relative;
-    height: 102vh;
   }
 }
 

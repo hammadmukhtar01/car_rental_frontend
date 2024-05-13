@@ -10,10 +10,12 @@ import Typography from "@mui/material/Typography";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 import LTOProcessImgWeb from "../../images/lto-images/lto-process-img-web-updated.png";
 import LTOProcessImgMob from "../../images/lto-images/lto-process-img-mob-updated.png";
+import { Modal } from "react-bootstrap";
 import InstagramFeed from "../homePage/instagramFeed";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LeaseNowFormDetails from "./leaseNowDetailsForm";
 
 const LargeBanner = LTOProcessImgWeb;
 const SmallBanner = LTOProcessImgMob;
@@ -23,6 +25,11 @@ const LeaseToOwnVehicles = () => {
   const [bannerImg, setBannerImg] = useState(LargeBanner);
   const [userInteractedLTOInput, setUserInteractedLTOInput] = useState(false);
   const [isLeasingCarPriceValid, setIsLeasingCarPriceValid] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const iconsContext = require.context(
     "../../images/lto-images/lto-our-brands-all-icons",
@@ -254,64 +261,16 @@ const LeaseToOwnVehicles = () => {
     },
   ];
 
-  const leaseNowAPICall = async () => {};
-
-  const handleLTOCalculatorForm = () => {
-    console.log("test");
-    leaseNowAPICall();
+  const resetLeasingDetails = () => {
+    handleCloseModal();
+    setEstCarPrice("");
+    setDurationVal(durationMIN);
+    setDownPaymentVal(downPayMIN);
   };
 
-  const [formData, setFormData] = useState({
-    fname: "",
-    lname: "",
-    email: "",
-    phoneNumber: "",
-    comment: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleFocus = (e) => {
-    const inputGroup = e.target.closest(".inputgroup");
-    if (inputGroup) {
-      inputGroup.classList.add("input-filled");
-    }
-  };
-
-  const handleBlur = (e) => {
-    const inputGroup = e.target.closest(".inputgroup");
-    if (inputGroup) {
-      if (e.target.value === "") {
-        inputGroup.classList.remove("input-filled");
-      }
-    }
-  };
-
-  const handleContactUsSubmitButton = async (e) => {
+  const handleLTOCalculatorForm = (e) => {
     e.preventDefault();
-
-    try {
-      const response = await axios.post(
-        `http://localhost:8000/api/v1/contactUsForm/create`,
-        formData
-      );
-      console.log("Contact Us response is: --- ", response.data.message);
-      // alert("Success Msssg");
-      if (response.data.status === "success") {
-        // navigate("/home");
-
-        toast.success("Thank You for Car Leasing. Check your email.", {
-          autoClose: 3000,
-          style: { border: "1px solid #c0c0c0", fontSize: "14px" },
-        });
-      } else {
-        alert("Email/Password missing...");
-      }
-    } catch (error) {
-      console.log("Signup failed:", error.response.data.message);
-    }
+    setShowModal(true);
   };
 
   return (
@@ -379,7 +338,7 @@ const LeaseToOwnVehicles = () => {
           <br />
           <form
             action="#"
-            className="signin-form"
+            className="lto-calculator-form"
             onSubmit={handleLTOCalculatorForm}
             // onSubmit={(e) => e.preventDefault()}
           >
@@ -556,6 +515,28 @@ const LeaseToOwnVehicles = () => {
                         <ToastContainer />
                       </Col>
                     </Row>
+                    <Modal show={showModal} onHide={handleCloseModal} size="lg">
+                      <Modal.Header closeButton>
+                        <Modal.Title>Car Leasing</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        {" "}
+                        <LeaseNowFormDetails
+                          estCarPrice={estCarPrice}
+                          durationVal={durationVal}
+                          downPaymentVal={downPaymentVal}
+                          resetLeasingDetails={resetLeasingDetails}
+                        />{" "}
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <button
+                          className="btn btn-secondary"
+                          onClick={handleCloseModal}
+                        >
+                          Close
+                        </button>
+                      </Modal.Footer>
+                    </Modal>
                   </div>
                 </div>
               </div>

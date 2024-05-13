@@ -803,7 +803,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           <>
             <form
               action="#"
-              className="signin-form"
+              className="booking-documents-form"
               onSubmit={handleAddOnsDocumentStepForm}
             >
               <div className="step1-car-location-details-container">

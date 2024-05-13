@@ -13,6 +13,17 @@ const FreeConsultationForm = () => {
 
   const handleFreeConsultationForm = async (e) => {
     e.preventDefault();
+    console.log(`1---- Free cons fomr number : ${phoneNumber}`);
+
+    const phoneRegex = /^[0-9]{9,}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      console.log(`2---- Free cons fomr number : ${phoneNumber}`);
+      toast.error("Please enter a valid phone number.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
 
     const formData = new FormData();
     formData.append("customerName", customerName);
@@ -52,7 +63,11 @@ const FreeConsultationForm = () => {
     } catch (error) {
       console.log("Error:", error?.response?.data || error);
 
-      if (error?.response && error?.response?.data && error?.response?.data?.error) {
+      if (
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.error
+      ) {
         const errors = error?.response?.data?.error?.errors;
         console.log("Error:", error?.response?.data);
 
@@ -95,7 +110,7 @@ const FreeConsultationForm = () => {
             <Container>
               <form
                 action="#"
-                className="signin-form"
+                className="free-consultation-form"
                 onSubmit={handleFreeConsultationForm}
               >
                 <div className="free-consultation-text">
@@ -128,19 +143,18 @@ const FreeConsultationForm = () => {
                           value={phoneNumber}
                           placeholder="00 000 0000"
                           showDropdown={false}
-                          disableDropdown={true}
-                          countryCodeEditable={false}
-                          onChange={(phone) => {
-                            if (phone?.length <= 12) {
-                              const formattedPhone = phone?.replace(/\D/g, "");
-                              if (
-                                formattedPhone?.startsWith("971") &&
-                                formattedPhone?.length === 12
-                              ) {
-                                setPhoneNumber(formattedPhone);
-                              } else {
-                                console.log("Invalid UAE phone number");
-                              }
+                          disableDropdown={false}
+                          countryCodeEditable={true}
+                          onChange={(phone, country) => {
+                            const formattedPhone = phone.replace(/\D/g, "");
+
+                            if (
+                              formattedPhone.length <=
+                              country.dialCode.length + 9
+                            ) {
+                              setPhoneNumber(formattedPhone);
+                            } else {
+                              console.log("Invalid phone number");
                             }
                           }}
                         />
