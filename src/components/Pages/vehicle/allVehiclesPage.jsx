@@ -296,17 +296,14 @@ const VehiclesPage = () => {
   useEffect(() => {
     fetchCarsData();
   }, [dateRange, fetchCarsData]);
-  const categoryMap = useMemo(
-    () => [
-      {
-        Standard: "Sedan",
-        "Small SUV 5 Seater": "SUV",
-        Compact: "HatchBack",
-        Fullsize: "Station Wagon",
-      },
-    ],
-    []
-  );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const categoryMap = {
+    Standard: "Sedan",
+    "Small SUV 5 Seater": "SUV",
+    Compact: "HatchBack",
+    Fullsize: "Station Wagon",
+  };
 
   const fetchAllCategories = useCallback(async () => {
     try {
@@ -354,12 +351,12 @@ const VehiclesPage = () => {
 
   const enhanceCategoryData = useCallback(() => {
     const categoryDetailsMap = new Map();
-    const categoryMap = {
-      Standard: "Sedan",
-      "Small SUV 5 Seater": "SUV",
-      Compact: "HatchBack",
-      Fullsize: "Station Wagon",
-    };
+    // const categoryMap = {
+    //   Standard: "Sedan",
+    //   "Small SUV 5 Seater": "SUV",
+    //   Compact: "HatchBack",
+    //   Fullsize: "Station Wagon",
+    // };
 
     carsData?.forEach((car) => {
       if (car?.acrissCategory) {
@@ -378,7 +375,7 @@ const VehiclesPage = () => {
 
     const updatedCategories = [...categoryDetailsMap.values()];
     setCarCategoriesData(updatedCategories);
-  }, [carsData]);
+  }, [carsData, categoryMap]);
 
   useEffect(() => {
     if (carsData?.length > 0) {
@@ -1189,7 +1186,7 @@ const VehiclesPage = () => {
                         <div className="car-type-filter-container d-flex justify-content-between">
                           <div className="car-type-icon-title">
                             <BsTags className="mr-2" />
-                            <b>Price Range</b>
+                            <b>Price Range ( </b>per day <b>)</b>
                           </div>
                           <div className="car-price-range-open-close-modal ">
                             {isCarPriceRangeOpen ? (
@@ -1212,7 +1209,12 @@ const VehiclesPage = () => {
                         <div className="card-body">
                           <div className="">
                             <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
-                              <label htmlFor="minPrice" className="price-range-label">Min. Value</label>
+                              <label
+                                htmlFor="minPrice"
+                                className="price-range-label"
+                              >
+                                Min. Value
+                              </label>
                               <input
                                 className="form-control-login"
                                 name="minPrice"
@@ -1226,7 +1228,12 @@ const VehiclesPage = () => {
                             </div>
 
                             <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
-                            <label htmlFor="maxPrice" className="price-range-label">Max. Value</label>
+                              <label
+                                htmlFor="maxPrice"
+                                className="price-range-label"
+                              >
+                                Max. Value
+                              </label>
 
                               <input
                                 className="form-control-login "
