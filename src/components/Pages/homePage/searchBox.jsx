@@ -489,7 +489,11 @@ const SearchBox = () => {
                       size="xl"
                     >
                       <Modal.Header closeButton>
-                        <Modal.Title>Pickup Location</Modal.Title>
+                        <Modal.Title>
+                          <span className="modal-heading">
+                            Pickup Location{" "}
+                          </span>
+                        </Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
                         <PickupLocationModal
@@ -511,7 +515,11 @@ const SearchBox = () => {
                       size="xl"
                     >
                       <Modal.Header closeButton>
-                        <Modal.Title>DropOff Location</Modal.Title>
+                        <Modal.Title>
+                          <span className="modal-heading">
+                            DropOff Location
+                          </span>
+                        </Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
                         <DropoffLocationModal

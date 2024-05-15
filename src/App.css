@@ -4,6 +4,10 @@
   background-color: white;
 }
 
+.modal-heading {
+  color: #e87a28;
+}
+
 .css-1dimb5e-singleValue {
   font-weight: 100 !important;
 }
@@ -431,7 +435,7 @@
   background-color: white !important;
   color: white !important;
   border-color: #e87a28 !important;
-  box-shadow: 2px 6px 14px #be633c !important;
+  box-shadow: 2px 6px 14px #e87a28 !important;
 }
 
 .btn.btn-primary:hover {

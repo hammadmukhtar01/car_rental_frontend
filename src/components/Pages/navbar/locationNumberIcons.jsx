@@ -44,7 +44,10 @@ const FixedNumLocButtons = () => {
 
         <Modal show={showModal} onHide={handleCloseModal} size="lg">
           <Modal.Header closeButton>
-            <Modal.Title>View location Details:</Modal.Title>
+            <Modal.Title>
+              {" "}
+              <span className="modal-heading">View location Details:</span>
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <iframe

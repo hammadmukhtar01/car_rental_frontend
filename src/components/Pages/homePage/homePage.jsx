@@ -81,7 +81,9 @@ const HomePage = () => {
 
           <Modal show={showModal} onHide={handleCloseModal} size="lg">
             <Modal.Header closeButton>
-              <Modal.Title>Spin The Wheel</Modal.Title>
+              <Modal.Title>
+                <span className="modal-heading">Spin The Wheel </span>
+              </Modal.Title>
             </Modal.Header>
             <Modal.Body>{/* <SpinTheWheel /> */}</Modal.Body>
             <Modal.Footer>

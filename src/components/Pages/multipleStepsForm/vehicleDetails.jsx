@@ -678,7 +678,12 @@ const VehicleDetails = ({ nextStep }) => {
                         size="lg"
                       >
                         <Modal.Header closeButton>
-                          <Modal.Title>View Details</Modal.Title>
+                          <Modal.Title>
+                            <span className="modal-heading">
+                              {" "}
+                              View Details{" "}
+                            </span>
+                          </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                           {selectedAddOn && (

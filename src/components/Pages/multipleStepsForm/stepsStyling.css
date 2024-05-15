@@ -256,11 +256,11 @@ h4 {
 }
 
 .button--submit:hover {
-  background-color: #a24303;
+  background-color: #e87a28;
 }
 
 .remove-coupon-btn {
-  background-color: rgba(206, 2, 2, 0.809);
+  background-color: #e87a28;
   box-shadow: none;
 }
 

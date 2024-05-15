@@ -48,7 +48,7 @@ ul.dropoff-loc-list {
 ul.deliver-to-me-loc-list li.active,
 ul.pickup-loc-list li.active,
 ul.dropoff-loc-list li.active {
-  background-color: #e67931;
+  background-color: #e87a28;
   cursor: pointer;
   color: white;
   transition: transform 0.5s ease-in-out !important;
@@ -57,7 +57,7 @@ ul.dropoff-loc-list li.active {
 ul.deliver-to-me-loc-list li:hover,
 ul.pickup-loc-list li:hover,
 ul.dropoff-loc-list li:hover {
-  background-color: #e67931;
+  background-color: #e87a28;
   cursor: pointer;
   color: white;
   transition: transform 0.5s ease-in-out !important;

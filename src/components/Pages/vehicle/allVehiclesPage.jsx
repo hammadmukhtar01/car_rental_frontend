@@ -558,7 +558,8 @@ const VehiclesPage = () => {
     return carsData
       ?.filter((car) => {
         const typeMatch =
-          selectedCarTypes.length === 0 || selectedCarTypes.includes(car?.title);
+          selectedCarTypes.length === 0 ||
+          selectedCarTypes.includes(car?.title);
 
         const currentCarCategory = normalizedCarCategories.find(
           (cat) => cat?.id === car?.acrissCategory?.id
@@ -938,7 +939,12 @@ const VehiclesPage = () => {
                           size="xl"
                         >
                           <Modal.Header closeButton>
-                            <Modal.Title>Pickup Location</Modal.Title>
+                            <Modal.Title>
+                              <span className="modal-heading">
+                                {" "}
+                                Pickup Location{" "}
+                              </span>
+                            </Modal.Title>
                           </Modal.Header>
                           <Modal.Body>
                             <PickupLocationModal
@@ -964,7 +970,12 @@ const VehiclesPage = () => {
                           size="xl"
                         >
                           <Modal.Header closeButton>
-                            <Modal.Title>DropOff Location</Modal.Title>
+                            <Modal.Title>
+                              {" "}
+                              <span className="modal-heading">
+                                DropOff Location{" "}
+                              </span>
+                            </Modal.Title>
                           </Modal.Header>
                           <Modal.Body>
                             <DropoffLocationModal

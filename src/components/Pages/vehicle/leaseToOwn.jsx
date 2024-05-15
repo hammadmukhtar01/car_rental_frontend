@@ -489,7 +489,9 @@ const LeaseToOwnVehicles = () => {
                     </Row>
                     <Modal show={showModal} onHide={handleCloseModal} size="lg">
                       <Modal.Header closeButton>
-                        <Modal.Title>Car Leasing</Modal.Title>
+                        <Modal.Title>
+                          <span className="modal-heading">Car Leasing </span>
+                        </Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
                         {" "}
