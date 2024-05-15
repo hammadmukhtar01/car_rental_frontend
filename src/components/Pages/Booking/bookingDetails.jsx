@@ -105,11 +105,11 @@ const BookingDetails = () => {
       console.log(`Booking details id is : ${bookingDetailsId}`);
       if (response?.status === 201) {
         console.log("Product created successfully");
-        alert("Booking in Progress. Please procceed with payment");
+        // alert("Booking in Progress. Please procceed with payment");
         navigate(`/afterpayment/${bookingDetailsId}`);
       } else {
         console.log("Product creation failed");
-        alert("Product creation failed");
+        // alert("Product creation failed");
       }
     } catch (error) {
       console.error(`API error: ${error}`);

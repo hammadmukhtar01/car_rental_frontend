@@ -4,7 +4,8 @@
   background-color: white;
 }
 
-.modal-heading {
+.modal-heading,
+.price-range-label {
   color: #e87a28;
 }
 

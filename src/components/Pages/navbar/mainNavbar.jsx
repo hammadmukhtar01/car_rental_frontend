@@ -182,7 +182,7 @@ function OffcanvasNavbarMain() {
                     FAQs
                   </Nav.Link>
                 </Nav>
-                {auth && authStatusCode === "OK" ? (
+                {/* {auth && authStatusCode === "OK" ? (
                   <>
                     <Nav.Link disabled className="welcome-text">
                       Welcome, {auth?.data?.result?.userName?.slice(0, 6)}
@@ -219,7 +219,7 @@ function OffcanvasNavbarMain() {
                       <b className="signup-menu">Login | Sign Up</b>
                     </Nav.Link>
                   </>
-                )}
+                )} */}
               </Offcanvas.Body>
             </Navbar.Offcanvas>
           </Col>

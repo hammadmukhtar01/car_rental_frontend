@@ -1212,6 +1212,7 @@ const VehiclesPage = () => {
                         <div className="card-body">
                           <div className="">
                             <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
+                              <label htmlFor="minPrice" className="price-range-label">Min. Value</label>
                               <input
                                 className="form-control-login"
                                 name="minPrice"
@@ -1225,6 +1226,8 @@ const VehiclesPage = () => {
                             </div>
 
                             <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
+                            <label htmlFor="maxPrice" className="price-range-label">Max. Value</label>
+
                               <input
                                 className="form-control-login "
                                 name="maxPrice"
@@ -1299,7 +1302,8 @@ const VehiclesPage = () => {
                                 {" "}
                                 <b>{car?.title}</b> | (
                                 {categoryMap[car?.acrissCategory?.name] ||
-                                  car?.acrissCategory?.name}
+                                  car?.acrissCategory?.name}{" "}
+                                )
                               </span>
                             </div>
                             <div className="car-image-container ">

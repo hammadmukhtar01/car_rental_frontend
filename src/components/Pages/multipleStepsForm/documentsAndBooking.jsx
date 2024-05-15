@@ -220,7 +220,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         console.log(
           "create customer success if method console - - - - - -- done"
         );
-        alert("alert customer created...");
+        // alert("alert customer created...");
         getCustomerDetails(response?.data?.result);
       } else {
         const errorMessage = response?.data?.error?.message;
@@ -259,7 +259,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
       setNewCustomerDetail(response?.data?.result);
       if (response?.data?.success) {
-        alert("alert customer get details...");
+        // alert("alert customer get details...");
         console.log("get customer response--------:", response?.data?.result);
         createBooking(
           response?.data?.result?.id,
@@ -535,7 +535,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
       if (responseResult === true) {
         const bookingStatus = "success";
-        alert("Booking status is: ", bookingStatus);
+        // alert("Booking status is: ", bookingStatus);
         console.log("booking done successfully. Time for Payment");
 
         toast.success("Booking Done Successfully", {
