@@ -11,7 +11,7 @@ import Coloredlogo from "../../images/car_rental_logo.png";
 import { Col } from "react-bootstrap";
 import "./navbar.css";
 
-function OffcanvasExample() {
+function OffcanvasNavbarMain() {
   const [isHomePage, setIsHomePage] = useState(false);
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const toggleOffCanvas = () => setShowOffCanvas(!showOffCanvas);
@@ -229,4 +229,4 @@ function OffcanvasExample() {
   );
 }
 
-export default OffcanvasExample;
+export default OffcanvasNavbarMain;

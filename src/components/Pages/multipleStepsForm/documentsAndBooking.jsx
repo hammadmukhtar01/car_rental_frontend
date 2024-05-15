@@ -725,7 +725,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         });
         console.log("Invoice Created, Payment URL:", response?.data?.status);
         setPaymentUrl(response?.data?.status);
-        const nextStepUrl = `/bookingPage/3&booking-${bookingStatus}`;
+        const nextStepUrl = `/bookingPage/3&booking-success`;
         window.location.href = nextStepUrl;
       }
     } catch (error) {

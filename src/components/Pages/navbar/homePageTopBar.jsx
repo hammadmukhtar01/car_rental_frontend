@@ -8,7 +8,7 @@ import { Row, Col } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 
 const HomePageTopBar = () => {
-  const phoneNumber = "+971544519432";
+  const phoneNumber = "+971563298330";
   const email = "info@milelecarrental.com";
 
   return (

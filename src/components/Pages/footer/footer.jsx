@@ -50,7 +50,7 @@ const Footer = () => {
     },
 
     {
-      footerContactUsData: "+971 54 451 9432",
+      footerContactUsData: "+971 56 329 8330",
       IconName: BiSolidPhone,
     },
   ];

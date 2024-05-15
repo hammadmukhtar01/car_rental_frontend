@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {
   useState,
   useEffect,
@@ -24,6 +25,8 @@ import DropoffLocationModal from "../homePage/dropoffSearchBoxDropDown";
 import Pagination from "./pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 import { DateRange } from "react-date-range";
+// import { useReload } from "../../PrivateComponents/utils";
+// import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
@@ -39,9 +42,10 @@ const animatedComponents = makeAnimated();
 
 const VehiclesPage = () => {
   const carTypeInURL = useLocation();
-  const queryParams = useMemo(() => {
-    return new URLSearchParams(carTypeInURL?.search);
-  }, [carTypeInURL?.search]);
+  const queryParams = useMemo(
+    () => new URLSearchParams(carTypeInURL.search),
+    [carTypeInURL.search]
+  );
   const pickupLocParam = queryParams?.get("pickupLoc");
   const dropoffLocParam = queryParams?.get("dropoffLoc");
   const startDateParam = queryParams?.get("startDate");
@@ -73,7 +77,7 @@ const VehiclesPage = () => {
     dropoffLocParam || ""
   );
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
-  const [pickupLocStateValue] = useState("DUBAI");
+  const [pickupLocStateValue, setPickupLocStateValue] = useState("DUBAI");
   const [dropoffLocStateValue, setDropoffLocStateValue] = useState("DUBAI");
 
   const [showPickupModal, setShowPickupModal] = useState(false);
@@ -121,12 +125,12 @@ const VehiclesPage = () => {
 
         if (storedFormFields?.dateRangeV1) {
           storedStartDateRange = new Date(
-            storedFormFields?.dateRangeV1.startDate
+            storedFormFields?.dateRangeV1?.startDate
           );
           storedEndDateRange = new Date(storedFormFields?.dateRangeV1?.endDate);
           if (
-            isNaN(storedStartDateRange?.getTime()) ||
-            isNaN(storedEndDateRange?.getTime())
+            isNaN(storedStartDateRange.getTime()) ||
+            isNaN(storedEndDateRange.getTime())
           ) {
             storedStartDateRange = new Date();
             storedEndDateRange = new Date(
@@ -185,6 +189,7 @@ const VehiclesPage = () => {
       `useeffect useeffect useeffect dropoffLocationMessage useeffect is : ${dropoffLocationMessage}`
     );
   }, [dropoffLocationMessage]);
+
   useEffect(() => {
     const pickupTimeParam = queryParams.get("pickupTime");
     if (pickupTimeParam && !pickUpTime) {
@@ -218,7 +223,7 @@ const VehiclesPage = () => {
 
   const defaultStartDate = new Date();
   const defaultEndDate = new Date(
-    defaultStartDate?.getTime() + 24 * 60 * 60 * 1000
+    defaultStartDate.getTime() + 24 * 60 * 60 * 1000
   );
 
   const [dateRange, setDateRange] = useState([
@@ -229,35 +234,35 @@ const VehiclesPage = () => {
     },
   ]);
 
-  const startDate = useMemo(() => dateRange[0]?.startDate, [dateRange]);
-  const endDate = useMemo(() => dateRange[0]?.endDate, [dateRange]);
+  const startDate = useMemo(() => dateRange[0].startDate, [dateRange]);
+  const endDate = useMemo(() => dateRange[0].endDate, [dateRange]);
 
   const startDateFunc = new Date(startDate);
   if (
-    startDateFunc?.toISOString()?.split("T")[0] ===
-      new Date().toISOString()?.split("T")[0] ||
-    startDateFunc?.toISOString()?.split("T")[0] === startDateParam
+    startDateFunc.toISOString().split("T")[0] ===
+      new Date().toISOString().split("T")[0] ||
+    startDateFunc.toISOString().split("T")[0] === startDateParam
   ) {
-    startDateFunc?.setDate(startDateFunc?.getDate());
-  } else startDateFunc?.setDate(startDateFunc?.getDate() + 1);
+    startDateFunc.setDate(startDateFunc.getDate());
+  } else startDateFunc.setDate(startDateFunc.getDate() + 1);
 
   const endDateFunc = new Date(endDate);
   if (
-    endDateFunc?.toISOString()?.split("T")[0] ===
-      new Date(defaultStartDate?.getTime() + 24 * 60 * 60 * 1000)
-        ?.toISOString()
-        ?.split("T")[0] ||
-    endDateFunc?.toISOString()?.split("T")[0] === endDateParam
+    endDateFunc.toISOString().split("T")[0] ===
+      new Date(defaultStartDate.getTime() + 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split("T")[0] ||
+    endDateFunc.toISOString().split("T")[0] === endDateParam
   ) {
-    endDateFunc?.setDate(endDateFunc?.getDate());
-  } else endDateFunc?.setDate(endDateFunc?.getDate() + 1);
+    endDateFunc.setDate(endDateFunc.getDate());
+  } else endDateFunc.setDate(endDateFunc.getDate() + 1);
 
   const datePickerStartDate = encodeURIComponent(
-    startDateFunc?.toISOString()
-  )?.split("T")[0];
-  const datePickerEndDate = encodeURIComponent(
-    endDateFunc?.toISOString()
+    startDateFunc.toISOString()
   ).split("T")[0];
+  const datePickerEndDate = encodeURIComponent(endDateFunc.toISOString()).split(
+    "T"
+  )[0];
 
   useEffect(() => {
     if (pickUpDate && dropOffDate) {
@@ -273,9 +278,9 @@ const VehiclesPage = () => {
       };
 
       const startDate = encodeURIComponent(
-        dateRange[0]?.startDate?.toISOString()
+        dateRange[0].startDate.toISOString()
       );
-      const endDate = encodeURIComponent(dateRange[0]?.endDate?.toISOString());
+      const endDate = encodeURIComponent(dateRange[0].endDate.toISOString());
       const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/SearchVehicleRates?startDate=${startDate}&endDate=${endDate}`;
 
       const response = await axios.post(url, {}, { headers });
@@ -291,14 +296,15 @@ const VehiclesPage = () => {
   useEffect(() => {
     fetchCarsData();
   }, [dateRange, fetchCarsData]);
-
   const categoryMap = useMemo(
-    () => ({
-      Standard: "Sedan",
-      "Small SUV 5 Seater": "SUV",
-      Compact: "HatchBack",
-      Fullsize: "Station Wagon",
-    }),
+    () => [
+      {
+        Standard: "Sedan",
+        "Small SUV 5 Seater": "SUV",
+        Compact: "HatchBack",
+        Fullsize: "Station Wagon",
+      },
+    ],
     []
   );
 
@@ -358,8 +364,7 @@ const VehiclesPage = () => {
     carsData?.forEach((car) => {
       if (car?.acrissCategory) {
         const key = `${car?.acrissCategory?.code}-${car?.acrissCategory?.name}`;
-        if (!categoryDetailsMap?.has(key)) {
-          // Use the categoryMap to rename the category name
+        if (!categoryDetailsMap.has(key)) {
           const renamedName =
             categoryMap[car?.acrissCategory?.name] || car?.acrissCategory?.name;
           categoryDetailsMap?.set(key, {
@@ -371,7 +376,7 @@ const VehiclesPage = () => {
       }
     });
 
-    const updatedCategories = [...categoryDetailsMap?.values()];
+    const updatedCategories = [...categoryDetailsMap.values()];
     setCarCategoriesData(updatedCategories);
   }, [carsData]);
 
@@ -383,7 +388,7 @@ const VehiclesPage = () => {
 
   useEffect(() => {
     if (carCategoryParam && normalizedCarCategories?.length > 0) {
-      const matchedCategory = normalizedCarCategories?.find((cat) => {
+      const matchedCategory = normalizedCarCategories.find((cat) => {
         const isMatch =
           cat?.name?.toUpperCase() === carCategoryParam?.toUpperCase();
         return isMatch;
@@ -391,7 +396,7 @@ const VehiclesPage = () => {
 
       if (matchedCategory) {
         setSelectedCategories([
-          { label: matchedCategory?.name, value: matchedCategory?.id },
+          { label: matchedCategory?.name, value: matchedCategory.id },
         ]);
       }
     }
@@ -404,6 +409,11 @@ const VehiclesPage = () => {
       featureIcon: BsPerson,
     },
 
+    // {
+    //   name: "Doors",
+    //   value: 5,
+    //   featureIcon: GiCarDoor,
+    // },
     {
       name: "Automatic",
       value: "A",
@@ -435,7 +445,7 @@ const VehiclesPage = () => {
       largeBagsCapacity: item?.largeBagsCapacity,
       tariffGroupId: item?.tariffGroupId,
     };
-    dataArray?.push(dataObject);
+    dataArray.push(dataObject);
   });
 
   const sortByDropDown = [
@@ -452,15 +462,15 @@ const VehiclesPage = () => {
     while (!(hour === 23 && minute === 30)) {
       let formattedHour;
       if (hour <= 12) {
-        formattedHour = hour?.toString().padStart(2, "0");
+        formattedHour = hour.toString().padStart(2, "0");
       } else {
         const newhour = hour - 12;
         formattedHour = newhour.toString().padStart(2, "0");
       }
 
-      const formattedMinute = minute?.toString()?.padStart(2, "0");
+      const formattedMinute = minute.toString().padStart(2, "0");
       const time = `${formattedHour}:${formattedMinute} ${ampm}`;
-      timeSlots?.push({ label: time, value: time });
+      timeSlots.push({ label: time, value: time });
 
       minute += 30;
       if (minute === 60) {
@@ -510,20 +520,20 @@ const VehiclesPage = () => {
   ) => {
     const missingFields = [];
     if (!pickupLocationMessage) {
-      missingFields?.push("Pickup location");
+      missingFields.push("Pickup location");
     }
     if (!pickUpTime) {
-      missingFields?.push("Pickup time");
+      missingFields.push("Pickup time");
     }
     if (!dropOffTime) {
-      missingFields?.push("Dropoff time");
+      missingFields.push("Dropoff time");
     }
     if (showDropoff && !dropoffLocationMessage) {
-      missingFields?.push("Dropoff location");
+      missingFields.push("Dropoff location");
     }
     console.log("missingFields", missingFields);
     if (missingFields?.length > 0) {
-      const errorMessage = `${missingFields?.join(", ")} field(s) are missing.`;
+      const errorMessage = `${missingFields.join(", ")} field(s) are missing.`;
       toast.error(errorMessage, {
         autoClose: 1000,
         style: {
@@ -548,16 +558,15 @@ const VehiclesPage = () => {
     return carsData
       ?.filter((car) => {
         const typeMatch =
-          selectedCarTypes?.length === 0 ||
-          selectedCarTypes?.includes(car?.title);
+          selectedCarTypes.length === 0 || selectedCarTypes.includes(car?.title);
 
-        const currentCarCategory = normalizedCarCategories?.find(
+        const currentCarCategory = normalizedCarCategories.find(
           (cat) => cat?.id === car?.acrissCategory?.id
         );
 
         const categoryMatch =
           selectedCategories?.length === 0 ||
-          selectedCategories?.some((selectedCategory) => {
+          selectedCategories.some((selectedCategory) => {
             const valueMatch =
               selectedCategory?.value === currentCarCategory?.id;
             const labelMatch =
@@ -613,7 +622,7 @@ const VehiclesPage = () => {
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    return filterCars?.slice(firstPageIndex, lastPageIndex);
+    return filterCars.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, filterCars]);
 
   useEffect(() => {
@@ -622,8 +631,8 @@ const VehiclesPage = () => {
 
   const handleCarTypeCheckboxChange = (type) => {
     setSelectedCarTypes((prev) => {
-      if (prev?.includes(type)) {
-        return prev?.filter((t) => t !== type);
+      if (prev.includes(type)) {
+        return prev.filter((t) => t !== type);
       } else {
         return [...prev, type];
       }
@@ -646,7 +655,7 @@ const VehiclesPage = () => {
   };
 
   const handleDateChange = (ranges) => {
-    const { startDate, endDate } = ranges?.selection;
+    const { startDate, endDate } = ranges.selection;
 
     const pickupDate = startDate ? startDate?.toLocaleDateString() : null;
     const dropoffDate = endDate ? endDate?.toLocaleDateString() : null;
@@ -656,33 +665,34 @@ const VehiclesPage = () => {
 
     setActiveSelection((prev) => ({
       startDate: true,
-      endDate: prev?.startDate ? true : false,
+      endDate: prev.startDate ? true : false,
     }));
 
-    if (activeSelection?.startDate && endDate) {
+    if (activeSelection.startDate && endDate) {
       setShowDateRangeModal(false);
     }
 
     const updatedStartDate = startDate
-      ? new Date(startDate?.getTime() + 24 * 60 * 60 * 1000)
+      ? new Date(startDate.getTime() + 24 * 60 * 60 * 1000)
       : null;
     const updatedEndDate = endDate
-      ? new Date(endDate?.getTime() + 24 * 60 * 60 * 1000)
+      ? new Date(endDate.getTime() + 24 * 60 * 60 * 1000)
       : null;
 
     const dateRangeObject = {
-      startDate: updatedStartDate?.toISOString()?.split("T")[0],
-      endDate: updatedEndDate?.toISOString()?.split("T")[0],
+      startDate: updatedStartDate.toISOString().split("T")[0],
+      endDate: updatedEndDate.toISOString().split("T")[0],
+      // key: "selection",
     };
 
     handleFieldChange("dateRangeV1", dateRangeObject);
 
-    setDateRange([ranges?.selection]);
+    setDateRange([ranges.selection]);
   };
 
   useEffect(() => {
     if (startDate && endDate) {
-      const timeDifference = endDate?.getTime() - startDate?.getTime();
+      const timeDifference = endDate.getTime() - startDate.getTime();
       const totalDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
       console.log("Number of days:", totalDays);
       setNumberOfDays(totalDays);
@@ -1006,7 +1016,7 @@ const VehiclesPage = () => {
                               options={timeOptions}
                               required
                               className="form-control-dropoff-time col-12"
-                              value={timeOptions?.find(
+                              value={timeOptions.find(
                                 (option) =>
                                   option?.value === formFields?.dropTimeV1
                               )}
@@ -1136,7 +1146,7 @@ const VehiclesPage = () => {
                                 className="form-check-input"
                                 type="checkbox"
                                 value={type}
-                                checked={selectedCarTypes?.includes(type)}
+                                checked={selectedCarTypes.includes(type)}
                                 onChange={() =>
                                   handleCarTypeCheckboxChange(type)
                                 }
@@ -1263,7 +1273,7 @@ const VehiclesPage = () => {
                     <h3 className="pb-2 all-cars-heading">All Cars</h3>
                     <br />
                     <Row className="offers-car-container-row">
-                      {currentTableData.map((car, index) => (
+                      {currentTableData?.map((car, index) => (
                         <Col
                           key={car?.tariffGroupId}
                           xxl={6}
@@ -1279,7 +1289,6 @@ const VehiclesPage = () => {
                                 <b>{car?.title}</b> | (
                                 {categoryMap[car?.acrissCategory?.name] ||
                                   car?.acrissCategory?.name}
-                                )
                               </span>
                             </div>
                             <div className="car-image-container ">
@@ -1317,11 +1326,18 @@ const VehiclesPage = () => {
                                         case "Person Seats":
                                           value = carData?.passengerCapacity;
                                           break;
-
+                                        // case "Doors":
+                                        //   const [doorRange = carData?.type] = carData?.type.split(/[-/]/);
+                                        //   const [doorRange = carData?.type] =
+                                        //     carData?.type.includes("%")
+                                        //       ? carData?.type.split("")
+                                        //       : [carData?.type];
+                                        //   value = doorRange;
+                                        //   break;
                                         case "Automatic":
                                           value = carData?.transmission
                                             ? carData?.transmission
-                                                ?.split("/")[0]
+                                                .split("/")[0]
                                                 .charAt(0)
                                             : "N";
                                           break;
@@ -1363,60 +1379,51 @@ const VehiclesPage = () => {
 
                             <div className="d-flex justify-content-center">
                               <div className="col-xxl-10 col-lg-11 col-md-12 col-sm-8 col-12 d-flex justify-content-center">
-                                {numberOfDays > 0 ? (
-                                  <>
-                                    <button
-                                      className="map-loc-middle"
-                                      onClick={() => {
-                                        console.log(
-                                          `--------------------------Start date is ---- ${datePickerStartDate} \n End Date is ---- ${datePickerEndDate}`
-                                        );
-                                        allCarsBookingButton(
-                                          car?.tariffGroupId,
-                                          `${car?.title} - ${
-                                            categoryMap[
-                                              car?.acrissCategory?.name
-                                            ] || car?.acrissCategory?.name
-                                          }`,
-                                          datePickerStartDate,
-                                          datePickerEndDate
-                                        );
-                                      }}
-                                    >
-                                      <span className="animate-button btn4 pay-now-button">
+                                <>
+                                  <button
+                                    className="map-loc-middle"
+                                    onClick={() => {
+                                      console.log(
+                                        `--------------------------Start date is ---- ${datePickerStartDate} \n End Date is ---- ${datePickerEndDate}`
+                                      );
+                                      allCarsBookingButton(
+                                        car?.tariffGroupId,
+                                        `${car?.title} - ${
+                                          categoryMap[
+                                            car?.acrissCategory?.name
+                                          ] || car?.acrissCategory?.name
+                                        }`,
+                                        datePickerStartDate,
+                                        datePickerEndDate
+                                      );
+                                    }}
+                                  >
+                                    {numberOfDays > 0 ? (
+                                      <span className="all-cars-animate-button btn4">
                                         <span className="label">
-                                          Pay Now {car?.rate * numberOfDays}/{" "}
-                                          {numberOfDays} day(s)
+                                          Pay Now{" "}
+                                          <span className="pay-now-price-md-lg">
+                                            <span>|</span> AED:{" "}
+                                            {car?.rate * numberOfDays} |{" "}
+                                            {numberOfDays} days
+                                          </span>
+                                          <div className="pay-now-price-xs">
+                                            AED: {car?.rate * numberOfDays} |{" "}
+                                            {numberOfDays} days
+                                          </div>
                                         </span>
                                       </span>
-                                    </button>
-                                  </>
-                                ) : (
-                                  <>
-                                    <div className="button-container">
-                                      <button
-                                        onClick={allCarsBookingButton(
-                                          car?.tariffGroupId,
-                                          `${car?.title} - ${
-                                            categoryMap[
-                                              car?.acrissCategory?.name
-                                            ] || car?.acrissCategory?.name
-                                          }`,
-                                          datePickerStartDate,
-                                          datePickerEndDate
-                                        )}
-                                        className="map-loc-middle py-3"
-                                      >
-                                        <span
-                                          href=""
-                                          className="animate-button btn4"
-                                        >
-                                          Rent Now
+                                    ) : (
+                                      <>
+                                        <span className="animate-button btn4">
+                                          <span className="label">
+                                            Pay Now{" "}
+                                          </span>
                                         </span>
-                                      </button>
-                                    </div>
-                                  </>
-                                )}
+                                      </>
+                                    )}
+                                  </button>
+                                </>
                               </div>
                             </div>
                           </div>

@@ -3,7 +3,7 @@ import { FaPhone, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 import { Modal } from "react-bootstrap";
 
 const FixedNumLocButtons = () => {
-  const phoneNumber = "+971508805974";
+  const phoneNumber = "+971563298330";
   const whatsappLink = `https://wa.me/${phoneNumber.replace(/\D/g, "")}`;
 
   const [showModal, setShowModal] = useState(false);
@@ -48,7 +48,7 @@ const FixedNumLocButtons = () => {
           </Modal.Header>
           <Modal.Body>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.852700403415!2d55.36611197620153!3d25.174451077725763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f675b5b792571%3A0x8dd25798a287aa87!2sMilele%20Showroom%2093!5e0!3m2!1sen!2sae!4v1695724496789!5m2!1sen!2sae"
+              src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=milele showroom 11&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
               width="100%"
               height="550px"
               allowFullScreen=""

@@ -87,7 +87,7 @@ const VehicleDetails = ({ nextStep }) => {
       {
         id: 19,
         addOnsName: "Baby Seat",
-        pricePerTrip: 115,
+        pricePerTrip: 20,
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
@@ -97,7 +97,7 @@ const VehicleDetails = ({ nextStep }) => {
         id: 54,
         // Extra1Charges -> Tint
         addOnsName: "Tint",
-        pricePerTrip: 54,
+        pricePerTrip: 10,
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
@@ -108,7 +108,7 @@ const VehicleDetails = ({ nextStep }) => {
         id: 55,
         // Extra1Charges -> Mobile Holder
         addOnsName: "Mobile Holder",
-        pricePerTrip: 55,
+        pricePerTrip: 5,
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
@@ -119,7 +119,7 @@ const VehicleDetails = ({ nextStep }) => {
         id: 58,
         // Extra1Charges -> Sunshades
         addOnsName: "Sunshades",
-        pricePerTrip: 58,
+        pricePerTrip: 15,
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:

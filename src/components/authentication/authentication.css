@@ -254,17 +254,24 @@
   background-color: transparent;
 }
 
-.animate-button {
+.animate-button,
+.all-cars-animate-button {
   position: relative;
   display: block;
   font-size: 14px;
   border: 2px solid #e87a28;
-  padding: 10px 50px;
   text-transform: uppercase;
   overflow: hidden;
   border-radius: 20px;
   background-color: #e87a28;
   color: white;
+}
+.animate-button {
+  padding: 10px 50px;
+}
+
+.all-cars-animate-button {
+  padding: 10px;
 }
 
 .pay-now-button {
@@ -272,16 +279,17 @@
   text-transform: capitalize;
 }
 
-.animate-button:hover {
+.animate-button:hover,
+.all-cars-animate-button:hover {
   color: #e87a28;
   background-color: white;
 }
 
 @media screen and (max-width: 768px) {
-  .animate-button {
+  /* .animate-button {
     padding: 10px 20px;
     font-size: 12px;
-  }
+  } */
   .pay-now-button {
     padding: 10px;
     font-size: 10px;

@@ -1,6 +1,6 @@
 .wrapper {
   max-width: 960px;
-  width: 100%; 
+  width: 100%;
   margin: 30px auto;
   transform: scale(0.8);
 }
@@ -28,10 +28,12 @@
 }
 .error-page-paragraph {
   font-size: 16px;
-  width: 35%; 
+  width: 35%;
   margin: 16px auto 24px;
   text-align: center;
   color: gray;
+  word-spacing: 10px;
+  letter-spacing: 1px;
 }
 .back-button-error-page {
   border-radius: 50px;
