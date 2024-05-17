@@ -8,11 +8,16 @@ const GlobalLoader = ({ children }) => {
 
     useEffect(() => {
         setIsLoading(true);
+        document.body.classList.add('loadings')
         const timer = setTimeout(() => {
             setIsLoading(false); 
-        }, 100);
+            document.body.classList.remove('loadings')
+        }, 300);
 
-        return () => clearTimeout(timer); 
+        return () => {
+          clearTimeout(timer);
+          document.body.classList.remove('loadings')
+        }; 
     }, [location.pathname]); 
 
     if (isLoading) {

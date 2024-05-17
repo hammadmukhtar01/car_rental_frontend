@@ -24,12 +24,10 @@ import BlogPage1 from "./components/Pages/Blog/blogPage1";
 import BlogPage2 from "./components/Pages/Blog/blogPage2";
 import BlogPage3 from "./components/Pages/Blog/blogPage3";
 import BlogPage4 from "./components/Pages/Blog/blogPage4";
-import GlobalLoader from "./components/PrivateComponents/globalLoader";
 
 const App = () => {
   return (
     <>
-      <GlobalLoader>
         <div className="App">
           <Routes>
             <Route path="/" exact element={<HomePage />} />
@@ -61,7 +59,6 @@ const App = () => {
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
-      </GlobalLoader>
     </>
   );
 };

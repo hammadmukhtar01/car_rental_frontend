@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -16,6 +15,7 @@ const LeaseNowFormDetails = ({
   resetLeasingDetails,
 }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     fname: "",
@@ -24,6 +24,7 @@ const LeaseNowFormDetails = ({
     phoneNumber: "",
     comment: "",
   });
+  const [country, setCountry] = useState("ae");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -61,6 +62,9 @@ const LeaseNowFormDetails = ({
       console.log("Invalid Input.");
       return;
     }
+    setLoading(true);
+    document.body.classList.add('loadings')
+
     const finalFormData = {
       ...formData,
       estCarPrice,
@@ -82,10 +86,9 @@ const LeaseNowFormDetails = ({
         toast.success(
           "Thank You for Contacting Us for leasing. We will get back to you soon!",
           {
-            autoClose: 2000,
+            autoClose: 1000,
             style: { border: "1px solid #c0c0c0", fontSize: "14px" },
             onClose: () => {
-              // Reset all form and related states
               setFormData({
                 fname: "",
                 lname: "",
@@ -93,7 +96,6 @@ const LeaseNowFormDetails = ({
                 phoneNumber: "+971",
                 comment: "",
               });
-              // Reset other states as needed
               resetLeasingDetails();
               navigate("/leaseToOwn");
             },
@@ -138,12 +140,17 @@ const LeaseNowFormDetails = ({
           autoClose: 3000,
         });
       }
+    } finally {
+      setLoading(false);
+      document.body.classList.remove('loadings')
     }
   };
+  
 
   return (
     <div>
       <>
+      {loading && <ReloadingComponent />}
         <form
           action="#"
           className="lease-now-details-form"
@@ -245,6 +252,7 @@ const LeaseNowFormDetails = ({
                           ...formData,
                           phoneNumber: formattedPhone,
                         });
+                        setCountry(country);
                       } else {
                         console.log("Invalid phone number");
                       }
@@ -277,8 +285,8 @@ const LeaseNowFormDetails = ({
               />
             </div>
           </div>
-          <div className="form-group-3 col-lg-12 pb-4">
-            <div className="col-lg-12 col-md-6 d-flex justify-content-end">
+          <div className="form-group-3 col-lg-12 pt-2 pb-3">
+            <div className="col-lg-12 col-md-6 d-flex justify-content-center">
               <button className="middle">
                 <span className="animate-button btn4">Submit</span>
               </button>

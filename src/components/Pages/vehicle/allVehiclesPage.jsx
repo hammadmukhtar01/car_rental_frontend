@@ -36,8 +36,9 @@ import Select from "react-select";
 import axios from "axios";
 import makeAnimated from "react-select/animated";
 import UseGlobalFormFields from "../Utils/useGlobalFormFields";
-import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
+import HomePageTopBar from "../navbar/homePageTopBar";
+import MainNavbar from "../navbar/mainNavbar";
 
 const PageSize = 8;
 const animatedComponents = makeAnimated();
@@ -781,10 +782,12 @@ const VehiclesPage = () => {
     }),
   };
 
-
   return (
     <div id="main" className="pb-2 ">
-      <HeaderCombination />
+      <HomePageTopBar />
+      <div className="navbar-div-container">
+        <MainNavbar />
+      </div>
 
       <>
         <div className="all-cars-main-container-div container">
@@ -1462,6 +1465,7 @@ const VehiclesPage = () => {
           </Container>
         </div>
       </>
+
       <FooterCombination />
     </div>
   );

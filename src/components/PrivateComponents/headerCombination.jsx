@@ -5,10 +5,10 @@ import MainNavbar from "../Pages/navbar/mainNavbar";
 const HeaderCombination = () => {
   return (
     <div>
-      <HomePageTopBar />
-      <div className="navbar-div-container">
-        <MainNavbar />
-      </div>
+        <HomePageTopBar />
+        <div className="navbar-div-container">
+          <MainNavbar />
+        </div>
     </div>
   );
 };

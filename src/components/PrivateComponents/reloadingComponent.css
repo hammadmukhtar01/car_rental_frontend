@@ -6,6 +6,7 @@
   display: inline-block;
   width: 80px;
   height: 80px;
+  
 }
 .lds-dual-ring:after {
   content: " ";
@@ -20,11 +21,34 @@
   animation: lds-dual-ring 1.2s linear infinite;
 }
 .reloading-icon-container {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  z-index: 9;
+  visibility: visible; 
+  background-color: white;
 }
+
+.reloading-icon-free-consultation-form-container {
+	position: f;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9;
+	visibility: visible; 
+	background-color: white;
+  }
+
+.loadings {
+    visibility: hidden;
+}
+
+.loadings .reloading-icon-container {
+    visibility: visible;
+}
+
+
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);

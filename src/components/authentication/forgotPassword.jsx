@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
-import { useReload } from "../PrivateComponents/utils";
-import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -64,16 +62,6 @@ const ForgotPasswordPage = () => {
       });
     }
   };
-
-  const { loading } = useReload();
-
-  if (loading) {
-    return (
-      <>
-        <ReloadingComponent />
-      </>
-    );
-  }
 
   return (
     <>

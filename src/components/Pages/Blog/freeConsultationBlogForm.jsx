@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import PhoneInput from "react-phone-input-2";
@@ -10,14 +11,16 @@ import "../homePage/homepage.css";
 const FreeConsultationForm = () => {
   const [customerName, setCustomerName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [country, setCountry] = useState("ae");
+  const [loading, setLoading] = useState(false);
 
   const handleFreeConsultationForm = async (e) => {
     e.preventDefault();
     console.log(`1---- Free cons fomr number : ${phoneNumber}`);
 
     const phoneRegex = /^[0-9]{9,}$/;
+
     if (!phoneRegex.test(phoneNumber)) {
-      console.log(`2---- Free cons fomr number : ${phoneNumber}`);
       toast.error("Please enter a valid phone number.", {
         position: "top-right",
         autoClose: 3000,
@@ -33,6 +36,8 @@ const FreeConsultationForm = () => {
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
+    setLoading(true);
+    document.body.classList.add("loadings");
 
     try {
       const response = await axios.post(
@@ -48,7 +53,7 @@ const FreeConsultationForm = () => {
         toast.success(
           "Thank you for seeking our consultation. We will get back to you soon at the provided number.",
           {
-            autoClose: 3000,
+            autoClose: 1500,
             style: { border: "1px solid #c0c0c0", fontSize: "14px" },
           }
         );
@@ -89,18 +94,11 @@ const FreeConsultationForm = () => {
           autoClose: 3000,
         });
       }
+    } finally {
+      setLoading(false);
+      document.body.classList.remove("loadings");
     }
   };
-
-  // const { loading } = useReload();
-
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <ReloadingComponent />
-  //     </>
-  //   );
-  // }
 
   return (
     <div id="main">
@@ -108,6 +106,14 @@ const FreeConsultationForm = () => {
         <div className="free-consultation-main-container">
           <div className="free-consultation-main-div">
             <Container>
+              {loading && (
+                <>
+                  {/* <div className="reloading-icon-free-consultation-form-container text-center">
+                    <div className="lds-dual-ring text-center"></div>
+                  </div> */}
+                </>
+              )}
+
               <form
                 action="#"
                 className="free-consultation-form"
@@ -153,6 +159,8 @@ const FreeConsultationForm = () => {
                               country.dialCode.length + 9
                             ) {
                               setPhoneNumber(formattedPhone);
+                              setCountry(country);
+
                             } else {
                               console.log("Invalid phone number");
                             }

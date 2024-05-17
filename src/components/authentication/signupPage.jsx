@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./authentication.css";
-import { useReload } from "../PrivateComponents/utils";
-import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
@@ -91,16 +89,6 @@ const SignupPage = () => {
       });
     }
   };
-
-  const { loading } = useReload();
-
-  if (loading) {
-    return (
-      <>
-        <ReloadingComponent />
-      </>
-    );
-  }
 
   return (
     <>

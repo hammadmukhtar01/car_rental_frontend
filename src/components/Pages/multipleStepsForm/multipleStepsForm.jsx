@@ -1,13 +1,13 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import VehicleDetails from "./vehicleDetails";
 import AddOnsDocuments from "./documentsAndBooking";
 import AfterBookingPage from "./afterBookingPage";
 import ProgressBar from "./progressBar";
-import { useReload } from "../../PrivateComponents/utils";
-import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
-import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
+import HomePageTopBar from "../navbar/homePageTopBar";
+import MainNavbar from "../navbar/mainNavbar";
 
 function VerificationForm() {
   const { step } = useParams();
@@ -27,11 +27,23 @@ function VerificationForm() {
   const renderStep = () => {
     switch (currentStep) {
       case 1:
-        return <VehicleDetails nextStep={nextStep} />;
+        return (
+          <>
+            <VehicleDetails nextStep={nextStep} />
+          </>
+        );
       case 2:
-        return <AddOnsDocuments prevStep={prevStep} nextStep={nextStep} />;
+        return (
+          <>
+            <AddOnsDocuments prevStep={prevStep} nextStep={nextStep} />
+          </>
+        );
       case 3:
-        return <AfterBookingPage prevStep={prevStep} />;
+        return (
+          <>
+            <AfterBookingPage prevStep={prevStep} />
+          </>
+        );
       default:
         return null;
     }
@@ -41,19 +53,12 @@ function VerificationForm() {
     window.scrollTo(0, 0);
   }, [currentStep]);
 
-  const { loading } = useReload();
-
-  if (loading) {
-    return (
-      <>
-        <ReloadingComponent />
-      </>
-    );
-  }
-
   return (
     <>
-      <HeaderCombination />
+      <HomePageTopBar />
+      <div className="navbar-div-container">
+        <MainNavbar />
+      </div>
       <div className="multi_step_form co">
         <div id="msform">
           <div className="progress-bar-div">

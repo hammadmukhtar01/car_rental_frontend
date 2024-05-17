@@ -2,8 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import ReloadingComponent from "../PrivateComponents/reloadingComponent";
-import { useReload } from "../PrivateComponents/utils";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderCombination from "../PrivateComponents/headerCombination";
@@ -55,16 +53,6 @@ const ResetPasswordPage = () => {
       });
     }
   };
-
-  const { loading } = useReload();
-
-  if (loading) {
-    return (
-      <>
-        <ReloadingComponent />
-      </>
-    );
-  }
 
   return (
     <>

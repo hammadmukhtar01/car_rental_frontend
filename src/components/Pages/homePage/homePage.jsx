@@ -19,13 +19,13 @@ import { Modal } from "react-bootstrap";
 import OnlyCar from "../../images/only-car-bg-home-banner.png";
 import InstagramFeed from "./instagramFeed";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
-import HeaderCombination from "./../../PrivateComponents/headerCombination";
+import HomePageTopBar from "../navbar/homePageTopBar";
+import MainNavbar from "../navbar/mainNavbar";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedLocationss, setSelectedLocationss] = useState(null);
-
 
   const carBrands = [
     { name: "hyundai", logo: HyundaiLogo, title: "Hyundai" },
@@ -39,10 +39,13 @@ const HomePage = () => {
     setShowModal(false);
   };
 
-
   return (
     <div className="">
-      <HeaderCombination />
+      <HomePageTopBar />
+      <div className="navbar-div-container">
+        <MainNavbar />
+      </div>
+
       <div id="main">
         <div className="homepage-main">
           <div className="search-box-home-page-container">
@@ -132,7 +135,9 @@ const HomePage = () => {
           <FreeConsultationForm />
         </div>
       </div>
+
       <FooterCombination />
+     
     </div>
   );
 };

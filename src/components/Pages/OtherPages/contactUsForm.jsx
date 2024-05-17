@@ -16,6 +16,7 @@ const ContactUsForm = () => {
     phoneNumber: "",
     comment: "",
   });
+  const [country, setCountry] = useState("ae");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,6 +25,7 @@ const ContactUsForm = () => {
   const validateInput = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[0-9]{9,}$/;
+
     console.log(`Phone numbe ris : ${formData?.phoneNumber}`);
 
     if (!emailRegex.test(formData?.email)) {
@@ -82,7 +84,11 @@ const ContactUsForm = () => {
     } catch (error) {
       console.log("Error:", error?.response);
 
-      if (error?.response && error?.response?.data && error?.response?.data?.error) {
+      if (
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.error
+      ) {
         const errors = error?.response?.data?.error?.errors;
         console.log("Error:", error?.response?.data?.error);
 
@@ -208,6 +214,7 @@ const ContactUsForm = () => {
                           ...formData,
                           phoneNumber: formattedPhone,
                         });
+                        setCountry(country);
                       } else {
                         console.log("Invalid phone number");
                       }
@@ -239,8 +246,6 @@ const ContactUsForm = () => {
                 onChange={handleChange}
               />
             </div>
-
-           
           </div>
           <div className="form-group-3 col-lg-12 pb-4">
             <div className="col-lg-12 col-md-6 d-flex justify-content-end">
