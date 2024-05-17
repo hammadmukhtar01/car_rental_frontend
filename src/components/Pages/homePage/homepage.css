@@ -680,6 +680,35 @@ html {
   scroll-behavior: smooth;
 }
 
+.nav-btn {
+  color: #e87a28;
+  background: transparent;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  color: #e87a28 !important;
+  background-color: white !important;
+  box-shadow: 1px 1px 5px #e87a28;
+  padding: 3px 10px 1px 10px !important;
+}
+
+.prev-slide {
+  left: 10px;
+}
+
+.next-slide {
+  right: 10px;
+}
+
+.owl-carousel .owl-nav.disabled + .owl-dots {
+  margin-top: 20px;
+}
+
 .slider-container {
   position: relative;
   overflow: hidden;

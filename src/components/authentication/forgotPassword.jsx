@@ -6,6 +6,8 @@ import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FooterCombination from "../PrivateComponents/footerCombination";
+import HeaderCombination from "../PrivateComponents/headerCombination";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -75,6 +77,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <>
+      <HeaderCombination />
       <section className="ftco-section">
         <div className="container pt-2">
           <div className="forgot-row justify-content-center">
@@ -145,6 +148,7 @@ const ForgotPasswordPage = () => {
           </div>
         </div>
       </section>
+      <FooterCombination />
     </>
   );
 };

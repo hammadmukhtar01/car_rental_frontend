@@ -76,7 +76,7 @@
 .blog4-main-heading {
   color: #e87a28;
   padding-bottom: 5px;
-  border-bottom: 2px solid;
+  /* border-bottom: 2px solid; */
   display: inline-flex;
 }
 
@@ -156,7 +156,7 @@
 }
 
 .blog-title {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   color: #e87a28;
 }
 
@@ -169,7 +169,7 @@
 }
 
 .blog2-all-images {
-  width: 70%;
+  width: 100%;
   height: auto;
 }
 

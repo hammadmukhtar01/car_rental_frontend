@@ -10,6 +10,8 @@ import {
 } from "mdb-react-ui-kit";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
+import HeaderCombination from "../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const FaqsPage = () => {
   const faqItems = [
@@ -130,6 +132,7 @@ const FaqsPage = () => {
 
   return (
     <>
+      <HeaderCombination />
       <div className="container pt-4 pb-5">
         <div className="styled-label text-center">
           <span className="faqs-main-heading">
@@ -165,6 +168,7 @@ const FaqsPage = () => {
           </MDBContainer>
         </div>
       </div>
+      <FooterCombination />
     </>
   );
 };

@@ -479,6 +479,7 @@ const VehicleDetails = ({ nextStep }) => {
   }
 
   return (
+    
     <div className="">
       <div className="vehicle-details-location-main-div pb-3 pt-3">
         <Container fluid>

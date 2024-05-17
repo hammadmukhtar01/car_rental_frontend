@@ -25,8 +25,8 @@ import DropoffLocationModal from "../homePage/dropoffSearchBoxDropDown";
 import Pagination from "./pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 import { DateRange } from "react-date-range";
-// import { useReload } from "../../PrivateComponents/utils";
-// import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
+import { useReload } from "../../PrivateComponents/utils";
+import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
@@ -36,11 +36,14 @@ import Select from "react-select";
 import axios from "axios";
 import makeAnimated from "react-select/animated";
 import UseGlobalFormFields from "../Utils/useGlobalFormFields";
+import HeaderCombination from "../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const PageSize = 8;
 const animatedComponents = makeAnimated();
 
 const VehiclesPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const carTypeInURL = useLocation();
   const queryParams = useMemo(
     () => new URLSearchParams(carTypeInURL.search),
@@ -295,7 +298,7 @@ const VehiclesPage = () => {
 
   useEffect(() => {
     fetchCarsData();
-  }, [dateRange, fetchCarsData]);
+  }, [fetchCarsData]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const categoryMap = {
@@ -778,18 +781,11 @@ const VehiclesPage = () => {
     }),
   };
 
-  // const { loading } = useReload();
-
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <ReloadingComponent />
-  //     </>
-  //   );
-  // }
 
   return (
     <div id="main" className="pb-2 ">
+      <HeaderCombination />
+
       <>
         <div className="all-cars-main-container-div container">
           <div className="vehicles-page-main-container">
@@ -1466,6 +1462,7 @@ const VehiclesPage = () => {
           </Container>
         </div>
       </>
+      <FooterCombination />
     </div>
   );
 };

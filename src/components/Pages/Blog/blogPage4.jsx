@@ -3,6 +3,8 @@ import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import blog4_MainImg1 from "../../images/blog-images/blog4_main_Img1.png";
 import FreeConsultationForm from "./freeConsultationBlogForm";
+import HeaderCombination from "../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const BlogPage4 = ({ blogData }) => {
   const blogNumInUrl = useLocation();
@@ -13,7 +15,7 @@ const BlogPage4 = ({ blogData }) => {
     id: 4,
     imageUrl: blog4_MainImg1,
     category: "Rent A Car",
-    title: "Why Rent A Car From Milele? Click here!",
+    title: "Why Rent A Car From Milele?",
     date: "Aug 23, 2023",
     text: "Are you tired of compromising on your travel experience due to lifeless car rental services? Look no further than Milele Car Rental, where we redefine excellence in the automotive industry. As a subsidiary of Milele Corporations, a global leader with over 35 years of experience, we bring you a legacy of trust, innovation, and customer satisfaction. ",
   };
@@ -33,13 +35,11 @@ const BlogPage4 = ({ blogData }) => {
   return (
     <div id="main">
       <>
+        <HeaderCombination />
         <Container>
           <br />
           <div className="blog-details-page">
-            <h3 className="blog4-main-heading mb-3">
-              <strong className="mr-3 text-dark">Blog Title:</strong>{" "}
-              {blogsData?.title}
-            </h3>
+            <h3 className="blog4-main-heading mb-3"> {blogsData?.title}</h3>
             <div className="blog-details-image-container">
               <img
                 src={blogsData?.imageUrl}
@@ -97,6 +97,7 @@ const BlogPage4 = ({ blogData }) => {
           </div>
         </Container>
         <FreeConsultationForm />
+        <FooterCombination />
       </>
     </div>
   );

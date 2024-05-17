@@ -7,6 +7,8 @@ import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import HeaderCombination from "../PrivateComponents/headerCombination";
+import FooterCombination from "../PrivateComponents/footerCombination";
 
 const LoginPage = () => {
   const tenancyName = "MileleCarRental";
@@ -90,6 +92,7 @@ const LoginPage = () => {
 
   return (
     <>
+      <HeaderCombination />
       <section className="ftco-section">
         <div className="container pt-4">
           <div className="login-row justify-content-center">
@@ -153,9 +156,7 @@ const LoginPage = () => {
                     <br />
                     <br />
                     <button className="middle">
-                      <span className="animate-button btn4">
-                        Log In
-                      </span>
+                      <span className="animate-button btn4">Log In</span>
                     </button>
 
                     <ToastContainer />
@@ -219,6 +220,7 @@ const LoginPage = () => {
           </div>
         </div>
       </section>
+      <FooterCombination />
     </>
   );
 };

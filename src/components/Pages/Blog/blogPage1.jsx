@@ -2,6 +2,8 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import blog1_MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
 import FreeConsultationForm from "./freeConsultationBlogForm";
+import HeaderCombination from "../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const BlogPage1 = () => {
   const blogsData = {
@@ -26,11 +28,12 @@ const BlogPage1 = () => {
   return (
     <div id="main">
       <>
+      <HeaderCombination/>
         <Container>
           <br />
           <div className="blog-details-page">
             <h3 className="blog1-main-heading mb-3">
-              <strong className="mr-3 text-dark">Blog Title:</strong>{" "}
+              {" "}
               {blogsData?.title}
             </h3>
 
@@ -90,6 +93,7 @@ const BlogPage1 = () => {
           </div>
         </Container>
         <FreeConsultationForm />
+        <FooterCombination/>
       </>
     </div>
   );

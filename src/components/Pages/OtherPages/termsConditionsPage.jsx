@@ -3,6 +3,8 @@ import React from "react";
 import "./otherPages.css";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
+import HeaderCombination from "../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const TermsConditionsPage = () => {
   // const { loading } = useReload();
@@ -17,7 +19,7 @@ const TermsConditionsPage = () => {
 
   return (
     <>
-    
+      <HeaderCombination />
       <div className="container pt-4 pb-2">
         <div className="styled-label text-center">
           <span className="terms-conditions-main-heading">
@@ -293,10 +295,9 @@ const TermsConditionsPage = () => {
               </p>
             </div>
           </div>
-
-        
         </div>
       </div>
+      <FooterCombination />
     </>
   );
 };

@@ -6,6 +6,8 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import HeaderCombination from "../PrivateComponents/headerCombination";
+import FooterCombination from "../PrivateComponents/footerCombination";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -102,6 +104,7 @@ const SignupPage = () => {
 
   return (
     <>
+    <HeaderCombination/>
       <section className="ftco-section">
         <div className="container">
           <div className="login-row justify-content-center">
@@ -227,6 +230,7 @@ const SignupPage = () => {
           </div>
         </div>
       </section>
+      <FooterCombination/>
     </>
   );
 };

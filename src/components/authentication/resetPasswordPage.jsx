@@ -6,6 +6,8 @@ import ReloadingComponent from "../PrivateComponents/reloadingComponent";
 import { useReload } from "../PrivateComponents/utils";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import HeaderCombination from "../PrivateComponents/headerCombination";
+import FooterCombination from "../PrivateComponents/footerCombination";
 
 const ResetPasswordPage = () => {
   const { token } = useParams();
@@ -66,6 +68,7 @@ const ResetPasswordPage = () => {
 
   return (
     <>
+    <HeaderCombination/>
       <section className="ftco-section">
         <div className="container pt-2">
           <div className="forgot-row justify-content-center">
@@ -159,6 +162,7 @@ const ResetPasswordPage = () => {
           </div>
         </div>
       </section>
+      <FooterCombination/>
     </>
   );
 };

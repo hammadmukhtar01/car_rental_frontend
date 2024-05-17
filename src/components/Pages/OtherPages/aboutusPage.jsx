@@ -4,6 +4,8 @@ import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import HashLoader from "react-spinners/ClipLoader";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
+import HeaderCombination from "../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const aboutUsParagraphs = [
   {
@@ -58,7 +60,7 @@ const AboutusPage = () => {
   return (
     <>
       <div id="main">
-      
+        <HeaderCombination />
         <div className="container mt-4 mb-4">
           <section className="about-us-main-section-1 pb-3">
             <div className="about-us-section-1">
@@ -98,8 +100,9 @@ const AboutusPage = () => {
               </div>
             </div>
           </section>
-          <FreeConsultationForm/>
+          <FreeConsultationForm />
         </div>
+        <FooterCombination />
       </div>
     </>
   );

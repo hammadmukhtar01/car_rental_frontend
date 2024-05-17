@@ -17,6 +17,8 @@ import ExpoCityDubaiImg from "../../images/blog-images/blog2_Img13.png";
 import "react-phone-input-2/lib/style.css";
 import "../homePage/homepage.css";
 import FreeConsultationForm from "./freeConsultationBlogForm";
+import HeaderCombination from "../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const BlogPage2 = () => {
   const blogsData = {
@@ -41,14 +43,12 @@ const BlogPage2 = () => {
   return (
     <div id="main">
       <>
+        <HeaderCombination />
         <Container>
           <br />
           <div className="blog2-details-page">
             <div className="blog-details-image-container">
-              <h3 className="blog2-main-heading mb-3">
-                <strong className="mr-3 text-dark">Blog Title:</strong>{" "}
-                {blogsData?.title}
-              </h3>
+              <h3 className="blog2-main-heading mb-3"> {blogsData?.title}</h3>
               <img
                 src={blogsData?.imageUrl}
                 className="blog-details-image"
@@ -369,6 +369,7 @@ const BlogPage2 = () => {
           </div>
         </Container>
         <FreeConsultationForm />
+        <FooterCombination />
       </>
     </div>
   );

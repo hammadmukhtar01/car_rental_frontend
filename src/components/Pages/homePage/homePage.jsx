@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBox from "./searchBox";
 import CarCards from "./carCards";
 import AnimatedCarSection from "./animatedCarSection";
@@ -10,8 +10,6 @@ import HyundaiLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboa
 import CheveroletLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 22.png";
 import OurBlogs from "../Blog/ourBlogs";
 import "./ourClients.css";
-import { useReload } from "../../PrivateComponents/utils";
-import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 // import SpinTheWheel from "../spinTheWheel/spinTheWheel";
 
 // Imp TestAutoComInput import for google map locations responsiveness
@@ -21,10 +19,13 @@ import { Modal } from "react-bootstrap";
 import OnlyCar from "../../images/only-car-bg-home-banner.png";
 import InstagramFeed from "./instagramFeed";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
+import HeaderCombination from "./../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedLocationss, setSelectedLocationss] = useState(null);
+
 
   const carBrands = [
     { name: "hyundai", logo: HyundaiLogo, title: "Hyundai" },
@@ -38,17 +39,10 @@ const HomePage = () => {
     setShowModal(false);
   };
 
-  // const { loading } = useReload();
 
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <ReloadingComponent />
-  //     </>
-  //   );
-  // }
   return (
     <div className="">
+      <HeaderCombination />
       <div id="main">
         <div className="homepage-main">
           <div className="search-box-home-page-container">
@@ -138,6 +132,7 @@ const HomePage = () => {
           <FreeConsultationForm />
         </div>
       </div>
+      <FooterCombination />
     </div>
   );
 };

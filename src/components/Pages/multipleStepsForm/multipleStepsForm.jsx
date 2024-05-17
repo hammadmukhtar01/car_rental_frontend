@@ -6,6 +6,8 @@ import AfterBookingPage from "./afterBookingPage";
 import ProgressBar from "./progressBar";
 import { useReload } from "../../PrivateComponents/utils";
 import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
+import HeaderCombination from "../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 function VerificationForm() {
   const { step } = useParams();
@@ -37,7 +39,7 @@ function VerificationForm() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [currentStep]); 
+  }, [currentStep]);
 
   const { loading } = useReload();
 
@@ -50,16 +52,20 @@ function VerificationForm() {
   }
 
   return (
-    <div className="multi_step_form co">
-      <div id="msform">
-        <div className="progress-bar-div">
-          <ProgressBar step={currentStep} />
-        </div>
-        <div className="steps-data-main-div pb-4 container">
-          <div className="steps-data-container">{renderStep()}</div>
+    <>
+      <HeaderCombination />
+      <div className="multi_step_form co">
+        <div id="msform">
+          <div className="progress-bar-div">
+            <ProgressBar step={currentStep} />
+          </div>
+          <div className="steps-data-main-div pb-4 container">
+            <div className="steps-data-container">{renderStep()}</div>
+          </div>
         </div>
       </div>
-    </div>
+      <FooterCombination />
+    </>
   );
 }
 

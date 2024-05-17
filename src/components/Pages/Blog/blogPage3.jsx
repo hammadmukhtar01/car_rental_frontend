@@ -3,6 +3,8 @@ import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import blog3_MainImg1 from "../../images/blog-images/blog3_main_Img1.png";
 import FreeConsultationForm from "./freeConsultationBlogForm";
+import HeaderCombination from "../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const BlogPage3 = ({ blogData }) => {
   const blogNumInUrl = useLocation();
@@ -12,7 +14,6 @@ const BlogPage3 = ({ blogData }) => {
   const blogsData = {
     id: 3,
     imageUrl: blog3_MainImg1,
-    category: "Business Trip",
     title: "Top Apps that help You Navigate Dubai",
     date: "Aug 23, 2023",
     text: "A cool thing about living in the UAE is get in your car, put on your favourite song and drive. Driving can be fun - if you know where you are going and have a trusty navigation app (you don't want to get lost along the way). In Dubai, five apps can make a difference when on the road; Google Maps, Apple Maps, Waze, Yango Maps, Cafu and RTA Smart Drive.",
@@ -33,13 +34,11 @@ const BlogPage3 = ({ blogData }) => {
   return (
     <div id="main">
       <>
+        <HeaderCombination />
         <Container>
           <br />
           <div className="blog-details-page">
-            <h3 className="blog3-main-heading mb-3">
-              <strong className="mr-3 text-dark">Blog Title:</strong>{" "}
-              {blogsData?.title}
-            </h3>
+            <h3 className="blog3-main-heading mb-3"> {blogsData?.title}</h3>
             <div className="blog-details-image-container">
               <img
                 src={blogsData?.imageUrl}
@@ -131,6 +130,7 @@ const BlogPage3 = ({ blogData }) => {
         </Container>
 
         <FreeConsultationForm />
+        <FooterCombination />
       </>
     </div>
   );

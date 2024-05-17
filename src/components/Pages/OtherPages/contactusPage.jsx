@@ -7,6 +7,8 @@ import ContactUsForm from "./contactUsForm";
 import { BiSolidPhone } from "react-icons/bi";
 import { BsGeoAltFill } from "react-icons/bs";
 import { BsFillClockFill } from "react-icons/bs";
+import HeaderCombination from "../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const ContactusPage = () => {
   // const { loading } = useReload();
@@ -21,6 +23,7 @@ const ContactusPage = () => {
 
   return (
     <>
+      <HeaderCombination />
       <div id="main" className="">
         <div className="contactUs-container container">
           <div
@@ -113,6 +116,7 @@ const ContactusPage = () => {
           </div>
         </div>
       </div>
+      <FooterCombination />
     </>
   );
 };

@@ -11,6 +11,8 @@ import LTOProcessImgMob from "../../images/lto-images/lto-process-img-mob-update
 import { Modal } from "react-bootstrap";
 import InstagramFeed from "../homePage/instagramFeed";
 import LeaseNowFormDetails from "./leaseNowDetailsForm";
+import HeaderCombination from "../../PrivateComponents/headerCombination";
+import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const LargeBanner = LTOProcessImgWeb;
 const SmallBanner = LTOProcessImgMob;
@@ -255,8 +257,9 @@ const LeaseToOwnVehicles = () => {
   };
 
   return (
-    <div id="main" className="pb-2 bg-white">
-      <>
+    <>
+      <HeaderCombination />
+      <div id="main" className="pb-2 bg-white">
         <section className="lto-main-banner-section mt-3">
           <div className="lto-main-banner-div">
             <div className="imgBox">
@@ -527,8 +530,9 @@ const LeaseToOwnVehicles = () => {
           <br />
         </Container>
         <FreeConsultationForm />
-      </>
-    </div>
+      </div>
+      <FooterCombination />
+    </>
   );
 };
 
