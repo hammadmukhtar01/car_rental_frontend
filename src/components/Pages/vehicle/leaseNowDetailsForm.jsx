@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const LeaseNowFormDetails = ({
   estCarPrice,
@@ -31,20 +32,23 @@ const LeaseNowFormDetails = ({
 
   const validateInput = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^[0-9]{9,}$/;
+    console.log(`lto form phone numbe ris: -- +${formData?.phoneNumber}`);
+    const parsedPhoneNumber = parsePhoneNumberFromString(
+      `+${formData?.phoneNumber}`,
+      country.name
+    );
+    if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
+      toast.error("Please enter a valid phone number.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
     console.log(`Phone numbe ris : ${formData?.phoneNumber}`);
 
     if (!emailRegex.test(formData?.email)) {
       toast.error("Please enter a valid email address.", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      return false;
-    }
-
-    if (!phoneRegex.test(formData?.phoneNumber)) {
-      console.log(`Phone number is : ${formData?.phoneNumber}`);
-      toast.error("Please enter a valid phone number.", {
         position: "top-right",
         autoClose: 3000,
       });
@@ -62,7 +66,7 @@ const LeaseNowFormDetails = ({
       return;
     }
     setLoading(true);
-    document.body.classList.add('loadings')
+    document.body.classList.add("loadings");
 
     const finalFormData = {
       ...formData,
@@ -141,10 +145,9 @@ const LeaseNowFormDetails = ({
       }
     } finally {
       setLoading(false);
-      document.body.classList.remove('loadings')
+      document.body.classList.remove("loadings");
     }
   };
-  
 
   return (
     <div>
@@ -240,20 +243,11 @@ const LeaseNowFormDetails = ({
                     disableDropdown={false}
                     countryCodeEditable={true}
                     onChange={(phone, country) => {
-                      const formattedPhone = phone.replace(/\D/g, "");
-
-                      if (
-                        formattedPhone?.length <=
-                        country?.dialCode?.length + 9
-                      ) {
-                        setFormData({
-                          ...formData,
-                          phoneNumber: formattedPhone,
-                        });
-                        setCountry(country);
-                      } else {
-                        console.log("Invalid phone number");
-                      }
+                      setFormData({
+                        ...formData,
+                        phoneNumber: phone,
+                      });
+                      setCountry(country);
                     }}
                   />
                 </div>

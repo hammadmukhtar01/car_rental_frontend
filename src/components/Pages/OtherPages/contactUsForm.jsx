@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const ContactUsForm = () => {
   const [formData, setFormData] = useState({
@@ -22,7 +23,6 @@ const ContactUsForm = () => {
 
   const validateInput = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^[0-9]{9,}$/;
 
     console.log(`Phone numbe ris : ${formData?.phoneNumber}`);
 
@@ -34,13 +34,16 @@ const ContactUsForm = () => {
       return false;
     }
 
-    if (!phoneRegex.test(formData?.phoneNumber)) {
-      console.log(`Phone numbe ris : ${formData?.phoneNumber}`);
+    const parsedPhoneNumber = parsePhoneNumberFromString(
+      `+${formData?.phoneNumber}`,
+      country.name
+    );
+    if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
       toast.error("Please enter a valid phone number.", {
         position: "top-right",
         autoClose: 3000,
       });
-      return false;
+      return;
     }
 
     return true;
@@ -202,20 +205,11 @@ const ContactUsForm = () => {
                     disableDropdown={false}
                     countryCodeEditable={true}
                     onChange={(phone, country) => {
-                      const formattedPhone = phone.replace(/\D/g, "");
-
-                      if (
-                        formattedPhone.length <=
-                        country.dialCode.length + 9
-                      ) {
-                        setFormData({
-                          ...formData,
-                          phoneNumber: formattedPhone,
-                        });
-                        setCountry(country);
-                      } else {
-                        console.log("Invalid phone number");
-                      }
+                      setFormData({
+                        ...formData,
+                        phoneNumber: phone,
+                      });
+                      setCountry(country);
                     }}
                   />
                 </div>

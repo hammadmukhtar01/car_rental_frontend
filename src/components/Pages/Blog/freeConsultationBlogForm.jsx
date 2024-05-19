@@ -6,17 +6,20 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../homePage/homepage.css";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const FreeConsultationForm = () => {
   const [customerName, setCustomerName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState({ dialCode: "971", name: "UAE" });
+  const [loading, setLoading] = useState(false);
 
   const handleFreeConsultationForm = async (e) => {
     e.preventDefault();
-    console.log(`1---- Free cons form number: ${phoneNumber}`);
+    console.log(`1---- Free cons form number: +${phoneNumber}`);
 
-    if (!phoneNumber || phoneNumber.length < country.dialCode.length + 9) {
+    const parsedPhoneNumber = parsePhoneNumberFromString(`+${phoneNumber}`, country.name);
+    if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
       toast.error("Please enter a valid phone number.", {
         position: "top-right",
         autoClose: 3000,
@@ -32,6 +35,8 @@ const FreeConsultationForm = () => {
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
+    setLoading(true);
+    document.body.classList.add("loadings");
 
     try {
       const response = await axios.post(
@@ -52,7 +57,7 @@ const FreeConsultationForm = () => {
           }
         );
         setCustomerName("");
-        setPhoneNumber("+971");
+        setPhoneNumber("");
       } else {
         toast.error("Failed to contact. Please try again.", {
           position: "top-right",
@@ -88,15 +93,23 @@ const FreeConsultationForm = () => {
           autoClose: 3000,
         });
       }
-    } 
+    } finally {
+      setLoading(false);
+      document.body.classList.remove("loadings");
+    }
   };
 
   return (
     <div id="main">
-     <>
-     <div className="free-consultation-main-container">
+      <div className="free-consultation-main-container">
         <div className="free-consultation-main-div">
           <Container>
+            {loading && (
+              <div className="reloading-icon-free-consultation-form-container text-center">
+                <div className="lds-dual-ring text-center"></div>
+              </div>
+            )}
+
             <form
               action="#"
               className="free-consultation-form"
@@ -163,7 +176,7 @@ const FreeConsultationForm = () => {
             </form>
           </Container>
         </div>
-      </div></>
+      </div>
     </div>
   );
 };
