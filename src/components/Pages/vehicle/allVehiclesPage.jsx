@@ -25,8 +25,8 @@ import DropoffLocationModal from "../homePage/dropoffSearchBoxDropDown";
 import Pagination from "./pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 import { DateRange } from "react-date-range";
-import { useReload } from "../../PrivateComponents/utils";
-import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
+// import { useReload } from "../../PrivateComponents/utils";
+// import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
@@ -36,15 +36,11 @@ import Select from "react-select";
 import axios from "axios";
 import makeAnimated from "react-select/animated";
 import UseGlobalFormFields from "../Utils/useGlobalFormFields";
-import FooterCombination from "../../PrivateComponents/footerCombination";
-import HomePageTopBar from "../navbar/homePageTopBar";
-import MainNavbar from "../navbar/mainNavbar";
 
 const PageSize = 8;
 const animatedComponents = makeAnimated();
 
 const VehiclesPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const carTypeInURL = useLocation();
   const queryParams = useMemo(
     () => new URLSearchParams(carTypeInURL.search),
@@ -299,7 +295,7 @@ const VehiclesPage = () => {
 
   useEffect(() => {
     fetchCarsData();
-  }, [fetchCarsData]);
+  }, [dateRange, fetchCarsData]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const categoryMap = {
@@ -327,18 +323,26 @@ const VehiclesPage = () => {
         "Fullsize",
       ];
 
+      const categoryMap1 = {
+        Standard: "Sedan",
+        "Small SUV 5 Seater": "SUV",
+        Compact: "HatchBack",
+        Fullsize: "Station Wagon",
+      };
+    
+
       const filteredAndRenamedCategories = response?.data?.result?.categories
         .filter((category) => requiredCategories?.includes(category?.name))
         .map((category) => ({
           id: category?.id,
-          name: categoryMap[category?.name] || category?.name,
+          name: categoryMap1[category?.name] || category?.name,
         }));
 
       setCarCategoriesData(filteredAndRenamedCategories);
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
-  }, [categoryMap]);
+  }, []);
 
   useEffect(() => {
     fetchAllCategories();
@@ -355,12 +359,12 @@ const VehiclesPage = () => {
 
   const enhanceCategoryData = useCallback(() => {
     const categoryDetailsMap = new Map();
-    // const categoryMap = {
-    //   Standard: "Sedan",
-    //   "Small SUV 5 Seater": "SUV",
-    //   Compact: "HatchBack",
-    //   Fullsize: "Station Wagon",
-    // };
+    const categoryMap = {
+      Standard: "Sedan",
+      "Small SUV 5 Seater": "SUV",
+      Compact: "HatchBack",
+      Fullsize: "Station Wagon",
+    };
 
     carsData?.forEach((car) => {
       if (car?.acrissCategory) {
@@ -379,7 +383,7 @@ const VehiclesPage = () => {
 
     const updatedCategories = [...categoryDetailsMap.values()];
     setCarCategoriesData(updatedCategories);
-  }, [carsData, categoryMap]);
+  }, [carsData]);
 
   useEffect(() => {
     if (carsData?.length > 0) {
@@ -782,13 +786,18 @@ const VehiclesPage = () => {
     }),
   };
 
+  // const { loading } = useReload();
+
+  // if (loading) {
+  //   return (
+  //     <>
+  //       <ReloadingComponent />
+  //     </>
+  //   );
+  // }
+
   return (
     <div id="main" className="pb-2 ">
-      <HomePageTopBar />
-      <div className="navbar-div-container">
-        <MainNavbar />
-      </div>
-
       <>
         <div className="all-cars-main-container-div container">
           <div className="vehicles-page-main-container">
@@ -1465,8 +1474,6 @@ const VehiclesPage = () => {
           </Container>
         </div>
       </>
-
-      <FooterCombination />
     </div>
   );
 };

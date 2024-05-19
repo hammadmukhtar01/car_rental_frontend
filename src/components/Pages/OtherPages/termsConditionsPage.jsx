@@ -1,21 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import "./otherPages.css";
-import { useReload } from "../../PrivateComponents/utils";
-import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const TermsConditionsPage = () => {
-  // const { loading } = useReload();
-
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <ReloadingComponent />
-  //     </>
-  //   );
-  // }
 
   return (
     <>

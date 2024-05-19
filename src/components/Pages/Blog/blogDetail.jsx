@@ -53,16 +53,6 @@ const BlogPage4 = ({ blogData }) => {
     (blog) => blog?.id === parseInt(blogNumberParam)
   );
 
-  // const { loading } = useReload();
-
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <ReloadingComponent />
-  //     </>
-  //   );
-  // }
-
   return (
     <div id="main">
       <HeaderCombination/>

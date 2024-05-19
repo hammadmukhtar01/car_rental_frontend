@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { useReload } from "../../PrivateComponents/utils";
-import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import HashLoader from "react-spinners/ClipLoader";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
@@ -51,11 +49,6 @@ const aboutUsParagraphs = [
 ];
 
 const AboutusPage = () => {
-  // const { loading } = useReload();
-
-  // if (loading) {
-  //   return <ReloadingComponent />;
-  // }
 
   return (
     <>

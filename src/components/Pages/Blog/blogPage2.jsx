@@ -30,16 +30,6 @@ const BlogPage2 = () => {
     text: "Standing 828m high, the Burj Khalifa is the tallest building in the world and one of Dubai's must-visit attractions. The majestic building is located in the heart of the city and is a hub of activity day and night. Just looking up in awe at the sheer scale of this magnificent structure is memorable in itself, but it's definitely worth venturing inside too. You can capture perfect views of the city from the observation deck at levels 124 and 125, or have a bite to eat in the At The Top Sky Lounge. For special occasions, treat yourself to a sunset session at The Lounge, Burj Khalifa, the highest lounge in the world at 585m. .",
   };
 
-  // const { loading } = useReload();
-
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <ReloadingComponent />
-  //     </>
-  //   );
-  // }
-
   return (
     <div id="main">
       <>

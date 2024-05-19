@@ -21,16 +21,6 @@ const BlogPage3 = ({ blogData }) => {
 
   console.log("Blog data is: ----", blogNumberParam);
 
-  // const { loading } = useReload();
-
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <ReloadingComponent />
-  //     </>
-  //   );
-  // }
-
   return (
     <div id="main">
       <>

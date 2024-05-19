@@ -8,8 +8,6 @@ import {
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
-import { useReload } from "../../PrivateComponents/utils";
-import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 
@@ -119,16 +117,6 @@ const FaqsPage = () => {
         "Any customer who has a valid UAE Driving License which is minimum 1 year old or above.",
     },
   ];
-
-  // const { loading } = useReload();
-
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <ReloadingComponent />
-  //     </>
-  //   );
-  // }
 
   return (
     <>

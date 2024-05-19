@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
@@ -150,7 +149,6 @@ const LeaseNowFormDetails = ({
   return (
     <div>
       <>
-      {loading && <ReloadingComponent />}
         <form
           action="#"
           className="lease-now-details-form"

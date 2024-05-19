@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { useReload } from "../../PrivateComponents/utils";
-import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import "react-toastify/dist/ReactToastify.css";
 import ContactUsForm from "./contactUsForm";
 import { BiSolidPhone } from "react-icons/bi";
@@ -11,15 +9,6 @@ import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 
 const ContactusPage = () => {
-  // const { loading } = useReload();
-
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <ReloadingComponent />
-  //     </>
-  //   );
-  // }
 
   return (
     <>

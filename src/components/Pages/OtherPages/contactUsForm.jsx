@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { useReload } from "../../PrivateComponents/utils";
-import ReloadingComponent from "./../../PrivateComponents/reloadingComponent";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
