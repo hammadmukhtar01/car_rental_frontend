@@ -30,11 +30,15 @@
   max-width: 100%;
   height: auto;
 }
-
-.lto-brand-icons {
+.home-page-lto-brand-icons {
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
+}
+.lto-brand-icons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .lto-single-brand-class {

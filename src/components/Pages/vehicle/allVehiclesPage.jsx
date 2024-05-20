@@ -304,7 +304,7 @@ const VehiclesPage = () => {
     Standard: "Sedan",
     "Small SUV 5 Seater": "SUV",
     Compact: "HatchBack",
-    Fullsize: "Station Wagon",
+    Fullsize: "7 Seater",
   };
 
   const fetchAllCategories = useCallback(async () => {
@@ -329,7 +329,7 @@ const VehiclesPage = () => {
         Standard: "Sedan",
         "Small SUV 5 Seater": "SUV",
         Compact: "HatchBack",
-        Fullsize: "Station Wagon",
+        Fullsize: "7 Seater",
       };
 
       const filteredAndRenamedCategories = response?.data?.result?.categories
@@ -364,7 +364,7 @@ const VehiclesPage = () => {
       Standard: "Sedan",
       "Small SUV 5 Seater": "SUV",
       Compact: "HatchBack",
-      Fullsize: "Station Wagon",
+      Fullsize: "7 Seater",
     };
 
     carsData?.forEach((car) => {

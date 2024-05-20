@@ -85,7 +85,7 @@ const AnimatedCarSection = () => {
 
       console.log(
         "Result of all cars in fleeeeeet animation car is --: ",
-        response?.data?.result?.items
+        response
       );
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
@@ -139,7 +139,7 @@ const AnimatedCarSection = () => {
       case "Compact":
         return "HatchBack";
       case "Fullsize":
-        return "Station Wagon";
+        return "7 Seater";
       default:
         return category;
     }

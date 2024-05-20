@@ -392,6 +392,7 @@ const SearchBox = () => {
                       show={showDateRangeModal}
                       onHide={() => setShowDateRangeModal(false)}
                       size="sm"
+                      className="search-box-date-picker-modal"
                     >
                       <DateRange
                         editableDateInputs={true}

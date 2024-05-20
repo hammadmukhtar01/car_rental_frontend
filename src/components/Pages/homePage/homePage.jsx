@@ -100,7 +100,7 @@ const HomePage = () => {
 
               <section className="lto-dealing-brands mt-3">
                 <div className="lto-our-brand-div">
-                  <div className="lto-brand-icons">
+                  <div className="home-page-lto-brand-icons">
                     {carBrands?.map((carBrandsName, index) => (
                       <img
                         key={index}
@@ -127,7 +127,7 @@ const HomePage = () => {
                 </span>
               </div>
             </div>
-            <InstagramFeed />
+            {/* <InstagramFeed /> */}
           </div>
           <FreeConsultationForm />
         </div>

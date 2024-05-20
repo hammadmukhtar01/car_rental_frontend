@@ -110,7 +110,7 @@ const Footer = () => {
 
                   <Row className="footer-data-row">
                     <div className="footer-info-data">
-                      <p className="">
+                      <p className="footer-info-paragraph">
                         We strive to offer clients affordable corporate and
                         individual long term lease solutions, which takes away
                         all the administrative hassles. No matter if you are a

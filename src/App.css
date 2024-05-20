@@ -196,9 +196,13 @@
 }
 
 .bottom-bar-without-container span {
-  white-space: normal;
+  white-space: nowrap;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+.bottom-bar-copyright-text {
+  font-size: large;
 }
 .content-row {
   display: flex;
@@ -344,6 +348,23 @@
   box-shadow: none;
   font-size: 14px;
   background-color: white !important;
+}
+
+.search-box-date-picker-modal .modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.search-box-date-picker-modal .modal-content {
+  width: 100%;
+  max-width: 290px;
+  border-radius: 10px;
+}
+
+.search-box-date-picker-modal .modal-body {
+  padding: 20px;
 }
 
 .additional-comments {
@@ -518,15 +539,26 @@
   }
 }
 
+@media screen and (max-width: 767px) {
+  .bottom-bar-copyright-text {
+    font-size: medium;
+  }
+}
+
 @media screen and (max-width: 467px) {
   .top-bar-row-div {
     display: block;
   }
 }
 
-
 @media screen and (max-width: 576px) {
   .top-horizontal-line-text {
     font-size: 16px;
+  }
+  .bottom-bar-copyright-text {
+    font-size: small;
+  }
+  .bottom-bar-without-container span {
+    white-space: normal;
   }
 }

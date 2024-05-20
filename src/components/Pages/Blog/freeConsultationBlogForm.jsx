@@ -116,9 +116,9 @@ const FreeConsultationForm = () => {
               onSubmit={handleFreeConsultationForm}
             >
               <div className="free-consultation-text">
-                <h3 className="free-consultation-heading">
+                <h4 className="free-consultation-heading">
                   GET FREE CONSULTATION FROM OUR SALESMEN RIGHT NOW
-                </h3>
+                </h4>
                 <div className="free-consultation-buttons-div">
                   <Row className="d-flex justify-content-center align-items-center">
                     <Col xl={4} lg={4} md={6} sm={12} xs={12}>
