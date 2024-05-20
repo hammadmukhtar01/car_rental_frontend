@@ -947,6 +947,7 @@ const VehiclesPage = () => {
                             show={showPickupModal}
                             onHide={() => setShowPickupModal(false)}
                             size="xl"
+                            centered
                           >
                             <Modal.Header closeButton>
                               <Modal.Title>
@@ -978,6 +979,7 @@ const VehiclesPage = () => {
                             show={showDropoffModal}
                             onHide={() => setShowDropoffModal(false)}
                             size="xl"
+                            centered
                           >
                             <Modal.Header closeButton>
                               <Modal.Title>

@@ -488,6 +488,7 @@ const SearchBox = () => {
                       show={showPickupModal}
                       onHide={() => setShowPickupModal(false)}
                       size="xl"
+                      centered
                     >
                       <Modal.Header closeButton>
                         <Modal.Title>
@@ -514,6 +515,7 @@ const SearchBox = () => {
                       show={showDropoffModal}
                       onHide={() => setShowDropoffModal(false)}
                       size="xl"
+                      centered
                     >
                       <Modal.Header closeButton>
                         <Modal.Title>
