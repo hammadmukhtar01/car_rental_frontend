@@ -16,7 +16,7 @@ const HomePageTopBar = () => {
       <div className="top-bar-without-container">
         <Container>
           <div className="top-page-horizontal-line">
-            <Row className="justify-content-center">
+            <Row className="top-bar-row-div">
               <Col className="left-content col-lg-6 col pl-4">
                 <Tooltip title="email us">
                   <a

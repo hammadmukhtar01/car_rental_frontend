@@ -62,12 +62,9 @@ const HomePage = () => {
             </div>
             <div className="home-page-horizontal-line-2">
               <h1 className="home-page-horizontal-line-2-text">
-                <div className="rent-drive-explore-div1">Rent </div>
                 <div className="rent-drive-explore-div2">
-                  ,
                   <span className="rent-drive-explore-span">
-                    {" "}
-                    Drive, Explore Dubai
+                    Rent, Drive, Explore Dubai
                   </span>
                 </div>
               </h1>
@@ -137,7 +134,6 @@ const HomePage = () => {
       </div>
 
       <FooterCombination />
-     
     </div>
   );
 };

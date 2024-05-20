@@ -211,7 +211,7 @@
 .left-content {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   white-space: nowrap;
 }
 
@@ -507,22 +507,26 @@
 }
 
 @media screen and (max-width: 768px) {
-  .left-content,
-  .right-content {
-    display: flex;
+  .left-content {
+    display: contents;
   }
   .right-content {
-    justify-content: end;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
     align-items: center;
   }
 }
 
+@media screen and (max-width: 467px) {
+  .top-bar-row-div {
+    display: block;
+  }
+}
+
+
 @media screen and (max-width: 576px) {
   .top-horizontal-line-text {
     font-size: 16px;
-  }
-  .right-content {
-    justify-content: flex-end;
-    align-items: center;
   }
 }
