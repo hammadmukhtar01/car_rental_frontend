@@ -65,7 +65,7 @@
 .about-us-main-heading-1,
 .about-us-mapped-data-container {
   padding: 20px 20px 0px 20px;
-  text-align: justify;
+  text-align: left;
 }
 
 .about-us-main-heading-span {
@@ -204,11 +204,17 @@
 /* Terms & Conditions */
 
 .all-terms-conditions-main-container {
-  text-align: justify;
+  text-align: left;
 }
 
-.terms-conditions-headings {
+.terms-conditions-headings,
+.order-list-termination-heading li::marker,
+.list-style-capital-alpha li::marker {
   color: #e87a28;
+}
+.terms-conditions-sub-heading-1 {
+  color: #e87a28;
+  font-weight: 600;
 }
 
 /* Style (a)  */
@@ -262,7 +268,7 @@
   content: "(" counter(list-counter, lower-roman) ")";
   counter-increment: list-counter;
   position: absolute;
-  left: -2em;
+  left: -2.5em;
   color: rgb(238, 147, 0);
 }
 
