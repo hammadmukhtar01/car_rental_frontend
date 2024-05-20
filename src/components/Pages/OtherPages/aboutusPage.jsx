@@ -71,7 +71,7 @@ const AboutusPage = () => {
                     </span>
                   </strong>
                 </h2>
-                <p>
+                <p className="about-us-description">
                   Welcome to Milele Car Rental, a proud subsidiary of Milele
                   Corporations, a global leader with over 35 years of
                   unparalleled experience in the automotive industry. Nestled
@@ -86,8 +86,7 @@ const AboutusPage = () => {
                     <h5 className="pt-1 pb-1">
                       <b> {aboutUsData?.heading}:</b>{" "}
                     </h5>
-                    <p>{aboutUsData?.description}</p>
-                    <br />
+                    <p className="about-us-description">{aboutUsData?.description}</p>
                   </div>
                 ))}
               </div>

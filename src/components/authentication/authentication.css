@@ -154,7 +154,7 @@
 }
 
 .form-group-3 {
-  justify-content: center;
+  justify-content: space-around;
   display: flex;
 }
 
@@ -267,7 +267,7 @@
   color: white;
 }
 .animate-button {
-  padding: 10px 50px;
+  padding: 10px 30px;
 }
 
 .all-cars-animate-button {
@@ -286,10 +286,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  /* .animate-button {
-    padding: 10px 20px;
-    font-size: 12px;
-  } */
   .pay-now-button {
     padding: 10px;
     font-size: 10px;

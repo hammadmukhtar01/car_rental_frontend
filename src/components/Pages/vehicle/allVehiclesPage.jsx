@@ -1416,7 +1416,7 @@ const VehiclesPage = () => {
                               <hr className="discount-line" />
 
                               <div className="d-flex justify-content-center">
-                                <div className="col-xxl-10 col-lg-11 col-md-12 col-sm-8 col-12 d-flex justify-content-center">
+                                <div className="col-xxl-10 col-lg-11 col-md-12 col-sm-12 col-12 d-flex justify-content-center flex-column">
                                   <>
                                     <button
                                       className="map-loc-middle"

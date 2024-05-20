@@ -479,7 +479,6 @@ const VehicleDetails = ({ nextStep }) => {
   }
 
   return (
-    
     <div className="">
       <div className="vehicle-details-location-main-div pb-3 pt-3">
         <Container fluid>
@@ -518,7 +517,7 @@ const VehicleDetails = ({ nextStep }) => {
                                 <b>Features Icons:</b>
                               </span>
                               <hr className="hr-line-heading-scroll" />
-                              <div className="car-features-div mt-2">
+                              <div className="car-features-div mt-3">
                                 <Container
                                   fluid
                                   className="features-scroll-container"
@@ -552,14 +551,14 @@ const VehicleDetails = ({ nextStep }) => {
                             </span>
                             <div className="car-features-text-2 pt-2">
                               <div className="car-features-div">
-                                <Row>
+                                <Row className="car-features-list-main-div">
                                   {carAdditionalFeatures?.map(
                                     (additionalFeatures, index) => (
                                       <Col
                                         lg={4}
                                         md={4}
                                         sm={6}
-                                        xs={8}
+                                        xs={6}
                                         key={index}
                                       >
                                         <div className="car-features-list pt-2">
@@ -986,13 +985,7 @@ const VehicleDetails = ({ nextStep }) => {
                 </Row>
               </div>
               <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
-                <Col
-                  lg={3}
-                  md={4}
-                  sm={6}
-                  xs={8}
-                  className="d-flex justify-content-center "
-                >
+                <Col className="d-flex justify-content-center ">
                   <button
                     onClick={() => handleNextStep1()}
                     className="map-loc-middle py-3"

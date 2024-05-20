@@ -64,7 +64,7 @@
 
 .about-us-main-heading-1,
 .about-us-mapped-data-container {
-  padding: 20px 20px 0px 20px;
+  padding: 5px 20px 0px 20px;
   text-align: left;
 }
 
@@ -79,6 +79,10 @@
 .about-us-text-col,
 .why-us-text-col {
   padding: 4px 24px 24px 24px;
+}
+
+.about-us-description {
+  line-height: 130%;
 }
 
 .legacy-description {
