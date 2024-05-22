@@ -16,12 +16,12 @@ function DropoffLocationModal({
   handleInputFieldChange,
 }) {
   const [selectedLocationss, setSelectedLocationss] = useState({
-    lat: 25.177316,
+    lat: 25.17411857864891,
     lng: 55.376264,
   });
 
   const [dropOffLocationss] = useState({
-    lat: 25.177316,
+    lat: 25.17411857864891,
     lng: 55.376264,
   });
   console.log(
@@ -106,7 +106,7 @@ function DropoffLocationModal({
       console.log("1---Messg before update value...", message);
       handleFieldChange("deliveryMapLocDropOff", message);
     } else if (selectedTab === "pick") {
-      message = `Samari Retails - Milele head office AF-07`;
+      message = `Ras Al Khor - Milele Showroom 11`;
       handleFieldChange("dropoffInputMessageV1", message);
       handleFieldChange("pickupLocationStateV1", "Dubai");
     }
@@ -117,12 +117,12 @@ function DropoffLocationModal({
       if (formFields?.selectedTabDropOff === "pick") {
         updateDropoffLocationMessage(
           formFields?.dropoffInputMessageV1 ||
-            "Samari Retails - Milele head office AF-07"
+            "Ras Al Khor - Milele Showroom 11"
         );
       } else {
         updateDropoffLocationMessage(
           formFields?.deliveryMapLocDropOff ||
-            "Samari Retails - Milele head office AF-07"
+            "Ras Al Khor - Milele Showroom 11"
         );
       }
     }
@@ -249,7 +249,7 @@ function DropoffLocationModal({
                           name="dropoffLocationName"
                           required
                           readOnly
-                          value={"Samari retail111"}
+                          value={"Ras Al Khor"}
                         />
 
                         <label htmlFor="dropoffLocationName">Location</label>
@@ -267,7 +267,7 @@ function DropoffLocationModal({
                           readOnly
                           required
                           // value={dropOffLocationDetail}
-                          value={"Milele head office AF-07"}
+                          value={"Milele Showroom 11"}
                           // onChange={(e) => {
                           //   setPickUpLocationDetail(e.target.value);
                           // }}

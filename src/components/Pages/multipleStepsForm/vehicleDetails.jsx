@@ -853,7 +853,11 @@ const VehicleDetails = ({ nextStep }) => {
                                 >
                                   <div>
                                     <span className="sub-total-price-label">
-                                      Tax Total
+                                      VAT
+                                      <span className="pl-2">
+                                        {" "}
+                                        (5% of {subTotalValue})
+                                      </span>
                                     </span>{" "}
                                   </div>
                                   <div className="text-right">
@@ -864,10 +868,7 @@ const VehicleDetails = ({ nextStep }) => {
                                     </span>
                                   </div>
                                 </div>
-                                <span className="pl-2">
-                                  {" "}
-                                  (5% of {subTotalValue})
-                                </span>
+
                                 <div className="coupon-main-div pt-3">
                                   <Row>
                                     <Col xs={12} className="coupon-label-div">

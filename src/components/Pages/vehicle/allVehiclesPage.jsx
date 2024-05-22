@@ -541,7 +541,7 @@ const VehiclesPage = () => {
     if (missingFields?.length > 0) {
       const errorMessage = `${missingFields.join(", ")} field(s) are missing.`;
       toast.error(errorMessage, {
-        autoClose: 1000,
+        autoClose: 2000,
         style: {
           border: "1px solid #c0c0c0",
           fontWeight: "400",
@@ -1225,12 +1225,12 @@ const VehiclesPage = () => {
                         <div className="filter-content">
                           <div className="card-body">
                             <div className="">
-                              <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
+                              <div className="form-group col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
                                 <label
                                   htmlFor="minPrice"
                                   className="price-range-label"
                                 >
-                                  Min. Value
+                                  Minimum Price
                                 </label>
                                 <input
                                   className="form-control-login"
@@ -1240,16 +1240,16 @@ const VehiclesPage = () => {
                                   min={0}
                                   value={minPrice}
                                   onChange={(e) => setMinPrice(e.target.value)}
-                                  placeholder="min value"
+                                  placeholder="Minimum"
                                 />
                               </div>
 
-                              <div className="form-group col-xxl-6 col-lg-9 col-md-9 col-sm-6 col-6 pl-0">
+                              <div className="form-group col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
                                 <label
                                   htmlFor="maxPrice"
                                   className="price-range-label"
                                 >
-                                  Max. Value
+                                  Maximum Price
                                 </label>
 
                                 <input
@@ -1259,7 +1259,7 @@ const VehiclesPage = () => {
                                   type="number"
                                   value={maxPrice}
                                   onChange={(e) => setMaxPrice(e.target.value)}
-                                  placeholder="max value"
+                                  placeholder="Maximum"
                                   min={minPrice}
                                 />
                               </div>

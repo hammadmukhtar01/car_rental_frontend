@@ -17,13 +17,13 @@ function PickupLocationModal({
   handleInputFieldChange,
 }) {
   const [selectedLocationss, setSelectedLocationss] = useState({
-    lat: 25.177316,
-    lng: 55.376264,
+    lat: 25.17411857864891,
+    lng: 55.37378222448372,
   });
 
   const [pickUpLocationss] = useState({
-    lat: 25.177316,
-    lng: 55.376264,
+    lat: 25.17411857864891,
+    lng: 55.37378222448372,
   });
 
   console.log(
@@ -122,7 +122,7 @@ function PickupLocationModal({
       console.log("1---Messg before update value...", message);
       handleFieldChange("deliveryMapLocPickUp", message);
     } else if (selectedTab === "pick") {
-      message = `Samari Retails - Milele head office AF-07`;
+      message = `Ras Al Khor - Milele Showroom 11`;
       handleFieldChange("pickupInputMessageV1", message);
       handleFieldChange("pickupLocationStateV1", "Dubai");
     }
@@ -134,12 +134,12 @@ function PickupLocationModal({
       if (formFields?.selectedTabPickUp === "pick") {
         updatePickupLocationMessage(
           formFields?.pickupInputMessageV1 ||
-            "Samari Retails - Milele head office AF-07"
+            "Ras Al Khor - Milele Showroom 11"
         );
       } else {
         updatePickupLocationMessage(
           formFields?.deliveryMapLocPickUp ||
-            "Samari Retails - Milele head office AF-07"
+            "Ras Al Khor - Milele Showroom 11"
         );
       }
     }
@@ -261,7 +261,7 @@ function PickupLocationModal({
                           name="pickupLocationName"
                           required
                           readOnly
-                          value={"Samari retail111"}
+                          value={"Ras Al Khor"}
                         />
                         <label htmlFor="pickupLocationName">
                           PickUp Location
@@ -279,7 +279,7 @@ function PickupLocationModal({
                           name="pickUpLocationDetail"
                           readOnly
                           required
-                          value={"Milele head office AF-07"}
+                          value={"Milele Showroom 11"}
                         />
                         <label htmlFor="pickUpLocationDetail">
                           Address Detail
