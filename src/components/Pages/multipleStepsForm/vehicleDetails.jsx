@@ -32,7 +32,6 @@ const VehicleDetails = ({ nextStep }) => {
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [singleVehicleDetails, setSingleVehicleDetails] = useState({});
-  const [numberOfDays, setNumberOfDays] = useState("");
   const [addOnsValuesData, setAddOnsValuesData] = useState([]);
   const [selectedAddOn, setSelectedAddOn] = useState(null);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
@@ -52,6 +51,7 @@ const VehicleDetails = ({ nextStep }) => {
   const pickupLocStateParam = queryParams?.get("pickupLocState");
   const dropoffLocStateParam = queryParams?.get("dropoffLocState");
   const checkBoxValueParam = queryParams?.get("checkBoxValue");
+  const numberOfDays = queryParams?.get("noOfDays");
   const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
 
   const AddOnsData = useMemo(
@@ -216,17 +216,6 @@ const VehicleDetails = ({ nextStep }) => {
     SHARJAH: 80,
     AJMAN: 100,
   };
-
-  useEffect(() => {
-    if (StartDateTime && ReturnDateTime) {
-      const startTimeStamp = new Date(StartDateTime)?.getTime();
-      const endTimeStamp = new Date(ReturnDateTime)?.getTime();
-      const timeDifference = endTimeStamp - startTimeStamp;
-      const totalDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
-
-      setNumberOfDays(totalDays + 1);
-    }
-  }, [StartDateTime, ReturnDateTime]);
 
   const fetchSingleCarDetails = useCallback(async () => {
     let data = { TariffGroupId, StartDateTime, ReturnDateTime };

@@ -271,32 +271,48 @@ const VehiclesPage = () => {
     }
   }, [pickUpDate, dropOffDate]);
 
-  const validateTimeDifference = (pickUpTime, dropOffTime) => {
-    const [pickUpHour, pickUpMinute] = pickUpTime.split(/[: ]/);
-    const [dropOffHour, dropOffMinute] = dropOffTime.split(/[: ]/);
+  const validateTimeDifference = (
+    pickUpDateV,
+    dropOffDateV,
+    pickUpTime,
+    dropOffTime
+  ) => {
+    const pickUpDateObj = new Date(pickUpDateV);
+    const dropOffDateObj = new Date(dropOffDateV);
 
-    const pickUpDate = new Date();
-    const dropOffDate = new Date();
+    if (pickUpDateObj.toDateString() !== dropOffDateObj.toDateString()) {
+      return true;
+    }
 
-    pickUpDate.setHours(
-      pickUpTime.includes("PM") && pickUpHour !== "12"
+    const [pickUpHour, pickUpMinute, pickUpPeriod] = pickUpTime.split(/[: ]/);
+    const [dropOffHour, dropOffMinute, dropOffPeriod] =
+      dropOffTime.split(/[: ]/);
+
+    const pickUpDateWithTime = new Date(pickUpDateV);
+    const dropOffDateWithTime = new Date(dropOffDateV);
+
+    pickUpDateWithTime.setHours(
+      pickUpPeriod === "PM" && pickUpHour !== "12"
         ? parseInt(pickUpHour) + 12
+        : pickUpPeriod === "AM" && pickUpHour === "12"
+        ? 0
         : parseInt(pickUpHour)
     );
-    pickUpDate.setMinutes(parseInt(pickUpMinute));
+    pickUpDateWithTime.setMinutes(parseInt(pickUpMinute));
 
-    dropOffDate.setHours(
-      dropOffTime.includes("PM") && dropOffHour !== "12"
+    dropOffDateWithTime.setHours(
+      dropOffPeriod === "PM" && dropOffHour !== "12"
         ? parseInt(dropOffHour) + 12
+        : dropOffPeriod === "AM" && dropOffHour === "12"
+        ? 0
         : parseInt(dropOffHour)
     );
-    dropOffDate.setMinutes(parseInt(dropOffMinute));
+    dropOffDateWithTime.setMinutes(parseInt(dropOffMinute));
 
-    const timeDifference = (dropOffDate - pickUpDate) / (1000 * 60);
+    const timeDifference =
+      (dropOffDateWithTime - pickUpDateWithTime) / (1000 * 60);
 
-    if (timeDifference < 60) {
-      return false;
-    } else return true;
+    return timeDifference >= 60;
   };
 
   const fetchCarsData = useCallback(async () => {
@@ -565,9 +581,13 @@ const VehiclesPage = () => {
     if (showDropoff && !dropoffLocationMessage) {
       missingFields.push("Dropoff location");
     }
-    const timeDiffChecker = validateTimeDifference(pickUpTime, dropOffTime);
+    const timeDiffChecker = validateTimeDifference(
+      startDate,
+      endDate,
+      pickUpTime,
+      dropOffTime
+    );
     if (timeDiffChecker === false) {
-      console.log();
       toast.error(
         "The difference between pickup and dropoff time should be at least 60 minutes.",
         {
@@ -601,7 +621,7 @@ const VehiclesPage = () => {
     console.log("All Cars Booking Button");
 
     navigate(
-      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}&dropoffLocState=${dropoffLocStateValue}&checkBoxValue=${showDropoff}`
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}&dropoffLocState=${dropoffLocStateValue}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}`
     );
   };
 
@@ -742,14 +762,67 @@ const VehiclesPage = () => {
     setDateRange([ranges.selection]);
   };
 
+  const calculateNumberOfDays = (
+    startDate,
+    endDate,
+    pickUpTime,
+    dropOffTime
+  ) => {
+    console.log(` In calcuaktion function \n\n
+      startDate,  ${startDate}\n
+      endDate, ${endDate}\n
+      pickUpTime, ${pickUpTime}\n
+      dropOffTime, ${dropOffTime}\n  `);
+
+    const [startHour, startMinute] = pickUpTime?.split(/[: ]/);
+    const [endHour, endMinute] = dropOffTime?.split(/[: ]/);
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    start.setHours(
+      pickUpTime.includes("PM") && startHour !== "12"
+        ? parseInt(startHour) + 12
+        : parseInt(startHour),
+      parseInt(startMinute)
+    );
+
+    end.setHours(
+      dropOffTime.includes("PM") && endHour !== "12"
+        ? parseInt(endHour) + 12
+        : parseInt(endHour),
+      parseInt(endMinute)
+    );
+
+    const timeDifference = end - start;
+    const totalHours = timeDifference / (1000 * 60 * 60);
+    const totalDays = Math.ceil(totalHours / 24);
+
+    return totalDays;
+  };
+
   useEffect(() => {
-    if (startDate && endDate) {
-      const timeDifference = endDate.getTime() - startDate.getTime();
-      const totalDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    console.log(`
+  testing useeffect`);
+
+    if (startDate && endDate && pickUpTime && dropOffTime) {
+      console.log(`
+      startDate,  ${startDate}\n
+      endDate, ${endDate}\n
+      pickUpTime, ${pickUpTime}\n
+      dropOffTime, ${dropOffTime}\n  `);
+
+      const totalDays = calculateNumberOfDays(
+        startDate,
+        endDate,
+        pickUpTime,
+        dropOffTime
+      );
+
+      setNumberOfDays(totalDays);
       console.log("Number of days:", totalDays);
-      setNumberOfDays(totalDays + 1);
     }
-  }, [startDate, endDate]);
+  }, [startDate, endDate, pickUpTime, dropOffTime]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -1490,11 +1563,11 @@ const VehiclesPage = () => {
                                             <span className="pay-now-price-md-lg">
                                               <span>|</span> AED:{" "}
                                               {car?.rate * numberOfDays} |{" "}
-                                              {numberOfDays} days
+                                              {numberOfDays} day(s)
                                             </span>
                                             <div className="pay-now-price-xs">
                                               AED: {car?.rate * numberOfDays} |{" "}
-                                              {numberOfDays} days
+                                              {numberOfDays} day(s)
                                             </div>
                                           </span>
                                         </span>
