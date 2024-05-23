@@ -32,7 +32,7 @@ const VehicleDetails = ({ nextStep }) => {
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [singleVehicleDetails, setSingleVehicleDetails] = useState({});
-  const [numberOfDays, setNumberOfDays] = useState(0);
+  const [numberOfDays, setNumberOfDays] = useState("");
   const [addOnsValuesData, setAddOnsValuesData] = useState([]);
   const [selectedAddOn, setSelectedAddOn] = useState(null);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
