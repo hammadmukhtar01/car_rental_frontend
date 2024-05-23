@@ -271,6 +271,34 @@ const VehiclesPage = () => {
     }
   }, [pickUpDate, dropOffDate]);
 
+  const validateTimeDifference = (pickUpTime, dropOffTime) => {
+    const [pickUpHour, pickUpMinute] = pickUpTime.split(/[: ]/);
+    const [dropOffHour, dropOffMinute] = dropOffTime.split(/[: ]/);
+
+    const pickUpDate = new Date();
+    const dropOffDate = new Date();
+
+    pickUpDate.setHours(
+      pickUpTime.includes("PM") && pickUpHour !== "12"
+        ? parseInt(pickUpHour) + 12
+        : parseInt(pickUpHour)
+    );
+    pickUpDate.setMinutes(parseInt(pickUpMinute));
+
+    dropOffDate.setHours(
+      dropOffTime.includes("PM") && dropOffHour !== "12"
+        ? parseInt(dropOffHour) + 12
+        : parseInt(dropOffHour)
+    );
+    dropOffDate.setMinutes(parseInt(dropOffMinute));
+
+    const timeDifference = (dropOffDate - pickUpDate) / (1000 * 60);
+
+    if (timeDifference < 60) {
+      return false;
+    } else return true;
+  };
+
   const fetchCarsData = useCallback(async () => {
     try {
       const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
@@ -537,8 +565,25 @@ const VehiclesPage = () => {
     if (showDropoff && !dropoffLocationMessage) {
       missingFields.push("Dropoff location");
     }
-    console.log("missingFields", missingFields);
-    if (missingFields?.length > 0) {
+    const timeDiffChecker = validateTimeDifference(pickUpTime, dropOffTime);
+    if (timeDiffChecker === false) {
+      console.log();
+      toast.error(
+        "The difference between pickup and dropoff time should be at least 60 minutes.",
+        {
+          autoClose: 1000,
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            lineHeight: "18px",
+            fontSize: "14px",
+          },
+        }
+      );
+      return;
+    }
+
+    if (missingFields.length > 0) {
       const errorMessage = `${missingFields.join(", ")} field(s) are missing.`;
       toast.error(errorMessage, {
         autoClose: 2000,
@@ -551,8 +596,8 @@ const VehiclesPage = () => {
       });
       return;
     }
-    console.log("dshowDropoff value is: ", showDropoff);
 
+    console.log("dshowDropoff value is: ", showDropoff);
     console.log("All Cars Booking Button");
 
     navigate(
@@ -702,7 +747,7 @@ const VehiclesPage = () => {
       const timeDifference = endDate.getTime() - startDate.getTime();
       const totalDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
       console.log("Number of days:", totalDays);
-      setNumberOfDays(totalDays);
+      setNumberOfDays(totalDays + 1);
     }
   }, [startDate, endDate]);
 

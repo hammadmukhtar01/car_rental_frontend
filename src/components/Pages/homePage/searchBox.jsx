@@ -152,6 +152,34 @@ const SearchBox = () => {
     handleFieldChange("dropTimeV1", selectedOption?.value);
   };
 
+  const validateTimeDifference = (pickUpTime, dropOffTime) => {
+    const [pickUpHour, pickUpMinute] = pickUpTime.split(/[: ]/);
+    const [dropOffHour, dropOffMinute] = dropOffTime.split(/[: ]/);
+
+    const pickUpDate = new Date();
+    const dropOffDate = new Date();
+
+    pickUpDate.setHours(
+      pickUpTime.includes("PM") && pickUpHour !== "12"
+        ? parseInt(pickUpHour) + 12
+        : parseInt(pickUpHour)
+    );
+    pickUpDate.setMinutes(parseInt(pickUpMinute));
+
+    dropOffDate.setHours(
+      dropOffTime.includes("PM") && dropOffHour !== "12"
+        ? parseInt(dropOffHour) + 12
+        : parseInt(dropOffHour)
+    );
+    dropOffDate.setMinutes(parseInt(dropOffMinute));
+
+    const timeDifference = (dropOffDate - pickUpDate) / (1000 * 60);
+
+    if (timeDifference < 60) {
+      return false;
+    } else return true;
+  };
+
   const generateTimeSlots = () => {
     const timeSlots = [];
     let hour = 7;
@@ -275,8 +303,15 @@ const SearchBox = () => {
     };
   }, [showDatePicker]);
 
+  const calculateNumberOfDays = (startDate, endDate) => {
+    const oneDay = 24 * 60 * 60 * 1000;
+    return Math.round(Math.abs((startDate - endDate) / oneDay)) + 1;
+  };
+
+
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
+
     if (
       !pickUpTime ||
       !dropOffTime ||
@@ -313,6 +348,8 @@ const SearchBox = () => {
 
     const startDate = startLocalDate?.toISOString()?.split("T")[0];
     const endDate = endLocalDate?.toISOString()?.split("T")[0];
+    const numberOfDays = calculateNumberOfDays(startLocalDate, endLocalDate);
+
     const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}`;
 
     navigate(url);

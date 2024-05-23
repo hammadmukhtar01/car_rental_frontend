@@ -224,7 +224,7 @@ const VehicleDetails = ({ nextStep }) => {
       const timeDifference = endTimeStamp - startTimeStamp;
       const totalDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
-      setNumberOfDays(totalDays);
+      setNumberOfDays(totalDays + 1);
     }
   }, [StartDateTime, ReturnDateTime]);
 
@@ -787,7 +787,8 @@ const VehicleDetails = ({ nextStep }) => {
                                   <div className="text-right">
                                     AED{" "}
                                     <span className="charges-value pl-1">
-                                      {totalAPIResponseCharges}
+                                      {/* {totalAPIResponseCharges} */}
+                                      {`${totalPrice * numberOfDays}`}
                                     </span>
                                   </div>
                                 </div>
