@@ -309,19 +309,6 @@ const VehicleDetails = ({ nextStep }) => {
     },
   ];
 
-  const carAdditionalFeatures = [
-    "Air Condtioner",
-    "Central Lock",
-    "Power Windows",
-    "Power Steering",
-    "Radio Listening",
-    "Air Condtioner",
-    "Central Lock",
-    "Power Windows",
-    "Power Steering",
-    "Radio Listening",
-  ];
-
   const steps = [
     {
       locName: pickupLocParam,
