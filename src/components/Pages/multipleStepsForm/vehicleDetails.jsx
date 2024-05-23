@@ -259,6 +259,14 @@ const VehicleDetails = ({ nextStep }) => {
   const carsmallSafetyBags = baseAPIResponsePath?.smallBagsCapacity;
   const carTotalSafetyBags = carlargeSafetyBags + carsmallSafetyBags;
 
+  const additionalFeaturesArray =
+    singleVehicleDetails?.notes?.split(", ") || [];
+
+  const additionalFeaturesList = [
+    ...additionalFeaturesArray,
+  ];
+  console.log(`additionalFeaturesList ${additionalFeaturesList}`);
+
   const carFeaturesWithIcons = [
     {
       name: "Seater",
@@ -541,13 +549,13 @@ const VehicleDetails = ({ nextStep }) => {
                             <div className="car-features-text-2 pt-2">
                               <div className="car-features-div">
                                 <Row className="car-features-list-main-div">
-                                  {carAdditionalFeatures?.map(
+                                  {additionalFeaturesArray?.map(
                                     (additionalFeatures, index) => (
                                       <Col
-                                        lg={4}
-                                        md={4}
+                                        lg={6}
+                                        md={6}
                                         sm={6}
-                                        xs={6}
+                                        xs={12}
                                         key={index}
                                       >
                                         <div className="car-features-list pt-2">

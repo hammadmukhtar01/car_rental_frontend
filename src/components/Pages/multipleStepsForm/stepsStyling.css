@@ -290,7 +290,8 @@ h4 {
 .car-image-1 {
   max-width: inherit;
 }
-
+.car-features-list-main-div {
+}
 @media screen and (max-width: 991px) {
   .car-prices-details-container {
     border: none;
@@ -302,7 +303,7 @@ h4 {
   }
 }
 
-@media screen and (max-width:425px) {
+@media screen and (max-width: 425px) {
   .car-features-list-main-div {
     display: block;
     width: 200%;
