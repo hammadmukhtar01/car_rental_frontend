@@ -246,7 +246,7 @@ const VehicleDetails = ({ nextStep }) => {
   const carCategory = baseAPIResponsePath?.acrissCategory?.name;
   const carImg = baseAPIResponsePath?.displayImage?.url;
   const totalPrice = singleVehicleDetails?.charges?.[0]?.tariff?.[0]?.rate;
-  const totalAPIResponseCharges = singleVehicleDetails?.totalCharges;
+  const totalAPIResponseCharges = totalPrice * numberOfDays;
 
   const carPassengerCapacity = baseAPIResponsePath?.passengerCapacity;
   const carManualAutomaticType =
@@ -262,9 +262,7 @@ const VehicleDetails = ({ nextStep }) => {
   const additionalFeaturesArray =
     singleVehicleDetails?.notes?.split(", ") || [];
 
-  const additionalFeaturesList = [
-    ...additionalFeaturesArray,
-  ];
+  const additionalFeaturesList = [...additionalFeaturesArray];
   console.log(`additionalFeaturesList ${additionalFeaturesList}`);
 
   const carFeaturesWithIcons = [
@@ -381,9 +379,14 @@ const VehicleDetails = ({ nextStep }) => {
 
   const subTotalValue =
     totalAPIResponseCharges + getDeliveryCharge() + totalAddOnsPriceSimple();
+
+  console.log(
+    `totalAPIResponseCharges ${totalAPIResponseCharges} + getDeliveryCharge ${getDeliveryCharge()} + totalAddOnsPriceSimple `
+  );
+
   const taxTotal = Math.floor((5 * subTotalValue) / 100);
   const grandTotalPrice = subTotalValue + taxTotal;
-
+  console.log(`grandTotalPrice ${grandTotalPrice}`);
   const grandTotalDiscountedValue = () => {
     if (appliedCoupon) {
       const discountedValue = appliedCoupon?.value;
