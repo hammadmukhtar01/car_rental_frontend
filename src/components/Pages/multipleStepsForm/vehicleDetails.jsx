@@ -501,7 +501,7 @@ const VehicleDetails = ({ nextStep }) => {
                           <Col lg={4} md={12} sm={12} xs={12}>
                             <div className=" ">
                               <span className="features-icons-heading pl-2">
-                                <b>Features Icons:</b>
+                                <b>Key Features</b>
                               </span>
                               <hr className="hr-line-heading-scroll" />
                               <div className="car-features-div mt-3">
