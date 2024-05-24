@@ -63,17 +63,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   dropoffDateTime.setMinutes(parseInt(dropoffMinute, 10));
   const dropoffDateTimeISO = dropoffDateTime?.toISOString();
 
+  const pricePerDayParam = parseInt(queryParams?.get("pricePerDay"));
   const discountedValueParam = queryParams?.get("discountValue");
   const totalGrandPriceParam = queryParams?.get("grandTotalCharges");
   const deliveryChargesParam = parseInt(
     queryParams?.get("totalDeliveryCharges")
   );
 
-  const taxPercentage = 5;
-  const taxValue = Math.ceil((taxPercentage * totalGrandPriceParam) / 100);
-
-  const totalGrandPriceWithTax =
-    parseInt(totalGrandPriceParam) + parseFloat(taxValue);
+  const totalGrandPriceWithTax = parseInt(totalGrandPriceParam);
 
   const pickupLocParam = queryParams?.get("pickupLoc");
   const dropoffLocParam = queryParams?.get("dropoffLoc");
@@ -295,7 +292,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           },
         ],
         chargesTypeId: 1,
-        rate: 150,
+        rate: pricePerDayParam,
         rateTypeId: 1,
       },
       // 1 below
@@ -343,14 +340,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 5 Below
       {
-        accepted: addOnsFromUrl?.includes(54),
-        tariff: [
-          {
-            id: 97444,
-          },
-        ],
-        chargesTypeId: 54,
-        rate: 50,
+        accepted: addOnsFromUrl?.includes(28),
+        tariff: [],
+        chargesTypeId: 28,
+        rate: 150,
         rateTypeId: 6,
       },
       // 6 Below
@@ -379,15 +372,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 8 Below
       {
-        accepted: addOnsFromUrl?.includes(32),
-        tariff: [
-          {
-            id: 97447,
-          },
-        ],
-        chargesTypeId: 32,
-        rate: 80,
-        rateTypeId: 1,
+        accepted: addOnsFromUrl?.includes(19),
+        tariff: [],
+        chargesTypeId: 19,
+        rate: 130,
+        rateTypeId: 6,
       },
       // 9 Below
       {
@@ -439,25 +428,41 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       // 13 Below
       {
-        accepted: addOnsFromUrl?.includes(19),
-        tariff: [],
-        chargesTypeId: 19,
-        rate: 130,
-        rateTypeId: 6,
-      },
-      // 14 below
-      {
         accepted: addOnsFromUrl?.includes(67),
         tariff: [],
         chargesTypeId: 67,
         rate: 140,
         rateTypeId: 6,
       },
+      // 14 Below
+
+      {
+        accepted: addOnsFromUrl?.includes(54),
+        tariff: [
+          {
+            id: 97444,
+          },
+        ],
+        // Extra1Charges -> Tint
+        chargesTypeId: 54,
+        rate: 50,
+        rateTypeId: 6,
+      },
       // 15 Below
       {
-        accepted: addOnsFromUrl?.includes(28),
+        accepted: addOnsFromUrl?.includes(55),
         tariff: [],
-        chargesTypeId: 28,
+        // Extra2Charges -> Mobile Holder
+        chargesTypeId: 55,
+        rate: 150,
+        rateTypeId: 6,
+      },
+      // 16 Below
+      {
+        accepted: addOnsFromUrl?.includes(58),
+        tariff: [],
+        // Extra3Charges -> Sunshades
+        chargesTypeId: 58,
         rate: 150,
         rateTypeId: 6,
       },
@@ -489,8 +494,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       locationId: pickupLocationId,
       notes: pickdropCombineLoc,
       tariffGroupId: TariffGroupIdParam,
-      tax: taxValue,
-      taxPercent: taxPercentage,
+      taxPercent: 5,
       totalCharges: totalGrandPriceWithTax,
     };
 
@@ -1009,7 +1013,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>Airline Ticket No. *</b>
+                                  <b>Airline Ticket No.</b>
                                 </label>
                               </div>
                               <input
@@ -1028,7 +1032,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>Flight DateTime *</b>
+                                  <b>Flight DateTime</b>
                                 </label>
                               </div>
                               <DateTimePicker

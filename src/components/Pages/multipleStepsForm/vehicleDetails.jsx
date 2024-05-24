@@ -54,12 +54,159 @@ const VehicleDetails = ({ nextStep }) => {
   const numberOfDays = queryParams?.get("noOfDays");
   const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
 
+  const fetchSingleCarDetails = useCallback(async () => {
+    let data = { TariffGroupId, StartDateTime, ReturnDateTime };
+    try {
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/GetVehicleRateDetail`;
+      const response = await axios.post(url, data, { headers });
+
+      setSingleVehicleDetails(response?.data?.result);
+      console.log("Complete Details of a cars is : ", response?.data?.result);
+    } catch (error) {
+      console.error("Error fetching vehicle rates:", error);
+    }
+  }, [TariffGroupId, StartDateTime, ReturnDateTime]);
+
+  useEffect(() => {
+    fetchSingleCarDetails();
+  }, [StartDateTime, ReturnDateTime, fetchSingleCarDetails]);
+
+  const categoryMap = {
+    Standard: "Sedan",
+    "Small SUV 5 Seater": "SUV",
+    Compact: "HatchBack",
+    Fullsize: "7 Seater",
+  };
+
+  const baseAPIResponsePath = singleVehicleDetails?.vehicle?.tariffGroup;
+
+  const carTypeName = baseAPIResponsePath?.title;
+  const carCategory =
+    categoryMap[baseAPIResponsePath?.acrissCategory?.name] ||
+    baseAPIResponsePath?.acrissCategory?.name;
+  const carImg = baseAPIResponsePath?.displayImage?.url;
+  const totalPrice = singleVehicleDetails?.charges?.[0]?.tariff?.[0]?.rate;
+  const totalAPIResponseCharges = totalPrice * numberOfDays;
+
+  const carPassengerCapacity = baseAPIResponsePath?.passengerCapacity;
+  const carManualAutomaticType =
+    baseAPIResponsePath?.acrissTransDrive?.name?.split("/")[0];
+  const carDoorstype =
+    baseAPIResponsePath?.acrissType?.name?.split("/")[1] ||
+    baseAPIResponsePath?.acrissType?.name?.split("-")[1] ||
+    baseAPIResponsePath?.acrissType?.name;
+  const carlargeSafetyBags = baseAPIResponsePath?.largeBagsCapacity;
+  const carsmallSafetyBags = baseAPIResponsePath?.smallBagsCapacity;
+  const carTotalSafetyBags = carlargeSafetyBags + carsmallSafetyBags;
+
+  const additionalFeaturesArray =
+    singleVehicleDetails?.notes?.split(", ") || [];
+
+  const additionalFeaturesList = [...additionalFeaturesArray];
+  console.log(`additionalFeaturesList ${additionalFeaturesList}`);
+
+  const carFeaturesWithIcons = [
+    {
+      name: "Seater",
+      value: carPassengerCapacity,
+      featureIcon: BsPerson,
+    },
+
+    {
+      name: "",
+      value: carDoorstype,
+      featureIcon: GiCarDoor,
+    },
+    {
+      name: carManualAutomaticType,
+      value: null,
+      featureIcon: GiGearStickPattern,
+    },
+
+    {
+      name: "Luggage Bags",
+      value: carTotalSafetyBags,
+      featureIcon: BsSuitcase,
+    },
+    {
+      name: "Air Conditioner",
+      value: null,
+      featureIcon: LuSnowflake,
+    },
+  ];
+
+  const couponsData = [
+    {
+      name: "ABC123",
+      value: 10,
+    },
+
+    {
+      name: "NEW40",
+      value: 40,
+    },
+  ];
+
+  const getUpdatedPrice = (addOn, numberOfDays, carCategory) => {
+    switch (addOn.addOnsName) {
+      case "CDW (Collision Damage Waiver)":
+        if (numberOfDays === 1) {
+          return carCategory === "HatchBack"
+            ? 20 
+            : 30;
+        } else if (numberOfDays > 1 && numberOfDays <= 7) {
+          return carCategory === "HatchBack"
+            ? 15 
+            : 20 ;
+        } else if (numberOfDays > 7) {
+          return carCategory === "HatchBack"
+            ? 10 
+            : 15;
+        }
+        break;
+      case "Baby Seat":
+        if (numberOfDays === 1) return 20;
+        if (numberOfDays > 1 && numberOfDays <= 7) return 120;
+        if (numberOfDays > 7) return 400;
+        break;
+      case "Mobile Holder":
+        if (numberOfDays === 1) return 5;
+        if (numberOfDays > 1 && numberOfDays <= 7) return 10;
+        if (numberOfDays > 7) return 20;
+        break;
+      case "Sunshades":
+        if (numberOfDays === 1) return 10;
+        if (numberOfDays > 1 && numberOfDays <= 7) return 30;
+        if (numberOfDays > 7) return 50;
+        break;
+      case "PAI (Personal Accident Insurance)":
+        if (numberOfDays === 1) return  15;
+        if (numberOfDays > 1 && numberOfDays <= 7) return 10;
+        if (numberOfDays > 7) return  5;
+        break;
+      default:
+        return addOn.pricePerTrip;
+    }
+  };
+
+  const totalDays = parseInt(queryParams?.get("noOfDays"), 10) || 1;
+
   const AddOnsData = useMemo(
     () => [
       {
         id: 2,
         addOnsName: "CDW (Collision Damage Waiver)",
-        pricePerTrip: 100,
+        pricePerTrip: getUpdatedPrice(
+          { addOnsName: "CDW (Collision Damage Waiver)" },
+          totalDays,
+          carCategory
+        ),
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
@@ -69,7 +216,10 @@ const VehicleDetails = ({ nextStep }) => {
       {
         id: 3,
         addOnsName: "PAI (Personal Accident Insurance)",
-        pricePerTrip: 50,
+        pricePerTrip: getUpdatedPrice(
+          { addOnsName: "PAI (Personal Accident Insurance)" },
+          totalDays
+        ),
         checkBoxValue: 0,
         IconName: BsPersonCircle,
         addOnsDetail:
@@ -87,7 +237,7 @@ const VehicleDetails = ({ nextStep }) => {
       {
         id: 19,
         addOnsName: "Baby Seat",
-        pricePerTrip: 20,
+        pricePerTrip: getUpdatedPrice({ addOnsName: "Baby Seat" }, totalDays),
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
@@ -97,7 +247,7 @@ const VehicleDetails = ({ nextStep }) => {
         id: 54,
         // Extra1Charges -> Tint
         addOnsName: "Tint",
-        pricePerTrip: 10,
+        pricePerTrip: 150,
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
@@ -106,9 +256,12 @@ const VehicleDetails = ({ nextStep }) => {
 
       {
         id: 55,
-        // Extra1Charges -> Mobile Holder
+        // Extra2Charges -> Mobile Holder
         addOnsName: "Mobile Holder",
-        pricePerTrip: 5,
+        pricePerTrip: getUpdatedPrice(
+          { addOnsName: "Mobile Holder" },
+          totalDays
+        ),
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
@@ -117,9 +270,9 @@ const VehicleDetails = ({ nextStep }) => {
 
       {
         id: 58,
-        // Extra1Charges -> Sunshades
+        // Extra3Charges -> Sunshades
         addOnsName: "Sunshades",
-        pricePerTrip: 15,
+        pricePerTrip: getUpdatedPrice({ addOnsName: "Sunshades" }, totalDays),
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
@@ -129,14 +282,14 @@ const VehicleDetails = ({ nextStep }) => {
       {
         id: 67,
         addOnsName: "Airport Surcharges",
-        pricePerTrip: 100,
+        pricePerTrip: 120,
         IconName: BsFileEarmarkArrowUp,
         checkBoxValue: 0,
         addOnsDetail:
           "Convenient pick-up service directly from the airport terminal to start the rental seamlessly.",
       },
     ],
-    []
+    [carCategory, totalDays]
   );
 
   const fetchAddOnsChargesData = useCallback(async () => {
@@ -210,102 +363,12 @@ const VehicleDetails = ({ nextStep }) => {
   const deliveryCharges = {
     FUJAIRAH: 250,
     "AL AIN": 200,
-    "ABU DHABI": 200,
+    "ABU DHABI": 250,
     DUBAI: 50,
     "RAS AL KHAIMAH": 250,
     SHARJAH: 80,
-    AJMAN: 100,
+    AJMAN: 80,
   };
-
-  const fetchSingleCarDetails = useCallback(async () => {
-    let data = { TariffGroupId, StartDateTime, ReturnDateTime };
-    try {
-      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
-
-      const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/GetVehicleRateDetail`;
-      const response = await axios.post(url, data, { headers });
-
-      setSingleVehicleDetails(response?.data?.result);
-      console.log("Complete Details of a cars is : ", response?.data?.result);
-    } catch (error) {
-      console.error("Error fetching vehicle rates:", error);
-    }
-  }, [TariffGroupId, StartDateTime, ReturnDateTime]);
-
-  useEffect(() => {
-    fetchSingleCarDetails();
-  }, [StartDateTime, ReturnDateTime, fetchSingleCarDetails]);
-
-  const baseAPIResponsePath = singleVehicleDetails?.vehicle?.tariffGroup;
-
-  const carTypeName = baseAPIResponsePath?.title;
-  const carCategory = baseAPIResponsePath?.acrissCategory?.name;
-  const carImg = baseAPIResponsePath?.displayImage?.url;
-  const totalPrice = singleVehicleDetails?.charges?.[0]?.tariff?.[0]?.rate;
-  const totalAPIResponseCharges = totalPrice * numberOfDays;
-
-  const carPassengerCapacity = baseAPIResponsePath?.passengerCapacity;
-  const carManualAutomaticType =
-    baseAPIResponsePath?.acrissTransDrive?.name?.split("/")[0];
-  const carDoorstype =
-    baseAPIResponsePath?.acrissType?.name?.split("/")[1] ||
-    baseAPIResponsePath?.acrissType?.name?.split("-")[1] ||
-    baseAPIResponsePath?.acrissType?.name;
-  const carlargeSafetyBags = baseAPIResponsePath?.largeBagsCapacity;
-  const carsmallSafetyBags = baseAPIResponsePath?.smallBagsCapacity;
-  const carTotalSafetyBags = carlargeSafetyBags + carsmallSafetyBags;
-
-  const additionalFeaturesArray =
-    singleVehicleDetails?.notes?.split(", ") || [];
-
-  const additionalFeaturesList = [...additionalFeaturesArray];
-  console.log(`additionalFeaturesList ${additionalFeaturesList}`);
-
-  const carFeaturesWithIcons = [
-    {
-      name: "Seater",
-      value: carPassengerCapacity,
-      featureIcon: BsPerson,
-    },
-
-    {
-      name: "",
-      value: carDoorstype,
-      featureIcon: GiCarDoor,
-    },
-    {
-      name: carManualAutomaticType,
-      value: null,
-      featureIcon: GiGearStickPattern,
-    },
-
-    {
-      name: "Luggage Bags",
-      value: carTotalSafetyBags,
-      featureIcon: BsSuitcase,
-    },
-    {
-      name: "Air Conditioner",
-      value: null,
-      featureIcon: LuSnowflake,
-    },
-  ];
-
-  const couponsData = [
-    {
-      name: "ABC123",
-      value: 10,
-    },
-
-    {
-      name: "NEW40",
-      value: 40,
-    },
-  ];
 
   const steps = [
     {
@@ -410,14 +473,26 @@ const VehicleDetails = ({ nextStep }) => {
   const handleNextStep1 = () => {
     const baseUrl = `/bookingPage/2`;
     const urlParams = new URLSearchParams(window.location.search);
-    const selectedAddOnsIds = selectedAddOns
-      ?.map((addOn) => addOn?.id)
-      .join(",");
+
+    const selectedAddOnsDetails = selectedAddOns.map(addOn => ({
+      id: addOn?.id,
+      price: addOn?.pricePerTrip
+    }));
+
+    const selectedAddOnsIds = selectedAddOnsDetails
+    .map(addOn => addOn.id)
+    .join(",");
+    
+  const selectedAddOnsPrices = selectedAddOnsDetails
+    .map(addOn => addOn.price)
+    .join(",");
 
     urlParams?.set("page", "2");
+    urlParams?.set("pricePerDay", totalPrice);
     urlParams?.set("discountValue", grandTotalDiscountedValue());
     urlParams?.set("grandTotalCharges", grandTotalPriceWithDiscount);
     urlParams?.set("addOns", selectedAddOnsIds);
+    urlParams.set("addOnsPrices", selectedAddOnsPrices);
     urlParams?.set("totalDeliveryCharges", getDeliveryCharge());
 
     const nextStepUrl = `${baseUrl}?${urlParams?.toString()}`;

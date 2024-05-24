@@ -13,7 +13,7 @@ function MapComponent({ selectedLocationss }) {
   useEffect(() => {
     const map1 = new window.google.maps.Map(document.getElementById("map"), {
       center: { lat: parseFloat(lat), lng: parseFloat(lng) },
-      zoom: 18,
+      zoom: 16,
     });
 
     const marker = new window.google.maps.Marker({
