@@ -381,7 +381,7 @@ const VehicleDetails = ({ nextStep }) => {
     totalAPIResponseCharges + getDeliveryCharge() + totalAddOnsPriceSimple();
 
   console.log(
-    `totalAPIResponseCharges ${totalAPIResponseCharges} + getDeliveryCharge ${getDeliveryCharge()} + totalAddOnsPriceSimple `
+    `totalAPIResponseCharges: ${totalAPIResponseCharges} + getDeliveryCharge ${getDeliveryCharge()} + totalAddOnsPriceSimple `
   );
 
   const taxTotal = Math.floor((5 * subTotalValue) / 100);
