@@ -19,11 +19,15 @@ const ResetPasswordPage = () => {
     e.preventDefault();
 
     let data = { password, passwordConfirm };
-
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    };
     try {
       let result = await axios.patch(
-        `http://localhost:8000/api/v1/customer/resetpassword/${token}`,
-        data
+        `${process.env.REACT_APP_MILELE_API_URL}/customer/resetpassword/${token}`,
+        data,
+        { headers }
       );
 
       console.log("Result in reset password page is: ", result);
@@ -56,7 +60,7 @@ const ResetPasswordPage = () => {
 
   return (
     <>
-    <HeaderCombination/>
+      <HeaderCombination />
       <section className="ftco-section">
         <div className="container pt-2">
           <div className="forgot-row justify-content-center">
@@ -150,7 +154,7 @@ const ResetPasswordPage = () => {
           </div>
         </div>
       </section>
-      <FooterCombination/>
+      <FooterCombination />
     </>
   );
 };

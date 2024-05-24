@@ -68,6 +68,11 @@ const LeaseNowFormDetails = ({
     setLoading(true);
     document.body.classList.add("loadings");
 
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    };
+
     const finalFormData = {
       ...formData,
       estCarPrice,
@@ -76,8 +81,9 @@ const LeaseNowFormDetails = ({
     };
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/leaseNowData/create`,
-        finalFormData
+        `${process.env.REACT_APP_MILELE_API_URL}/leaseNowData/create`,
+        finalFormData,
+        { headers }
       );
       console.log("lease Now details response is: --- ", response?.data);
       console.log(

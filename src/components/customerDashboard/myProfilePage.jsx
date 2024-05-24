@@ -18,9 +18,14 @@ const CustomerProfilePage = () => {
 
   useEffect(() => {
     const fetchCustomerBookingsDetails = async () => {
+      const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      };
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/additionalBooking/one/${id}`
+          `${process.env.REACT_APP_MILELE_API_URL}/additionalBooking/one/${id}`,
+          { headers }
         );
         setBookingDetails(response?.data?.data);
       } catch (error) {
@@ -35,11 +40,26 @@ const CustomerProfilePage = () => {
     <div>
       <div className="card-section">
         <h3>Booking Details</h3>
-        <BookingDetails label="Pickup Date" value={bookingDetails?.pickupDateTime} />
-        <BookingDetails label="Pickup Location" value={bookingDetails?.pickupLocation} />
-        <BookingDetails label="Return Date" value={bookingDetails?.returnDateTime} />
-        <BookingDetails label="Return Location" value={bookingDetails?.returnLocation} />
-        <BookingDetails label="Number of Booking Days" value={bookingDetails?.noOfBookingDays} />
+        <BookingDetails
+          label="Pickup Date"
+          value={bookingDetails?.pickupDateTime}
+        />
+        <BookingDetails
+          label="Pickup Location"
+          value={bookingDetails?.pickupLocation}
+        />
+        <BookingDetails
+          label="Return Date"
+          value={bookingDetails?.returnDateTime}
+        />
+        <BookingDetails
+          label="Return Location"
+          value={bookingDetails?.returnLocation}
+        />
+        <BookingDetails
+          label="Number of Booking Days"
+          value={bookingDetails?.noOfBookingDays}
+        />
       </div>
     </div>
   );

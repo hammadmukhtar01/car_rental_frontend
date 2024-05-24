@@ -16,10 +16,11 @@ const ForgotPasswordPage = () => {
 
     try {
       let result = await axios.post(
-        "http://localhost:8000/api/v1/customer/forgotpassword",
+        `${process.env.REACT_APP_MILELE_API_URL}/customer/forgotpassword`,
         { email: email },
         {
           headers: {
+            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
             Accept: "application/json",
           },

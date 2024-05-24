@@ -47,11 +47,15 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    };
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/customer/create",
-        formData
+        `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
+        formData,
+        { headers }
       );
       console.log("sign up response is: --- ", response?.data);
 
@@ -92,7 +96,7 @@ const SignupPage = () => {
 
   return (
     <>
-    <HeaderCombination/>
+      <HeaderCombination />
       <section className="ftco-section">
         <div className="container">
           <div className="login-row justify-content-center">
@@ -218,7 +222,7 @@ const SignupPage = () => {
           </div>
         </div>
       </section>
-      <FooterCombination/>
+      <FooterCombination />
     </>
   );
 };

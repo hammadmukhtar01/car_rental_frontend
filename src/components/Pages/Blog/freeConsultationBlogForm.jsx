@@ -18,7 +18,10 @@ const FreeConsultationForm = () => {
     e.preventDefault();
     console.log(`1---- Free cons form number: +${phoneNumber}`);
 
-    const parsedPhoneNumber = parsePhoneNumberFromString(`+${phoneNumber}`, country.name);
+    const parsedPhoneNumber = parsePhoneNumberFromString(
+      `+${phoneNumber}`,
+      country.name
+    );
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
       toast.error("Please enter a valid phone number.", {
         position: "top-right",
@@ -38,10 +41,16 @@ const FreeConsultationForm = () => {
     setLoading(true);
     document.body.classList.add("loadings");
 
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    };
+
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/freeConsultationForm/create`,
-        { customerName, phoneNumber }
+        `${process.env.REACT_APP_MILELE_API_URL}/freeConsultationForm/create`,
+        { customerName, phoneNumber },
+        { headers }
       );
       console.log(
         "freeConsultationForm response is: --- ",

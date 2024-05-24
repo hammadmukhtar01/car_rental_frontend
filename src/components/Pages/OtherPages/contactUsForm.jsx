@@ -56,11 +56,15 @@ const ContactUsForm = () => {
       console.log("Invalid Input.");
       return;
     }
-
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    };
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/contactUsForm/create`,
-        formData
+        `${process.env.REACT_APP_MILELE_API_URL}/contactUsForm/create`,
+        formData,
+        { headers }
       );
       console.log("Contact Us response is: --- ", response?.data);
 

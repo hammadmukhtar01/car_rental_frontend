@@ -19,11 +19,11 @@ const BookingDetails = () => {
   const navigate = useNavigate();
 
   const customer_info = JSON.parse(localStorage.getItem("user"));
-  const customer_token = customer_info?.token
-  const customer_id = customer_info?.data?._id
+  const customer_token = customer_info?.token;
+  const customer_id = customer_info?.data?._id;
   console.log(
     "User info of local storage in Booking details page is",
-   customer_info
+    customer_info
   );
 
   const car_id = id;
@@ -48,9 +48,14 @@ const BookingDetails = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      };
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/car/getSingleCar/${id}`
+          `${process.env.REACT_APP_MILELE_API_URL}/car/getSingleCar/${id}`,
+          { headers }
         );
         console.log("Vehicles Page data is: ", response?.data);
         setData(response?.data?.data);
@@ -65,43 +70,47 @@ const BookingDetails = () => {
   const handleBookingDetails = async (e) => {
     console.warn("Data: ");
     e.preventDefault();
-   
-      const data1 = {
-        customerId: customer_id,
-        carId: car_id,
-        noOfBookingDays: noOfBookingDays,
-        totalPrice: totalPriceValue,
-        pickupCarDetails: {
-          pickupDateTime: pickupDateTime,
-          pickupLocation: pickupLocation,
-        },
-        returnCarDetails: {
-          returnDateTime: returnDateTime,
-          returnLocation: returnLocation,
-        },
-        arrivalTime: arrivalTime,
-        returnTime: returnTime,
-        flightNumber: flightNumber,
-        driverName: driverName,
-        drivingLisence: drivingLisence,
-        comments: comments,
-      };
 
-      try {
-
+    const data1 = {
+      customerId: customer_id,
+      carId: car_id,
+      noOfBookingDays: noOfBookingDays,
+      totalPrice: totalPriceValue,
+      pickupCarDetails: {
+        pickupDateTime: pickupDateTime,
+        pickupLocation: pickupLocation,
+      },
+      returnCarDetails: {
+        returnDateTime: returnDateTime,
+        returnLocation: returnLocation,
+      },
+      arrivalTime: arrivalTime,
+      returnTime: returnTime,
+      flightNumber: flightNumber,
+      driverName: driverName,
+      drivingLisence: drivingLisence,
+      comments: comments,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    };
+    try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/additionalBooking/createadditionalBooking",
+        `${process.env.REACT_APP_MILELE_API_URL}/additionalBooking/createadditionalBooking`,
         data1,
+        { headers },
         {
           headers: {
-            "Content-Type": "application/json", 
+            "Content-Type": "application/json",
             Authorization: "Bearer " + customer_token,
           },
         }
       );
 
       console.log("Booking created successfully:", response?.data);
-      const bookingDetailsId = response?.data?.additionalBookingDetails?.additionalBookings?._id ;
+      const bookingDetailsId =
+        response?.data?.additionalBookingDetails?.additionalBookings?._id;
       console.log(`Booking details id is : ${bookingDetailsId}`);
       if (response?.status === 201) {
         console.log("Product created successfully");
@@ -114,7 +123,6 @@ const BookingDetails = () => {
     } catch (error) {
       console.error(`API error: ${error}`);
     }
-    
   };
 
   return (
@@ -135,7 +143,7 @@ const BookingDetails = () => {
         </div>
       </div>
       <br />
-      <div className="row" >
+      <div className="row">
         {/* Left Side - Col-9 */}
 
         <div className="col-lg-9 col-md-6">
@@ -381,7 +389,6 @@ const BookingDetails = () => {
                     onClick={handleBookingDetails}
                   >
                     Continue to Payment{" "}
-                    
                   </button>
                 </div>
               </div>
@@ -390,9 +397,7 @@ const BookingDetails = () => {
         </div>
 
         {/* Right Side - Col-3 */}
-        <div
-          className="col-lg-3 col-md-6 booking-price-evaluation-main-div"
-        >
+        <div className="col-lg-3 col-md-6 booking-price-evaluation-main-div">
           <div className="booking-price-evaluation">
             <div className="price-row" style={{ lineHeight: "300%" }}>
               <span className="price-label">Actual Price:</span>
@@ -421,7 +426,9 @@ const BookingDetails = () => {
             <hr />
 
             <div className="total-price-row" style={{ lineHeight: "100%" }}>
-              <span className="price-label"><b>Total Price:</b></span>
+              <span className="price-label">
+                <b>Total Price:</b>
+              </span>
               <span className="price-value">
                 {" "}
                 <b>{totalPriceValue}</b> | AED

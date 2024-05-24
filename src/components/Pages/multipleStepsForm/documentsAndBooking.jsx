@@ -142,8 +142,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       if (matchedDropoffLocation) {
         setDropoffLocationId(matchedDropoffLocation?.id);
       }
-
-  
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
@@ -152,8 +150,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   useEffect(() => {
     fetchAvailableLocationsData();
   }, [fetchAvailableLocationsData]);
-
-  
 
   const handleDrivingLicenseImgChange = (e) => {
     const file = e.target.files[0];
@@ -185,9 +181,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           fetchedRequiredImgUrl
         )}`
       );
-      setDrivingLicenseImg(fetchedRequiredImgUrl)
-
-    
+      setDrivingLicenseImg(fetchedRequiredImgUrl);
     } catch (error) {
       console.error("Error while creating img url of documents", error);
     }
@@ -500,7 +494,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       totalCharges: totalGrandPriceWithTax,
     };
 
-    
     console.log("Updated Booking Data:", bookingData);
     submitBooking(bookingData);
   };
@@ -558,7 +551,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const handleChange = (selectedOption) => {
     setSelectedNationality(selectedOption);
   };
-
 
   const handleDrivingLicenseChange = (selectedOption) => {
     setDrivingLicenseIssueBy(selectedOption);
@@ -671,7 +663,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           ],
           issuedBy: drivingLicenseIssueBy.label,
         },
-      
       ],
     };
 
@@ -680,7 +671,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   // Payment APIs
   const createInvoice = async () => {
-    const url = "http://localhost:8000/api/v1/invoice/createPaymentInvoice";
+    const headers = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    };
+    const url = `${process.env.REACT_APP_MILELE_API_URL}/invoice/createPaymentInvoice`;
     const body = {
       firstName: firstName,
       lastName: lastName,
@@ -710,7 +705,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
     console.log(`before hitting API, body is: `, body);
     try {
-      const response = await axios.post(url, body);
+      const response = await axios.post(url, body, { headers });
       console.log(`response of payment API is: `, response?.data);
 
       if (response?.data && response?.data?.status === "success") {
@@ -867,7 +862,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                     <div className="driver-details-form-container">
                       <div className=" form-group  pr-4">
                         <div className="">
-                          
                           <br />
                           <Row>
                             <Col xxl={4} lg={4} md={6} sm={8} xs={12}>

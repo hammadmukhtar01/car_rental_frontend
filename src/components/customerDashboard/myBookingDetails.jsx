@@ -13,9 +13,14 @@ const ResponsiveExample = () => {
 
   useEffect(() => {
     const fetchCustomerBookingsStatusData = async () => {
+      const headers = {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      };
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/booking/userSpecificAllBookings/${id}`
+          `${process.env.REACT_APP_MILELE_API_URL}/booking/userSpecificAllBookings/${id}`,
+          { headers }
         );
         setBookings(response?.data?.bookings);
       } catch (error) {
@@ -144,7 +149,7 @@ const ResponsiveExample = () => {
                   {isCardVisible && selectedBookingId === booking?._id && (
                     <tr>
                       <td colSpan={bookingStatusTableHeadings?.length}>
-                       <CustomerProfilePage/>
+                        <CustomerProfilePage />
                       </td>
                     </tr>
                   )}
