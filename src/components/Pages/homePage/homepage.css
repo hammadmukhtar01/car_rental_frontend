@@ -328,7 +328,6 @@
   letter-spacing: 1px;
 }
 
-
 .bg-img-container {
   position: relative;
   height: 40em;
@@ -377,6 +376,16 @@
 .form-control-consultation-number {
   height: 45px !important;
   border: 1px solid #e87a28 !important;
+  border-radius: 6px;
+  padding: 0px;
+  box-shadow: none;
+  font-size: 14px;
+  background-color: white !important;
+}
+
+.form-control-customer-number {
+  height: 45px !important;
+  border: 1px solid rgb(184, 184, 184) !important;
   border-radius: 6px;
   padding: 0px;
   box-shadow: none;

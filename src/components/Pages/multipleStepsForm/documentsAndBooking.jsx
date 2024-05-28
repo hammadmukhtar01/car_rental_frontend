@@ -6,6 +6,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import { useLocation } from "react-router-dom";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 import axios from "axios";
 import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
@@ -16,6 +19,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [contactNum, setContactNum] = useState("");
+  const [country, setCountry] = useState({ dialCode: "971", name: "UAE" });
   const [emailAddress, setEmailAddress] = useState("");
   const [nationality, setNationality] = useState("");
   // Driving License
@@ -679,10 +683,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       customerDetailsMissingFields?.push("Email Address");
     }
 
-    console.log(
-      "1-----customerDetailsMissingFields",
-      customerDetailsMissingFields
-    );
     if (customerDetailsMissingFields?.length > 0) {
       const errorMessage = `${customerDetailsMissingFields?.join(
         ", "
@@ -748,12 +748,25 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       airlineTicketNum,
       drivingLicenseNum
     );
+
+    const parsedPhoneNumber = parsePhoneNumberFromString(
+      `+${contactNum}`,
+      country.name
+    );
+    if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
+      toast.error("Please enter a valid phone number.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
     // Creating Customer Data
 
     const createCustomerData = {
       firstName: firstName,
       lastName: lastName,
-      mobileNo: contactNum,
+      mobileNo: `+${contactNum}`,
       email: emailAddress,
       identityDocuments: [
         {
@@ -927,13 +940,27 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   <b>Contact Number *</b>
                                 </label>
                               </div>
-                              <input
+                              {/* <input
                                 className="form-control-location mt-2 col-12"
                                 type="tel"
                                 required
                                 placeholder="Contact number"
                                 value={contactNum}
                                 onChange={(e) => setContactNum(e.target.value)}
+                              /> */}
+                              <PhoneInput
+                                className="form-control-customer-number mt-2 col-12"
+                                country={"ae"}
+                                name="phoneNumber"
+                                value={contactNum}
+                                placeholder="00 000 0000"
+                                showDropdown={false}
+                                disableDropdown={false}
+                                countryCodeEditable={true}
+                                onChange={(phone, country) => {
+                                  setContactNum(phone);
+                                  setCountry(country);
+                                }}
                               />
                             </Form.Group>
                           </Col>
