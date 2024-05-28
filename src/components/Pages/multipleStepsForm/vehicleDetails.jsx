@@ -36,6 +36,7 @@ const VehicleDetails = ({ nextStep }) => {
   const [selectedAddOn, setSelectedAddOn] = useState(null);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  // const [mileageInput, setMileageInput] = useState("");
 
   const carTypeInURL = useLocation();
   const queryParams = useMemo(
@@ -68,7 +69,7 @@ const VehicleDetails = ({ nextStep }) => {
       const response = await axios.post(url, data, { headers });
 
       setSingleVehicleDetails(response?.data?.result);
-      console.log("Complete Details of a cars is : ", response?.data?.result);
+      // console.log("Complete Details of a cars is : ", response?.data?.result);
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
@@ -113,8 +114,8 @@ const VehicleDetails = ({ nextStep }) => {
   const additionalFeaturesArray =
     singleVehicleDetails?.notes?.split(", ") || [];
 
-  const additionalFeaturesList = [...additionalFeaturesArray];
-  console.log(`additionalFeaturesList ${additionalFeaturesList}`);
+  // const additionalFeaturesList = [...additionalFeaturesArray];
+  // console.log(`additionalFeaturesList ${additionalFeaturesList}`);
 
   const carFeaturesWithIcons = [
     {
@@ -227,15 +228,15 @@ const VehicleDetails = ({ nextStep }) => {
         addOnsDetail:
           "Coverage providing personal accident insurance for the driver and passengers during the rental period.",
       },
-      {
-        id: 5,
-        addOnsName: "Mileage",
-        pricePerTrip: 0.5,
-        checkBoxValue: 0,
-        IconName: BsPersonCircle,
-        addOnsDetail:
-          "Additional miles beyond the standard limit included in the rental agreement, charged per mile/kilometer.",
-      },
+      // {
+      //   id: 5,
+      //   addOnsName: "Mileage",
+      //   pricePerTrip: 0.5,
+      //   checkBoxValue: 1,
+      //   IconName: BsPersonCircle,
+      //   addOnsDetail:
+      //     "Additional miles beyond the standard limit included in the rental agreement, charged per mile/kilometer.",
+      // },
       {
         id: 19,
         addOnsName: "Baby Seat",
@@ -319,7 +320,6 @@ const VehicleDetails = ({ nextStep }) => {
       }));
 
       setAddOnsValuesData(mergedAddOns?.filter((addOn) => addOn?.addOnsName));
-      console.log("Merged add-ons:", mergedAddOns);
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
@@ -333,6 +333,14 @@ const VehicleDetails = ({ nextStep }) => {
     setSelectedAddOn(addOn);
     setShowModal(true);
   };
+
+  // const handleMileageChange = (e) => {
+  //   console.log("mileage value is chnaged ", e.target.value);
+  //   const value = parseFloat(e.target.value);
+  //   if (!isNaN(value)) {
+  //     setMileageInput(value);
+  //   }
+  // };
 
   const handleCheckBoxChange = (id) => {
     setSelectedAddOns((prevSelectedAddOns) => {
@@ -353,6 +361,11 @@ const VehicleDetails = ({ nextStep }) => {
       const isCDWorPAI =
         addOn?.addOnsName === "CDW (Collision Damage Waiver)" ||
         addOn?.addOnsName === "PAI (Personal Accident Insurance)";
+      // console.log(`mileage Input is: ${mileageInput}`);
+
+      // const mileageCost =
+      //   addOn?.addOnsName === "Mileage" ? mileageInput * 0.5 : 0;
+      // console.log(`mileageCost is: ${mileageCost}`);
       return total + (addOn?.pricePerTrip || 0) * (isCDWorPAI ? totalDays : 1);
     }, 0);
   };
@@ -449,13 +462,8 @@ const VehicleDetails = ({ nextStep }) => {
   const subTotalValue =
     totalAPIResponseCharges + getDeliveryCharge() + totalAddOnsPriceSimple();
 
-  console.log(
-    `totalAPIResponseCharges: ${totalAPIResponseCharges} + getDeliveryCharge ${getDeliveryCharge()} + totalAddOnsPriceSimple `
-  );
-
   const taxTotal = Math.floor((5 * subTotalValue) / 100);
   const grandTotalPrice = subTotalValue + taxTotal;
-  console.log(`grandTotalPrice ${grandTotalPrice}`);
   const grandTotalDiscountedValue = () => {
     if (appliedCoupon) {
       const discountedValue = appliedCoupon?.value;
@@ -489,17 +497,11 @@ const VehicleDetails = ({ nextStep }) => {
       .map((addOn) => addOn.id)
       .join(",");
 
-    // const selectedAddOnsPrices = selectedAddOnsDetails
-    //   .map((addOn) => addOn.price)
-    //   .join(",");
-
     urlParams?.set("page", "2");
     urlParams?.set("totalNoOfDays", numberOfDays);
-    // urlParams?.set("pricePerDay", pricePerDayCalculation(numberOfDays));
     urlParams?.set("discountValue", grandTotalDiscountedValue());
     urlParams?.set("grandTotalCharges", grandTotalPriceWithDiscount);
     urlParams?.set("addOns", selectedAddOnsIds);
-    // urlParams.set("addOnsPrices", selectedAddOnsPrices);
     urlParams?.set("totalDeliveryCharges", getDeliveryCharge());
 
     const nextStepUrl = `${baseUrl}?${urlParams?.toString()}`;
@@ -716,6 +718,20 @@ const VehicleDetails = ({ nextStep }) => {
                                             </div>
                                           </Col>
                                           <Col lg={3} md={3} sm={3} xs={3}>
+                                            {/* {AddOnsDataValues?.addOnsName ===
+                                            "Mileage" ? (
+                                              <input
+                                                type="number"
+                                                autoComplete="off"
+                                                min={0}
+                                                placeholder="/km"
+                                                className="form-control form-control-contact-us"
+                                                id="kmValue"
+                                                name="kmValue"
+                                                value={mileageInput}
+                                                onChange={handleMileageChange}
+                                              />
+                                            ) : ( */}
                                             <div className="form-check form-switch form-switch-md float-end">
                                               <input
                                                 className="form-check-input add-ons-toggle-input"
@@ -729,6 +745,7 @@ const VehicleDetails = ({ nextStep }) => {
                                                 }
                                               />
                                             </div>
+                                            {/* )} */}
                                           </Col>
                                         </div>
                                       </Form.Group>
