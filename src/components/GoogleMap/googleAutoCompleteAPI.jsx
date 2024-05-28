@@ -51,12 +51,12 @@ const SearchLocationInput = ({
       ) {
         const arabicToEnglishMap = {
           الفجيرة: "Fujairah",
-          العين: "Al Ain",
           "أبو ظبي": "Abu Dhabi",
           دبي: "Dubai",
           "رأس الخيمة": "Ras Al Khaimah",
           الشارقة: "Sharjah",
           عجمان: "Ajman",
+          "أم القيوين": "Umm Al Quwain",
         };
 
         const state = place?.address_components?.find((component) =>

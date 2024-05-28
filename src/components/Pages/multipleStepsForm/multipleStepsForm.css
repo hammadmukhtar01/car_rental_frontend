@@ -460,10 +460,11 @@ code {
 }
 
 .add-on-container {
-  border: 1px solid rgb(198, 198, 198);
+  border: 1px solid rgb(223 223 223);
   border-radius: 8px;
   padding: 1px 20px;
-  margin: 5px 0px;
+  margin: 7px 0px;
+  background-color: white;
 }
 
 .add-ons-view-details {

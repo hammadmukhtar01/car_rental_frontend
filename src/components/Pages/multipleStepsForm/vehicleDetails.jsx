@@ -52,6 +52,7 @@ const VehicleDetails = ({ nextStep }) => {
   const dropoffLocStateParam = queryParams?.get("dropoffLocState");
   const checkBoxValueParam = queryParams?.get("checkBoxValue");
   const numberOfDays = queryParams?.get("noOfDays");
+  const calculatedVehiclePrice = parseInt(queryParams?.get("vehiclePrice"));
   const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
 
   const fetchSingleCarDetails = useCallback(async () => {
@@ -92,7 +93,11 @@ const VehicleDetails = ({ nextStep }) => {
     baseAPIResponsePath?.acrissCategory?.name;
   const carImg = baseAPIResponsePath?.displayImage?.url;
   const totalPrice = singleVehicleDetails?.charges?.[0]?.tariff?.[0]?.rate;
-  const totalAPIResponseCharges = totalPrice * numberOfDays;
+  const totalAPIResponseCharges =
+    calculatedVehiclePrice ?? totalPrice * numberOfDays;
+
+  const singleDayPriceCalculation =
+    parseFloat(calculatedVehiclePrice / numberOfDays).toFixed(2) ?? totalPrice;
 
   const carPassengerCapacity = baseAPIResponsePath?.passengerCapacity;
   const carManualAutomaticType =
@@ -156,39 +161,36 @@ const VehicleDetails = ({ nextStep }) => {
   const getUpdatedPrice = (addOn, numberOfDays, carCategory) => {
     switch (addOn.addOnsName) {
       case "CDW (Collision Damage Waiver)":
-        if (numberOfDays === 1) {
-          return carCategory === "HatchBack"
-            ? 20 
-            : 30;
-        } else if (numberOfDays > 1 && numberOfDays <= 7) {
-          return carCategory === "HatchBack"
-            ? 15 
-            : 20 ;
-        } else if (numberOfDays > 7) {
-          return carCategory === "HatchBack"
-            ? 10 
-            : 15;
+        if (numberOfDays >= 1 && numberOfDays < 7) {
+          return carCategory === "HatchBack" ? 20 : 30;
+        } else if (numberOfDays >= 7 && numberOfDays <= 21) {
+          return carCategory === "HatchBack" ? 15 : 20;
+        } else if (numberOfDays > 21) {
+          return carCategory === "HatchBack" ? 10 : 15;
         }
         break;
       case "Baby Seat":
-        if (numberOfDays === 1) return 20;
-        if (numberOfDays > 1 && numberOfDays <= 7) return 120;
-        if (numberOfDays > 7) return 400;
+        if (numberOfDays >= 1 && numberOfDays < 7) return 20;
+        if (numberOfDays >= 7 && numberOfDays <= 21)
+          return Math.round((120 / 7) * numberOfDays);
+        if (numberOfDays > 21) return Math.round((400 / 30) * numberOfDays);
         break;
       case "Mobile Holder":
-        if (numberOfDays === 1) return 5;
-        if (numberOfDays > 1 && numberOfDays <= 7) return 10;
-        if (numberOfDays > 7) return 20;
+        if (numberOfDays >= 1 && numberOfDays < 7) return 5;
+        if (numberOfDays >= 7 && numberOfDays <= 21)
+          return Math.round((10 / 7) * numberOfDays);
+        if (numberOfDays > 21) return Math.round((20 / 30) * numberOfDays);
         break;
       case "Sunshades":
-        if (numberOfDays === 1) return 10;
-        if (numberOfDays > 1 && numberOfDays <= 7) return 30;
-        if (numberOfDays > 7) return 50;
+        if (numberOfDays >= 1 && numberOfDays < 7) return 10;
+        if (numberOfDays >= 7 && numberOfDays <= 21)
+          return Math.round((30 / 7) * numberOfDays);
+        if (numberOfDays > 21) return Math.round((50 / 30) * numberOfDays);
         break;
       case "PAI (Personal Accident Insurance)":
-        if (numberOfDays === 1) return  15;
-        if (numberOfDays > 1 && numberOfDays <= 7) return 10;
-        if (numberOfDays > 7) return  5;
+        if (numberOfDays >= 1 && numberOfDays < 7) return 15;
+        if (numberOfDays >= 7 && numberOfDays <= 21) return 10;
+        if (numberOfDays > 21) return 5;
         break;
       default:
         return addOn.pricePerTrip;
@@ -228,7 +230,7 @@ const VehicleDetails = ({ nextStep }) => {
       {
         id: 5,
         addOnsName: "Mileage",
-        pricePerTrip: 50,
+        pricePerTrip: 0.5,
         checkBoxValue: 0,
         IconName: BsPersonCircle,
         addOnsDetail:
@@ -348,7 +350,10 @@ const VehicleDetails = ({ nextStep }) => {
 
   const totalAddOnsPriceSimple = () => {
     return selectedAddOns?.reduce((total, addOn) => {
-      return total + (addOn?.pricePerTrip || 0);
+      const isCDWorPAI =
+        addOn?.addOnsName === "CDW (Collision Damage Waiver)" ||
+        addOn?.addOnsName === "PAI (Personal Accident Insurance)";
+      return total + (addOn?.pricePerTrip || 0) * (isCDWorPAI ? totalDays : 1);
     }, 0);
   };
 
@@ -362,12 +367,13 @@ const VehicleDetails = ({ nextStep }) => {
 
   const deliveryCharges = {
     FUJAIRAH: 250,
-    "AL AIN": 200,
+    "AL AIN": 250,
     "ABU DHABI": 250,
     DUBAI: 50,
     "RAS AL KHAIMAH": 250,
     SHARJAH: 80,
     AJMAN: 80,
+    "Umm Al Quwain": 250,
   };
 
   const steps = [
@@ -474,25 +480,26 @@ const VehicleDetails = ({ nextStep }) => {
     const baseUrl = `/bookingPage/2`;
     const urlParams = new URLSearchParams(window.location.search);
 
-    const selectedAddOnsDetails = selectedAddOns.map(addOn => ({
+    const selectedAddOnsDetails = selectedAddOns.map((addOn) => ({
       id: addOn?.id,
-      price: addOn?.pricePerTrip
+      price: addOn?.pricePerTrip,
     }));
 
     const selectedAddOnsIds = selectedAddOnsDetails
-    .map(addOn => addOn.id)
-    .join(",");
-    
-  const selectedAddOnsPrices = selectedAddOnsDetails
-    .map(addOn => addOn.price)
-    .join(",");
+      .map((addOn) => addOn.id)
+      .join(",");
+
+    // const selectedAddOnsPrices = selectedAddOnsDetails
+    //   .map((addOn) => addOn.price)
+    //   .join(",");
 
     urlParams?.set("page", "2");
-    urlParams?.set("pricePerDay", totalPrice);
+    urlParams?.set("totalNoOfDays", numberOfDays);
+    // urlParams?.set("pricePerDay", pricePerDayCalculation(numberOfDays));
     urlParams?.set("discountValue", grandTotalDiscountedValue());
     urlParams?.set("grandTotalCharges", grandTotalPriceWithDiscount);
     urlParams?.set("addOns", selectedAddOnsIds);
-    urlParams.set("addOnsPrices", selectedAddOnsPrices);
+    // urlParams.set("addOnsPrices", selectedAddOnsPrices);
     urlParams?.set("totalDeliveryCharges", getDeliveryCharge());
 
     const nextStepUrl = `${baseUrl}?${urlParams?.toString()}`;
@@ -834,7 +841,7 @@ const VehicleDetails = ({ nextStep }) => {
                                   <div className="text-right">
                                     AED{" "}
                                     <span className="charges-value pl-1">
-                                      {totalPrice}
+                                      {singleDayPriceCalculation}
                                     </span>
                                   </div>
                                 </div>
@@ -849,8 +856,7 @@ const VehicleDetails = ({ nextStep }) => {
                                   <div className="text-right">
                                     AED{" "}
                                     <span className="charges-value pl-1">
-                                      {/* {totalAPIResponseCharges} */}
-                                      {`${totalPrice * numberOfDays}`}
+                                      {totalAPIResponseCharges}
                                     </span>
                                   </div>
                                 </div>

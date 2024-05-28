@@ -71,6 +71,7 @@ const VehiclesPage = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedCarTypes, setSelectedCarTypes] = useState([]);
   const [carCategoriesData, setCarCategoriesData] = useState([]);
+  const [tariffLines, setTariffLines] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pickupLocationMessage, setPickupLocationMessage] = useState(
     pickupLocParam || ""
@@ -186,11 +187,7 @@ const VehiclesPage = () => {
     showDropoffV1: 0,
   });
 
-  useEffect(() => {
-    console.log(
-      `useeffect useeffect useeffect dropoffLocationMessage useeffect is : ${dropoffLocationMessage}`
-    );
-  }, [dropoffLocationMessage]);
+  useEffect(() => {}, [dropoffLocationMessage]);
 
   useEffect(() => {
     const pickupTimeParam = queryParams.get("pickupTime");
@@ -315,6 +312,30 @@ const VehiclesPage = () => {
     return timeDifference >= 60;
   };
 
+  const fetchVehicleRentRates = useCallback(async (tariffGroupId) => {
+    try {
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+      const url = `https://app.speedautosystems.com/api/services/app/tariff/GetTariffForEdit`;
+      const response = await axios.post(
+        url,
+        { TariffGroupId: tariffGroupId },
+        { headers }
+      );
+
+      const tariffLines =
+        response?.data?.result?.tariffLines?.items.slice(0, 3) || [];
+
+      return tariffLines;
+    } catch (error) {
+      console.error("Error fetching vehicle rates:", error);
+      return [];
+    }
+  }, []);
+
   const fetchCarsData = useCallback(async () => {
     try {
       const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
@@ -332,16 +353,65 @@ const VehiclesPage = () => {
       const response = await axios.post(url, {}, { headers });
       const titles = response?.data?.result?.items?.map((item) => item?.title);
       setCarType(titles);
+      const cars = response?.data?.result?.items || [];
+      // console.log("Fetched cars data:", cars);
 
-      setCarsData(response?.data?.result?.items);
+      setCarsData(cars);
+
+      const tariffPromises = cars.map((car) =>
+        fetchVehicleRentRates(car.tariffGroupId)
+      );
+      const tariffs = await Promise.all(tariffPromises);
+      const tariffMap = {};
+      cars.forEach((car, index) => {
+        tariffMap[car.tariffGroupId] = tariffs[index];
+      });
+      // console.log("Tariff lines map:", tariffMap);
+
+      setTariffLines(tariffMap);
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
-  }, [dateRange]);
+  }, [dateRange, fetchVehicleRentRates]);
 
   useEffect(() => {
     fetchCarsData();
   }, [dateRange, fetchCarsData]);
+
+  const calculateRent = (rate, rateType, days) => {
+    let calculatedRate = 0;
+    if (days > 1 && days < 7) {
+      calculatedRate = rate * days;
+    } else if (days >= 7 && days <= 21) {
+      calculatedRate = (rate * days) / 7;
+    } else if (days > 21) {
+      calculatedRate = (rate * days) / 30;
+    }
+    return Math.round(calculatedRate * 100) / 100;
+  };
+
+  const renderVehiclePrices = (tariffGroupId) => {
+    const days = numberOfDays;
+
+    const tariffs = tariffLines[tariffGroupId] || [];
+
+    let index;
+    if (days > 1 && days < 7) {
+      index = 0;
+    } else if (days >= 7 && days <= 21) {
+      index = 1;
+    } else if (days > 21) {
+      index = 2;
+    }
+
+    const line = tariffs[index];
+    if (!line) {
+      return 0;
+    }
+    const totalPrice = calculateRent(line.rate, line.rateType.name, days);
+
+    return Math.round(totalPrice);
+  };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const categoryMap = {
@@ -566,7 +636,8 @@ const VehiclesPage = () => {
     tariffGroupId,
     vehicleName,
     startDate,
-    endDate
+    endDate,
+    calculatedVehiclePrice
   ) => {
     const missingFields = [];
     if (!pickupLocationMessage) {
@@ -617,11 +688,8 @@ const VehiclesPage = () => {
       return;
     }
 
-    console.log("dshowDropoff value is: ", showDropoff);
-    console.log("All Cars Booking Button");
-
     navigate(
-      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}&dropoffLocState=${dropoffLocStateValue}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}`
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}&dropoffLocState=${dropoffLocStateValue}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}&vehiclePrice=${calculatedVehiclePrice}`
     );
   };
 
@@ -768,11 +836,11 @@ const VehiclesPage = () => {
     pickUpTime,
     dropOffTime
   ) => {
-    console.log(` In calcuaktion function \n\n
-      startDate,  ${startDate}\n
-      endDate, ${endDate}\n
-      pickUpTime, ${pickUpTime}\n
-      dropOffTime, ${dropOffTime}\n  `);
+    // console.log(` In calcuaktion function \n\n
+    //   startDate,  ${startDate}\n
+    //   endDate, ${endDate}\n
+    //   pickUpTime, ${pickUpTime}\n
+    //   dropOffTime, ${dropOffTime}\n  `);
 
     const [startHour, startMinute] = pickUpTime?.split(/[: ]/);
     const [endHour, endMinute] = dropOffTime?.split(/[: ]/);
@@ -802,15 +870,12 @@ const VehiclesPage = () => {
   };
 
   useEffect(() => {
-    console.log(`
-  testing useeffect`);
-
     if (startDate && endDate && pickUpTime && dropOffTime) {
-      console.log(`
-      startDate,  ${startDate}\n
-      endDate, ${endDate}\n
-      pickUpTime, ${pickUpTime}\n
-      dropOffTime, ${dropOffTime}\n  `);
+      // console.log(`
+      // startDate,  ${startDate}\n
+      // endDate, ${endDate}\n
+      // pickUpTime, ${pickUpTime}\n
+      // dropOffTime, ${dropOffTime}\n  `);
 
       const totalDays = calculateNumberOfDays(
         startDate,
@@ -1541,6 +1606,10 @@ const VehiclesPage = () => {
                                     <button
                                       className="map-loc-middle"
                                       onClick={() => {
+                                        const vehiclePrice =
+                                          renderVehiclePrices(
+                                            car.tariffGroupId
+                                          );
                                         console.log(
                                           `--------------------------Start date is ---- ${datePickerStartDate} \n End Date is ---- ${datePickerEndDate}`
                                         );
@@ -1552,7 +1621,8 @@ const VehiclesPage = () => {
                                             ] || car?.acrissCategory?.name
                                           }`,
                                           datePickerStartDate,
-                                          datePickerEndDate
+                                          datePickerEndDate,
+                                          vehiclePrice
                                         );
                                       }}
                                     >
@@ -1562,12 +1632,17 @@ const VehiclesPage = () => {
                                             Pay Now{" "}
                                             <span className="pay-now-price-md-lg">
                                               <span>|</span> AED:{" "}
-                                              {car?.rate * numberOfDays} |{" "}
-                                              {numberOfDays} day(s)
+                                              {renderVehiclePrices(
+                                                car.tariffGroupId
+                                              )}{" "}
+                                              | {numberOfDays} day(s)
                                             </span>
                                             <div className="pay-now-price-xs">
-                                              AED: {car?.rate * numberOfDays} |{" "}
-                                              {numberOfDays} day(s)
+                                              AED:{" "}
+                                              {renderVehiclePrices(
+                                                car.tariffGroupId
+                                              )}{" "}
+                                              | {numberOfDays} day(s)
                                             </div>
                                           </span>
                                         </span>

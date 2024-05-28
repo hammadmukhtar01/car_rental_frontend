@@ -44,6 +44,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   );
   const TariffGroupIdParam = parseInt(queryParams?.get("tariffGroupId"));
   const TariffVehicleNameParam = queryParams?.get("vehicleName");
+  console.log(`TariffVehicleNameParam ${TariffVehicleNameParam}`);
+  const vehicleType = TariffVehicleNameParam.split("-")[1]?.trim();
+  console.log(`vehicleType ${vehicleType}`);
+
   const addOnsFromUrl = queryParams?.get("addOns").split(",").map(Number);
 
   const startDateValue = queryParams?.get("startDate");
@@ -63,7 +67,12 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   dropoffDateTime.setMinutes(parseInt(dropoffMinute, 10));
   const dropoffDateTimeISO = dropoffDateTime?.toISOString();
 
-  const pricePerDayParam = parseInt(queryParams?.get("pricePerDay"));
+  const vehiclePriceParam = parseInt(queryParams?.get("vehiclePrice"));
+  const numberOfDays = queryParams?.get("totalNoOfDays");
+  const vehiclePricePerDay = parseFloat(
+    vehiclePriceParam / numberOfDays
+  ).toFixed(2);
+
   const discountedValueParam = queryParams?.get("discountValue");
   const totalGrandPriceParam = queryParams?.get("grandTotalCharges");
   const deliveryChargesParam = parseInt(
@@ -71,6 +80,13 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   );
 
   const totalGrandPriceWithTax = parseInt(totalGrandPriceParam);
+
+  const totalGrandPriceWithoutTax = totalGrandPriceWithTax / (1 + 0.05);
+  const taxValue = parseFloat(
+    (totalGrandPriceWithTax - totalGrandPriceWithoutTax).toFixed(2)
+  );
+
+  console.log(`taxValue ${taxValue}`);
 
   const pickupLocParam = queryParams?.get("pickupLoc");
   const dropoffLocParam = queryParams?.get("dropoffLoc");
@@ -283,6 +299,73 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       totalGrandPriceWithTax
     );
 
+    const getUpdatedPrice = (addOn, numberOfDays, carCategory) => {
+      switch (addOn?.addOnsName) {
+        case "CDW (Collision Damage Waiver)":
+          console.log("In CDW add on numberOfDays", numberOfDays);
+          if (numberOfDays >= 1 && numberOfDays < 7) {
+            console.log(
+              `carCategory === "HatchBack" ? 20 : 30; ${carCategory}`
+            );
+            return carCategory === "HatchBack" ? 20 : 30;
+          } else if (numberOfDays >= 7 && numberOfDays <= 21) {
+            console.log(
+              `carCategory === "HatchBack" ? 20 : 30; ${carCategory}`
+            );
+
+            return carCategory === "HatchBack" ? 15 : 20;
+          } else if (numberOfDays > 21) {
+            console.log(
+              `carCategory === "HatchBack" ? 20 : 30; ${carCategory}`
+            );
+
+            return carCategory === "HatchBack" ? 10 : 15;
+          }
+          break;
+        case "Baby Seat":
+          console.log("In baby seat add on", numberOfDays);
+          if (numberOfDays >= 1 && numberOfDays < 7) return 20;
+          if (numberOfDays >= 7 && numberOfDays <= 21)
+            return Math.round((120 / 7) * numberOfDays);
+          if (numberOfDays > 21) return Math.round((400 / 30) * numberOfDays);
+          break;
+        case "Mobile Holder":
+          console.log("In mobile holder add on", numberOfDays);
+          if (numberOfDays >= 1 && numberOfDays < 7) return 5;
+          if (numberOfDays >= 7 && numberOfDays <= 21)
+            return Math.round((10 / 7) * numberOfDays);
+          if (numberOfDays > 21) return Math.round((20 / 30) * numberOfDays);
+          break;
+        case "Sunshades":
+          console.log("In sunshade add on");
+          if (numberOfDays >= 1 && numberOfDays < 7) return 10;
+          if (numberOfDays >= 7 && numberOfDays <= 21)
+            return Math.round((30 / 7) * numberOfDays);
+          if (numberOfDays > 21) return Math.round((50 / 30) * numberOfDays);
+          break;
+        case "PAI (Personal Accident Insurance)":
+          console.log("In PAI add on", numberOfDays);
+          if (numberOfDays >= 1 && numberOfDays < 7) {
+            console.log(`PAI === ; ${numberOfDays}`);
+
+            return 15;
+          }
+          if (numberOfDays >= 7 && numberOfDays <= 21) {
+            console.log(`PAI === ; ${numberOfDays}`);
+
+            return 10;
+          }
+          if (numberOfDays > 21) {
+            console.log(`PAI === ; ${numberOfDays}`);
+
+            return 5;
+          }
+          break;
+        default:
+          return addOn.pricePerTrip;
+      }
+    };
+
     const charges = [
       {
         accepted: true,
@@ -292,7 +375,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           },
         ],
         chargesTypeId: 1,
-        rate: pricePerDayParam,
+        rate: vehiclePricePerDay,
         rateTypeId: 1,
       },
       // 1 below
@@ -304,7 +387,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           },
         ],
         chargesTypeId: 2,
-        rate: 10,
+        rate: getUpdatedPrice(
+          { addOnsName: "CDW (Collision Damage Waiver)" },
+          numberOfDays,
+          TariffVehicleNameParam
+        ),
         rateTypeId: 1,
       },
       // 2 Below
@@ -316,7 +403,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           },
         ],
         chargesTypeId: 3,
-        rate: 20,
+        rate: getUpdatedPrice(
+          { addOnsName: "PAI (Personal Accident Insurance)" },
+          numberOfDays,
+          TariffVehicleNameParam
+        ),
         rateTypeId: 1,
       },
       {
@@ -326,27 +417,19 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             id: 97439,
           },
         ],
-        chargesTypeId: 4,
-        rate: 30,
+        chargesTypeId: 4, // Fuel
+        rate: 0,
         rateTypeId: 1,
       },
       // 4 Below
       {
         accepted: addOnsFromUrl?.includes(5),
         tariff: [],
-        chargesTypeId: 5,
-        rate: 40,
+        chargesTypeId: 5, // Milage
+        rate: 0.5,
         rateTypeId: 5,
       },
       // 5 Below
-      {
-        accepted: addOnsFromUrl?.includes(28),
-        tariff: [],
-        chargesTypeId: 28,
-        rate: 150,
-        rateTypeId: 6,
-      },
-      // 6 Below
       {
         accepted: true,
         tariff: [
@@ -354,8 +437,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             id: 97443,
           },
         ],
-        chargesTypeId: 26,
+        chargesTypeId: 26, // DeliveryCharges
         rate: deliveryChargesParam,
+        rateTypeId: 6,
+      },
+      // 6 Below
+
+      {
+        accepted: addOnsFromUrl?.includes(28),
+        tariff: [],
+        chargesTypeId: 28, // DamageCharges
+        rate: 0,
         rateTypeId: 6,
       },
       // 7 below
@@ -366,8 +458,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             id: 97446,
           },
         ],
-        chargesTypeId: 7,
-        rate: 70,
+        chargesTypeId: 7, // Tolls
+        rate: 0,
         rateTypeId: 6,
       },
       // 8 Below
@@ -375,7 +467,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         accepted: addOnsFromUrl?.includes(19),
         tariff: [],
         chargesTypeId: 19,
-        rate: 130,
+        rate: getUpdatedPrice(
+          { addOnsName: "Baby Seat" },
+          numberOfDays,
+          TariffVehicleNameParam
+        ),
         rateTypeId: 6,
       },
       // 9 Below
@@ -386,8 +482,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             id: 97448,
           },
         ],
-        chargesTypeId: 73,
-        rate: 90,
+        chargesTypeId: 73, // DarbTolls
+        rate: 0,
         rateTypeId: 6,
       },
       // 10 Below
@@ -398,8 +494,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             id: 97449,
           },
         ],
-        chargesTypeId: 74,
-        rate: 100,
+        chargesTypeId: 74, // DarbTollsSurcharge
+        rate: 0,
         rateTypeId: 6,
       },
       // 11 Below
@@ -410,8 +506,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             id: 97450,
           },
         ],
-        chargesTypeId: 8,
-        rate: 110,
+        chargesTypeId: 8, // Fines
+        rate: 0,
         rateTypeId: 6,
       },
       // 12 Below
@@ -422,16 +518,16 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             id: 97451,
           },
         ],
-        chargesTypeId: 34,
-        rate: 120,
+        chargesTypeId: 34, // FinesSurcharge
+        rate: 0,
         rateTypeId: 6,
       },
       // 13 Below
       {
         accepted: addOnsFromUrl?.includes(67),
         tariff: [],
-        chargesTypeId: 67,
-        rate: 140,
+        chargesTypeId: 67, // AirportsurchargesCharges
+        rate: 120,
         rateTypeId: 6,
       },
       // 14 Below
@@ -445,7 +541,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         ],
         // Extra1Charges -> Tint
         chargesTypeId: 54,
-        rate: 50,
+        rate: 150,
         rateTypeId: 6,
       },
       // 15 Below
@@ -454,7 +550,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         tariff: [],
         // Extra2Charges -> Mobile Holder
         chargesTypeId: 55,
-        rate: 150,
+        rate: getUpdatedPrice(
+          { addOnsName: "Mobile Holder" },
+          numberOfDays,
+          TariffVehicleNameParam
+        ),
         rateTypeId: 6,
       },
       // 16 Below
@@ -463,7 +563,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         tariff: [],
         // Extra3Charges -> Sunshades
         chargesTypeId: 58,
-        rate: 150,
+        rate: getUpdatedPrice(
+          { addOnsName: "Sunshades" },
+          numberOfDays,
+          TariffVehicleNameParam
+        ),
         rateTypeId: 6,
       },
     ];
@@ -494,6 +598,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       locationId: pickupLocationId,
       notes: pickdropCombineLoc,
       tariffGroupId: TariffGroupIdParam,
+      isTaxApplicable: false,
+      isTaxExempted: false,
+      tax: taxValue,
       taxPercent: 5,
       totalCharges: totalGrandPriceWithTax,
     };
@@ -724,8 +831,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         });
         console.log("Invoice Created, Payment URL:", response?.data?.status);
         setPaymentUrl(response?.data?.status);
-        const nextStepUrl = `/bookingPage/3&booking-success`;
-        window.location.href = nextStepUrl;
+        // const nextStepUrl = `/bookingPage/3&booking-success`;
+        // window.location.href = nextStepUrl;
       }
     } catch (error) {
       console.error("Failed to create invoice:", error);
