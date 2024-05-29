@@ -44,7 +44,7 @@ const SearchLocationInput = ({
       document.createElement("div")
     );
     service.getDetails({ placeId, language: "en" }, (place, status) => {
-      console.log("Place details response:", place);
+      // console.log("Place details response:", place);
       if (
         status === window.google.maps.places.PlacesServiceStatus.OK &&
         place

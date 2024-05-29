@@ -15,6 +15,8 @@ function PickupLocationModal({
   initialSelectedLocation,
   initialInputFieldValue,
   handleInputFieldChange,
+  onSelectTabChange,
+  onStateChange 
 }) {
   const [selectedLocationss, setSelectedLocationss] = useState({
     lat: 25.17411857864891,
@@ -26,17 +28,10 @@ function PickupLocationModal({
     lng: 55.37378222448372,
   });
 
-  console.log(
-    "initialInputFieldValue:--12121212121-- ",
-    initialInputFieldValue
-  );
   const [selectedTab, setSelectedTab] = useState("");
 
-  const [selectedLocationName] = useState(initialInputFieldValue || "");
-  const [pickupLocationState] = useState("");
+  const [pickupLocationState, setPickupLocationState] = useState("");
   const [deliverToAddressValue] = useState("");
-
-  console.log("Old loc is: ", selectedLocationName);
 
   const handleFocus = (e) => {
     const inputGroup = e.target.closest(".inputgroup");
@@ -75,6 +70,7 @@ function PickupLocationModal({
     if (tab === "deliver") {
       handleFieldChange("pickupLocationStateV1");
     }
+    onSelectTabChange(tab);
   };
 
   const { formFields, handleFieldChange } = UseGlobalFormFields({
@@ -106,7 +102,7 @@ function PickupLocationModal({
         toast.error(errorMessage, {
           autoClose: 3000,
           style: {
-            color: "#e87a28",
+            color: "black",
             border: "1px solid #c0c0c0",
             fontWeight: "400",
             fontSize: "14px",
@@ -116,12 +112,11 @@ function PickupLocationModal({
       }
     }
     let message = "";
-    console.log("Selected tab Value is-------:", selectedTab);
     if (selectedTab === "deliver") {
       message = `${formFields.deliveryMapLocPickUp || ""}`;
-      console.log("1---Messg before update value...", message);
       handleFieldChange("deliveryMapLocPickUp", message);
     } else if (selectedTab === "pick") {
+      handleFieldChange("deliveryMapLocPickUp", "");
       message = `Ras Al Khor - Milele Showroom 11`;
       handleFieldChange("pickupInputMessageV1", message);
       handleFieldChange("pickupLocationStateV1", "Dubai");
@@ -133,13 +128,11 @@ function PickupLocationModal({
     if (formFields) {
       if (formFields?.selectedTabPickUp === "pick") {
         updatePickupLocationMessage(
-          formFields?.pickupInputMessageV1 ||
-            "Ras Al Khor - Milele Showroom 11"
+          formFields?.pickupInputMessageV1 || "Ras Al Khor - Milele Showroom 11"
         );
       } else {
         updatePickupLocationMessage(
-          formFields?.deliveryMapLocPickUp ||
-            "Ras Al Khor - Milele Showroom 11"
+          formFields?.deliveryMapLocPickUp || "Ras Al Khor - Milele Showroom 11"
         );
       }
     }
@@ -151,6 +144,8 @@ function PickupLocationModal({
 
   const handleStateChange = (stateName) => {
     handleFieldChange("pickupLocationStateV1", stateName);
+    setPickupLocationState(stateName); 
+    onStateChange(stateName);
   };
 
   return (

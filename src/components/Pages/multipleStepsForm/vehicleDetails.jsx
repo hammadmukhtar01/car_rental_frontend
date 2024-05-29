@@ -53,9 +53,13 @@ const VehicleDetails = ({ nextStep }) => {
   const dropoffLocStateParam = queryParams?.get("dropoffLocState");
   const checkBoxValueParam = queryParams?.get("checkBoxValue");
   const numberOfDays = queryParams?.get("noOfDays");
+  const pickupLocTabValue = queryParams?.get("pickupLocSelectedTab");
+  const DropoffLocTabValue = queryParams?.get("dropoffLocSelectedTab");
   const calculatedVehiclePrice = parseInt(queryParams?.get("vehiclePrice"));
   const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
-
+  console.log(
+    `pickupLocTabValue values: ${pickupLocTabValue}\nDropoffLocTabValue values: ${DropoffLocTabValue}`
+  );
   const fetchSingleCarDetails = useCallback(async () => {
     let data = { TariffGroupId, StartDateTime, ReturnDateTime };
     try {
@@ -446,15 +450,28 @@ const VehicleDetails = ({ nextStep }) => {
   const getDeliveryCharge = () => {
     const selectedStatePickup = pickupLocStateParam?.toUpperCase();
     const selectedStateDropoff = dropoffLocStateParam?.toUpperCase();
+    let pickupCharge = 0;
+    let dropoffCharge = 0;
 
-    const pickupCharge =
-      deliveryCharges[selectedStatePickup] !== undefined
-        ? deliveryCharges[selectedStatePickup]
-        : 50;
-    const dropoffCharge =
-      deliveryCharges[selectedStateDropoff] !== undefined
-        ? deliveryCharges[selectedStateDropoff]
-        : 50;
+    if (pickupLocTabValue.toUpperCase() === "DELIVER") {
+      pickupCharge =
+        deliveryCharges[selectedStatePickup] !== undefined
+          ? deliveryCharges[selectedStatePickup]
+          : 50;
+      console.log(
+        `pickup selected tab: ${selectedStatePickup} has charges: ${pickupCharge}`
+      );
+    }
+
+    if (DropoffLocTabValue.toUpperCase() === "DELIVER") {
+      dropoffCharge =
+        deliveryCharges[selectedStateDropoff] !== undefined
+          ? deliveryCharges[selectedStateDropoff]
+          : 50;
+      console.log(
+        `Dropoff selected tab: ${selectedStateDropoff} has charges: ${dropoffCharge}`
+      );
+    }
 
     return pickupCharge + dropoffCharge;
   };
@@ -574,7 +591,7 @@ const VehicleDetails = ({ nextStep }) => {
                               <div className="carousel-container">
                                 <img
                                   src={carImg}
-                                  alt={`Car-1`}
+                                  alt={``}
                                   className="car-image-1"
                                   onClick={handleImageClick}
                                 />
@@ -1086,7 +1103,7 @@ const VehicleDetails = ({ nextStep }) => {
               isOpen={isModalOpen}
               onClose={handleCloseModal}
               imageSrc={carImg}
-              alt="Car-1"
+              alt=""
             />
           </>
         </Container>

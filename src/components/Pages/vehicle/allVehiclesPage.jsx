@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, {
   useState,
@@ -54,10 +55,30 @@ const VehiclesPage = () => {
   const endDateParam = queryParams?.get("endDate");
   const carCategoryParam = queryParams?.get("carCategory");
 
+  const pickupLocStateParam = queryParams?.get("pickupLocState");
+  const dropoffLocStateParam = queryParams?.get("dropoffLocState");
+  const pickupLocTabValueParam = queryParams?.get("pickupLocSelectedTab");
+  const DropoffLocTabValueParam = queryParams?.get("dropoffLocSelectedTab");
+
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
   const [showDropoff, setShowDropoff] = useState(false);
   const [pickUpDate, setPickUpDate] = useState("");
+  const [pickupSelectedTab, setPickupSelectedTab] = useState(
+    pickupLocTabValueParam || ""
+  );
+  const [dropoffSelectedTab, setDropoffSelectedTab] = useState(
+    DropoffLocTabValueParam || ""
+  );
+  const [pickupStateValueProp, setPickupStateValueProp] = useState(
+    pickupLocStateParam || "DUBAI"
+  );
+  const [dropoffStateValueProp, setDropoffStateValueProp] = useState(
+    dropoffLocStateParam || "DUBAI"
+  );
+
+  const [loading, setLoading] = useState(true);
+  const [validPrice, setValidPrice] = useState(false);
 
   const [pickUpTime, setPickUpTime] = useState("");
   const [dropOffDate, setDropOffDate] = useState("");
@@ -74,14 +95,12 @@ const VehiclesPage = () => {
   const [tariffLines, setTariffLines] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pickupLocationMessage, setPickupLocationMessage] = useState(
-    pickupLocParam || ""
+    pickupLocParam ?? ""
   );
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState(
-    dropoffLocParam || ""
+    dropoffLocParam ?? ""
   );
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
-  const [pickupLocStateValue, setPickupLocStateValue] = useState("DUBAI");
-  const [dropoffLocStateValue, setDropoffLocStateValue] = useState("DUBAI");
 
   const [showPickupModal, setShowPickupModal] = useState(false);
   const [showDropoffModal, setShowDropoffModal] = useState(false);
@@ -102,29 +121,17 @@ const VehiclesPage = () => {
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  useEffect(() => {
+  const localStorageDataCalculation = () => {
     const reqLocalStorageData = localStorage?.getItem("formFields");
     if (reqLocalStorageData) {
       const storedFormFields = JSON.parse(reqLocalStorageData);
-      console.log("Stored date range is: ", storedFormFields);
-      let storedStartDateRange;
-      let storedEndDateRange;
-      let pickupLocMainInput;
-      let dropoffLocMainInput;
-      let pickupLocTabV1;
-      let dropoffLocTabV1;
-      let checkBoxStoredValue;
+      let storedStartDateRange, storedEndDateRange;
 
       if (storedFormFields) {
-        checkBoxStoredValue = storedFormFields?.showDropoffV1 === 1;
-        console.log(
-          "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
-          checkBoxStoredValue
-        );
-        setShowDropoff(checkBoxStoredValue);
+        setShowDropoff(storedFormFields?.showDropoffV1 === 1);
 
-        pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
-        dropoffLocTabV1 = storedFormFields?.selectedTabDropOff;
+        const pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
+        const dropoffLocTabV1 = storedFormFields?.selectedTabDropOff;
 
         if (storedFormFields?.dateRangeV1) {
           storedStartDateRange = new Date(
@@ -143,27 +150,43 @@ const VehiclesPage = () => {
         }
 
         if (pickupLocTabV1 === "pick") {
-          pickupLocMainInput = storedFormFields?.pickupInputMessageV1;
           setPickupLocationMessage(
-            pickupLocMainInput ? pickupLocMainInput : ""
+            storedFormFields?.pickupInputMessageV1 || ""
           );
         } else if (pickupLocTabV1 === "deliver") {
-          pickupLocMainInput = storedFormFields?.deliveryMapLocPickUp;
           setPickupLocationMessage(
-            pickupLocMainInput ? pickupLocMainInput : ""
+            storedFormFields?.deliveryMapLocPickUp || ""
           );
         }
+
         if (dropoffLocTabV1 === "pick") {
-          dropoffLocMainInput = storedFormFields?.dropoffInputMessageV1;
-          setDropoffLocationMessage(dropoffLocMainInput);
+          setDropoffLocationMessage(
+            storedFormFields?.dropoffInputMessageV1 || ""
+          );
         } else if (dropoffLocTabV1 === "deliver") {
-          dropoffLocMainInput = storedFormFields?.deliveryMapLocDropOff;
-          setDropoffLocationMessage(dropoffLocMainInput);
+          setDropoffLocationMessage(
+            storedFormFields?.deliveryMapLocDropOff || ""
+          );
         }
-        const storedPickUpTime = storedFormFields?.pickTimeV1 || "";
-        setPickUpTime(storedPickUpTime);
-        const storedDropOffTime = storedFormFields?.dropTimeV1 || "";
-        setDropOffTime(storedDropOffTime);
+
+        setPickUpTime(storedFormFields?.pickTimeV1 || "");
+        setDropOffTime(storedFormFields?.dropTimeV1 || "");
+        setPickupSelectedTab(
+          storedFormFields?.selectedTabPickUp || pickupLocTabValueParam || ""
+        );
+        setDropoffSelectedTab(
+          storedFormFields?.selectedTabDropOff || DropoffLocTabValueParam || ""
+        );
+        setPickupStateValueProp(
+          storedFormFields?.pickupLocationStateV1 ||
+            pickupLocStateParam ||
+            "DUBAI"
+        );
+        setDropoffStateValueProp(
+          storedFormFields?.dropoffLocationStateV1 ||
+            dropoffLocStateParam ||
+            "DUBAI"
+        );
       }
 
       setDateRange([
@@ -176,6 +199,11 @@ const VehiclesPage = () => {
         },
       ]);
     }
+  };
+
+  useEffect(() => {
+    localStorageDataCalculation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const navigate = useNavigate();
@@ -195,16 +223,9 @@ const VehiclesPage = () => {
       setPickUpTime(pickupTimeParam);
     }
     if (showDropoff === false) {
-      setDropoffLocStateValue(pickupLocStateValue);
       setDropoffLocationMessage(dropoffLocationMessage);
     }
-  }, [
-    queryParams,
-    pickUpTime,
-    showDropoff,
-    pickupLocStateValue,
-    dropoffLocationMessage,
-  ]);
+  }, [queryParams, pickUpTime, showDropoff, dropoffLocationMessage]);
 
   const handlePickUpTimeChange = (selectedOption) => {
     setPickUpTime(selectedOption?.value);
@@ -366,11 +387,18 @@ const VehiclesPage = () => {
       cars.forEach((car, index) => {
         tariffMap[car.tariffGroupId] = tariffs[index];
       });
-      // console.log("Tariff lines map:", tariffMap);
 
       setTariffLines(tariffMap);
+
+      const allPricesValid = cars.every(
+        (car) => renderVehiclePrices(car.tariffGroupId) > 0
+      );
+      setValidPrice(allPricesValid);
+
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
+      setLoading(false);
     }
   }, [dateRange, fetchVehicleRentRates]);
 
@@ -412,6 +440,18 @@ const VehiclesPage = () => {
 
     return Math.round(totalPrice);
   };
+
+  useEffect(() => {
+    if (loading && carsData.length > 0) {
+      for (const car of carsData) {
+        const price = renderVehiclePrices(car.tariffGroupId);
+        if (price > 0) {
+          setLoading(false);
+          break;
+        }
+      }
+    }
+  }, [carsData, renderVehiclePrices]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const categoryMap = {
@@ -632,6 +672,26 @@ const VehiclesPage = () => {
     handleFieldChange("showDropoffV1", !showDropoff ? 1 : 0);
   };
 
+  const onPickupSelectTabChange = (tab) => {
+    console.log("pickupSelectedTab Tab in all vehciles page is :", tab);
+    setPickupSelectedTab(tab);
+  };
+
+  const onDropoffSelectTabChange = (tab) => {
+    console.log("dropoffSelectedTab Tab in all vehciles page is :", tab);
+    setDropoffSelectedTab(tab);
+  };
+
+  const handlePickupStateChange = (stateName) => {
+    setPickupStateValueProp(stateName);
+    console.log("Pickup state changed to:", stateName);
+  };
+
+  const handleDropoffStateChange = (stateName) => {
+    setDropoffStateValueProp(stateName);
+    console.log("Dropoff state changed to:", stateName);
+  };
+
   const allCarsBookingButton = (
     tariffGroupId,
     vehicleName,
@@ -688,8 +748,13 @@ const VehiclesPage = () => {
       return;
     }
 
+    localStorageDataCalculation();
+
+    console.log("Pickup state value prop is:", pickupStateValueProp);
+    console.log("Dropoff State Value Prop state is: ", dropoffStateValueProp);
+
     navigate(
-      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupLocStateValue}&dropoffLocState=${dropoffLocStateValue}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}&vehiclePrice=${calculatedVehiclePrice}`
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupStateValueProp}&dropoffLocState=${dropoffStateValueProp}&pickupLocSelectedTab=${pickupSelectedTab}&dropoffLocSelectedTab=${dropoffSelectedTab}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}&vehiclePrice=${calculatedVehiclePrice}`
     );
   };
 
@@ -885,7 +950,6 @@ const VehiclesPage = () => {
       );
 
       setNumberOfDays(totalDays);
-      console.log("Number of days:", totalDays);
     }
   }, [startDate, endDate, pickUpTime, dropOffTime]);
 
@@ -1154,6 +1218,8 @@ const VehiclesPage = () => {
                                   setPickupInputFieldValue
                                 }
                                 handleInputFieldChange={handleInputFieldChange}
+                                onSelectTabChange={onPickupSelectTabChange}
+                                onStateChange={handlePickupStateChange}
                               />
                             </Modal.Body>
                           </Modal>
@@ -1186,6 +1252,8 @@ const VehiclesPage = () => {
                                   setDropoffInputFieldValue
                                 }
                                 handleInputFieldChange={handleInputFieldChange}
+                                onSelectTabChange={onDropoffSelectTabChange}
+                                onStateChange={handleDropoffStateChange}
                               />
                             </Modal.Body>
                           </Modal>
@@ -1493,184 +1561,209 @@ const VehiclesPage = () => {
                     <>
                       <h3 className="pb-2 all-cars-heading">All Cars</h3>
                       <br />
-                      <Row className="offers-car-container-row">
-                        {currentTableData?.map((car, index) => (
-                          <Col
-                            key={car?.tariffGroupId}
-                            xxl={6}
-                            lg={6}
-                            md={12}
-                            sm={12}
-                            className="all-cars-container-div pb-5"
-                          >
-                            <div className="single-car-container-div pb-3">
-                              <div className="car-name-div">
-                                <span className="car-name text-end">
-                                  {" "}
-                                  <b>{car?.title}</b> | (
-                                  {categoryMap[car?.acrissCategory?.name] ||
-                                    car?.acrissCategory?.name}{" "}
-                                  )
-                                </span>
-                              </div>
-                              <div className="car-image-container ">
-                                <div
-                                  onClick={() =>
-                                    allCarsBookingButton(
-                                      car?.tariffGroupId,
-                                      `${car?.title} - ${
-                                        categoryMap[
-                                          car?.acrissCategory?.name
-                                        ] || car?.acrissCategory?.name
-                                      }`,
-                                      startDate,
-                                      endDate
-                                    )
-                                  }
-                                >
-                                  {" "}
-                                  <img
-                                    src={car?.displayImageUrl}
-                                    alt={`Car ${index + 1}`}
-                                    className="car-image"
-                                  />
-                                </div>
-                              </div>
-                              <div className="all-vehicles-features-icons features-scroll-container text-center">
-                                {dataArray?.map((carData, dataIndex) => (
-                                  <span key={dataIndex}>
-                                    {carFeaturesWithIcons?.map(
-                                      (carFeature, featureIndex) => {
-                                        const showIcon =
-                                          carData?.tariffGroupId ===
-                                          car?.tariffGroupId;
-                                        let value;
-                                        switch (carFeature?.name) {
-                                          case "Person Seats":
-                                            value = carData?.passengerCapacity;
-                                            break;
-                                          // case "Doors":
-                                          //   const [doorRange = carData?.type] = carData?.type.split(/[-/]/);
-                                          //   const [doorRange = carData?.type] =
-                                          //     carData?.type.includes("%")
-                                          //       ? carData?.type.split("")
-                                          //       : [carData?.type];
-                                          //   value = doorRange;
-                                          //   break;
-                                          case "Automatic":
-                                            value = carData?.transmission
-                                              ? carData?.transmission
-                                                  .split("/")[0]
-                                                  .charAt(0)
-                                              : "N";
-                                            break;
-                                          case "Air Bags":
-                                            value =
-                                              carData?.smallBagsCapacity +
-                                              carData?.largeBagsCapacity;
-                                            break;
-                                          case "AC":
-                                            value = "AC";
-                                            break;
-                                          default:
-                                            value = carData[carFeature?.name];
-                                            break;
-                                        }
+                      {loading ? (
+                        <div className="text-center">
+                          <>Loading Cars...</>
+                        </div>
+                      ) : (
+                        <>
+                          <Row className="offers-car-container-row">
+                            {currentTableData?.map((car, index) => {
+                              const price = renderVehiclePrices(
+                                car.tariffGroupId
+                              );
 
-                                        return value !== undefined &&
-                                          value !== null &&
-                                          showIcon === true ? (
-                                          <span
-                                            key={featureIndex}
-                                            className="single-feature-container features-values"
+                              return (
+                                <Col
+                                  key={car?.tariffGroupId}
+                                  xxl={6}
+                                  lg={6}
+                                  md={12}
+                                  sm={12}
+                                  className="all-cars-container-div pb-5"
+                                >
+                                  <div className="single-car-container-div pb-3">
+                                    <div className="car-name-div">
+                                      <span className="car-name text-end">
+                                        {" "}
+                                        <b>{car?.title}</b> | (
+                                        {categoryMap[
+                                          car?.acrissCategory?.name
+                                        ] || car?.acrissCategory?.name}{" "}
+                                        )
+                                      </span>
+                                    </div>
+                                    <div className="car-image-container ">
+                                      <div
+                                        onClick={() => {
+                                          const vehiclePrice =
+                                            renderVehiclePrices(
+                                              car.tariffGroupId
+                                            );
+                                          allCarsBookingButton(
+                                            car?.tariffGroupId,
+                                            `${car?.title} - ${
+                                              categoryMap[
+                                                car?.acrissCategory?.name
+                                              ] || car?.acrissCategory?.name
+                                            }`,
+                                            startDate,
+                                            endDate,
+                                            vehiclePrice
+                                          );
+                                        }}
+                                      >
+                                        {" "}
+                                        <img
+                                          src={car?.displayImageUrl}
+                                          alt={`Car ${index + 1}`}
+                                          className="car-image"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="all-vehicles-features-icons features-scroll-container text-center">
+                                      {dataArray?.map((carData, dataIndex) => (
+                                        <span key={dataIndex}>
+                                          {carFeaturesWithIcons?.map(
+                                            (carFeature, featureIndex) => {
+                                              const showIcon =
+                                                carData?.tariffGroupId ===
+                                                car?.tariffGroupId;
+                                              let value;
+                                              switch (carFeature?.name) {
+                                                case "Person Seats":
+                                                  value =
+                                                    carData?.passengerCapacity;
+                                                  break;
+                                                // case "Doors":
+                                                //   const [doorRange = carData?.type] = carData?.type.split(/[-/]/);
+                                                //   const [doorRange = carData?.type] =
+                                                //     carData?.type.includes("%")
+                                                //       ? carData?.type.split("")
+                                                //       : [carData?.type];
+                                                //   value = doorRange;
+                                                //   break;
+                                                case "Automatic":
+                                                  value = carData?.transmission
+                                                    ? carData?.transmission
+                                                        .split("/")[0]
+                                                        .charAt(0)
+                                                    : "N";
+                                                  break;
+                                                case "Air Bags":
+                                                  value =
+                                                    carData?.smallBagsCapacity +
+                                                    carData?.largeBagsCapacity;
+                                                  break;
+                                                case "AC":
+                                                  value = "AC";
+                                                  break;
+                                                default:
+                                                  value =
+                                                    carData[carFeature?.name];
+                                                  break;
+                                              }
+
+                                              return value !== undefined &&
+                                                value !== null &&
+                                                showIcon === true ? (
+                                                <span
+                                                  key={featureIndex}
+                                                  className="single-feature-container features-values"
+                                                >
+                                                  {carFeature?.name !==
+                                                    "Doors" && (
+                                                    <>
+                                                      <carFeature.featureIcon className="all-car-icons" />{" "}
+                                                    </>
+                                                  )}
+                                                  <span className="">
+                                                    {value}
+                                                  </span>
+                                                </span>
+                                              ) : null;
+                                            }
+                                          )}
+                                        </span>
+                                      ))}
+                                    </div>
+
+                                    <hr className="discount-line" />
+
+                                    <div className="d-flex justify-content-center">
+                                      <div className="col-xxl-10 col-lg-11 col-md-12 col-sm-12 col-12 d-flex justify-content-center flex-column">
+                                        <>
+                                          <button
+                                            className="map-loc-middle"
+                                            onClick={() => {
+                                              const vehiclePrice =
+                                                renderVehiclePrices(
+                                                  car.tariffGroupId
+                                                );
+                                              console.log(
+                                                `--------------------------Start date is ---- ${datePickerStartDate} \n End Date is ---- ${datePickerEndDate}`
+                                              );
+                                              allCarsBookingButton(
+                                                car?.tariffGroupId,
+                                                `${car?.title} - ${
+                                                  categoryMap[
+                                                    car?.acrissCategory?.name
+                                                  ] || car?.acrissCategory?.name
+                                                }`,
+                                                datePickerStartDate,
+                                                datePickerEndDate,
+                                                vehiclePrice
+                                              );
+                                            }}
                                           >
-                                            {carFeature?.name !== "Doors" && (
+                                            {numberOfDays > 0 ? (
+                                              <span className="all-cars-animate-button btn4">
+                                                <span className="label">
+                                                  Pay Now{" "}
+                                                  <span className="pay-now-price-md-lg">
+                                                    <span>|</span> AED:{" "}
+                                                    {renderVehiclePrices(
+                                                      car.tariffGroupId
+                                                    )}{" "}
+                                                    | {numberOfDays} day(s)
+                                                  </span>
+                                                  <div className="pay-now-price-xs">
+                                                    AED:{" "}
+                                                    {renderVehiclePrices(
+                                                      car.tariffGroupId
+                                                    )}{" "}
+                                                    | {numberOfDays} day(s)
+                                                  </div>
+                                                </span>
+                                              </span>
+                                            ) : (
                                               <>
-                                                <carFeature.featureIcon className="all-car-icons" />{" "}
+                                                <span className="animate-button btn4">
+                                                  <span className="label">
+                                                    Pay Now{" "}
+                                                  </span>
+                                                </span>
                                               </>
                                             )}
-                                            <span className="">{value}</span>
-                                          </span>
-                                        ) : null;
-                                      }
-                                    )}
-                                  </span>
-                                ))}
-                              </div>
-
-                              <hr className="discount-line" />
-
-                              <div className="d-flex justify-content-center">
-                                <div className="col-xxl-10 col-lg-11 col-md-12 col-sm-12 col-12 d-flex justify-content-center flex-column">
-                                  <>
-                                    <button
-                                      className="map-loc-middle"
-                                      onClick={() => {
-                                        const vehiclePrice =
-                                          renderVehiclePrices(
-                                            car.tariffGroupId
-                                          );
-                                        console.log(
-                                          `--------------------------Start date is ---- ${datePickerStartDate} \n End Date is ---- ${datePickerEndDate}`
-                                        );
-                                        allCarsBookingButton(
-                                          car?.tariffGroupId,
-                                          `${car?.title} - ${
-                                            categoryMap[
-                                              car?.acrissCategory?.name
-                                            ] || car?.acrissCategory?.name
-                                          }`,
-                                          datePickerStartDate,
-                                          datePickerEndDate,
-                                          vehiclePrice
-                                        );
-                                      }}
-                                    >
-                                      {numberOfDays > 0 ? (
-                                        <span className="all-cars-animate-button btn4">
-                                          <span className="label">
-                                            Pay Now{" "}
-                                            <span className="pay-now-price-md-lg">
-                                              <span>|</span> AED:{" "}
-                                              {renderVehiclePrices(
-                                                car.tariffGroupId
-                                              )}{" "}
-                                              | {numberOfDays} day(s)
-                                            </span>
-                                            <div className="pay-now-price-xs">
-                                              AED:{" "}
-                                              {renderVehiclePrices(
-                                                car.tariffGroupId
-                                              )}{" "}
-                                              | {numberOfDays} day(s)
-                                            </div>
-                                          </span>
-                                        </span>
-                                      ) : (
-                                        <>
-                                          <span className="animate-button btn4">
-                                            <span className="label">
-                                              Pay Now{" "}
-                                            </span>
-                                          </span>
+                                          </button>
                                         </>
-                                      )}
-                                    </button>
-                                  </>
-                                </div>
-                              </div>
-                            </div>
-                          </Col>
-                        ))}
-                      </Row>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Col>
+                              );
+                            })}
+                          </Row>
+                          <Pagination
+                            className="pagination-bar"
+                            currentPage={currentPage}
+                            totalCount={filterCars?.length}
+                            pageSize={PageSize}
+                            onPageChange={(page) => setCurrentPage(page)}
+                          />
+                        </>
+                      )}
                     </>
-                    <Pagination
-                      className="pagination-bar"
-                      currentPage={currentPage}
-                      totalCount={filterCars?.length}
-                      pageSize={PageSize}
-                      onPageChange={(page) => setCurrentPage(page)}
-                    />
                   </div>
                 </Col>
               </Row>

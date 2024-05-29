@@ -14,6 +14,8 @@ function DropoffLocationModal({
   initialInputFieldValue,
   inputDropoffFieldValue,
   handleInputFieldChange,
+  onSelectTabChange,
+  onStateChange,
 }) {
   const [selectedLocationss, setSelectedLocationss] = useState({
     lat: 25.17411857864891,
@@ -24,18 +26,10 @@ function DropoffLocationModal({
     lat: 25.17411857864891,
     lng: 55.376264,
   });
-  console.log(
-    "initialInputFieldValue:--12121212121-- ",
-    initialInputFieldValue
-  );
-  const [selectedTab, setSelectedTab] = useState("");
-  const [selectedLocationName] = useState(
-    initialInputFieldValue || ""
-  );
-  const [dropoffLocationState] = useState("");
-  const [deliverToAddressValue] = useState("");
 
-  console.log("Old loc is: ", selectedLocationName);
+  const [selectedTab, setSelectedTab] = useState("");
+  const [dropoffLocationState, setDropoffLocationState] = useState("");
+  const [deliverToAddressValue] = useState("");
 
   const handleFocus = (e) => {
     const inputGroup = e.target.closest(".inputgroup");
@@ -75,6 +69,7 @@ function DropoffLocationModal({
     if (tab === "deliver") {
       handleFieldChange("dropoffLocationStateV1");
     }
+    onSelectTabChange(tab);
   };
 
   const handleInputChange = (e) => {
@@ -90,7 +85,7 @@ function DropoffLocationModal({
         toast.error(errorMessage, {
           autoClose: 3000,
           style: {
-            color: "#e87a28",
+            color: "black",
             border: "1px solid #c0c0c0",
             fontWeight: "400",
             fontSize: "14px",
@@ -99,17 +94,17 @@ function DropoffLocationModal({
         return;
       }
     }
-    let message = "";
-    console.log("Selected tab Value is-------:", selectedTab);
+    let messageDrop = "";
     if (selectedTab === "deliver") {
-      message = `${formFields?.deliveryMapLocDropOff || ""}`;
-      console.log("1---Messg before update value...", message);
-      handleFieldChange("deliveryMapLocDropOff", message);
+      messageDrop = `${formFields?.deliveryMapLocDropOff || ""}`;
+      handleFieldChange("deliveryMapLocDropOff", messageDrop);
     } else if (selectedTab === "pick") {
-      message = `Ras Al Khor - Milele Showroom 11`;
-      handleFieldChange("dropoffInputMessageV1", message);
-      handleFieldChange("pickupLocationStateV1", "Dubai");
+      handleFieldChange("deliveryMapLocDropOff", "");
+      messageDrop = `Ras Al Khor - Milele Showroom 11`;
+      handleFieldChange("dropoffInputMessageV1", messageDrop);
+      handleFieldChange("dropoffLocationStateV1", "Dubai");
     }
+    console.log("Select tab------------------", selectedTab);
 
     handleFieldChange("selectedTabDropOff", selectedTab);
 
@@ -127,11 +122,6 @@ function DropoffLocationModal({
       }
     }
 
-    console.log(
-      "Final new --- updateDropoffLocationMessage v ---- is: ----",
-      updateDropoffLocationMessage
-    );
-
     handleButtonClick(selectedTab, {
       inputValue: inputDropoffFieldValue,
     });
@@ -139,6 +129,8 @@ function DropoffLocationModal({
 
   const handleStateChange = (stateName) => {
     handleFieldChange("dropoffLocationStateV1", stateName);
+    setDropoffLocationState(stateName);
+    onStateChange(stateName);
   };
 
   return (

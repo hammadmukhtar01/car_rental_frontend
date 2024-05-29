@@ -30,6 +30,10 @@ const SearchBox = () => {
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
   const [inputPickupFieldValue, setPickupInputFieldValue] = useState("");
   const [inputDropoffFieldValue, setDropoffInputFieldValue] = useState("");
+  const [pickupSelectedTab, setPickupSelectedTab] = useState("");
+  const [dropoffSelectedTab, setDropoffSelectedTab] = useState("");
+  const [pickupStateValueProp, setPickupStateValueProp] = useState("DUBAI");
+  const [dropoffStateValueProp, setDropoffStateValueProp] = useState("DUBAI");
 
   const [activeSelection, setActiveSelection] = useState({
     startDate: false,
@@ -45,38 +49,19 @@ const SearchBox = () => {
   ]);
 
   useEffect(() => {
-    console.log("ddddddd rrrrrrrrrrrrrrrr- ---- is: ", dateRange);
   }, [dateRange]);
 
-  useEffect(() => {
-    const reqLocalStorageData = localStorage.getItem("formFields");
+   const localStorageDataCalculation = () => {
+    const reqLocalStorageData = localStorage?.getItem("formFields");
     if (reqLocalStorageData) {
       const storedFormFields = JSON.parse(reqLocalStorageData);
-      console.log("Stored date range is: ", storedFormFields);
-      let pickupCompleteAddressValue;
-      let dropoffCompleteAddressValue;
-      let storedStartDateRange;
-      let storedEndDateRange;
-      let pickupLocMainInput;
-      let dropoffLocMainInput;
-      let pickupLocTabV1;
-      let dropoffLocTabV1;
-      let checkBoxStoredValue;
+      let storedStartDateRange, storedEndDateRange;
 
       if (storedFormFields) {
-        checkBoxStoredValue = storedFormFields?.showDropoffV1 === 1;
-        console.log(
-          "jfvnj checkBoxStoredValuendfe --- 1/0 -- ",
-          checkBoxStoredValue
-        );
-        setShowDropoff(checkBoxStoredValue);
+        setShowDropoff(storedFormFields?.showDropoffV1 === 1);
 
-        pickupCompleteAddressValue = storedEndDateRange?.inputPickupFieldValue;
-        dropoffCompleteAddressValue =
-          storedEndDateRange?.inputDropoffFieldValue;
-
-        pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
-        dropoffLocTabV1 = storedFormFields?.selectedTabDropOff;
+        const pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
+        const dropoffLocTabV1 = storedFormFields?.selectedTabDropOff;
 
         if (storedFormFields?.dateRangeV1) {
           storedStartDateRange = new Date(
@@ -84,8 +69,8 @@ const SearchBox = () => {
           );
           storedEndDateRange = new Date(storedFormFields?.dateRangeV1?.endDate);
           if (
-            isNaN(storedStartDateRange?.getTime()) ||
-            isNaN(storedEndDateRange?.getTime())
+            isNaN(storedStartDateRange.getTime()) ||
+            isNaN(storedEndDateRange.getTime())
           ) {
             storedStartDateRange = new Date();
             storedEndDateRange = new Date(
@@ -95,27 +80,29 @@ const SearchBox = () => {
         }
 
         if (pickupLocTabV1 === "pick") {
-          pickupLocMainInput = storedFormFields?.pickupInputMessageV1;
           setPickupLocationMessage(
-            pickupLocMainInput ? pickupLocMainInput : ""
+            storedFormFields?.pickupInputMessageV1 || ""
           );
         } else if (pickupLocTabV1 === "deliver") {
-          pickupLocMainInput = storedFormFields?.deliveryMapLocPickUp;
           setPickupLocationMessage(
-            pickupLocMainInput ? pickupLocMainInput : ""
+            storedFormFields?.deliveryMapLocPickUp || ""
           );
         }
+
         if (dropoffLocTabV1 === "pick") {
-          dropoffLocMainInput = storedFormFields?.dropoffInputMessageV1;
-          setDropoffLocationMessage(dropoffLocMainInput);
+          setDropoffLocationMessage(
+            storedFormFields?.dropoffInputMessageV1 || ""
+          );
         } else if (dropoffLocTabV1 === "deliver") {
-          dropoffLocMainInput = storedFormFields?.deliveryMapLocDropOff;
-          setDropoffLocationMessage(dropoffLocMainInput);
+          setDropoffLocationMessage(
+            storedFormFields?.deliveryMapLocDropOff || ""
+          );
         }
-        const storedPickUpTime = storedFormFields?.pickTimeV1 || "";
-        setPickUpTime(storedPickUpTime);
-        const storedDropOffTime = storedFormFields?.dropTimeV1 || "";
-        setDropOffTime(storedDropOffTime);
+
+        setPickUpTime(storedFormFields?.pickTimeV1 || "");
+        setDropOffTime(storedFormFields?.dropTimeV1 || "");
+        setPickupSelectedTab(storedFormFields?.selectedTabPickUp || "");
+        setDropoffSelectedTab(storedFormFields?.selectedTabDropOff || "");
       }
 
       setDateRange([
@@ -128,6 +115,10 @@ const SearchBox = () => {
         },
       ]);
     }
+  };
+
+  useEffect(() => {
+    localStorageDataCalculation();
   }, []);
 
   const navigate = useNavigate();
@@ -308,6 +299,25 @@ const SearchBox = () => {
     return Math.round(Math.abs((startDate - endDate) / oneDay)) + 1;
   };
 
+  const onPickupSelectTabChange = (tab) => {
+    console.log("pickupSelectedTab Tab in all vehciles page is :", tab);
+    setPickupSelectedTab(tab);
+  };
+
+  const onDropoffSelectTabChange = (tab) => {
+    console.log("dropoffSelectedTab Tab in all vehciles page is :", tab);
+    setDropoffSelectedTab(tab);
+  };
+
+  const handlePickupStateChange = (stateName) => {
+    setPickupStateValueProp(stateName);
+    console.log("Pickup state changed to:", stateName);
+  };
+
+  const handleDropoffStateChange = (stateName) => {
+    setDropoffStateValueProp(stateName);
+    console.log("Dropoff state changed to:", stateName);
+  };
 
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
@@ -350,7 +360,7 @@ const SearchBox = () => {
     const endDate = endLocalDate?.toISOString()?.split("T")[0];
     const numberOfDays = calculateNumberOfDays(startLocalDate, endLocalDate);
 
-    const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}`;
+    const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupStateValueProp}&dropoffLocState=${dropoffStateValueProp}&pickupLocSelectedTab=${pickupSelectedTab}&dropoffLocSelectedTab=${dropoffSelectedTab}`;
 
     navigate(url);
   };
@@ -544,6 +554,8 @@ const SearchBox = () => {
                           inputPickupFieldValue={inputPickupFieldValue}
                           setPickupInputFieldValue={setPickupInputFieldValue}
                           handleInputFieldChange={handleInputFieldChange}
+                          onSelectTabChange={onPickupSelectTabChange}
+                                onStateChange={handlePickupStateChange}
                         />
                       </Modal.Body>
                     </Modal>
@@ -573,6 +585,8 @@ const SearchBox = () => {
                           inputDropoffFieldValue={inputDropoffFieldValue}
                           setDropoffInputFieldValue={setDropoffInputFieldValue}
                           handleInputFieldChange={handleInputFieldChange}
+                          onSelectTabChange={onDropoffSelectTabChange}
+                                onStateChange={handleDropoffStateChange}
                         />
                       </Modal.Body>
                     </Modal>
