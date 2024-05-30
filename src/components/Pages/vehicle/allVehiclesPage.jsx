@@ -814,7 +814,7 @@ const VehiclesPage = () => {
       selectedOptions?.map((option) => {
         const category = carCategoriesData?.find(
           (cat) =>
-            cat?.id === option?.value &&
+            cat?.id === option?.id &&
             cat?.name?.toUpperCase() === option?.label?.toUpperCase()
         );
         return category ? { id: category?.id, label: category?.name } : option;
