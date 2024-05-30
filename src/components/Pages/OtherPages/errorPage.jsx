@@ -16,7 +16,7 @@ const ErrorPage = () => {
         <div className="landing-page">
           <div style={{ textAlign: "center" }} className="icon__download">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
               id="b599d709-684a-4b18-9cac-f9c979cf5115"
               data-name="Layer 1"
               width="977.71631"
