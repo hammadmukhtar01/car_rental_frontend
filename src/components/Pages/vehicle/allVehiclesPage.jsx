@@ -759,46 +759,44 @@ const VehiclesPage = () => {
   };
 
   const filterCars = useMemo(() => {
-    return carsData
-      ?.filter((car) => {
-        const typeMatch =
-          selectedCarTypes?.length === 0 ||
-          selectedCarTypes.includes(car?.title);
+    const filteredCars = carsData?.filter((car) => {
+      const currentCarCategory = normalizedCarCategories.find(
+        (cat) => cat?.id === car?.acrissCategory?.id
+      );
 
-        const currentCarCategory = normalizedCarCategories.find(
-          (cat) => cat?.id === car?.acrissCategory?.id
-        );
+      const categoryMatch =
+        selectedCategories?.length === 0 ||
+        selectedCategories.some((selectedCategory) => {
+          const valueMatch = selectedCategory?.value === currentCarCategory?.id;
+          const labelMatch =
+            selectedCategory?.label?.toUpperCase() ===
+            currentCarCategory?.name?.toUpperCase();
 
-        const categoryMatch =
-          selectedCategories?.length === 0 ||
-          selectedCategories.some((selectedCategory) => {
-            const valueMatch =
-              selectedCategory?.value === currentCarCategory?.id;
-            const labelMatch =
-              selectedCategory?.label?.toUpperCase() ===
-              currentCarCategory?.name?.toUpperCase();
+          return valueMatch && labelMatch;
+        });
 
-            return valueMatch && labelMatch;
-          });
+      const typeMatch =
+        selectedCarTypes?.length === 0 || selectedCarTypes.includes(car?.title);
 
-        const priceMatch =
-          (minPrice === "" || car?.rate >= minPrice) &&
-          (maxPrice === "" || car?.rate <= maxPrice);
+      const priceMatch =
+        (minPrice === "" || car?.rate >= minPrice) &&
+        (maxPrice === "" || car?.rate <= maxPrice);
 
-        return typeMatch && categoryMatch && priceMatch;
-      })
-      .sort((a, b) => {
-        switch (sortBy) {
-          case "LowToHigh":
-            return a?.rate - b?.rate;
-          case "HighToLow":
-            return b?.rate - a?.rate;
-          case "Recommended":
-            return b?.discount - a?.discount;
-          default:
-            return 0;
-        }
-      });
+      return categoryMatch && typeMatch && priceMatch;
+    });
+
+    return filteredCars?.sort((a, b) => {
+      switch (sortBy) {
+        case "LowToHigh":
+          return a?.rate - b?.rate;
+        case "HighToLow":
+          return b?.rate - a?.rate;
+        case "Recommended":
+          return b?.discount - a?.discount;
+        default:
+          return 0;
+      }
+    });
   }, [
     carsData,
     minPrice,
@@ -808,6 +806,22 @@ const VehiclesPage = () => {
     sortBy,
     normalizedCarCategories,
   ]);
+
+  const filteredCarTypes = useMemo(() => {
+    if (selectedCategories.length === 0) {
+      return carType;
+    }
+
+    const selectedCategoryIds = selectedCategories.map(
+      (category) => category.value
+    );
+
+    const typesInSelectedCategories = carsData
+      .filter((car) => selectedCategoryIds.includes(car.acrissCategory.id))
+      .map((car) => car.title);
+
+    return [...new Set(typesInSelectedCategories)];
+  }, [selectedCategories, carsData, carType]);
 
   const handleCategoryChange = (selectedOptions) => {
     setSelectedCategories(
@@ -1384,7 +1398,7 @@ const VehiclesPage = () => {
                       {isCarTypeOpen && (
                         <div className="filter-content">
                           <div className="card-body car-type-filter">
-                            {carType?.map((type, index) => (
+                            {filteredCarTypes?.map((type, index) => (
                               <label
                                 className="form-check flipBox"
                                 aria-label={`Checkbox ${index}`}
