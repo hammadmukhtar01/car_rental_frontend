@@ -35,7 +35,7 @@ const LeaseNowFormDetails = ({
     console.log(`lto form phone numbe ris: -- +${formData?.phoneNumber}`);
     const parsedPhoneNumber = parsePhoneNumberFromString(
       `+${formData?.phoneNumber}`,
-      country.name
+      country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
       toast.error("Please enter a valid phone number.", {
@@ -163,6 +163,15 @@ const LeaseNowFormDetails = ({
           className="lease-now-details-form"
           onSubmit={handleLeaseNowDetailsForm}
         >
+          {loading && (
+            <div className="reloading-icon-booking-page-container text-center">
+              <span className="loader-text">
+                Submitting your Leasing details . . .
+              </span>
+
+              <div className="lds-dual-ring text-center"></div>
+            </div>
+          )}
           <div className="form-group row">
             <div className="col-lg-6 col-md-6 col-sm-6 pt-4">
               <label className="lto-userDetails-label" htmlFor="lname">

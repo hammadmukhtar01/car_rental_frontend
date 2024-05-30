@@ -20,12 +20,12 @@ const FreeConsultationForm = () => {
 
     const parsedPhoneNumber = parsePhoneNumberFromString(
       `+${phoneNumber}`,
-      country.name
+      country?.name
     );
-    if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
+    if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
       toast.error("Please enter a valid phone number.", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 1500,
       });
       return;
     }
@@ -66,7 +66,7 @@ const FreeConsultationForm = () => {
           }
         );
         setCustomerName("");
-        setPhoneNumber("");
+        setPhoneNumber("+971");
       } else {
         toast.error("Failed to contact. Please try again.", {
           position: "top-right",
@@ -113,8 +113,12 @@ const FreeConsultationForm = () => {
       <div className="free-consultation-main-container">
         <div className="free-consultation-main-div">
           <Container>
-            {loading && (
+            {
+            loading && (
               <div className="reloading-icon-free-consultation-form-container text-center">
+                <span className="loader-text">
+                Submitting your Request . . .
+              </span>
                 <div className="lds-dual-ring text-center"></div>
               </div>
             )}

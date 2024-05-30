@@ -22,6 +22,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [country, setCountry] = useState({ dialCode: "971", name: "UAE" });
   const [emailAddress, setEmailAddress] = useState("");
   const [nationality, setNationality] = useState("");
+  const [loadingCustomer, setLoadingCustomer] = useState(false);
+  const [loadingBooking, setLoadingBooking] = useState(false);
+
   // Driving License
   const [drivingLicenseNum, setDrivingLicenseNum] = useState("");
   const [drivingLicenseIssueBy, setDrivingLicenseIssueBy] = useState("");
@@ -208,6 +211,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const createCustomer = async (data) => {
     console.log("creatingg customer", data);
+    setLoadingCustomer(true);
+    document.body.classList.add("loadings");
+
     try {
       const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
       const headers = {
@@ -248,6 +254,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       }
     } catch (error) {
       console.error("Error creating/updating customer:", error);
+    } finally {
+      setLoadingCustomer(false);
+      document.body.classList.remove("loadings");
     }
   };
 
@@ -366,7 +375,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           }
           break;
         default:
-          return addOn.pricePerTrip;
+          return addOn?.pricePerTrip;
       }
     };
 
@@ -617,6 +626,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const submitBooking = async (data) => {
     console.log("submit booking start");
+    setLoadingBooking(true);
+    document.body.classList.add("loadings");
+
     try {
       const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
       const headers = {
@@ -660,6 +672,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       }
     } catch (error) {
       console.error("Error creating/updating booking:", error);
+    } finally {
+      setLoadingBooking(false);
+      document.body.classList.remove("loadings");
     }
   };
 
@@ -751,7 +766,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
     const parsedPhoneNumber = parsePhoneNumberFromString(
       `+${contactNum}`,
-      country.name
+      country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
       toast.error("Please enter a valid phone number.", {
@@ -785,7 +800,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               url: drivingLicenseImg,
             },
           ],
-          issuedBy: drivingLicenseIssueBy.label,
+          issuedBy: drivingLicenseIssueBy?.label,
         },
       ],
     };
@@ -844,8 +859,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         });
         console.log("Invoice Created, Payment URL:", response?.data?.status);
         setPaymentUrl(response?.data?.status);
-        // const nextStepUrl = `/bookingPage/3&booking-success`;
-        // window.location.href = nextStepUrl;
+        const nextStepUrl = `/bookingPage/3&booking-success`;
+        window.location.href = nextStepUrl;
       }
     } catch (error) {
       console.error("Failed to create invoice:", error);
@@ -885,6 +900,20 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               className="booking-documents-form"
               onSubmit={handleAddOnsDocumentStepForm}
             >
+              {loadingCustomer && (
+                <div className="reloading-icon-booking-page-container text-center">
+                  <span className="loader-text">
+                    Customer Verification . . .
+                  </span>
+                  <div className="lds-dual-ring text-center"></div>
+                </div>
+              )}
+              {loadingBooking && (
+                <div className="reloading-icon-booking-page-container text-center">
+                  <span className="loader-text">Create Booking . . .</span>
+                  <div className="lds-dual-ring text-center"></div>
+                </div>
+              )}
               <div className="step1-car-location-details-container">
                 <div className="step1-location-details p-4">
                   <div className="location-label">

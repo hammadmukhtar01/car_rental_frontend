@@ -16,6 +16,7 @@ const ContactUsForm = () => {
     comment: "",
   });
   const [country, setCountry] = useState("ae");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,7 +37,7 @@ const ContactUsForm = () => {
 
     const parsedPhoneNumber = parsePhoneNumberFromString(
       `+${formData?.phoneNumber}`,
-      country.name
+      country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
       toast.error("Please enter a valid phone number.", {
@@ -60,6 +61,9 @@ const ContactUsForm = () => {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     };
+    setLoading(true);
+    document.body.classList.add("loadings");
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_MILELE_API_URL}/contactUsForm/create`,
@@ -115,6 +119,9 @@ const ContactUsForm = () => {
           autoClose: 3000,
         });
       }
+    } finally {
+      setLoading(false);
+      document.body.classList.remove("loadings");
     }
   };
 
@@ -126,6 +133,13 @@ const ContactUsForm = () => {
           className="contactUs-form"
           onSubmit={handleContactUsSubmitButton}
         >
+          {loading && (
+            <div className="reloading-icon-free-consultation-form-container text-center">
+              <span className="loader-text">Submitting your Request . . .</span>
+              <div className="lds-dual-ring text-center"></div>
+            </div>
+          )}
+
           <div className="form-group row">
             <div className="col-lg-6 col-md-6 col-sm-6 pt-4">
               <label className="contact-us-label" htmlFor="lname">

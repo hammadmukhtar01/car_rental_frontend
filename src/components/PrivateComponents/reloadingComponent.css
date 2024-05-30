@@ -6,7 +6,6 @@
   display: inline-block;
   width: 80px;
   height: 80px;
-  
 }
 .lds-dual-ring:after {
   content: " ";
@@ -26,28 +25,51 @@
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 9;
-  visibility: visible; 
+  visibility: visible;
   background-color: white;
 }
 
 .reloading-icon-free-consultation-form-container {
-	position: f;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 9;
-	visibility: visible; 
-	background-color: white;
-  }
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
+  visibility: visible;
+  background-color: white;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
 
+.reloading-icon-booking-page-container {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
+  visibility: visible;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.loader-text {
+  color: #e87a28;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 10px;
+  /* border: 1px solid #e87a28; */
+  background: white;
+}
 .loadings {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .loadings .reloading-icon-container {
-    visibility: visible;
+  visibility: visible;
 }
-
 
 @keyframes lds-dual-ring {
   0% {

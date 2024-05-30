@@ -92,8 +92,8 @@ const AboutusPage = () => {
               </div>
             </div>
           </section>
-          <FreeConsultationForm />
         </div>
+          <FreeConsultationForm />
         <FooterCombination />
       </div>
     </>

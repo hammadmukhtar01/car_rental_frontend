@@ -164,7 +164,7 @@ const VehicleDetails = ({ nextStep }) => {
   ];
 
   const getUpdatedPrice = (addOn, numberOfDays, carCategory) => {
-    switch (addOn.addOnsName) {
+    switch (addOn?.addOnsName) {
       case "CDW (Collision Damage Waiver)":
         if (numberOfDays >= 1 && numberOfDays < 7) {
           return carCategory === "HatchBack" ? 20 : 30;
@@ -198,7 +198,7 @@ const VehicleDetails = ({ nextStep }) => {
         if (numberOfDays > 21) return 5;
         break;
       default:
-        return addOn.pricePerTrip;
+        return addOn?.pricePerTrip;
     }
   };
 
@@ -505,13 +505,13 @@ const VehicleDetails = ({ nextStep }) => {
     const baseUrl = `/bookingPage/2`;
     const urlParams = new URLSearchParams(window.location.search);
 
-    const selectedAddOnsDetails = selectedAddOns.map((addOn) => ({
+    const selectedAddOnsDetails = selectedAddOns?.map((addOn) => ({
       id: addOn?.id,
       price: addOn?.pricePerTrip,
     }));
 
     const selectedAddOnsIds = selectedAddOnsDetails
-      .map((addOn) => addOn.id)
+      ?.map((addOn) => addOn?.id)
       .join(",");
 
     urlParams?.set("page", "2");
@@ -1035,7 +1035,7 @@ const VehicleDetails = ({ nextStep }) => {
                                     <div className="del-value-main-div pb-3">
                                       AED{" "}
                                       <span className="coupon-discount-value">
-                                        -{appliedCoupon.value}
+                                        -{appliedCoupon?.value}
                                       </span>
                                       <span className="deleted-grand-total-price-value pl-1">
                                         {" "}

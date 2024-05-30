@@ -218,7 +218,7 @@ const VehiclesPage = () => {
   useEffect(() => {}, [dropoffLocationMessage]);
 
   useEffect(() => {
-    const pickupTimeParam = queryParams.get("pickupTime");
+    const pickupTimeParam = queryParams?.get("pickupTime");
     if (pickupTimeParam && !pickUpTime) {
       setPickUpTime(pickupTimeParam);
     }
@@ -375,23 +375,21 @@ const VehiclesPage = () => {
       const titles = response?.data?.result?.items?.map((item) => item?.title);
       setCarType(titles);
       const cars = response?.data?.result?.items || [];
-      // console.log("Fetched cars data:", cars);
-
       setCarsData(cars);
 
-      const tariffPromises = cars.map((car) =>
-        fetchVehicleRentRates(car.tariffGroupId)
+      const tariffPromises = cars?.map((car) =>
+        fetchVehicleRentRates(car?.tariffGroupId)
       );
       const tariffs = await Promise.all(tariffPromises);
       const tariffMap = {};
-      cars.forEach((car, index) => {
-        tariffMap[car.tariffGroupId] = tariffs[index];
+      cars?.forEach((car, index) => {
+        tariffMap[car?.tariffGroupId] = tariffs[index];
       });
 
       setTariffLines(tariffMap);
 
-      const allPricesValid = cars.every(
-        (car) => renderVehiclePrices(car.tariffGroupId) > 0
+      const allPricesValid = cars?.every(
+        (car) => renderVehiclePrices(car?.tariffGroupId) > 0
       );
       setValidPrice(allPricesValid);
 
@@ -418,33 +416,36 @@ const VehiclesPage = () => {
     return Math.round(calculatedRate * 100) / 100;
   };
 
-  const renderVehiclePrices = (tariffGroupId) => {
-    const days = numberOfDays;
+  const renderVehiclePrices = useCallback(
+    (tariffGroupId) => {
+      const days = numberOfDays;
 
-    const tariffs = tariffLines[tariffGroupId] || [];
+      const tariffs = tariffLines[tariffGroupId] || [];
 
-    let index;
-    if (days > 1 && days < 7) {
-      index = 0;
-    } else if (days >= 7 && days <= 21) {
-      index = 1;
-    } else if (days > 21) {
-      index = 2;
-    }
+      let index;
+      if (days > 1 && days < 7) {
+        index = 0;
+      } else if (days >= 7 && days <= 21) {
+        index = 1;
+      } else if (days > 21) {
+        index = 2;
+      }
 
-    const line = tariffs[index];
-    if (!line) {
-      return 0;
-    }
-    const totalPrice = calculateRent(line.rate, line.rateType.name, days);
+      const line = tariffs[index];
+      if (!line) {
+        return 0;
+      }
+      const totalPrice = calculateRent(line?.rate, line?.rateType?.name, days);
 
-    return Math.round(totalPrice);
-  };
+      return Math.round(totalPrice);
+    },
+    [numberOfDays, tariffLines]
+  );
 
   useEffect(() => {
     if (loading && carsData.length > 0) {
       for (const car of carsData) {
-        const price = renderVehiclePrices(car.tariffGroupId);
+        const price = renderVehiclePrices(car?.tariffGroupId);
         if (price > 0) {
           setLoading(false);
           break;
@@ -453,7 +454,6 @@ const VehiclesPage = () => {
     }
   }, [carsData, renderVehiclePrices]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const categoryMap = {
     Standard: "Sedan",
     "Small SUV 5 Seater": "SUV",
@@ -556,7 +556,7 @@ const VehiclesPage = () => {
 
       if (matchedCategory) {
         setSelectedCategories([
-          { label: matchedCategory?.name, value: matchedCategory.id },
+          { label: matchedCategory?.name, value: matchedCategory?.id },
         ]);
       }
     }
@@ -762,7 +762,7 @@ const VehiclesPage = () => {
     return carsData
       ?.filter((car) => {
         const typeMatch =
-          selectedCarTypes.length === 0 ||
+          selectedCarTypes?.length === 0 ||
           selectedCarTypes.includes(car?.title);
 
         const currentCarCategory = normalizedCarCategories.find(
@@ -810,18 +810,16 @@ const VehiclesPage = () => {
   ]);
 
   const handleCategoryChange = (selectedOptions) => {
-    console.log(`In handle changse: selectedOptions is: `, selectedOptions);
     setSelectedCategories(
       selectedOptions?.map((option) => {
         const category = carCategoriesData?.find(
           (cat) =>
-            cat?.id === option?.id &&
+            cat?.id === option?.value &&
             cat?.name?.toUpperCase() === option?.label?.toUpperCase()
         );
         return category ? { id: category?.id, label: category?.name } : option;
       })
     );
-    console.log("Updated selected categories:", selectedOptions);
   };
 
   const currentTableData = useMemo(() => {
@@ -845,7 +843,6 @@ const VehiclesPage = () => {
   };
 
   const handleClearAllFilters = () => {
-    console.log("Clear all filetrs");
     setSelectedCarTypes([]);
     setSelectedCategories([]);
     setMinPrice("");
@@ -887,7 +884,6 @@ const VehiclesPage = () => {
     const dateRangeObject = {
       startDate: updatedStartDate.toISOString().split("T")[0],
       endDate: updatedEndDate.toISOString().split("T")[0],
-      // key: "selection",
     };
 
     handleFieldChange("dateRangeV1", dateRangeObject);
@@ -901,12 +897,6 @@ const VehiclesPage = () => {
     pickUpTime,
     dropOffTime
   ) => {
-    // console.log(` In calcuaktion function \n\n
-    //   startDate,  ${startDate}\n
-    //   endDate, ${endDate}\n
-    //   pickUpTime, ${pickUpTime}\n
-    //   dropOffTime, ${dropOffTime}\n  `);
-
     const [startHour, startMinute] = pickUpTime?.split(/[: ]/);
     const [endHour, endMinute] = dropOffTime?.split(/[: ]/);
 
@@ -936,12 +926,6 @@ const VehiclesPage = () => {
 
   useEffect(() => {
     if (startDate && endDate && pickUpTime && dropOffTime) {
-      // console.log(`
-      // startDate,  ${startDate}\n
-      // endDate, ${endDate}\n
-      // pickUpTime, ${pickUpTime}\n
-      // dropOffTime, ${dropOffTime}\n  `);
-
       const totalDays = calculateNumberOfDays(
         startDate,
         endDate,
@@ -955,13 +939,11 @@ const VehiclesPage = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      console.log("Clicked outside");
       if (
         showDatePicker &&
         dateInputRef.current &&
         !dateInputRef.current.contains(event.target)
       ) {
-        console.log("Closing datepicker");
         setShowDatePicker(false);
       }
     };
@@ -1033,16 +1015,6 @@ const VehiclesPage = () => {
       },
     }),
   };
-
-  // const { loading } = useReload();
-
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <ReloadingComponent />
-  //     </>
-  //   );
-  // }
 
   return (
     <>
@@ -1542,10 +1514,6 @@ const VehiclesPage = () => {
                                   className="form-control-sort-by col-12"
                                   setSortBy
                                   onChange={(selectedOption) => {
-                                    console.log(
-                                      "Selected optn is: ",
-                                      selectedOption
-                                    );
                                     setSortBy(selectedOption?.value);
                                   }}
                                   defaultValue={sortByDropDown[0]}
@@ -1570,7 +1538,7 @@ const VehiclesPage = () => {
                           <Row className="offers-car-container-row">
                             {currentTableData?.map((car, index) => {
                               const price = renderVehiclePrices(
-                                car.tariffGroupId
+                                car?.tariffGroupId
                               );
 
                               return (
@@ -1635,14 +1603,6 @@ const VehiclesPage = () => {
                                                   value =
                                                     carData?.passengerCapacity;
                                                   break;
-                                                // case "Doors":
-                                                //   const [doorRange = carData?.type] = carData?.type.split(/[-/]/);
-                                                //   const [doorRange = carData?.type] =
-                                                //     carData?.type.includes("%")
-                                                //       ? carData?.type.split("")
-                                                //       : [carData?.type];
-                                                //   value = doorRange;
-                                                //   break;
                                                 case "Automatic":
                                                   value = carData?.transmission
                                                     ? carData?.transmission
@@ -1700,9 +1660,6 @@ const VehiclesPage = () => {
                                                 renderVehiclePrices(
                                                   car.tariffGroupId
                                                 );
-                                              console.log(
-                                                `--------------------------Start date is ---- ${datePickerStartDate} \n End Date is ---- ${datePickerEndDate}`
-                                              );
                                               allCarsBookingButton(
                                                 car?.tariffGroupId,
                                                 `${car?.title} - ${
@@ -1723,14 +1680,14 @@ const VehiclesPage = () => {
                                                   <span className="pay-now-price-md-lg">
                                                     <span>|</span> AED:{" "}
                                                     {renderVehiclePrices(
-                                                      car.tariffGroupId
+                                                      car?.tariffGroupId
                                                     )}{" "}
                                                     | {numberOfDays} day(s)
                                                   </span>
                                                   <div className="pay-now-price-xs">
                                                     AED:{" "}
                                                     {renderVehiclePrices(
-                                                      car.tariffGroupId
+                                                      car?.tariffGroupId
                                                     )}{" "}
                                                     | {numberOfDays} day(s)
                                                   </div>
