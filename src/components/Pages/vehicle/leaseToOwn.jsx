@@ -274,7 +274,7 @@ const LeaseToOwnVehicles = () => {
             <div className="imgBox">
               <img
                 src={LTOMainBannerImg}
-                alt="abc"
+                alt="lease to own main banner"
                 height="auto"
                 width="40%"
                 id="image-section"
@@ -294,7 +294,7 @@ const LeaseToOwnVehicles = () => {
                     key={index}
                     src={icon}
                     className="lto-single-brand-class"
-                    alt={`Icon ${index}`}
+                    alt={`Top car brand icon`}
                   />
                 ))}
               </div>
@@ -313,7 +313,7 @@ const LeaseToOwnVehicles = () => {
               <div className="imgBox">
                 <img
                   src={bannerImg}
-                  alt="abc"
+                  alt="Lease to own proces main banner"
                   height="auto"
                   width="40%"
                   id="image-section"

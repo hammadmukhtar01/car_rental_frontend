@@ -1607,7 +1607,7 @@ const VehiclesPage = () => {
                                         {" "}
                                         <img
                                           src={car?.displayImageUrl}
-                                          alt={`Car ${index + 1}`}
+                                          alt={`Rent ${car?.title} car`}
                                           className="car-image"
                                         />
                                       </div>

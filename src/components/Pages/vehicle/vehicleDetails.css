@@ -808,3 +808,16 @@ span.select2-selection_arrow b {
     padding: 10px 10px;
   }
 }
+.pay-now-price-xs {
+  display: none;
+}
+
+@media screen and (max-width: 375px) {
+  .pay-now-price-xs {
+    display: block;
+  }
+
+  .pay-now-price-md-lg {
+    display: none;
+  }
+}

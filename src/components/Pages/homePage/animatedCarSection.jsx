@@ -82,11 +82,6 @@ const AnimatedCarSection = () => {
             break;
         }
       });
-
-      console.log(
-        "Result of all cars in fleeeeeet animation car is --: ",
-        response
-      );
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
@@ -178,7 +173,9 @@ const AnimatedCarSection = () => {
                           <div className="animated-car-anchor-tag">
                             <img
                               src={data?.displayImageUrl}
-                              alt={`Slide ${index + 1}`}
+                              alt={`${mapCategoryToNavigationValue(
+                                data?.acrissCategory
+                              )} Vehicle Category`}
                               className="img-fluid slider-item"
                               onClick={() =>
                                 handleImageClick(data?.acrissCategory)

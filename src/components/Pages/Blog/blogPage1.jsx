@@ -37,8 +37,8 @@ const BlogPage1 = () => {
               <img
                 src={blogsData?.imageUrl}
                 className="blog-details-image"
-                alt="Blog"
-              />
+                alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                />
             </div>
             <p className="mt-4">{blogsData?.text}</p>
             <br />

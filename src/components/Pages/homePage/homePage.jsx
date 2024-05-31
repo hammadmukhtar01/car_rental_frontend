@@ -10,7 +10,6 @@ import HyundaiLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboa
 import CheveroletLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 22.png";
 import OurBlogs from "../Blog/ourBlogs";
 import { Helmet } from "react-helmet";
-import "./ourClients.css";
 // import SpinTheWheel from "../spinTheWheel/spinTheWheel";
 
 // Imp TestAutoComInput import for google map locations responsiveness
@@ -64,7 +63,7 @@ const HomePage = () => {
               <img
                 className="only-car-banner-container-2"
                 src={OnlyCar}
-                alt="test"
+                alt="home page top banner "
               />
             </div>
             <div className="search-box-home-page mt-3">
@@ -76,7 +75,14 @@ const HomePage = () => {
               </h1>
             </div>
           </div>
-
+          <div className="text-center pt-2 pb-2 d-none">
+            <h1>Welcome to Milele Car Rental Service</h1>
+            <h2>Affordable Car Rentals</h2>
+            <p>
+              We offer the best car rental deals. Choose from our wide range of
+              rental vehicles to suit your needs.
+            </p>
+          </div>
           <CarCards />
 
           <Modal show={showModal} onHide={handleCloseModal} size="lg">
@@ -114,7 +120,7 @@ const HomePage = () => {
                         key={index}
                         src={carBrandsName?.logo}
                         className="home-page-single-brand-class"
-                        alt={`Icon ${index}`}
+                        alt={`${carBrandsName?.name} brand icon`}
                       />
                     ))}
                   </div>

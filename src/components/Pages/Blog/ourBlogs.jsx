@@ -64,7 +64,7 @@ const OurBlogs = () => {
       <div className="container">
         <div className="single-blog blog-style-one">
           <div className="blog-image pb-3">
-            <img src={blogData?.imageUrl} alt="Blog" />
+            <img src={blogData?.imageUrl} alt={blogsData?.title ? blogsData.title : "Featured Blog Post"} />
           </div>
           <div className="blog-content">
             <h5 className="blog-title">

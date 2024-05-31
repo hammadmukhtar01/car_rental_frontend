@@ -55,7 +55,7 @@ const BlogPage4 = ({ blogData }) => {
 
   return (
     <div id="main">
-      <HeaderCombination/>
+      <HeaderCombination />
       <>
         <Container>
           <div className="blog-details-page">
@@ -64,14 +64,18 @@ const BlogPage4 = ({ blogData }) => {
               <img
                 src={selectedBlog?.imageUrl}
                 className="blog-details-image"
-                alt="Blog"
+                alt={
+                  selectedBlog?.title
+                    ? selectedBlog?.title
+                    : "Featured blog post"
+                }
               />
             </div>
             <p>{selectedBlog?.text}</p>
           </div>
         </Container>
       </>
-      <FooterCombination/>
+      <FooterCombination />
     </div>
   );
 };

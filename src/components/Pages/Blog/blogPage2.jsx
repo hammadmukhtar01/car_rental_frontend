@@ -51,7 +51,7 @@ const BlogPage2 = () => {
               <img
                 src={blogsData?.imageUrl}
                 className="blog-details-image"
-                alt="Blog"
+                alt={blogsData?.title ? blogsData.title : "Blogs Data"}
               />
             </div>
 
@@ -82,7 +82,7 @@ const BlogPage2 = () => {
                       <img
                         src={BurjKhalifaImg}
                         className="blog2-all-images pb-4"
-                        alt="Blog"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                       />
                     </div>
 
@@ -110,7 +110,7 @@ const BlogPage2 = () => {
                     <img
                       src={PalmJumeirahImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
@@ -130,7 +130,7 @@ const BlogPage2 = () => {
                     <img
                       src={DubaiCreekImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
@@ -152,7 +152,7 @@ const BlogPage2 = () => {
                     <img
                       src={DubaiMallImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
@@ -173,7 +173,7 @@ const BlogPage2 = () => {
                     <img
                       src={SkydiveDubaiImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
@@ -195,7 +195,7 @@ const BlogPage2 = () => {
                     <img
                       src={DubaiFrameImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
@@ -217,7 +217,7 @@ const BlogPage2 = () => {
                     <img
                       src={KiteBeachImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
@@ -237,7 +237,7 @@ const BlogPage2 = () => {
                     <img
                       src={CityWalkImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
@@ -259,7 +259,7 @@ const BlogPage2 = () => {
                     <img
                       src={DubaiMarinaImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
@@ -280,7 +280,7 @@ const BlogPage2 = () => {
                     <img
                       src={DeepDiveDubaiImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
@@ -301,7 +301,7 @@ const BlogPage2 = () => {
                     <img
                       src={BurjAlArabImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
@@ -322,7 +322,7 @@ const BlogPage2 = () => {
                     <img
                       src={MuseumoftheFutureImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
@@ -344,7 +344,7 @@ const BlogPage2 = () => {
                     <img
                       src={ExpoCityDubaiImg}
                       className="blog2-all-images pb-4"
-                      alt="Blog"
+                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
                   </div>
                   <p>
