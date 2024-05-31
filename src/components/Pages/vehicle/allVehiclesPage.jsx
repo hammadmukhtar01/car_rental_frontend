@@ -1320,7 +1320,7 @@ const VehiclesPage = () => {
                           className="card-header styled-label pt-3 pb-3"
                           onClick={toggleCarCategories}
                         >
-                          <div className="car-categories-filter-container d-flex justify-content-between">
+                          <div className="car-categories-filter-container d-flex justify-content-between align-items-center">
                             <div className="car-categories-icon-title">
                               <BsCarFrontFill className="mr-2" />
                               <b>Car Categories</b>
@@ -1374,7 +1374,7 @@ const VehiclesPage = () => {
                           className="card-header styled-label title car-type-filter-heading pt-3 pb-3"
                           onClick={toggleCarType}
                         >
-                          <div className="car-type-filter-container d-flex justify-content-between">
+                          <div className="car-type-filter-container d-flex justify-content-between align-items-center">
                             <div className="car-type-icon-title">
                               <BsJustify className="mr-2" />
                               <b>Models</b>
@@ -1437,7 +1437,7 @@ const VehiclesPage = () => {
                           className="card-header styled-label price-filter-heading pt-3 pb-3"
                           onClick={toggleCarPriceRange}
                         >
-                          <div className="car-type-filter-container d-flex justify-content-between">
+                          <div className="car-type-filter-container d-flex justify-content-between align-items-center">
                             <div className="car-type-icon-title">
                               <BsTags className="mr-2" />
                               <b>Price Range ( </b>per day <b>)</b>

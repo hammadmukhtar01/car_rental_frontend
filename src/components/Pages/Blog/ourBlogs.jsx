@@ -94,7 +94,7 @@ const OurBlogs = () => {
           <div className="styled-label text-center">
             <div className="blogs-heading-icon-container-div">
               <span>
-                <b className="fs-3">Blogs</b>
+                <h2><b className="fs-3">Blogs</b></h2>
               </span>
             </div>
           </div>

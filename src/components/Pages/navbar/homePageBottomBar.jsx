@@ -21,10 +21,10 @@ const HomePageBottomBar = () => {
           <div className="bottom-home-page-horizontal-line">
             <Row className="justify-content-center">
               <Col lg={6} xs={12} className="left-content text-lg-left">
-                <div className="pl-2 pb-2">
-                  <span className="bottom-bar-copyright-text text-white">
+                <div className="pl-2">
+                  <h3><span className="bottom-bar-copyright-text text-white">
                     Copyright &copy; 2024. Milele Car rental All Rights Reserved
-                  </span>
+                  </span></h3>
                 </div>
               </Col>
 

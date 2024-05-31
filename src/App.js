@@ -17,7 +17,7 @@ import ForgotPasswordPage from "./components/authentication/forgotPassword";
 import ResetPasswordPage from "./components/authentication/resetPasswordPage";
 import VehicleDetails from "./components/Pages/multipleStepsForm/vehicleDetails";
 import AddOnsDocuments from "./components/Pages/multipleStepsForm/documentsAndBooking";
-import ErrorPage from "./components/Pages/OtherPages/errorPage";
+import Error404Page from "./components/Pages/OtherPages/404Page";
 import LeaseToOwnVehicles from "./components/Pages/vehicle/leaseToOwn";
 import TermsConditionsPage from "./components/Pages/OtherPages/termsConditionsPage";
 import BlogPage1 from "./components/Pages/Blog/blogPage1";
@@ -58,7 +58,7 @@ const App = () => {
             <Route path="/blogPage2/2" element={<BlogPage2 />} />
             <Route path="/blogPage3/3" element={<BlogPage3 />} />
             <Route path="/blogPage4/4" element={<BlogPage4 />} />
-            <Route path="*" element={<ErrorPage />} />
+            <Route path="*" element={<Error404Page />} />
           </Routes>
         </div>
         </GlobalLoader>

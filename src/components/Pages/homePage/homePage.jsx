@@ -62,11 +62,7 @@ const HomePage = () => {
             </div>
             <div className="home-page-horizontal-line-2">
               <h1 className="home-page-horizontal-line-2-text">
-                <div className="rent-drive-explore-div2">
-                  <span className="rent-drive-explore-span">
-                    Rent, Drive, Explore Dubai
-                  </span>
-                </div>
+                Rent, Drive, Explore Dubai
               </h1>
             </div>
           </div>
@@ -92,7 +88,7 @@ const HomePage = () => {
               <div className="styled-label">
                 <div className="heading-icon-container-div">
                   <span className="text-center">
-                    <b className="fs-3">Collaborated Brands</b>
+                    <h2><b className="fs-3">Collaborated Brands</b></h2>
                   </span>
                 </div>
                 <hr className="home-page-heading-underline " />
@@ -123,7 +119,7 @@ const HomePage = () => {
             <div className="styled-label text-center">
               <div className="insta-testimonial-heading-icon-container-div">
                 <span>
-                  <b className="fs-3">Instagram Feed</b>
+                 <h2> <b className="fs-3">Instagram Feed</b></h2>
                 </span>
               </div>
             </div>
