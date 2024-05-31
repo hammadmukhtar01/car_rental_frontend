@@ -33,6 +33,8 @@ const BlogPage4 = ({ blogData }) => {
             content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
           />
           <meta name="keywords" content="keywords" />
+          <link rel="canonical" href="https://milelecarrental.com/blogPage4/4" />
+
         </Helmet>
         <HeaderCombination />
         <Container>

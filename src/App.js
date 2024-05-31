@@ -2,7 +2,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import BookingDetails from "./components/Pages/Booking/bookingDetails";
 import AfterBookingPage from "./components/Pages/multipleStepsForm/afterBookingPage";
 import HomePage from "./components/Pages/homePage/homePage";
 import VehiclesPage from "./components/Pages/vehicle/allVehiclesPage";
@@ -36,14 +35,14 @@ const App = () => {
             <Route path="/home" exact element={<HomePage />} />
             <Route path="/vehicles" element={<VehiclesPage />} />
             <Route path="/leaseToOwn" element={<LeaseToOwnVehicles />} />
-            <Route path="/booking/:id" element={<BookingDetails />} />
+            {/* <Route path="/booking/:id" element={<BookingDetails />} /> */}
             <Route path="/afterpayment/:id" element={<AfterBookingPage />} />
             <Route path="/aboutus" element={<AboutusPage />} />
             <Route path="/faqs" element={<FaqsPage />} />
             <Route path="/terms&Conditions" element={<TermsConditionsPage />} />
             <Route path="/contactus" element={<ContactusPage />} />
-            <Route path="/myProfile/:id" element={<ContactusPage />} />
-            <Route path="/myBookings/:id" element={<CustomerBookingPage />} />
+            {/* <Route path="/myProfile/:id" element={<ContactusPage />} /> */}
+            {/* <Route path="/myBookings/:id" element={<CustomerBookingPage />} /> */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
@@ -58,6 +57,7 @@ const App = () => {
             <Route path="/blogPage2/2" element={<BlogPage2 />} />
             <Route path="/blogPage3/3" element={<BlogPage3 />} />
             <Route path="/blogPage4/4" element={<BlogPage4 />} />
+            <Route path="/404" element={<Error404Page />} />
             <Route path="*" element={<Error404Page />} />
           </Routes>
         </div>

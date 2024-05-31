@@ -894,14 +894,15 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   return (
     <div>
       <Helmet>
-        <title>Customer booking details - Milele Car Rental  </title>
+        <title>Customer booking details - Milele Car Rental </title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
-        <meta
-          name="keywords"
-          content="keywords"
+        <meta name="keywords" content="keywords" />
+        <link
+          rel="canonical"
+          href="https://milelecarrental.com/bookingPage/2"
         />
       </Helmet>
       <div className="vehicle-details-location-main-div pt-3 pb-3">

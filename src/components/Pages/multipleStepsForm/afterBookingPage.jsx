@@ -17,6 +17,7 @@ const AfterBookingPage = () => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
+        <link rel="canonical" href="https://milelecarrental.com/bookingPage/3&booking-success" />
       </Helmet>
       <div className="wrapper">
         <div className="landing-page">
