@@ -14,6 +14,7 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
+import { Helmet } from "react-helmet";
 
 const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [firstName, setFirstName] = useState("");
@@ -892,6 +893,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Customer booking details - Milele Car Rental  </title>
+        <meta
+          name="description"
+          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+        />
+        <meta
+          name="keywords"
+          content="keywords"
+        />
+      </Helmet>
       <div className="vehicle-details-location-main-div pt-3 pb-3">
         <Container fluid className="pt-4">
           <>

@@ -1,6 +1,7 @@
 import React from "react";
 import "../OtherPages/errorPage.css";
 import { useNavigate } from "react-router";
+import { Helmet } from "react-helmet";
 
 const AfterBookingPage = () => {
   const navigate = useNavigate();
@@ -9,6 +10,14 @@ const AfterBookingPage = () => {
   };
   return (
     <>
+      <Helmet>
+        <title>Booking Success - Milele Car Rental </title>
+        <meta
+          name="description"
+          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+        />
+        <meta name="keywords" content="keywords" />
+      </Helmet>
       <div className="wrapper">
         <div className="landing-page">
           <div style={{ textAlign: "center" }} className="icon__download">

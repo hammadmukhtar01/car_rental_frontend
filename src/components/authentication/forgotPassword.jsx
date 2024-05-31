@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FooterCombination from "../PrivateComponents/footerCombination";
 import HeaderCombination from "../PrivateComponents/headerCombination";
+import { Helmet } from "react-helmet";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -66,6 +67,17 @@ const ForgotPasswordPage = () => {
 
   return (
     <>
+    <Helmet>
+        <title>Forgot Password - Milele Car Rental  </title>
+        <meta
+          name="description"
+          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+        />
+        <meta
+          name="keywords"
+          content="keywords"
+        />
+      </Helmet>
       <HeaderCombination />
       <section className="ftco-section">
         <div className="container pt-2">

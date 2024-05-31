@@ -19,6 +19,7 @@ import "../homePage/homepage.css";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
+import { Helmet } from "react-helmet";
 
 const BlogPage2 = () => {
   const blogsData = {
@@ -33,6 +34,14 @@ const BlogPage2 = () => {
   return (
     <div id="main">
       <>
+        <Helmet>
+          <title>Blog: {blogsData?.title}</title>
+          <meta
+            name="description"
+            content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+          />
+          <meta name="keywords" content="keywords" />
+        </Helmet>
         <HeaderCombination />
         <Container>
           <br />

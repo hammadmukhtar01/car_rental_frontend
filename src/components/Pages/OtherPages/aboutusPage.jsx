@@ -4,6 +4,7 @@ import HashLoader from "react-spinners/ClipLoader";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
+import { Helmet } from "react-helmet";
 
 const aboutUsParagraphs = [
   {
@@ -49,9 +50,15 @@ const aboutUsParagraphs = [
 ];
 
 const AboutusPage = () => {
-
   return (
     <>
+      <Helmet>
+        <meta
+          name="description"
+          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+        />
+        <title>About Us</title>
+      </Helmet>
       <div id="main">
         <HeaderCombination />
         <div className="container mt-4 mb-4">
@@ -86,14 +93,16 @@ const AboutusPage = () => {
                     <h5 className="pt-1 pb-1">
                       <b> {aboutUsData?.heading}:</b>{" "}
                     </h5>
-                    <p className="about-us-description">{aboutUsData?.description}</p>
+                    <p className="about-us-description">
+                      {aboutUsData?.description}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
           </section>
         </div>
-          <FreeConsultationForm />
+        <FreeConsultationForm />
         <FooterCombination />
       </div>
     </>

@@ -13,6 +13,7 @@ import InstagramFeed from "../homePage/instagramFeed";
 import LeaseNowFormDetails from "./leaseNowDetailsForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
+import { Helmet } from "react-helmet";
 
 const LargeBanner = LTOProcessImgWeb;
 const SmallBanner = LTOProcessImgMob;
@@ -258,6 +259,14 @@ const LeaseToOwnVehicles = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Lease To Own - Milele Car Rental </title>
+        <meta
+          name="description"
+          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+        />
+        <meta name="keywords" content="keywords" />
+      </Helmet>
       <HeaderCombination />
       <div id="main" className="pb-2 bg-white">
         <section className="lto-main-banner-section mt-3">

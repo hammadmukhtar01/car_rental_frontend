@@ -10,6 +10,7 @@ import {
 } from "mdb-react-ui-kit";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
+import { Helmet } from "react-helmet";
 
 const FaqsPage = () => {
   const faqItems = [
@@ -120,6 +121,14 @@ const FaqsPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>FAQs - Milele Car Rental </title>
+        <meta
+          name="description"
+          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+        />
+        <meta name="keywords" content="keywords" />
+      </Helmet>
       <HeaderCombination />
       <div className="container pt-4 pb-5">
         <div className="styled-label text-center">

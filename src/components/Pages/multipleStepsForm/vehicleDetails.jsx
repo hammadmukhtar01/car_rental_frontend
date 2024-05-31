@@ -24,6 +24,7 @@ import Typography from "@mui/material/Typography";
 import { FaMapMarkerAlt, FaTelegramPlane } from "react-icons/fa";
 import "./verticalSliderCarDetails.css";
 import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import axios from "axios";
 
 const VehicleDetails = ({ nextStep }) => {
@@ -567,7 +568,15 @@ const VehicleDetails = ({ nextStep }) => {
   }
 
   return (
-    <div className="">
+    <div>
+      <Helmet>
+        <title>Vehicle Detail - Milele Car Rental </title>
+        <meta
+          name="description"
+          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+        />
+        <meta name="keywords" content="keywords" />
+      </Helmet>
       <div className="vehicle-details-location-main-div pb-3 pt-3">
         <Container fluid>
           <>

@@ -4,6 +4,7 @@ import blog1_MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
+import { Helmet } from "react-helmet";
 
 const BlogPage1 = () => {
   const blogsData = {
@@ -17,15 +18,20 @@ const BlogPage1 = () => {
 
   return (
     <div id="main">
+      <Helmet>
+        <title>Blog: {blogsData?.title}</title>
+        <meta
+          name="description"
+          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+        />
+        <meta name="keywords" content="keywords" />
+      </Helmet>
       <>
-      <HeaderCombination/>
+        <HeaderCombination />
         <Container>
           <br />
           <div className="blog-details-page">
-            <h3 className="blog1-main-heading mb-3">
-              {" "}
-              {blogsData?.title}
-            </h3>
+            <h3 className="blog1-main-heading mb-3"> {blogsData?.title}</h3>
 
             <div className="blog-details-image-container">
               <img
@@ -83,7 +89,7 @@ const BlogPage1 = () => {
           </div>
         </Container>
         <FreeConsultationForm />
-        <FooterCombination/>
+        <FooterCombination />
       </>
     </div>
   );

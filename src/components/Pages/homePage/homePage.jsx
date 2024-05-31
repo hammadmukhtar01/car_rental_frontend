@@ -9,6 +9,7 @@ import KiaLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 1
 import HyundaiLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 11.png";
 import CheveroletLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 22.png";
 import OurBlogs from "../Blog/ourBlogs";
+import { Helmet } from "react-helmet";
 import "./ourClients.css";
 // import SpinTheWheel from "../spinTheWheel/spinTheWheel";
 
@@ -40,7 +41,16 @@ const HomePage = () => {
   };
 
   return (
-    <div className="">
+    <div>
+      <Helmet>
+        <title>Home - Milele Car Rental </title>
+        <meta
+          name="description"
+          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+        />
+        <meta name="keywords" content="keywords" />
+      </Helmet>
+
       <HomePageTopBar />
       <div className="navbar-div-container">
         <MainNavbar />
@@ -88,7 +98,9 @@ const HomePage = () => {
               <div className="styled-label">
                 <div className="heading-icon-container-div">
                   <span className="text-center">
-                    <h2><b className="fs-3">Collaborated Brands</b></h2>
+                    <h2>
+                      <b className="fs-3">Collaborated Brands</b>
+                    </h2>
                   </span>
                 </div>
                 <hr className="home-page-heading-underline " />
@@ -119,7 +131,10 @@ const HomePage = () => {
             <div className="styled-label text-center">
               <div className="insta-testimonial-heading-icon-container-div">
                 <span>
-                 <h2> <b className="fs-3">Instagram Feed</b></h2>
+                  <h2>
+                    {" "}
+                    <b className="fs-3">Instagram Feed</b>
+                  </h2>
                 </span>
               </div>
             </div>

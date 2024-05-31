@@ -7,11 +7,19 @@ import { BsGeoAltFill } from "react-icons/bs";
 import { BsFillClockFill } from "react-icons/bs";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
+import { Helmet } from "react-helmet";
 
 const ContactusPage = () => {
-
   return (
     <>
+      <Helmet>
+        <title>Contact Us - Milele Car Rental </title>
+        <meta
+          name="description"
+          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+        />
+        <meta name="keywords" content="keywords" />
+      </Helmet>
       <HeaderCombination />
       <div id="main" className="">
         <div className="contactUs-container container">

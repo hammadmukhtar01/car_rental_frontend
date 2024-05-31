@@ -3,6 +3,7 @@ import "./errorPage.css";
 import { useNavigate } from "react-router";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
+import { Helmet } from "react-helmet";
 
 const Error404Page = () => {
   const navigate = useNavigate();
@@ -11,6 +12,14 @@ const Error404Page = () => {
   };
   return (
     <>
+      <Helmet>
+        <title>Error 404 (Page Not Found)!</title>
+        <meta
+          name="description"
+          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+        />
+        <meta name="keywords" content="keywords" />
+      </Helmet>
       <HeaderCombination />
       <div className="wrapper">
         <div className="landing-page">
@@ -217,14 +226,13 @@ const Error404Page = () => {
             </svg>
           </div>
 
-          <h1 className="error-page-main-heading">  Error 404</h1>
-          <p className="error-page-paragraph">
-            {" "}
-            Page Not Found.
-          </p>
+          <h1 className="error-page-main-heading"> Error 404.</h1>
+          <p className="error-page-paragraph"> Page Not Found!</p>
           <br />
           <button onClick={errorPageBackButton} className="middle">
-            <span className="animate-button btn4">Return Home</span>
+            <span className="animate-button btn4">
+              <span className="return-home-button-text">Return Home</span>
+            </span>
           </button>
         </div>
       </div>

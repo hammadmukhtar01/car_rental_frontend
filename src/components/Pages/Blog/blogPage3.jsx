@@ -5,6 +5,7 @@ import blog3_MainImg1 from "../../images/blog-images/blog3_main_Img1.png";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
+import { Helmet } from "react-helmet";
 
 const BlogPage3 = ({ blogData }) => {
   const blogNumInUrl = useLocation();
@@ -24,6 +25,14 @@ const BlogPage3 = ({ blogData }) => {
   return (
     <div id="main">
       <>
+        <Helmet>
+          <title>Blog: {blogsData?.title}</title>
+          <meta
+            name="description"
+            content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+          />
+          <meta name="keywords" content="keywords" />
+        </Helmet>
         <HeaderCombination />
         <Container>
           <br />
