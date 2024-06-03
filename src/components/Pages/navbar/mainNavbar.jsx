@@ -51,10 +51,15 @@ function MainNavbar() {
           <Col lg={2} md={3} xs={6}>
             <Navbar.Brand>
               <div className="main-logo">
-                <a href="/home" onClick={() => setShowOffCanvas(false)}>
+                <a
+                  href="/home"
+                  title="home-page-link"
+                  onClick={() => setShowOffCanvas(false)}
+                >
                   <Image
                     // src={`${isHomePage ? Whitelogo : Coloredlogo}`}
                     src={logoImage}
+                    title="milele-car-rental-logo"
                     alt="Main Logo lg"
                     fluid
                   />
@@ -79,10 +84,15 @@ function MainNavbar() {
               <Offcanvas.Header closeButton>
                 <Navbar.Brand>
                   <div className="toggle-main-logo">
-                    <a href="/home" onClick={() => setShowOffCanvas(false)}>
+                    <a
+                      href="/home"
+                      title="home-page-link"
+                      onClick={() => setShowOffCanvas(false)}
+                    >
                       <Image
                         // src={logoImage}
                         src={Coloredlogo}
+                        title="milele-car-rental-logo"
                         alt="Main Logo Sm"
                         fluid
                       />
@@ -99,6 +109,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/home"
+                    title="home-page-link"
                     className={`navbar-all-menus ${
                       location.pathname === "/home"
                         ? "active"
@@ -114,6 +125,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/vehicles"
+                    title="fleet-page-link"
                     className={`navbar-all-menus ${
                       location.pathname === "/vehicles" ? "active" : ""
                     }`}
@@ -126,6 +138,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/aboutus"
+                    title="about-us-page-link"
                     className={`navbar-all-menus ${
                       location.pathname === "/aboutus" ? "active" : ""
                     }`}
@@ -138,6 +151,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/terms&Conditions"
+                    title="terms&Conditions-page-link"
                     className={`navbar-all-menus ${
                       location.pathname === "/terms&Conditions" ? "active" : ""
                     }`}
@@ -150,6 +164,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/leaseToOwn"
+                    title="lease-to-own-page-link"
                     className={`navbar-all-menus ${
                       location.pathname === "/leaseToOwn" ? "active" : ""
                     }`}
@@ -162,6 +177,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/contactus"
+                    title="contact-us-page-link"
                     className={`navbar-all-menus ${
                       location.pathname === "/contactus" ? "active" : ""
                     }`}
@@ -173,6 +189,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/faqs"
+                    title="Frequently Asked Questions"
                     className={`navbar-all-menus ${
                       location.pathname === "/faqs" ? "active" : ""
                     }`}

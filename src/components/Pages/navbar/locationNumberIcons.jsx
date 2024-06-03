@@ -19,28 +19,34 @@ const FixedNumLocButtons = () => {
   return (
     <>
       <div className="contact-buttons-container">
-        <a
-          href={`tel:${phoneNumber}`}
-          className="contact-button phone-call-link"
-        >
-          <FaPhone />
-        </a>
-        <a
-          href={whatsappLink}
-          target="_blank"
-          className="contact-button whatsapp-link"
-          rel="noreferrer"
-        >
-          <FaWhatsapp />
-        </a>
+          <a
+            href={`tel:${phoneNumber}`}
+            title={"phone Number"}
+            className="contact-button phone-call-link"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaPhone />
+          </a>
 
-        <a
-          href="#map"
-          onClick={openMapModal}
-          className="contact-button map-link location-link"
-        >
-          <FaMapMarkerAlt />
-        </a>
+          <a
+            href={whatsappLink}
+            title={"whatsapp"}
+            className="contact-button whatsapp-link"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaWhatsapp />
+          </a>
+
+          <a
+            href="#map"
+            title="google Map"
+            onClick={openMapModal}
+            className="contact-button map-link location-link"
+          >
+            <FaMapMarkerAlt />
+          </a>
 
         <Modal show={showModal} onHide={handleCloseModal} size="lg">
           <Modal.Header closeButton>
@@ -57,7 +63,7 @@ const FixedNumLocButtons = () => {
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="#"
+              title="Milele Location"
             ></iframe>
           </Modal.Body>
           <Modal.Footer>

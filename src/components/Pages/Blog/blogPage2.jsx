@@ -41,8 +41,11 @@ const BlogPage2 = () => {
             content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
           />
           <meta name="keywords" content="keywords" />
-          <link rel="canonical" href="https://milelecarrental.com/blogPage2/2" />
-
+          <link
+            rel="canonical"
+            href="https://milelecarrental.com/blogPage2/2"
+            title={`${blogsData?.title}`}
+          />
         </Helmet>
         <HeaderCombination />
         <Container>
@@ -53,6 +56,7 @@ const BlogPage2 = () => {
               <img
                 src={blogsData?.imageUrl}
                 className="blog-details-image"
+                title={blogsData?.title ? blogsData.title : "Blogs Data"}
                 alt={blogsData?.title ? blogsData.title : "Blogs Data"}
               />
             </div>
@@ -83,6 +87,7 @@ const BlogPage2 = () => {
                     <div className="blog2-extra-imgs-div">
                       <img
                         src={BurjKhalifaImg}
+                        title="Burj Khalifa"
                         className="blog2-all-images pb-4"
                         alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                       />
@@ -111,6 +116,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={PalmJumeirahImg}
+                      title="Palm Jumeirah"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
@@ -131,6 +137,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={DubaiCreekImg}
+                      title="Dubai Creek"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
@@ -153,6 +160,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={DubaiMallImg}
+                      title="Dubai Mall"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
@@ -174,6 +182,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={SkydiveDubaiImg}
+                      title="Skydive Dubai"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
@@ -196,6 +205,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={DubaiFrameImg}
+                      title="Dubai Frame"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
@@ -218,6 +228,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={KiteBeachImg}
+                      title="Kite Beach"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
@@ -238,6 +249,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={CityWalkImg}
+                      title="City Walk"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
@@ -260,6 +272,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={DubaiMarinaImg}
+                      title="Dubai Marina"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
@@ -281,6 +294,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={DeepDiveDubaiImg}
+                      title="Deep Dive Dubai"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
@@ -302,6 +316,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={BurjAlArabImg}
+                      title="Burj Al Arab"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
@@ -323,6 +338,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={MuseumoftheFutureImg}
+                      title="Museum of the Future"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />
@@ -345,6 +361,7 @@ const BlogPage2 = () => {
                   <div className="blog2-extra-imgs-div">
                     <img
                       src={ExpoCityDubaiImg}
+                      title="Expo City Dubai"
                       className="blog2-all-images pb-4"
                       alt={blogsData?.title ? blogsData.title : "Blogs Data"}
                     />

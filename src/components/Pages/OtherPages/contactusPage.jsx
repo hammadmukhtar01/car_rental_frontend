@@ -13,7 +13,7 @@ const ContactusPage = () => {
   return (
     <>
       <Helmet>
-        <title>Contact Us - Milele Car Rental </title>
+        <title>Contact Us - Milele Car Rental Application </title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
@@ -104,7 +104,7 @@ const ContactusPage = () => {
                       allowFullScreen=""
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
-                      title="#"
+                      title="Milele Location"
                     ></iframe>
                   </div>
                 </div>

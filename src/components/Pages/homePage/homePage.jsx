@@ -42,7 +42,7 @@ const HomePage = () => {
   return (
     <div>
       <Helmet>
-        <title>Home - Milele Car Rental </title>
+        <title>Home - Milele Car Rental Application </title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
@@ -64,6 +64,7 @@ const HomePage = () => {
               <img
                 className="only-car-banner-container-2"
                 src={OnlyCar}
+                title="car-banner"
                 alt="home page top banner "
               />
             </div>
@@ -84,21 +85,7 @@ const HomePage = () => {
               rental vehicles to suit your needs.
             </p>
           </div>
-          <CarCards />
-
-          <Modal show={showModal} onHide={handleCloseModal} size="lg">
-            <Modal.Header closeButton>
-              <Modal.Title>
-                <span className="modal-heading">Spin The Wheel </span>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>{/* <SpinTheWheel /> */}</Modal.Body>
-            <Modal.Footer>
-              <button className="btn btn-secondary" onClick={handleCloseModal}>
-                Close
-              </button>
-            </Modal.Footer>
-          </Modal>
+          {/* <CarCards /> */}
 
           <div className="container pt-4 pb-4">
             <div className="car-brands-icons-container p-3">
@@ -121,6 +108,7 @@ const HomePage = () => {
                         key={index}
                         src={carBrandsName?.logo}
                         className="home-page-single-brand-class"
+                        title={`${carBrandsName?.name} icon`}
                         alt={`${carBrandsName?.name} brand icon`}
                       />
                     ))}

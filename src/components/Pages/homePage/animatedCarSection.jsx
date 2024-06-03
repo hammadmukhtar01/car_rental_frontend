@@ -173,6 +173,9 @@ const AnimatedCarSection = () => {
                           <div className="animated-car-anchor-tag">
                             <img
                               src={data?.displayImageUrl}
+                              title={`${mapCategoryToNavigationValue(
+                                data?.acrissCategory
+                              )} Vehicle Category`}
                               alt={`${mapCategoryToNavigationValue(
                                 data?.acrissCategory
                               )} Vehicle Category`}

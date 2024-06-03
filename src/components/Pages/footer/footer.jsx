@@ -103,7 +103,12 @@ const Footer = () => {
                   <Row className="footer-heading-row align-items-end">
                     <div className="toggle-main-logo">
                       <a href="/home">
-                        <Image src={logoImage} alt="Main Logo lg" fluid />
+                        <Image
+                          src={logoImage}
+                          title="milele-car-rental-footer-logo"
+                          alt="Main Logo lg"
+                          fluid
+                        />
                       </a>
                     </div>
                   </Row>
@@ -166,7 +171,10 @@ const Footer = () => {
                     <div className="footer-info-data">
                       {footerInformation.map((footerInfoList, index) => (
                         <div className="footer-info-list pt-2 pb-2" key={index}>
-                          <a href={footerInfoList?.hrefLink}>
+                          <a
+                            href={footerInfoList?.hrefLink}
+                            title={`${footerInfoList?.headingName} footer`}
+                          >
                             <span>
                               {" "}
                               <strong>{">"}</strong>{" "}

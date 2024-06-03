@@ -18,7 +18,7 @@ const InstagramFeed = () => {
           //   sort: "most recent",
           accessToken: process.env.REACT_APP_INSTAGRAM_TOKEN_KEY,
           template:
-            '<div class="col-lg-3 col-md-4 col-sm-4 col-4 text-center insta-feed-tempelate-div"><a href="{{link}}" target="_blank"><img src="{{image}}" alt="{{caption}}" class="img-fluid" /></a></div>',
+            '<div class="col-lg-3 col-md-4 col-sm-4 col-4 text-center insta-feed-tempelate-div"><a title="instagram-feed" href="{{link}}" target="_blank"><img src="{{image}}" alt="{{caption}}" title="instagram-feeds" class="img-fluid" /></a></div>',
         });
         userFeed.run();
       }

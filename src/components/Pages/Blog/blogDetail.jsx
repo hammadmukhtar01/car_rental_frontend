@@ -64,6 +64,11 @@ const BlogPage4 = ({ blogData }) => {
               <img
                 src={selectedBlog?.imageUrl}
                 className="blog-details-image"
+                title={
+                  selectedBlog?.title
+                    ? selectedBlog?.title
+                    : "Featured blog post"
+                }
                 alt={
                   selectedBlog?.title
                     ? selectedBlog?.title

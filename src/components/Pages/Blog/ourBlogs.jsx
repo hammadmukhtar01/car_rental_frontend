@@ -59,12 +59,21 @@ const OurBlogs = () => {
     <a
       key={blogData?.id}
       className="blog-item"
+      title={blogsData?.title ? blogsData.title : "milele-car-rental blog post"}
       href={`/blogPage${blogData?.id}/${blogData?.id}`}
     >
       <div className="container">
         <div className="single-blog blog-style-one">
           <div className="blog-image pb-3">
-            <img src={blogData?.imageUrl} alt={blogsData?.title ? blogsData.title : "Featured Blog Post"} />
+            <img
+              src={blogData?.imageUrl}
+              title={
+                blogsData?.title
+                  ? blogsData.title
+                  : "milele-car-rental blog post"
+              }
+              alt={blogsData?.title ? blogsData.title : "Featured Blog Post"}
+            />
           </div>
           <div className="blog-content">
             <h5 className="blog-title">
@@ -94,7 +103,9 @@ const OurBlogs = () => {
           <div className="styled-label text-center">
             <div className="blogs-heading-icon-container-div">
               <span>
-                <h2><b className="fs-3">Blogs</b></h2>
+                <h2>
+                  <b className="fs-3">Blogs</b>
+                </h2>
               </span>
             </div>
           </div>

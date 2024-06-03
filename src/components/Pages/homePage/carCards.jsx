@@ -35,6 +35,7 @@ const Carousel = () => {
             <img
               className="main-banner-img"
               id="banner-img"
+              title={`offer-banner`}
               src={bannerImg}
               alt="Special car rental offer banner"
             />

@@ -1034,7 +1034,7 @@ const VehiclesPage = () => {
   return (
     <>
       <Helmet>
-        <title>Fleet - Milele Car Rental </title>
+        <title>Fleet - Milele Car Rental Application </title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
@@ -1527,10 +1527,10 @@ const VehiclesPage = () => {
                             <Col>
                               <Form.Group controlId="formSortBy">
                                 <Form.Label className="styled-label mt-2">
-                                  <h6>
+                                  <h5>
                                     {" "}
                                     <b>Sort By:</b>
-                                  </h6>
+                                  </h5>
                                 </Form.Label>
                                 <Select
                                   options={sortByDropDown}
@@ -1551,7 +1551,8 @@ const VehiclesPage = () => {
                     </Row>
 
                     <>
-                      <h3 className="pb-2 all-cars-heading">All Cars</h3>
+                      <h1 className="pb-2 all-cars-heading">All Cars</h1>
+                      <h2 className="all-cars-h2 d-none">All Cars</h2>
                       <br />
                       {loading ? (
                         <div className="text-center">
@@ -1608,6 +1609,7 @@ const VehiclesPage = () => {
                                         {" "}
                                         <img
                                           src={car?.displayImageUrl}
+                                          title={`${car?.title} car`}
                                           alt={`Rent ${car?.title} car`}
                                           className="car-image"
                                         />

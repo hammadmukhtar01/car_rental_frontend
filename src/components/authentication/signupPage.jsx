@@ -98,7 +98,7 @@ const SignupPage = () => {
   return (
     <>
       <Helmet>
-        <title>Signup - Milele Car Rental </title>
+        <title>Signup - Milele Car Rental Application </title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."

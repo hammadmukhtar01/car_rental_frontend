@@ -32,8 +32,11 @@ const BlogPage3 = ({ blogData }) => {
             content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
           />
           <meta name="keywords" content="keywords" />
-          <link rel="canonical" href="https://milelecarrental.com/blogPage3/3" />
-
+          <link
+            rel="canonical"
+            href="https://milelecarrental.com/blogPage3/3"
+            title={`${blogsData?.title}`}
+          />
         </Helmet>
         <HeaderCombination />
         <Container>
@@ -44,6 +47,7 @@ const BlogPage3 = ({ blogData }) => {
               <img
                 src={blogsData?.imageUrl}
                 className="blog-details-image"
+                title={blogsData?.title ? blogsData.title : "Blogs Data"}
                 alt={blogsData?.title ? blogsData.title : "Blogs Data"}
               />
             </div>
