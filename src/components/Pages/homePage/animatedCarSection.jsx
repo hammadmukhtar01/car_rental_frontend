@@ -62,8 +62,6 @@ const AnimatedCarSection = () => {
 
       const response = await axios.post(url, {}, { headers });
 
-      console.log("repss", response?.data?.result?.items);
-
       response?.data?.result?.items?.forEach((car) => {
         switch (car.acrissCategory?.name) {
           case "Standard":

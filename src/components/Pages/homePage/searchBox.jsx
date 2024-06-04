@@ -22,7 +22,6 @@ const SearchBox = () => {
   const [dropOffDate, setDropOffDate] = useState("");
   const [dropOffTime, setDropOffTime] = useState("");
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
-  console.log("pickup loc msg is-----------: ", pickupLocationMessage);
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showPickupModal, setShowPickupModal] = useState(false);
@@ -48,10 +47,9 @@ const SearchBox = () => {
     },
   ]);
 
-  useEffect(() => {
-  }, [dateRange]);
+  useEffect(() => {}, [dateRange]);
 
-   const localStorageDataCalculation = () => {
+  const localStorageDataCalculation = () => {
     const reqLocalStorageData = localStorage?.getItem("formFields");
     if (reqLocalStorageData) {
       const storedFormFields = JSON.parse(reqLocalStorageData);
@@ -129,16 +127,13 @@ const SearchBox = () => {
     showDropoffV1: 0,
   });
 
-  console.log(`1223452134234---3-4-3-3-31--32-43-2324-: ${pickupLocation}`);
 
   const handlePickupTimeChange = (selectedOption) => {
-    console.log("Selected time option is: ", selectedOption);
     setPickUpTime(selectedOption?.value);
     handleFieldChange("pickTimeV1", selectedOption?.value);
   };
 
   const handleDropoffTimeChange = (selectedOption) => {
-    console.log("Selected time option is: ", selectedOption);
     setDropOffTime(selectedOption?.value);
     handleFieldChange("dropTimeV1", selectedOption?.value);
   };
@@ -320,7 +315,7 @@ const SearchBox = () => {
   };
 
   const handleSearchVehicleButtonHomePage = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     if (
       !pickUpTime ||
@@ -393,6 +388,37 @@ const SearchBox = () => {
     setPickupInputFieldValue(value);
   };
 
+  const handleSearchClick = () => {
+    console.log("Search button is clicked")
+    const inputs = [
+      "searchboxInputDate",
+      "searchboxInputPickUpLoc",
+      "searchboxInputDropOffLoc",
+      "searchboxInputPickUpTime",
+      "searchboxInputDropOffTime",
+      "searchboxInputDiffLocCheckbox"
+    ];
+  
+    const searchData = {};
+  
+    inputs.forEach((id) => {
+      const inputElement = document.getElementById(id);
+      if (inputElement) {
+        searchData[id] = inputElement.type === "checkbox" ? inputElement.checked : inputElement.value;
+      }
+    });
+  
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: "search_button_click",
+        search_data: searchData,
+      });
+    }
+
+    handleSearchVehicleButtonHomePage();
+  };
+  
+
   return (
     <>
       <div className="bg-img-container ">
@@ -418,6 +444,7 @@ const SearchBox = () => {
                           <input
                             className="form-control-date mt-2 col-12"
                             type="text"
+                            id="searchboxInputDate"
                             required
                             value={
                               formFields?.dateRangeV1?.startDate &&
@@ -484,6 +511,7 @@ const SearchBox = () => {
                               <input
                                 className="form-control-location mt-2 col-12"
                                 type="text"
+                                id="searchboxInputPickUpLoc"
                                 placeholder="Enter pickup location"
                                 value={pickupLocationMessage}
                                 onChange={() =>
@@ -508,6 +536,7 @@ const SearchBox = () => {
                                 <input
                                   className="form-control-location mt-2 col-12"
                                   type="text"
+                                  id="searchboxInputDropOffLoc"
                                   placeholder="Enter dropoff location"
                                   value={dropoffLocationMessage}
                                   onChange={() =>
@@ -524,6 +553,7 @@ const SearchBox = () => {
                         <div className="mt-2">
                           <Form.Check
                             type="checkbox"
+                            id="searchboxInputDiffLocCheckbox"
                             label="Different Dropoff Location"
                             onChange={handleDropoffCheckboxChange}
                             checked={showDropoff}
@@ -555,7 +585,7 @@ const SearchBox = () => {
                           setPickupInputFieldValue={setPickupInputFieldValue}
                           handleInputFieldChange={handleInputFieldChange}
                           onSelectTabChange={onPickupSelectTabChange}
-                                onStateChange={handlePickupStateChange}
+                          onStateChange={handlePickupStateChange}
                         />
                       </Modal.Body>
                     </Modal>
@@ -586,7 +616,7 @@ const SearchBox = () => {
                           setDropoffInputFieldValue={setDropoffInputFieldValue}
                           handleInputFieldChange={handleInputFieldChange}
                           onSelectTabChange={onDropoffSelectTabChange}
-                                onStateChange={handleDropoffStateChange}
+                          onStateChange={handleDropoffStateChange}
                         />
                       </Modal.Body>
                     </Modal>
@@ -602,6 +632,7 @@ const SearchBox = () => {
                           options={timeOptions}
                           required
                           className="form-control-pickup-time col-12"
+                          id="searchboxInputPickUpTime"
                           value={timeOptions?.find(
                             (option) => option?.value === formFields?.pickTimeV1
                           )}
@@ -622,6 +653,7 @@ const SearchBox = () => {
                           options={timeOptions}
                           required
                           className="form-control-dropoff-time col-12"
+                          id="searchboxInputDropOffTime"
                           value={timeOptions?.find(
                             (option) => option?.value === formFields?.dropTimeV1
                           )}
@@ -639,7 +671,11 @@ const SearchBox = () => {
                       xs={6}
                       className="search-box-search-button-div"
                     >
-                      <button className="search-box-search-button">
+                      <button
+                        type="button"
+                        className="search-box-search-button"
+                        onClick={handleSearchClick}
+                      >
                         <span className="">
                           <LuSearch />
                         </span>

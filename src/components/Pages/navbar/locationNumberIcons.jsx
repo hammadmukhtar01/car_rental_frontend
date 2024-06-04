@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaPhone, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 import { Modal } from "react-bootstrap";
 
@@ -8,6 +8,41 @@ const FixedNumLocButtons = () => {
 
   const [showModal, setShowModal] = useState(false);
 
+  useEffect(() => {
+    const gtagScript = document.createElement("script");
+    gtagScript.src =
+      "https://www.googletagmanager.com/gtag/js?id=AW-11403132105";
+    gtagScript.async = true;
+    document.head.appendChild(gtagScript);
+
+    const script = document.createElement("script");
+    script.innerHTML = `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-11403132105');
+      
+      window.gtag_report_conversion = function(url, eventType) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': eventType,
+            'event_callback': callback
+        });
+        return false;
+      }
+    `;
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(gtagScript);
+      document.head.removeChild(script);
+    };
+  }, []);
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -16,37 +51,55 @@ const FixedNumLocButtons = () => {
     setShowModal(true);
   };
 
+  const handlePhoneClick = (e) => {
+    e.preventDefault();
+    window.gtag_report_conversion(
+      `tel:${phoneNumber}`,
+      "AW-11403132105/qF1YCJP11LYZEMn5t70q"
+    );
+  };
+
+  const handleWhatsappClick = (e) => {
+    e.preventDefault();
+    window.gtag_report_conversion(
+      whatsappLink,
+      "AW-11403132105/OOTfCN_b2bYZEMn5t70q"
+    );
+  };
+
   return (
     <>
       <div className="contact-buttons-container">
-          <a
-            href={`tel:${phoneNumber}`}
-            title={"phone Number"}
-            className="contact-button phone-call-link"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaPhone />
-          </a>
+        <a
+          href={`tel:${phoneNumber}`}
+          title={"phone Number"}
+          className="contact-button phone-call-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handlePhoneClick}
+        >
+          <FaPhone />
+        </a>
 
-          <a
-            href={whatsappLink}
-            title={"whatsapp"}
-            className="contact-button whatsapp-link"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <FaWhatsapp />
-          </a>
+        <a
+          href={whatsappLink}
+          title={"whatsapp"}
+          className="contact-button whatsapp-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleWhatsappClick}
+        >
+          <FaWhatsapp />
+        </a>
 
-          <a
-            href="#map"
-            title="google Map"
-            onClick={openMapModal}
-            className="contact-button map-link location-link"
-          >
-            <FaMapMarkerAlt />
-          </a>
+        <a
+          href="#map"
+          title="google Map"
+          onClick={openMapModal}
+          className="contact-button map-link location-link"
+        >
+          <FaMapMarkerAlt />
+        </a>
 
         <Modal show={showModal} onHide={handleCloseModal} size="lg">
           <Modal.Header closeButton>
