@@ -85,7 +85,7 @@ const HomePage = () => {
               rental vehicles to suit your needs.
             </p>
           </div>
-          {/* <CarCards /> */}
+          <CarCards />
 
           <div className="container pt-4 pb-4">
             <div className="car-brands-icons-container p-3">

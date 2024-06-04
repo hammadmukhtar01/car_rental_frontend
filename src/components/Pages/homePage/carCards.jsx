@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import LargeBanner1 from "../../images/web-offer-banner-2.png";
-// import SmallBanner2 from "../../images/web-offer-banner.jpg";
+import LargeBanner1 from "../../images/web-offer-banner-3.png";
+// import SmallBanner2 from "../../images/web-offer-banner-3.jpg";
 
 const LargeBanner = LargeBanner1;
 const SmallBanner = LargeBanner1;
@@ -35,9 +35,9 @@ const Carousel = () => {
             <img
               className="main-banner-img"
               id="banner-img"
-              title={`offer-banner`}
+              title={`banner`}
               src={bannerImg}
-              alt="Special car rental offer banner"
+              alt="Milele Car Rental Banner"
             />
           </div>
         </div>
