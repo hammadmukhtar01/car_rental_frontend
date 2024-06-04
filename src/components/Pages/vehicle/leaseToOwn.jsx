@@ -270,7 +270,11 @@ const LeaseToOwnVehicles = () => {
       </Helmet>
       <HeaderCombination />
       <div id="main" className="pb-2 bg-white">
+          <Container>
         <section className="lto-main-banner-section mt-3">
+          <div className="lto-our-brand-heading">
+            <h1 className="lto-headings text-left">BUILD YOUR OWN LEASING PLAN</h1>
+          </div>
           <div className="lto-main-banner-div">
             <div className="imgBox">
               <img
@@ -279,10 +283,12 @@ const LeaseToOwnVehicles = () => {
                 height="auto"
                 width="40%"
                 id="image-section"
-              />
+                title="banner"
+                />
             </div>
           </div>
         </section>
+                </Container>
         <Container>
           <section className="lto-dealing-brands mt-3">
             <div className="lto-our-brand-div">
@@ -295,7 +301,8 @@ const LeaseToOwnVehicles = () => {
                     key={index}
                     src={icon}
                     className="lto-single-brand-class"
-                    alt={`Top car brand icon`}
+                    alt={`Top brand icon`}
+                    title="brands"
                   />
                 ))}
               </div>
@@ -318,6 +325,7 @@ const LeaseToOwnVehicles = () => {
                   height="auto"
                   width="40%"
                   id="image-section"
+                  title="how to lease any car?"
                 />
               </div>
             </div>

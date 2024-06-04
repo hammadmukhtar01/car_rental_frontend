@@ -788,6 +788,11 @@ span.select2-selection_arrow b {
   color: #d0d0d0;
 }
 
+h1.vehicle-details-heading {
+  font-size: 24px;
+  font-weight: 600;
+}
+
 @media screen and (max-width: 575px) {
   .pay-now-value {
     font-size: 14px;

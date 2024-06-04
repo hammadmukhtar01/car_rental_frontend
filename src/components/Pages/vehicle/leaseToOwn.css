@@ -7,6 +7,11 @@
   min-width: 200px;
 }
 
+.lto-main-heading {
+  color: #e87a28;
+  font-weight: 600;
+}
+
 .lto-headings {
   color: #e87a28;
   text-align: center;

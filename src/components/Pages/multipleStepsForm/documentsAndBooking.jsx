@@ -317,7 +317,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       switch (addOn?.addOnsName) {
         case "CDW (Collision Damage Waiver)":
           console.log("In CDW add on numberOfDays", numberOfDays);
-          if (numberOfDays >= 1 && numberOfDays < 7) {
+          if (numberOfDays > 0 && numberOfDays < 7) {
             console.log(
               `carCategory === "HatchBack" ? 20 : 30; ${carCategory}`
             );
@@ -338,21 +338,21 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           break;
         case "Baby Seat":
           console.log("In baby seat add on", numberOfDays);
-          if (numberOfDays >= 1 && numberOfDays < 7) return 20;
+          if (numberOfDays > 0 && numberOfDays < 7) return 20;
           if (numberOfDays >= 7 && numberOfDays <= 21)
             return Math.round((120 / 7) * numberOfDays);
           if (numberOfDays > 21) return Math.round((400 / 30) * numberOfDays);
           break;
         case "Mobile Holder":
           console.log("In mobile holder add on", numberOfDays);
-          if (numberOfDays >= 1 && numberOfDays < 7) return 5;
+          if (numberOfDays > 0 && numberOfDays < 7) return 5;
           if (numberOfDays >= 7 && numberOfDays <= 21)
             return Math.round((10 / 7) * numberOfDays);
           if (numberOfDays > 21) return Math.round((20 / 30) * numberOfDays);
           break;
         case "Sunshades":
           console.log("In sunshade add on");
-          if (numberOfDays >= 1 && numberOfDays < 7) return 10;
+          if (numberOfDays > 0 && numberOfDays < 7) return 10;
           if (numberOfDays >= 7 && numberOfDays <= 21)
             return Math.round((30 / 7) * numberOfDays);
           if (numberOfDays > 21) return Math.round((50 / 30) * numberOfDays);
@@ -932,7 +932,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                   <div className="location-label">
                     <div className="booking-doc-headings styled-label">
                       <BsPersonCircle className="mr-2 heading-icon" />
-                      <b>Customer's Details</b>
+                      <h1 className="booking-page-h1">
+                        {" "}
+                        <b>Customer's Details</b>
+                      </h1>
                     </div>
                   </div>
 
@@ -1037,7 +1040,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                   <div className="location-label">
                     <div className="booking-doc-headings styled-label">
                       <BsFileEarmarkArrowUp className="mr-2 heading-icon" />
-                      <b>Documents Upload</b>
+                      <h1 className="booking-page-h1">
+                        {" "}
+                        <b>Documents Upload</b>
+                      </h1>
                     </div>
                     <div className="driver-details-form-container">
                       <div className=" form-group  pr-4">
@@ -1177,7 +1183,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                   <div className="location-label">
                     <div className="booking-doc-headings styled-label">
                       <BsPersonCircle className="mr-2 heading-icon" />
-                      <b>Driver's Details </b>
+                      <h1 className="booking-page-h1">
+                        <b>Driver's Details </b>
+                      </h1>
                     </div>
                   </div>
                   <br />

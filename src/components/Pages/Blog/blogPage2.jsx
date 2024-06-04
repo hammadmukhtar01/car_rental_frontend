@@ -52,7 +52,7 @@ const BlogPage2 = () => {
           <br />
           <div className="blog2-details-page">
             <div className="blog-details-image-container">
-              <h3 className="blog2-main-heading mb-3"> {blogsData?.title}</h3>
+              <h1 className="blog2-main-heading mb-3"> {blogsData?.title}</h1>
               <img
                 src={blogsData?.imageUrl}
                 className="blog-details-image"

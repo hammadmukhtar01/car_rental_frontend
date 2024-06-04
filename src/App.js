@@ -56,7 +56,7 @@ const App = () => {
             <Route path="/blogPage1/1" element={<BlogPage1 />} />
             <Route path="/blogPage2/2" element={<BlogPage2 />} />
             <Route path="/blogPage3/3" element={<BlogPage3 />} />
-            <Route path="/blogPage4/4" element={<BlogPage4 />} />
+            {/* <Route path="/blogPage4/4" element={<BlogPage4 />} /> */}
             <Route path="/404" element={<Error404Page />} />
             <Route path="*" element={<Error404Page />} />
           </Routes>

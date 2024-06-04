@@ -20,7 +20,6 @@ const ContactusPage = () => {
         />
         <meta name="keywords" content="keywords" />
         <link rel="canonical" href="https://milelecarrental.com/contactus" />
-
       </Helmet>
       <HeaderCombination />
       <div id="main" className="">
@@ -32,7 +31,9 @@ const ContactusPage = () => {
           >
             <div className="styled-label text-center pt-3 pb-2">
               <span className="contactUs-form-heading">
-                <b className="fs-3">Contact Us</b>
+                <h1>
+                  <b className="fs-3">Contact Us</b>
+                </h1>
               </span>
             </div>
             <section className="contact-us-section-2 pt-5 pb-4">

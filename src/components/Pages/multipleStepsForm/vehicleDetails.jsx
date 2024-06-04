@@ -167,7 +167,7 @@ const VehicleDetails = ({ nextStep }) => {
   const getUpdatedPrice = (addOn, numberOfDays, carCategory) => {
     switch (addOn?.addOnsName) {
       case "CDW (Collision Damage Waiver)":
-        if (numberOfDays >= 1 && numberOfDays < 7) {
+        if (numberOfDays > 0 && numberOfDays < 7) {
           return carCategory === "HatchBack" ? 20 : 30;
         } else if (numberOfDays >= 7 && numberOfDays <= 21) {
           return carCategory === "HatchBack" ? 15 : 20;
@@ -176,25 +176,25 @@ const VehicleDetails = ({ nextStep }) => {
         }
         break;
       case "Baby Seat":
-        if (numberOfDays >= 1 && numberOfDays < 7) return 20;
+        if (numberOfDays > 0 && numberOfDays < 7) return 20;
         if (numberOfDays >= 7 && numberOfDays <= 21)
           return Math.round((120 / 7) * numberOfDays);
         if (numberOfDays > 21) return Math.round((400 / 30) * numberOfDays);
         break;
       case "Mobile Holder":
-        if (numberOfDays >= 1 && numberOfDays < 7) return 5;
+        if (numberOfDays > 0 && numberOfDays < 7) return 5;
         if (numberOfDays >= 7 && numberOfDays <= 21)
           return Math.round((10 / 7) * numberOfDays);
         if (numberOfDays > 21) return Math.round((20 / 30) * numberOfDays);
         break;
       case "Sunshades":
-        if (numberOfDays >= 1 && numberOfDays < 7) return 10;
+        if (numberOfDays > 0 && numberOfDays < 7) return 10;
         if (numberOfDays >= 7 && numberOfDays <= 21)
           return Math.round((30 / 7) * numberOfDays);
         if (numberOfDays > 21) return Math.round((50 / 30) * numberOfDays);
         break;
       case "PAI (Personal Accident Insurance)":
-        if (numberOfDays >= 1 && numberOfDays < 7) return 15;
+        if (numberOfDays > 0 && numberOfDays < 7) return 15;
         if (numberOfDays >= 7 && numberOfDays <= 21) return 10;
         if (numberOfDays > 21) return 5;
         break;
@@ -604,9 +604,10 @@ const VehicleDetails = ({ nextStep }) => {
                               <div className="carousel-container">
                                 <img
                                   src={carImg}
-                                  alt={``}
+                                  alt={`${carTypeName}`}
                                   className="car-image-1"
                                   onClick={handleImageClick}
+                                  title={`${carTypeName} - ${carCategory}`}
                                 />
                               </div>
                             </div>
@@ -648,7 +649,10 @@ const VehicleDetails = ({ nextStep }) => {
                         <div className="car-features-description-main-div2 p-2">
                           <div className="features-sub-div">
                             <span className="car-features-div2-heading fw-bolder">
-                              Car Features:{" "}
+                              <h1 className="vehicle-details-heading">
+                                {" "}
+                                Extra Features:{" "}
+                              </h1>
                             </span>
                             <div className="car-features-text-2 pt-2">
                               <div className="car-features-div">
@@ -687,7 +691,10 @@ const VehicleDetails = ({ nextStep }) => {
                       <div className="location-label">
                         <div className="rental-addons-main-heading styled-label">
                           <BsFillShieldLockFill className="mr-2 heading-icon" />
-                          <b>Rental AddOns</b>
+                          <h1 className="vehicle-details-heading">
+                            {" "}
+                            <b>Rental AddOns</b>
+                          </h1>
                         </div>
                         <br />
                         <br />
@@ -741,6 +748,7 @@ const VehicleDetails = ({ nextStep }) => {
                                                     )
                                                   }
                                                   className="add-ons-view-details"
+                                                  title={`${AddOnsDataValues?.addOnsName} Add-On`}
                                                 >
                                                   View Details
                                                 </a>

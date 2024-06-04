@@ -42,7 +42,7 @@ const BlogPage3 = ({ blogData }) => {
         <Container>
           <br />
           <div className="blog-details-page">
-            <h3 className="blog3-main-heading mb-3"> {blogsData?.title}</h3>
+            <h1 className="blog3-main-heading mb-3"> {blogsData?.title}</h1>
             <div className="blog-details-image-container">
               <img
                 src={blogsData?.imageUrl}

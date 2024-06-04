@@ -136,7 +136,7 @@ const Footer = () => {
                   className="footer-milele-text-col"
                 >
                   <Row className="footer-heading-row align-items-end">
-                    <h3 className="footer-heading">Contact Us</h3>
+                    <h2 className="footer-heading">Contact Us</h2>
                   </Row>
 
                   <Row className="footer-data-row">
@@ -165,7 +165,7 @@ const Footer = () => {
                   className="footer-information-text-col"
                 >
                   <Row className="footer-heading-row align-items-end">
-                    <h3 className="footer-heading">Information</h3>
+                    <h2 className="footer-heading">Information</h2>
                   </Row>
                   <Row className="footer-data-row">
                     <div className="footer-info-data">

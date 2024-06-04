@@ -4,10 +4,10 @@ import SearchBox from "./searchBox";
 import CarCards from "./carCards";
 import AnimatedCarSection from "./animatedCarSection";
 import NissanLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 7.png";
-import PeugeotLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 23.png";
-import KiaLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 10.png";
-import HyundaiLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 11.png";
 import CheveroletLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 22.png";
+import PeugeotLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 10.png";
+// import KiaLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 10.png";
+// import HyundaiLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 11.png";
 import OurBlogs from "../Blog/ourBlogs";
 import { Helmet } from "react-helmet";
 // import SpinTheWheel from "../spinTheWheel/spinTheWheel";
@@ -28,9 +28,9 @@ const HomePage = () => {
   const [selectedLocationss, setSelectedLocationss] = useState(null);
 
   const carBrands = [
-    { name: "hyundai", logo: HyundaiLogo, title: "Hyundai" },
+    // { name: "hyundai", logo: HyundaiLogo, title: "Hyundai" },
     { name: "chevrolet", logo: CheveroletLogo, title: "Cheverolet" },
-    { name: "kia", logo: KiaLogo, title: "Kia" },
+    // { name: "kia", logo: KiaLogo, title: "Kia" },
     { name: "peugeot", logo: PeugeotLogo, title: "Peugeot" },
     { name: "nissan", logo: NissanLogo, title: "Nissan" },
   ];
@@ -108,7 +108,7 @@ const HomePage = () => {
                         key={index}
                         src={carBrandsName?.logo}
                         className="home-page-single-brand-class"
-                        title={`${carBrandsName?.name} icon`}
+                        title={`${carBrandsName?.name}`}
                         alt={`${carBrandsName?.name} brand icon`}
                       />
                     ))}

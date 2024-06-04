@@ -72,7 +72,10 @@ const AboutusPage = () => {
             <div className="about-us-section-1">
               <div className="styled-label text-center mb-3">
                 <span className="about-us-headings ">
-                  <b className="fs-3">About Us</b>
+                  <h1>
+                    {" "}
+                    <b className="fs-3">About Us</b>
+                  </h1>
                 </span>
               </div>
               <div className="about-us-main-heading-1">

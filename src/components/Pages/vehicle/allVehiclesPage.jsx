@@ -84,7 +84,7 @@ const VehiclesPage = () => {
   const [pickUpTime, setPickUpTime] = useState("");
   const [dropOffDate, setDropOffDate] = useState("");
   const [dropOffTime, setDropOffTime] = useState("");
-  const [numberOfDays, setNumberOfDays] = useState(0);
+  const [numberOfDays, setNumberOfDays] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [sortBy, setSortBy] = useState("Recommended");
@@ -407,7 +407,7 @@ const VehiclesPage = () => {
 
   const calculateRent = (rate, rateType, days) => {
     let calculatedRate = 0;
-    if (days > 1 && days < 7) {
+    if (days > 0 && days < 7) {
       calculatedRate = rate * days;
     } else if (days >= 7 && days <= 21) {
       calculatedRate = (rate * days) / 7;
@@ -424,7 +424,7 @@ const VehiclesPage = () => {
       const tariffs = tariffLines[tariffGroupId] || [];
 
       let index;
-      if (days > 1 && days < 7) {
+      if (days > 0 && days < 7) {
         index = 0;
       } else if (days >= 7 && days <= 21) {
         index = 1;
@@ -433,6 +433,7 @@ const VehiclesPage = () => {
       }
 
       const line = tariffs[index];
+
       if (!line) {
         return 0;
       }

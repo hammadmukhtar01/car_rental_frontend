@@ -15,21 +15,25 @@ const TermsConditionsPage = () => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        <link rel="canonical" href="https://milelecarrental.com/terms&Conditions" />
-
+        <link
+          rel="canonical"
+          href="https://milelecarrental.com/terms&Conditions"
+        />
       </Helmet>
       <HeaderCombination />
       <div className="container pt-4 pb-2">
         <div className="styled-label text-center">
           <span className="terms-conditions-main-heading">
-            <b className="fs-3"> Terms & Conditions</b>
+            <h1>
+              <b className="fs-3"> Terms & Conditions</b>
+            </h1>
           </span>
         </div>
         <br />
         <div className="all-terms-conditions-main-container">
           <div className="terms-conditions-main-div row  pb-3">
             <div className=" term-conditions-h1  ">
-              <h5 className="terms-conditions-headings-main">PAYMENT</h5>
+              <h2 className="terms-conditions-headings-main">PAYMENT</h2>
               <span>
                 Rental with Milele Corp operates on a 24-hour basis. Rental
                 payments are to be made in advance, while non-rental payments
@@ -80,9 +84,9 @@ const TermsConditionsPage = () => {
             </div>
 
             <div className=" term-conditions-h2 mt-3">
-              <h5 className="terms-conditions-headings-main">
+              <h2 className="terms-conditions-headings-main">
                 VEHICLE CHECK-OUT & CHECK-IN REPORT
-              </h5>
+              </h2>
               <div>
                 <div className="pb-2">
                   <span className="terms-conditions-sub-heading-1">
@@ -143,7 +147,7 @@ const TermsConditionsPage = () => {
 
           <div className=" terms-conditions-main-div row  pb-3">
             <div className="term-conditions-h3">
-              <h5 className="terms-conditions-headings-main">INSURANCE</h5>
+              <h2 className="terms-conditions-headings-main">INSURANCE</h2>
               <p>
                 The HIRER agrees to pay MILELE for any incident resulting in
                 damages to or loss of the Vehicle, up to the excess amount
@@ -165,9 +169,9 @@ const TermsConditionsPage = () => {
                 person or causes damage through unauthorized use.
               </p>
 
-              <h5 className="terms-conditions-headings-main">
+              <h2 className="terms-conditions-headings-main">
                 TRAFFIC FINES & VOILATIONS
-              </h5>
+              </h2>
 
               <div>
                 <span className="terms-conditions-sub-heading-1">
@@ -273,7 +277,7 @@ const TermsConditionsPage = () => {
             </div>
 
             <div className="term-conditions-h4 mt-4">
-              <h5 className="terms-conditions-headings-main">VEHICLE MISUSE</h5>
+              <h2 className="terms-conditions-headings-main">VEHICLE MISUSE</h2>
               <ul className="list-style-capital-alpha">
                 <li>
                   {" "}
@@ -365,7 +369,7 @@ const TermsConditionsPage = () => {
 
           <div className=" terms-conditions-main-div row  pb-3">
             <div className="term-conditions-h5  ">
-              <h5 className=" terms-conditions-headings-main">TERMINATION</h5>
+              <h2 className=" terms-conditions-headings-main">TERMINATION</h2>
               <p>
                 {" "}
                 Milele retains the authority to terminate the agreement under
@@ -416,9 +420,9 @@ const TermsConditionsPage = () => {
 
           <div className=" terms-conditions-main-div row  pb-3">
             <div className="term-conditions-h5  ">
-              <h5 className=" terms-conditions-headings-main">
+              <h2 className=" terms-conditions-headings-main">
                 SERVICE & MAINTENANCE
-              </h5>
+              </h2>
 
               <div>
                 <p>
@@ -471,9 +475,9 @@ const TermsConditionsPage = () => {
             </div>
 
             <div className="term-conditions-h6  ">
-              <h5 className="terms-conditions-headings-main">
+              <h2 className="terms-conditions-headings-main">
                 VEHICLE RESPONSIBILITY
-              </h5>
+              </h2>
               <ul>
                 <li className="pb-2">
                   The number of kilometres driven by the Vehicle under this
@@ -528,9 +532,9 @@ const TermsConditionsPage = () => {
             </div>
 
             <div className="term-conditions-h7  mb-3">
-              <h5 className="terms-conditions-headings-main">
+              <h2 className="terms-conditions-headings-main">
                 DEPOSIT REFUND FEE{" "}
-              </h5>
+              </h2>
               <span>
                 All deposits refunded via bank transfer will incur a processing
                 fee of 20 AED per transaction, which covers the bank charges
@@ -538,9 +542,9 @@ const TermsConditionsPage = () => {
               </span>
             </div>
             <div className="term-conditions-h8 mb-3 ">
-              <h5 className="terms-conditions-headings-main">
+              <h2 className="terms-conditions-headings-main">
                 CONTRACT EXTENSION POLICY{" "}
-              </h5>
+              </h2>
               <span>
                 Customers may extend their rental contract during its validity
                 at the original rate for the extension period. However, in the
@@ -551,7 +555,9 @@ const TermsConditionsPage = () => {
             </div>
 
             <div className="term-conditions-h9  ">
-              <span className="terms-conditions-sub-heading-1">Note: </span>
+              <span className="terms-conditions-sub-heading-1">
+                <h4>Note:</h4>{" "}
+              </span>
               <ul>
                 <li className="pb-2">
                   The HIRER hereby releases and indemnifies MlLELE from any and

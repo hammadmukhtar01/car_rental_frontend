@@ -129,13 +129,15 @@ const FaqsPage = () => {
         />
         <meta name="keywords" content="keywords" />
         <link rel="canonical" href="https://milelecarrental.com/faqs" />
-
       </Helmet>
       <HeaderCombination />
       <div className="container pt-4 pb-5">
         <div className="styled-label text-center">
           <span className="faqs-main-heading">
-            <b className="fs-3"> Frequently Asked Questions!</b>
+            <h1>
+              {" "}
+              <b className="fs-3"> Frequently Asked Questions!</b>
+            </h1>
           </span>
         </div>
         <div className="faqs-main-div">

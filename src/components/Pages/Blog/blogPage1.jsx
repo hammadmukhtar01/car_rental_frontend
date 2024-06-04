@@ -36,7 +36,7 @@ const BlogPage1 = () => {
         <Container>
           <br />
           <div className="blog-details-page">
-            <h3 className="blog1-main-heading mb-3"> {blogsData?.title}</h3>
+            <h1 className="blog1-main-heading mb-3"> {blogsData?.title}</h1>
 
             <div className="blog-details-image-container">
               <img

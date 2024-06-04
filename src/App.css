@@ -39,13 +39,17 @@
   align-items: center;
 }
 
+h1.booking-page-h1 {
+  font-size: 20px;
+}
 .all-cars-heading {
   padding-bottom: 5px;
   border-bottom: 2px solid;
 }
 
-.terms-conditions-headings-main {
+h2.terms-conditions-headings-main {
   font-weight: 600;
+  font-size: 22px
 }
 
 .middle-hr-tag {
