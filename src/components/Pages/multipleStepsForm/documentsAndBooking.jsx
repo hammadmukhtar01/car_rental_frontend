@@ -927,15 +927,16 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                   <div className="lds-dual-ring text-center"></div>
                 </div>
               )}
+              <h1 className="text-center d-none">Booking Data Form</h1>
               <div className="step1-car-location-details-container">
                 <div className="step1-location-details p-4">
                   <div className="location-label">
                     <div className="booking-doc-headings styled-label">
                       <BsPersonCircle className="mr-2 heading-icon" />
-                      <h1 className="booking-page-h1">
+                      <h2 className="booking-page-h1">
                         {" "}
                         <b>Customer's Details</b>
-                      </h1>
+                      </h2>
                     </div>
                   </div>
 
@@ -1040,10 +1041,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                   <div className="location-label">
                     <div className="booking-doc-headings styled-label">
                       <BsFileEarmarkArrowUp className="mr-2 heading-icon" />
-                      <h1 className="booking-page-h1">
+                      <h2 className="booking-page-h1">
                         {" "}
                         <b>Documents Upload</b>
-                      </h1>
+                      </h2>
                     </div>
                     <div className="driver-details-form-container">
                       <div className=" form-group  pr-4">
@@ -1183,9 +1184,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                   <div className="location-label">
                     <div className="booking-doc-headings styled-label">
                       <BsPersonCircle className="mr-2 heading-icon" />
-                      <h1 className="booking-page-h1">
+                      <h2 className="booking-page-h1">
                         <b>Driver's Details </b>
-                      </h1>
+                      </h2>
                     </div>
                   </div>
                   <br />

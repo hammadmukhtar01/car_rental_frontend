@@ -78,7 +78,6 @@ const HomePage = () => {
             </div>
           </div>
           <div className="text-center pt-2 pb-2 d-none">
-            <h1>Welcome to Milele Car Rental Service</h1>
             <h2>Affordable Car Rentals</h2>
             <p>
               We offer the best car rental deals. Choose from our wide range of

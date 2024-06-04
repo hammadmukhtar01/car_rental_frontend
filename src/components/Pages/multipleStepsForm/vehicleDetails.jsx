@@ -691,10 +691,10 @@ const VehicleDetails = ({ nextStep }) => {
                       <div className="location-label">
                         <div className="rental-addons-main-heading styled-label">
                           <BsFillShieldLockFill className="mr-2 heading-icon" />
-                          <h1 className="vehicle-details-heading">
+                          <span className="vehicle-details-heading">
                             {" "}
                             <b>Rental AddOns</b>
-                          </h1>
+                          </span>
                         </div>
                         <br />
                         <br />
