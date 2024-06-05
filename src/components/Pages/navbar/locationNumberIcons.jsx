@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { FaPhone, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 import { Modal } from "react-bootstrap";
@@ -8,40 +9,40 @@ const FixedNumLocButtons = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    const gtagScript = document.createElement("script");
-    gtagScript.src =
-      "https://www.googletagmanager.com/gtag/js?id=AW-11403132105";
-    gtagScript.async = true;
-    document.head.appendChild(gtagScript);
+  // useEffect(() => {
+  //   const gtagScript = document.createElement("script");
+  //   gtagScript.src =
+  //     "https://www.googletagmanager.com/gtag/js?id=AW-11403132105";
+  //   gtagScript.async = true;
+  //   document.head.appendChild(gtagScript);
 
-    const script = document.createElement("script");
-    script.innerHTML = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-11403132105');
-      
-      window.gtag_report_conversion = function(url, eventType) {
-        var callback = function () {
-          if (typeof(url) != 'undefined') {
-            window.location = url;
-          }
-        };
-        gtag('event', 'conversion', {
-            'send_to': eventType,
-            'event_callback': callback
-        });
-        return false;
-      }
-    `;
-    document.head.appendChild(script);
+  //   const script = document.createElement("script");
+  //   script.innerHTML = `
+  //     window.dataLayer = window.dataLayer || [];
+  //     function gtag(){dataLayer.push(arguments);}
+  //     gtag('js', new Date());
+  //     gtag('config', 'AW-11403132105');
 
-    return () => {
-      document.head.removeChild(gtagScript);
-      document.head.removeChild(script);
-    };
-  }, []);
+  //     window.gtag_report_conversion = function(url, eventType) {
+  //       var callback = function () {
+  //         if (typeof(url) != 'undefined') {
+  //           window.location = url;
+  //         }
+  //       };
+  //       gtag('event', 'conversion', {
+  //           'send_to': eventType,
+  //           'event_callback': callback
+  //       });
+  //       return false;
+  //     }
+  //   `;
+  //   document.head.appendChild(script);
+
+  //   return () => {
+  //     document.head.removeChild(gtagScript);
+  //     document.head.removeChild(script);
+  //   };
+  // }, []);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -53,18 +54,20 @@ const FixedNumLocButtons = () => {
 
   const handlePhoneClick = (e) => {
     e.preventDefault();
-    window.gtag_report_conversion(
-      `tel:${phoneNumber}`,
-      "AW-11403132105/qF1YCJP11LYZEMn5t70q"
-    );
+    window.dataLayer.push({
+      event: "conversion",
+      send_to: "AW-11403132105/qF1YCJP11LYZEMn5t70q",
+    });
+    window.location.href = `tel:${phoneNumber}`;
   };
 
   const handleWhatsappClick = (e) => {
     e.preventDefault();
-    window.gtag_report_conversion(
-      whatsappLink,
-      "AW-11403132105/OOTfCN_b2bYZEMn5t70q"
-    );
+    window.dataLayer.push({
+      event: "conversion",
+      send_to: "AW-11403132105/OOTfCN_b2bYZEMn5t70q",
+    });
+    window.open(whatsappLink, "_blank");
   };
 
   return (

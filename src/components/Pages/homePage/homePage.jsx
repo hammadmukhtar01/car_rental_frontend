@@ -150,7 +150,7 @@ const HomePage = () => {
                 </span>
               </div>
             </div>
-            {/* <InstagramFeed /> */}
+            <InstagramFeed />
           </div>
           <FreeConsultationForm />
         </div>

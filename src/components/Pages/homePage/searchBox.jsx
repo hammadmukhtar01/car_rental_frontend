@@ -127,13 +127,14 @@ const SearchBox = () => {
     showDropoffV1: 0,
   });
 
-
   const handlePickupTimeChange = (selectedOption) => {
+    console.log("Selected time option is: ", selectedOption);
     setPickUpTime(selectedOption?.value);
     handleFieldChange("pickTimeV1", selectedOption?.value);
   };
 
   const handleDropoffTimeChange = (selectedOption) => {
+    console.log("Selected time option is: ", selectedOption);
     setDropOffTime(selectedOption?.value);
     handleFieldChange("dropTimeV1", selectedOption?.value);
   };
@@ -315,7 +316,7 @@ const SearchBox = () => {
   };
 
   const handleSearchVehicleButtonHomePage = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
     if (
       !pickUpTime ||
@@ -388,36 +389,48 @@ const SearchBox = () => {
     setPickupInputFieldValue(value);
   };
 
-  const handleSearchClick = () => {
-    console.log("Search button is clicked")
-    const inputs = [
-      "searchboxInputDate",
-      "searchboxInputPickUpLoc",
-      "searchboxInputDropOffLoc",
-      "searchboxInputPickUpTime",
-      "searchboxInputDropOffTime",
-      "searchboxInputDiffLocCheckbox"
-    ];
-  
-    const searchData = {};
-  
-    inputs.forEach((id) => {
-      const inputElement = document.getElementById(id);
-      if (inputElement) {
-        searchData[id] = inputElement.type === "checkbox" ? inputElement.checked : inputElement.value;
-      }
-    });
-  
-    if (window.dataLayer) {
-      window.dataLayer.push({
-        event: "search_button_click",
-        search_data: searchData,
-      });
-    }
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   script.innerHTML = `
+  //     window.dataLayer = window.dataLayer || [];
+  //     function gtag(){dataLayer.push(arguments);}
+  //     gtag('js', new Date());
+  //     gtag('config', 'AW-11403132105');
+      
+  //     window.gtag_report_conversion = function(url) {
+  //       var callback = function () {
+  //         if (typeof(url) != 'undefined') {
+  //           window.location = url;
+  //         }
+  //       };
+  //       gtag('event', 'conversion', {
+  //           'send_to': 'AW-11403132105/fpKGCJzkhLcZEMn5t70q',
+  //           'value': 1.0,
+  //           'currency': 'AED',
+  //           'event_callback': callback
+  //       });
+  //       return false;
+  //     }
+  //   `;
+  //   document.head.appendChild(script);
 
-    handleSearchVehicleButtonHomePage();
+  //   return () => {
+  //     document.head.removeChild(script);
+  //   };
+  // }, []);
+
+  const handleSearchClick = () => {
+    console.log("Search button is clicked");
+
+    window.dataLayer.push({
+      event: "search_button_click",
+    });
+
+    window.dataLayer.push({
+      event: "conversion",
+      send_to: "AW-11403132105/fpKGCJzkhLcZEMn5t70q",
+    });
   };
-  
 
   return (
     <>
