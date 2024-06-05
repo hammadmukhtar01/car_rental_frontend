@@ -94,17 +94,17 @@
 .blog-style-one .blog-content {
   color: var(--dark-3);
 }
-.blog-style-one .blog-content .more {
+.blog-style-one .blog-content .read-more {
   text-transform: uppercase;
   font-weight: 600;
   color: #e87a28;
   display: inline-block;
 }
-.more {
+.read-more {
   text-decoration: underline;
 }
 
-.blog-style-one .blog-content .more:hover {
+.blog-style-one .blog-content .read-more:hover {
   color: #e87a28;
 }
 

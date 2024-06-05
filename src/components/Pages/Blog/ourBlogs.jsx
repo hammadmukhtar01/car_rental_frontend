@@ -30,17 +30,9 @@ const OurBlogs = () => {
       id: 3,
       imageUrl: blog3_MainImg1,
       title: "Top Apps that help You Navigate Dubai",
-      date: "Aug 23, 2023",
+      date: "Dec 06, 2023",
       text: "A cool thing about living in the UAE is get in your car, put on your favourite song and drive. Driving can be fun - if you know where you are going and have a trusty navigation app (you don't want to get lost along the way). In Dubai, five apps can make a difference when on the road; Google Maps, Apple Maps, Waze, Yango Maps, Cafu and RTA Smart Drive.",
     },
-
-    // {
-    //   id: 4,
-    //   imageUrl: blog4_MainImg1,
-    //   title: "Why Rent A Car From Milele?",
-    //   date: "Aug 23, 2023",
-    //   text: "Are you tired of compromising on your travel experience due to lifeless car rental services? Look no further than Milele Car Rental, where we redefine excellence in the automotive industry. As a subsidiary of Milele Corporations, a global leader with over 35 years of experience, we bring you a legacy of trust, innovation, and customer satisfaction. ",
-    // },
   ];
 
   const responsive = {
@@ -87,7 +79,7 @@ const OurBlogs = () => {
 
             <div
               href={`/blogPage${blogData?.id}/${blogData?.id}`}
-              className="more"
+              className="read-more"
             >
               READ MORE
             </div>

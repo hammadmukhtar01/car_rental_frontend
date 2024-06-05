@@ -22,7 +22,6 @@ import TermsConditionsPage from "./components/Pages/OtherPages/termsConditionsPa
 import BlogPage1 from "./components/Pages/Blog/blogPage1";
 import BlogPage2 from "./components/Pages/Blog/blogPage2";
 import BlogPage3 from "./components/Pages/Blog/blogPage3";
-import BlogPage4 from "./components/Pages/Blog/blogPage4";
 import GlobalLoader from "./components/PrivateComponents/globalLoader";
 
 const App = () => {
@@ -56,7 +55,6 @@ const App = () => {
             <Route path="/blogPage1/1" element={<BlogPage1 />} />
             <Route path="/blogPage2/2" element={<BlogPage2 />} />
             <Route path="/blogPage3/3" element={<BlogPage3 />} />
-            {/* <Route path="/blogPage4/4" element={<BlogPage4 />} /> */}
             <Route path="/404" element={<Error404Page />} />
             <Route path="*" element={<Error404Page />} />
           </Routes>

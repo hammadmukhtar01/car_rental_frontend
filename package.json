@@ -59,6 +59,7 @@
     "react-toastify": "^10.0.4",
     "react-transition-group": "^4.4.5",
     "select2": "^4.1.0-rc.0",
+    "sitemap": "^8.0.0",
     "slick-carousel": "^1.8.1",
     "tiny-slider": "^2.9.4",
     "web-vitals": "^2.1.4"
@@ -67,7 +68,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate-sitemap": "node generateSitemap.js"
   },
   "eslintConfig": {
     "extends": [
