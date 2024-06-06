@@ -7,7 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Image from "react-bootstrap/Image";
-import Coloredlogo from "../../images/car_rental_logo.png";
+import Coloredlogo from "../../images/car-rental-logo.png";
 import { Col } from "react-bootstrap";
 import "./navbar.css";
 
@@ -161,7 +161,7 @@ function MainNavbar() {
                     T&Cs
                   </Nav.Link>
 
-                  <Nav.Link
+                  {/* <Nav.Link
                     as={NavLink}
                     to="/leaseToOwn"
                     title="lease to own page"
@@ -172,7 +172,7 @@ function MainNavbar() {
                     onClick={() => setShowOffCanvas(false)}
                   >
                     LTO
-                  </Nav.Link>
+                  </Nav.Link> */}
 
                   <Nav.Link
                     as={NavLink}

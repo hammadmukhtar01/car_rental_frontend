@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import blog2_MainImg1 from "../../images/blog-images/blog2_main_Img1.png";
+import blog2MainImg1 from "../../images/blog-images/blog2_main_Img1.png";
 import BurjKhalifaImg from "../../images/blog-images/blog2_Img1.png";
 import PalmJumeirahImg from "../../images/blog-images/blog2_Img2.png";
 import DubaiCreekImg from "../../images/blog-images/blog2_Img3.png";
@@ -24,7 +24,7 @@ import { Helmet } from "react-helmet";
 const BlogPage2 = () => {
   const blogsData = {
     id: 2,
-    imageUrl: blog2_MainImg1,
+    imageUrl: blog2MainImg1,
     category: "Entertainment",
     title: "Things to do in Dubai for the Ultimate Vacation",
     date: "Apr 23, 2022",

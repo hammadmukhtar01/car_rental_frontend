@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import blog1_MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
+import blog1MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet";
 const BlogPage1 = () => {
   const blogsData = {
     id: 1,
-    imageUrl: blog1_MainImg1,
+    imageUrl: blog1MainImg1,
     category: "Difference",
     title: "What's the Difference b/w a Car Rental and Lease?",
     date: "Mar 23, 2021",

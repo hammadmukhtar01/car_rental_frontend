@@ -9,41 +9,6 @@ const FixedNumLocButtons = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  // useEffect(() => {
-  //   const gtagScript = document.createElement("script");
-  //   gtagScript.src =
-  //     "https://www.googletagmanager.com/gtag/js?id=AW-11403132105";
-  //   gtagScript.async = true;
-  //   document.head.appendChild(gtagScript);
-
-  //   const script = document.createElement("script");
-  //   script.innerHTML = `
-  //     window.dataLayer = window.dataLayer || [];
-  //     function gtag(){dataLayer.push(arguments);}
-  //     gtag('js', new Date());
-  //     gtag('config', 'AW-11403132105');
-
-  //     window.gtag_report_conversion = function(url, eventType) {
-  //       var callback = function () {
-  //         if (typeof(url) != 'undefined') {
-  //           window.location = url;
-  //         }
-  //       };
-  //       gtag('event', 'conversion', {
-  //           'send_to': eventType,
-  //           'event_callback': callback
-  //       });
-  //       return false;
-  //     }
-  //   `;
-  //   document.head.appendChild(script);
-
-  //   return () => {
-  //     document.head.removeChild(gtagScript);
-  //     document.head.removeChild(script);
-  //   };
-  // }, []);
-
   const handleCloseModal = () => {
     setShowModal(false);
   };

@@ -6,7 +6,7 @@ import { FaRegBell } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "react-bootstrap/Image";
-import logoImage from "../../images/car_rental_logo.png";
+import logoImage from "../../images/car-rental-logo.png";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
