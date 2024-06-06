@@ -23,7 +23,12 @@ const InstagramFeed = () => {
           },
         });
 
-        userFeed.run();
+        try {
+          userFeed.run();
+        } catch (error) {
+          console.error("Error running Instafeed:", error);
+          document.getElementById("instafeed-container").innerHTML = "<p>Unable to load Instagram feed. Please try again later.</p>";
+        }
       }
     };
 

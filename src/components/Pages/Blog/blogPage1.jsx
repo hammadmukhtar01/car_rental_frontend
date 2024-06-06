@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import blog1MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
+import blog1MainImg1 from "../../images/blog-images/blog1-main-Img1.png";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
