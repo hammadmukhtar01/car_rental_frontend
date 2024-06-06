@@ -97,7 +97,7 @@ const FixedNumLocButtons = () => {
 
         <a
           href="#map"
-          title="google Map"
+          title="Find Our Location"
           onClick={openMapModal}
           className="contact-button map-link location-link"
         >

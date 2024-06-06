@@ -53,13 +53,13 @@ function MainNavbar() {
               <div className="main-logo">
                 <a
                   href="/home"
-                  title="home-page-link"
+                  title="home page"
                   onClick={() => setShowOffCanvas(false)}
                 >
                   <Image
                     // src={`${isHomePage ? Whitelogo : Coloredlogo}`}
                     src={logoImage}
-                    title="milele-car-rental-logo"
+                    title="Milele Car Rental"
                     alt="Main Logo lg"
                     fluid
                   />
@@ -86,13 +86,13 @@ function MainNavbar() {
                   <div className="toggle-main-logo">
                     <a
                       href="/home"
-                      title="home-page-link"
+                      title="home page"
                       onClick={() => setShowOffCanvas(false)}
                     >
                       <Image
                         // src={logoImage}
                         src={Coloredlogo}
-                        title="milele-car-rental-logo"
+                        title="Milele Car Rental"
                         alt="Main Logo Sm"
                         fluid
                       />
@@ -109,7 +109,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/home"
-                    title="home-page-link"
+                    title="home page"
                     className={`navbar-all-menus ${
                       location.pathname === "/home"
                         ? "active"
@@ -125,7 +125,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/vehicles"
-                    title="fleet-page-link"
+                    title="fleet page"
                     className={`navbar-all-menus ${
                       location.pathname === "/vehicles" ? "active" : ""
                     }`}
@@ -138,7 +138,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/aboutus"
-                    title="about-us-page-link"
+                    title="about us page"
                     className={`navbar-all-menus ${
                       location.pathname === "/aboutus" ? "active" : ""
                     }`}
@@ -151,7 +151,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/terms&Conditions"
-                    title="terms&Conditions-page-link"
+                    title="terms & Conditions page"
                     className={`navbar-all-menus ${
                       location.pathname === "/terms&Conditions" ? "active" : ""
                     }`}
@@ -164,7 +164,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/leaseToOwn"
-                    title="lease-to-own-page-link"
+                    title="lease to own page"
                     className={`navbar-all-menus ${
                       location.pathname === "/leaseToOwn" ? "active" : ""
                     }`}
@@ -177,7 +177,7 @@ function MainNavbar() {
                   <Nav.Link
                     as={NavLink}
                     to="/contactus"
-                    title="contact-us-page-link"
+                    title="contact us page"
                     className={`navbar-all-menus ${
                       location.pathname === "/contactus" ? "active" : ""
                     }`}

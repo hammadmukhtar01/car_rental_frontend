@@ -366,9 +366,6 @@ ul.header-menu {
 }
 
 @media screen and (max-width: 767px) {
-  .contact-buttons-container {
-    display: none;
-  }
   .lease-car-button,
   .whatsapp-link-lease-section {
     padding: 15px;
@@ -376,9 +373,6 @@ ul.header-menu {
 }
 
 @media screen and (max-width: 576px) {
-  .contact-buttons-container {
-    display: none;
-  }
   .lease-car-button,
   .whatsapp-link-lease-section {
     padding: 17px;

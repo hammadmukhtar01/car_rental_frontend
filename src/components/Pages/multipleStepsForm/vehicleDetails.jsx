@@ -570,7 +570,7 @@ const VehicleDetails = ({ nextStep }) => {
   return (
     <div>
       <Helmet>
-        <title>Vehicle Detail - Milele Car Rental Application </title>
+        <title>Vehicle Detail | Milele Car Rental Application </title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
@@ -607,7 +607,11 @@ const VehicleDetails = ({ nextStep }) => {
                                   alt={`${carTypeName}`}
                                   className="car-image-1"
                                   onClick={handleImageClick}
-                                  title={`${carTypeName} - ${carCategory}`}
+                                  title={
+                                    carTypeName
+                                      ? `${carTypeName} - ${carCategory}`
+                                      : "Vehicle"
+                                  }
                                 />
                               </div>
                             </div>

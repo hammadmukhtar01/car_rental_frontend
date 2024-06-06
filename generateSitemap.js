@@ -7,7 +7,6 @@ const links = [
   { url: '/home', changefreq: 'daily', priority: 0.8 },
   { url: '/vehicles', changefreq: 'monthly', priority: 0.8 },
   { url: '/leaseToOwn', changefreq: 'monthly', priority: 0.8 },
-  { url: '/afterpayment/:id', changefreq: 'monthly', priority: 0.5 },
   { url: '/aboutus', changefreq: 'monthly', priority: 0.5 },
   { url: '/faqs', changefreq: 'monthly', priority: 0.5 },
   { url: '/terms&Conditions', changefreq: 'monthly', priority: 0.5 },
@@ -15,13 +14,13 @@ const links = [
   { url: '/login', changefreq: 'monthly', priority: 0.5 },
   { url: '/signup', changefreq: 'monthly', priority: 0.5 },
   { url: '/forgotpassword', changefreq: 'monthly', priority: 0.5 },
-  { url: '/resetpassword/:token', changefreq: 'monthly', priority: 0.5 },
-  { url: '/bookingPage/:step', changefreq: 'monthly', priority: 0.5 },
+  { url: '/bookingPage/1', changefreq: 'monthly', priority: 0.5 },
+  { url: '/bookingPage/2', changefreq: 'monthly', priority: 0.5 },
+  { url: 'bookingPage/3&booking-success', changefreq: 'monthly', priority: 0.5 },
   { url: '/blogPage1/1', changefreq: 'monthly', priority: 0.5 },
   { url: '/blogPage2/2', changefreq: 'monthly', priority: 0.5 },
   { url: '/blogPage3/3', changefreq: 'monthly', priority: 0.5 },
   { url: '/404', changefreq: 'monthly', priority: 0.1 },
-  { url: '*', changefreq: 'monthly', priority: 0.1 },
 ];
 
 const hostname = 'https://milelecarrental.com';

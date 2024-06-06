@@ -42,7 +42,7 @@ const HomePage = () => {
   return (
     <div>
       <Helmet>
-        <title>Home - Milele Car Rental Application </title>
+        <title>Home | Milele Car Rental Application </title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
@@ -82,7 +82,7 @@ const HomePage = () => {
               <img
                 className="only-car-banner-container-2"
                 src={OnlyCar}
-                title="car-banner"
+                title="Rent a Car"
                 alt="home page top banner "
               />
             </div>
@@ -126,7 +126,7 @@ const HomePage = () => {
                         src={carBrandsName?.logo}
                         className="home-page-single-brand-class"
                         title={`${carBrandsName?.name}`}
-                        alt={`${carBrandsName?.name} brand icon`}
+                        alt={`${carBrandsName?.name} brand`}
                       />
                     ))}
                   </div>

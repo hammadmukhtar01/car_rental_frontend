@@ -173,7 +173,7 @@ const AnimatedCarSection = () => {
                               src={data?.displayImageUrl}
                               title={`${mapCategoryToNavigationValue(
                                 data?.acrissCategory
-                              )} Vehicle Category`}
+                              )}`}
                               alt={`${mapCategoryToNavigationValue(
                                 data?.acrissCategory
                               )} Vehicle Category`}

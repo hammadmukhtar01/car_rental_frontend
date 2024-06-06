@@ -1035,12 +1035,13 @@ const VehiclesPage = () => {
   return (
     <>
       <Helmet>
-        <title>Fleet - Milele Car Rental Application </title>
+        <title>Fleet | Milele Car Rental Application </title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
+        <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://milelecarrental.com/vehicles" />
       </Helmet>
       <HeaderCombination />
@@ -1610,8 +1611,8 @@ const VehiclesPage = () => {
                                         {" "}
                                         <img
                                           src={car?.displayImageUrl}
-                                          title={`${car?.title} car`}
-                                          alt={`Rent ${car?.title} car`}
+                                          title={`${car?.title}`}
+                                          alt={`Rent ${car?.title}`}
                                           className="car-image"
                                         />
                                       </div>

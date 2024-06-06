@@ -105,7 +105,7 @@ const Footer = () => {
                       <a href="/home">
                         <Image
                           src={logoImage}
-                          title="milele-car-rental-footer-logo"
+                          title="Milele Car Rental"
                           alt="Main Logo lg"
                           fluid
                         />
@@ -173,7 +173,7 @@ const Footer = () => {
                         <div className="footer-info-list pt-2 pb-2" key={index}>
                           <a
                             href={footerInfoList?.hrefLink}
-                            title={`${footerInfoList?.headingName} footer`}
+                            title={`${footerInfoList?.headingName} info`}
                           >
                             <span>
                               {" "}

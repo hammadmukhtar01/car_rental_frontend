@@ -315,9 +315,22 @@ const SearchBox = () => {
     console.log("Dropoff state changed to:", stateName);
   };
 
+  const handleSearchClick = () => {
+    console.log("Search button is clicked");
+
+    window.dataLayer.push({
+      event: "search_button_click",
+    });
+
+    window.dataLayer.push({
+      event: "conversion",
+      send_to: "AW-11403132105/fpKGCJzkhLcZEMn5t70q",
+    });
+  };
+
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
-
+    handleSearchClick();
     if (
       !pickUpTime ||
       !dropOffTime ||
@@ -387,49 +400,6 @@ const SearchBox = () => {
 
   const handleInputFieldChange = (value) => {
     setPickupInputFieldValue(value);
-  };
-
-  // useEffect(() => {
-  //   const script = document.createElement("script");
-  //   script.innerHTML = `
-  //     window.dataLayer = window.dataLayer || [];
-  //     function gtag(){dataLayer.push(arguments);}
-  //     gtag('js', new Date());
-  //     gtag('config', 'AW-11403132105');
-      
-  //     window.gtag_report_conversion = function(url) {
-  //       var callback = function () {
-  //         if (typeof(url) != 'undefined') {
-  //           window.location = url;
-  //         }
-  //       };
-  //       gtag('event', 'conversion', {
-  //           'send_to': 'AW-11403132105/fpKGCJzkhLcZEMn5t70q',
-  //           'value': 1.0,
-  //           'currency': 'AED',
-  //           'event_callback': callback
-  //       });
-  //       return false;
-  //     }
-  //   `;
-  //   document.head.appendChild(script);
-
-  //   return () => {
-  //     document.head.removeChild(script);
-  //   };
-  // }, []);
-
-  const handleSearchClick = () => {
-    console.log("Search button is clicked");
-
-    window.dataLayer.push({
-      event: "search_button_click",
-    });
-
-    window.dataLayer.push({
-      event: "conversion",
-      send_to: "AW-11403132105/fpKGCJzkhLcZEMn5t70q",
-    });
   };
 
   return (
@@ -685,7 +655,7 @@ const SearchBox = () => {
                       className="search-box-search-button-div"
                     >
                       <button
-                        type="button"
+                        type="submit"
                         className="search-box-search-button"
                         onClick={handleSearchClick}
                       >

@@ -260,7 +260,7 @@ const LeaseToOwnVehicles = () => {
   return (
     <>
       <Helmet>
-        <title>Lease To Own - Milele Car Rental Application </title>
+        <title>Lease To Own | Milele Car Rental Application </title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
@@ -283,7 +283,7 @@ const LeaseToOwnVehicles = () => {
                 height="auto"
                 width="40%"
                 id="image-section"
-                title="banner"
+                title="Lease To Own Info"
                 />
             </div>
           </div>
@@ -325,7 +325,7 @@ const LeaseToOwnVehicles = () => {
                   height="auto"
                   width="40%"
                   id="image-section"
-                  title="how to lease any car?"
+                  title="How to lease any car?"
                 />
               </div>
             </div>

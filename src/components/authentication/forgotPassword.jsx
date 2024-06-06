@@ -68,13 +68,13 @@ const ForgotPasswordPage = () => {
   return (
     <>
       <Helmet>
-        <title>Forgot Password - Milele Car Rental Application </title>
+        <title>Forgot Password | Milele Car Rental Application </title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        <link rel="canonical" href="https://milelecarrental.com/ForgotPasswordPage" />
+        <link rel="canonical" href="https://milelecarrental.com/forgotpassword" />
 
       </Helmet>
       <HeaderCombination />

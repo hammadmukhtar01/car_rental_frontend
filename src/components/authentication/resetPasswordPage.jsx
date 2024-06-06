@@ -62,14 +62,16 @@ const ResetPasswordPage = () => {
   return (
     <>
       <Helmet>
-        <title>Reset password - Milele Car Rental Application </title>
+        <title>Reset password | Milele Car Rental Application </title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        <link rel="canonical" href="https://milelecarrental.com/resetpassword/:token" />
-
+        <link
+          rel="canonical"
+          href={`https://milelecarrental.com/resetpassword/${token}`}
+        />
       </Helmet>
       <HeaderCombination />
       <section className="ftco-section">
