@@ -60,8 +60,7 @@ const App = () => {
             <Route path="/blogPage2/2" element={<BlogPage2 />} />
             <Route path="/blogPage3/3" element={<BlogPage3 />} />
             <Route path="/404" element={<Page404 />} />
-            {/* <Route path="*" element={<Page404 />} /> */}
-            <Route element={<Page404 />} />
+            <Route path="*" element={<Page404 />} />
           </Routes>
         </div>
       </GlobalLoader>
