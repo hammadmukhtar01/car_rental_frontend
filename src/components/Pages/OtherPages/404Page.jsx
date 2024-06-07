@@ -13,7 +13,7 @@ const Page404 = () => {
   return (
     <>
       <Helmet>
-        <title>Error 404 | (Page Not Found with this url)!</title>
+        <title>Error 404. | (Page Not Found with this url)!</title>
         <meta
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
