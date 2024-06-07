@@ -27,6 +27,11 @@ jobs:
         run: npm install
 
       - name: Build project
+        env:
+          REACT_APP_GOOGLE_MAPS_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_KEY }}
+          REACT_APP_INSTAGRAM_TOKEN_KEY: ${{ secrets.REACT_APP_INSTAGRAM_TOKEN_KEY }}
+          REACT_APP_SPEED_API_BEARER_TOKEN: ${{ secrets.REACT_APP_SPEED_API_BEARER_TOKEN }}
+          REACT_APP_MILELE_API_URL: ${{ secrets.REACT_APP_MILELE_API_URL }}
         run: npm run build
 
       - name: Deploy to cPanel via FTP
@@ -37,3 +42,15 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: build/
           server-dir: /
+
+      - name: Debug secrets (Remove this after debugging)
+        run: |
+          echo $REACT_APP_GOOGLE_MAPS_KEY
+          echo $REACT_APP_INSTAGRAM_TOKEN_KEY
+          echo $REACT_APP_SPEED_API_BEARER_TOKEN
+          echo $REACT_APP_MILELE_API_URL
+        env:
+          REACT_APP_GOOGLE_MAPS_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_KEY }}
+          REACT_APP_INSTAGRAM_TOKEN_KEY: ${{ secrets.REACT_APP_INSTAGRAM_TOKEN_KEY }}
+          REACT_APP_SPEED_API_BEARER_TOKEN: ${{ secrets.REACT_APP_SPEED_API_BEARER_TOKEN }}
+          REACT_APP_MILELE_API_URL: ${{ secrets.REACT_APP_MILELE_API_URL }}
