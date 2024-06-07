@@ -16,7 +16,7 @@ import ForgotPasswordPage from "./components/authentication/forgotPassword";
 import ResetPasswordPage from "./components/authentication/resetPasswordPage";
 import VehicleDetails from "./components/Pages/multipleStepsForm/vehicleDetails";
 import AddOnsDocuments from "./components/Pages/multipleStepsForm/documentsAndBooking";
-import Error404Page from "./components/Pages/OtherPages/404Page";
+import Page404 from "./components/Pages/OtherPages/404Page";
 import LeaseToOwnVehicles from "./components/Pages/vehicle/leaseToOwn";
 import TermsConditionsPage from "./components/Pages/OtherPages/termsConditionsPage";
 import BlogPage1 from "./components/Pages/Blog/blogPage1";
@@ -27,10 +27,15 @@ import GlobalLoader from "./components/PrivateComponents/globalLoader";
 const App = () => {
   return (
     <>
-    <GlobalLoader>
+      <GlobalLoader>
         <div className="App">
           <Routes>
-            <Route path="/" exact title="home-page-link" element={<HomePage />} />
+            <Route
+              path="/"
+              exact
+              title="home-page-link"
+              element={<HomePage />}
+            />
             <Route path="/home" exact element={<HomePage />} />
             <Route path="/vehicles" element={<VehiclesPage />} />
             {/* <Route path="/leaseToOwn" element={<LeaseToOwnVehicles />} /> */}
@@ -54,11 +59,12 @@ const App = () => {
             <Route path="/blogPage1/1" element={<BlogPage1 />} />
             <Route path="/blogPage2/2" element={<BlogPage2 />} />
             <Route path="/blogPage3/3" element={<BlogPage3 />} />
-            <Route path="/404" element={<Error404Page />} />
-            <Route path="*" element={<Error404Page />} />
+            <Route path="/404" element={<Page404 />} />
+            {/* <Route path="*" element={<Page404 />} /> */}
+            <Route element={<Page404 />} />
           </Routes>
         </div>
-        </GlobalLoader>
+      </GlobalLoader>
     </>
   );
 };

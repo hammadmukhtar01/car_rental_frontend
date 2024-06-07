@@ -5,7 +5,7 @@ import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 import { Helmet } from "react-helmet";
 
-const Error404Page = () => {
+const Page404 = () => {
   const navigate = useNavigate();
   const errorPageBackButton = () => {
     navigate("/home");
@@ -243,4 +243,4 @@ const Error404Page = () => {
   );
 };
 
-export default Error404Page;
+export default Page404;
