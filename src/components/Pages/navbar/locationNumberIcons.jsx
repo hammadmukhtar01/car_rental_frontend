@@ -4,8 +4,8 @@ import { FaPhone, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 import { Modal } from "react-bootstrap";
 
 const FixedNumLocButtons = () => {
-  const phoneNumber = "+971563298330";
-  const whatsappLink = `https://wa.me/${phoneNumber.replace(/\D/g, "")}`;
+  const phoneNumber = "0563298330";
+  const whatsappLink = `https://api.whatsapp.com/send?phone=${phoneNumber}`;
 
   const [showModal, setShowModal] = useState(false);
 

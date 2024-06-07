@@ -3,7 +3,7 @@
   flex-wrap: wrap;
 }
 
-.insta-feed-tempelate-div {
+.insta-feed-template-div {
   padding: 0px 5px !important;
   margin-bottom: -12%;
 }
@@ -19,7 +19,7 @@
 }
 
 @media screen and (max-width: 991px) {
-  .insta-feed-tempelate-div {
+  .insta-feed-template-div {
     padding: 0px 5px !important;
     margin-bottom: -15%;
   }
