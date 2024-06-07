@@ -19,6 +19,11 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
+        env:
+          REACT_APP_GOOGLE_MAPS_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_KEY }}
+          REACT_APP_INSTAGRAM_TOKEN_KEY: ${{ secrets.REACT_APP_INSTAGRAM_TOKEN_KEY }}
+          REACT_APP_SPEED_API_BEARER_TOKEN: ${{ secrets.REACT_APP_SPEED_API_BEARER_TOKEN }}
+          REACT_APP_MILELE_API_URL: ${{ secrets.REACT_APP_MILELE_API_URL }}
         run: npm install
 
       - name: Build project
