@@ -16,7 +16,7 @@ const InstagramFeed = () => {
           limit: 8,
           accessToken: process.env.REACT_APP_INSTAGRAM_TOKEN_KEY,
           template:
-            '<div class="col-lg-3 col-md-4 col-sm-4 col-4 text-center insta-feed-tempelate-div"><a title="instagram-feed" href="{{link}}" target="_blank"><img src="{{image}}" alt="{{caption}}" title="instagram-feeds" class="img-fluid" /></a></div>',
+            '<div class="col-lg-3 col-md-4 col-sm-4 col-4 text-center insta-feed-template-div"><a title="instagram-feed" href="{{link}}" target="_blank"><img src="{{image}}" alt="{{caption}}" title="instagram-feeds" class="img-fluid" /></a></div>',
           error: (error) => {
             console.error("Error loading Instagram feed:", error);
             document.getElementById("instafeed-container").innerHTML = "<p>Unable to load Instagram feed. Please try again later.</p>";
