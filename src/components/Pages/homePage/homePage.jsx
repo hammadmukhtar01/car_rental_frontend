@@ -50,7 +50,7 @@ const HomePage = () => {
         <meta name="keywords" content="keywords" />
         <link rel="canonical" href="https://www.milelecarrental.com/" />
         {/* Google Tag Manager */}
-        <script>
+        {/* <script>
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -58,14 +58,14 @@ const HomePage = () => {
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-PJ8KNJVW');
           `}
-        </script>
+        </script> */}
         {/* End Google Tag Manager */}
 
         {/* Google Tag Manager (noscript) */}
-        <noscript>{`
+        {/* <noscript>{`
           <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJ8KNJVW"
           height="0" width="0" style="display:none;visibility:hidden"></iframe>
-        `}</noscript>
+        `}</noscript> */}
         {/* End Google Tag Manager (noscript) */}
       </Helmet>
 
