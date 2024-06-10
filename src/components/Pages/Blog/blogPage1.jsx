@@ -4,7 +4,7 @@ import blog1MainImg1 from "../../images/blog-images/blog1-main-Img1.png";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const BlogPage1 = () => {
   const blogsData = {
@@ -17,7 +17,7 @@ const BlogPage1 = () => {
   };
 
   return (
-    <div id="main">
+    <HelmetProvider id="main">
       <Helmet>
         <title>Blog: {blogsData?.title}</title>
         <meta
@@ -97,7 +97,7 @@ const BlogPage1 = () => {
         <FreeConsultationForm />
         <FooterCombination />
       </>
-    </div>
+    </HelmetProvider>
   );
 };
 

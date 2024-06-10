@@ -19,19 +19,19 @@ const FixedNumLocButtons = () => {
 
   const handlePhoneClick = (e) => {
     e.preventDefault();
-    window.dataLayer.push({
-      event: "conversion",
-      send_to: "AW-11403132105/qF1YCJP11LYZEMn5t70q",
-    });
+    // window.dataLayer.push({
+    //   event: "conversion",
+    //   send_to: "AW-11403132105/qF1YCJP11LYZEMn5t70q",
+    // });
     window.location.href = `tel:${phoneNumber}`;
   };
 
   const handleWhatsappClick = (e) => {
     e.preventDefault();
-    window.dataLayer.push({
-      event: "conversion",
-      send_to: "AW-11403132105/OOTfCN_b2bYZEMn5t70q",
-    });
+    // window.dataLayer.push({
+    //   event: "conversion",
+    //   send_to: "AW-11403132105/OOTfCN_b2bYZEMn5t70q",
+    // });
     window.open(whatsappLink, "_blank");
   };
 

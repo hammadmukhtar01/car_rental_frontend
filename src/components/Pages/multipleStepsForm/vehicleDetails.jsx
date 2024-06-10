@@ -24,7 +24,7 @@ import Typography from "@mui/material/Typography";
 import { FaMapMarkerAlt, FaTelegramPlane } from "react-icons/fa";
 import "./verticalSliderCarDetails.css";
 import { useLocation } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import axios from "axios";
 
 const VehicleDetails = ({ nextStep }) => {
@@ -568,7 +568,7 @@ const VehicleDetails = ({ nextStep }) => {
   }
 
   return (
-    <div>
+    <HelmetProvider>
       <Helmet>
         <title>Vehicle Detail | Milele Car Rental Application </title>
         <meta
@@ -1133,7 +1133,7 @@ const VehicleDetails = ({ nextStep }) => {
           </>
         </Container>
       </div>
-    </div>
+    </HelmetProvider>
   );
 };
 

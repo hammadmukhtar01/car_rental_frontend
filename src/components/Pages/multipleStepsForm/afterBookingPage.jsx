@@ -1,7 +1,7 @@
 import React from "react";
 import "../OtherPages/errorPage.css";
 import { useNavigate } from "react-router";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const AfterBookingPage = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const AfterBookingPage = () => {
     navigate("/home");
   };
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Booking Success | Milele Car Rental Application </title>
         <meta
@@ -239,7 +239,7 @@ const AfterBookingPage = () => {
           </button>
         </div>
       </div>
-    </>
+    </HelmetProvider>
   );
 };
 

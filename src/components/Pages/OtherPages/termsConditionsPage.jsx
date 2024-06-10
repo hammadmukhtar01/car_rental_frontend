@@ -3,11 +3,11 @@ import React from "react";
 import "./otherPages.css";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const TermsConditionsPage = () => {
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Terms & Conditions | Milele Car Rental Application </title>
         <meta
@@ -596,7 +596,7 @@ const TermsConditionsPage = () => {
         </div>
       </div>
       <FooterCombination />
-    </>
+    </HelmetProvider>
   );
 };
 

@@ -5,7 +5,7 @@ import blog3MainImg1 from "../../images/blog-images/blog3-main-Img1.png";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const BlogPage3 = ({ blogData }) => {
   const blogNumInUrl = useLocation();
@@ -23,7 +23,7 @@ const BlogPage3 = ({ blogData }) => {
   console.log("Blog data is: ----", blogNumberParam);
 
   return (
-    <div id="main">
+    <HelmetProvider id="main">
       <>
         <Helmet>
           <title>Blog: {blogsData?.title}</title>
@@ -137,7 +137,7 @@ const BlogPage3 = ({ blogData }) => {
         <FreeConsultationForm />
         <FooterCombination />
       </>
-    </div>
+    </HelmetProvider>
   );
 };
 

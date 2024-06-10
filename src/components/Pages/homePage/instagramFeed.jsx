@@ -11,15 +11,18 @@ const InstagramFeed = () => {
       if (window.Instafeed) {
         const userFeed = new window.Instafeed({
           get: "user",
-          target: "instafeed-container",
           resolution: "low_resolution",
           limit: 8,
           accessToken: process.env.REACT_APP_INSTAGRAM_TOKEN_KEY,
+          target: "instafeed-container",
           template:
             '<div class="col-lg-3 col-md-4 col-sm-4 col-4 text-center insta-feed-template-div"><a title="instagram-feed" href="{{link}}" target="_blank"><img src="{{image}}" alt="{{caption}}" title="instagram-feeds" class="img-fluid" /></a></div>',
           error: (error) => {
             console.error("Error loading Instagram feed:", error);
-            document.getElementById("instafeed-container").innerHTML = "<p>Unable to load Instagram feed. Please try again later.</p>";
+            const container = document.getElementById("instafeed-container");
+            if (container) {
+              container.innerHTML = "<p>Unable to load Instagram feed. Please try again later.</p>";
+            }
           },
         });
 
@@ -27,7 +30,10 @@ const InstagramFeed = () => {
           userFeed.run();
         } catch (error) {
           console.error("Error running Instafeed:", error);
-          document.getElementById("instafeed-container").innerHTML = "<p>Unable to load Instagram feed. Please try again later.</p>";
+          const container = document.getElementById("instafeed-container");
+          if (container) {
+            container.innerHTML = "<p>Unable to load Instagram feed. Please try again later.</p>";
+          }
         }
       }
     };

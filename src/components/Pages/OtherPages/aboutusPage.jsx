@@ -4,7 +4,7 @@ import HashLoader from "react-spinners/ClipLoader";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const aboutUsParagraphs = [
   {
@@ -51,7 +51,7 @@ const aboutUsParagraphs = [
 
 const AboutusPage = () => {
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>About Us | Milele Car Rental Application </title>
         <meta
@@ -114,7 +114,7 @@ const AboutusPage = () => {
         <FreeConsultationForm />
         <FooterCombination />
       </div>
-    </>
+    </HelmetProvider>
   );
 };
 

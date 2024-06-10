@@ -24,7 +24,7 @@ const loadScript = (url, callback) => {
 const SearchLocationInput = ({ setSelectedLocationss }) => {
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
-  const REACT_APP_GOOGLE_MAPS_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
+  const GOOGLE_MAPS_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleScriptLoad = (updateQuery, autoCompleteRef) => {
@@ -60,10 +60,10 @@ const SearchLocationInput = ({ setSelectedLocationss }) => {
 
   useEffect(() => {
     loadScript(
-      `https://maps.googleapis.com/maps/api/js?key=${REACT_APP_GOOGLE_MAPS_KEY}&libraries=places`,
+      `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_KEY}&libraries=places`,
       () => handleScriptLoad(setQuery, autoCompleteRef)
     );
-  }, [REACT_APP_GOOGLE_MAPS_KEY, handleScriptLoad]);
+  }, [GOOGLE_MAPS_KEY, handleScriptLoad]);
 
   return (
     <div className="search-location-input">

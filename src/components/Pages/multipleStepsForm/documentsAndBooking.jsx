@@ -14,7 +14,7 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [firstName, setFirstName] = useState("");
@@ -892,7 +892,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     }),
   };
   return (
-    <div>
+    <HelmetProvider>
       <Helmet>
         <title>Customer booking details | Milele Car Rental Application </title>
         <meta
@@ -1266,7 +1266,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           </>
         </Container>
       </div>
-    </div>
+    </HelmetProvider>
   );
 };
 

@@ -318,14 +318,14 @@ const SearchBox = () => {
   const handleSearchClick = () => {
     console.log("Search button is clicked");
 
-    window.dataLayer.push({
-      event: "search_button_click",
-    });
+    // window.dataLayer.push({
+    //   event: "search_button_click",
+    // });
 
-    window.dataLayer.push({
-      event: "conversion",
-      send_to: "AW-11403132105/fpKGCJzkhLcZEMn5t70q",
-    });
+    // window.dataLayer.push({
+    //   event: "conversion",
+    //   send_to: "AW-11403132105/fpKGCJzkhLcZEMn5t70q",
+    // });
   };
 
   const handleSearchVehicleButtonHomePage = async (e) => {
