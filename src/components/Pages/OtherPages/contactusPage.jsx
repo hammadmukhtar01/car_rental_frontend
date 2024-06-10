@@ -7,11 +7,11 @@ import { BsGeoAltFill } from "react-icons/bs";
 import { BsFillClockFill } from "react-icons/bs";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const ContactusPage = () => {
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Contact Us | Milele Car Rental Application </title>
         <meta
@@ -117,7 +117,7 @@ const ContactusPage = () => {
         </div>
       </div>
       <FooterCombination />
-    </>
+    </HelmetProvider>
   );
 };
 

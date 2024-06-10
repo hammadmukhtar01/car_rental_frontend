@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import FooterCombination from "../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const LoginPage = () => {
   const tenancyName = "MileleCarRental";
@@ -80,7 +80,7 @@ const LoginPage = () => {
   };
 
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Login | Milele Car Rental Application </title>
         <meta
@@ -220,7 +220,7 @@ const LoginPage = () => {
         </div>
       </section>
       <FooterCombination />
-    </>
+    </HelmetProvider>
   );
 };
 

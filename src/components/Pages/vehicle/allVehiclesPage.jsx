@@ -39,7 +39,7 @@ import makeAnimated from "react-select/animated";
 import UseGlobalFormFields from "../Utils/useGlobalFormFields";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const PageSize = 8;
 const animatedComponents = makeAnimated();
@@ -1033,7 +1033,7 @@ const VehiclesPage = () => {
   };
 
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Fleet | Milele Car Rental Application </title>
         <meta
@@ -1757,7 +1757,7 @@ const VehiclesPage = () => {
         </>
       </div>
       <FooterCombination />
-    </>
+    </HelmetProvider>
   );
 };
 

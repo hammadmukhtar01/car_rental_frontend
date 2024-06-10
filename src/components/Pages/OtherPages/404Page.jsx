@@ -3,7 +3,7 @@ import "./errorPage.css";
 import { useNavigate } from "react-router";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const Page404 = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const Page404 = () => {
     navigate("/home");
   };
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Error 404. | (Page Not Found with this url)!</title>
         <meta
@@ -239,7 +239,7 @@ const Page404 = () => {
         </div>
       </div>
       <FooterCombination />
-    </>
+    </HelmetProvider>
   );
 };
 

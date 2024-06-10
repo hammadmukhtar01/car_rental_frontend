@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import FooterCombination from "../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -96,7 +96,7 @@ const SignupPage = () => {
   };
 
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Signup | Milele Car Rental Application </title>
         <meta
@@ -234,7 +234,7 @@ const SignupPage = () => {
         </div>
       </section>
       <FooterCombination />
-    </>
+    </HelmetProvider>
   );
 };
 

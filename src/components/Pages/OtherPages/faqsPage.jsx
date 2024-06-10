@@ -10,7 +10,7 @@ import {
 } from "mdb-react-ui-kit";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const FaqsPage = () => {
   const faqItems = [
@@ -120,7 +120,7 @@ const FaqsPage = () => {
   ];
 
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>FAQs | Milele Car Rental Application </title>
         <meta
@@ -170,7 +170,7 @@ const FaqsPage = () => {
         </div>
       </div>
       <FooterCombination />
-    </>
+    </HelmetProvider>
   );
 };
 

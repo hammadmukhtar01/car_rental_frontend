@@ -19,7 +19,7 @@ import "../homePage/homepage.css";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const BlogPage2 = () => {
   const blogsData = {
@@ -32,7 +32,7 @@ const BlogPage2 = () => {
   };
 
   return (
-    <div id="main">
+    <HelmetProvider id="main">
       <>
         <Helmet>
           <title>Blog: {blogsData?.title}</title>
@@ -389,7 +389,7 @@ const BlogPage2 = () => {
         <FreeConsultationForm />
         <FooterCombination />
       </>
-    </div>
+    </HelmetProvider>
   );
 };
 

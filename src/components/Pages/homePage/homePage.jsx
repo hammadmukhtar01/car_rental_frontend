@@ -9,7 +9,7 @@ import PeugeotLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboa
 // import KiaLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 10.png";
 // import HyundaiLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 11.png";
 import OurBlogs from "../Blog/ourBlogs";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 // import SpinTheWheel from "../spinTheWheel/spinTheWheel";
 
 // Imp TestAutoComInput import for google map locations responsiveness
@@ -40,7 +40,7 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <HelmetProvider>
       <Helmet>
         <title>Home | Milele Car Rental Application </title>
         <meta
@@ -48,7 +48,7 @@ const HomePage = () => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        <link rel="canonical" href="https://milelecarrental.com/" />
+        <link rel="canonical" href="https://www.milelecarrental.com/" />
         {/* Google Tag Manager */}
         <script>
           {`
@@ -157,7 +157,7 @@ const HomePage = () => {
       </div>
 
       <FooterCombination />
-    </div>
+    </HelmetProvider>
   );
 };
 

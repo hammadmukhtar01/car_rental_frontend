@@ -13,7 +13,7 @@ import InstagramFeed from "../homePage/instagramFeed";
 import LeaseNowFormDetails from "./leaseNowDetailsForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const LargeBanner = LTOProcessImgWeb;
 const SmallBanner = LTOProcessImgMob;
@@ -258,7 +258,7 @@ const LeaseToOwnVehicles = () => {
   };
 
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Lease To Own | Milele Car Rental Application </title>
         <meta
@@ -270,25 +270,27 @@ const LeaseToOwnVehicles = () => {
       </Helmet>
       <HeaderCombination />
       <div id="main" className="pb-2 bg-white">
-          <Container>
-        <section className="lto-main-banner-section mt-3">
-          <div className="lto-our-brand-heading">
-            <h1 className="lto-headings text-left">BUILD YOUR OWN LEASING PLAN</h1>
-          </div>
-          <div className="lto-main-banner-div">
-            <div className="imgBox">
-              <img
-                src={LTOMainBannerImg}
-                alt="lease to own main banner"
-                height="auto"
-                width="40%"
-                id="image-section"
-                title="Lease To Own Info"
-                />
+        <Container>
+          <section className="lto-main-banner-section mt-3">
+            <div className="lto-our-brand-heading">
+              <h1 className="lto-headings text-left">
+                BUILD YOUR OWN LEASING PLAN
+              </h1>
             </div>
-          </div>
-        </section>
-                </Container>
+            <div className="lto-main-banner-div">
+              <div className="imgBox">
+                <img
+                  src={LTOMainBannerImg}
+                  alt="lease to own main banner"
+                  height="auto"
+                  width="40%"
+                  id="image-section"
+                  title="Lease To Own Info"
+                />
+              </div>
+            </div>
+          </section>
+        </Container>
         <Container>
           <section className="lto-dealing-brands mt-3">
             <div className="lto-our-brand-div">
@@ -555,7 +557,7 @@ const LeaseToOwnVehicles = () => {
         <FreeConsultationForm />
       </div>
       <FooterCombination />
-    </>
+    </HelmetProvider>
   );
 };
 

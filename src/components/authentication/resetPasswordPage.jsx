@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import FooterCombination from "../PrivateComponents/footerCombination";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const ResetPasswordPage = () => {
   const { token } = useParams();
@@ -60,7 +60,7 @@ const ResetPasswordPage = () => {
   };
 
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Reset password | Milele Car Rental Application </title>
         <meta
@@ -168,7 +168,7 @@ const ResetPasswordPage = () => {
         </div>
       </section>
       <FooterCombination />
-    </>
+    </HelmetProvider>
   );
 };
 
