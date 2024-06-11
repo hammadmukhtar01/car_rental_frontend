@@ -660,8 +660,8 @@ const SearchBox = () => {
                         id="home-page-search-box-button"
                         onClick={handleSearchClick}
                       >
-                        <span className="">
-                          <LuSearch />
+                        <span id="home-page-search-box-span">
+                          <LuSearch id="home-page-search-box-icon" />
                         </span>
                       </button>
                       <ToastContainer />

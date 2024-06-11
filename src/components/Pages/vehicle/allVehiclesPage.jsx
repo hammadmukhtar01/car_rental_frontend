@@ -1694,7 +1694,6 @@ const VehiclesPage = () => {
                                         <>
                                           <button
                                             className="map-loc-middle"
-                                            id="pay-now-button-vehicles-page"
                                             onClick={() => {
                                               const vehiclePrice =
                                                 renderVehiclePrices(
@@ -1717,7 +1716,12 @@ const VehiclesPage = () => {
                                               <span className="all-cars-animate-button btn4">
                                                 <span className="label">
                                                   Pay Now{" "}
-                                                  <span className="pay-now-price-md-lg">
+                                                  <span
+                                                    className="pay-now-price-md-lg"
+                                                    id={`pay-now-for-${car?.title
+                                                      .replace(/\s+/g, "-")
+                                                      .toLowerCase()}-button`}
+                                                  >
                                                     <span>|</span> AED:{" "}
                                                     {renderVehiclePrices(
                                                       car?.tariffGroupId
@@ -1736,7 +1740,12 @@ const VehiclesPage = () => {
                                             ) : (
                                               <>
                                                 <span className="animate-button btn4">
-                                                  <span className="label">
+                                                  <span
+                                                    className="label"
+                                                    id={`pay-now-for-${car?.title
+                                                      .replace(/\s+/g, "-")
+                                                      .toLowerCase()}-button`}
+                                                  >
                                                     Pay Now{" "}
                                                   </span>
                                                 </span>
