@@ -27,6 +27,37 @@ function MainNavbar() {
     setIsHomePage(location?.pathname === "/");
   }, [location?.pathname]);
 
+  useEffect(() => {
+    setIsHomePage(location?.pathname === "/");
+  }, [location?.pathname]);
+
+  useEffect(() => {
+    const handleNavLinkClick = (event) => {
+      const id = event.target.id;
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'click', {
+          event_category: 'Navigation',
+          event_label: `Clicked on ${id}`,
+          event_action: 'click',
+          event_id: id,
+        });
+      }
+    };
+
+    const navLinks = document.querySelectorAll('a.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', handleNavLinkClick);
+    });
+
+    return () => {
+      navLinks.forEach(link => {
+        link.removeEventListener('click', handleNavLinkClick);
+      });
+    };
+  }, []);
+
+
+
   const isExactHomePage = location?.pathname === "/";
 
   // const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
