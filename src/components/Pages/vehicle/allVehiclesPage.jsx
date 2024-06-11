@@ -1600,36 +1600,15 @@ const VehiclesPage = () => {
                                       </span>
                                     </div>
                                     <div className="car-image-container ">
-                                      <div
-                                        // onClick={() => {
-                                        //   const vehiclePrice =
-                                        //     renderVehiclePrices(
-                                        //       car.tariffGroupId
-                                        //     );
-                                        //   allCarsBookingButton(
-                                        //     car?.tariffGroupId,
-                                        //     `${car?.title} - ${
-                                        //       categoryMap[
-                                        //         car?.acrissCategory?.name
-                                        //       ] || car?.acrissCategory?.name
-                                        //     }`,
-                                        //     startDate,
-                                        //     endDate,
-                                        //     vehiclePrice
-                                        //   );
-                                        // }}
-                                      >
-                                        {" "}
-                                        <img
-                                          src={car?.displayImageUrl}
-                                          title={`${car?.title}`}
-                                          alt={`Rent ${car?.title}`}
-                                          className="car-image"
-                                          id={`pay-now-for-${car?.title
-                                            .replace(/\s+/g, "-")
-                                            .toLowerCase()}-button`}
-                                        />
-                                      </div>
+                                      <img
+                                        src={car?.displayImageUrl}
+                                        title={`${car?.title}`}
+                                        alt={`Rent ${car?.title}`}
+                                        className="car-image"
+                                        // id={`pay-now-for-${car?.title
+                                        //   .replace(/\s+/g, "-")
+                                        //   .toLowerCase()}-button`}
+                                      />
                                     </div>
                                     <div className="all-vehicles-features-icons features-scroll-container text-center">
                                       {dataArray?.map((carData, dataIndex) => (
