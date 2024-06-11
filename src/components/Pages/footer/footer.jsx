@@ -107,7 +107,7 @@ const Footer = () => {
                 >
                   <Row className="footer-heading-row align-items-end">
                     <div className="toggle-main-logo">
-                      <a href="/home">
+                      <a href="/">
                         <Image
                           src={logoImage}
                           title="Milele Car Rental"

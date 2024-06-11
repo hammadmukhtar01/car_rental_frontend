@@ -22,7 +22,7 @@ const SignupPage = () => {
   useEffect(() => {
     const auth = localStorage.getItem("user");
     if (auth) {
-      navigate("/home");
+      navigate("/");
     }
   }, [navigate]);
 
@@ -69,7 +69,7 @@ const SignupPage = () => {
             fontSize: "14px",
           },
           onClose: () => {
-            navigate("/home");
+            navigate("/");
           },
         });
       } else {

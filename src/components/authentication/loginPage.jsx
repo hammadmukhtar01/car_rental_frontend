@@ -18,7 +18,7 @@ const LoginPage = () => {
   useEffect(() => {
     const auth = localStorage.getItem("user");
     if (auth) {
-      navigate("/home");
+      navigate("/");
     }
   }, [navigate]);
 
@@ -54,7 +54,7 @@ const LoginPage = () => {
             fontSize: "14px",
           },
           onClose: () => {
-            navigate("/home");
+            navigate("/");
           },
         });
       } else {

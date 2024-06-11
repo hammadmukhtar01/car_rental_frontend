@@ -6,7 +6,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 const AfterBookingPage = () => {
   const navigate = useNavigate();
   const errorPageBackButton = () => {
-    navigate("/home");
+    navigate("/");
   };
   return (
     <HelmetProvider>

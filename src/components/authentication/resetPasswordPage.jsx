@@ -42,7 +42,7 @@ const ResetPasswordPage = () => {
             fontSize: "14px",
           },
           onClose: () => {
-            navigate("/home");
+            navigate("/hme");
           },
         });
       }
