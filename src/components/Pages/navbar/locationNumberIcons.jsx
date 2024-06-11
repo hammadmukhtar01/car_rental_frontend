@@ -45,6 +45,7 @@ const FixedNumLocButtons = () => {
           target="_blank"
           rel="noopener noreferrer"
           onClick={handlePhoneClick}
+          id="phone-number-icon"
         >
           <FaPhone />
         </a>
@@ -56,6 +57,7 @@ const FixedNumLocButtons = () => {
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleWhatsappClick}
+          id="whatsapp-icon"
         >
           <FaWhatsapp />
         </a>

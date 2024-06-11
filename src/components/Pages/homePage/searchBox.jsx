@@ -657,6 +657,7 @@ const SearchBox = () => {
                       <button
                         type="submit"
                         className="search-box-search-button"
+                        id="home-page-search-box-button"
                         onClick={handleSearchClick}
                       >
                         <span className="">
