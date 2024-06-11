@@ -162,9 +162,24 @@ const AnimatedCarSection = () => {
               <div className="slider">
                 <div className="owl-carousel owl-carousel-main-container">
                   {imagesData.map((data, index) => (
-                    <div className="animated-imgs-container" key={index} id={`${mapCategoryToNavigationValue(data?.acrissCategory)} category`}>
+                    <div
+                      className="animated-imgs-container"
+                      key={index}
+                      id={`home-page-${mapCategoryToNavigationValue(
+                        data?.acrissCategory
+                      )
+                        .replace(/\s+/g, "-")
+                        .toLowerCase()}-button`}
+                    >
                       <div className="slider-card slider-imgs">
-                        <h2 className="text-center pt-3">
+                        <h2
+                          className="text-center pt-3"
+                          id={`home-page-${mapCategoryToNavigationValue(
+                            data?.acrissCategory
+                          )
+                            .replace(/\s+/g, "-")
+                            .toLowerCase()}-h2`}
+                        >
                           {mapCategoryToNavigationValue(data?.acrissCategory)}
                         </h2>
                         <div className="d-flex justify-content-center align-items-center mb-4">
@@ -178,6 +193,11 @@ const AnimatedCarSection = () => {
                                 data?.acrissCategory
                               )} Vehicle Category`}
                               className="img-fluid slider-item"
+                              id={`home-page-${mapCategoryToNavigationValue(
+                                data?.acrissCategory
+                              )
+                                .replace(/\s+/g, "-")
+                                .toLowerCase()}-img`}
                               onClick={() =>
                                 handleImageClick(data?.acrissCategory)
                               }
