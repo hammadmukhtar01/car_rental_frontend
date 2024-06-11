@@ -154,7 +154,7 @@ const LoginPage = () => {
                     <p></p>
                     <br />
                     <br />
-                    <button className="middle">
+                    <button className="middle" id="login-button">
                       <span className="animate-button btn4">Log In</span>
                     </button>
 

@@ -133,6 +133,7 @@ const ResponsiveExample = () => {
                     <td className="d-flex justify-content-center">
                       <button
                         className="booking-details-button"
+                        id="my-booking-buton"
                         onClick={() =>
                           isCardVisible
                             ? handleHideDetailsClick()

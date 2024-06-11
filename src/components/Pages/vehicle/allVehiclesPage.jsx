@@ -1370,6 +1370,7 @@ const VehiclesPage = () => {
                                   value={selectedCategories}
                                   onChange={handleCategoryChange}
                                   styles={selectCategoriesStyles}
+                                  id="vehicle-category"
                                 />
                               </div>
                             </article>
@@ -1414,11 +1415,12 @@ const VehiclesPage = () => {
                               <label
                                 className="form-check flipBox"
                                 aria-label={`Checkbox ${index}`}
-                                key={index}
+                                key={`${type}-type`}
                               >
                                 <input
                                   className="form-check-input"
                                   type="checkbox"
+                                  id={`${type}-type`}
                                   value={type}
                                   checked={selectedCarTypes.includes(type)}
                                   onChange={() =>
@@ -1683,6 +1685,7 @@ const VehiclesPage = () => {
                                         <>
                                           <button
                                             className="map-loc-middle"
+                                            id="pay-now-button-vehicles-page"
                                             onClick={() => {
                                               const vehiclePrice =
                                                 renderVehiclePrices(

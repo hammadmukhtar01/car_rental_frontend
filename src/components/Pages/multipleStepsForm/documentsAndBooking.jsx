@@ -1255,6 +1255,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                     <button
                       onClick={handleNextStep}
                       className="map-loc-middle py-3"
+                      id="book-pay-final-button"
                     >
                       <span className="animate-button btn4">Book & Pay</span>
                     </button>

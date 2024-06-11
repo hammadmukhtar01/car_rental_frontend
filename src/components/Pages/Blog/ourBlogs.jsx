@@ -55,7 +55,7 @@ const OurBlogs = () => {
       href={`/blogPage${blogData?.id}/${blogData?.id}`}
     >
       <div className="container">
-        <div className="single-blog blog-style-one">
+        <div className="single-blog blog-style-one" id={`${blogData?.title} title`}>
           <div className="blog-image pb-3">
             <img
               src={blogData?.imageUrl}

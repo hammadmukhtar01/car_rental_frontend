@@ -141,7 +141,7 @@ const ResetPasswordPage = () => {
                     <p></p>
                     <br />
                     <br />
-                    <button className="middle">
+                    <button className="middle" id="reset-password-button">
                       <span className="animate-button btn4">Submit</span>
                     </button>
                     <ToastContainer />

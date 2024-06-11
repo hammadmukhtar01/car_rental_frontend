@@ -162,7 +162,7 @@ const AnimatedCarSection = () => {
               <div className="slider">
                 <div className="owl-carousel owl-carousel-main-container">
                   {imagesData.map((data, index) => (
-                    <div className="animated-imgs-container" key={index}>
+                    <div className="animated-imgs-container" key={index} id={`${mapCategoryToNavigationValue(data?.acrissCategory)} category`}>
                       <div className="slider-card slider-imgs">
                         <h2 className="text-center pt-3">
                           {mapCategoryToNavigationValue(data?.acrissCategory)}

@@ -112,6 +112,7 @@ const Footer = () => {
                           src={logoImage}
                           title="Milele Car Rental"
                           alt="Main Logo lg"
+                          id="Milele Car Rental Footer Logo"
                           fluid
                         />
                       </a>

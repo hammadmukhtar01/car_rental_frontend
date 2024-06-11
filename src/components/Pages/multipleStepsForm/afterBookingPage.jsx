@@ -17,7 +17,10 @@ const AfterBookingPage = () => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        <link rel="canonical" href="https://milelecarrental.com/bookingPage/3&booking-success" />
+        <link
+          rel="canonical"
+          href="https://milelecarrental.com/bookingPage/3&booking-success"
+        />
       </Helmet>
       <div className="wrapper">
         <div className="landing-page">
@@ -232,7 +235,11 @@ const AfterBookingPage = () => {
 
           <br />
           <br />
-          <button onClick={errorPageBackButton} className="middle">
+          <button
+            onClick={errorPageBackButton}
+            className="middle"
+            id="return-home-button-booking-success-page"
+          >
             <span className="animate-button btn4">
               <b>Back to home</b>
             </span>

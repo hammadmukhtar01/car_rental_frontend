@@ -16,7 +16,7 @@ function PickupLocationModal({
   initialInputFieldValue,
   handleInputFieldChange,
   onSelectTabChange,
-  onStateChange 
+  onStateChange,
 }) {
   const [selectedLocationss, setSelectedLocationss] = useState({
     lat: 25.17411857864891,
@@ -144,7 +144,7 @@ function PickupLocationModal({
 
   const handleStateChange = (stateName) => {
     handleFieldChange("pickupLocationStateV1", stateName);
-    setPickupLocationState(stateName); 
+    setPickupLocationState(stateName);
     onStateChange(stateName);
   };
 
@@ -158,6 +158,7 @@ function PickupLocationModal({
                 ? "deliver-me-selected"
                 : "deliver-me-not-selected"
             } px-2 py-2`}
+            id="pickup-loc-deliver-to me"
             onClick={() => handleTabChange("deliver")}
           >
             <span className="deliver-to-me-text">Deliver to Me</span>
@@ -166,6 +167,7 @@ function PickupLocationModal({
             className={`pickup-loc-option ${
               selectedTab === "pick" ? "pickup-selected" : "pickup-not-selected"
             } px-2 py-2`}
+            id="pickup-loc-pick-up-myself"
             onClick={() => handleTabChange("pick")}
           >
             <span className="pickup-text"> Pick Up Myself</span>
@@ -221,6 +223,7 @@ function PickupLocationModal({
                       <button
                         onClick={handleInputSubmit}
                         className="map-loc-middle py-3"
+                        id="pickup-loc-booking-button-deliver-to-me"
                       >
                         <span className="animate-button btn4">
                           Start Booking
@@ -286,6 +289,7 @@ function PickupLocationModal({
                       <button
                         onClick={handleInputSubmit}
                         className="map-loc-middle py-3"
+                        id="pickup-loc-booking-button-pick-up-myself"
                       >
                         <span className="animate-button btn4">
                           Start Booking

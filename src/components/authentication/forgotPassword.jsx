@@ -121,7 +121,7 @@ const ForgotPasswordPage = () => {
                       <p></p>
                       <br />
                       <br />
-                      <button className="middle">
+                      <button className="middle" id="forgot-password-button">
                         <span className="animate-button btn4">Submit</span>
                       </button>
 

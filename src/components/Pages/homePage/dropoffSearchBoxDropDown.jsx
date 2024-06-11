@@ -143,6 +143,7 @@ function DropoffLocationModal({
                 ? "deliver-me-selected"
                 : "deliver-me-not-selected"
             } px-2 py-2`}
+            id="dropoff-loc-deliver-to me"
             onClick={() => handleTabChange("deliver")}
           >
             <span className="deliver-to-me-text">Deliver to Me</span>
@@ -153,6 +154,7 @@ function DropoffLocationModal({
                 ? "dropoff-selected"
                 : "dropoff-not-selected"
             } px-2 py-2`}
+            id="dropoff-loc-pick-up-myself"
             onClick={() => handleTabChange("pick")}
           >
             <span className="dropoff-text"> Pick Up Myself</span>
@@ -206,6 +208,7 @@ function DropoffLocationModal({
                       <button
                         onClick={handleInputSubmit}
                         className="map-loc-middle py-3"
+                        id="dropoff-loc-booking-button-deliver-to-me"
                       >
                         <span className="animate-button btn4">
                           Start Booking
@@ -274,6 +277,7 @@ function DropoffLocationModal({
                       <button
                         onClick={handleInputSubmit}
                         className="map-loc-middle py-3"
+                        id="dropoff-loc-booking-button-pick-up-myself"
                       >
                         <span className="animate-button btn4">
                           Start Booking

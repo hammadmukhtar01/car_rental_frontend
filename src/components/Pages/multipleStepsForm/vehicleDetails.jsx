@@ -753,6 +753,7 @@ const VehicleDetails = ({ nextStep }) => {
                                                   }
                                                   className="add-ons-view-details"
                                                   title={`${AddOnsDataValues?.addOnsName} Add-On`}
+                                                  id={`${AddOnsDataValues?.addOnsName}-add-on-detail-button`}
                                                 >
                                                   View Details
                                                 </a>
@@ -1025,6 +1026,7 @@ const VehicleDetails = ({ nextStep }) => {
                                             <button
                                               className="remove-coupon-btn button--submit"
                                               onClick={removeCoupon}
+                                              id="remove-coupon-button"
                                             >
                                               <RxCross2 />
                                             </button>
@@ -1033,6 +1035,7 @@ const VehicleDetails = ({ nextStep }) => {
                                           <button
                                             className="apply-coupon-btn button--submit"
                                             onClick={applyCoupon}
+                                            id="apply-coupon-button"
                                           >
                                             <TiTick />
                                           </button>
@@ -1118,6 +1121,7 @@ const VehicleDetails = ({ nextStep }) => {
                   <button
                     onClick={() => handleNextStep1()}
                     className="map-loc-middle py-3"
+                    id="start-booking-button"
                   >
                     <span className="animate-button btn4">Start Booking</span>
                   </button>
