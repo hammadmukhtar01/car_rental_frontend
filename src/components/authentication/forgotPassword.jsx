@@ -39,7 +39,7 @@ const ForgotPasswordPage = () => {
             fontSize: "14px",
           },
           onClose: () => {
-            navigate("/home");
+            navigate("/");
           },
         });
       } else {

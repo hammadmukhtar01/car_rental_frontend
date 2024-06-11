@@ -8,7 +8,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 const Page404 = () => {
   const navigate = useNavigate();
   const errorPageBackButton = () => {
-    navigate("/home");
+    navigate("/");
   };
   return (
     <HelmetProvider>

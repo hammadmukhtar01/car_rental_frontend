@@ -24,11 +24,10 @@ function MainNavbar() {
   const userName = user_info?.result?.userName;
 
   useEffect(() => {
-    setIsHomePage(location?.pathname === "/home" || location?.pathname === "/");
+    setIsHomePage(location?.pathname === "/");
   }, [location?.pathname]);
 
-  const isExactHomePage =
-    location?.pathname === "/home" || location?.pathname === "/";
+  const isExactHomePage = location?.pathname === "/";
 
   // const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
   const logoImage = Coloredlogo;
@@ -40,7 +39,7 @@ function MainNavbar() {
       setTimeout(() => {
         window.location.reload();
       }, 100);
-      navigate("/home");
+      navigate("/");
     }
   };
 
@@ -52,7 +51,7 @@ function MainNavbar() {
             <Navbar.Brand>
               <div className="main-logo">
                 <a
-                  href="/home"
+                  href="/"
                   title="home page"
                   onClick={() => setShowOffCanvas(false)}
                   id="navbar-logo-to-home-page-lg"
@@ -86,7 +85,7 @@ function MainNavbar() {
                 <Navbar.Brand>
                   <div className="toggle-main-logo">
                     <a
-                      href="/home"
+                      href="/"
                       title="home page"
                       id="navbar-logo-to-home-page-sm"
                       onClick={() => setShowOffCanvas(false)}
@@ -110,14 +109,12 @@ function MainNavbar() {
                 >
                   <Nav.Link
                     as={NavLink}
-                    to="/home"
+                    to="/"
                     title="home page"
                     className={`navbar-all-menus ${
-                      location.pathname === "/home"
+                      location.pathname === "/"
                         ? "active"
-                        : "" || location.pathname === "/"
-                        ? "active"
-                        : ""
+                        : "" 
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}

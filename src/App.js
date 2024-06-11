@@ -36,7 +36,6 @@ const App = () => {
               title="home-page-link"
               element={<HomePage />}
             />
-            <Route path="/home" exact element={<HomePage />} />
             <Route path="/vehicles" element={<VehiclesPage />} />
             {/* <Route path="/leaseToOwn" element={<LeaseToOwnVehicles />} /> */}
             {/* <Route path="/booking/:id" element={<BookingDetails />} /> */}
