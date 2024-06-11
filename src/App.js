@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import ReactGA from "react-ga";
 import "./App.css";
 import AfterBookingPage from "./components/Pages/multipleStepsForm/afterBookingPage";
 import HomePage from "./components/Pages/homePage/homePage";
@@ -25,6 +26,16 @@ import BlogPage3 from "./components/Pages/Blog/blogPage3";
 import GlobalLoader from "./components/PrivateComponents/globalLoader";
 
 const App = () => {
+  const location = useLocation();
+  useEffect(() => {
+    ReactGA.initialize("G-LFDEE3CFEV");
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
+  useEffect(() => {
+    ReactGA.pageview(location.pathname + location.search);
+  }, [location]);
+
   return (
     <>
       <GlobalLoader>
