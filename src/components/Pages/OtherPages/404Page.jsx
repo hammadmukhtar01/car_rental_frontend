@@ -20,7 +20,6 @@ const Page404 = () => {
         />
         <meta name="keywords" content="keywords" />
         <link rel="canonical" href="https://milelecarrental.com/404" />
-
       </Helmet>
       <HeaderCombination />
       <div className="wrapper">
@@ -231,7 +230,11 @@ const Page404 = () => {
           <h1 className="error-page-main-heading"> Error 404.</h1>
           <p className="error-page-paragraph"> Page Not Found!</p>
           <br />
-          <button onClick={errorPageBackButton} className="middle">
+          <button
+            onClick={errorPageBackButton}
+            className="middle"
+            id="return-home-button-error-page"
+          >
             <span className="animate-button btn4">
               <span className="return-home-button-text">Return Home</span>
             </span>

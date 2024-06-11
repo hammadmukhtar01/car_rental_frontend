@@ -14,6 +14,49 @@ import { Row, Col } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 
 const HomePageBottomBar = () => {
+  const socialMediaLinks = [
+    {
+      href: "https://www.facebook.com/milelecarrental/",
+      title: "Facebook",
+      icon: FaFacebookF,
+    },
+    {
+      href: "https://www.instagram.com/milelecarrentals/",
+      title: "Instagram",
+      icon: FaInstagram,
+    },
+    {
+      href: "https://www.youtube.com/channel/UCGZsbfATcMxEBbz1PWAKt0A",
+      title: "YouTube",
+      icon: FaYoutube,
+    },
+    {
+      href: "https://www.tiktok.com/@milelecarrental",
+      title: "Tiktok",
+      icon: FaTiktok,
+    },
+    {
+      href: "https://www.linkedin.com/company/99998565/admin/feed/posts/",
+      title: "Linkedin",
+      icon: FaLinkedin,
+    },
+    {
+      href: "https://twitter.com/milelecarrental",
+      title: "Twitter",
+      icon: BsTwitterX,
+    },
+    {
+      href: "https://www.pinterest.com/MileleCarRental/",
+      title: "Pinterest",
+      icon: FaPinterest,
+    },
+    {
+      href: "https://www.snapchat.com/add/milelecarrental",
+      title: "Snapchat",
+      icon: FaSnapchat,
+    },
+  ];
+
   return (
     <>
       <div className="bottom-bar-without-container">
@@ -36,70 +79,18 @@ const HomePageBottomBar = () => {
                 lg={6}
                 className="right-content text-center text-lg-right"
               >
-                <a
-                  href="https://www.facebook.com/milelecarrental/"
-                  title="Facebook"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaFacebookF className="social-media-icons-top-bar" />
-                </a>
-                <a
-                  href="https://www.instagram.com/milelecarrentals/"
-                  title="Instagram"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaInstagram className="social-media-icons-top-bar" />
-                </a>
-                <a
-                  href="https://www.youtube.com/channel/UCGZsbfATcMxEBbz1PWAKt0A"
-                  title="YouTube"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaYoutube className="social-media-icons-top-bar" />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@milelecarrental"
-                  title="Tiktok"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaTiktok className="social-media-icons-top-bar" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/company/99998565/admin/feed/posts/"
-                  title="Linkedin"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaLinkedin className="social-media-icons-top-bar" />
-                </a>
-                <a
-                  href="https://twitter.com/milelecarrental"
-                  title="Twitter"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <BsTwitterX className="social-media-icons-top-bar" />
-                </a>
-                <a
-                  href="https://www.pinterest.com/MileleCarRental/"
-                  title="Pinterest"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaPinterest className="social-media-icons-top-bar" />
-                </a>
-                <a
-                  href="https://www.snapchat.com/add/milelecarrental"
-                  title="Snapchat"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaSnapchat className="social-media-icons-top-bar" />
-                </a>
+                {socialMediaLinks.map(({ href, title, icon: Icon }, index) => (
+                  <a
+                    key={index}
+                    href={href}
+                    title={title}
+                    target="_blank"
+                    id={`${title} icon`}
+                    rel="noopener noreferrer"
+                  >
+                    <Icon className="social-media-icons-top-bar" />
+                  </a>
+                ))}
               </Col>
             </Row>
           </div>

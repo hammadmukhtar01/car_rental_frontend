@@ -220,7 +220,7 @@ const SignupPage = () => {
                     <p></p>
                     <br />
                     <br />
-                    <button className="middle">
+                    <button className="middle" id="signup-button">
                       <span className="animate-button btn4">
                         Create Account
                       </span>

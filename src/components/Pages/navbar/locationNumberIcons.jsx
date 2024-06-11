@@ -67,6 +67,7 @@ const FixedNumLocButtons = () => {
           title="Find Our Location"
           onClick={openMapModal}
           className="contact-button map-link location-link"
+          id="location-map-icon"
         >
           <FaMapMarkerAlt />
         </a>

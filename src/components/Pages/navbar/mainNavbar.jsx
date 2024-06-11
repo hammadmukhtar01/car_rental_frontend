@@ -55,6 +55,7 @@ function MainNavbar() {
                   href="/home"
                   title="home page"
                   onClick={() => setShowOffCanvas(false)}
+                  id="navbar-logo-to-home-page-lg"
                 >
                   <Image
                     // src={`${isHomePage ? Whitelogo : Coloredlogo}`}
@@ -87,6 +88,7 @@ function MainNavbar() {
                     <a
                       href="/home"
                       title="home page"
+                      id="navbar-logo-to-home-page-sm"
                       onClick={() => setShowOffCanvas(false)}
                     >
                       <Image
@@ -119,6 +121,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
+                    id="home-page-url"
                   >
                     Home
                   </Nav.Link>
@@ -131,6 +134,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
+                    id="fleet-page-url"
                   >
                     Fleet
                   </Nav.Link>
@@ -144,6 +148,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
+                    id="about-us-page-url"
                   >
                     About Us
                   </Nav.Link>
@@ -157,6 +162,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
+                    id="terms-and-conditions-page-url"
                   >
                     T&Cs
                   </Nav.Link>
@@ -170,6 +176,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
+                    id="lto-page-url"
                   >
                     LTO
                   </Nav.Link> */}
@@ -183,6 +190,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
+                    id="contact-us-page-url"
                   >
                     Contact Us
                   </Nav.Link>
@@ -195,6 +203,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
+                    id="faqs-page-url"
                   >
                     FAQs
                   </Nav.Link>
