@@ -174,13 +174,14 @@ const FreeConsultationForm = () => {
                       sm={12}
                       xs={12}
                       className="text-center free-consultation-button-col"
+                      id="free-consultation-form-col"
                     >
                       <button
                         type="submit"
-                        className="free-consultation-contactUs-button submit col-lg-12"
                         id="free-consultation-form-button"
+                        className="free-consultation-contactUs-button submit col-lg-12"
                       >
-                        <h4 className="button-text">Contact Us</h4>
+                        <h4 className="button-text" id="free-consultation-form-heading">Contact Us</h4>
                       </button>
                     </Col>
                   </Row>

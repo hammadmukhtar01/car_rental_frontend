@@ -1370,7 +1370,16 @@ const VehiclesPage = () => {
                                   value={selectedCategories}
                                   onChange={handleCategoryChange}
                                   styles={selectCategoriesStyles}
-                                  id="vehicle-category"
+                                  getOptionLabel={(option) => (
+                                    <div
+                                      id={`${option.label.replace(
+                                        /\s+/g,
+                                        "-"
+                                      )}-category-button`}
+                                    >
+                                      {option.label}
+                                    </div>
+                                  )}
                                 />
                               </div>
                             </article>
