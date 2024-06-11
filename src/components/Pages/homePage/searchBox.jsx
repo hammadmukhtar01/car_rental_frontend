@@ -660,7 +660,7 @@ const SearchBox = () => {
                         id="home-page-search-box-button"
                         onClick={handleSearchClick}
                       >
-                        <span>
+                        <span id="home-page-search-box-button">
                           <LuSearch id="home-page-search-box-button" />
                         </span>
                       </button>
