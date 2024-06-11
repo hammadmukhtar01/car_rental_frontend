@@ -38,20 +38,25 @@ const Footer = () => {
         </>
       ),
       IconName: FaMapMarkerAlt,
+      idValue: "contact-us-location",
     },
 
     {
       footerContactUsData: "09:00 am - 10:00 pm",
       IconName: IoTime,
+      idValue: "contact-us-working-hours",
     },
     {
       footerContactUsData: "info@milelecarrental.com",
       IconName: IoMailSharp,
+      href: "mailto:info@milelecarrental.com",
+      idValue: "contact-us-email",
     },
-
     {
       footerContactUsData: "+971 56 329 8330",
       IconName: BiSolidPhone,
+      href: "tel:+971563298330",
+      idValue: "contact-us-phone-number",
     },
   ];
 
@@ -142,14 +147,27 @@ const Footer = () => {
                   <Row className="footer-data-row">
                     <div className="footer-info-data">
                       {footerContactUs.map((footerContactUsList, index) => (
-                        <div className="footer-info-list pt-2 pb-2" key={index}>
+                        <div
+                          className="footer-info-list pt-2 pb-2"
+                          key={index}
+                          id={`${footerContactUsList?.idValue}`}
+                        >
                           <span>
                             {" "}
                             <strong>
                               {" "}
                               <footerContactUsList.IconName />{" "}
                             </strong>{" "}
-                            {footerContactUsList?.footerContactUsData}{" "}
+                            {footerContactUsList.href ? (
+                              <a
+                                href={footerContactUsList.href}
+                                title={footerContactUsList.footerContactUsData}
+                              >
+                                {footerContactUsList.footerContactUsData}
+                              </a>
+                            ) : (
+                              footerContactUsList.footerContactUsData
+                            )}
                           </span>
                         </div>
                       ))}
