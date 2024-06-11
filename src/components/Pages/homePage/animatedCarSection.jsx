@@ -162,24 +162,9 @@ const AnimatedCarSection = () => {
               <div className="slider">
                 <div className="owl-carousel owl-carousel-main-container">
                   {imagesData.map((data, index) => (
-                    <div
-                      className="animated-imgs-container"
-                      key={index}
-                      id={`home-page-${mapCategoryToNavigationValue(
-                        data?.acrissCategory
-                      )
-                        .replace(/\s+/g, "-")
-                        .toLowerCase()}-button`}
-                    >
+                    <div className="animated-imgs-container" key={index}>
                       <div className="slider-card slider-imgs">
-                        <h2
-                          className="text-center pt-3"
-                          id={`home-page-${mapCategoryToNavigationValue(
-                            data?.acrissCategory
-                          )
-                            .replace(/\s+/g, "-")
-                            .toLowerCase()}-h2`}
-                        >
+                        <h2 className="text-center pt-3">
                           {mapCategoryToNavigationValue(data?.acrissCategory)}
                         </h2>
                         <div className="d-flex justify-content-center align-items-center mb-4">
