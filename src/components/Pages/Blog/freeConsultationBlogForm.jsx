@@ -174,7 +174,6 @@ const FreeConsultationForm = () => {
                       sm={12}
                       xs={12}
                       className="text-center free-consultation-button-col"
-                      id="free-consultation-form-col"
                     >
                       <button
                         type="submit"
