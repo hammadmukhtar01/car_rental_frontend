@@ -1601,23 +1601,23 @@ const VehiclesPage = () => {
                                     </div>
                                     <div className="car-image-container ">
                                       <div
-                                        onClick={() => {
-                                          const vehiclePrice =
-                                            renderVehiclePrices(
-                                              car.tariffGroupId
-                                            );
-                                          allCarsBookingButton(
-                                            car?.tariffGroupId,
-                                            `${car?.title} - ${
-                                              categoryMap[
-                                                car?.acrissCategory?.name
-                                              ] || car?.acrissCategory?.name
-                                            }`,
-                                            startDate,
-                                            endDate,
-                                            vehiclePrice
-                                          );
-                                        }}
+                                        // onClick={() => {
+                                        //   const vehiclePrice =
+                                        //     renderVehiclePrices(
+                                        //       car.tariffGroupId
+                                        //     );
+                                        //   allCarsBookingButton(
+                                        //     car?.tariffGroupId,
+                                        //     `${car?.title} - ${
+                                        //       categoryMap[
+                                        //         car?.acrissCategory?.name
+                                        //       ] || car?.acrissCategory?.name
+                                        //     }`,
+                                        //     startDate,
+                                        //     endDate,
+                                        //     vehiclePrice
+                                        //   );
+                                        // }}
                                       >
                                         {" "}
                                         <img
@@ -1625,6 +1625,9 @@ const VehiclesPage = () => {
                                           title={`${car?.title}`}
                                           alt={`Rent ${car?.title}`}
                                           className="car-image"
+                                          id={`pay-now-for-${car?.title
+                                            .replace(/\s+/g, "-")
+                                            .toLowerCase()}-button`}
                                         />
                                       </div>
                                     </div>
