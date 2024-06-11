@@ -652,6 +652,7 @@ const SearchBox = () => {
                       md={3}
                       sm={6}
                       xs={6}
+                      id="home-page-search-box-button"
                       className="search-box-search-button-div"
                     >
                       <button
