@@ -502,6 +502,22 @@ const VehicleDetails = ({ nextStep }) => {
     setShowModal(false);
   };
 
+  const handleStartBookingClick = () => {
+    
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'startBooking',
+      carTypeName: carTypeName,
+      numberOfDays: numberOfDays,
+      totalCharges: totalAPIResponseCharges,
+      deliveryCharge: getDeliveryCharge(),
+      totalAddOnsPrice: totalAddOnsPriceSimple(),
+      grandTotalPrice: grandTotalPriceWithDiscount
+    });
+
+    handleNextStep1();
+  };
+
   const handleNextStep1 = () => {
     const baseUrl = `/bookingPage/2`;
     const urlParams = new URLSearchParams(window.location.search);
@@ -1119,7 +1135,7 @@ const VehicleDetails = ({ nextStep }) => {
               <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
                 <Col className="d-flex justify-content-center ">
                   <button
-                    onClick={() => handleNextStep1()}
+                    onClick={handleStartBookingClick}
                     className="map-loc-middle py-3"
                     id="start-booking-button"
                   >

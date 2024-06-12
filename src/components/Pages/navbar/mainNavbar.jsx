@@ -71,7 +71,7 @@ function MainNavbar() {
   return (
     <>
       <Container>
-        <nav className="navbar navbar-expand-lg navbar-light p-0 mt-3">
+        <nav className="navbar navbar-expand-lg navbar-light p-0 mt-2">
           <Col lg={2} md={3} xs={6}>
             <a
               href="/"
