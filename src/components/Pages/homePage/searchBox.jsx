@@ -317,15 +317,6 @@ const SearchBox = () => {
 
   const handleSearchClick = () => {
     console.log("Search button is clicked");
-
-    // window.dataLayer.push({
-    //   event: "search_button_click",
-    // });
-
-    // window.dataLayer.push({
-    //   event: "conversion",
-    //   send_to: "AW-11403132105/fpKGCJzkhLcZEMn5t70q",
-    // });
   };
 
   const handleSearchVehicleButtonHomePage = async (e) => {
@@ -371,6 +362,11 @@ const SearchBox = () => {
 
     const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupStateValueProp}&dropoffLocState=${dropoffStateValueProp}&pickupLocSelectedTab=${pickupSelectedTab}&dropoffLocSelectedTab=${dropoffSelectedTab}`;
 
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "searchButtonClick",
+      nextUrl: url,
+    });
     navigate(url);
   };
 
