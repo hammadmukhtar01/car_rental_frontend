@@ -22,7 +22,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [contactNum, setContactNum] = useState("");
   const [country, setCountry] = useState({ dialCode: "971", name: "UAE" });
   const [emailAddress, setEmailAddress] = useState("");
-  const [nationality, setNationality] = useState("");
+  // const [nationality, setNationality] = useState("");
   const [loadingCustomer, setLoadingCustomer] = useState(false);
   const [loadingBooking, setLoadingBooking] = useState(false);
 
@@ -34,8 +34,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [drivingLicenseImg, setDrivingLicenseImg] = useState("");
   const [isInternationalLicense, setIsInternationalLicense] = useState("");
   // Passport
+  const [nationalityOptions, setNationalityOptions] = useState([]);
+  const [selectedNationality, setSelectedNationality] = useState(null);
 
-  const [selectedNationality, setSelectedNationality] = useState("");
+  // const [selectedNationality, setSelectedNationality] = useState("");
   const [driverFlightDateTime, setDriverFlightDateTime] = useState(new Date());
   const [airlineTicketNum, setAirlineTicketNum] = useState("");
 
@@ -52,9 +54,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   );
   const TariffGroupIdParam = parseInt(queryParams?.get("tariffGroupId"));
   const TariffVehicleNameParam = queryParams?.get("vehicleName");
-  console.log(`TariffVehicleNameParam ${TariffVehicleNameParam}`);
   const vehicleType = TariffVehicleNameParam.split("-")[1]?.trim();
-  console.log(`vehicleType ${vehicleType}`);
 
   const addOnsFromUrl = queryParams?.get("addOns").split(",").map(Number);
 
@@ -94,8 +94,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     (totalGrandPriceWithTax - totalGrandPriceWithoutTax).toFixed(2)
   );
 
-  console.log(`taxValue ${taxValue}`);
-
   const pickupLocParam = queryParams?.get("pickupLoc");
   const dropoffLocParam = queryParams?.get("dropoffLoc");
   const checkBoxValueParam = queryParams?.get("checkBoxValue");
@@ -118,15 +116,15 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   useEffect(() => {
     const fetchNationalities = async () => {
       try {
-        const response = await axios.get("https://restcountries.com/v3.1/all");
-        const nationalityOptions = response?.data
-          .map((country) => ({
-            label: country?.name?.common,
-            value: country?.cca2,
+        const response = await axios.get("https://api.first.org/data/v1/countries");
+        const data = response?.data?.data;
+        const options = Object.keys(data)
+          .map((key) => ({
+            label: data[key]?.country,
+            value: key,
           }))
-          .sort((a, b) => a?.label?.localeCompare(b?.label));
-
-        setNationality(nationalityOptions);
+          .sort((a, b) => a.label.localeCompare(b.label));
+        setNationalityOptions(options);
       } catch (error) {
         console.error("Failed to fetch nationalities:", error);
       }
@@ -679,7 +677,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     }
   };
 
-  const handleChange = (selectedOption) => {
+  const handleNationalityChange = (selectedOption) => {
     setSelectedNationality(selectedOption);
   };
 
@@ -778,7 +776,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     }
 
     // Creating Customer Data
-
     const createCustomerData = {
       firstName: firstName,
       lastName: lastName,
@@ -1078,7 +1075,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   </label>
                                 </div>
                                 <Select
-                                  options={nationality}
+                                  options={nationalityOptions}
                                   required
                                   className="form-control-nationality col-12"
                                   value={drivingLicenseIssueBy}
@@ -1235,10 +1232,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 </label>
                               </div>
                               <Select
-                                options={nationality}
+                                options={nationalityOptions}
                                 className="form-control-nationality col-12 nationality-dropdown"
                                 value={selectedNationality}
-                                onChange={handleChange}
+                                onChange={handleNationalityChange}
                                 styles={selectStyles}
                               />
                             </Form.Group>
