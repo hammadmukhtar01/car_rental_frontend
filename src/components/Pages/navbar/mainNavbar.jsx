@@ -34,12 +34,14 @@ function MainNavbar() {
   useEffect(() => {
     const handleNavLinkClick = (event) => {
       const id = event.target.id;
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'click', {
+      if (typeof window.dataLayer !== 'undefined') {
+        window.dataLayer.push({
+          event: 'navigationClick',
           event_category: 'Navigation',
           event_label: `Clicked on ${id}`,
           event_action: 'click',
           event_id: id,
+          page_path: location.pathname,
         });
       }
     };
@@ -54,7 +56,7 @@ function MainNavbar() {
         link.removeEventListener('click', handleNavLinkClick);
       });
     };
-  }, []);
+  }, [location.pathname]);
 
 
 
@@ -149,7 +151,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    id="home-page-url"
+                    key="home-page-url"
                   >
                     Home
                   </Nav.Link>
@@ -162,7 +164,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    id="fleet-page-url"
+                    key="fleet-page-url"
                   >
                     Fleet
                   </Nav.Link>
@@ -176,7 +178,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    id="about-us-page-url"
+                    key="about-us-page-url"
                   >
                     About Us
                   </Nav.Link>
@@ -190,7 +192,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    id="terms-and-conditions-page-url"
+                    key="terms-and-conditions-page-url"
                   >
                     T&Cs
                   </Nav.Link>
@@ -204,7 +206,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    id="lto-page-url"
+                    key="lto-page-url"
                   >
                     LTO
                   </Nav.Link> */}
@@ -218,7 +220,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    id="contact-us-page-url"
+                    key="contact-us-page-url"
                   >
                     Contact Us
                   </Nav.Link>
@@ -231,7 +233,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    id="faqs-page-url"
+                    key="faqs-page-url"
                   >
                     FAQs
                   </Nav.Link>
@@ -242,7 +244,7 @@ function MainNavbar() {
                       Welcome, {auth?.data?.result?.userName?.slice(0, 6)}
                     </Nav.Link>
 
-                    <NavDropdown title="User" id="user-nav-dropdown">
+                    <NavDropdown title="User" key="user-nav-dropdown">
                       <NavDropdown.Item
                         as={NavLink}
                         to={`/myProfile/${userName}`}
