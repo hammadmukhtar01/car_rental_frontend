@@ -151,7 +151,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    key="home-page-url"
+                    id="home-page-url"
                   >
                     Home
                   </Nav.Link>
@@ -164,7 +164,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    key="fleet-page-url"
+                    id="fleet-page-url"
                   >
                     Fleet
                   </Nav.Link>
@@ -178,7 +178,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    key="about-us-page-url"
+                    id="about-us-page-url"
                   >
                     About Us
                   </Nav.Link>
@@ -192,7 +192,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    key="terms-and-conditions-page-url"
+                    id="terms-and-conditions-page-url"
                   >
                     T&Cs
                   </Nav.Link>
@@ -206,7 +206,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    key="lto-page-url"
+                    id="lto-page-url"
                   >
                     LTO
                   </Nav.Link> */}
@@ -220,7 +220,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    key="contact-us-page-url"
+                    id="contact-us-page-url"
                   >
                     Contact Us
                   </Nav.Link>
@@ -233,7 +233,7 @@ function MainNavbar() {
                     }`}
                     activeclassname="active"
                     onClick={() => setShowOffCanvas(false)}
-                    key="faqs-page-url"
+                    id="faqs-page-url"
                   >
                     FAQs
                   </Nav.Link>
@@ -244,7 +244,7 @@ function MainNavbar() {
                       Welcome, {auth?.data?.result?.userName?.slice(0, 6)}
                     </Nav.Link>
 
-                    <NavDropdown title="User" key="user-nav-dropdown">
+                    <NavDropdown title="User" id="user-nav-dropdown">
                       <NavDropdown.Item
                         as={NavLink}
                         to={`/myProfile/${userName}`}
