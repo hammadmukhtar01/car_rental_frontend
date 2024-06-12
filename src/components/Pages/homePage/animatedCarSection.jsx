@@ -140,8 +140,18 @@ const AnimatedCarSection = () => {
 
   const handleImageClick = (carType) => {
     const navigationValue = mapCategoryToNavigationValue(carType);
+    const nextUrl = `/vehicles?carCategory=${navigationValue}`;
     console.log("Car type clicked is: ", navigationValue);
-    navigate(`/vehicles?carCategory=${navigationValue}`);
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "carTypeClick",
+      carType: carType,
+      navigationValue: navigationValue,
+      nextUrl: nextUrl,
+    });
+
+    navigate(nextUrl);
   };
 
   return (
