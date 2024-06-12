@@ -503,7 +503,7 @@ const VehicleDetails = ({ nextStep }) => {
   };
 
   const handleStartBookingClick = () => {
-    
+
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: 'startBooking',
@@ -620,7 +620,7 @@ const VehicleDetails = ({ nextStep }) => {
                               <div className="carousel-container">
                                 <img
                                   src={carImg}
-                                  alt={`${carTypeName}`}
+                                  alt="Loading..."
                                   className="car-image-1"
                                   onClick={handleImageClick}
                                   title={
@@ -1133,13 +1133,13 @@ const VehicleDetails = ({ nextStep }) => {
                 </Row>
               </div>
               <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
-                <Col className="d-flex justify-content-center ">
+                <Col className="d-flex justify-content-center " id="start-booking-col">
                   <button
                     onClick={handleStartBookingClick}
                     className="map-loc-middle py-3"
                     id="start-booking-button"
                   >
-                    <span className="animate-button btn4">Start Booking</span>
+                    <span className="animate-button btn4" id="start-booking-span">Start Booking</span>
                   </button>
                 </Col>
               </div>
