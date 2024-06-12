@@ -34,14 +34,12 @@ function MainNavbar() {
   useEffect(() => {
     const handleNavLinkClick = (event) => {
       const id = event.target.id;
-      if (typeof window.dataLayer !== 'undefined') {
-        window.dataLayer.push({
-          event: 'navigationClick',
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'click', {
           event_category: 'Navigation',
           event_label: `Clicked on ${id}`,
           event_action: 'click',
           event_id: id,
-          page_path: location.pathname,
         });
       }
     };
@@ -56,7 +54,7 @@ function MainNavbar() {
         link.removeEventListener('click', handleNavLinkClick);
       });
     };
-  }, [location.pathname]);
+  }, []);
 
 
 
