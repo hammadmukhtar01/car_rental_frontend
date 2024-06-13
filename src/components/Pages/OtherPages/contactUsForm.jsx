@@ -263,9 +263,9 @@ const ContactUsForm = () => {
             </div>
           </div>
           <div className="form-group-3 col-lg-12 pb-4">
-            <div className="col-lg-12 col-md-6 d-flex justify-content-end" id="contact-us-submit-div">
-              <button className="middle" id="contact-us-submit-button">
-                <span className="animate-button btn4" id="contact-us-submit-span">Submit</span>
+            <div className="col-lg-12 col-md-6 d-flex justify-content-end">
+              <button className="middle" >
+                <span className="animate-button btn4" id="contact-us-submit">Submit</span>
               </button>
               <ToastContainer />
             </div>
