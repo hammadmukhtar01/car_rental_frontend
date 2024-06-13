@@ -84,6 +84,11 @@ const ContactUsForm = () => {
           phoneNumber: "+971",
           comment: "",
         });
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "contactUsPageLeadForm",
+        });
       } else {
         toast.error("Failed to send your message. Please try again.", {
           position: "top-right",

@@ -67,6 +67,11 @@ const FreeConsultationForm = () => {
         );
         setCustomerName("");
         setPhoneNumber("+971");
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "homePageLeadForm",
+        });
       } else {
         toast.error("Failed to contact. Please try again.", {
           position: "top-right",
@@ -107,6 +112,7 @@ const FreeConsultationForm = () => {
       document.body.classList.remove("loadings");
     }
   };
+  
 
   return (
     <div id="main">

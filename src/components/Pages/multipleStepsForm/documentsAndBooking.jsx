@@ -116,7 +116,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   useEffect(() => {
     const fetchNationalities = async () => {
       try {
-        const response = await axios.get("https://api.first.org/data/v1/countries");
+        const response = await axios.get(
+          "https://api.first.org/data/v1/countries"
+        );
         const data = response?.data?.data;
         const options = Object.keys(data)
           .map((key) => ({
@@ -665,6 +667,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             lineHeight: "18px",
             fontSize: "14px",
           },
+        });
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "purchase",
+          carTypeName: TariffVehicleNameParam,
+          numberOfDays: numberOfDays,
+          deliveryCharge: deliveryChargesParam,
+          grandTotalPrice: totalGrandPriceParam,
         });
 
         createInvoice();
