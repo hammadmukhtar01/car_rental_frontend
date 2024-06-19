@@ -1,29 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./errorPage.css";
 import { useNavigate } from "react-router";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import axios from "axios";
 
 const Page404 = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    axios
-      .post(`${process.env.REACT_APP_MILELE_API_URL}/set-404-status`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log("404 status set on server");
-      })
-      .catch((error) => {
-        console.error("Error setting 404 status:", error);
-      });
-  }, []);
-
   const errorPageBackButton = () => {
     navigate("/");
   };
