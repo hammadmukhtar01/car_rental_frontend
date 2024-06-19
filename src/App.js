@@ -56,13 +56,13 @@ const App = () => {
             <Route path="/contactus" element={<ContactusPage />} />
             {/* <Route path="/myProfile/:id" element={<ContactusPage />} /> */}
             {/* <Route path="/myBookings/:id" element={<CustomerBookingPage />} /> */}
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
-            <Route
+            {/* <Route path="/login" element={<LoginPage />} /> */}
+            {/* <Route path="/signup" element={<SignupPage />} /> */}
+            {/* <Route path="/forgotpassword" element={<ForgotPasswordPage />} /> */}
+            {/* <Route
               path="/resetpassword/:token"
               element={<ResetPasswordPage />}
-            />
+            /> */}
             <Route path="/bookingPage/:step" element={<VerificationForm />} />
             {/* <Route path="/bookingPage/2" element={<AddOnsDocuments />} /> */}
             {/* <Route path="/bookingPage/3" element={<PaymentPage />} /> */}

@@ -40,21 +40,6 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://milelecarrental.com/login</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://milelecarrental.com/signup</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://milelecarrental.com/forgotpassword</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
         <loc>https://milelecarrental.com/bookingPage/1</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
