@@ -43,7 +43,7 @@ const BlogPage2 = () => {
           <meta name="keywords" content="keywords" />
           <link
             rel="canonical"
-            href="https://milelecarrental.com/blogPage2/2"
+            href="https://milelecarrental.com/blogPage2/2/"
             title={`${blogsData?.title}`}
           />
         </Helmet>

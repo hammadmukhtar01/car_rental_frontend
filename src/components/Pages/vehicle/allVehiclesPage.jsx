@@ -1042,7 +1042,7 @@ const VehiclesPage = () => {
         />
         <meta name="keywords" content="keywords" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://milelecarrental.com/vehicles" />
+        <link rel="canonical" href="https://milelecarrental.com/vehicles/" />
       </Helmet>
       <HeaderCombination />
       <div id="main" className="pb-2 ">
