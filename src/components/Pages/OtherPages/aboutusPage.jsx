@@ -61,7 +61,7 @@ const AboutusPage = () => {
         <meta name="keywords" content="keywords" />
         <link
           rel="canonical"
-          href="https://milelecarrental.com/aboutus"
+          href="https://milelecarrental.com/aboutus/"
           title={`about-us`}
         />
       </Helmet>

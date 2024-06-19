@@ -909,7 +909,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         <meta name="keywords" content="keywords" />
         <link
           rel="canonical"
-          href="https://milelecarrental.com/bookingPage/2"
+          href="https://milelecarrental.com/bookingPage/2/"
         />
       </Helmet>
       <div className="vehicle-details-location-main-div pt-3 pb-3">
