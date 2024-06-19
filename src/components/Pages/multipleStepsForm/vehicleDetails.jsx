@@ -594,7 +594,7 @@ const VehicleDetails = ({ nextStep }) => {
         <meta name="keywords" content="keywords" />
         <link
           rel="canonical"
-          href="https://milelecarrental.com/bookingPage/1"
+          href="https://www.milelecarrental.com/bookingPage/1"
         />
       </Helmet>
       <div className="vehicle-details-location-main-div pb-3 pt-3">

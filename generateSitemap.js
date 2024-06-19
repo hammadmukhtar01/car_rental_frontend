@@ -19,7 +19,7 @@ const links = [
   { url: '/404', changefreq: 'monthly', priority: 0.1 },
 ];
 
-const hostname = 'https://milelecarrental.com';
+const hostname = 'https://www.milelecarrental.com';
 
 const stream = new SitemapStream({ hostname });
 
