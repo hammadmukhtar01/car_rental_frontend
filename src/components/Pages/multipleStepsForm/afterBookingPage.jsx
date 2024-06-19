@@ -19,7 +19,7 @@ const AfterBookingPage = () => {
         <meta name="keywords" content="keywords" />
         <link
           rel="canonical"
-          href="https://milelecarrental.com/bookingPage/3&booking-success"
+          href="https://www.milelecarrental.com/bookingPage/3&booking-success"
         />
       </Helmet>
       <div className="wrapper">
