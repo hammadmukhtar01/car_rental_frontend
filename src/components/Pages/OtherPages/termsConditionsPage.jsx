@@ -17,7 +17,7 @@ const TermsConditionsPage = () => {
         <meta name="keywords" content="keywords" />
         <link
           rel="canonical"
-          href="https://milelecarrental.com/terms&Conditions/"
+          href="https://milelecarrental.com/terms&Conditions"
         />
       </Helmet>
       <HeaderCombination />
