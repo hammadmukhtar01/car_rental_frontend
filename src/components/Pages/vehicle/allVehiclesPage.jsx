@@ -780,9 +780,11 @@ const VehiclesPage = () => {
       const typeMatch =
         selectedCarTypes?.length === 0 || selectedCarTypes.includes(car?.title);
 
+      const totalPrice = renderVehiclePrices(car?.tariffGroupId);
+
       const priceMatch =
-        (minPrice === "" || car?.rate >= minPrice) &&
-        (maxPrice === "" || car?.rate <= maxPrice);
+        (minPrice === "" || totalPrice >= minPrice) &&
+        (maxPrice === "" || totalPrice <= maxPrice);
 
       return categoryMatch && typeMatch && priceMatch;
     });
@@ -790,9 +792,15 @@ const VehiclesPage = () => {
     return filteredCars?.sort((a, b) => {
       switch (sortBy) {
         case "LowToHigh":
-          return a?.rate - b?.rate;
+          return (
+            renderVehiclePrices(a?.tariffGroupId) -
+            renderVehiclePrices(b?.tariffGroupId)
+          );
         case "HighToLow":
-          return b?.rate - a?.rate;
+          return (
+            renderVehiclePrices(b?.tariffGroupId) -
+            renderVehiclePrices(a?.tariffGroupId)
+          );
         case "Recommended":
           return b?.discount - a?.discount;
         default:
@@ -1573,182 +1581,203 @@ const VehiclesPage = () => {
                         </div>
                       ) : (
                         <>
-                          <Row className="offers-car-container-row">
-                            {currentTableData?.map((car, index) => {
-                              const price = renderVehiclePrices(
-                                car?.tariffGroupId
-                              );
+                          {currentTableData ? (
+                            <>
+                              <Row className="offers-car-container-row">
+                                {currentTableData?.map((car, index) => {
+                                  const price = renderVehiclePrices(
+                                    car?.tariffGroupId
+                                  );
 
-                              return (
-                                <Col
-                                  key={car?.tariffGroupId}
-                                  xxl={6}
-                                  lg={6}
-                                  md={12}
-                                  sm={12}
-                                  className="all-cars-container-div pb-5"
-                                >
-                                  <div className="single-car-container-div pb-3">
-                                    <div className="car-name-div">
-                                      <span className="car-name text-end">
-                                        {" "}
-                                        <b>{car?.title}</b> | (
-                                        {categoryMap[
-                                          car?.acrissCategory?.name
-                                        ] || car?.acrissCategory?.name}{" "}
-                                        )
-                                      </span>
-                                    </div>
-                                    <div className="car-image-container ">
-                                      <img
-                                        src={car?.displayImageUrl}
-                                        title={`${car?.title}`}
-                                        alt={`Rent ${car?.title}`}
-                                        className="car-image"
-                                        // id={`pay-now-for-${car?.title
-                                        //   .replace(/\s+/g, "-")
-                                        //   .toLowerCase()}-button`}
-                                      />
-                                    </div>
-                                    <div className="all-vehicles-features-icons features-scroll-container text-center">
-                                      {dataArray?.map((carData, dataIndex) => (
-                                        <span key={dataIndex}>
-                                          {carFeaturesWithIcons?.map(
-                                            (carFeature, featureIndex) => {
-                                              const showIcon =
-                                                carData?.tariffGroupId ===
-                                                car?.tariffGroupId;
-                                              let value;
-                                              switch (carFeature?.name) {
-                                                case "Person Seats":
-                                                  value =
-                                                    carData?.passengerCapacity;
-                                                  break;
-                                                case "Automatic":
-                                                  value = carData?.transmission
-                                                    ? carData?.transmission
-                                                        .split("/")[0]
-                                                        .charAt(0)
-                                                    : "N";
-                                                  break;
-                                                case "Air Bags":
-                                                  value =
-                                                    carData?.smallBagsCapacity +
-                                                    carData?.largeBagsCapacity;
-                                                  break;
-                                                case "AC":
-                                                  value = "AC";
-                                                  break;
-                                                default:
-                                                  value =
-                                                    carData[carFeature?.name];
-                                                  break;
-                                              }
+                                  return (
+                                    <Col
+                                      key={car?.tariffGroupId}
+                                      xxl={6}
+                                      lg={6}
+                                      md={12}
+                                      sm={12}
+                                      className="all-cars-container-div pb-5"
+                                    >
+                                      <div className="single-car-container-div pb-3">
+                                        <div className="car-name-div">
+                                          <span className="car-name text-end">
+                                            {" "}
+                                            <b>{car?.title}</b> | (
+                                            {categoryMap[
+                                              car?.acrissCategory?.name
+                                            ] || car?.acrissCategory?.name}{" "}
+                                            )
+                                          </span>
+                                        </div>
+                                        <div className="car-image-container ">
+                                          <img
+                                            src={car?.displayImageUrl}
+                                            title={`${car?.title}`}
+                                            alt={`Rent ${car?.title}`}
+                                            className="car-image"
+                                            // id={`pay-now-for-${car?.title
+                                            //   .replace(/\s+/g, "-")
+                                            //   .toLowerCase()}-button`}
+                                          />
+                                        </div>
+                                        <div className="all-vehicles-features-icons features-scroll-container text-center">
+                                          {dataArray?.map(
+                                            (carData, dataIndex) => (
+                                              <span key={dataIndex}>
+                                                {carFeaturesWithIcons?.map(
+                                                  (
+                                                    carFeature,
+                                                    featureIndex
+                                                  ) => {
+                                                    const showIcon =
+                                                      carData?.tariffGroupId ===
+                                                      car?.tariffGroupId;
+                                                    let value;
+                                                    switch (carFeature?.name) {
+                                                      case "Person Seats":
+                                                        value =
+                                                          carData?.passengerCapacity;
+                                                        break;
+                                                      case "Automatic":
+                                                        value =
+                                                          carData?.transmission
+                                                            ? carData?.transmission
+                                                                .split("/")[0]
+                                                                .charAt(0)
+                                                            : "N";
+                                                        break;
+                                                      case "Air Bags":
+                                                        value =
+                                                          carData?.smallBagsCapacity +
+                                                          carData?.largeBagsCapacity;
+                                                        break;
+                                                      case "AC":
+                                                        value = "AC";
+                                                        break;
+                                                      default:
+                                                        value =
+                                                          carData[
+                                                            carFeature?.name
+                                                          ];
+                                                        break;
+                                                    }
 
-                                              return value !== undefined &&
-                                                value !== null &&
-                                                showIcon === true ? (
-                                                <span
-                                                  key={featureIndex}
-                                                  className="single-feature-container features-values"
-                                                >
-                                                  {carFeature?.name !==
-                                                    "Doors" && (
-                                                    <>
-                                                      <carFeature.featureIcon className="all-car-icons" />{" "}
-                                                    </>
-                                                  )}
-                                                  <span className="">
-                                                    {value}
-                                                  </span>
-                                                </span>
-                                              ) : null;
-                                            }
-                                          )}
-                                        </span>
-                                      ))}
-                                    </div>
-
-                                    <hr className="discount-line" />
-
-                                    <div className="d-flex justify-content-center">
-                                      <div className="col-xxl-10 col-lg-11 col-md-12 col-sm-12 col-12 d-flex justify-content-center flex-column">
-                                        <>
-                                          <button
-                                            className="map-loc-middle"
-                                            onClick={() => {
-                                              const vehiclePrice =
-                                                renderVehiclePrices(
-                                                  car.tariffGroupId
-                                                );
-                                              allCarsBookingButton(
-                                                car?.tariffGroupId,
-                                                `${car?.title} - ${
-                                                  categoryMap[
-                                                    car?.acrissCategory?.name
-                                                  ] || car?.acrissCategory?.name
-                                                }`,
-                                                datePickerStartDate,
-                                                datePickerEndDate,
-                                                vehiclePrice
-                                              );
-                                            }}
-                                          >
-                                            {numberOfDays > 0 ? (
-                                              <span className="all-cars-animate-button btn4">
-                                                <span className="label">
-                                                  Pay Now{" "}
-                                                  <span
-                                                    className="pay-now-price-md-lg"
-                                                    id={`pay-now-for-${car?.title
-                                                      .replace(/\s+/g, "-")
-                                                      .toLowerCase()}-button`}
-                                                  >
-                                                    <span>|</span> AED:{" "}
-                                                    {renderVehiclePrices(
-                                                      car?.tariffGroupId
-                                                    )}{" "}
-                                                    | {numberOfDays} day(s)
-                                                  </span>
-                                                  <div className="pay-now-price-xs">
-                                                    AED:{" "}
-                                                    {renderVehiclePrices(
-                                                      car?.tariffGroupId
-                                                    )}{" "}
-                                                    | {numberOfDays} day(s)
-                                                  </div>
-                                                </span>
+                                                    return value !==
+                                                      undefined &&
+                                                      value !== null &&
+                                                      showIcon === true ? (
+                                                      <span
+                                                        key={featureIndex}
+                                                        className="single-feature-container features-values"
+                                                      >
+                                                        {carFeature?.name !==
+                                                          "Doors" && (
+                                                          <>
+                                                            <carFeature.featureIcon className="all-car-icons" />{" "}
+                                                          </>
+                                                        )}
+                                                        <span className="">
+                                                          {value}
+                                                        </span>
+                                                      </span>
+                                                    ) : null;
+                                                  }
+                                                )}
                                               </span>
-                                            ) : (
-                                              <>
-                                                <span className="animate-button btn4">
-                                                  <span
-                                                    className="label"
-                                                    id={`pay-now-for-${car?.title
-                                                      .replace(/\s+/g, "-")
-                                                      .toLowerCase()}-button`}
-                                                  >
-                                                    Pay Now{" "}
+                                            )
+                                          )}
+                                        </div>
+
+                                        <hr className="discount-line" />
+
+                                        <div className="d-flex justify-content-center">
+                                          <div className="col-xxl-10 col-lg-11 col-md-12 col-sm-12 col-12 d-flex justify-content-center flex-column">
+                                            <>
+                                              <button
+                                                className="map-loc-middle"
+                                                onClick={() => {
+                                                  const vehiclePrice =
+                                                    renderVehiclePrices(
+                                                      car.tariffGroupId
+                                                    );
+                                                  allCarsBookingButton(
+                                                    car?.tariffGroupId,
+                                                    `${car?.title} - ${
+                                                      categoryMap[
+                                                        car?.acrissCategory
+                                                          ?.name
+                                                      ] ||
+                                                      car?.acrissCategory?.name
+                                                    }`,
+                                                    datePickerStartDate,
+                                                    datePickerEndDate,
+                                                    vehiclePrice
+                                                  );
+                                                }}
+                                              >
+                                                {numberOfDays > 0 ? (
+                                                  <span className="all-cars-animate-button btn4">
+                                                    <span className="label">
+                                                      Pay Now{" "}
+                                                      <span
+                                                        className="pay-now-price-md-lg"
+                                                        id={`pay-now-for-${car?.title
+                                                          .replace(/\s+/g, "-")
+                                                          .toLowerCase()}-button`}
+                                                      >
+                                                        <span>|</span> AED:{" "}
+                                                        {renderVehiclePrices(
+                                                          car?.tariffGroupId
+                                                        )}{" "}
+                                                        | {numberOfDays} day(s)
+                                                      </span>
+                                                      <div className="pay-now-price-xs">
+                                                        AED:{" "}
+                                                        {renderVehiclePrices(
+                                                          car?.tariffGroupId
+                                                        )}{" "}
+                                                        | {numberOfDays} day(s)
+                                                      </div>
+                                                    </span>
                                                   </span>
-                                                </span>
-                                              </>
-                                            )}
-                                          </button>
-                                        </>
+                                                ) : (
+                                                  <>
+                                                    <span className="animate-button btn4">
+                                                      <span
+                                                        className="label"
+                                                        id={`pay-now-for-${car?.title
+                                                          .replace(/\s+/g, "-")
+                                                          .toLowerCase()}-button`}
+                                                      >
+                                                        Pay Now{" "}
+                                                      </span>
+                                                    </span>
+                                                  </>
+                                                )}
+                                              </button>
+                                            </>
+                                          </div>
+                                        </div>
                                       </div>
-                                    </div>
-                                  </div>
-                                </Col>
-                              );
-                            })}
-                          </Row>
-                          <Pagination
-                            className="pagination-bar"
-                            currentPage={currentPage}
-                            totalCount={filterCars?.length}
-                            pageSize={PageSize}
-                            onPageChange={(page) => setCurrentPage(page)}
-                          />
+                                    </Col>
+                                  );
+                                })}
+                              </Row>
+                              <Pagination
+                                className="pagination-bar"
+                                currentPage={currentPage}
+                                totalCount={filterCars?.length}
+                                pageSize={PageSize}
+                                onPageChange={(page) => setCurrentPage(page)}
+                              />
+                            </>
+                          ) : (
+                            <>
+                              <div className="text-center">
+                                No Vehicle available for the selected filters
+                              </div>
+                            </>
+                          )}
                         </>
                       )}
                     </>
