@@ -1493,7 +1493,7 @@ const VehiclesPage = () => {
                         <div className="filter-content">
                           <div className="card-body">
                             <div className="">
-                              <div className="form-group col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
+                              <div className="form-group-price-min col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
                                 <label
                                   htmlFor="minPrice"
                                   className="price-range-label"
@@ -1512,7 +1512,7 @@ const VehiclesPage = () => {
                                 />
                               </div>
 
-                              <div className="form-group col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
+                              <div className="form-group-price-max col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
                                 <label
                                   htmlFor="maxPrice"
                                   className="price-range-label"

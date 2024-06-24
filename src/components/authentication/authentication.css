@@ -41,6 +41,14 @@
   background-position: center center;
 }
 
+.form-group-price-min,
+.form-group-price-max {
+  position: relative;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  display: grid;
+}
+
 .form-group {
   position: relative;
   border-radius: 6px;

@@ -122,13 +122,13 @@ const Footer = () => {
                   <Row className="footer-data-row">
                     <div className="footer-info-data">
                       <p className="footer-info-paragraph">
-                        We strive to offer clients affordable corporate and
-                        individual long term lease solutions, which takes away
-                        all the administrative hassles. No matter if you are a
-                        small or medium-sized business, or an individual looking
-                        for a personal vehicle. We provide efficient solutions
-                        that are both flexible and customizable at a
-                        cost-effective price.
+                        We strive to offer clients affordable short term and
+                        long term rental solutions, which takes away all the
+                        administrative hassles. No matter if you are a small or
+                        medium-sized business, or an individual looking for a
+                        personal vehicle. We provide efficient solutions that
+                        are both flexible and customizable at a cost-effective
+                        price.
                       </p>
                     </div>
                   </Row>
