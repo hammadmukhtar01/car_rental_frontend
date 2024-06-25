@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import '../OtherPages/toastStyle.css';
 
 const LeaseNowFormDetails = ({
   estCarPrice,

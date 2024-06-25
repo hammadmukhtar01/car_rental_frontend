@@ -40,6 +40,7 @@ import UseGlobalFormFields from "../Utils/useGlobalFormFields";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import '../OtherPages/toastStyle.css';
 
 const PageSize = 8;
 const animatedComponents = makeAnimated();

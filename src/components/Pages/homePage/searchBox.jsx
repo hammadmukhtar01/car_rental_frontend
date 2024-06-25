@@ -12,6 +12,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import UseGlobalFormFields from "../Utils/useGlobalFormFields";
+import '../OtherPages/toastStyle.css';
 
 const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");

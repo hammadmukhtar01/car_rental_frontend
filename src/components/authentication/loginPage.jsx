@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import FooterCombination from "../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import '../Pages/OtherPages/toastStyle.css';
 
 const LoginPage = () => {
   const tenancyName = "MileleCarRental";
