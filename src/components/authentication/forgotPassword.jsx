@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import FooterCombination from "../PrivateComponents/footerCombination";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import '../Pages/OtherPages/toastStyle.css';
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");

@@ -15,6 +15,7 @@ import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import '../OtherPages/toastStyle.css';
 
 const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [firstName, setFirstName] = useState("");

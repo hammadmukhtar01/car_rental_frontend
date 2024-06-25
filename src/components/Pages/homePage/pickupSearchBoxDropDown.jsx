@@ -6,6 +6,8 @@ import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
 import UseGlobalFormFields from "../Utils/useGlobalFormFields";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import '../../Pages/OtherPages/toastStyle.css';
+import '../../Pages/OtherPages/toastStyle.css';
 
 function PickupLocationModal({
   show,

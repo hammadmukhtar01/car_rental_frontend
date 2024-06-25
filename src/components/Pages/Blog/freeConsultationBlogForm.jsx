@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../homePage/homepage.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import '../OtherPages/toastStyle.css';
 
 const FreeConsultationForm = () => {
   const [customerName, setCustomerName] = useState("");

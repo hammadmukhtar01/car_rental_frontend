@@ -26,6 +26,7 @@ import "./verticalSliderCarDetails.css";
 import { useLocation } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import axios from "axios";
+import '../OtherPages/toastStyle.css';
 
 const VehicleDetails = ({ nextStep }) => {
   const [couponCode, setCouponCode] = useState("");
