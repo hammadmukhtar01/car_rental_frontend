@@ -24,6 +24,7 @@ import BlogPage1 from "./components/Pages/Blog/blogPage1";
 import BlogPage2 from "./components/Pages/Blog/blogPage2";
 import BlogPage3 from "./components/Pages/Blog/blogPage3";
 import GlobalLoader from "./components/PrivateComponents/globalLoader";
+import EmailTemplate from "./components/images/icons/emailTemplate";
 
 const App = () => {
   const location = useLocation();
