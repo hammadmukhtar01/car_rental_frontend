@@ -35,51 +35,52 @@ const TermsConditionsPage = () => {
             <div className=" term-conditions-h1  ">
               <h2 className="terms-conditions-headings-main">PAYMENT</h2>
               <span>
-                Rental with Milele Corp operates on a 24-hour basis. Rental
-                payments are to be made in advance, while non-rental payments
-                will be invoiced separately and must be settled upon receipt of
-                the invoices via email. Failure to make payments by the due date
-                may result in additional charges being levied by Milele Corp.{" "}
-                <br />
-                <br />
-                In the event of outstanding debts, the customer is liable to pay
-                fines as follows:{" "}
+                <div className="terms-conditions-sub-heading-1">
+                  Rental Terms with Milele Corp
+                </div>{" "}
+                <ul>
+                  <li className="pb-2">
+                    <b>Rental Period: </b>Rentals operate on a 24-hour basis.
+                  </li>
+                  <li className="pb-2">
+                    <b>Payments:</b> Rental payments are made in advance.
+                    Non-rental payments are invoiced separately and must be paid
+                    upon receipt via email. Overdue payments may incur
+                    additional charges
+                  </li>
+                </ul>
               </span>
 
-              <ul className="custom-list-double-brackets-a">
-                <li>
-                  20% of the debt if not paid in full between the 10th and 20th
-                  days after the statement of Account/invoices was sent.
-                </li>
-                <li>
-                  An additional 30% if the debt remains unpaid between the 21st
-                  and 30th days accordingly.
-                </li>
-                <li>An additional 50% if the debt exceeds 30 days.</li>
-              </ul>
               <span>
-                Should the above terms and conditions not be adhered to, Milele
-                Corp reserves the right to pursue legal action.
+                <div className="terms-conditions-sub-heading-1">
+                  Outstanding Debts:
+                </div>{" "}
+                Twenty percent fine if unpaid 10-20 days after invoice.
+                <br />
+                Additional 30% fine if unpaid 21-30 days.
+                <br />
+                Additional 50% fine if unpaid beyond 30 days.
+                <br />
+                Milele Corp reserves the right to pursue legal action for
+                non-compliance.
               </span>
-              <br />
+
               <br />
               <span>
-                <span className="terms-conditions-sub-heading-1">
+                <div className="terms-conditions-sub-heading-1">
                   Contract Extension Policy:
-                </span>{" "}
-                Customers have the option to extend their rental contract during
-                its validity at the original rate for the extension period.
-                However, if the contract is extended after its expiry, a
-                surcharge will be applied as specified in the rental agreement.
+                </div>{" "}
+                Extend during contract validity at original rate.
+                <br />
+                Surcharge applies if extended after expiry, as per the rental
+                agreement.
               </span>
               <br />
               <div className="mt-3">
-                <span className="terms-conditions-sub-heading-1">
+                <div className="terms-conditions-sub-heading-1">
                   Deposit Refund Fee:{" "}
-                </span>{" "}
-                Refunds of deposits via bank transfer will be subject to a
-                processing fee of 20 AED per transaction to cover associated
-                bank charges.
+                </div>{" "}
+                Refunds via bank transfer incur a 20 AED processing fee.
               </div>
             </div>
 
@@ -190,8 +191,8 @@ const TermsConditionsPage = () => {
                 <br />
                 <ul>
                   <li className="pb-2">
-                    Customers are required to settle fines directly with the
-                    relevant authorities within 24 hours of notification.
+                    Customers must settle fines directly with the relevant
+                    authorities within 24 hours of notification.
                   </li>
                   <li className="pb-2">
                     Alternatively, Milele can pay fines on behalf of customers,
@@ -203,25 +204,27 @@ const TermsConditionsPage = () => {
                   Late Payment Charges:{" "}
                 </span>
                 <br />{" "}
+                <p>
+                  Here is a minimized version of the terms and conditions
+                  without losing their meaning:
+                </p>
                 <ul>
                   <li className="pb-2">
-                    Failure to settle fines within 24 hours will result in a
-                    charge of AED 100 per day for the next two days.
+                    Fines not settled within 24 hours will incur a charge of AED
+                    100 per day for the next two days
                   </li>
                   <li className="pb-2">
-                    If fines remain unpaid beyond this period, the contract will
-                    be terminated, and the vehicle will be retrieved. An
-                    additional inconvenience charge of AED 300 will be applied.
+                    If unpaid after this period, the contract will be
+                    terminated, and the vehicle retrieved. An additional AED 300
+                    inconvenience charge will apply
                   </li>
-
                   <li className="pb-2">
-                    A late payment penalty of AED 500 per day will be imposed
-                    for the following four days after contract termination.
+                    An overdue payment penalty of AED 500 per day will be
+                    imposed for the next four days after contract termination.
                   </li>
-
                   <li>
                     From the fifth day onwards, a charge of AED 1000 per day
-                    will be applied for the next five days.
+                    will be applied for the next 5 days.
                   </li>
                 </ul>
                 <span className="terms-conditions-sub-heading-1">
@@ -255,11 +258,10 @@ const TermsConditionsPage = () => {
                 <br />{" "}
                 <ul>
                   <li>
-                    For impounding fines, customers are liable to pay Milele
-                    Corp the impounding charges, an inconvenience charge of AED
-                    250, and loss of rental charges for the impounded period. A
-                    daily fee of 100 AED, in addition to all impounding charges,
-                    shall apply in the event of impoundment.
+                    Customers must pay all impounding charges, a 250 AED
+                    inconvenience fee, and loss of rental charges for the
+                    impounded period. Additionally, a daily fee of 100 AED will
+                    apply during impoundment.
                   </li>
                 </ul>{" "}
                 <span className="terms-conditions-sub-heading-1">
@@ -286,7 +288,7 @@ const TermsConditionsPage = () => {
                   </span>{" "}
                   <p>
                     {" "}
-                    The Vehicle will always be driven and used with care and due
+                    The vehicle shall always be driven and used with care and
                     consideration to other road users.
                   </p>
                 </li>
@@ -360,7 +362,7 @@ const TermsConditionsPage = () => {
                     No articles that may cause damage to the vehicle, its
                     upholstery, or any of its components shall be transported in
                     the vehicle. Any resulting damages will be charged to the
-                    HIRER at Milele's Agency prices.
+                    HIRER at Milele's Agency price.
                   </p>
                 </li>
               </ul>
@@ -397,7 +399,7 @@ const TermsConditionsPage = () => {
                 </li>
                 <li className="pb-2">
                   If the agreement is terminated due to breaches or outstanding
-                  payments, the customer remains obligated to fulfill any
+                  payments, the customer remains obligated to fulfil any
                   outstanding payment obligations or compensatory fees until all
                   dues are settled.
                 </li>
@@ -421,7 +423,7 @@ const TermsConditionsPage = () => {
           <div className=" terms-conditions-main-div row  pb-3">
             <div className="term-conditions-h5  ">
               <h2 className=" terms-conditions-headings-main">
-                SERVICE & MAINTENANCE
+                SERVICE AND MAINTENANCE
               </h2>
 
               <div>
@@ -508,25 +510,33 @@ const TermsConditionsPage = () => {
                   Vehicle.
                 </li>
                 <li className="pb-2">
-                  Any abnormalities or malfunctions in the Vehicle must be
-                  reported to the LESSOR within one hour of the rental period's
-                  start. Issues identified later will be repaired or replaced at
-                  the HIRER's expense.
+                  Report any abnormalities or malfunctions within one hour of
+                  the rental start. Issues identified later will be repaired or
+                  replaced at the HIRER's expense.
                 </li>
                 <li className="pb-2">
                   HIRERs with UAE licenses issued less than a year prior to the
-                  rental date or who are under 25 years of age will be liable
-                  for all damages resulting from accidents, with an excess of
-                  DHS 1500 plus 20% of the claim/loss amount.
+                  rental date or who are under 25 years old will be liable for
+                  all accident damages, with an excess of DHS 1500 plus 20% of
+                  the claim/loss amount.
                 </li>
                 <li className="pb-2">
                   The HIRER is responsible for any tire punctures or bursts and
-                  must cover the costs associated with repair or replacement.
+                  must cover repair or replacement costs
                 </li>
                 <li className="pb-2">
                   An accident handling administration fee of AED 200 per
-                  incident will be charged, in addition to any costs for damage
-                  repairs or applicable excess fees.
+                  incident will be charged, in addition to damage repair costs
+                  or applicable excess fees.
+                </li>
+                <li className="pb-2">
+                  If car keys are lost, the following charges apply:
+                  <ul>
+                    <li className="pb-2 pt-2">
+                      AED 500 for Celerio and Alto models.
+                    </li>
+                    <li className="pb-2">AED 1000 for all other models.</li>
+                  </ul>
                 </li>
               </ul>
             </div>
@@ -541,16 +551,41 @@ const TermsConditionsPage = () => {
                 associated with the transfer.
               </span>
             </div>
+
+            <div className="term-conditions-h7  mb-3">
+              <h2 className="terms-conditions-headings-main">
+                DEPOSIT OPTIONS{" "}
+              </h2>
+              <span>
+                Customers have the option to choose between a refundable deposit
+                or a non-refundable deposit insurance.
+              </span>
+            </div>
+
             <div className="term-conditions-h8 mb-3 ">
               <h2 className="terms-conditions-headings-main">
                 CONTRACT EXTENSION POLICY{" "}
               </h2>
               <span>
                 Customers may extend their rental contract during its validity
-                at the original rate for the extension period. However, in the
-                event of extending the contract after its expiry, a surcharge
-                will be applied as per the terms specified in the rental
-                agreement.
+                at the original rate for the extension period.
+              </span>
+              <br />
+              <ul>
+                <li className="pb-2">
+                  For Refundable Deposit: In case of a deposit, the customer
+                  will not need to pay again during the extension.
+                </li>
+                <li className="pb-2">
+                  For Non-Refundable Deposit Insurance: If the customer has
+                  opted for a deposit insurance, they will have to pay the
+                  amount for every contract extension.
+                </li>
+              </ul>
+              <span>
+                However, in the event of extending the contract after its
+                expiry, a surcharge will be applied as per the terms specified
+                in the rental agreement.
               </span>
             </div>
 
