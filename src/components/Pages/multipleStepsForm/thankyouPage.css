@@ -1,0 +1,31 @@
+.after-payment-succcess-booking-page {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.thank-you-div-container {
+  text-align: center;
+  margin-top: 3rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: rgba(227, 227, 227, 0.575);
+  max-width: fit-content;
+  padding: 20px;
+}
+
+.tick-icon {
+  width: 15%;
+  padding: 20px 0px;
+}
+
+.thank-you-bold-text {
+  font-weight: 900;
+}
+
+.thank-you-page-small-line {
+  width: 15%;
+  border: 1px solid #e87a28;
+  margin: 1rem auto !important;
+  opacity: 1;
+}
