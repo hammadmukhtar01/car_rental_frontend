@@ -3,9 +3,9 @@ import React from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import "./blogPage.css";
-import blog1MainImg1 from "../../images/blog-images/blog1-main-Img1.png";
-import blog2MainImg1 from "../../images/blog-images/blog2-main-Img1.png";
-import blog3MainImg1 from "../../images/blog-images/blog3-main-Img1.png";
+import blog1MainImg1 from "../../images/blog-images/blog1-main-Img1.jpg";
+import blog2MainImg1 from "../../images/blog-images/blog2-main-Img1.jpg";
+import blog3MainImg1 from "../../images/blog-images/blog3-main-Img1.jpg";
 
 const OurBlogs = () => {
   const blogsData = [
