@@ -493,7 +493,7 @@ const SearchBox = () => {
                                 type="text"
                                 id="searchboxInputPickUpLoc"
                                 placeholder="Enter pickup location"
-                                value={pickupLocationMessage}
+                                value={`${pickupLocationMessage} - ${inputPickupFieldValue}`}
                                 onChange={() =>
                                   console.log("On change in pickup")
                                 }
@@ -518,7 +518,7 @@ const SearchBox = () => {
                                   type="text"
                                   id="searchboxInputDropOffLoc"
                                   placeholder="Enter dropoff location"
-                                  value={dropoffLocationMessage}
+                                  value={`${dropoffLocationMessage} - ${inputDropoffFieldValue}`}
                                   onChange={() =>
                                     console.log("On change in dropoff")
                                   }

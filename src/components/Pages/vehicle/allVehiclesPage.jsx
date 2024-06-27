@@ -40,7 +40,7 @@ import UseGlobalFormFields from "../Utils/useGlobalFormFields";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import '../OtherPages/toastStyle.css';
+import "../OtherPages/toastStyle.css";
 
 const PageSize = 8;
 const animatedComponents = makeAnimated();
@@ -170,7 +170,10 @@ const VehiclesPage = () => {
             storedFormFields?.deliveryMapLocDropOff || ""
           );
         }
-
+        setDropoffInputFieldValue(
+          storedFormFields?.inputDropoffFieldValue || ""
+        );
+        setPickupInputFieldValue(storedFormFields?.inputPickupFieldValue || "");
         setPickUpTime(storedFormFields?.pickTimeV1 || "");
         setDropOffTime(storedFormFields?.dropTimeV1 || "");
         setPickupSelectedTab(
@@ -757,7 +760,7 @@ const VehiclesPage = () => {
     console.log("Dropoff State Value Prop state is: ", dropoffStateValueProp);
 
     navigate(
-      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupStateValueProp}&dropoffLocState=${dropoffStateValueProp}&pickupLocSelectedTab=${pickupSelectedTab}&dropoffLocSelectedTab=${dropoffSelectedTab}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}&vehiclePrice=${calculatedVehiclePrice}`
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}-${inputPickupFieldValue}&dropoffLoc=${dropoffLocationMessage}-${inputDropoffFieldValue}&pickupLocState=${pickupStateValueProp}&dropoffLocState=${dropoffStateValueProp}&pickupLocSelectedTab=${pickupSelectedTab}&dropoffLocSelectedTab=${dropoffSelectedTab}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}&vehiclePrice=${calculatedVehiclePrice}`
     );
   };
 
@@ -1148,7 +1151,7 @@ const VehiclesPage = () => {
                                       className="form-control-location mt-2 col-12"
                                       type="text"
                                       placeholder="Enter pickup location"
-                                      value={pickupLocationMessage}
+                                      value={`${pickupLocationMessage} - ${inputPickupFieldValue}`}
                                       onChange={() =>
                                         console.log("On change in pickup")
                                       }
@@ -1172,7 +1175,7 @@ const VehiclesPage = () => {
                                         className="form-control-location mt-2 col-12"
                                         type="text"
                                         placeholder="Enter dropoff location"
-                                        value={dropoffLocationMessage}
+                                        value={`${dropoffLocationMessage} - ${inputDropoffFieldValue}`}
                                         onChange={() =>
                                           console.log("On change in dropoff")
                                         }
