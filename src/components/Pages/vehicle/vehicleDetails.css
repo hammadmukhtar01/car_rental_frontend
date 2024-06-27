@@ -43,6 +43,14 @@
   background-color: white;
 }
 
+.car-img-modal-class .modal-overlay .modal-content img {
+  width: 65%;
+  top: 50%;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
 .price-row,
 .total-price-row,
 .coupon-main-div {
