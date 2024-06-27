@@ -1755,6 +1755,11 @@ const VehiclesPage = () => {
                                                       >
                                                         Pay Now{" "}
                                                       </span>
+                                                      <span className="pay-now-price-md-lg">
+                                                        <span>|</span> {" "}
+                                                        {car?.rate} {" "} Aed Per{" "}
+                                                        {numberOfDays} Day
+                                                      </span>
                                                     </span>
                                                   </>
                                                 )}

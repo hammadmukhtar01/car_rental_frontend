@@ -59,9 +59,7 @@ const VehicleDetails = ({ nextStep }) => {
   const DropoffLocTabValue = queryParams?.get("dropoffLocSelectedTab");
   const calculatedVehiclePrice = parseInt(queryParams?.get("vehiclePrice"));
   const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
-  console.log(
-    `pickupLocTabValue values: ${pickupLocTabValue}\nDropoffLocTabValue values: ${DropoffLocTabValue}`
-  );
+
   const fetchSingleCarDetails = useCallback(async () => {
     let data = { TariffGroupId, StartDateTime, ReturnDateTime };
     try {
@@ -150,18 +148,6 @@ const VehicleDetails = ({ nextStep }) => {
       name: "Air Conditioner",
       value: null,
       featureIcon: LuSnowflake,
-    },
-  ];
-
-  const couponsData = [
-    {
-      name: "ABC123",
-      value: 10,
-    },
-
-    {
-      name: "NEW40",
-      value: 40,
     },
   ];
 
@@ -410,38 +396,6 @@ const VehicleDetails = ({ nextStep }) => {
     },
   ];
 
-  const applyCoupon = (e) => {
-    e.preventDefault();
-
-    const foundCoupon = couponsData?.find(
-      (coupon) => coupon?.name === couponCode
-    );
-
-    if (couponCode?.trim() === "") {
-      toast.warning("Please enter a coupon code", {
-        autoClose: 3000,
-        style: { border: "1px solid #c0c0c0", fontSize: "14px" },
-      });
-
-      return;
-    }
-
-    if (!foundCoupon) {
-      toast.error("Invalid coupon code. Please enter a valid one.", {
-        autoClose: 3000,
-        style: {
-          lineHeight: "20px",
-          border: "1px solid #c0c0c0",
-          fontSize: "14px",
-        },
-      });
-      return;
-    }
-
-    setAppliedCoupon(foundCoupon);
-    setIsCouponApplied(true);
-  };
-
   const removeCoupon = (e) => {
     setAppliedCoupon(null);
     setIsCouponApplied(false);
@@ -486,7 +440,7 @@ const VehicleDetails = ({ nextStep }) => {
   const grandTotalDiscountedValue = () => {
     if (appliedCoupon) {
       const discountedValue = appliedCoupon?.value;
-      return discountedValue;
+      return Math.round(discountedValue);
     }
     return 0;
   };
@@ -540,6 +494,62 @@ const VehicleDetails = ({ nextStep }) => {
 
     const nextStepUrl = `${baseUrl}?${urlParams?.toString()}`;
     window.location.href = nextStepUrl;
+  };
+
+  const couponsData = [
+    {
+      name: "RENTSUV20",
+      value: 0.2 * grandTotalPrice,
+    },
+
+    {
+      name: "NEW40",
+      value: 40,
+    },
+  ];
+
+  const applyCoupon = (e) => {
+    e.preventDefault();
+
+    const foundCoupon = couponsData?.find(
+      (coupon) => coupon?.name === couponCode
+    );
+
+    if (couponCode?.trim() === "") {
+      toast.warning("Please enter a coupon code", {
+        autoClose: 3000,
+        style: { border: "1px solid #c0c0c0", fontSize: "14px" },
+      });
+
+      return;
+    }
+
+    if (!foundCoupon) {
+      toast.error("Invalid coupon code. Please enter a valid one.", {
+        autoClose: 3000,
+        style: {
+          lineHeight: "20px",
+          border: "1px solid #c0c0c0",
+          fontSize: "14px",
+        },
+      });
+      return;
+    }
+
+    if (carCategory.toUpperCase() !== "SUV") {
+      toast.error("This coupon code is valid for SUV only.", {
+        autoClose: 3000,
+        style: {
+          lineHeight: "20px",
+          border: "1px solid #c0c0c0",
+          fontSize: "14px",
+        },
+      });
+      return;
+    }
+
+    setAppliedCoupon(foundCoupon);
+    setIsCouponApplied(true);
   };
 
   function CustomStepIcon({ locName, locDate, IconName, locTime }) {
@@ -1079,7 +1089,7 @@ const VehicleDetails = ({ nextStep }) => {
                                     <div className="del-value-main-div pb-3">
                                       AED{" "}
                                       <span className="coupon-discount-value">
-                                        -{appliedCoupon?.value}
+                                        -{Math.round(appliedCoupon?.value)}
                                       </span>
                                       <span className="deleted-grand-total-price-value pl-1">
                                         {" "}
