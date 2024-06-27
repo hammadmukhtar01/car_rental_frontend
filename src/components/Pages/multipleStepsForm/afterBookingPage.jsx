@@ -30,9 +30,9 @@ const AfterBookingPage = () => {
           <div className="icon">
             <img src={TickIcon} alt="Tick Icon" className="tick-icon" />
           </div>
-          <h2>
-            <span className="thank-you-bold-text">Thank you for booking.</span>
-          </h2>
+          <h5>
+            <span className="thank-you-bold-text">Booking confirmed! Thank you for choosing Milele Car Rental.</span>
+          </h5>
           <p>A payment link has been sent to your email</p>
           <div>
             <hr className="thank-you-page-small-line"/>

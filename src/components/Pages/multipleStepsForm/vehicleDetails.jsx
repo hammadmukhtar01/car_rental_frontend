@@ -26,7 +26,7 @@ import "./verticalSliderCarDetails.css";
 import { useLocation } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import axios from "axios";
-import '../OtherPages/toastStyle.css';
+import "../OtherPages/toastStyle.css";
 
 const VehicleDetails = ({ nextStep }) => {
   const [couponCode, setCouponCode] = useState("");
@@ -504,16 +504,15 @@ const VehicleDetails = ({ nextStep }) => {
   };
 
   const handleStartBookingClick = () => {
-
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
-      event: 'startBooking',
+      event: "startBooking",
       carTypeName: carTypeName,
       numberOfDays: numberOfDays,
       totalCharges: totalAPIResponseCharges,
       deliveryCharge: getDeliveryCharge(),
       totalAddOnsPrice: totalAddOnsPriceSimple(),
-      grandTotalPrice: grandTotalPriceWithDiscount
+      grandTotalPrice: grandTotalPriceWithDiscount,
     });
 
     handleNextStep1();
@@ -1134,23 +1133,33 @@ const VehicleDetails = ({ nextStep }) => {
                 </Row>
               </div>
               <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
-                <Col className="d-flex justify-content-center " id="start-booking-col">
+                <Col
+                  className="d-flex justify-content-center "
+                  id="start-booking-col"
+                >
                   <button
                     onClick={handleStartBookingClick}
                     className="map-loc-middle py-3"
                     id="start-booking-button"
                   >
-                    <span className="animate-button btn4" id="start-booking-span">Start Booking</span>
+                    <span
+                      className="animate-button btn4"
+                      id="start-booking-span"
+                    >
+                      Start Booking
+                    </span>
                   </button>
                 </Col>
               </div>
             </div>
-            <Modals
-              isOpen={isModalOpen}
-              onClose={handleCloseModal}
-              imageSrc={carImg}
-              alt=""
-            />
+            <div className="car-img-modal-class">
+              <Modals
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                imageSrc={carImg}
+                alt="large-view"
+              />
+            </div>
           </>
         </Container>
       </div>
