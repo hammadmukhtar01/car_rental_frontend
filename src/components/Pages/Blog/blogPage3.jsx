@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import blog3MainImg1 from "../../images/blog-images/blog3-main-Img1.png";
+import blog3MainImg1 from "../../images/blog-images/blog3-main-Img1.jpg";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
