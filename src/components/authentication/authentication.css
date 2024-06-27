@@ -268,7 +268,7 @@
   display: block;
   font-size: 14px;
   border: 2px solid #e87a28;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   overflow: hidden;
   border-radius: 20px;
   background-color: #e87a28;
