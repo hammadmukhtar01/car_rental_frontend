@@ -5,11 +5,24 @@ import { useNavigate } from "react-router";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import Error404Page from "../../images/icons/Eror404.png";
+import PageNotFoundImg from "../../images/icons/PageNotFound.png";
 import axios from "axios";
 
-const Page404 = () => {
+const PageNotFound = () => {
   const navigate = useNavigate();
+
+  // Set HTTP status code to 404
+  useEffect(() => {
+    document.title = "Page Not Found";
+    // Setting HTTP status code
+    const setStatus = () => {
+      if (window.location.pathname !== "/") {
+        document.title = "404";
+        window.history.replaceState({}, document.title, window.location.href);
+      }
+    };
+    setStatus();
+  }, []);
 
   // useEffect(() => {
   //   axios
@@ -46,9 +59,15 @@ const Page404 = () => {
       <HeaderCombination />
       <div className="error-404-page">
         <div className="error-404-div-container">
-          <h3><b>Error</b></h3>
+          <h3>
+            <b>Error</b>
+          </h3>
           <div className="icon">
-            <img src={Error404Page} alt="Error 404" className="error-404-icon" />
+            <img
+              src={PageNotFoundImg}
+              alt="Error 404"
+              className="error-404-icon"
+            />
           </div>
 
           <p>Page URL Not Found!</p>
@@ -74,4 +93,4 @@ const Page404 = () => {
   );
 };
 
-export default Page404;
+export default PageNotFound;
