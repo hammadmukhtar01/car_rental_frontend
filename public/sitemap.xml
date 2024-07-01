@@ -15,11 +15,6 @@
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.milelecarrental.com/leaseToOwn</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
         <loc>https://www.milelecarrental.com/aboutus</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
@@ -68,10 +63,5 @@
         <loc>https://www.milelecarrental.com/blogPage3/3</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://www.milelecarrental.com/404</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.1</priority>
     </url>
 </urlset>

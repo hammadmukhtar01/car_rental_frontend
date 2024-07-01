@@ -5,7 +5,6 @@ const { Readable } = require('stream');
 const links = [
   { url: '/', changefreq: 'daily', priority: 1.0 },
   { url: '/vehicles', changefreq: 'monthly', priority: 0.8 },
-  { url: '/leaseToOwn', changefreq: 'monthly', priority: 0.8 },
   { url: '/aboutus', changefreq: 'monthly', priority: 0.5 },
   { url: '/faqs', changefreq: 'monthly', priority: 0.5 },
   { url: '/terms&Conditions', changefreq: 'monthly', priority: 0.5 },
@@ -16,7 +15,6 @@ const links = [
   { url: '/blogPage1/1', changefreq: 'monthly', priority: 0.5 },
   { url: '/blogPage2/2', changefreq: 'monthly', priority: 0.5 },
   { url: '/blogPage3/3', changefreq: 'monthly', priority: 0.5 },
-  { url: '/404', changefreq: 'monthly', priority: 0.1 },
 ];
 
 const hostname = 'https://www.milelecarrental.com';
