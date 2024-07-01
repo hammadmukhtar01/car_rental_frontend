@@ -7,7 +7,7 @@ import "./thankyouPage.css";
 
 const AfterBookingPage = () => {
   const navigate = useNavigate();
-  const errorPageBackButton = () => {
+  const thankYouPageBackButton = () => {
     navigate("/");
   };
   return (
@@ -41,7 +41,7 @@ const AfterBookingPage = () => {
         <br />
         <div className="text-center">
           <button
-            onClick={errorPageBackButton}
+            onClick={thankYouPageBackButton}
             className="middle"
             id="return-home-button-booking-success-page"
           >

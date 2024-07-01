@@ -12,7 +12,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import UseGlobalFormFields from "../Utils/useGlobalFormFields";
-import '../OtherPages/toastStyle.css';
+import "../OtherPages/toastStyle.css";
 
 const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");
@@ -97,6 +97,12 @@ const SearchBox = () => {
             storedFormFields?.deliveryMapLocDropOff || ""
           );
         }
+
+        setDropoffInputFieldValue(
+          storedFormFields?.inputDropoffFieldValue || ""
+        );
+
+        setPickupInputFieldValue(storedFormFields?.inputPickupFieldValue || "");
 
         setPickUpTime(storedFormFields?.pickTimeV1 || "");
         setDropOffTime(storedFormFields?.dropTimeV1 || "");
@@ -395,8 +401,12 @@ const SearchBox = () => {
     }),
   };
 
-  const handleInputFieldChange = (value) => {
+  const handlePickupInputFieldChange = (value) => {
     setPickupInputFieldValue(value);
+  };
+
+  const handleDropoffInputFieldChange = (value) => {
+    setDropoffInputFieldValue(value);
   };
 
   return (
@@ -560,10 +570,12 @@ const SearchBox = () => {
                           handleButtonClick={handlePickUpButtonClick}
                           updatePickupLocationMessage={setPickupLocationMessage}
                           initialSelectedLocation={pickupLocation}
-                          initialInputFieldValue={pickupLocationMessage}
+                          PickupInitialInputFieldValue={pickupLocationMessage}
                           inputPickupFieldValue={inputPickupFieldValue}
                           setPickupInputFieldValue={setPickupInputFieldValue}
-                          handleInputFieldChange={handleInputFieldChange}
+                          handlePickupInputFieldChange={
+                            handlePickupInputFieldChange
+                          }
                           onSelectTabChange={onPickupSelectTabChange}
                           onStateChange={handlePickupStateChange}
                         />
@@ -591,10 +603,12 @@ const SearchBox = () => {
                             setDropoffLocationMessage
                           }
                           initialSelectedLocation={dropoffLocation}
-                          initialInputFieldValue={dropoffLocationMessage}
+                          dropoffInitialInputFieldValue={dropoffLocationMessage}
                           inputDropoffFieldValue={inputDropoffFieldValue}
                           setDropoffInputFieldValue={setDropoffInputFieldValue}
-                          handleInputFieldChange={handleInputFieldChange}
+                          handleDropoffInputFieldChange={
+                            handleDropoffInputFieldChange
+                          }
                           onSelectTabChange={onDropoffSelectTabChange}
                           onStateChange={handleDropoffStateChange}
                         />

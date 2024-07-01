@@ -15,8 +15,8 @@ function PickupLocationModal({
   updatePickupLocationMessage,
   inputPickupFieldValue,
   initialSelectedLocation,
-  initialInputFieldValue,
-  handleInputFieldChange,
+  pickupInitialInputFieldValue,
+  handlePickupInputFieldChange,
   onSelectTabChange,
   onStateChange,
 }) {
@@ -94,7 +94,7 @@ function PickupLocationModal({
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     handleFieldChange(name, value);
-    handleInputFieldChange(value);
+    handlePickupInputFieldChange(value);
   };
 
   const handleInputSubmit = () => {
