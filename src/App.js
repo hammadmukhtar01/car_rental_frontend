@@ -17,7 +17,7 @@ import ForgotPasswordPage from "./components/authentication/forgotPassword";
 import ResetPasswordPage from "./components/authentication/resetPasswordPage";
 import VehicleDetails from "./components/Pages/multipleStepsForm/vehicleDetails";
 import AddOnsDocuments from "./components/Pages/multipleStepsForm/documentsAndBooking";
-import Page404 from "./components/Pages/OtherPages/404Page";
+import PageNotFound from "./components/Pages/OtherPages/pageNotFound";
 import LeaseToOwnVehicles from "./components/Pages/vehicle/leaseToOwn";
 import TermsConditionsPage from "./components/Pages/OtherPages/termsConditionsPage";
 import BlogPage1 from "./components/Pages/Blog/blogPage1";
@@ -70,8 +70,8 @@ const App = () => {
             <Route path="/blogPage1/1" element={<BlogPage1 />} />
             <Route path="/blogPage2/2" element={<BlogPage2 />} />
             <Route path="/blogPage3/3" element={<BlogPage3 />} />
-            <Route path="/404" element={<Page404 />} />
-            <Route path="*" element={<Page404 />} />
+            <Route path="/pageNotFound" element={<PageNotFound />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
       </GlobalLoader>
