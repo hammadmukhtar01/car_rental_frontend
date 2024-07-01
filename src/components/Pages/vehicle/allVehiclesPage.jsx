@@ -130,6 +130,7 @@ const VehiclesPage = () => {
       let storedStartDateRange, storedEndDateRange;
 
       if (storedFormFields) {
+        console.log(`storedFormFields?.showDropoffV1 ${storedFormFields?.showDropoffV1}`)
         setShowDropoff(storedFormFields?.showDropoffV1 === 1);
 
         const pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
@@ -220,7 +221,7 @@ const VehiclesPage = () => {
     showDropoffV1: 0,
   });
 
-  useEffect(() => {}, [dropoffLocationMessage]);
+  // useEffect(() => {}, [dropoffLocationMessage]);
 
   useEffect(() => {
     const pickupTimeParam = queryParams?.get("pickupTime");
@@ -228,7 +229,7 @@ const VehiclesPage = () => {
       setPickUpTime(pickupTimeParam);
     }
     if (showDropoff === false) {
-      setDropoffLocationMessage(dropoffLocationMessage);
+      // setDropoffLocationMessage(dropoffLocationMessage);
     }
   }, [queryParams, pickUpTime, showDropoff, dropoffLocationMessage]);
 
@@ -242,8 +243,12 @@ const VehiclesPage = () => {
     handleFieldChange("dropTimeV1", selectedOption?.value);
   };
 
-  const handleInputFieldChange = (value) => {
+  const handlePickupInputFieldChange = (value) => {
     setPickupInputFieldValue(value);
+  };
+
+  const handleDropoffInputFieldChange = (value) => {
+    setDropoffInputFieldValue(value);
   };
 
   const defaultStartDate = new Date();
@@ -1222,12 +1227,16 @@ const VehiclesPage = () => {
                                   setPickupLocationMessage
                                 }
                                 initialSelectedLocation={pickupLocation}
-                                initialInputFieldValue={pickupLocationMessage}
+                                pickupInitialInputFieldValue={
+                                  pickupLocationMessage
+                                }
                                 inputPickupFieldValue={inputPickupFieldValue}
                                 setPickupInputFieldValue={
                                   setPickupInputFieldValue
                                 }
-                                handleInputFieldChange={handleInputFieldChange}
+                                handlePickupInputFieldChange={
+                                  handlePickupInputFieldChange
+                                }
                                 onSelectTabChange={onPickupSelectTabChange}
                                 onStateChange={handlePickupStateChange}
                               />
@@ -1256,12 +1265,16 @@ const VehiclesPage = () => {
                                   setDropoffLocationMessage
                                 }
                                 initialSelectedLocation={dropoffLocation}
-                                initialInputFieldValue={dropoffLocationMessage}
+                                dropoffInitialInputFieldValue={
+                                  dropoffLocationMessage
+                                }
                                 inputDropoffFieldValue={inputDropoffFieldValue}
                                 setDropoffInputFieldValue={
                                   setDropoffInputFieldValue
                                 }
-                                handleInputFieldChange={handleInputFieldChange}
+                                handleDropoffInputFieldChange={
+                                  handleDropoffInputFieldChange
+                                }
                                 onSelectTabChange={onDropoffSelectTabChange}
                                 onStateChange={handleDropoffStateChange}
                               />
@@ -1756,8 +1769,8 @@ const VehiclesPage = () => {
                                                         Pay Now{" "}
                                                       </span>
                                                       <span className="pay-now-price-md-lg">
-                                                        <span>|</span> {" "}
-                                                        {car?.rate} {" "} Aed Per{" "}
+                                                        <span>|</span>{" "}
+                                                        {car?.rate} Aed Per{" "}
                                                         {numberOfDays} Day
                                                       </span>
                                                     </span>

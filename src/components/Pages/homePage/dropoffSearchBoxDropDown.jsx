@@ -12,9 +12,10 @@ function DropoffLocationModal({
   show,
   handleButtonClick,
   updateDropoffLocationMessage,
-  initialInputFieldValue,
   inputDropoffFieldValue,
-  handleInputFieldChange,
+  initialSelectedLocation,
+  dropoffInitialInputFieldValue,
+  handleDropoffInputFieldChange,
   onSelectTabChange,
   onStateChange,
 }) {
@@ -76,7 +77,7 @@ function DropoffLocationModal({
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     handleFieldChange(name, value);
-    handleInputFieldChange(value);
+    handleDropoffInputFieldChange(value);
   };
 
   const handleInputSubmit = () => {
