@@ -217,7 +217,7 @@ function MainNavbar() {
           </Col>
         </nav>
       </Container>
-      <style jsx>{`
+      <style>{`
         .offcanvas {
           visibility: hidden;
           background-color: white;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import HomePageTopBar from "../Pages/navbar/homePageTopBar";
 import MainNavbar from "../Pages/navbar/mainNavbar";
