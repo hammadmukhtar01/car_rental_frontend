@@ -18,7 +18,7 @@ const AfterBookingPage = () => {
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
-        <meta name="keywords" content="keywords" />
+        <meta name="robots" content="noindex, nofollow" />{" "}
         <link
           rel="canonical"
           href="https://www.milelecarrental.com/bookingPage/3&booking-success"
@@ -26,16 +26,17 @@ const AfterBookingPage = () => {
       </Helmet>
       <div className="after-payment-succcess-booking-page">
         <div className="thank-you-div-container">
-          
           <div className="icon">
             <img src={TickIcon} alt="Tick Icon" className="tick-icon" />
           </div>
           <h5>
-            <span className="thank-you-bold-text">Booking confirmed! Thank you for choosing Milele Car Rental.</span>
+            <span className="thank-you-bold-text">
+              Booking confirmed! Thank you for choosing Milele Car Rental.
+            </span>
           </h5>
           <p>A payment link has been sent to your email</p>
           <div>
-            <hr className="thank-you-page-small-line"/>
+            <hr className="thank-you-page-small-line" />
           </div>
         </div>
         <br />

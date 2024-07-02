@@ -10,8 +10,6 @@ import PageNotFoundImg from "../../images/icons/PageNotFound.png";
 const PageNotFound = () => {
   const navigate = useNavigate();
 
- 
-
   const errorPageBackButton = () => {
     navigate("/");
   };
@@ -23,7 +21,7 @@ const PageNotFound = () => {
           name="description"
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
-        <meta name="keywords" content="keywords" />
+        <meta name="robots" content="noindex, nofollow" />{" "}
       </Helmet>
       <HeaderCombination />
       <div className="error-404-page">

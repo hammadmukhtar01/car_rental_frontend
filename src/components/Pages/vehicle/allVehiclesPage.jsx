@@ -1066,10 +1066,10 @@ const VehiclesPage = () => {
   return (
     <HelmetProvider>
       <Helmet>
-        <title>Fleet | Milele Car Rental Application </title>
+        <title>Affordable Car Rentals | Milele Car Rental </title>
         <meta
           name="description"
-          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+          content="Enjoy a wide range of economy, sedan, and hatchback rental vehicles in Dubai at Milele Car Rental. Enjoy zero deposit and flexible payment options. Rent your perfect car online today!"
         />
         <meta name="keywords" content="keywords" />
         <meta name="robots" content="index, follow" />

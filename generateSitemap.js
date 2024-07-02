@@ -11,7 +11,6 @@ const links = [
   { url: '/contactus', changefreq: 'monthly', priority: 0.5 },
   { url: '/bookingPage/1', changefreq: 'monthly', priority: 0.5 },
   { url: '/bookingPage/2', changefreq: 'monthly', priority: 0.5 },
-  { url: 'bookingPage/3&booking-success', changefreq: 'monthly', priority: 0.5 },
   { url: '/blogPage1/1', changefreq: 'monthly', priority: 0.5 },
   { url: '/blogPage2/2', changefreq: 'monthly', priority: 0.5 },
   { url: '/blogPage3/3', changefreq: 'monthly', priority: 0.5 },

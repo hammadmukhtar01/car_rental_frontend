@@ -35,10 +35,12 @@ const BlogPage2 = () => {
     <HelmetProvider id="main">
       <>
         <Helmet>
-          <title>Blog: {blogsData?.title}</title>
+          <title>
+            Top 14 Things to Do in Dubai | Attraction and Activities
+          </title>
           <meta
             name="description"
-            content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+            content="Uncover the most exciting activities and attractions in Dubai with Milele Car Rental's blog. Explore top events, adventures, and hidden gems for an unforgettable Dubai experience. Plan your fun-filled trip today!"
           />
           <meta name="keywords" content="keywords" />
           <link
