@@ -875,6 +875,10 @@ const VehiclesPage = () => {
     window.scrollTo(0, 0);
   }, [currentPage]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategories, selectedCarTypes, minPrice, maxPrice, sortBy]);
+
   const handleCarTypeCheckboxChange = (type) => {
     setSelectedCarTypes((prev) => {
       if (prev.includes(type)) {
