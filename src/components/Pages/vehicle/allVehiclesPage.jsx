@@ -793,11 +793,19 @@ const VehiclesPage = () => {
 
       const totalPrice = renderVehiclePrices(car?.tariffGroupId);
 
-      const priceMatch =
-        (minPrice === "" || totalPrice >= minPrice) &&
-        (maxPrice === "" || totalPrice <= maxPrice);
+      if (numberOfDays > 0) {
+        const priceMatch =
+          (minPrice === "" || totalPrice >= minPrice) &&
+          (maxPrice === "" || totalPrice <= maxPrice);
 
-      return categoryMatch && typeMatch && priceMatch;
+        return categoryMatch && typeMatch && priceMatch;
+      } else {
+        const priceMatch =
+          (minPrice === "" || car?.rate >= minPrice) &&
+          (maxPrice === "" || car?.rate <= maxPrice);
+
+        return typeMatch && categoryMatch && priceMatch;
+      }
     });
 
     return filteredCars?.sort((a, b) => {
