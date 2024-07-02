@@ -6,42 +6,11 @@ import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import PageNotFoundImg from "../../images/icons/PageNotFound.png";
-import axios from "axios";
 
 const PageNotFound = () => {
   const navigate = useNavigate();
 
-  // Set HTTP status code to 404
-  useEffect(() => {
-    document.title = "Page Not Found";
-    // Setting HTTP status code
-    const setStatus = () => {
-      if (window.location.pathname !== "/") {
-        document.title = "404";
-        window.history.replaceState({}, document.title, window.location.href);
-      }
-    };
-    setStatus();
-  }, []);
-
-  // useEffect(() => {
-  //   axios
-  //     .post(
-  //       `${process.env.REACT_APP_MILELE_API_URL}/set-404-status`,
-  //       {},
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     )
-  //     .then((response) => {
-  //       console.log("404 status set on server");
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error setting 404 status:", error);
-  //     });
-  // }, []);
+ 
 
   const errorPageBackButton = () => {
     navigate("/");
