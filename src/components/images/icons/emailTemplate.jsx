@@ -146,7 +146,7 @@ const EmailTemplate = ({ fname, lname }) => {
           />
           <p>
             <span className="bottom-bar-copyright-text text-white">
-              Copyright &copy; 2024. Milele Car rental <br />All Rights
+              Copyright &copy; 2023. Milele Car rental <br />All Rights
               Reserved.
             </span>
           </p>
