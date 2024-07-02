@@ -1,4 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: /pageNotFound
+Disallow: /bookingPage/3&booking-success
 
 Sitemap: https://www.milelecarrental.com/sitemap.xml

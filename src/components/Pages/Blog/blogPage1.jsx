@@ -19,10 +19,10 @@ const BlogPage1 = () => {
   return (
     <HelmetProvider id="main">
       <Helmet>
-        <title>Blog: {blogsData?.title}</title>
+        <title>Rent or Lease a Car | Car Rental Blogs</title>
         <meta
           name="description"
-          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+          content="Stay updated with the latest tips, guides, and news about car rentals on the Milele Car Rental blog. Discover how to choose the best vehicles and make the most of your rental experience."
         />
         <meta name="keywords" content="keywords" />
         <link
