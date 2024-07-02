@@ -130,7 +130,9 @@ const VehiclesPage = () => {
       let storedStartDateRange, storedEndDateRange;
 
       if (storedFormFields) {
-        console.log(`storedFormFields?.showDropoffV1 ${storedFormFields?.showDropoffV1}`)
+        console.log(
+          `storedFormFields?.showDropoffV1 ${storedFormFields?.showDropoffV1}`
+        );
         setShowDropoff(storedFormFields?.showDropoffV1 === 1);
 
         const pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
@@ -1156,7 +1158,12 @@ const VehiclesPage = () => {
                                       className="form-control-location mt-2 col-12"
                                       type="text"
                                       placeholder="Enter pickup location"
-                                      value={`${pickupLocationMessage} - ${inputPickupFieldValue}`}
+                                      value={
+                                        pickupLocationMessage &&
+                                        inputPickupFieldValue
+                                          ? `${pickupLocationMessage} - ${inputPickupFieldValue}`
+                                          : pickupLocationMessage
+                                      }
                                       onChange={() =>
                                         console.log("On change in pickup")
                                       }
@@ -1180,7 +1187,12 @@ const VehiclesPage = () => {
                                         className="form-control-location mt-2 col-12"
                                         type="text"
                                         placeholder="Enter dropoff location"
-                                        value={`${dropoffLocationMessage} - ${inputDropoffFieldValue}`}
+                                        value={
+                                          dropoffLocationMessage &&
+                                          inputDropoffFieldValue
+                                            ? `${dropoffLocationMessage} - ${inputDropoffFieldValue}`
+                                            : dropoffLocationMessage
+                                        }
                                         onChange={() =>
                                           console.log("On change in dropoff")
                                         }
