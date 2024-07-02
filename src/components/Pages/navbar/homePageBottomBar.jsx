@@ -67,7 +67,7 @@ const HomePageBottomBar = () => {
                 <div className="pl-2">
                   <h3>
                     <span className="bottom-bar-copyright-text text-white">
-                      Copyright &copy; 2024. Milele Car rental All Rights
+                      Copyright &copy; 2023. Milele Car rental All Rights
                       Reserved
                     </span>
                   </h3>
