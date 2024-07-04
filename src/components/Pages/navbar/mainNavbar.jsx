@@ -4,7 +4,6 @@ import Container from "react-bootstrap/Container";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Image from "react-bootstrap/Image";
-import { LiaUserCircleSolid } from "react-icons/lia";
 import Coloredlogo from "../../images/car-rental-logo.png";
 import { Col } from "react-bootstrap";
 import "./navbar.css";
@@ -46,55 +45,15 @@ function MainNavbar() {
   const logoImage = Coloredlogo;
 
   const handleLogout = () => {
-    return (
-      <>
-        <React.Fragment>
-          <Button variant="outlined" onClick={handleClickOpen}>
-            Open responsive dialog
-          </Button>
-          <Dialog
-            fullScreen={fullScreen}
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="responsive-dialog-title"
-          >
-            <DialogTitle id="responsive-dialog-title">
-              {"Use Google's location service?"}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Let Google help apps determine location. This means sending
-                anonymous location data to Google, even when no apps are
-                running.
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button autoFocus onClick={handleClose}>
-                Disagree
-              </Button>
-              <Button onClick={handleClose} autoFocus>
-                Agree
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </React.Fragment>
-      </>
-    );
-  };
-
-  const handleLogout2 = () => {
-    const confirmLogout = window.confirm("Are you sure you want to log out?");
-    if (confirmLogout) {
-      localStorage?.removeItem("user");
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
-      navigate("/");
-    }
-  };
-
-  const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
+    localStorage?.removeItem("user");
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
+    navigate("/");
   };
 
   const handleClose = () => {
@@ -245,7 +204,7 @@ function MainNavbar() {
                     </a>
                   </li>
 
-                  {/* {auth && authStatus === "success" ? (
+                  {auth && authStatus === "success" ? (
                     <>
                       <div className="nav-item d-flex align-items-center ml-4">
                         <FaUserCircle className="fa-user-circle" />
@@ -294,7 +253,7 @@ function MainNavbar() {
                         </a>
                       </div>
                     </>
-                  )} */}
+                  )}
                 </ul>
               </div>
             </div>
@@ -313,6 +272,30 @@ function MainNavbar() {
           transform: translateX(0);
         }
       `}</style>
+
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+        maxWidth="sm" 
+        fullWidth={true}
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"Logout Confirmation!"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to log out?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} autoFocus>
+            Cancel
+          </Button>
+          <Button onClick={handleConfirmLogout}>Logout</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

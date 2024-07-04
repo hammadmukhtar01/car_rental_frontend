@@ -12,11 +12,13 @@ const SignupPage = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
+    fName: "",
+    lName: "",
     email: "",
     phoneNumber: "",
     password: "",
     passwordConfirm: "",
+    nationality: "",
   });
 
   useEffect(() => {
@@ -54,7 +56,8 @@ const SignupPage = () => {
     };
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
+        `http://localhost:8000/api/v1/customer/create`,
+        // `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
         formData,
         { headers }
       );
@@ -105,7 +108,6 @@ const SignupPage = () => {
         />
         <meta name="keywords" content="keywords" />
         {/* <link rel="canonical" href="https://milelecarrental.com/signup" /> */}
-
       </Helmet>
       <HeaderCombination />
       <section className="ftco-section">
@@ -125,18 +127,35 @@ const SignupPage = () => {
                         type="text"
                         autoComplete="off"
                         className="form-control"
-                        id="username"
-                        name="name"
+                        id="firstName"
+                        name="fName"
                         required
-                        value={formData?.name}
+                        value={formData?.fName}
                         onChange={handleChange}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                       />
-                      <label htmlFor="name">name</label>
+                      <label htmlFor="firstName">first name</label>
                     </div>
 
                     <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
+                      <input
+                        type="text"
+                        autoComplete="off"
+                        className="form-control"
+                        id="lastName"
+                        name="lName"
+                        required
+                        value={formData?.lName}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                      <label htmlFor="lastName">last name</label>
+                    </div>
+                  </div>
+                  <div className="form-group row">
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-12">
                       <input
                         className="form-control"
                         id="email"
@@ -151,8 +170,23 @@ const SignupPage = () => {
                       />
                       <label htmlFor="email">email</label>
                     </div>
-                  </div>
 
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-12">
+                      <input
+                        className="form-control"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        type="tel"
+                        autoComplete="off"
+                        required
+                        value={formData?.phoneNumber}
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                      <label htmlFor="phoneNumber">phone number</label>
+                    </div>
+                  </div>
                   <div className="form-group row">
                     <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
                       <input
@@ -188,20 +222,20 @@ const SignupPage = () => {
                   </div>
 
                   <div className="form-group row">
-                    <div className="inputgroup col-lg-6 col-md-6 col-sm-12">
+                    <div className="inputgroup col-lg-6 col-md-6 col-sm-6">
                       <input
-                        className="form-control"
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        type="tel"
+                        type="text"
                         autoComplete="off"
+                        className="form-control"
+                        id="nationality"
+                        name="nationality"
                         required
-                        value={formData?.phoneNumber}
+                        value={formData?.nationality}
                         onChange={handleChange}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                       />
-                      <label htmlFor="phoneNumber">phone number</label>
+                      <label htmlFor="nationality">nationality</label>
                     </div>
                   </div>
 
