@@ -8,11 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import FooterCombination from "../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import '../Pages/OtherPages/toastStyle.css';
+import "../Pages/OtherPages/toastStyle.css";
 
 const LoginPage = () => {
-  const tenancyName = "MileleCarRental";
-  const [UsernameOrEmailAddress, setUsernameOrEmailAddress] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -26,12 +25,13 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    console.warn("Data: ", UsernameOrEmailAddress, password);
-    let data = { tenancyName, UsernameOrEmailAddress, password };
+    console.warn("Data: ", email, password);
+    let data = { email, password };
 
     try {
       let result = await axios.post(
-        "https://app.speedautosystems.com/api/Account",
+        // `${process.env.REACT_APP_MILELE_API_URL}/customer/login`,
+        `http://localhost:8000/api/v1/customer/login`,
         data,
 
         {
@@ -45,8 +45,8 @@ const LoginPage = () => {
       let resultedData = result?.data;
       console.log("Result in login page is: ", resultedData);
 
-      if (resultedData.success === true) {
-        localStorage.setItem("user", JSON.stringify(result));
+      if (resultedData.status === "success" && resultedData?.token) {
+        localStorage.setItem("user", JSON.stringify(resultedData));
         toast.success("Logged In Successfully!", {
           autoClose: 2000,
           style: {
@@ -90,7 +90,6 @@ const LoginPage = () => {
         />
         <meta name="keywords" content="keywords" />
         {/* <link rel="canonical" href="https://milelecarrental.com/login" /> */}
-
       </Helmet>
       <HeaderCombination />
       <section className="ftco-section">
@@ -112,15 +111,15 @@ const LoginPage = () => {
                       <div className="col-lg-7 col-md-7 custom-dropdown-container">
                         <input
                           className="form-control-login mt-2 col-12"
-                          id="UsernameOrEmailAddress"
-                          name="UsernameOrEmailAddress"
+                          id="email"
+                          name="email"
                           type="text"
-                          autoComplete="UsernameOrEmailAddress"
+                          autoComplete="email"
                           placeholder="Username/EmailAddress"
                           required
-                          value={UsernameOrEmailAddress}
+                          value={email}
                           onChange={(e) => {
-                            setUsernameOrEmailAddress(e.target.value);
+                            setEmail(e.target.value);
                           }}
                         />
                       </div>

@@ -15,7 +15,7 @@ import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import '../OtherPages/toastStyle.css';
+import "../OtherPages/toastStyle.css";
 
 const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [firstName, setFirstName] = useState("");
@@ -26,6 +26,16 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   // const [nationality, setNationality] = useState("");
   const [loadingCustomer, setLoadingCustomer] = useState(false);
   const [loadingBooking, setLoadingBooking] = useState(false);
+
+  // Customer Data
+  const user_info = JSON.parse(localStorage.getItem("user"));
+  const user_id = user_info?.data._id;
+  const user_token = user_info?.token;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user_token}`,
+    },
+  };
 
   // Driving License
   const [drivingLicenseNum, setDrivingLicenseNum] = useState("");
@@ -45,6 +55,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [pickupLocationId, setPickupLocationId] = useState(null);
   const [dropoffLocationId, setDropoffLocationId] = useState(null);
   const [newCustomerDetail, setNewCustomerDetail] = useState("");
+  const [speedCustomerId, setSpeedCustomerId] = useState();
   const [paymentUrl, setPaymentUrl] = useState("");
   const [bookingStatus, setBookingStatus] = useState("");
 
@@ -207,6 +218,26 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     } catch (error) {
       console.error("Error while creating img url of documents", error);
     }
+  };
+
+  // Store Customer Id from Speed into Mongo DB backend
+
+  const sendSpeedCustomerIdInDB = (customerId) => {
+    const data = {
+      speedCustomerId: customerId,
+    };
+
+    axios
+      .post("http://localhost:8000/api/v1/cart/create", data, config)
+      .then((response) => {
+        // Handle successful addition to cart
+        alert("Product added to cart, successfully");
+        console.log("Product added to cart:", response.data);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error adding to cart:", error);
+      });
   };
 
   // Create Customer API

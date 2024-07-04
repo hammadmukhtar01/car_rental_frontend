@@ -36,7 +36,7 @@ const TermsConditionsPage = () => {
               <h2 className="terms-conditions-headings-main">PAYMENT</h2>
               <span>
                 <div className="terms-conditions-sub-heading-1">
-                  Rental Terms with Milele Corp
+                  Rental Terms with Milele Car Rental
                 </div>{" "}
                 <ul>
                   <li className="pb-2">
@@ -61,7 +61,7 @@ const TermsConditionsPage = () => {
                 <br />
                 Additional 50% fine if unpaid beyond 30 days.
                 <br />
-                Milele Corp reserves the right to pursue legal action for
+                Milele Car Rental reserves the right to pursue legal action for
                 non-compliance.
               </span>
 
