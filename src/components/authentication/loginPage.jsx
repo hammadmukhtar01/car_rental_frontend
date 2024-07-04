@@ -162,6 +162,14 @@ const LoginPage = () => {
                   </div>
                   <div className="form-group-0 pt-4">
                     <div className="col-lg-12">
+                      <a href="/signup">
+                        <div className="forgot-password text-right">
+                          {" "}
+                          Already have an account?
+                        </div>
+                      </a>
+                    </div>
+                    <div className="col-lg-12">
                       <a
                         href="/forgotpassword"
                         className="forgot-password-heading"

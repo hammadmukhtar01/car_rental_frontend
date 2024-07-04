@@ -186,7 +186,7 @@
 
 .navbar-toggler {
   box-shadow: none;
-  padding: 10px 25px;
+  padding: 10px 15px;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
@@ -360,5 +360,31 @@ nav a {
   .navbar-light .navbar-all-menus.active::before,
   .navbar-nav li a::after {
     content: none;
+  }
+
+  .fa-user-circle {
+    margin: 0px 15px;
+  }
+
+  .css-hz1bth-MuiDialog-container {
+    height: 30% !important;
+    position: relative;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 70%;
+  }
+}
+
+@media (max-width: 899px) {
+  .css-hz1bth-MuiDialog-container {
+    height: 25% !important;
+    width: 70%;
+  }
+}
+
+@media (max-width: 426px) {
+  .css-hz1bth-MuiDialog-container {
+    width: 90%;
   }
 }
