@@ -2,55 +2,43 @@
 import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Offcanvas from "react-bootstrap/Offcanvas";
 import Image from "react-bootstrap/Image";
+import { LiaUserCircleSolid } from "react-icons/lia";
 import Coloredlogo from "../../images/car-rental-logo.png";
 import { Col } from "react-bootstrap";
 import "./navbar.css";
+import { FaUserCircle } from "react-icons/fa";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 function MainNavbar() {
   const [isHomePage, setIsHomePage] = useState(false);
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const toggleOffCanvas = () => setShowOffCanvas(!showOffCanvas);
 
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   const navigate = useNavigate();
   const location = useLocation();
   const auth = JSON.parse(localStorage?.getItem("user"));
-  const authStatusCode = auth?.statusText;
+  const authStatus = auth?.status;
+  const authToken = auth?.token;
   const user_info = auth?.data;
-  const userName = user_info?.result?.userName;
+  const userAuthId = user_info?._id;
 
   useEffect(() => {
     setIsHomePage(location?.pathname === "/");
   }, [location?.pathname]);
-
-  // useEffect(() => {
-  //   const handleNavLinkClick = (event) => {
-  //     const id = event.target.id;
-  //     if (typeof window.gtag === "function") {
-  //       window.gtag("event", "click", {
-  //         event_category: "Navigation",
-  //         event_label: `Clicked on ${id}`,
-  //         event_action: "click",
-  //         event_id: id,
-  //       });
-  //     }
-  //   };
-
-  //   const navLinks = document.querySelectorAll("a.navbar-all-menus nav-link");
-  //   navLinks.forEach((link) => {
-  //     link.addEventListener("click", handleNavLinkClick);
-  //   });
-
-  //   return () => {
-  //     navLinks.forEach((link) => {
-  //       link.removeEventListener("click", handleNavLinkClick);
-  //     });
-  //   };
-  // }, []);
 
   const isExactHomePage = location?.pathname === "/";
 
@@ -58,6 +46,43 @@ function MainNavbar() {
   const logoImage = Coloredlogo;
 
   const handleLogout = () => {
+    return (
+      <>
+        <React.Fragment>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            Open responsive dialog
+          </Button>
+          <Dialog
+            fullScreen={fullScreen}
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="responsive-dialog-title"
+          >
+            <DialogTitle id="responsive-dialog-title">
+              {"Use Google's location service?"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Let Google help apps determine location. This means sending
+                anonymous location data to Google, even when no apps are
+                running.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button autoFocus onClick={handleClose}>
+                Disagree
+              </Button>
+              <Button onClick={handleClose} autoFocus>
+                Agree
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </React.Fragment>
+      </>
+    );
+  };
+
+  const handleLogout2 = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
     if (confirmLogout) {
       localStorage?.removeItem("user");
@@ -66,6 +91,14 @@ function MainNavbar() {
       }, 100);
       navigate("/");
     }
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -211,6 +244,57 @@ function MainNavbar() {
                       FAQs
                     </a>
                   </li>
+
+                  {/* {auth && authStatus === "success" ? (
+                    <>
+                      <div className="nav-item d-flex align-items-center ml-4">
+                        <FaUserCircle className="fa-user-circle" />
+
+                        <NavDropdown
+                          title={`${user_info?.fName}`}
+                          className=" "
+                        >
+                          <NavDropdown.Item
+                            as={NavLink}
+                            to={`/myProfile/${userAuthId}`}
+                          >
+                            My Profile
+                          </NavDropdown.Item>
+
+                          <NavDropdown.Item
+                            as={NavLink}
+                            to={`/myBookings/${userAuthId}`}
+                          >
+                            My Bookings
+                          </NavDropdown.Item>
+                          <NavDropdown.Item
+                            as={NavLink}
+                            to={`/myBookings/${userAuthId}`}
+                          >
+                            Update Password
+                          </NavDropdown.Item>
+                          <NavDropdown.Divider />
+                          <NavDropdown.Item onClick={handleLogout}>
+                            Logout
+                          </NavDropdown.Item>
+                        </NavDropdown>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="login-signup-button">
+                        <a
+                          href="/login"
+                          title="Login Sign Up"
+                          className="navbar-all-menus nav-link login-signup-button"
+                          onClick={() => setShowOffCanvas(false)}
+                          id="login-signup-url"
+                        >
+                          <b className="signup-menu">Login | Sign Up</b>
+                        </a>
+                      </div>
+                    </>
+                  )} */}
                 </ul>
               </div>
             </div>
