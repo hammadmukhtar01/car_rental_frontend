@@ -1,5 +1,20 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import blog2MainImg1WebP from "../../images/blog-images/blog2-main-Img1.webp";
+import BurjKhalifaImgWebP from "../../images/blog-images/blog2-Img1.webp";
+import PalmJumeirahImgWebP from "../../images/blog-images/blog2-Img2.webp";
+import DubaiCreekImgWebP from "../../images/blog-images/blog2-Img3.webp";
+import DubaiMallImgWebP from "../../images/blog-images/blog2-Img4.webp";
+import SkydiveDubaiImgWebP from "../../images/blog-images/blog2-Img5.webp";
+import DubaiFrameImgWebP from "../../images/blog-images/blog2-Img6.webp";
+import KiteBeachImgWebP from "../../images/blog-images/blog2-Img7.webp";
+import CityWalkImgWebP from "../../images/blog-images/blog2-Img8.webp";
+import DubaiMarinaImgWebP from "../../images/blog-images/blog2-Img9.webp";
+import DeepDiveDubaiImgWebP from "../../images/blog-images/blog2-Img10.webp";
+import BurjAlArabImgWebP from "../../images/blog-images/blog2-Img11.webp";
+import MuseumoftheFutureImgWebP from "../../images/blog-images/blog2-Img12.webp";
+import ExpoCityDubaiImgWebP from "../../images/blog-images/blog2-Img13.webp";
+
 import blog2MainImg1 from "../../images/blog-images/blog2-main-Img1.jpg";
 import BurjKhalifaImg from "../../images/blog-images/blog2-Img1.jpg";
 import PalmJumeirahImg from "../../images/blog-images/blog2-Img2.jpg";
@@ -25,6 +40,7 @@ const BlogPage2 = () => {
   const blogsData = {
     id: 2,
     imageUrl: blog2MainImg1,
+    imageUrlWebP: blog2MainImg1WebP,
     category: "Entertainment",
     title: "Things to do in Dubai for the Ultimate Vacation",
     date: "Apr 23, 2022",
@@ -55,12 +71,17 @@ const BlogPage2 = () => {
           <div className="blog2-details-page">
             <div className="blog-details-image-container">
               <h1 className="blog2-main-heading mb-3"> {blogsData?.title}</h1>
-              <img
-                src={blogsData?.imageUrl}
-                className="blog-details-image"
-                title={blogsData?.title ? blogsData.title : "Blogs Data"}
-                alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-              />
+
+              <picture>
+                <source srcSet={blogsData?.imageUrlWebP} type="image/webp" />
+                <source srcSet={blogsData?.imageUrl} type="image/png" />
+                <img
+                  src={blogsData?.imageUrl}
+                  className="blog-details-image"
+                  title={blogsData?.title ? blogsData.title : "Blogs Data"}
+                  alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                />
+              </picture>
             </div>
 
             <p className="mt-4">{blogsData?.text}</p>
@@ -87,12 +108,18 @@ const BlogPage2 = () => {
                       world at 585m.
                     </p>
                     <div className="blog2-extra-imgs-div">
-                      <img
-                        src={BurjKhalifaImg}
-                        title="Burj Khalifa"
-                        className="blog2-all-images pb-4"
-                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                      />
+                      <picture>
+                        <source srcSet={BurjKhalifaImgWebP} type="image/webp" />
+                        <source srcSet={BurjKhalifaImg} type="image/png" />
+                        <img
+                          src={BurjKhalifaImg}
+                          title="Burj Khalifa"
+                          className="blog2-all-images pb-4"
+                          alt={
+                            blogsData?.title ? blogsData.title : "Blogs Data"
+                          }
+                        />
+                      </picture>
                     </div>
 
                     <h3 className="blog2-things-todo-inDubai-heading mb-3">
@@ -116,12 +143,16 @@ const BlogPage2 = () => {
                     Palm Jumeirah :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={PalmJumeirahImg}
-                      title="Palm Jumeirah"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source srcSet={PalmJumeirahImgWebP} type="image/webp" />
+                      <source srcSet={PalmJumeirahImg} type="image/png" />
+                      <img
+                        src={PalmJumeirahImg}
+                        title="Palm Jumeirah"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     Palm Jumeirah is one of the largest manmade islands in the
@@ -137,12 +168,16 @@ const BlogPage2 = () => {
                     Dubai Creek :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={DubaiCreekImg}
-                      title="Dubai Creek"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source srcSet={DubaiCreekImgWebP} type="image/webp" />
+                      <source srcSet={DubaiCreekImg} type="image/png" />
+                      <img
+                        src={DubaiCreekImg}
+                        title="Dubai Creek"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     The city has a rich culture to explore. Modern developments
@@ -160,12 +195,16 @@ const BlogPage2 = () => {
                     Dubai Mall :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={DubaiMallImg}
-                      title="Dubai Mall"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source srcSet={DubaiMallImgWebP} type="image/webp" />
+                      <source srcSet={DubaiMallImg} type="image/png" />
+                      <img
+                        src={DubaiMallImg}
+                        title="Dubai Mall"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     Dubai Mall is the world's largest destination for shopping,
@@ -182,12 +221,16 @@ const BlogPage2 = () => {
                     Skydive Dubai :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={SkydiveDubaiImg}
-                      title="Skydive Dubai"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source srcSet={SkydiveDubaiImgWebP} type="image/webp" />
+                      <source srcSet={SkydiveDubaiImg} type="image/png" />
+                      <img
+                        src={SkydiveDubaiImg}
+                        title="Skydive Dubai"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     If there's one thing every adventure-seeker must sign up
@@ -205,12 +248,16 @@ const BlogPage2 = () => {
                     Dubai Frame :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={DubaiFrameImg}
-                      title="Dubai Frame"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source srcSet={DubaiFrameImgWebP} type="image/webp" />
+                      <source srcSet={DubaiFrameImg} type="image/png" />
+                      <img
+                        src={DubaiFrameImg}
+                        title="Dubai Frame"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     Since opening in 2018, Dubai Frame has become a cultural
@@ -228,12 +275,16 @@ const BlogPage2 = () => {
                     Kite Beach :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={KiteBeachImg}
-                      title="Kite Beach"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source srcSet={KiteBeachImgWebP} type="image/webp" />
+                      <source srcSet={KiteBeachImg} type="image/png" />
+                      <img
+                        src={KiteBeachImg}
+                        title="Kite Beach"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     The aptly-named Kite Beach is the perfect place to test out
@@ -249,12 +300,16 @@ const BlogPage2 = () => {
                     City Walk :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={CityWalkImg}
-                      title="City Walk"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source srcSet={CityWalkImgWebP} type="image/webp" />
+                      <source srcSet={CityWalkImg} type="image/png" />
+                      <img
+                        src={CityWalkImg}
+                        title="City Walk"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     City Walk offers European-style pedestrian streets alongside
@@ -272,12 +327,16 @@ const BlogPage2 = () => {
                     Dubai Marina :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={DubaiMarinaImg}
-                      title="Dubai Marina"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source srcSet={DubaiMarinaImgWebP} type="image/webp" />
+                      <source srcSet={DubaiMarinaImg} type="image/png" />
+                      <img
+                        src={DubaiMarinaImg}
+                        title="Dubai Marina"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     One of the city's liveliest and most happening
@@ -294,12 +353,16 @@ const BlogPage2 = () => {
                     Deep Dive Dubai :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={DeepDiveDubaiImg}
-                      title="Deep Dive Dubai"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source srcSet={DeepDiveDubaiImgWebP} type="image/webp" />
+                      <source srcSet={DeepDiveDubaiImg} type="image/png" />
+                      <img
+                        src={DeepDiveDubaiImg}
+                        title="Deep Dive Dubai"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     The latest addition to the city's thriving sports and
@@ -316,12 +379,16 @@ const BlogPage2 = () => {
                     Burj Al Arab :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={BurjAlArabImg}
-                      title="Burj Al Arab"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source srcSet={BurjAlArabImgWebP} type="image/webp" />
+                      <source srcSet={BurjAlArabImg} type="image/png" />
+                      <img
+                        src={BurjAlArabImg}
+                        title="Burj Al Arab"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     For the first time since its launch, Dubai's famed Burj Al
@@ -338,12 +405,19 @@ const BlogPage2 = () => {
                     Museum of the Future :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={MuseumoftheFutureImg}
-                      title="Museum of the Future"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source
+                        srcSet={MuseumoftheFutureImgWebP}
+                        type="image/webp"
+                      />
+                      <source srcSet={MuseumoftheFutureImg} type="image/png" />
+                      <img
+                        src={MuseumoftheFutureImg}
+                        title="Museum of the Future"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     One of Dubai's most famous architectural landmarks, the
@@ -361,12 +435,17 @@ const BlogPage2 = () => {
                     Expo City Dubai :{" "}
                   </h3>
                   <div className="blog2-extra-imgs-div">
-                    <img
-                      src={ExpoCityDubaiImg}
-                      title="Expo City Dubai"
-                      className="blog2-all-images pb-4"
-                      alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-                    />
+                    <picture>
+                      <source srcSet={ExpoCityDubaiImgWebP} type="image/webp" />
+                      <source srcSet={ExpoCityDubaiImg} type="image/png" />
+
+                      <img
+                        src={ExpoCityDubaiImg}
+                        title="Expo City Dubai"
+                        className="blog2-all-images pb-4"
+                        alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                      />
+                    </picture>
                   </div>
                   <p>
                     Building on the legacy of Expo 2020 Dubai, which welcomed

@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import blog3MainImg1 from "../../images/blog-images/blog3-main-Img1.jpg";
+import blog3MainImg1WebP from "../../images/blog-images/blog3-main-Img1.webp";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
@@ -15,6 +16,7 @@ const BlogPage3 = ({ blogData }) => {
   const blogsData = {
     id: 3,
     imageUrl: blog3MainImg1,
+    imageUrlWebP: blog3MainImg1WebP,
     title: "Top Apps that help You Navigate Dubai",
     date: "Aug 23, 2023",
     text: "A cool thing about living in the UAE is get in your car, put on your favourite song and drive. Driving can be fun - if you know where you are going and have a trusty navigation app (you don't want to get lost along the way). In Dubai, five apps can make a difference when on the road; Google Maps, Apple Maps, Waze, Yango Maps, Cafu and RTA Smart Drive.",
@@ -47,12 +49,17 @@ const BlogPage3 = ({ blogData }) => {
           <div className="blog-details-page">
             <h1 className="blog3-main-heading mb-3"> {blogsData?.title}</h1>
             <div className="blog-details-image-container">
-              <img
-                src={blogsData?.imageUrl}
-                className="blog-details-image"
-                title={blogsData?.title ? blogsData.title : "Blogs Data"}
-                alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-              />
+              <picture>
+                <source srcSet={blogsData?.imageUrlWebP} type="image/webp" />
+                <source srcSet={blogsData?.imageUrl} type="image/png" />
+
+                <img
+                  src={blogsData?.imageUrl}
+                  className="blog-details-image"
+                  title={blogsData?.title ? blogsData.title : "Blogs Data"}
+                  alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                />
+              </picture>
             </div>
             <p className="mt-4">{blogsData?.text}</p>
             <br />
