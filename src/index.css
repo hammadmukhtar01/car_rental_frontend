@@ -12,27 +12,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.btn-close {
-  border: 1px solid rgb(175, 175, 175) !important;
-}
-
-.spin-wheel-buttons-container {
-  position: fixed;
-  bottom: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  right: 15px;
-  z-index: 999;
-}
-
-.lease-car-phone-num-div,
+/* .lease-car-phone-num-div,
 .lease-car-whatsapp-div {
   margin: 13px 5px 0px 13px;
-}
+} */
 
-.contact-buttons-container,
-.lease-car-buttons-container {
+.contact-buttons-container
+/* , .lease-car-buttons-container */
+ {
   position: fixed;
   bottom: 30px;
   display: flex;
@@ -42,8 +29,9 @@ body {
   z-index: 999;
 }
 
-.contact-button,
-.lease-car-button {
+.contact-button
+/* , .lease-car-button  */
+{
   display: flex;
   align-items: center;
   margin-bottom: 11px;
@@ -55,7 +43,7 @@ body {
   position: relative;
 }
 
-.whatsapp-link-lease-section {
+/* .whatsapp-link-lease-section {
   padding: 12px;
 }
 
@@ -94,10 +82,11 @@ body {
 .whatsapp-link-lease-section svg,
 .phone-call-link-lease-section svg {
   font-size: 18px;
-}
+} */
 
-.contact-button::before,
-.lease-car-button::before {
+.contact-button::before
+/* , .lease-car-button::before */
+ {
   content: "";
   position: absolute;
   width: 100%;
@@ -106,17 +95,19 @@ body {
   opacity: 0;
 }
 
-.contact-button:hover::before,
-.lease-car-button:hover::before {
+.contact-button:hover::before
+/* , .lease-car-button:hover::before  */
+{
   left: 0;
   animation: identifier 1s ease-out infinite;
   border-radius: 50px;
   background: inherit;
 }
 
-.lease-car-whatsapp-div:hover .whatsapp-text-lto {
+/* .lease-car-whatsapp-div:hover 
+.whatsapp-text-lto {
   color: green;
-}
+} */
 
 .location-link {
   box-shadow: none;
@@ -133,8 +124,7 @@ body {
   }
 }
 
-/* Define the keyframes animation */
-@keyframes wave-effect {
+/* @keyframes wave-effect {
   0% {
     opacity: 1;
     transform: scale(1);
@@ -159,7 +149,7 @@ body {
   animation: wave-effect 1s ease-out infinite;
   border-radius: 50px;
   background: inherit;
-}
+} */
 
 .phone-call-link,
 .map-link,
@@ -176,74 +166,43 @@ body {
   background-color: rgba(0, 128, 0, 0.883);
 }
 
-.rotate {
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 .contact-button svg {
   margin-right: 0px;
   font-size: 26px;
 }
 
-ul.elementor-contact-tabs-list {
+/* ul.elementor-contact-tabs-list {
   background-color: #e87a28 !important;
   list-style: none;
-}
+} */
 
-.all-vehicles-container {
-  padding: 2rem 4rem 1rem 6rem;
-}
-
-.single-feature-container,
-.lease-page-single-feature-container {
+.single-feature-container
+/* , .lease-page-single-feature-container  */
+{
   box-shadow: 1px 1px 3px 0px #aba8a7;
   border-radius: 43px;
   margin: 0px 7px;
   display: ruby;
-}
-
-.single-feature-container {
   padding: 6px 10px 7px 9px;
 }
+.row {
+  margin: 0px 0px 0px -10px;
+}
 
-.lease-page-single-feature-container {
+/* .lease-page-single-feature-container {
   padding: 3px 10px 7px 9px;
-}
+} */
 
-.menu-items.active {
-  background-color: #e87a28;
-  color: white !important;
-}
 
-.menu-items.active a span {
-  color: white !important;
-}
-
-#footer-copyright .copyright-text a {
-  color: #e87a28 !important;
-}
-.copyright-socials ul li a {
-  color: #e87a28 !important;
-}
-.footer_widgets_wrapper .widget_socials li a:hover {
+/* .footer_widgets_wrapper .widget_socials li a:hover {
   background-color: #e87a28 !important;
-}
-
-.navbar1-container {
-  background-color: rgb(33, 33, 33);
-}
-
+} */
+/* 
 .phone-number a {
   color: white;
-}
+} */
 
-.header-main-socs .clearfix {
+/* .header-main-socs .clearfix {
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -297,9 +256,7 @@ ul.header-menu {
   margin-bottom: 0px;
 }
 
-.row {
-  margin: 0px 0px 0px -10px;
-}
+
 
 .header-menu {
   list-style: none;
@@ -350,29 +307,30 @@ ul.header-menu {
   display: block;
   list-style: none;
 }
+*/
 
 @media screen and (max-width: 991px) {
   .contact-button svg {
     font-size: 22px;
   }
-  .lease-car-button,
+  /* .lease-car-button,
   .whatsapp-link-lease-section {
     padding: 10px;
   }
   .whatsapp-link-lease-section svg,
   .phone-call-link-lease-section svg {
     font-size: 18px;
-  }
+  } */
 }
 
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 767px) {
   .lease-car-button,
   .whatsapp-link-lease-section {
     padding: 15px;
   }
-}
+} */
 
-@media screen and (max-width: 576px) {
+/* @media screen and (max-width: 576px) {
   .lease-car-button,
   .whatsapp-link-lease-section {
     padding: 17px;
@@ -384,4 +342,4 @@ ul.header-menu {
   .whatsapp-link-lease-section {
     padding: 10px;
   }
-}
+}  */
