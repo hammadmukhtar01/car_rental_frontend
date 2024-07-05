@@ -26,10 +26,13 @@ const BlogPage3 = ({ blogData }) => {
     <HelmetProvider id="main">
       <>
         <Helmet>
-          <title>Blog: {blogsData?.title}</title>
+          <title>
+            Navigate easily in Dubai: Top Dubai apps that will make your life
+            easier
+          </title>
           <meta
             name="description"
-            content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+            content="Experience smooth and enjoyable driving in the UAE with the best navigation apps. Discover Google Maps, Apple Maps, Waze, Yango Maps, CAFU, and RTA Smart Drive for accurate directions, real-time updates, and convenient features. Download now for a seamless road trip. "
           />
           <meta name="keywords" content="keywords" />
           <link

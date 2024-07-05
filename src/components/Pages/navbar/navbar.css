@@ -346,6 +346,10 @@ nav a {
   transform: translateY(0px);
 }
 
+.user-name-icon-div {
+  margin-left: 25px;
+}
+
 @media screen and (min-width: 991px) {
   .navbar-all-menus {
     padding: 10px 15px !important;
@@ -373,6 +377,9 @@ nav a {
     left: 50%;
     transform: translate(-50%, 50%);
     width: 70%;
+  }
+  .user-name-icon-div {
+    margin-left: 5px;
   }
 }
 

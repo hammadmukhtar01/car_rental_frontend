@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { Container, Row, Col, Modal, Form } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -117,6 +118,10 @@ const VehicleDetails = ({ nextStep }) => {
 
   const additionalFeaturesArray =
     singleVehicleDetails?.notes?.split(", ") || [];
+
+  const auth = JSON.parse(localStorage.getItem("user"));
+  const user_id = auth?.data._id;
+  const authToken = auth?.token;
 
   // const additionalFeaturesList = [...additionalFeaturesArray];
   // console.log(`additionalFeaturesList ${additionalFeaturesList}`);
@@ -458,6 +463,18 @@ const VehicleDetails = ({ nextStep }) => {
   };
 
   const handleStartBookingClick = () => {
+    if (!auth || !authToken) {
+      toast.error("Please log in to start booking.", {
+        autoClose: 1000,
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          fontSize: "14px",
+        },
+      });
+      return;
+    }
+
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: "startBooking",
@@ -517,7 +534,7 @@ const VehicleDetails = ({ nextStep }) => {
 
     if (couponCode?.trim() === "") {
       toast.warning("Please enter a coupon code", {
-        autoClose: 3000,
+        autoClose: 2000,
         style: { border: "1px solid #c0c0c0", fontSize: "14px" },
       });
 
@@ -526,7 +543,7 @@ const VehicleDetails = ({ nextStep }) => {
 
     if (!foundCoupon) {
       toast.error("Invalid coupon code. Please enter a valid one.", {
-        autoClose: 3000,
+        autoClose: 2000,
         style: {
           lineHeight: "20px",
           border: "1px solid #c0c0c0",
@@ -538,7 +555,7 @@ const VehicleDetails = ({ nextStep }) => {
 
     if (carCategory.toUpperCase() !== "SUV") {
       toast.error("This coupon code is valid for SUV only.", {
-        autoClose: 3000,
+        autoClose: 2000,
         style: {
           lineHeight: "20px",
           border: "1px solid #c0c0c0",

@@ -31,7 +31,7 @@ const ContactUsForm = () => {
     if (!emailRegex.test(formData?.email)) {
       toast.error("Please enter a valid email address.", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2000,
       });
       return false;
     }
@@ -43,7 +43,7 @@ const ContactUsForm = () => {
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
       toast.error("Please enter a valid phone number.", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2000,
       });
       return;
     }
@@ -75,7 +75,7 @@ const ContactUsForm = () => {
 
       if (response?.data?.status === "success") {
         toast.success("Thank You for Contacting Us.", {
-          autoClose: 3000,
+          autoClose: 2000,
           style: { border: "1px solid #c0c0c0", fontSize: "14px" },
         });
         setFormData({
@@ -93,7 +93,7 @@ const ContactUsForm = () => {
       } else {
         toast.error("Failed to send your message. Please try again.", {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2000,
         });
       }
     } catch (error) {
@@ -110,19 +110,19 @@ const ContactUsForm = () => {
         if (errors?.email) {
           toast.error(errors?.email?.message, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 2000,
           });
         }
         if (errors?.phoneNumber) {
           toast.error(errors?.phoneNumber?.message, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 2000,
           });
         }
       } else {
         toast.error(`Submission failed: ${error?.message}`, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2000,
         });
       }
     } finally {
@@ -199,7 +199,7 @@ const ContactUsForm = () => {
 
                   <input
                     className="form-control form-control-contact-us"
-                    id="email"
+                    id="email1"
                     name="email"
                     type="email"
                     autoComplete="off"

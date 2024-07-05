@@ -49,7 +49,7 @@ const ResetPasswordPage = () => {
       }
     } catch (error) {
       toast.error(`${error?.response?.data?.message}`, {
-        autoClose: 3000,
+        autoClose: 2000,
         style: {
           border: "1px solid #c0c0c0",
           fontWeight: "400",

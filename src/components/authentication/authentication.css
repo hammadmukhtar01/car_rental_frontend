@@ -26,10 +26,6 @@
   background: #fbceb5 !important;
 }
 
-.ftco-section {
-  padding: 1em 0 2em 0;
-}
-
 .heading-section {
   font-size: 28px;
   color: #fff;
@@ -75,9 +71,9 @@
   position: relative;
   color: black;
   font-weight: bolder;
-  border: 1px solid rgb(193, 193, 193);
-  padding: 10px 30px;
-  border-radius: 20px;
+  /* border: 1px solid rgb(193, 193, 193); */
+  /* padding: 10px 0px 0px 0px; */
+  /* border-radius: 20px; */
   background-color: white;
 }
 .login-wrap h3 {

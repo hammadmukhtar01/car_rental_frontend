@@ -85,7 +85,7 @@ function DropoffLocationModal({
       if (!formFields?.deliveryMapLocDropOff?.trim()) {
         const errorMessage = "Please fill the required field.";
         toast.error(errorMessage, {
-          autoClose: 3000,
+          autoClose: 2000,
           style: {
             color: "black",
             border: "1px solid #c0c0c0",

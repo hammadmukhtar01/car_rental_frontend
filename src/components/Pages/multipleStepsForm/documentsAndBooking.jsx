@@ -28,9 +28,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [loadingBooking, setLoadingBooking] = useState(false);
 
   // Customer Data
-  const user_info = JSON.parse(localStorage.getItem("user"));
-  const user_id = user_info?.data._id;
-  const user_token = user_info?.token;
+  const auth = JSON.parse(localStorage.getItem("user"));
+  const user_id = auth?.data._id;
+  const user_customerSpeedId = auth?.data?.customerIdFromSpeed;
+  const user_token = auth?.token;
   const config = {
     headers: {
       Authorization: `Bearer ${user_token}`,
@@ -744,7 +745,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         ", "
       )} field(s) are missing.`;
       toast.error(errorMessage, {
-        autoClose: 3000,
+        autoClose: 2000,
         style: {
           border: "1px solid #c0c0c0",
           fontWeight: "400",
@@ -781,7 +782,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         ", "
       )} field(s) are missing.`;
       toast.error(errorMessage, {
-        autoClose: 3000,
+        autoClose: 2000,
         style: {
           border: "1px solid #c0c0c0",
           fontWeight: "400",
@@ -812,7 +813,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
       toast.error("Please enter a valid phone number.", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2000,
       });
       return;
     }
@@ -889,7 +890,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
       if (response?.data && response?.data?.status === "success") {
         await toast.info("Generating Payment link", {
-          autoClose: 3000,
+          autoClose: 2000,
           style: {
             border: "1px solid #c0c0c0",
             fontWeight: "400",
@@ -1076,140 +1077,225 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
                 <br />
                 <br />
-                <div className="step1-car-details p-4">
-                  <div className="location-label">
-                    <div className="booking-doc-headings styled-label">
-                      <BsFileEarmarkArrowUp className="mr-2 heading-icon" />
-                      <h2 className="booking-page-h1">
-                        {" "}
-                        <b>Documents Upload</b>
-                      </h2>
+
+                { user_customerSpeedId === null && (
+                  <>
+                    <div className="step1-car-details p-4">
+                      <div className="location-label">
+                        <div className="booking-doc-headings styled-label">
+                          <BsFileEarmarkArrowUp className="mr-2 heading-icon" />
+                          <h2 className="booking-page-h1">
+                            {" "}
+                            <b>Documents Upload</b>
+                          </h2>
+                        </div>
+                        <div className="driver-details-form-container">
+                          <div className=" form-group  pr-4">
+                            <div className="">
+                              <br />
+                              <Row>
+                                <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                                  <Form.Group controlId="formKeyword">
+                                    <div className="location-label">
+                                      <label className="styled-label">
+                                        <b>Driving License No. *</b>
+                                      </label>
+                                    </div>
+                                    <input
+                                      className="form-control-location mt-2 col-12"
+                                      required
+                                      type="text"
+                                      placeholder="Driving license no."
+                                      value={drivingLicenseNum}
+                                      onChange={(e) =>
+                                        setDrivingLicenseNum(e.target.value)
+                                      }
+                                    />
+                                  </Form.Group>
+                                </Col>
+                                <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                                  <Form.Group controlId="formKeyword">
+                                    <div className="location-label">
+                                      <label className="styled-label mb-3">
+                                        <b>Driving License Issued By *</b>
+                                      </label>
+                                    </div>
+                                    <Select
+                                      options={nationalityOptions}
+                                      required
+                                      className="form-control-nationality col-12"
+                                      value={drivingLicenseIssueBy}
+                                      onChange={handleDrivingLicenseChange}
+                                      styles={selectStyles}
+                                    />
+                                  </Form.Group>
+                                </Col>
+
+                                <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                                  <Form.Group controlId="formKeyword">
+                                    <div className="location-label">
+                                      <label className="styled-label">
+                                        <b>Driving License Issue Date *</b>
+                                      </label>
+                                    </div>
+
+                                    <DateTimePicker
+                                      className="form-control-age mt-2 col-12"
+                                      value={drivingLicenseIssueDate}
+                                      onChange={setDrivingLicenseIssueDate}
+                                      maxDate={
+                                        new Date(
+                                          new Date().setHours(0, 0, 0, 0)
+                                        )
+                                      }
+                                    />
+                                  </Form.Group>
+                                </Col>
+                                <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                                  <Form.Group controlId="formKeyword">
+                                    <div className="location-label">
+                                      <label className="styled-label">
+                                        <b>Driving License Expiry Date *</b>
+                                      </label>
+                                    </div>
+                                    <DateTimePicker
+                                      className="form-control-age mt-2 col-12"
+                                      value={drivingLicenseExpiryDate}
+                                      onChange={setDrivingLicenseExpiryDate}
+                                      minDate={new Date(new Date())}
+                                    />
+                                  </Form.Group>
+                                </Col>
+                                <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                                  <Form.Group controlId="formKeyword">
+                                    <div className="location-label">
+                                      <label className="styled-label">
+                                        <b>Driving Lisence Photo *</b>
+                                      </label>
+                                    </div>
+                                    <input
+                                      className="form-control-fname p-2 col-12 mt-2"
+                                      required
+                                      type="file"
+                                      placeholder="driving license"
+                                      // value={drivingLicenseImg}
+                                      onChange={(e) =>
+                                        handleDrivingLicenseImgChange(e)
+                                      }
+                                    />
+                                  </Form.Group>
+                                </Col>
+                                <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                                  <Form.Group controlId="formKeyword">
+                                    <div className="location-label">
+                                      <label className="styled-label">
+                                        <b>
+                                          Is Driving License International? *
+                                        </b>
+                                      </label>
+                                    </div>
+                                    <div className="mt-2 d-flex">
+                                      <Form.Check
+                                        className="mb-1 col-4"
+                                        type="radio"
+                                        label="Yes"
+                                        name="internationalLicense"
+                                        value="true"
+                                        checked={
+                                          isInternationalLicense === "true"
+                                        }
+                                        onChange={() =>
+                                          setIsInternationalLicense("true")
+                                        }
+                                      />
+                                      <Form.Check
+                                        className="mb-1 col-4"
+                                        type="radio"
+                                        label="No"
+                                        name="internationalLicense"
+                                        value="false"
+                                        checked={
+                                          isInternationalLicense === "false"
+                                        }
+                                        onChange={() =>
+                                          setIsInternationalLicense("false")
+                                        }
+                                      />
+                                    </div>
+                                  </Form.Group>
+                                </Col>
+                              </Row>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                    <br />
+                  </>
+                )}
+
+                <>
+                  <div className="step1-location-details p-4">
+                    <div className="location-label">
+                      <div className="booking-doc-headings styled-label">
+                        <BsPersonCircle className="mr-2 heading-icon" />
+                        <h2 className="booking-page-h1">
+                          <b>Driver's Details </b>
+                        </h2>
+                      </div>
+                    </div>
+                    <br />
                     <div className="driver-details-form-container">
                       <div className=" form-group  pr-4">
                         <div className="">
-                          <br />
                           <Row>
-                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+                            <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                               <Form.Group controlId="formKeyword">
                                 <div className="location-label">
                                   <label className="styled-label">
-                                    <b>Driving License No. *</b>
+                                    <b>Airline Ticket No.</b>
                                   </label>
                                 </div>
                                 <input
                                   className="form-control-location mt-2 col-12"
-                                  required
                                   type="text"
-                                  placeholder="Driving license no."
-                                  value={drivingLicenseNum}
+                                  placeholder="Enter ticket number"
+                                  value={airlineTicketNum}
                                   onChange={(e) =>
-                                    setDrivingLicenseNum(e.target.value)
+                                    setAirlineTicketNum(e.target.value)
                                   }
                                 />
                               </Form.Group>
                             </Col>
-                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
+
+                            <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
+                              <Form.Group controlId="formKeyword">
+                                <div className="location-label">
+                                  <label className="styled-label">
+                                    <b>Flight DateTime</b>
+                                  </label>
+                                </div>
+                                <DateTimePicker
+                                  className="form-control-age mt-2 col-12"
+                                  onChange={setDriverFlightDateTime}
+                                  value={driverFlightDateTime}
+                                />
+                              </Form.Group>
+                            </Col>
+                            <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                               <Form.Group controlId="formKeyword">
                                 <div className="location-label">
                                   <label className="styled-label mb-3">
-                                    <b>Driving License Issued By *</b>
+                                    <b>Nationality </b>
                                   </label>
                                 </div>
                                 <Select
                                   options={nationalityOptions}
-                                  required
-                                  className="form-control-nationality col-12"
-                                  value={drivingLicenseIssueBy}
-                                  onChange={handleDrivingLicenseChange}
+                                  className="form-control-nationality col-12 nationality-dropdown"
+                                  value={selectedNationality}
+                                  onChange={handleNationalityChange}
                                   styles={selectStyles}
                                 />
-                              </Form.Group>
-                            </Col>
-
-                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Driving License Issue Date *</b>
-                                  </label>
-                                </div>
-
-                                <DateTimePicker
-                                  className="form-control-age mt-2 col-12"
-                                  value={drivingLicenseIssueDate}
-                                  onChange={setDrivingLicenseIssueDate}
-                                  maxDate={
-                                    new Date(new Date().setHours(0, 0, 0, 0))
-                                  }
-                                />
-                              </Form.Group>
-                            </Col>
-                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Driving License Expiry Date *</b>
-                                  </label>
-                                </div>
-                                <DateTimePicker
-                                  className="form-control-age mt-2 col-12"
-                                  value={drivingLicenseExpiryDate}
-                                  onChange={setDrivingLicenseExpiryDate}
-                                  minDate={new Date(new Date())}
-                                />
-                              </Form.Group>
-                            </Col>
-                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Driving Lisence Photo *</b>
-                                  </label>
-                                </div>
-                                <input
-                                  className="form-control-fname p-2 col-12 mt-2"
-                                  required
-                                  type="file"
-                                  placeholder="driving license"
-                                  // value={drivingLicenseImg}
-                                  onChange={(e) =>
-                                    handleDrivingLicenseImgChange(e)
-                                  }
-                                />
-                              </Form.Group>
-                            </Col>
-                            <Col xxl={4} lg={4} md={6} sm={8} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Is Driving License International? *</b>
-                                  </label>
-                                </div>
-                                <div className="mt-2 d-flex">
-                                  <Form.Check
-                                    className="mb-1 col-4"
-                                    type="radio"
-                                    label="Yes"
-                                    name="internationalLicense"
-                                    value="true"
-                                    checked={isInternationalLicense === "true"}
-                                    onChange={() =>
-                                      setIsInternationalLicense("true")
-                                    }
-                                  />
-                                  <Form.Check
-                                    className="mb-1 col-4"
-                                    type="radio"
-                                    label="No"
-                                    name="internationalLicense"
-                                    value="false"
-                                    checked={isInternationalLicense === "false"}
-                                    onChange={() =>
-                                      setIsInternationalLicense("false")
-                                    }
-                                  />
-                                </div>
                               </Form.Group>
                             </Col>
                           </Row>
@@ -1217,77 +1303,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                       </div>
                     </div>
                   </div>
-                </div>
-                <br />
-                <div className="step1-location-details p-4">
-                  <div className="location-label">
-                    <div className="booking-doc-headings styled-label">
-                      <BsPersonCircle className="mr-2 heading-icon" />
-                      <h2 className="booking-page-h1">
-                        <b>Driver's Details </b>
-                      </h2>
-                    </div>
-                  </div>
                   <br />
-                  <div className="driver-details-form-container">
-                    <div className=" form-group  pr-4">
-                      <div className="">
-                        <Row>
-                          <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
-                            <Form.Group controlId="formKeyword">
-                              <div className="location-label">
-                                <label className="styled-label">
-                                  <b>Airline Ticket No.</b>
-                                </label>
-                              </div>
-                              <input
-                                className="form-control-location mt-2 col-12"
-                                type="text"
-                                placeholder="Enter ticket number"
-                                value={airlineTicketNum}
-                                onChange={(e) =>
-                                  setAirlineTicketNum(e.target.value)
-                                }
-                              />
-                            </Form.Group>
-                          </Col>
-
-                          <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
-                            <Form.Group controlId="formKeyword">
-                              <div className="location-label">
-                                <label className="styled-label">
-                                  <b>Flight DateTime</b>
-                                </label>
-                              </div>
-                              <DateTimePicker
-                                className="form-control-age mt-2 col-12"
-                                onChange={setDriverFlightDateTime}
-                                value={driverFlightDateTime}
-                              />
-                            </Form.Group>
-                          </Col>
-                          <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
-                            <Form.Group controlId="formKeyword">
-                              <div className="location-label">
-                                <label className="styled-label mb-3">
-                                  <b>Nationality *</b>
-                                </label>
-                              </div>
-                              <Select
-                                options={nationalityOptions}
-                                className="form-control-nationality col-12 nationality-dropdown"
-                                value={selectedNationality}
-                                onChange={handleNationalityChange}
-                                styles={selectStyles}
-                              />
-                            </Form.Group>
-                          </Col>
-                        </Row>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <br />
+                </>
 
                 <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
                   <Col lg={3} md={4} sm={6} xs={8} className="d-flex just">

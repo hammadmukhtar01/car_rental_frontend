@@ -53,10 +53,10 @@ const AboutusPage = () => {
   return (
     <HelmetProvider>
       <Helmet>
-        <title>About Us | Milele Car Rental Application </title>
+        <title>About Us | Know more About who we are | Milele Car Rental  </title>
         <meta
           name="description"
-          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+          content="Experience luxury and reliability with Milele Car Rental. Enjoy top-notch service, an extensive fleet, and a customer-centric approach."
         />
         <meta name="keywords" content="keywords" />
         <link
