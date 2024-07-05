@@ -16,8 +16,8 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import TestAutoComInput from "../../GoogleMap/testSearchInput";
 import { ImSpinner4 } from "react-icons/im";
 import { Modal } from "react-bootstrap";
-import OnlyCarPNG  from "../../images/only-car-bg-home-banner.png";
-import OnlyCarWebP   from "../../images/only-car-bg-home-banner.webp";
+import OnlyCarPNG from "../../images/only-car-bg-home-banner.png";
+import OnlyCarWebP from "../../images/only-car-bg-home-banner.webp";
 import InstagramFeed from "./instagramFeed";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 import HomePageTopBar from "../navbar/homePageTopBar";
@@ -63,15 +63,15 @@ const HomePage = () => {
             <div className="bg-img-banner-main">
               <div className="banner-container" />
               <picture>
-        <source srcSet={OnlyCarWebP} type="image/webp" />
-        <source srcSet={OnlyCarPNG} type="image/png" />
-        <img
-          className="only-car-banner-container-2"
-          src={OnlyCarPNG} // Fallback if <picture> is not supported
-          title="Rent a Car"
-          alt="home page top banner"
-        />
-      </picture>
+                <source srcSet={OnlyCarWebP} type="image/webp" />
+                <source srcSet={OnlyCarPNG} type="image/png" />
+                <img
+                  className="only-car-banner-container-2"
+                  src={OnlyCarPNG}
+                  title="Rent a Car"
+                  alt="home page top banner"
+                />
+              </picture>
             </div>
             <div className="search-box-home-page mt-3">
               <SearchBox />

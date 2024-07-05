@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import blog1MainImg1 from "../../images/blog-images/blog1-main-Img1.jpg";
+import blog1MainImg1JPG from "../../images/blog-images/blog1-main-Img1.jpg";
+import blog1MainImg1WebP from "../../images/blog-images/blog1-main-Img1.webp";
 import FreeConsultationForm from "./freeConsultationBlogForm";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
@@ -9,7 +10,8 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 const BlogPage1 = () => {
   const blogsData = {
     id: 1,
-    imageUrl: blog1MainImg1,
+    imageUrlWebP: blog1MainImg1WebP,
+    imageUrlPNG: blog1MainImg1JPG,
     category: "Difference",
     title: "What's the Difference b/w a Car Rental and Lease?",
     date: "Mar 23, 2021",
@@ -39,12 +41,17 @@ const BlogPage1 = () => {
             <h1 className="blog1-main-heading mb-3"> {blogsData?.title}</h1>
 
             <div className="blog-details-image-container">
-              <img
-                src={blogsData?.imageUrl}
-                className="blog-details-image"
-                title={blogsData?.title ? blogsData.title : "Blogs Data"}
-                alt={blogsData?.title ? blogsData.title : "Blogs Data"}
-              />
+              <picture>
+                <source srcSet={blogsData?.imageUrlWebP} type="image/webp" />
+                <source srcSet={blogsData?.imageUrlPNG} type="image/png" />
+
+                <img
+                  src={blogsData?.imageUrlPNG}
+                  className="blog-details-image"
+                  title={blogsData?.title ? blogsData.title : "Blogs Data"}
+                  alt={blogsData?.title ? blogsData.title : "Blogs Data"}
+                />
+              </picture>
             </div>
             <p className="mt-4">{blogsData?.text}</p>
             <br />
