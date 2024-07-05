@@ -41,7 +41,7 @@ const LeaseNowFormDetails = ({
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
       toast.error("Please enter a valid phone number.", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2000,
       });
       return;
     }
@@ -51,7 +51,7 @@ const LeaseNowFormDetails = ({
     if (!emailRegex.test(formData?.email)) {
       toast.error("Please enter a valid email address.", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2000,
       });
       return false;
     }
@@ -114,7 +114,7 @@ const LeaseNowFormDetails = ({
       } else {
         toast.error("Failed to send your message. Please try again.", {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2000,
         });
       }
     } catch (error) {
@@ -135,19 +135,19 @@ const LeaseNowFormDetails = ({
         if (errors?.email) {
           toast.error(errors?.email?.message, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 2000,
           });
         }
         if (errors?.phoneNumber) {
           toast.error(errors?.phoneNumber?.message, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 2000,
           });
         }
       } else {
         toast.error(`Submission failed: ${error?.message}`, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2000,
         });
       }
     } finally {

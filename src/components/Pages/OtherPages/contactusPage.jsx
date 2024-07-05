@@ -13,10 +13,10 @@ const ContactusPage = () => {
   return (
     <HelmetProvider>
       <Helmet>
-        <title>Contact Us | Milele Car Rental Application </title>
+        <title>Contact Us | Get in Touch with Us | Milele Car Rental  </title>
         <meta
           name="description"
-          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+          content="Visit Milele Car Rental at Showroom 11, Al Aweer Auto Market, Ras Al Khor, UAE. Call +971 56 329 8330. Enjoy 24/7 customer support for a seamless rental experience."
         />
         <meta name="keywords" content="keywords" />
         <link rel="canonical" href="https:/www.milelecarrental.com/contactus" />

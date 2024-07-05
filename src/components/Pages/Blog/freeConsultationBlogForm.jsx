@@ -76,7 +76,7 @@ const FreeConsultationForm = () => {
       } else {
         toast.error("Failed to contact. Please try again.", {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2000,
         });
       }
     } catch (error) {
@@ -93,19 +93,19 @@ const FreeConsultationForm = () => {
         if (errors?.email) {
           toast.error(errors?.email?.message, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 2000,
           });
         }
         if (errors?.phoneNumber) {
           toast.error(errors?.phoneNumber?.message, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 2000,
           });
         }
       } else {
         toast.error(`Submission failed: ${error?.message}`, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2000,
         });
       }
     } finally {

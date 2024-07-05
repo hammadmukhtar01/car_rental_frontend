@@ -17,7 +17,7 @@ const Footer = () => {
   const footerSubscriptionButton = (e) => {
     e.preventDefault();
     toast.success("Thank You for Subscribing Milele.", {
-      autoClose: 3000,
+      autoClose: 2000,
       style: {
         fontSize: "14px",
         fontWeight: "600",

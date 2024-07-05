@@ -17,12 +17,15 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { Modal } from "react-bootstrap";
+import SignupPage from "../../authentication/signupPage";
+import LoginPage from "./../../authentication/loginPage";
 
 function MainNavbar() {
   const [isHomePage, setIsHomePage] = useState(false);
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const toggleOffCanvas = () => setShowOffCanvas(!showOffCanvas);
-
+  const [showModal, setShowModal] = useState(false);
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -43,6 +46,11 @@ function MainNavbar() {
 
   // const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
   const logoImage = Coloredlogo;
+  useEffect(() => {
+    if (location.pathname) {
+      localStorage.setItem("lastUrl", `${location.pathname}${location.search}`);
+    }
+  }, [navigate, location.pathname, location.search]);
 
   const handleLogout = () => {
     setOpen(true);
@@ -53,11 +61,23 @@ function MainNavbar() {
     setTimeout(() => {
       window.location.reload();
     }, 100);
-    navigate("/");
+    const lastUrl = localStorage.getItem("lastUrl") || "/";
+    console.log("lastUrl : ", lastUrl);
+    navigate(lastUrl);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleLoginSignupFunc = () => {
+    // e.preventDefault();
+    setShowModal(true);
+    setShowOffCanvas(false);
   };
 
   return (
@@ -206,7 +226,7 @@ function MainNavbar() {
 
                   {auth && authStatus === "success" ? (
                     <>
-                      <div className="nav-item d-flex align-items-center ml-4">
+                      <div className="nav-item d-flex align-items-center user-name-icon-div">
                         <FaUserCircle className="fa-user-circle" />
 
                         <NavDropdown
@@ -242,15 +262,15 @@ function MainNavbar() {
                   ) : (
                     <>
                       <div className="login-signup-button">
-                        <a
-                          href="/login"
+                        <span
+                          // href="/login"
                           title="Login Sign Up"
                           className="navbar-all-menus nav-link login-signup-button"
-                          onClick={() => setShowOffCanvas(false)}
+                          onClick={handleLoginSignupFunc}
                           id="login-signup-url"
                         >
                           <b className="signup-menu">Login | Sign Up</b>
-                        </a>
+                        </span>
                       </div>
                     </>
                   )}
@@ -278,7 +298,7 @@ function MainNavbar() {
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
-        maxWidth="sm" 
+        maxWidth="sm"
         fullWidth={true}
       >
         <DialogTitle id="responsive-dialog-title">
@@ -296,6 +316,26 @@ function MainNavbar() {
           <Button onClick={handleConfirmLogout}>Logout</Button>
         </DialogActions>
       </Dialog>
+
+      <Modal show={showModal} onHide={handleCloseModal} size="lg" centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <span className="modal-heading">
+              <strong>Authentication:</strong>
+            </span>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {" "}
+          <LoginPage onCloseModal={handleCloseModal} />
+          {/* <SignupPage onCloseModal={handleCloseModal} /> */}
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-secondary" onClick={handleCloseModal}>
+            Close
+          </button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

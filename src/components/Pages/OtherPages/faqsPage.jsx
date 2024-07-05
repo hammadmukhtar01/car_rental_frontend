@@ -122,10 +122,10 @@ const FaqsPage = () => {
   return (
     <HelmetProvider>
       <Helmet>
-        <title>FAQs | Milele Car Rental Application </title>
+        <title>FAQs | Know more About Car Rentals | Milele Car Rental</title>
         <meta
           name="description"
-          content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
+          content="Get all the information you need to a smooth car rental experience. Uncover all the answers you are looking for with Milele Car Rental. "
         />
         <meta name="keywords" content="keywords" />
         <link rel="canonical" href="https://www.milelecarrental.com/faqs" />

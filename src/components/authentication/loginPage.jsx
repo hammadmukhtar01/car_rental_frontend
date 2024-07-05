@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import "./authentication.css";
 import axios from "axios";
@@ -10,19 +11,28 @@ import FooterCombination from "../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import "../Pages/OtherPages/toastStyle.css";
 
-const LoginPage = () => {
+const LoginPage = ({ onCloseModal }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const auth = localStorage.getItem("user");
     if (auth) {
       navigate("/");
     }
-  }, [navigate]);
+
+    if (location.pathname) {
+      localStorage.setItem("lastUrl", `${location.pathname}${location.search}`);
+    }
+  }, [navigate, location.pathname, location.search]);
 
   const handleLogin = async (e) => {
+    setLoading(true);
+    document.body.classList.add("loadings");
+
     e.preventDefault();
 
     console.warn("Data: ", email, password);
@@ -48,19 +58,22 @@ const LoginPage = () => {
       if (resultedData.status === "success" && resultedData?.token) {
         localStorage.setItem("user", JSON.stringify(resultedData));
         toast.success("Logged In Successfully!", {
-          autoClose: 2000,
+          autoClose: 1000,
           style: {
             border: "1px solid #c0c0c0",
             fontWeight: "400",
             fontSize: "14px",
           },
           onClose: () => {
-            navigate("/");
+            const lastUrl = localStorage.getItem("lastUrl") || "/";
+            console.log("lastUrl : ", lastUrl);
+            navigate(lastUrl);
+            onCloseModal();
           },
         });
       } else {
         toast.warning("Email/Password missing...", {
-          autoClose: 3000,
+          autoClose: 2000,
           style: {
             border: "1px solid #c0c0c0",
             fontWeight: "400",
@@ -70,13 +83,16 @@ const LoginPage = () => {
       }
     } catch (error) {
       toast.error(`${error?.response?.data?.message}`, {
-        autoClose: 3000,
+        autoClose: 2000,
         style: {
           border: "1px solid #c0c0c0",
           fontWeight: "400",
           fontSize: "14px",
         },
       });
+    } finally {
+      setLoading(false);
+      document.body.classList.remove("loadings");
     }
   };
 
@@ -91,13 +107,19 @@ const LoginPage = () => {
         <meta name="keywords" content="keywords" />
         {/* <link rel="canonical" href="https://milelecarrental.com/login" /> */}
       </Helmet>
-      <HeaderCombination />
+      {loading && (
+        <div className="reloading-icon-free-consultation-form-container text-center">
+          <span className="loader-text">Logging In . . .</span>
+          <div className="lds-dual-ring text-center"></div>
+        </div>
+      )}
+
       <section className="ftco-section">
-        <div className="container pt-4">
+        <div className="container">
           <div className="login-row justify-content-center">
-            <div className="col-lg-6 ">
+            <div className="col-lg-12 ">
               <div className="login-wrap ">
-                <p className=" have-account-text text-center mb-4 mt-2">
+                <p className=" have-account-text text-center mb-4">
                   User Login
                 </p>
                 <form action="#" className="signin-form" onSubmit={handleLogin}>
@@ -115,7 +137,7 @@ const LoginPage = () => {
                           name="email"
                           type="text"
                           autoComplete="email"
-                          placeholder="Username/EmailAddress"
+                          placeholder="Email"
                           required
                           value={email}
                           onChange={(e) => {
@@ -227,7 +249,6 @@ const LoginPage = () => {
           </div>
         </div>
       </section>
-      <FooterCombination />
     </HelmetProvider>
   );
 };
