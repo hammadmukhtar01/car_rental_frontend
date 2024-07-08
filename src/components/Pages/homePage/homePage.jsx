@@ -3,11 +3,15 @@ import React, { useState, useEffect } from "react";
 import SearchBox from "./searchBox";
 import CarCards from "./carCards";
 import AnimatedCarSection from "./animatedCarSection";
-import NissanLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 7.png";
-import CheveroletLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 22.png";
-import PeugeotLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 10.png";
-// import KiaLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 10.png";
-// import HyundaiLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard 11.png";
+import NissanLogoWebP from "../../images/lto-images/lto-our-brands-all-icons/Artboard7.webp";
+import CheveroletLogWebP from "../../images/lto-images/lto-our-brands-all-icons/Artboard22.webp";
+import PeugeotLogoWebP from "../../images/lto-images/lto-our-brands-all-icons/Artboard10.webp";
+
+import NissanLogoPNG from "../../images/lto-images/lto-our-brands-all-icons/Artboard7.png";
+import CheveroletLogoPNG from "../../images/lto-images/lto-our-brands-all-icons/Artboard22.png";
+import PeugeotLogoPNG from "../../images/lto-images/lto-our-brands-all-icons/Artboard10.png";
+// import KiaLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard10.png";
+// import HyundaiLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard11.png";
 import OurBlogs from "../Blog/ourBlogs";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 // import SpinTheWheel from "../spinTheWheel/spinTheWheel";
@@ -29,11 +33,24 @@ const HomePage = () => {
   const [selectedLocationss, setSelectedLocationss] = useState(null);
 
   const carBrands = [
-    // { name: "hyundai", logo: HyundaiLogo, title: "Hyundai" },
-    { name: "chevrolet", logo: CheveroletLogo, title: "Cheverolet" },
-    // { name: "kia", logo: KiaLogo, title: "Kia" },
-    { name: "peugeot", logo: PeugeotLogo, title: "Peugeot" },
-    { name: "nissan", logo: NissanLogo, title: "Nissan" },
+    {
+      name: "chevrolet",
+      logoWebP: CheveroletLogWebP,
+      logoPNG: CheveroletLogoPNG,
+      title: "Cheverolet",
+    },
+    {
+      name: "peugeot",
+      logoWebP: PeugeotLogoWebP,
+      logoPNG: PeugeotLogoPNG,
+      title: "Peugeot",
+    },
+    {
+      name: "nissan",
+      logoWebP: NissanLogoWebP,
+      logoPNG: NissanLogoPNG,
+      title: "Nissan",
+    },
   ];
 
   const handleCloseModal = () => {
@@ -108,13 +125,22 @@ const HomePage = () => {
                 <div className="lto-our-brand-div">
                   <div className="home-page-lto-brand-icons">
                     {carBrands?.map((carBrandsName, index) => (
-                      <img
-                        key={index}
-                        src={carBrandsName?.logo}
-                        className="home-page-single-brand-class"
-                        title={`${carBrandsName?.name}`}
-                        alt={`${carBrandsName?.name} brand`}
-                      />
+                      <picture key={index}>
+                        <source
+                          srcSet={carBrandsName?.logoWebP}
+                          type="image/webp"
+                        />
+                        <source
+                          srcSet={carBrandsName?.logoPNG}
+                          type="image/png"
+                        />
+                        <img
+                          src={carBrandsName?.logoPNG}
+                          className="home-page-single-brand-class"
+                          title={`${carBrandsName?.name}`}
+                          alt={`${carBrandsName?.name} brand`}
+                        />
+                      </picture>
                     ))}
                   </div>
                 </div>

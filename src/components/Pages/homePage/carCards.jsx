@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
-import LargeBanner1 from "../../images/web-offer-banner-3.png";
+import LargeBanner1PNG from "../../images/web-offer-banner-3.png";
+import LargeBanner1WebP from "../../images/web-offer-banner-3.webp";
 // import SmallBanner2 from "../../images/web-offer-banner-3.jpg";
 
-const LargeBanner = LargeBanner1;
-const SmallBanner = LargeBanner1;
+const LargeBannerPNG = LargeBanner1PNG;
+const SmallBanner = LargeBanner1PNG;
 
 const Carousel = () => {
-  const [bannerImg, setBannerImg] = useState(LargeBanner);
+  const [bannerImgWebP, setBannerImgWebP] = useState(LargeBanner1WebP);
+  const [bannerImgPNG, setBannerImgPNG] = useState(LargeBannerPNG);
 
   const changeBanner = () => {
     if (window.innerWidth <= 767) {
-      setBannerImg(SmallBanner);
+      setBannerImgPNG(SmallBanner);
     } else {
-      setBannerImg(LargeBanner);
+      setBannerImgWebP(LargeBanner1WebP);
+      setBannerImgPNG(LargeBannerPNG);
     }
   };
 
@@ -32,13 +35,17 @@ const Carousel = () => {
         <div className="container">
           <br />
           <div className="main-banner-img-container">
-            <img
-              className="main-banner-img"
-              id="banner-img"
-              title={`Mille Car Rental Banner`}
-              src={bannerImg}
-              alt="Milele Car Rental Banner"
-            />
+            <picture>
+              <source srcSet={bannerImgWebP} type="image/webp" />
+              <source srcSet={bannerImgPNG} type="image/png" />
+              <img
+                className="main-banner-img"
+                id="banner-img"
+                title={`Mille Car Rental Banner`}
+                src={bannerImgPNG}
+                alt="Milele Car Rental Banner"
+              />
+            </picture>
           </div>
         </div>
       </div>

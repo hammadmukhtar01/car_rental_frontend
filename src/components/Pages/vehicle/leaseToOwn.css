@@ -54,10 +54,10 @@
 }
 
 .home-page-single-brand-class {
-  margin: 2px;
-  padding: 6px;
-  width: 13%;
-  height: 20%;
+  width: 100px; 
+  height: auto;
+  object-fit: contain; 
+  margin: 10px; 
 }
 
 .dealing-brands-lto-icons-container {

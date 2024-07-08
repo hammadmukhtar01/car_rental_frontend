@@ -1,12 +1,12 @@
 .bg-img-banner-main {
   overflow: hidden;
-  background-image: url("../../images/no-car-bg-home-banner-11.jpg");
   width: 100%;
   height: 500px;
   background-size: cover;
   background-position: top;
   position: initial;
   background-repeat: no-repeat;
+  background-image: url("../../images/no-car-bg-home-banner-11.webp");
 }
 
 .banner-container {
@@ -159,8 +159,7 @@
 }
 
 .date-label,
-.location-label,
-.login-form-label {
+.location-label {
   padding: 15px 1px 5px 1px;
 }
 
@@ -357,6 +356,7 @@
 
 .form-control-location,
 .form-control-login,
+.form-control-signup,
 .form-control-consultation,
 .form-control-age,
 .form-control-lto-input {
@@ -369,6 +369,7 @@
 }
 .form-control-location,
 .form-control-login,
+.form-control-signup,
 .form-control-age {
   border: 1px solid rgb(184, 184, 184) !important;
 }
@@ -498,6 +499,7 @@
 .form-control-location:focus,
 .form-control-consultation:focus,
 .form-control-login:focus,
+.form-control-signup:focus,
 .form-control-age:focus,
 .form-control-lto-input:focus {
   outline: none;
@@ -636,7 +638,6 @@
 
 /* Animation Car Section  */
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+HK&display=swap");
 html {
   scroll-behavior: smooth;
 }

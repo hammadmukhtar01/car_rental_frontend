@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "react-bootstrap/Image";
 import logoImage from "../../images/car-rental-logo.png";
+import logoImageWebP from "../../images/car-rental-logo.webp";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoTime } from "react-icons/io5";
@@ -108,13 +109,17 @@ const Footer = () => {
                   <Row className="footer-heading-row align-items-end">
                     <div className="toggle-main-logo">
                       <a href="/">
-                        <Image
-                          src={logoImage}
-                          title="Milele Car Rental"
-                          alt="Main Logo lg"
-                          id="Milele Car Rental Footer Logo"
-                          fluid
-                        />
+                        <picture>
+                          <source srcSet={logoImageWebP} type="image/webp" />
+                          <source srcSet={logoImage} type="image/png" />
+                          <Image
+                            src={logoImage}
+                            title="Milele Car Rental"
+                            alt="Main Logo lg"
+                            id="Milele Car Rental Footer Logo"
+                            fluid
+                          />
+                        </picture>
                       </a>
                     </div>
                   </Row>

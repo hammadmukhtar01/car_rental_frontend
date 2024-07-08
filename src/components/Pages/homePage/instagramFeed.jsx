@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
+import LazyLoad from 'react-lazyload';
 import "./instagramFeed.css";
 
 const InstagramFeed = () => {
@@ -16,7 +18,13 @@ const InstagramFeed = () => {
           accessToken: process.env.REACT_APP_INSTAGRAM_TOKEN_KEY,
           target: "instafeed-container",
           template:
-            '<div class="col-lg-3 col-md-4 col-sm-4 col-4 text-center insta-feed-template-div"><a title="instagram-feed" href="{{link}}" target="_blank"><img src="{{image}}" alt="{{caption}}" title="instagram-feeds" class="img-fluid" /></a></div>',
+            `<div class="col-lg-3 col-md-4 col-sm-4 col-4 text-center insta-feed-template-div">
+              <a title="instagram-feed" href="{{link}}" target="_blank">
+                <LazyLoad height={200} offset={100}>
+                  <img src="{{image}}" alt="{{caption}}" title="instagram-feeds" class="img-fluid" />
+                </LazyLoad>
+              </a>
+            </div>`,
           error: (error) => {
             console.error("Error loading Instagram feed:", error);
             const container = document.getElementById("instafeed-container");

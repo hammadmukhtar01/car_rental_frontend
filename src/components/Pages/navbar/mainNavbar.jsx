@@ -5,6 +5,7 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Image from "react-bootstrap/Image";
 import Coloredlogo from "../../images/car-rental-logo.png";
+import ColoredlogoWebP from "../../images/car-rental-logo.webp";
 import { Col } from "react-bootstrap";
 import "./navbar.css";
 import { FaUserCircle } from "react-icons/fa";
@@ -20,6 +21,7 @@ import { useTheme } from "@mui/material/styles";
 import { Modal } from "react-bootstrap";
 import SignupPage from "../../authentication/signupPage";
 import LoginPage from "./../../authentication/loginPage";
+import LoginSignupPage from "../../authentication/loginSignupPage";
 
 function MainNavbar() {
   const [isHomePage, setIsHomePage] = useState(false);
@@ -46,6 +48,7 @@ function MainNavbar() {
 
   // const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
   const logoImage = Coloredlogo;
+  const logoImageWebP = ColoredlogoWebP;
   useEffect(() => {
     if (location.pathname) {
       localStorage.setItem("lastUrl", `${location.pathname}${location.search}`);
@@ -80,6 +83,10 @@ function MainNavbar() {
     setShowOffCanvas(false);
   };
 
+  const handleBackToHomeButton = () => {
+    return navigate("/");
+  };
+
   return (
     <>
       <Container>
@@ -91,12 +98,16 @@ function MainNavbar() {
               onClick={() => setShowOffCanvas(false)}
               id="navbar-logo-to-home-page-lg"
             >
-              <Image
-                src={Coloredlogo}
-                title="Milele Car Rental"
-                alt="Main Logo lg"
-                fluid
-              />
+              <picture>
+                <source srcSet={ColoredlogoWebP} type="image/webp" />
+                <source srcSet={Coloredlogo} type="image/png" />
+                <Image
+                  src={Coloredlogo}
+                  title="Milele Car Rental"
+                  alt="Main Logo lg"
+                  fluid
+                />
+              </picture>
             </a>
           </Col>
           <Col xs={9} style={{ display: "contents" }}>
@@ -317,21 +328,19 @@ function MainNavbar() {
         </DialogActions>
       </Dialog>
 
-      <Modal show={showModal} onHide={handleCloseModal} size="lg" centered>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            <span className="modal-heading">
-              <strong>Authentication:</strong>
-            </span>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+      <Modal show={showModal} onHide={handleCloseModal} size="xl" centered>
+       
+        <Modal.Body className="login-signup-modal">
           {" "}
-          <LoginPage onCloseModal={handleCloseModal} />
+          <LoginSignupPage onCloseModal={handleCloseModal} />
+          {/* <LoginPage onCloseModal={handleCloseModal} /> */}
           {/* <SignupPage onCloseModal={handleCloseModal} /> */}
         </Modal.Body>
         <Modal.Footer>
-          <button className="btn btn-secondary" onClick={handleCloseModal}>
+          <button
+            className="btn btn-secondary"
+            onClick={handleCloseModal}
+          >
             Close
           </button>
         </Modal.Footer>
