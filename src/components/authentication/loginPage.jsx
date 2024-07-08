@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Form } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import "./authentication.css";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
@@ -21,7 +21,8 @@ const LoginPage = ({ onCloseModal }) => {
   useEffect(() => {
     const auth = localStorage.getItem("user");
     if (auth) {
-      navigate("/");
+      const lastUrl = localStorage.getItem("lastUrl") || "/";
+      navigate(lastUrl);
     }
 
     if (location.pathname) {
@@ -66,7 +67,6 @@ const LoginPage = ({ onCloseModal }) => {
           },
           onClose: () => {
             const lastUrl = localStorage.getItem("lastUrl") || "/";
-            console.log("lastUrl : ", lastUrl);
             navigate(lastUrl);
             onCloseModal();
           },
@@ -113,140 +113,71 @@ const LoginPage = ({ onCloseModal }) => {
           <div className="lds-dual-ring text-center"></div>
         </div>
       )}
+      <ToastContainer />
 
-      <section className="ftco-section">
+      <section>
         <div className="container">
-          <div className="login-row justify-content-center">
-            <div className="col-lg-12 ">
-              <div className="login-wrap ">
-                <p className=" have-account-text text-center mb-4">
-                  User Login
-                </p>
-                <form action="#" className="signin-form" onSubmit={handleLogin}>
-                  <Form.Group controlId="formKeyword">
-                    <div className="form-group row">
-                      <div className="login-form-label col-lg-4 col-md-4">
-                        <label className="styled-label">
-                          <b>Email</b>
-                        </label>
-                      </div>
-                      <div className="col-lg-7 col-md-7 custom-dropdown-container">
-                        <input
-                          className="form-control-login mt-2 col-12"
-                          id="email"
-                          name="email"
-                          type="text"
-                          autoComplete="email"
-                          placeholder="Email"
-                          required
-                          value={email}
-                          onChange={(e) => {
-                            setEmail(e.target.value);
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </Form.Group>
+          <form action="#" className="signup-form" onSubmit={handleLogin}>
+            <div className="login-form-input-container">
+              <label className="login-form-label">
+                <b>Email</b>
+              </label>
 
-                  <Form.Group controlId="formKeyword">
-                    <div className="form-group row">
-                      <div className="login-form-label col-lg-4 col-md-4">
-                        <label className="styled-label">
-                          <b>Password</b>
-                        </label>
-                      </div>
-                      <div className="col-lg-7 col-md-7 custom-dropdown-container">
-                        <input
-                          className="form-control-login mt-2 col-12"
-                          name="password"
-                          type="password"
-                          autoComplete="current-password"
-                          required
-                          placeholder="Password"
-                          value={password}
-                          onChange={(e) => {
-                            setPassword(e.target.value);
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </Form.Group>
-
-                  <div className="form-group-3 col-lg-12">
-                    <p></p>
-                    <br />
-                    <br />
-                    <button className="middle" id="login-button">
-                      <span className="animate-button btn4">Log In</span>
-                    </button>
-
-                    <ToastContainer />
-                  </div>
-                  <div className="form-group-0 pt-4">
-                    <div className="col-lg-12">
-                      <a href="/signup">
-                        <div className="forgot-password text-right">
-                          {" "}
-                          Already have an account?
-                        </div>
-                      </a>
-                    </div>
-                    <div className="col-lg-12">
-                      <a
-                        href="/forgotpassword"
-                        className="forgot-password-heading"
-                      >
-                        <div className="forgot-password text-centerx">
-                          {" "}
-                          Forgot Password ?
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </form>
-
-                <br />
-
-                {/* <div className="container">
-                  <p className="text-center">
-                    <b>&mdash; Or Sign In With &mdash;</b>
-                  </p>
-                  <br />
-                  <div className="form-group-3 social-media-icons">
-                    <button className="custom-button">
-                      {" "}
-                      <span className="fab fa-google"></span> G-Mail
-                    </button>
-                    <button className="custom-button">
-                      {" "}
-                      <span className="fab fa-facebook-f "></span> facebook
-                    </button>
-                  </div>
-                  <GoogleLogin
-                    clientId="YOUR_GOOGLE_CLIENT_ID"
-                    buttonText="Login with Google"
-                    onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
-                    cookiePolicy={"single_host_origin"}
-                  />
-                  <FacebookLogin
-                    appId="YOUR_FACEBOOK_APP_ID"
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    callback={responseFacebook}
-                    render={(renderProps) => (
-                      <button
-                        className="custom-button"
-                        onClick={renderProps.onClick}
-                      >
-                        Login with Facebook
-                      </button>
-                    )}
-                  />
-                </div> */}
+              <div className=" custom-dropdown-container">
+                <input
+                  className="form-control-login  col-12"
+                  id="email"
+                  name="email"
+                  type="text"
+                  autoComplete="email"
+                  placeholder="Email"
+                  required
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
               </div>
             </div>
-          </div>
+            <br />
+            <div className="login-form-input-container">
+              <label className="login-form-label">
+                <b>Password</b>
+              </label>
+
+              <div className=" custom-dropdown-container">
+                <input
+                  className="form-control-login col-12"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <br />
+            <div className="login-button-div">
+              <Row className="align-items-center">
+                <Col xl={6} lg={6} md={6} sm={6} xs={12}>
+                  <a href="/forgotpassword" className="forgot-password-heading">
+                    <div className="forgot-password text-left">
+                      {" "}
+                      Forgot Password ?
+                    </div>
+                  </a>
+                </Col>
+
+                <Col xl={6} lg={6} md={6} sm={6} xs={12} className="text-right login-button-col">
+                  <button className="login-button">Login</button>
+                </Col>
+              </Row>
+            </div>
+          </form>
         </div>
       </section>
     </HelmetProvider>

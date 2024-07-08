@@ -20,8 +20,6 @@ async function generateSitemap() {
 
   const links = [
     { url: "/", changefreq: "daily", priority: 1.0 },
-    { url: "/login", changefreq: "daily", priority: 1.0 },
-    { url: "/signup", changefreq: "daily", priority: 1.0 },
     { url: "/vehicles", changefreq: "monthly", priority: 0.8 },
     { url: "/aboutus", changefreq: "monthly", priority: 0.5 },
     { url: "/faqs", changefreq: "monthly", priority: 0.5 },
