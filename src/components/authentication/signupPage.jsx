@@ -95,8 +95,8 @@ const SignupPage = ({ onCloseModal }) => {
     try {
       console.log("Data is: ", formData);
       const response = await axios.post(
-        `http://localhost:8000/api/v1/customer/create`,
-        // `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
+        // `http://localhost:8000/api/v1/customer/create`,
+        `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
         formData,
         { headers }
       );

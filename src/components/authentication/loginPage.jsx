@@ -41,8 +41,8 @@ const LoginPage = ({ onCloseModal }) => {
 
     try {
       let result = await axios.post(
-        // `${process.env.REACT_APP_MILELE_API_URL}/customer/login`,
-        `http://localhost:8000/api/v1/customer/login`,
+        `${process.env.REACT_APP_MILELE_API_URL}/customer/login`,
+        // `http://localhost:8000/api/v1/customer/login`,
         data,
 
         {
