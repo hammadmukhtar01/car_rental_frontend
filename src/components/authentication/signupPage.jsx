@@ -10,12 +10,13 @@ import { Col, Row } from "react-bootstrap";
 import Select from "react-select";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import SuccessGifWebP from "../images/auth-gif-after-edited.gif";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
-const SignupPage = ({ onCloseModal }) => {
+const SignupPage = ({ onCloseModal, setGif }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [nationalityOptions, setNationalityOptions] = useState([]);
   const [selectedNationality, setSelectedNationality] = useState(null);
 
@@ -55,7 +56,6 @@ const SignupPage = ({ onCloseModal }) => {
       return;
     }
 
-    // Password match validation
     if (password !== passwordConfirm) {
       toast.error("Passwords do not match.", {
         position: "top-right",
@@ -76,8 +76,8 @@ const SignupPage = ({ onCloseModal }) => {
       return;
     }
 
-    setLoading(true);
-    document.body.classList.add("loadings");
+    // setLoading(true);
+    // document.body.classList.add("loadings");
 
     const headers = {
       "Content-Type": "application/json",
@@ -102,6 +102,7 @@ const SignupPage = ({ onCloseModal }) => {
       );
 
       if (response?.data?.status === "success") {
+        setGif(SuccessGifWebP);
         toast.success("Account Created Successfully!", {
           autoClose: 2000,
           style: {
@@ -139,10 +140,11 @@ const SignupPage = ({ onCloseModal }) => {
           },
         }
       );
-    } finally {
-      setLoading(false);
-      document.body.classList.remove("loadings");
     }
+    // finally {
+    //   setLoading(false);
+    //   document.body.classList.remove("loadings");
+    // }
   };
 
   useEffect(() => {
@@ -208,12 +210,12 @@ const SignupPage = ({ onCloseModal }) => {
           {/* <link rel="canonical" href="https://milelecarrental.com/signup" /> */}
         </Helmet>
 
-        {loading && (
+        {/* {loading && (
           <div className="reloading-icon-free-consultation-form-container text-center">
             <span className="loader-text">Creating account . . .</span>
             <div className="lds-dual-ring text-center"></div>
           </div>
-        )}
+        )} */}
 
         <div className="container mt-3">
           <form action="#" className="signup-form" onSubmit={handleSubmit}>
@@ -371,7 +373,9 @@ const SignupPage = ({ onCloseModal }) => {
 
             <Row className="align-items-center">
               <Col className="text-right">
-                <button className="signup-button">Create Account</button>
+                <button className="signup-button" aria-label="Create Account">
+                  Create Account
+                </button>
               </Col>
             </Row>
             <ToastContainer />

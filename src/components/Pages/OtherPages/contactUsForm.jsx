@@ -265,7 +265,7 @@ const ContactUsForm = () => {
           </div>
           <div className="form-group-3 col-lg-12 pb-4">
             <div className="col-lg-12 col-md-6 d-flex justify-content-end">
-              <button className="middle" >
+              <button className="middle" aria-label="Contact Us Form Submission">
                 <span className="animate-button btn4" id="contact-us-submit">Submit</span>
               </button>
               <ToastContainer />

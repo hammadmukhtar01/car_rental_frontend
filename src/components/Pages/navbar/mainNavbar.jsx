@@ -116,6 +116,7 @@ function MainNavbar() {
               type="button"
               onClick={toggleOffCanvas}
               aria-controls="offcanvasNavbar"
+              aria-label="Toggle Menu Bar"
             >
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -145,6 +146,7 @@ function MainNavbar() {
                 <button
                   type="button"
                   className="btn-close text-reset"
+                  aria-label="Toggle Menu Bar"
                   onClick={() => setShowOffCanvas(false)}
                 ></button>
               </div>
@@ -234,58 +236,54 @@ function MainNavbar() {
                       FAQs
                     </a>
                   </li>
-
-                  {auth && authStatus === "success" ? (
-                    <>
-                      <div className="nav-item d-flex align-items-center user-name-icon-div">
-                        <FaUserCircle className="fa-user-circle" />
-
-                        <NavDropdown
-                          title={`${user_info?.fName}`}
-                          className=" "
-                        >
-                          <NavDropdown.Item
-                            as={NavLink}
-                            to={`/myProfile/${userAuthId}`}
-                          >
-                            My Profile
-                          </NavDropdown.Item>
-
-                          <NavDropdown.Item
-                            as={NavLink}
-                            to={`/myBookings/${userAuthId}`}
-                          >
-                            My Bookings
-                          </NavDropdown.Item>
-                          <NavDropdown.Item
-                            as={NavLink}
-                            to={`/myBookings/${userAuthId}`}
-                          >
-                            Update Password
-                          </NavDropdown.Item>
-                          <NavDropdown.Divider />
-                          <NavDropdown.Item onClick={handleLogout}>
-                            Logout
-                          </NavDropdown.Item>
-                        </NavDropdown>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="login-signup-button">
-                        <span
-                          // href="/login"
-                          title="Login Sign Up"
-                          className="navbar-all-menus nav-link login-signup-button"
-                          onClick={handleLoginSignupFunc}
-                          id="login-signup-url"
-                        >
-                          <b className="signup-menu">Login | Sign Up</b>
-                        </span>
-                      </div>
-                    </>
-                  )}
                 </ul>
+                {auth && authStatus === "success" ? (
+                  <>
+                    <div className="nav-item d-flex align-items-center user-name-icon-div">
+                      <FaUserCircle className="fa-user-circle" />
+
+                      <NavDropdown title={`${user_info?.fName}`} className=" ">
+                        <NavDropdown.Item
+                          as={NavLink}
+                          // to={`/myProfile/${userAuthId}`}
+                          to={"/#1"}
+                        >
+                          My Profile
+                        </NavDropdown.Item>
+
+                        <NavDropdown.Item
+                          as={NavLink}
+                          // to={`/myBookings/${userAuthId}`}
+                          to={"/#2"}
+
+                        >
+                          My Bookings
+                        </NavDropdown.Item>
+                        <NavDropdown.Item as={NavLink} to="/updatePassword">
+                          Update Password
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item onClick={handleLogout}>
+                          Logout
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="login-signup-button">
+                      <span
+                        // href="/login"
+                        title="Login Sign Up"
+                        className="navbar-all-menus nav-link login-signup-button"
+                        onClick={handleLoginSignupFunc}
+                        id="login-signup-url"
+                      >
+                        <b className="signup-menu">Login | Sign Up</b>
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </Col>
@@ -321,15 +319,20 @@ function MainNavbar() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} autoFocus>
+          <Button
+            onClick={handleClose}
+            autoFocus
+            aria-label="Cancel Logout Session"
+          >
             Cancel
           </Button>
-          <Button onClick={handleConfirmLogout}>Logout</Button>
+          <Button aria-label="Logout Confirm" onClick={handleConfirmLogout}>
+            Logout
+          </Button>
         </DialogActions>
       </Dialog>
 
       <Modal show={showModal} onHide={handleCloseModal} size="xl" centered>
-       
         <Modal.Body className="login-signup-modal">
           {" "}
           <LoginSignupPage onCloseModal={handleCloseModal} />
@@ -340,6 +343,7 @@ function MainNavbar() {
           <button
             className="btn btn-secondary"
             onClick={handleCloseModal}
+            aria-label="Close Authentication Modal"
           >
             Close
           </button>

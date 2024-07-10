@@ -389,6 +389,16 @@ code {
   border-radius: 2px;
 }
 
+.car-key-features-div {
+  max-height: 373px;
+  overflow-y: visible;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  line-height: 35px;
+
+}
+
 @media screen and (max-width: 991px) {
   .vertical-line-car-details-page {
     display: none;
@@ -400,7 +410,7 @@ code {
     display: none;
   }
 
-  .features-scroll-container {
+  .all-vehicles-features-icons {
     max-height: 373px;
     overflow-y: visible;
     flex-direction: row;

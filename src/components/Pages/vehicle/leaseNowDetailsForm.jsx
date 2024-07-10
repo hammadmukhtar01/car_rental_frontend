@@ -295,7 +295,7 @@ const LeaseNowFormDetails = ({
           </div>
           <div className="form-group-3 col-lg-12 pt-2 pb-3">
             <div className="col-lg-12 col-md-6 d-flex justify-content-center">
-              <button className="middle" id="lease-now-form-button">
+              <button className="middle" id="lease-now-form-button" aria-label="Lease To Own Form Submission">
                 <span className="animate-button btn4">Submit</span>
               </button>
               <ToastContainer />

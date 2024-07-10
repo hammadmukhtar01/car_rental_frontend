@@ -506,6 +506,7 @@ const LeaseToOwnVehicles = () => {
                           type="submit"
                           className="lto-lease-now-button submit col-lg-12"
                           id="lease-now-button-full-data"
+                          aria-label="Lease To Own Data"
                         >
                           <h4 className="button-text"> LEASE NOW</h4>
                         </button>
@@ -534,6 +535,7 @@ const LeaseToOwnVehicles = () => {
                       <Modal.Footer>
                         <button
                           className="btn btn-secondary"
+                          aria-label="Lease To Own Form Closing"
                           onClick={handleCloseModal}
                         >
                           Close

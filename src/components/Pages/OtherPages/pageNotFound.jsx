@@ -47,6 +47,7 @@ const PageNotFound = () => {
           <button
             onClick={errorPageBackButton}
             className="middle"
+            aria-label="PageNotFound"
             id="return-home-button-booking-success-page"
           >
             <span className="animate-button btn4">

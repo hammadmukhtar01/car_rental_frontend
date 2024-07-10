@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { Container, Row, Col, Modal, Form } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -39,6 +38,8 @@ const VehicleDetails = ({ nextStep }) => {
   const [selectedAddOn, setSelectedAddOn] = useState(null);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [tariffLines, setTariffLines] = useState([]);
+
   // const [mileageInput, setMileageInput] = useState("");
 
   const carTypeInURL = useLocation();
@@ -91,6 +92,77 @@ const VehicleDetails = ({ nextStep }) => {
     Fullsize: "7 Seater",
   };
 
+  const fetchVehicleRentRates = useCallback(async (tariffGroupId) => {
+    try {
+      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+      const url = `https://app.speedautosystems.com/api/services/app/tariff/GetTariffForEdit`;
+      const response = await axios.post(
+        url,
+        { TariffGroupId: tariffGroupId },
+        { headers }
+      );
+
+      const tariffLines =
+        response?.data?.result?.tariffLines?.items.slice(0, 3) || [];
+      setTariffLines(tariffLines);
+
+      console.log("tariffLines ", tariffLines);
+      return tariffLines;
+    } catch (error) {
+      console.error("Error fetching vehicle rates:", error);
+      return [];
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchVehicleRentRates(TariffGroupId);
+  }, [fetchVehicleRentRates, TariffGroupId]);
+
+  const calculateRent = (rate, rateType, days) => {
+    let calculatedRate = 0;
+    if (days > 0 && days < 7) {
+      calculatedRate = rate * days;
+    } else if (days >= 7 && days <= 21) {
+      calculatedRate = (rate * days) / 7;
+    } else if (days > 21) {
+      calculatedRate = (rate * days) / 30;
+    }
+    return Math.round(calculatedRate * 100) / 100;
+  };
+
+  const renderVehiclePriceAPI = useCallback(
+    (tariffGroupId, days) => {
+      const tariffs = tariffLines || [];
+
+      console.log("tariffs in renderVehiclePriceAPI : ", tariffLines);
+
+      let index;
+      if (days > 0 && days < 7) {
+        index = 0;
+      } else if (days >= 7 && days <= 21) {
+        index = 1;
+      } else if (days > 21) {
+        index = 2;
+      }
+
+      const line = tariffs[index];
+
+      if (!line) {
+        return 0;
+      }
+      const totalPrice = calculateRent(line?.rate, line?.rateType?.name, days);
+
+      console.log("Total Price: --- : ", totalPrice);
+
+      return Math.round(totalPrice);
+    },
+    [tariffLines]
+  );
+
   const baseAPIResponsePath = singleVehicleDetails?.vehicle?.tariffGroup;
 
   const carTypeName = baseAPIResponsePath?.title;
@@ -98,12 +170,36 @@ const VehicleDetails = ({ nextStep }) => {
     categoryMap[baseAPIResponsePath?.acrissCategory?.name] ||
     baseAPIResponsePath?.acrissCategory?.name;
   const carImg = baseAPIResponsePath?.displayImage?.url;
-  const totalPrice = singleVehicleDetails?.charges?.[0]?.tariff?.[0]?.rate;
+
   const totalAPIResponseCharges =
-    calculatedVehiclePrice ?? totalPrice * numberOfDays;
+    parseInt(calculatedVehiclePrice) !== 0
+      ? calculatedVehiclePrice
+      : renderVehiclePriceAPI(TariffGroupId, numberOfDays);
 
   const singleDayPriceCalculation =
-    parseFloat(calculatedVehiclePrice / numberOfDays).toFixed(2) ?? totalPrice;
+    parseInt(calculatedVehiclePrice) !== 0
+      ? parseFloat((calculatedVehiclePrice / numberOfDays).toFixed(2))
+      : parseFloat(
+          (
+            renderVehiclePriceAPI(TariffGroupId, numberOfDays) / numberOfDays
+          ).toFixed(2)
+        );
+
+  // const totalAPIResponseCharges =
+  //   calculatedVehiclePrice ?? totalPrice * numberOfDays;
+  // const singleDayPriceCalculation =
+  //   parseFloat(calculatedVehiclePrice / numberOfDays).toFixed(2) ?? totalPrice;
+
+  // let singleDayPriceCalculation;
+  // if (parseInt(singleDayPriceValue) === 0) {
+  //   singleDayPriceCalculation = parseFloat(
+  //     (renderVehiclePriceAPI(numberOfDays) / numberOfDays).toFixed(2)
+  //   );
+  // } else {
+  //   singleDayPriceCalculation = singleDayPriceValue;
+  // }
+
+  // return singleDayPriceCalculation;
 
   const carPassengerCapacity = baseAPIResponsePath?.passengerCapacity;
   const carManualAutomaticType =
@@ -120,7 +216,6 @@ const VehicleDetails = ({ nextStep }) => {
     singleVehicleDetails?.notes?.split(", ") || [];
 
   const auth = JSON.parse(localStorage.getItem("user"));
-  const user_id = auth?.data._id;
   const authToken = auth?.token;
 
   // const additionalFeaturesList = [...additionalFeaturesArray];
@@ -143,16 +238,16 @@ const VehicleDetails = ({ nextStep }) => {
       value: null,
       featureIcon: GiGearStickPattern,
     },
+    {
+      name: "AC",
+      value: null,
+      featureIcon: LuSnowflake,
+    },
 
     {
       name: "Luggage Bags",
       value: carTotalSafetyBags,
       featureIcon: BsSuitcase,
-    },
-    {
-      name: "Air Conditioner",
-      value: null,
-      featureIcon: LuSnowflake,
     },
   ];
 
@@ -411,6 +506,15 @@ const VehicleDetails = ({ nextStep }) => {
   const getDeliveryCharge = () => {
     const selectedStatePickup = pickupLocStateParam?.toUpperCase();
     const selectedStateDropoff = dropoffLocStateParam?.toUpperCase();
+
+    console.log(
+      "pickupLocTabValue.toUpperCase() : ",
+      pickupLocTabValue.toUpperCase()
+    );
+    console.log(
+      "DropoffLocTabValue.toUpperCase() : ",
+      DropoffLocTabValue.toUpperCase()
+    );
     let pickupCharge = 0;
     let dropoffCharge = 0;
 
@@ -434,7 +538,13 @@ const VehicleDetails = ({ nextStep }) => {
       );
     }
 
-    return pickupCharge + dropoffCharge;
+    let sumPickDropCharges = pickupCharge + dropoffCharge;
+
+    if (checkBoxValueParam === "false") {
+      sumPickDropCharges = 2 * sumPickDropCharges;
+    }
+
+    return sumPickDropCharges;
   };
 
   const subTotalValue =
@@ -666,28 +776,27 @@ const VehicleDetails = ({ nextStep }) => {
                                 <b>Key Features</b>
                               </span>
                               <hr className="hr-line-heading-scroll" />
-                              <div className="car-features-div mt-3">
-                                <Container
-                                  fluid
-                                  className="features-scroll-container"
-                                >
-                                  {carFeaturesWithIcons?.map(
-                                    (carFeaturesIcons, index) => (
-                                      <Row key={index}>
-                                        <Col lg={12} md={12} sm={12} xs={12}>
-                                          <div className="features-values">
-                                            <carFeaturesIcons.featureIcon className="mr-1 " />{" "}
-                                            <span className="features-icon-name">
-                                              {carFeaturesIcons?.value}{" "}
-                                              {carFeaturesIcons?.name}
-                                            </span>
-                                          </div>
-                                        </Col>
-                                      </Row>
-                                    )
-                                  )}
-                                </Container>
-                              </div>
+                              <Row className="car-key-features-div mt-3">
+                                {carFeaturesWithIcons?.map(
+                                  (carFeaturesIcons, index) => (
+                                    <Col
+                                      lg={12}
+                                      md={6}
+                                      sm={6}
+                                      xs={6}
+                                      key={index}
+                                    >
+                                      <div className="features-values">
+                                        <carFeaturesIcons.featureIcon className="mr-1 " />{" "}
+                                        <span className="features-icon-name">
+                                          {carFeaturesIcons?.value}{" "}
+                                          {carFeaturesIcons?.name}
+                                        </span>
+                                      </div>
+                                    </Col>
+                                  )
+                                )}
+                              </Row>
                             </div>
                           </Col>
                         </Row>
@@ -868,6 +977,7 @@ const VehicleDetails = ({ nextStep }) => {
                           <button
                             className="btn btn-secondary"
                             onClick={handleCloseModal}
+                            aria-label="Close AddOns Detail Modal"
                           >
                             Close
                           </button>
@@ -944,6 +1054,16 @@ const VehicleDetails = ({ nextStep }) => {
                                   <div className="text-right">
                                     AED{" "}
                                     <span className="charges-value pl-1">
+                                      {/* {parseInt(totalAPIResponseCharges) !== 0
+                                        ? singleDayPriceCalculation
+                                        : parseFloat(
+                                            (
+                                              renderVehiclePriceAPI(
+                                                TariffGroupId,
+                                                numberOfDays
+                                              ) / numberOfDays
+                                            ).toFixed(2)
+                                          )} */}
                                       {singleDayPriceCalculation}
                                     </span>
                                   </div>
@@ -959,6 +1079,12 @@ const VehicleDetails = ({ nextStep }) => {
                                   <div className="text-right">
                                     AED{" "}
                                     <span className="charges-value pl-1">
+                                      {/* {parseInt(totalAPIResponseCharges) !== 0
+                                        ? totalAPIResponseCharges
+                                        : renderVehiclePriceAPI(
+                                            TariffGroupId,
+                                            numberOfDays
+                                          )} */}
                                       {totalAPIResponseCharges}
                                     </span>
                                   </div>
@@ -1070,6 +1196,7 @@ const VehicleDetails = ({ nextStep }) => {
                                               className="remove-coupon-btn button--submit"
                                               onClick={removeCoupon}
                                               id="remove-coupon-button"
+                                              aria-label="Remove Coupon"
                                             >
                                               <RxCross2 />
                                             </button>
@@ -1079,6 +1206,7 @@ const VehicleDetails = ({ nextStep }) => {
                                             className="apply-coupon-btn button--submit"
                                             onClick={applyCoupon}
                                             id="apply-coupon-button"
+                                            aria-label="Apply Coupon"
                                           >
                                             <TiTick />
                                           </button>
@@ -1168,6 +1296,7 @@ const VehicleDetails = ({ nextStep }) => {
                     onClick={handleStartBookingClick}
                     className="map-loc-middle py-3"
                     id="start-booking-button"
+                    aria-label="Start Booking "
                   >
                     <span
                       className="animate-button btn4"

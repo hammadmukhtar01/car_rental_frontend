@@ -389,6 +389,8 @@ const VehiclesPage = () => {
       const cars = response?.data?.result?.items || [];
       setCarsData(cars);
 
+      setLoading(false);
+
       const tariffPromises = cars?.map((car) =>
         fetchVehicleRentRates(car?.tariffGroupId)
       );
@@ -454,18 +456,6 @@ const VehiclesPage = () => {
     },
     [numberOfDays, tariffLines]
   );
-
-  useEffect(() => {
-    if (loading && carsData.length > 0) {
-      for (const car of carsData) {
-        const price = renderVehiclePrices(car?.tariffGroupId);
-        if (price > 0) {
-          setLoading(false);
-          break;
-        }
-      }
-    }
-  }, [carsData, renderVehiclePrices]);
 
   const categoryMap = {
     Standard: "Sedan",
@@ -820,8 +810,10 @@ const VehiclesPage = () => {
             renderVehiclePrices(b?.tariffGroupId) -
             renderVehiclePrices(a?.tariffGroupId)
           );
-        case "Recommended":
-          return b?.discount - a?.discount;
+        // case "LowToHigh":
+        //   console.log("44");
+
+        //   return b?.discount - a?.discount;
         default:
           return 0;
       }
@@ -849,7 +841,17 @@ const VehiclesPage = () => {
       .filter((car) => selectedCategoryIds.includes(car.acrissCategory.id))
       .map((car) => car.title);
 
-    return [...new Set(typesInSelectedCategories)];
+    const uniqueTypes = [...new Set(typesInSelectedCategories)];
+
+    if (selectedCategories.length === 0) {
+      setSelectedCarTypes([]);
+    } else {
+      setSelectedCarTypes((prevSelected) => {
+        return prevSelected.filter((type) => uniqueTypes.includes(type));
+      });
+    }
+
+    return uniqueTypes;
   }, [selectedCategories, carsData, carType]);
 
   const handleCategoryChange = (selectedOptions) => {
@@ -863,6 +865,9 @@ const VehiclesPage = () => {
         return category ? { id: category?.id, label: category?.name } : option;
       })
     );
+    if (selectedOptions.length === 0) {
+      setSelectedCarTypes([]);
+    }
   };
 
   const currentTableData = useMemo(() => {
@@ -1661,7 +1666,7 @@ const VehiclesPage = () => {
                                             //   .toLowerCase()}-button`}
                                           />
                                         </div>
-                                        <div className="all-vehicles-features-icons features-scroll-container text-center">
+                                        <div className="all-vehicles-features-icons text-center">
                                           {dataArray?.map(
                                             (carData, dataIndex) => (
                                               <span key={dataIndex}>
@@ -1735,6 +1740,7 @@ const VehiclesPage = () => {
                                           <div className="col-xxl-10 col-lg-11 col-md-12 col-sm-12 col-12 d-flex justify-content-center flex-column">
                                             <>
                                               <button
+                                                aria-label="Vehicle rate details"
                                                 className="map-loc-middle"
                                                 onClick={() => {
                                                   const vehiclePrice =

@@ -547,6 +547,9 @@ h2.terms-conditions-headings-main {
   .bottom-bar-copyright-text {
     font-size: medium;
   }
+  .top-bar-without-container {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 467px) {

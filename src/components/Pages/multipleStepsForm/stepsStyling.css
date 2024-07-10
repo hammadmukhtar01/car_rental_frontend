@@ -116,9 +116,6 @@ h4 {
   color: #e87a28;
 }
 
-.features-scroll-container {
-  line-height: 35px;
-}
 
 .features-values {
   font-size: 13px;
@@ -290,8 +287,7 @@ h4 {
 .car-image-1 {
   max-width: inherit;
 }
-.car-features-list-main-div {
-}
+
 @media screen and (max-width: 991px) {
   .car-prices-details-container {
     border: none;

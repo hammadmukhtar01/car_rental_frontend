@@ -9,14 +9,15 @@ import "react-toastify/dist/ReactToastify.css";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import FooterCombination from "../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import SuccessGifWebP from "../images/auth-gif-after-edited.gif";
 import "../Pages/OtherPages/toastStyle.css";
 
-const LoginPage = ({ onCloseModal }) => {
+const LoginPage = ({ onCloseModal, setGif }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const auth = localStorage.getItem("user");
@@ -31,8 +32,8 @@ const LoginPage = ({ onCloseModal }) => {
   }, [navigate, location.pathname, location.search]);
 
   const handleLogin = async (e) => {
-    setLoading(true);
-    document.body.classList.add("loadings");
+    // setLoading(true);
+    // document.body.classList.add("loadings");
 
     e.preventDefault();
 
@@ -58,8 +59,10 @@ const LoginPage = ({ onCloseModal }) => {
 
       if (resultedData.status === "success" && resultedData?.token) {
         localStorage.setItem("user", JSON.stringify(resultedData));
+        setGif(SuccessGifWebP);
+
         toast.success("Logged In Successfully!", {
-          autoClose: 1000,
+          autoClose: 2000,
           style: {
             border: "1px solid #c0c0c0",
             fontWeight: "400",
@@ -90,10 +93,11 @@ const LoginPage = ({ onCloseModal }) => {
           fontSize: "14px",
         },
       });
-    } finally {
-      setLoading(false);
-      document.body.classList.remove("loadings");
     }
+    // finally {
+    //   setLoading(false);
+    //   document.body.classList.remove("loadings");
+    // }
   };
 
   return (
@@ -107,12 +111,12 @@ const LoginPage = ({ onCloseModal }) => {
         <meta name="keywords" content="keywords" />
         {/* <link rel="canonical" href="https://milelecarrental.com/login" /> */}
       </Helmet>
-      {loading && (
+      {/* {loading && (
         <div className="reloading-icon-free-consultation-form-container text-center">
           <span className="loader-text">Logging In . . .</span>
           <div className="lds-dual-ring text-center"></div>
         </div>
-      )}
+      )} */}
       <ToastContainer />
 
       <section>
@@ -172,8 +176,17 @@ const LoginPage = ({ onCloseModal }) => {
                   </a>
                 </Col>
 
-                <Col xl={6} lg={6} md={6} sm={6} xs={12} className="text-right login-button-col">
-                  <button className="login-button">Login</button>
+                <Col
+                  xl={6}
+                  lg={6}
+                  md={6}
+                  sm={6}
+                  xs={12}
+                  className="text-right login-button-col"
+                >
+                  <button className="login-button" aria-label="Log In">
+                    Login
+                  </button>
                 </Col>
               </Row>
             </div>
