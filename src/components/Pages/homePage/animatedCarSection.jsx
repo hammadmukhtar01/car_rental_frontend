@@ -24,13 +24,13 @@ const AnimatedCarSection = () => {
       margin: 10,
       nav: true,
       autoplay: true,
-      autoplayTimeout: 3000,
+      autoplayTimeout: 3000000,
       autoplayHoverPause: true,
       autoplaySpeed: 3000,
       center: true,
       navText: [
-        "<span class='nav-btn prev-slide'><</span>",
-        "<span class='nav-btn next-slide'>></span>",
+        "<span class='nav-btn prev-slide' aria-label='Previous Slide'><</span>",
+        "<span class='nav-btn next-slide' aria-label='Next Slide'>></span>",
       ],
       responsive: {
         0: {
@@ -185,6 +185,9 @@ const AnimatedCarSection = () => {
                                 data?.acrissCategory
                               )}`}
                               alt={`${mapCategoryToNavigationValue(
+                                data?.acrissCategory
+                              )} Vehicle Category`}
+                              aria-label={`${mapCategoryToNavigationValue(
                                 data?.acrissCategory
                               )} Vehicle Category`}
                               className="img-fluid slider-item"

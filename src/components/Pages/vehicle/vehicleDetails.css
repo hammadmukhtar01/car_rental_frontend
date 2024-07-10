@@ -230,7 +230,7 @@ ul.pagination-container.pagination-bar {
 }
 
 .car-type-filter {
-  max-height: 200px;
+  max-height: 240px;
   overflow-y: auto;
 }
 

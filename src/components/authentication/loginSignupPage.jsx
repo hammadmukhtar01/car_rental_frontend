@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import "./authentication.css";
-import LoginSignupImg from "../images/loginSignImg-test.jpg";
-import LoginSignupImgWebP from "../images/loginSignImg-test.webp";
 import "react-toastify/dist/ReactToastify.css";
 import "../Pages/OtherPages/toastStyle.css";
+import InitialGifWebP from "../images/auth-gif-before-edited.gif";
 import SignupPage from "./signupPage";
 import LoginPage from "./loginPage";
 
 const LoginSignupPage = ({ onCloseModal }) => {
   const [showLoginForm, setShowLoginForm] = useState(true);
+  const [gif, setGif] = useState(InitialGifWebP);
 
   const handleLoginClick = () => {
     setShowLoginForm(true);
@@ -80,7 +80,7 @@ const LoginSignupPage = ({ onCloseModal }) => {
                     <b>Log In</b>
                   </h4>
                   <div className="login-form-data">
-                    <LoginPage onCloseModal={onCloseModal} />
+                    <LoginPage onCloseModal={onCloseModal} setGif={setGif} />
                   </div>
                 </div>
               ) : (
@@ -90,7 +90,7 @@ const LoginSignupPage = ({ onCloseModal }) => {
                   </h4>
 
                   <div className="signup-form-data">
-                    <SignupPage onCloseModal={onCloseModal} />{" "}
+                    <SignupPage onCloseModal={onCloseModal} setGif={setGif} />{" "}
                   </div>
                 </div>
               )}
@@ -105,13 +105,8 @@ const LoginSignupPage = ({ onCloseModal }) => {
             className="p-0 login-signup-img-container bg-black"
           >
             <picture>
-              <source srcSet={LoginSignupImgWebP} type="image/webp" />
-              <source srcSet={LoginSignupImg} type="image/png" />
-              <img
-                src={LoginSignupImg}
-                alt="Login Signup"
-                className="img-fluid"
-              />
+              <source srcSet={gif} type="image/webp" />
+              <img src={gif} alt="Login Signup" className="img-fluid" />
             </picture>
           </Col>
         </Row>

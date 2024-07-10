@@ -91,7 +91,7 @@ const FixedNumLocButtons = () => {
             ></iframe>
           </Modal.Body>
           <Modal.Footer>
-            <button className="btn btn-secondary" onClick={handleCloseModal}>
+            <button className="btn btn-secondary" aria-label="Google Map Location Modal"  onClick={handleCloseModal}>
               Close
             </button>
           </Modal.Footer>

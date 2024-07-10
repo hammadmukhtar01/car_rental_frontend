@@ -45,6 +45,7 @@ const AfterBookingPage = () => {
             onClick={thankYouPageBackButton}
             className="middle"
             id="return-home-button-booking-success-page"
+            aria-label="Return Home"
           >
             <span className="animate-button btn4">
               <b>Back to home</b>

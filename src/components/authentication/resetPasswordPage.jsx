@@ -142,7 +142,7 @@ const ResetPasswordPage = () => {
                     <p></p>
                     <br />
                     <br />
-                    <button className="middle" id="reset-password-button">
+                    <button className="middle" id="reset-password-button" aria-label="Reset Password">
                       <span className="animate-button btn4">Submit</span>
                     </button>
                     <ToastContainer />

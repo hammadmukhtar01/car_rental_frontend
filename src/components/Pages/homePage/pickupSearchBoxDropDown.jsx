@@ -225,6 +225,7 @@ function PickupLocationModal({
                       <button
                         onClick={handleInputSubmit}
                         className="map-loc-middle py-3"
+                        aria-label="Pickup Location Live"
                         id="pickup-loc-booking-button-deliver-to-me"
                       >
                         <span className="animate-button btn4">
@@ -291,6 +292,7 @@ function PickupLocationModal({
                       <button
                         onClick={handleInputSubmit}
                         className="map-loc-middle py-3"
+                        aria-label="Pickup Location Showroom"
                         id="pickup-loc-booking-button-pick-up-myself"
                       >
                         <span className="animate-button btn4">

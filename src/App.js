@@ -25,6 +25,8 @@ import BlogPage2 from "./components/Pages/Blog/blogPage2";
 import BlogPage3 from "./components/Pages/Blog/blogPage3";
 import GlobalLoader from "./components/PrivateComponents/globalLoader";
 import EmailTemplate from "./components/images/icons/emailTemplate";
+import UpdatePasswordPage from "./components/authentication/updatePassword";
+import PrivateComponent from "./components/PrivateComponents/privateComponent";
 
 const App = () => {
   const location = useLocation();
@@ -49,27 +51,25 @@ const App = () => {
               element={<HomePage />}
             />
             <Route path="/vehicles" element={<VehiclesPage />} />
-            {/* <Route path="/leaseToOwn" element={<LeaseToOwnVehicles />} /> */}
-            {/* <Route path="/booking/:id" element={<BookingDetails />} /> */}
             <Route path="/aboutus" element={<AboutusPage />} />
             <Route path="/faqs" element={<FaqsPage />} />
             <Route path="/terms&Conditions" element={<TermsConditionsPage />} />
             <Route path="/contactus" element={<ContactusPage />} />
-            <Route path="/myProfile/:id" element={<ContactusPage />} />
-            <Route path="/myBookings/:id" element={<CustomerBookingPage />} />
-            {/* <Route path="/login" element={<LoginPage />} /> */}
-            {/* <Route path="/signup" element={<SignupPage />} /> */}
             <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
             <Route
               path="/resetpassword/:token"
               element={<ResetPasswordPage />}
             />
             <Route path="/bookingPage/:step" element={<VerificationForm />} />
-            {/* <Route path="/bookingPage/2" element={<AddOnsDocuments />} /> */}
-            {/* <Route path="/bookingPage/3" element={<PaymentPage />} /> */}
             <Route path="/blogPage1/1" element={<BlogPage1 />} />
             <Route path="/blogPage2/2" element={<BlogPage2 />} />
             <Route path="/blogPage3/3" element={<BlogPage3 />} />
+
+           <Route element={<PrivateComponent />}>
+              <Route path="/myProfile/:id" element={<ContactusPage />} />
+              <Route path="/myBookings/:id" element={<CustomerBookingPage />} />
+              <Route path="/updatepassword" element={<UpdatePasswordPage />} />
+            </Route>
             <Route path="*" element={<PageNotFound />} status={404} />
           </Routes>
         </div>

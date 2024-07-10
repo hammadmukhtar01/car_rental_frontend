@@ -19,9 +19,9 @@ const SearchBox = () => {
   const [dropoffLocation, setDropoffLocation] = useState("");
   const [showDropoff, setShowDropoff] = useState(false);
   const [pickUpDate, setPickUpDate] = useState("");
-  const [pickUpTime, setPickUpTime] = useState("");
+  // const [pickUpTime, setPickUpTime] = useState("");
   const [dropOffDate, setDropOffDate] = useState("");
-  const [dropOffTime, setDropOffTime] = useState("");
+  // const [dropOffTime, setDropOffTime] = useState("");
   const [pickupLocationMessage, setPickupLocationMessage] = useState("");
   const [dropoffLocationMessage, setDropoffLocationMessage] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -104,8 +104,8 @@ const SearchBox = () => {
 
         setPickupInputFieldValue(storedFormFields?.inputPickupFieldValue || "");
 
-        setPickUpTime(storedFormFields?.pickTimeV1 || "");
-        setDropOffTime(storedFormFields?.dropTimeV1 || "");
+        // setPickUpTime(storedFormFields?.pickTimeV1 || "");
+        // setDropOffTime(storedFormFields?.dropTimeV1 || "");
         setPickupSelectedTab(storedFormFields?.selectedTabPickUp || "");
         setDropoffSelectedTab(storedFormFields?.selectedTabDropOff || "");
       }
@@ -128,21 +128,21 @@ const SearchBox = () => {
 
   const navigate = useNavigate();
   const { formFields, handleFieldChange } = UseGlobalFormFields({
-    pickTimeV1: pickUpTime || "",
-    dropTimeV1: dropOffTime || "",
+    // pickTimeV1: pickUpTime || "",
+    // dropTimeV1: dropOffTime || "",
     dateRangeV1: dateRange || "",
     showDropoffV1: 0,
   });
 
   const handlePickupTimeChange = (selectedOption) => {
     console.log("Selected time option is: ", selectedOption);
-    setPickUpTime(selectedOption?.value);
+    // setPickUpTime(selectedOption?.value);
     handleFieldChange("pickTimeV1", selectedOption?.value);
   };
 
   const handleDropoffTimeChange = (selectedOption) => {
     console.log("Selected time option is: ", selectedOption);
-    setDropOffTime(selectedOption?.value);
+    // setDropOffTime(selectedOption?.value);
     handleFieldChange("dropTimeV1", selectedOption?.value);
   };
 
@@ -167,45 +167,46 @@ const SearchBox = () => {
     );
     dropOffDate.setMinutes(parseInt(dropOffMinute));
 
-    const timeDifference = (dropOffDate - pickUpDate) / (1000 * 60);
+  }
+  //   const timeDifference = (dropOffDate - pickUpDate) / (1000 * 60);
 
-    if (timeDifference < 60) {
-      return false;
-    } else return true;
-  };
+  //   if (timeDifference < 60) {
+  //     return false;
+  //   } else return true;
+  // };
 
-  const generateTimeSlots = () => {
-    const timeSlots = [];
-    let hour = 7;
-    let minute = 0;
-    let ampm = "AM";
-    while (!(hour === 23 && minute === 30)) {
-      let formattedHour;
-      if (hour <= 12) {
-        formattedHour = hour.toString().padStart(2, "0");
-      } else {
-        const newhour = hour - 12;
-        formattedHour = newhour.toString().padStart(2, "0");
-      }
+  // const generateTimeSlots = () => {
+  //   const timeSlots = [];
+  //   let hour = 7;
+  //   let minute = 0;
+  //   let ampm = "AM";
+  //   while (!(hour === 23 && minute === 30)) {
+  //     let formattedHour;
+  //     if (hour <= 12) {
+  //       formattedHour = hour.toString().padStart(2, "0");
+  //     } else {
+  //       const newhour = hour - 12;
+  //       formattedHour = newhour.toString().padStart(2, "0");
+  //     }
 
-      const formattedMinute = minute.toString().padStart(2, "0");
-      const time = `${formattedHour}:${formattedMinute} ${ampm}`;
-      timeSlots.push({ label: time, value: time });
+  //     const formattedMinute = minute.toString().padStart(2, "0");
+  //     const time = `${formattedHour}:${formattedMinute} ${ampm}`;
+  //     timeSlots.push({ label: time, value: time });
 
-      minute += 30;
-      if (minute === 60) {
-        hour++;
-        minute = 0;
-      }
-      if (hour === 12 && minute === 0) {
-        ampm = "PM";
-      }
-    }
+  //     minute += 30;
+  //     if (minute === 60) {
+  //       hour++;
+  //       minute = 0;
+  //     }
+  //     if (hour === 12 && minute === 0) {
+  //       ampm = "PM";
+  //     }
+  //   }
 
-    return timeSlots;
-  };
+  //   return timeSlots;
+  // };
 
-  const timeOptions = generateTimeSlots();
+  // const timeOptions = generateTimeSlots();
 
   const handlePickUpButtonClick = (option) => {
     if (option === "Deliver") {
@@ -330,8 +331,8 @@ const SearchBox = () => {
     e.preventDefault();
     handleSearchClick();
     if (
-      !pickUpTime ||
-      !dropOffTime ||
+      // !pickUpTime ||
+      // !dropOffTime ||
       !pickupLocationMessage ||
       (showDropoff === true && !dropoffLocationMessage)
     ) {
@@ -367,7 +368,7 @@ const SearchBox = () => {
     const endDate = endLocalDate?.toISOString()?.split("T")[0];
     const numberOfDays = calculateNumberOfDays(startLocalDate, endLocalDate);
 
-    const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupStateValueProp}&dropoffLocState=${dropoffStateValueProp}&pickupLocSelectedTab=${pickupSelectedTab}&dropoffLocSelectedTab=${dropoffSelectedTab}`;
+    const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupLoc=${pickupLocationMessage}&dropoffLoc=${dropoffLocationMessage}&pickupLocState=${pickupStateValueProp}&dropoffLocState=${dropoffStateValueProp}&pickupLocSelectedTab=${pickupSelectedTab}&dropoffLocSelectedTab=${dropoffSelectedTab}`;
 
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
@@ -422,7 +423,7 @@ const SearchBox = () => {
                   onSubmit={handleSearchVehicleButtonHomePage}
                 >
                   <Row>
-                    <Col xxl={3} lg={3} md={7} sm={6} xs={12}>
+                    <Col xxl={3} lg={3} md={4} sm={10} xs={12}>
                       <Form.Group controlId="formDropoffDateTime">
                         <div className="date-label">
                           <label className="styled-label">
@@ -431,6 +432,13 @@ const SearchBox = () => {
                           </label>
                         </div>
                         <div onClick={handleDateClick} ref={dateInputRef}>
+                          <label
+                            htmlFor="searchboxInputDate"
+                            className="d-none"
+                          >
+                            {" "}
+                            Date Range
+                          </label>
                           <input
                             className="form-control-date mt-2 col-12"
                             type="text"
@@ -474,17 +482,18 @@ const SearchBox = () => {
                     <Col
                       xxl={4}
                       lg={4}
-                      md={showDropoff ? 9 : 6}
-                      sm={12}
+                      // md={4}
+                      md={showDropoff ? 3 : 4}
+                      sm={showDropoff ? 6 : 10}
                       xs={12}
                     >
                       <Row>
                         {/* Error  */}
                         <Col
-                          xxl={showDropoff ? 6 : 12}
-                          lg={showDropoff ? 6 : 12}
-                          md={showDropoff ? 6 : 12}
-                          sm={6}
+                          xxl={showDropoff ? 12 : 12}
+                          lg={showDropoff ? 12 : 12}
+                          md={showDropoff ? 12 : 12}
+                          sm={12}
                           xs={12}
                           className={` ${
                             showDropoff ? "dropoff-visible" : "dropoff-hidden"
@@ -516,37 +525,6 @@ const SearchBox = () => {
                             </div>
                           </Form.Group>
                         </Col>
-
-                        {showDropoff ? (
-                          <Col xxl={6} lg={6} md={6} sm={6} xs={12}>
-                            <Form.Group controlId="formKeyword">
-                              <div className="location-label">
-                                <label className="styled-label">
-                                  <BsGeoAltFill className="mr-2" />
-                                  <b>Drop-Off *</b>
-                                </label>
-                              </div>
-                              <div className="custom-dropdown-container">
-                                <input
-                                  className="form-control-location mt-2 col-12"
-                                  type="text"
-                                  id="searchboxInputDropOffLoc"
-                                  placeholder="Enter dropoff location"
-                                  value={
-                                    dropoffLocationMessage &&
-                                    inputDropoffFieldValue
-                                      ? `${dropoffLocationMessage} - ${inputDropoffFieldValue}`
-                                      : dropoffLocationMessage
-                                  }
-                                  onChange={() =>
-                                    console.log("On change in dropoff")
-                                  }
-                                  onClick={() => setShowDropoffModal(true)}
-                                />
-                              </div>
-                            </Form.Group>
-                          </Col>
-                        ) : null}
                       </Row>
                       <Row>
                         <div className="mt-2">
@@ -560,6 +538,39 @@ const SearchBox = () => {
                         </div>
                       </Row>
                     </Col>
+
+                    {showDropoff ? (
+                      <Col xxl={4} lg={4} md={3} sm={6} xs={12}>
+                        <Form.Group controlId="formKeyword">
+                          <div className="location-label">
+                            <label className="styled-label">
+                              <BsGeoAltFill className="mr-2" />
+                              <b>Drop-Off *</b>
+                            </label>
+                          </div>
+                          <div className="custom-dropdown-container">
+                            <input
+                              className="form-control-location mt-2 col-12"
+                              type="text"
+                              id="searchboxInputDropOffLoc"
+                              placeholder="Enter dropoff location"
+                              value={
+                                dropoffLocationMessage && inputDropoffFieldValue
+                                  ? `${dropoffLocationMessage} - ${inputDropoffFieldValue}`
+                                  : dropoffLocationMessage
+                              }
+                              onChange={() =>
+                                console.log("On change in dropoff")
+                              }
+                              onClick={() => setShowDropoffModal(true)}
+                            />
+                          </div>
+                        </Form.Group>
+                      </Col>
+                    ) : (
+                      ""
+                    )}
+
                     <Modal
                       show={showPickupModal}
                       onHide={() => setShowPickupModal(false)}
@@ -624,10 +635,13 @@ const SearchBox = () => {
                       </Modal.Body>
                     </Modal>
 
-                    <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
+                    {/* <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
                       <Form.Group controlId="formKeyword">
                         <div className="location-label">
-                          <label className="styled-label mb-3">
+                          <label
+                            className="styled-label mb-3"
+                            htmlFor="searchboxInputPickUpTime"
+                          >
                             <b>Pickup Time *</b>
                           </label>
                         </div>
@@ -636,6 +650,7 @@ const SearchBox = () => {
                           required
                           className="form-control-pickup-time col-12"
                           id="searchboxInputPickUpTime"
+                          aria-labelledby="pickupTimeLabel"
                           value={timeOptions?.find(
                             (option) => option?.value === formFields?.pickTimeV1
                           )}
@@ -643,12 +658,15 @@ const SearchBox = () => {
                           styles={selectStyles}
                         />
                       </Form.Group>
-                    </Col>
+                    </Col> */}
 
-                    <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
+                    {/* <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
                       <Form.Group controlId="formKeyword">
                         <div className="location-label">
-                          <label className="styled-label mb-3">
+                          <label
+                            className="styled-label mb-3"
+                            htmlFor="searchboxInputDropOffTime"
+                          >
                             <b>Dropoff Time *</b>
                           </label>
                         </div>
@@ -657,6 +675,7 @@ const SearchBox = () => {
                           required
                           className="form-control-dropoff-time col-12"
                           id="searchboxInputDropOffTime"
+                          aria-labelledby="dropoffTimeLabel"
                           value={timeOptions?.find(
                             (option) => option?.value === formFields?.dropTimeV1
                           )}
@@ -664,12 +683,12 @@ const SearchBox = () => {
                           styles={selectStyles}
                         />
                       </Form.Group>
-                    </Col>
+                    </Col> */}
 
                     <Col
                       xxl={1}
                       lg={1}
-                      md={3}
+                      md={1}
                       sm={6}
                       xs={6}
                       id="home-page-search-box-button"
@@ -680,6 +699,7 @@ const SearchBox = () => {
                         className="search-box-search-button"
                         id="home-page-search-box-button"
                         onClick={handleSearchClick}
+                        aria-label="Search Vehicles"
                       >
                         <span id="home-page-search-box-button">
                           <LuSearch id="home-page-search-box-button" />

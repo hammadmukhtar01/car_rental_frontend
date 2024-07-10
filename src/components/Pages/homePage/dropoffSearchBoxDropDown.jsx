@@ -211,6 +211,7 @@ function DropoffLocationModal({
                         onClick={handleInputSubmit}
                         className="map-loc-middle py-3"
                         id="dropoff-loc-booking-button-deliver-to-me"
+                        aria-label="Dropoff Location live"
                       >
                         <span className="animate-button btn4">
                           Start Booking
@@ -280,6 +281,7 @@ function DropoffLocationModal({
                         onClick={handleInputSubmit}
                         className="map-loc-middle py-3"
                         id="dropoff-loc-booking-button-pick-up-myself"
+                        aria-label="Dropoff Loc Showroom"
                       >
                         <span className="animate-button btn4">
                           Start Booking

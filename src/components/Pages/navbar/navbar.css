@@ -148,9 +148,13 @@
   background: #e87a28;
   color: white;
 }
+.dropdown-menu .active:not(.form-control) {
+  color: white !important;
+  background-color: #e87a28 !important;
+}
 
 .dropdown-menu.show {
-  inset: 0px auto auto -30px !important;
+  inset: 8px auto auto -40px !important;
 }
 .welcome-text {
   color: black !important;
@@ -355,6 +359,10 @@ nav a {
   margin-left: 25px;
 }
 
+.fa-user-circle {
+  margin: 0px 15px;
+}
+
 @media screen and (min-width: 991px) {
   .navbar-all-menus {
     padding: 10px 15px !important;
@@ -369,10 +377,6 @@ nav a {
   .navbar-light .navbar-all-menus.active::before,
   .navbar-nav li a::after {
     content: none;
-  }
-
-  .fa-user-circle {
-    margin: 0px 15px;
   }
 
   .css-hz1bth-MuiDialog-container {

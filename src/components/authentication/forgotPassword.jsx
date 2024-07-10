@@ -122,7 +122,7 @@ const ForgotPasswordPage = () => {
                       <p></p>
                       <br />
                       <br />
-                      <button className="middle" id="forgot-password-button">
+                      <button className="middle" id="forgot-password-button" aria-label="Forgot Password">
                         <span className="animate-button btn4">Submit</span>
                       </button>
 

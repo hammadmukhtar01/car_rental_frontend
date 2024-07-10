@@ -150,6 +150,7 @@ const ResponsiveExample = () => {
                         <button
                           className="booking-details-button"
                           id="my-booking-buton"
+                          aria-label="My Bookings"
                           onClick={() =>
                             isCardVisible
                               ? handleHideDetailsClick()

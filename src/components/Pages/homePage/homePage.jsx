@@ -21,7 +21,7 @@ import TestAutoComInput from "../../GoogleMap/testSearchInput";
 import { ImSpinner4 } from "react-icons/im";
 import { Modal } from "react-bootstrap";
 import OnlyCarPNG from "../../images/only-car-bg-home-banner.png";
-import OnlyCarWebP from "../../images/only-car-bg-home-banner.webp";
+import OnlyCarWebP from "../../images/only-car-bg-home-banner1.png";
 import InstagramFeed from "./instagramFeed";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 import HomePageTopBar from "../navbar/homePageTopBar";
@@ -107,46 +107,6 @@ const HomePage = () => {
             </p>
           </div>
           <CarCards />
-
-          <div className="container pt-4 pb-4">
-            <div className="car-brands-icons-container p-3">
-              <div className="styled-label">
-                <div className="heading-icon-container-div">
-                  <span className="text-center">
-                    <h2>
-                      <b className="fs-3">Collaborated Brands</b>
-                    </h2>
-                  </span>
-                </div>
-                <hr className="home-page-heading-underline " />
-              </div>
-
-              <section className="lto-dealing-brands mt-3">
-                <div className="lto-our-brand-div">
-                  <div className="home-page-lto-brand-icons">
-                    {carBrands?.map((carBrandsName, index) => (
-                      <picture key={index}>
-                        <source
-                          srcSet={carBrandsName?.logoWebP}
-                          type="image/webp"
-                        />
-                        <source
-                          srcSet={carBrandsName?.logoPNG}
-                          type="image/png"
-                        />
-                        <img
-                          src={carBrandsName?.logoPNG}
-                          className="home-page-single-brand-class"
-                          title={`${carBrandsName?.name}`}
-                          alt={`${carBrandsName?.name} brand`}
-                        />
-                      </picture>
-                    ))}
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
 
           <AnimatedCarSection />
 
