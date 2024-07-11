@@ -6,8 +6,6 @@ import "./authentication.css";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import HeaderCombination from "../PrivateComponents/headerCombination";
-import FooterCombination from "../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import SuccessGifWebP from "../images/auth-gif-after-edited.gif";
 import "../Pages/OtherPages/toastStyle.css";
@@ -62,7 +60,7 @@ const LoginPage = ({ onCloseModal, setGif }) => {
         setGif(SuccessGifWebP);
 
         toast.success("Logged In Successfully!", {
-          autoClose: 2000,
+          autoClose: 3000,
           style: {
             border: "1px solid #c0c0c0",
             fontWeight: "400",

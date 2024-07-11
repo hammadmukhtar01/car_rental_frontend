@@ -248,7 +248,7 @@ function MainNavbar() {
                           // to={`/myProfile/${userAuthId}`}
                           to={"/#1"}
                         >
-                          My Profile
+                          {/* My Profile */}
                         </NavDropdown.Item>
 
                         <NavDropdown.Item
@@ -257,7 +257,7 @@ function MainNavbar() {
                           to={"/#2"}
 
                         >
-                          My Bookings
+                          {/* My Bookings */}
                         </NavDropdown.Item>
                         <NavDropdown.Item as={NavLink} to="/updatePassword">
                           Update Password

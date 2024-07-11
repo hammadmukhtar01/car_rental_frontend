@@ -22,7 +22,6 @@ const SignupPage = ({ onCloseModal, setGif }) => {
 
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
-  const [nationality, setsetNationality] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState({ dialCode: "971", name: "UAE" });
   const [email, setEmail] = useState("");
@@ -57,7 +56,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
     }
 
     if (password !== passwordConfirm) {
-      toast.error("Passwords do not match.", {
+      toast.error("Passwords do not match!", {
         position: "top-right",
         autoClose: 1500,
       });
@@ -86,19 +85,19 @@ const SignupPage = ({ onCloseModal, setGif }) => {
     const formData = {
       fName,
       lName,
-      phoneNumber,
-      nationality: selectedNationality?.label,
+      phoneNumber: `+${phoneNumber}`,
+      nationality: selectedNationality,
       email,
       password,
       passwordConfirm,
     };
+    console.log("form data is: ", formData);
+
     try {
-      console.log("Data is: ", formData);
       const response = await axios.post(
         // `http://localhost:8000/api/v1/customer/create`,
         `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
         formData,
-        { headers }
       );
 
       if (response?.data?.status === "success") {
@@ -112,7 +111,6 @@ const SignupPage = ({ onCloseModal, setGif }) => {
           },
           onClose: () => {
             const lastUrl = localStorage.getItem("lastUrl") || "/";
-            console.log("lastUrl : ", lastUrl);
             navigate(lastUrl);
             onCloseModal();
           },
@@ -128,18 +126,15 @@ const SignupPage = ({ onCloseModal, setGif }) => {
         });
       }
     } catch (error) {
-      toast.error(
-        `${error?.response?.data?.message}` || "Some fields are missing",
-        {
-          autoClose: 2000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            lineHeight: "18px",
-            fontSize: "14px",
-          },
-        }
-      );
+      toast.error(error?.response?.data?.message || "Some fields are missing", {
+        autoClose: 2000,
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          lineHeight: "18px",
+          fontSize: "14px",
+        },
+      });
     }
     // finally {
     //   setLoading(false);
@@ -170,6 +165,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
   }, []);
 
   const handleNationalityChange = (selectedOption) => {
+    console.log("selectedOption", selectedOption);
     setSelectedNationality(selectedOption);
   };
 
@@ -250,9 +246,9 @@ const SignupPage = ({ onCloseModal, setGif }) => {
                 <div className=" custom-dropdown-container">
                   <input
                     className="form-control-signup col-12"
-                    name={`${lName}`}
+                    name="lName"
                     type="text"
-                    autoComplete="lname"
+                    autoComplete="lName"
                     required
                     placeholder="Last Name"
                     value={lName}

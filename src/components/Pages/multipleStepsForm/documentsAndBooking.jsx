@@ -28,14 +28,23 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [loadingBooking, setLoadingBooking] = useState(false);
 
   // Customer Data
-  const auth = JSON.parse(localStorage.getItem("user"));
+  const [customerDetails, setCustomerDetails] = useState("");
+  const auth = useMemo(() => JSON.parse(localStorage.getItem("user")), []);
   const user_id = auth?.data._id;
   const user_customerSpeedId = auth?.data?.customerIdFromSpeed;
   const user_token = auth?.token;
-  const config = {
-    headers: {
-      Authorization: `Bearer ${user_token}`,
-    },
+  // const user_token = auth?.token;
+  const config = useMemo(
+    () => ({
+      headers: {
+        Authorization: `Bearer ${user_token}`,
+      },
+    }),
+    [user_token]
+  );
+
+  const updateLocalStorage = (newUserData) => {
+    localStorage.setItem("user", JSON.stringify(newUserData));
   };
 
   // Driving License
@@ -56,7 +65,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [pickupLocationId, setPickupLocationId] = useState(null);
   const [dropoffLocationId, setDropoffLocationId] = useState(null);
   const [newCustomerDetail, setNewCustomerDetail] = useState("");
-  const [speedCustomerId, setSpeedCustomerId] = useState();
+  const [customerIdFromSpeed, setCustomerIdFromSpeed] = useState();
   const [paymentUrl, setPaymentUrl] = useState("");
   const [bookingStatus, setBookingStatus] = useState("");
 
@@ -221,25 +230,34 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     }
   };
 
-  // Store Customer Id from Speed into Mongo DB backend
+  // Get Customer Data From Mongo DB backend
 
-  const sendSpeedCustomerIdInDB = (customerId) => {
-    const data = {
-      speedCustomerId: customerId,
-    };
+  const fetchMongoDBCustomerData = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_MILELE_API_URL}/customer/profile/${user_id}`,
+        // `http://localhost:8000/api/v1/customer/profile/${user_id}`,
+        config
+      );
 
-    axios
-      .post("http://localhost:8000/api/v1/cart/create", data, config)
-      .then((response) => {
-        // Handle successful addition to cart
-        alert("Product added to cart, successfully");
-        console.log("Product added to cart:", response.data);
-      })
-      .catch((error) => {
-        // Handle error
-        console.error("Error adding to cart:", error);
-      });
-  };
+      const result = response?.data;
+
+      console.log("response?.data", response?.data);
+      setCustomerDetails(response?.data);
+      setFirstName(result?.user?.fName);
+      setLastName(result?.user?.lName);
+      setContactNum(result?.user?.phoneNumber);
+      setEmailAddress(result?.user?.email);
+    } catch (error) {
+      console.error("Error fetching customer data : ", error);
+    }
+  }, [config, user_id]);
+
+  useEffect(() => {
+    if (auth) {
+      fetchMongoDBCustomerData();
+    }
+  }, [auth, fetchMongoDBCustomerData]);
 
   // Create Customer API
 
@@ -269,14 +287,18 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
       if (response?.data && response?.data?.success && response?.data?.result) {
         console.log(
-          "create customer success if method console - - - - - -- done"
+          "create customer success if method console - - - - - -- done",
+          response?.data?.result
         );
         // alert("alert customer created...");
+       
+        handleCustomerIdFromSpeed(response?.data?.result);
+
         getCustomerDetails(response?.data?.result);
       } else {
         const errorMessage = response?.data?.error?.message;
         toast.error(errorMessage, {
-          autoClose: 2000,
+          autoClose: 5000,
           style: {
             border: "1px solid #c0c0c0",
             fontWeight: "400",
@@ -315,6 +337,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       if (response?.data?.success) {
         // alert("alert customer get details...");
         console.log("get customer response--------:", response?.data?.result);
+
         createBooking(
           response?.data?.result?.id,
           response?.data?.result?.firstName,
@@ -656,6 +679,48 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     submitBooking(bookingData);
   };
 
+  // handle customer ID
+
+  const handleCustomerIdFromSpeed = async (speedCusId) => {
+    try {
+      console.log("handleCustomerIdFromSpeed, speedCusId : ", speedCusId);
+      console.log("user_id, user_id : ", user_id);
+
+      let data = { customerIdFromSpeed: speedCusId };
+
+      console.log("data, data : ", data);
+
+      let result = await axios.patch(
+        `${process.env.REACT_APP_MILELE_API_URL}/customer/updateprofile/${user_id}`,
+        // `http://localhost:8000/api/v1/customer/updateprofile/${user_id}`,
+        data,
+        config
+      );
+
+      let resultedData = result?.data;
+      console.log("Result in update customer id page is: ", resultedData);
+
+      const updatedUserData = {
+        ...auth,
+        data: {
+          ...auth.data,
+          customerIdFromSpeed: speedCusId,
+        },
+      };
+
+      updateLocalStorage(updatedUserData);
+    } catch (error) {
+      toast.error(`${error}`, {
+        autoClose: 5000,
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          fontSize: "14px",
+        },
+      });
+    }
+  };
+
   // Booking API
 
   const submitBooking = async (data) => {
@@ -745,7 +810,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         ", "
       )} field(s) are missing.`;
       toast.error(errorMessage, {
-        autoClose: 2000,
+        autoClose: 5000,
         style: {
           border: "1px solid #c0c0c0",
           fontWeight: "400",
@@ -756,41 +821,43 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       return;
     }
 
-    const customerDocumentsMissingFields = [];
-    if (!drivingLicenseNum) {
-      customerDocumentsMissingFields?.push("Driving License Number");
-    }
-    if (!drivingLicenseIssueBy) {
-      customerDocumentsMissingFields?.push("Driving License Issued Country");
-    }
-    if (!drivingLicenseIssueDate) {
-      customerDocumentsMissingFields?.push("Driving License Issued Date");
-    }
-    if (!drivingLicenseExpiryDate) {
-      customerDocumentsMissingFields?.push("Driving License Expiry Date");
-    }
-    if (!drivingLicenseImg) {
-      customerDocumentsMissingFields?.push("Driving License Image");
-    }
+    if (!user_customerSpeedId) {
+      const customerDocumentsMissingFields = [];
+      if (!drivingLicenseNum) {
+        customerDocumentsMissingFields?.push("Driving License Number");
+      }
+      if (!drivingLicenseIssueBy) {
+        customerDocumentsMissingFields?.push("Driving License Issued Country");
+      }
+      if (!drivingLicenseIssueDate) {
+        customerDocumentsMissingFields?.push("Driving License Issued Date");
+      }
+      if (!drivingLicenseExpiryDate) {
+        customerDocumentsMissingFields?.push("Driving License Expiry Date");
+      }
+      if (!drivingLicenseImg) {
+        customerDocumentsMissingFields?.push("Driving License Image");
+      }
 
-    console.log(
-      "2-------customerDetailsMissingFields",
-      customerDocumentsMissingFields
-    );
-    if (customerDocumentsMissingFields?.length > 0) {
-      const errorMessage = `${customerDocumentsMissingFields?.join(
-        ", "
-      )} field(s) are missing.`;
-      toast.error(errorMessage, {
-        autoClose: 2000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          lineHeight: "18px",
-          fontSize: "14px",
-        },
-      });
-      return;
+      console.log(
+        "2-------customerDetailsMissingFields",
+        customerDocumentsMissingFields
+      );
+      if (customerDocumentsMissingFields?.length > 0) {
+        const errorMessage = `${customerDocumentsMissingFields?.join(
+          ", "
+        )} field(s) are missing.`;
+        toast.error(errorMessage, {
+          autoClose: 5000,
+          style: {
+            border: "1px solid #c0c0c0",
+            fontWeight: "400",
+            lineHeight: "18px",
+            fontSize: "14px",
+          },
+        });
+        return;
+      }
     }
   };
 
@@ -805,48 +872,55 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       airlineTicketNum,
       drivingLicenseNum
     );
+    console.log("parsedPhoneNumber ");
 
-    const parsedPhoneNumber = parsePhoneNumberFromString(
-      `+${contactNum}`,
-      country?.name
-    );
-    if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
-      toast.error("Please enter a valid phone number.", {
-        position: "top-right",
-        autoClose: 2000,
-      });
-      return;
+    if (!auth) {
+      const parsedPhoneNumber = parsePhoneNumberFromString(
+        `+${contactNum}`,
+        country?.name
+      );
+      if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
+        console.log("parsedPhoneNumber parsedPhoneNumberparsedPhoneNumber");
+        toast.error("Please enter a valid phone number.", {
+          position: "top-right",
+          autoClose: 5000,
+        });
+        return;
+      }
+    }
+    if (!user_customerSpeedId) {
+      // Creating Customer Data
+      const createCustomerData = {
+        firstName: firstName,
+        lastName: lastName,
+        mobileNo: contactNum,
+        email: emailAddress,
+        identityDocuments: [
+          {
+            documentNo: drivingLicenseNum,
+            expiryDate: drivingLicenseExpiryDate,
+            identityDocumentType: 4,
+            isInternational: isInternationalLicense,
+            issueDate: drivingLicenseIssueDate,
+            gallaryImages: [
+              {
+                url: drivingLicenseImg,
+              },
+            ],
+            images: [
+              {
+                url: drivingLicenseImg,
+              },
+            ],
+            issuedBy: drivingLicenseIssueBy?.label,
+          },
+        ],
+      };
+
+      await createCustomer(createCustomerData);
     }
 
-    // Creating Customer Data
-    const createCustomerData = {
-      firstName: firstName,
-      lastName: lastName,
-      mobileNo: `+${contactNum}`,
-      email: emailAddress,
-      identityDocuments: [
-        {
-          documentNo: drivingLicenseNum,
-          expiryDate: drivingLicenseExpiryDate,
-          identityDocumentType: 4,
-          isInternational: isInternationalLicense,
-          issueDate: drivingLicenseIssueDate,
-          gallaryImages: [
-            {
-              url: drivingLicenseImg,
-            },
-          ],
-          images: [
-            {
-              url: drivingLicenseImg,
-            },
-          ],
-          issuedBy: drivingLicenseIssueBy?.label,
-        },
-      ],
-    };
-
-    await createCustomer(createCustomerData);
+    getCustomerDetails(user_customerSpeedId);
   };
 
   // Payment APIs
@@ -890,7 +964,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
       if (response?.data && response?.data?.status === "success") {
         await toast.info("Generating Payment link", {
-          autoClose: 2000,
+          autoClose: 5000,
           style: {
             border: "1px solid #c0c0c0",
             fontWeight: "400",
@@ -996,8 +1070,18 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 type="text"
                                 required
                                 placeholder="First name"
+                                readOnly={auth && user_token}
+                                // value={
+                                //   auth && user_token
+                                //     ? customerDetails?.user?.fName || ""
+                                //     : firstName || ""
+                                // }
                                 value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
+                                onChange={
+                                  !(auth && user_token)
+                                    ? (e) => setFirstName(e.target.value)
+                                    : undefined
+                                }
                               />
                             </Form.Group>
                           </Col>
@@ -1014,11 +1098,22 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 type="text"
                                 required
                                 placeholder="Last name"
+                                readOnly={auth && user_token}
                                 value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
+                                // value={
+                                //   auth && user_token
+                                //     ? customerDetails?.user?.lName || ""
+                                //     : lastName || ""
+                                // }
+                                onChange={
+                                  !(auth && user_token)
+                                    ? (e) => setLastName(e.target.value)
+                                    : undefined
+                                }
                               />
                             </Form.Group>
                           </Col>
+
                           <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
@@ -1026,30 +1121,38 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   <b>Contact Number *</b>
                                 </label>
                               </div>
-                              {/* <input
-                                className="form-control-location mt-2 col-12"
-                                type="tel"
-                                required
-                                placeholder="Contact number"
-                                value={contactNum}
-                                onChange={(e) => setContactNum(e.target.value)}
-                              /> */}
                               <PhoneInput
                                 className="form-control-customer-number mt-2 col-12"
                                 country={"ae"}
                                 name="phoneNumber"
-                                value={contactNum}
                                 placeholder="00 000 0000"
                                 showDropdown={false}
-                                disableDropdown={false}
-                                countryCodeEditable={true}
-                                onChange={(phone, country) => {
-                                  setContactNum(phone);
-                                  setCountry(country);
+                                disableDropdown={true}
+                                countryCodeEditable={false}
+                                inputProps={{
+                                  readOnly: auth && user_token,
+                                  style: {
+                                    backgroundColor: "#e9ecef",
+                                  },
                                 }}
+                                value={contactNum}
+                                // value={
+                                //   auth && user_token
+                                //     ? customerDetails?.user?.phoneNumber || ""
+                                //     : contactNum || ""
+                                // }
+                                onChange={
+                                  !(auth && user_token)
+                                    ? (phone, country) => {
+                                        setContactNum(phone);
+                                        setCountry(country);
+                                      }
+                                    : undefined
+                                }
                               />
                             </Form.Group>
                           </Col>
+
                           <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
@@ -1062,9 +1165,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 type="email"
                                 placeholder="Email address"
                                 required
+                                readOnly={auth && user_token}
                                 value={emailAddress}
-                                onChange={(e) =>
-                                  setEmailAddress(e.target.value)
+                                // value={
+                                //   auth && user_token
+                                //     ? customerDetails?.user?.email || ""
+                                //     : emailAddress || ""
+                                // }
+                                onChange={
+                                  !(auth && user_token)
+                                    ? (e) => setEmailAddress(e.target.value)
+                                    : undefined
                                 }
                               />
                             </Form.Group>
@@ -1078,7 +1189,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                 <br />
                 <br />
 
-                { user_customerSpeedId === null && (
+                {(user_customerSpeedId === null || !auth) && (
                   <>
                     <div className="step1-car-details p-4">
                       <div className="location-label">
@@ -1197,6 +1308,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     <div className="mt-2 d-flex">
                                       <Form.Check
                                         className="mb-1 col-4"
+                                        id="internationalLicenseTrue"
                                         type="radio"
                                         label="Yes"
                                         name="internationalLicense"
@@ -1210,6 +1322,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                       />
                                       <Form.Check
                                         className="mb-1 col-4"
+                                        id="internationalLicenseFalse"
                                         type="radio"
                                         label="No"
                                         name="internationalLicense"
@@ -1292,8 +1405,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 <Select
                                   options={nationalityOptions}
                                   className="form-control-nationality col-12 nationality-dropdown"
-                                  value={selectedNationality}
-                                  onChange={handleNationalityChange}
+                                  value={
+                                    auth && user_token
+                                      ? customerDetails?.user?.nationality
+                                      : selectedNationality
+                                  }
+                                  onChange={
+                                    !(auth && user_token)
+                                      ? handleNationalityChange
+                                      : undefined
+                                  }
+                                  isDisabled={auth && user_token}
                                   styles={selectStyles}
                                 />
                               </Form.Group>
