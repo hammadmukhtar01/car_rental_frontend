@@ -58,8 +58,8 @@ const UpdatePasswordPage = () => {
     try {
       console.log("config : ", config);
       let result = await axios.patch(
-        // `${process.env.REACT_APP_MILELE_API_URL}/customer/updatepassword`,
-        `http://localhost:8000/api/v1/customer/updatepassword`,
+        `${process.env.REACT_APP_MILELE_API_URL}/customer/updatepassword`,
+        // `http://localhost:8000/api/v1/customer/updatepassword`,
         data,
         config
       );
