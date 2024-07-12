@@ -110,7 +110,6 @@ const VehicleDetails = ({ nextStep }) => {
         response?.data?.result?.tariffLines?.items.slice(0, 3) || [];
       setTariffLines(tariffLines);
 
-      console.log("tariffLines ", tariffLines);
       return tariffLines;
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
@@ -138,8 +137,6 @@ const VehicleDetails = ({ nextStep }) => {
     (tariffGroupId, days) => {
       const tariffs = tariffLines || [];
 
-      console.log("tariffs in renderVehiclePriceAPI : ", tariffLines);
-
       let index;
       if (days > 0 && days < 7) {
         index = 0;
@@ -155,8 +152,6 @@ const VehicleDetails = ({ nextStep }) => {
         return 0;
       }
       const totalPrice = calculateRent(line?.rate, line?.rateType?.name, days);
-
-      console.log("Total Price: --- : ", totalPrice);
 
       return Math.round(totalPrice);
     },
@@ -507,14 +502,6 @@ const VehicleDetails = ({ nextStep }) => {
     const selectedStatePickup = pickupLocStateParam?.toUpperCase();
     const selectedStateDropoff = dropoffLocStateParam?.toUpperCase();
 
-    console.log(
-      "pickupLocTabValue.toUpperCase() : ",
-      pickupLocTabValue.toUpperCase()
-    );
-    console.log(
-      "DropoffLocTabValue.toUpperCase() : ",
-      DropoffLocTabValue.toUpperCase()
-    );
     let pickupCharge = 0;
     let dropoffCharge = 0;
 
@@ -523,9 +510,6 @@ const VehicleDetails = ({ nextStep }) => {
         deliveryCharges[selectedStatePickup] !== undefined
           ? deliveryCharges[selectedStatePickup]
           : 50;
-      console.log(
-        `pickup selected tab: ${selectedStatePickup} has charges: ${pickupCharge}`
-      );
     }
 
     if (DropoffLocTabValue.toUpperCase() === "DELIVER") {
@@ -533,9 +517,6 @@ const VehicleDetails = ({ nextStep }) => {
         deliveryCharges[selectedStateDropoff] !== undefined
           ? deliveryCharges[selectedStateDropoff]
           : 50;
-      console.log(
-        `Dropoff selected tab: ${selectedStateDropoff} has charges: ${dropoffCharge}`
-      );
     }
 
     let sumPickDropCharges = pickupCharge + dropoffCharge;
@@ -773,7 +754,10 @@ const VehicleDetails = ({ nextStep }) => {
                           <Col lg={4} md={12} sm={12} xs={12}>
                             <div className=" ">
                               <span className="features-icons-heading pl-2">
-                                <b>Key Features</b>
+                                <h1 className="vehicle-details-heading">
+                                  {" "}
+                                  Key Features:{" "}
+                                </h1>
                               </span>
                               <hr className="hr-line-heading-scroll" />
                               <Row className="car-key-features-div mt-3">
@@ -819,18 +803,34 @@ const VehicleDetails = ({ nextStep }) => {
                                         lg={6}
                                         md={6}
                                         sm={6}
-                                        xs={12}
+                                        xs={6}
                                         key={index}
                                       >
-                                        <div className="car-features-list pt-2">
-                                          <FaArrowTrendUp
-                                            className="mr-2"
-                                            style={{
-                                              color: "#e87a28",
-                                              fontSize: "20px",
-                                            }}
-                                          />{" "}
-                                          {additionalFeatures}
+                                        <div className="car-features-list pt-2 row ">
+                                          <Col
+                                            className="extra-features-icon"
+                                            lg={2}
+                                            md={2}
+                                            sm={2}
+                                            xs={2}
+                                          >
+                                            <FaArrowTrendUp
+                                              className="mr-2"
+                                              style={{
+                                                color: "#e87a28",
+                                                fontSize: "20px",
+                                              }}
+                                            />{" "}
+                                          </Col>
+                                          <Col
+                                            className="extra-features-text"
+                                            lg={10}
+                                            md={10}
+                                            sm={10}
+                                            xs={10}
+                                          >
+                                            {additionalFeatures}
+                                          </Col>
                                         </div>
                                       </Col>
                                     )
@@ -872,15 +872,16 @@ const VehicleDetails = ({ nextStep }) => {
                                         controlId={`formKeyword_${AddOnsDataValues?.chargesTypeId}`}
                                       >
                                         <div className="row d-flex align-items-center">
-                                          <Col lg={1} md={2} sm={2} xs={2}>
+                                          {/* <Col lg={1} md={2} sm={2} xs={2}>
                                             <BsFileEarmarkArrowUp className="mr-2 heading-icon" />
-                                          </Col>
-                                          <Col lg={8} md={7} sm={7} xs={7}>
+                                          </Col> */}
+                                          <Col lg={9} md={9} sm={9} xs={9}>
                                             <div className="add-ons-label-name p-2">
                                               <label className="add-ons-label">
                                                 <b>
                                                   {AddOnsDataValues?.addOnsName}
                                                 </b>
+                                                <br />
                                                 <br />
                                                 <span>
                                                   <b>

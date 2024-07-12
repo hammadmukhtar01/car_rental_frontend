@@ -74,9 +74,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
       });
       return;
     }
-
-    // setLoading(true);
-    // document.body.classList.add("loadings");
+    document.body.classList.add("loadings");
 
     const headers = {
       "Content-Type": "application/json",
@@ -97,7 +95,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
       const response = await axios.post(
         // `http://localhost:8000/api/v1/customer/create`,
         `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
-        formData,
+        formData
       );
 
       if (response?.data?.status === "success") {
@@ -136,10 +134,6 @@ const SignupPage = ({ onCloseModal, setGif }) => {
         },
       });
     }
-    // finally {
-    //   setLoading(false);
-    //   document.body.classList.remove("loadings");
-    // }
   };
 
   useEffect(() => {
@@ -205,13 +199,6 @@ const SignupPage = ({ onCloseModal, setGif }) => {
           <meta name="keywords" content="keywords" />
           {/* <link rel="canonical" href="https://milelecarrental.com/signup" /> */}
         </Helmet>
-
-        {/* {loading && (
-          <div className="reloading-icon-free-consultation-form-container text-center">
-            <span className="loader-text">Creating account . . .</span>
-            <div className="lds-dual-ring text-center"></div>
-          </div>
-        )} */}
 
         <div className="container mt-3">
           <form action="#" className="signup-form" onSubmit={handleSubmit}>

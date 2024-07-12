@@ -55,7 +55,6 @@ const App = () => {
             <Route path="/faqs" element={<FaqsPage />} />
             <Route path="/terms&Conditions" element={<TermsConditionsPage />} />
             <Route path="/contactus" element={<ContactusPage />} />
-            <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
             <Route
               path="/resetpassword/:token"
               element={<ResetPasswordPage />}

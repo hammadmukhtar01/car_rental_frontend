@@ -19,18 +19,18 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { Modal } from "react-bootstrap";
-import SignupPage from "../../authentication/signupPage";
-import LoginPage from "./../../authentication/loginPage";
 import LoginSignupPage from "../../authentication/loginSignupPage";
+import ForgotPasswordPage from "../../authentication/forgotPassword";
 
 function MainNavbar() {
   const [isHomePage, setIsHomePage] = useState(false);
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const toggleOffCanvas = () => setShowOffCanvas(!showOffCanvas);
-  const [showModal, setShowModal] = useState(false);
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [showLoginSignupModal, setShowLoginSignupModal] = useState(false);
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -74,17 +74,22 @@ function MainNavbar() {
   };
 
   const handleCloseModal = () => {
-    setShowModal(false);
+    setShowLoginSignupModal(false);
+    setShowForgotPasswordModal(false);
   };
 
   const handleLoginSignupFunc = () => {
-    // e.preventDefault();
-    setShowModal(true);
+    setShowLoginSignupModal(true);
     setShowOffCanvas(false);
   };
 
-  const handleBackToHomeButton = () => {
-    return navigate("/");
+  const handleForgotPasswordClick = () => {
+    setShowLoginSignupModal(false);
+    setShowForgotPasswordModal(true);
+  };
+
+  const handleCloseForgotPasswordModal = () => {
+    setShowForgotPasswordModal(false);
   };
 
   return (
@@ -255,7 +260,6 @@ function MainNavbar() {
                           as={NavLink}
                           // to={`/myBookings/${userAuthId}`}
                           to={"/#2"}
-
                         >
                           {/* My Bookings */}
                         </NavDropdown.Item>
@@ -332,17 +336,46 @@ function MainNavbar() {
         </DialogActions>
       </Dialog>
 
-      <Modal show={showModal} onHide={handleCloseModal} size="xl" centered>
+      <Modal
+        show={showLoginSignupModal}
+        onHide={handleCloseModal}
+        size="xl"
+        centered
+      >
         <Modal.Body className="login-signup-modal">
           {" "}
-          <LoginSignupPage onCloseModal={handleCloseModal} />
-          {/* <LoginPage onCloseModal={handleCloseModal} /> */}
-          {/* <SignupPage onCloseModal={handleCloseModal} /> */}
+          <LoginSignupPage
+            onCloseModal={handleCloseModal}
+            onForgotPasswordClick={handleForgotPasswordClick}
+          />{" "}
         </Modal.Body>
         <Modal.Footer>
           <button
             className="btn btn-secondary"
             onClick={handleCloseModal}
+            aria-label="Close Authentication Modal"
+          >
+            Close
+          </button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={showForgotPasswordModal}
+        onHide={handleCloseForgotPasswordModal}
+        size="xl"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Forgot Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ForgotPasswordPage onClose={handleCloseForgotPasswordModal} />
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            className="btn btn-secondary"
+            onClick={handleCloseForgotPasswordModal}
             aria-label="Close Authentication Modal"
           >
             Close

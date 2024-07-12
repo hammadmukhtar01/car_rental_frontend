@@ -7,20 +7,19 @@ import "react-toastify/dist/ReactToastify.css";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import FooterCombination from "../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import '../Pages/OtherPages/toastStyle.css';
+import "../Pages/OtherPages/toastStyle.css";
 
 const ResetPasswordPage = () => {
   const { token } = useParams();
+  const [username, setUsername] = useState(""); // Hidden username field for accessibility
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();
 
-  console.log("Reset passs token ", token);
-
   const handleForgotPasswordClick = async (e) => {
     e.preventDefault();
 
-    let data = { password, passwordConfirm };
+    let data = { username, password, passwordConfirm };
     const headers = {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
@@ -43,7 +42,12 @@ const ResetPasswordPage = () => {
             fontSize: "14px",
           },
           onClose: () => {
-            navigate("/hme");
+            localStorage?.removeItem("user");
+            setTimeout(() => {
+              window.location.reload();
+            }, 100);
+
+            navigate("/");
           },
         });
       }
@@ -69,29 +73,48 @@ const ResetPasswordPage = () => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        {/* <link
-          rel="canonical"
-          href={`https://milelecarrental.com/resetpassword/${token}`}
-        /> */}
       </Helmet>
       <HeaderCombination />
       <section className="ftco-section">
         <div className="container pt-2">
           <div className="forgot-row justify-content-center">
-            <div className="col-lg-6 ">
+            <div className="col-lg-8 ">
               <div className="forgot-wrap ">
-                <p className=" have-account-text text-center mb-4 mt-2">
-                  Reset Password
-                </p>
+                <h4 className="text-center mb-5">
+                  <b className="resetpassword-heading">Reset Password</b>
+                </h4>
                 <form
                   action="#"
                   className="reset-password-form"
                   onSubmit={handleForgotPasswordClick}
                 >
-                  <Form.Group controlId="formKeyword">
+                  <Form.Group controlId="formUsername" className="d-none">
                     <div className="form-group row">
                       <div className="login-form-label col-lg-4 col-md-4">
-                        <label className="styled-label">
+                        <label htmlFor="username" className="styled-label">
+                          <b>Username</b>
+                        </label>
+                      </div>
+                      <div className="col-lg-7 col-md-7 custom-dropdown-container">
+                        <input
+                          className="form-control-login mt-2 col-12"
+                          id="username"
+                          name="username"
+                          type="text"
+                          autoComplete="username"
+                          value={username}
+                          onChange={(e) => {
+                            setUsername(e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </Form.Group>
+
+                  <Form.Group controlId="formPassword">
+                    <div className="form-group row">
+                      <div className="login-form-label col-lg-4 col-md-4">
+                        <label htmlFor="password" className="styled-label">
                           <b>Password</b>
                         </label>
                       </div>
@@ -101,7 +124,7 @@ const ResetPasswordPage = () => {
                           id="password"
                           name="password"
                           type="password"
-                          autoComplete="current-password"
+                          autoComplete="new-password"
                           required
                           placeholder="Password"
                           value={password}
@@ -113,10 +136,13 @@ const ResetPasswordPage = () => {
                     </div>
                   </Form.Group>
 
-                  <Form.Group controlId="formKeyword">
+                  <Form.Group controlId="formPasswordConfirm">
                     <div className="form-group row">
                       <div className="login-form-label col-lg-4 col-md-4">
-                        <label className="styled-label">
+                        <label
+                          htmlFor="passwordConfirm"
+                          className="styled-label"
+                        >
                           <b>Confirm Password</b>
                         </label>
                       </div>
@@ -126,7 +152,7 @@ const ResetPasswordPage = () => {
                           id="passwordConfirm"
                           name="passwordConfirm"
                           type="password"
-                          autoComplete="confirm-password"
+                          autoComplete="new-password"
                           required
                           placeholder="Confirm Password"
                           value={passwordConfirm}
@@ -138,27 +164,14 @@ const ResetPasswordPage = () => {
                     </div>
                   </Form.Group>
 
-                  <div className="form-group-3 col-lg-12">
-                    <p></p>
-                    <br />
-                    <br />
-                    <button className="middle" id="reset-password-button" aria-label="Reset Password">
-                      <span className="animate-button btn4">Submit</span>
-                    </button>
+                  <div className="form-group-3 col-lg-12 mt-5 justify-content-center">
+                  <button
+                        className="resetPassword-button"
+                        aria-label="Reset Password"
+                      >
+                        Save
+                      </button>
                     <ToastContainer />
-                  </div>
-                  <br />
-                  <div className="form-group-0">
-                    <div className="col-lg-12">
-                      <div>
-                        <a href="/login" style={{ color: "#fff" }}>
-                          <div className="forgot-password">
-                            {" "}
-                            Remember Password? Login here.
-                          </div>
-                        </a>
-                      </div>
-                    </div>
                   </div>
                 </form>
 
