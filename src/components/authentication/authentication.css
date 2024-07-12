@@ -21,12 +21,15 @@
   color: #e87a28;
 }
 
+.forgotpassword-form-container,
 .login-form-container,
 .signup-form-container {
   margin-top: 50px;
   margin-bottom: 50px;
   padding: 0px 20px;
 }
+.forgotPassword-button,
+.resetPassword-button,
 .login-button,
 .signup-button,
 .update-password-button {
@@ -37,6 +40,8 @@
   border-radius: 5px;
 }
 
+.forgotPassword-button:hover,
+.resetPassword-button:hover,
 .login-button:hover,
 .signup-button:hover,
 .update-password-button:hover {
@@ -186,16 +191,22 @@
   justify-content: center !important;
 }
 
-.have-account-text {
+
+.forgotPassword-heading,
+.resetpassword-heading,
+.login-heading,
+.signup-heading {
   font-size: 26px;
   color: #e87a28;
-  text-decoration: underline;
 }
 
-.login-row,
 .forgot-row {
   display: flex;
   flex-wrap: wrap;
+  border: 1px solid #80808047;
+  border-radius: 10px;
+  padding: 30px 5px;
+  margin: 30px 15px;
 }
 
 /* .btn.btn-primary.login-button {
@@ -224,6 +235,7 @@
 .click-here:hover {
   text-decoration: underline !important;
   color: rgb(213, 139, 0);
+  cursor: pointer;
 }
 
 .field-icon {

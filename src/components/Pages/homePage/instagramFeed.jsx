@@ -5,6 +5,20 @@ import "./instagramFeed.css";
 
 const InstagramFeed = () => {
   useEffect(() => {
+
+      const setLimitByScreenSize = () => {
+        const screenWidth = window.innerWidth;
+        if (screenWidth >= 992) {
+          return 8;
+        } else if (screenWidth >= 768) {
+          return 9;
+        } else {
+          return 9;
+        }
+      };
+  
+      const limit = setLimitByScreenSize();
+
     const script = document.createElement("script");
     script.src = "https://cdn.jsdelivr.net/gh/stevenschobert/instafeed.js@2.0.0rc1/src/instafeed.min.js";
     script.async = true;
@@ -14,7 +28,7 @@ const InstagramFeed = () => {
         const userFeed = new window.Instafeed({
           get: "user",
           resolution: "low_resolution",
-          limit: 8,
+          limit: limit,
           accessToken: process.env.REACT_APP_INSTAGRAM_TOKEN_KEY,
           target: "instafeed-container",
           template:
@@ -26,7 +40,6 @@ const InstagramFeed = () => {
               </a>
             </div>`,
           error: (error) => {
-            console.error("Error loading Instagram feed:", error);
             const container = document.getElementById("instafeed-container");
             if (container) {
               container.innerHTML = "<p>Unable to load Instagram feed. Please try again later.</p>";

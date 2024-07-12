@@ -18,6 +18,8 @@ import {
   BsPerson,
   BsSuitcase,
 } from "react-icons/bs";
+import { BiSolidMapPin } from "react-icons/bi";
+
 import { GiGearStickPattern } from "react-icons/gi";
 import { LuSnowflake } from "react-icons/lu";
 import "./vehicleDetails.css";
@@ -32,7 +34,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMinusCircle } from "react-icons/ai";
-import { AiOutlinePlusCircle } from "react-icons/ai";
+import { AiOutlinePlusCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { BsFilter } from "react-icons/bs";
+import { FiEdit } from "react-icons/fi";
 import Select from "react-select";
 import axios from "axios";
 import makeAnimated from "react-select/animated";
@@ -112,14 +116,20 @@ const VehiclesPage = () => {
     startDate: false,
     endDate: false,
   });
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(
-    window.innerWidth > 425 ? true : false
+    true
+    // window.innerWidth > 430 ? true : false
   );
   const [isCarTypeOpen, setIsCarTypeOpen] = useState(
-    window.innerWidth > 425 ? true : false
+    // window.innerWidth > 430 ? true : false
+    true
   );
+
+  const [isLocationDataOpen, setIsLocationDataOpen] = useState(false);
   const [isCarPriceRangeOpen, setIsCarPriceRangeOpen] = useState(
-    window.innerWidth > 425 ? true : false
+    true
+    // window.innerWidth > 430 ? true : false
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -1007,6 +1017,10 @@ const VehiclesPage = () => {
     };
   }, [showDatePicker]);
 
+  const toggleLocationData = () => {
+    setIsLocationDataOpen(!isLocationDataOpen);
+  };
+
   const toggleCarCategories = () => {
     setIsCarCategoriesOpen(!isCarCategoriesOpen);
   };
@@ -1018,6 +1032,8 @@ const VehiclesPage = () => {
   const toggleCarPriceRange = () => {
     setIsCarPriceRangeOpen(!isCarPriceRangeOpen);
   };
+  const handleFiltersToggle = () => setFiltersOpen(!filtersOpen);
+  const handleFiltersClose = () => setFiltersOpen(false);
 
   const selectStyles = {
     control: (provided, { hasValue }) => ({
@@ -1086,502 +1102,581 @@ const VehiclesPage = () => {
           <div className="all-cars-main-container-div container">
             <div className="vehicles-page-main-container">
               <div className="searchbox-container">
-                <div className="form-group pb-4 pt-4">
-                  <Row className=" d-flex justify-content-center">
+                <div className="form-group pb-2 pt-4">
+                  <div className=" d-flex justify-content-center">
                     <Col
                       lg={12}
                       md={12}
                       sm={12}
                       xs={12}
-                      className="all-cars-search-box-container pb-4"
+                      className="all-cars-search-box-container "
                     >
                       <form action="">
-                        <Row>
-                          <Col xxl={3} lg={3} md={6} sm={6} xs={12}>
-                            <Form.Group controlId="formDropoffDateTime">
-                              <div className="date-label">
-                                <label className="styled-label">
-                                  <BsCalendar2Check className="mr-2" />
-                                  <b>Pickup-Dropoff Date *</b>
-                                </label>
-                              </div>
-                              <div onClick={handleDateClick} ref={dateInputRef}>
-                                <input
-                                  className="form-control-date mt-2 col-12"
-                                  type="text"
-                                  value={
-                                    formFields?.dateRangeV1?.startDate &&
-                                    formFields?.dateRangeV1?.endDate
-                                      ? `${new Date(
-                                          formFields?.dateRangeV1?.startDate
-                                        ).toLocaleDateString()} - ${new Date(
-                                          formFields?.dateRangeV1?.endDate
-                                        ).toLocaleDateString()}`
-                                      : "Select date range"
-                                  }
-                                  onClick={() => setShowDateRangeModal(true)}
-                                  readOnly
-                                />
-                              </div>
-                            </Form.Group>
-                          </Col>
-
-                          <Modal
-                            show={showDateRangeModal}
-                            onHide={() => setShowDateRangeModal(false)}
-                            size="sm"
-                          >
-                            <DateRange
-                              editableDateInputs={true}
-                              onChange={handleDateChange}
-                              moveRangeOnFirstSelection={false}
-                              ranges={dateRange}
-                              rangeColors={["#e87a28"]}
-                              disabledDay={(date) =>
-                                date < new Date().setHours(0, 0, 0, 0)
-                              }
-                              onClose={() => setShowDatePicker(false)}
-                            />
-                          </Modal>
-                          <Col
-                            xxl={5}
-                            lg={5}
-                            md={showDropoff ? 9 : 6}
-                            sm={12}
-                            xs={12}
-                          >
-                            <Row>
-                              <Col
-                                xxl={showDropoff ? 6 : 12}
-                                lg={showDropoff ? 6 : 12}
-                                md={showDropoff ? 6 : 12}
-                                sm={6}
-                                xs={12}
-                                className={` ${
-                                  showDropoff
-                                    ? "dropoff-visible"
-                                    : "dropoff-hidden"
-                                }`}
+                        <div className="card location-data-card">
+                          <article className="card-group-item">
+                            <div>
+                              <header
+                                className="card-header styled-label title location-data-heading pt-3 pb-3"
+                                onClick={toggleLocationData}
                               >
-                                <Form.Group controlId="formKeyword">
-                                  <div className="location-label">
-                                    <label className="styled-label">
-                                      <BsGeoAlt className="mr-2" />
-                                      <b>Pick-Up *</b>
-                                    </label>
+                                <div className="d-flex justify-content-between align-items-center">
+                                  <div>
+                                    <BiSolidMapPin className="mr-2" />
+                                    <b>Location Data</b>
                                   </div>
-                                  <div className="custom-dropdown-container">
-                                    <input
-                                      className="form-control-location mt-2 col-12"
-                                      type="text"
-                                      placeholder="Enter pickup location"
-                                      value={
-                                        pickupLocationMessage &&
-                                        inputPickupFieldValue
-                                          ? `${pickupLocationMessage} - ${inputPickupFieldValue}`
-                                          : pickupLocationMessage
-                                      }
-                                      onChange={() =>
-                                        console.log("On change in pickup")
-                                      }
-                                      onClick={() => setShowPickupModal(true)}
-                                    />
+                                  <div className="location-data-open-close-modal ">
+                                    {isLocationDataOpen ? (
+                                      <>
+                                        <div className="location-data-open-icon">
+                                          <AiOutlineMinusCircle className="text-right" />
+                                        </div>
+                                      </>
+                                    ) : (
+                                      <div className="location-data-open-icon">
+                                        <FiEdit className="text-right" />
+                                      </div>
+                                    )}
                                   </div>
-                                </Form.Group>
-                              </Col>
-
-                              {showDropoff ? (
-                                <Col xxl={6} lg={6} md={6} sm={6} xs={12}>
-                                  <Form.Group controlId="formKeyword">
-                                    <div className="location-label">
+                                </div>
+                              </header>
+                            </div>
+                            {isLocationDataOpen && (
+                              <Row className="p-3">
+                                <Col xxl={3} lg={3} md={6} sm={6} xs={12}>
+                                  <Form.Group controlId="formDropoffDateTime">
+                                    <div className="date-label">
                                       <label className="styled-label">
-                                        <BsGeoAltFill className="mr-2" />
-                                        <b>Drop-Off *</b>
+                                        <BsCalendar2Check className="mr-2" />
+                                        <b>Pickup-Dropoff Date *</b>
                                       </label>
                                     </div>
-                                    <div className="custom-dropdown-container">
+                                    <div
+                                      onClick={handleDateClick}
+                                      ref={dateInputRef}
+                                    >
                                       <input
-                                        className="form-control-location mt-2 col-12"
+                                        className="form-control-date mt-2 col-12"
                                         type="text"
-                                        placeholder="Enter dropoff location"
                                         value={
-                                          dropoffLocationMessage &&
-                                          inputDropoffFieldValue
-                                            ? `${dropoffLocationMessage} - ${inputDropoffFieldValue}`
-                                            : dropoffLocationMessage
-                                        }
-                                        onChange={() =>
-                                          console.log("On change in dropoff")
+                                          formFields?.dateRangeV1?.startDate &&
+                                          formFields?.dateRangeV1?.endDate
+                                            ? `${new Date(
+                                                formFields?.dateRangeV1?.startDate
+                                              ).toLocaleDateString()} - ${new Date(
+                                                formFields?.dateRangeV1?.endDate
+                                              ).toLocaleDateString()}`
+                                            : "Select date range"
                                         }
                                         onClick={() =>
-                                          setShowDropoffModal(true)
+                                          setShowDateRangeModal(true)
                                         }
+                                        readOnly
                                       />
                                     </div>
                                   </Form.Group>
                                 </Col>
-                              ) : null}
-                            </Row>
-                            <Row>
-                              <div className="mt-2">
-                                <Form.Check
-                                  type="checkbox"
-                                  label="Different Dropoff Location"
-                                  onChange={handleDropoffCheckboxChange}
-                                  checked={showDropoff}
-                                />
-                              </div>
-                            </Row>
-                          </Col>
 
-                          <Modal
-                            show={showPickupModal}
-                            onHide={() => setShowPickupModal(false)}
-                            size="xl"
-                            centered
-                          >
-                            <Modal.Header closeButton>
-                              <Modal.Title>
-                                <span className="modal-heading">
-                                  {" "}
-                                  Pickup Location{" "}
-                                </span>
-                              </Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                              <PickupLocationModal
-                                show={showPickupModal}
-                                handleButtonClick={handlePickUpButtonClick}
-                                updatePickupLocationMessage={
-                                  setPickupLocationMessage
-                                }
-                                initialSelectedLocation={pickupLocation}
-                                pickupInitialInputFieldValue={
-                                  pickupLocationMessage
-                                }
-                                inputPickupFieldValue={inputPickupFieldValue}
-                                setPickupInputFieldValue={
-                                  setPickupInputFieldValue
-                                }
-                                handlePickupInputFieldChange={
-                                  handlePickupInputFieldChange
-                                }
-                                onSelectTabChange={onPickupSelectTabChange}
-                                onStateChange={handlePickupStateChange}
-                              />
-                            </Modal.Body>
-                          </Modal>
+                                <Modal
+                                  show={showDateRangeModal}
+                                  onHide={() => setShowDateRangeModal(false)}
+                                  size="sm"
+                                >
+                                  <DateRange
+                                    editableDateInputs={true}
+                                    onChange={handleDateChange}
+                                    moveRangeOnFirstSelection={false}
+                                    ranges={dateRange}
+                                    rangeColors={["#e87a28"]}
+                                    disabledDay={(date) =>
+                                      date < new Date().setHours(0, 0, 0, 0)
+                                    }
+                                    onClose={() => setShowDatePicker(false)}
+                                  />
+                                </Modal>
+                                <Col
+                                  xxl={5}
+                                  lg={5}
+                                  md={showDropoff ? 9 : 6}
+                                  sm={12}
+                                  xs={12}
+                                >
+                                  <Row>
+                                    <Col
+                                      xxl={showDropoff ? 6 : 12}
+                                      lg={showDropoff ? 6 : 12}
+                                      md={showDropoff ? 6 : 12}
+                                      sm={showDropoff ? 6 : 12}
+                                      xs={showDropoff ? 6 : 12}
+                                      className={` ${
+                                        showDropoff
+                                          ? "dropoff-visible"
+                                          : "dropoff-hidden"
+                                      }`}
+                                    >
+                                      <Form.Group controlId="formKeyword">
+                                        <div className="location-label">
+                                          <label className="styled-label">
+                                            <BsGeoAlt className="mr-2" />
+                                            <b>Pick-Up *</b>
+                                          </label>
+                                        </div>
+                                        <div className="custom-dropdown-container">
+                                          <input
+                                            className="form-control-location mt-2 col-12"
+                                            type="text"
+                                            placeholder="Enter pickup location"
+                                            value={
+                                              pickupLocationMessage &&
+                                              inputPickupFieldValue
+                                                ? `${pickupLocationMessage} - ${inputPickupFieldValue}`
+                                                : pickupLocationMessage
+                                            }
+                                            onChange={() =>
+                                              console.log("On change in pickup")
+                                            }
+                                            onClick={() =>
+                                              setShowPickupModal(true)
+                                            }
+                                          />
+                                        </div>
+                                      </Form.Group>
+                                    </Col>
 
-                          <Modal
-                            show={showDropoffModal}
-                            onHide={() => setShowDropoffModal(false)}
-                            size="xl"
-                            centered
-                          >
-                            <Modal.Header closeButton>
-                              <Modal.Title>
-                                {" "}
-                                <span className="modal-heading">
-                                  DropOff Location{" "}
-                                </span>
-                              </Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                              <DropoffLocationModal
-                                show={showDropoffModal}
-                                handleButtonClick={handleDropOffButtonClick}
-                                updateDropoffLocationMessage={
-                                  setDropoffLocationMessage
-                                }
-                                initialSelectedLocation={dropoffLocation}
-                                dropoffInitialInputFieldValue={
-                                  dropoffLocationMessage
-                                }
-                                inputDropoffFieldValue={inputDropoffFieldValue}
-                                setDropoffInputFieldValue={
-                                  setDropoffInputFieldValue
-                                }
-                                handleDropoffInputFieldChange={
-                                  handleDropoffInputFieldChange
-                                }
-                                onSelectTabChange={onDropoffSelectTabChange}
-                                onStateChange={handleDropoffStateChange}
-                              />
-                            </Modal.Body>
-                          </Modal>
+                                    {showDropoff ? (
+                                      <Col xxl={6} lg={6} md={6} sm={6} xs={6}>
+                                        <Form.Group controlId="formKeyword">
+                                          <div className="location-label">
+                                            <label className="styled-label">
+                                              <BsGeoAltFill className="mr-2" />
+                                              <b>Drop-Off *</b>
+                                            </label>
+                                          </div>
+                                          <div className="custom-dropdown-container">
+                                            <input
+                                              className="form-control-location mt-2 col-12"
+                                              type="text"
+                                              placeholder="Enter dropoff location"
+                                              value={
+                                                dropoffLocationMessage &&
+                                                inputDropoffFieldValue
+                                                  ? `${dropoffLocationMessage} - ${inputDropoffFieldValue}`
+                                                  : dropoffLocationMessage
+                                              }
+                                              onChange={() =>
+                                                console.log(
+                                                  "On change in dropoff"
+                                                )
+                                              }
+                                              onClick={() =>
+                                                setShowDropoffModal(true)
+                                              }
+                                            />
+                                          </div>
+                                        </Form.Group>
+                                      </Col>
+                                    ) : null}
+                                  </Row>
+                                  <Row>
+                                    <div className="mt-2">
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Different Dropoff Location"
+                                        onChange={handleDropoffCheckboxChange}
+                                        checked={showDropoff}
+                                      />
+                                    </div>
+                                  </Row>
+                                </Col>
 
-                          <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                            <Form.Group controlId="formKeyword">
-                              <div className="location-label">
-                                <label className="styled-label mb-3">
-                                  <b>Pickup Time *</b>
-                                </label>
-                              </div>
-                              <Select
-                                options={timeOptions}
-                                required
-                                className="form-control-pickup-time col-12"
-                                value={timeOptions?.find(
-                                  (option) =>
-                                    option?.value === formFields?.pickTimeV1
-                                )}
-                                onChange={handlePickUpTimeChange}
-                                styles={selectStyles}
-                              />
-                            </Form.Group>
-                          </Col>
+                                <Modal
+                                  show={showPickupModal}
+                                  onHide={() => setShowPickupModal(false)}
+                                  size="xl"
+                                  centered
+                                >
+                                  <Modal.Header closeButton>
+                                    <Modal.Title>
+                                      <span className="modal-heading">
+                                        {" "}
+                                        Pickup Location{" "}
+                                      </span>
+                                    </Modal.Title>
+                                  </Modal.Header>
+                                  <Modal.Body>
+                                    <PickupLocationModal
+                                      show={showPickupModal}
+                                      handleButtonClick={
+                                        handlePickUpButtonClick
+                                      }
+                                      updatePickupLocationMessage={
+                                        setPickupLocationMessage
+                                      }
+                                      initialSelectedLocation={pickupLocation}
+                                      pickupInitialInputFieldValue={
+                                        pickupLocationMessage
+                                      }
+                                      inputPickupFieldValue={
+                                        inputPickupFieldValue
+                                      }
+                                      setPickupInputFieldValue={
+                                        setPickupInputFieldValue
+                                      }
+                                      handlePickupInputFieldChange={
+                                        handlePickupInputFieldChange
+                                      }
+                                      onSelectTabChange={
+                                        onPickupSelectTabChange
+                                      }
+                                      onStateChange={handlePickupStateChange}
+                                    />
+                                  </Modal.Body>
+                                </Modal>
 
-                          <Col xxl={2} lg={2} md={3} sm={6} xs={12}>
-                            <Form.Group controlId="formKeyword">
-                              <div className="location-label">
-                                <label className="styled-label mb-3">
-                                  <b>Dropoff Time *</b>
-                                </label>
-                              </div>
-                              <Select
-                                options={timeOptions}
-                                required
-                                className="form-control-dropoff-time col-12"
-                                value={timeOptions.find(
-                                  (option) =>
-                                    option?.value === formFields?.dropTimeV1
-                                )}
-                                onChange={handleDropOffTimeChange}
-                                styles={selectStyles}
-                              />
-                            </Form.Group>
-                          </Col>
-                          <ToastContainer />
-                        </Row>
+                                <Modal
+                                  show={showDropoffModal}
+                                  onHide={() => setShowDropoffModal(false)}
+                                  size="xl"
+                                  centered
+                                >
+                                  <Modal.Header closeButton>
+                                    <Modal.Title>
+                                      {" "}
+                                      <span className="modal-heading">
+                                        DropOff Location{" "}
+                                      </span>
+                                    </Modal.Title>
+                                  </Modal.Header>
+                                  <Modal.Body>
+                                    <DropoffLocationModal
+                                      show={showDropoffModal}
+                                      handleButtonClick={
+                                        handleDropOffButtonClick
+                                      }
+                                      updateDropoffLocationMessage={
+                                        setDropoffLocationMessage
+                                      }
+                                      initialSelectedLocation={dropoffLocation}
+                                      dropoffInitialInputFieldValue={
+                                        dropoffLocationMessage
+                                      }
+                                      inputDropoffFieldValue={
+                                        inputDropoffFieldValue
+                                      }
+                                      setDropoffInputFieldValue={
+                                        setDropoffInputFieldValue
+                                      }
+                                      handleDropoffInputFieldChange={
+                                        handleDropoffInputFieldChange
+                                      }
+                                      onSelectTabChange={
+                                        onDropoffSelectTabChange
+                                      }
+                                      onStateChange={handleDropoffStateChange}
+                                    />
+                                  </Modal.Body>
+                                </Modal>
+
+                                <Col xxl={2} lg={2} md={3} sm={6} xs={6}>
+                                  <Form.Group controlId="formKeyword">
+                                    <div className="location-label">
+                                      <label className="styled-label mb-3">
+                                        <b>Pickup Time *</b>
+                                      </label>
+                                    </div>
+                                    <Select
+                                      options={timeOptions}
+                                      required
+                                      className="form-control-pickup-time col-12"
+                                      value={timeOptions?.find(
+                                        (option) =>
+                                          option?.value ===
+                                          formFields?.pickTimeV1
+                                      )}
+                                      onChange={handlePickUpTimeChange}
+                                      styles={selectStyles}
+                                    />
+                                  </Form.Group>
+                                </Col>
+
+                                <Col xxl={2} lg={2} md={3} sm={6} xs={6}>
+                                  <Form.Group controlId="formKeyword">
+                                    <div className="location-label">
+                                      <label className="styled-label mb-3">
+                                        <b>Dropoff Time *</b>
+                                      </label>
+                                    </div>
+                                    <Select
+                                      options={timeOptions}
+                                      required
+                                      className="form-control-dropoff-time col-12"
+                                      value={timeOptions.find(
+                                        (option) =>
+                                          option?.value ===
+                                          formFields?.dropTimeV1
+                                      )}
+                                      onChange={handleDropOffTimeChange}
+                                      styles={selectStyles}
+                                    />
+                                  </Form.Group>
+                                </Col>
+                              </Row>
+                            )}
+                          </article>
+                        </div>
                       </form>
                     </Col>
-                  </Row>
+                  </div>
                 </div>
               </div>
             </div>
+            <ToastContainer />
 
-            <Container fluid className="all-cars-container pb-4">
+            <Container fluid className="all-cars-container">
               <Row>
                 <Col xxl={3} lg={3} md={4} className="filters-section">
-                  <div className="filters-heading">
-                    <div className="row d-flex">
-                      <Col>
-                        <h4 className="filters-text">Filters</h4>
-                      </Col>
-                      <Col className="clear-filters-container text-end">
-                        <span
-                          className="clear-filters "
-                          onClick={handleClearAllFilters}
+                  <button
+                    className="filters-button mb-3"
+                    onClick={handleFiltersToggle}
+                  >
+                    Filters
+                    <BsFilter size={24} />
+                  </button>
+
+                  {/* Filters content */}
+                  <div
+                    className={`filters-content ${filtersOpen ? "open" : ""}`}
+                  >
+                    <Row>
+                    <Col className="d-flex justify-content-start">
+                    <button
+                          className="apply-filters-button mb-3"
+                          aria-label="Apply Filters"
+                          onClick={handleFiltersClose}
                         >
-                          Reset <RxCross2 />
-                        </span>
+                          {" "}
+                          Apply
+                        </button>
                       </Col>
+                      <Col className="d-flex justify-content-end">
+                        <button
+                          className="cross-filters-button mb-3"
+                          aria-label="Apply Filters"
+                          onClick={handleFiltersClose}
+                        >
+                          {" "}
+                          <RxCross2 />
+                        </button>
+                      </Col>
+                    </Row>
+
+                    <div className="filters-heading">
+                      <div className="row d-flex">
+                        <Col>
+                          <h4 className="filters-text">Filters</h4>
+                        </Col>
+                        <Col className="clear-filters-container text-end">
+                          <span
+                            className="clear-filters"
+                            onClick={handleClearAllFilters}
+                          >
+                            Reset <RxCross2 />
+                          </span>
+                        </Col>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="card search-filters-card ">
-                    <article className="card-group-item">
-                      <div className="car-categories-label">
-                        <header
-                          className="card-header styled-label pt-3 pb-3"
-                          onClick={toggleCarCategories}
-                        >
-                          <div className="car-categories-filter-container d-flex justify-content-between align-items-center">
-                            <div className="car-categories-icon-title">
-                              <BsCarFrontFill className="mr-2" />
-                              <b>Car Categories</b>
-                            </div>
-                            <div className="car-categories-open-close-modal ">
-                              {isCarCategoriesOpen ? (
-                                <>
-                                  <div className="categories-open-icon">
-                                    <AiOutlineMinusCircle className="text-right" />
-                                  </div>
-                                </>
-                              ) : (
-                                <div className="categories-open-icon">
+                    <div className="card search-filters-card">
+                      <article className="card-group-item">
+                        <div className="car-categories-label">
+                          <header
+                            className="card-header styled-label pt-3 pb-3"
+                            // onClick={toggleCarCategories}
+                          >
+                            <div className="car-categories-filter-container d-flex justify-content-between align-items-center">
+                              <div className="car-categories-icon-title">
+                                <BsCarFrontFill className="mr-2" />
+                                <b>Car Categories</b>
+                              </div>
+                              <div className="car-categories-open-close-modal">
+                                {isCarCategoriesOpen ? (
+                                  <AiOutlineMinusCircle className="text-right" />
+                                ) : (
                                   <AiOutlinePlusCircle className="text-right" />
+                                )}
+                              </div>
+                            </div>
+                          </header>
+                        </div>
+                        {isCarCategoriesOpen && (
+                          <div className="filter-content">
+                            <div className="card-body">
+                              <article className="card-group-item">
+                                <div className="car-card">
+                                  <Select
+                                    isMulti
+                                    components={animatedComponents}
+                                    options={carCategoriesData?.map(
+                                      (category) => ({
+                                        value: category?.id,
+                                        label: category?.name,
+                                      })
+                                    )}
+                                    value={selectedCategories}
+                                    onChange={handleCategoryChange}
+                                    styles={selectCategoriesStyles}
+                                    getOptionLabel={(option) => (
+                                      <div
+                                        id={`${option.label.replace(
+                                          /\s+/g,
+                                          "-"
+                                        )}-category-button`}
+                                      >
+                                        {option.label}
+                                      </div>
+                                    )}
+                                  />
                                 </div>
-                              )}
+                              </article>
                             </div>
                           </div>
-                        </header>
-                      </div>{" "}
-                      {isCarCategoriesOpen && (
-                        <div className="filter-content">
-                          <div className="card-body">
-                            <article className="card-group-item">
-                              <div className="car-card">
-                                <Select
-                                  isMulti
-                                  components={animatedComponents}
-                                  options={carCategoriesData?.map(
-                                    (category) => ({
-                                      value: category?.id,
-                                      label: category?.name,
-                                    })
-                                  )}
-                                  value={selectedCategories}
-                                  onChange={handleCategoryChange}
-                                  styles={selectCategoriesStyles}
-                                  getOptionLabel={(option) => (
-                                    <div
-                                      id={`${option.label.replace(
-                                        /\s+/g,
-                                        "-"
-                                      )}-category-button`}
-                                    >
-                                      {option.label}
+                        )}
+                      </article>
+                    </div>
+
+                    <div className="card search-filters-card checkbox-container">
+                      <article className="card-group-item">
+                        <div className="car-type-filter-label">
+                          <header
+                            className="card-header styled-label title car-type-filter-heading pt-3 pb-3"
+                            // onClick={toggleCarType}
+                          >
+                            <div className="car-type-filter-container d-flex justify-content-between align-items-center">
+                              <div className="car-type-icon-title">
+                                <BsJustify className="mr-2" />
+                                <b>Models</b>
+                              </div>
+                              <div className="car-type-open-close-modal">
+                                {isCarTypeOpen ? (
+                                  <AiOutlineMinusCircle className="text-right" />
+                                ) : (
+                                  <AiOutlinePlusCircle className="text-right" />
+                                )}
+                              </div>
+                            </div>
+                          </header>
+                        </div>
+                        {isCarTypeOpen && (
+                          <div className="filter-content">
+                            <div className="card-body car-type-filter">
+                              {filteredCarTypes?.map((type, index) => (
+                                <label
+                                  className="form-check flipBox"
+                                  aria-label={`Checkbox ${index}`}
+                                  key={`${type}-type`}
+                                >
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    id={`${type}-type`}
+                                    value={type}
+                                    checked={selectedCarTypes.includes(type)}
+                                    onChange={() =>
+                                      handleCarTypeCheckboxChange(type)
+                                    }
+                                  />
+                                  <span className="form-check-label">
+                                    {type}
+                                  </span>
+                                  <div className="flipBox_boxOuter">
+                                    <div className="flipBox_box">
+                                      <div></div>
+                                      <div></div>
+                                      <div></div>
+                                      <div></div>
+                                      <div></div>
+                                      <div></div>
                                     </div>
-                                  )}
-                                />
-                              </div>
-                            </article>
-                          </div>
-                        </div>
-                      )}
-                    </article>
-                  </div>
-
-                  <div className="card search-filters-card checkbox-container">
-                    <article className="card-group-item">
-                      <div className="car-type-filter-label">
-                        <header
-                          className="card-header styled-label title car-type-filter-heading pt-3 pb-3"
-                          onClick={toggleCarType}
-                        >
-                          <div className="car-type-filter-container d-flex justify-content-between align-items-center">
-                            <div className="car-type-icon-title">
-                              <BsJustify className="mr-2" />
-                              <b>Models</b>
-                            </div>
-                            <div className="car-type-open-close-modal ">
-                              {isCarTypeOpen ? (
-                                <>
-                                  <div className="type-open-icon">
-                                    <AiOutlineMinusCircle className="text-right" />
                                   </div>
-                                </>
-                              ) : (
-                                <div className="type-open-icon">
-                                  <AiOutlinePlusCircle className="text-right" />
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </header>
-                      </div>
-                      {isCarTypeOpen && (
-                        <div className="filter-content">
-                          <div className="card-body car-type-filter">
-                            {filteredCarTypes?.map((type, index) => (
-                              <label
-                                className="form-check flipBox"
-                                aria-label={`Checkbox ${index}`}
-                                key={`${type}-type`}
-                              >
-                                <input
-                                  className="form-check-input"
-                                  type="checkbox"
-                                  id={`${type}-type`}
-                                  value={type}
-                                  checked={selectedCarTypes.includes(type)}
-                                  onChange={() =>
-                                    handleCarTypeCheckboxChange(type)
-                                  }
-                                />
-                                <span className="form-check-label">{type}</span>
-                                <div className="flipBox_boxOuter">
-                                  <div className="flipBox_box">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                  </div>
-                                </div>
-                              </label>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </article>
-
-                    <article className="card-group-item">
-                      <div className="car-price-filter-label">
-                        <header
-                          className="card-header styled-label price-filter-heading pt-3 pb-3"
-                          onClick={toggleCarPriceRange}
-                        >
-                          <div className="car-type-filter-container d-flex justify-content-between align-items-center">
-                            <div className="car-type-icon-title">
-                              <BsTags className="mr-2" />
-                              <b>Price Range ( </b>per day <b>)</b>
-                            </div>
-                            <div className="car-price-range-open-close-modal ">
-                              {isCarPriceRangeOpen ? (
-                                <>
-                                  <div className="price-range-open-icon">
-                                    <AiOutlineMinusCircle className="text-right" />
-                                  </div>
-                                </>
-                              ) : (
-                                <div className="price-range-open-icon">
-                                  <AiOutlinePlusCircle className="text-right" />
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </header>
-                      </div>
-                      {isCarPriceRangeOpen && (
-                        <div className="filter-content">
-                          <div className="card-body">
-                            <div className="">
-                              <div className="form-group-price-min col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
-                                <label
-                                  htmlFor="minPrice"
-                                  className="price-range-label"
-                                >
-                                  Minimum Price
                                 </label>
-                                <input
-                                  className="form-control-login"
-                                  name="minPrice"
-                                  autoComplete="off"
-                                  type="number"
-                                  min={0}
-                                  value={minPrice}
-                                  onChange={(e) => setMinPrice(e.target.value)}
-                                  placeholder="Minimum"
-                                />
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </article>
+
+                      <article className="card-group-item">
+                        <div className="car-price-filter-label">
+                          <header
+                            className="card-header styled-label price-filter-heading pt-3 pb-3"
+                            // onClick={toggleCarPriceRange}
+                          >
+                            <div className="car-type-filter-container d-flex justify-content-between align-items-center">
+                              <div className="car-type-icon-title">
+                                <BsTags className="mr-2" />
+                                <b>Price Range ( </b>per day <b>)</b>
                               </div>
+                              <div className="car-price-range-open-close-modal">
+                                {isCarPriceRangeOpen ? (
+                                  <AiOutlineMinusCircle className="text-right" />
+                                ) : (
+                                  <AiOutlinePlusCircle className="text-right" />
+                                )}
+                              </div>
+                            </div>
+                          </header>
+                        </div>
+                        {isCarPriceRangeOpen && (
+                          <div className="filter-content">
+                            <div className="card-body">
+                              <div className="">
+                                <div className="form-group-price-min col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
+                                  <label
+                                    htmlFor="minPrice"
+                                    className="price-range-label"
+                                  >
+                                    Minimum Price
+                                  </label>
+                                  <input
+                                    className="form-control-login"
+                                    name="minPrice"
+                                    autoComplete="off"
+                                    type="number"
+                                    min={0}
+                                    value={minPrice}
+                                    onChange={(e) =>
+                                      setMinPrice(e.target.value)
+                                    }
+                                    placeholder="Minimum"
+                                  />
+                                </div>
 
-                              <div className="form-group-price-max col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
-                                <label
-                                  htmlFor="maxPrice"
-                                  className="price-range-label"
-                                >
-                                  Maximum Price
-                                </label>
+                                <div className="form-group-price-max col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
+                                  <label
+                                    htmlFor="maxPrice"
+                                    className="price-range-label"
+                                  >
+                                    Maximum Price
+                                  </label>
 
-                                <input
-                                  className="form-control-login "
-                                  name="maxPrice"
-                                  autoComplete="off"
-                                  type="number"
-                                  value={maxPrice}
-                                  onChange={(e) => setMaxPrice(e.target.value)}
-                                  placeholder="Maximum"
-                                  min={minPrice}
-                                />
+                                  <input
+                                    className="form-control-login"
+                                    name="maxPrice"
+                                    autoComplete="off"
+                                    type="number"
+                                    value={maxPrice}
+                                    onChange={(e) =>
+                                      setMaxPrice(e.target.value)
+                                    }
+                                    placeholder="Maximum"
+                                    min={minPrice}
+                                  />
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      )}
-                    </article>
+                        )}
+                      </article>
+                    </div>
                   </div>
                 </Col>
 

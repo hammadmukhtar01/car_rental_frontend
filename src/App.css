@@ -184,7 +184,7 @@ h2.terms-conditions-headings-main {
 .bottom-bar-without-container {
   position: relative;
   background-color: #e87a28;
-  z-index: 5;
+  z-index: 0;
 }
 
 .top-page-horizontal-line {

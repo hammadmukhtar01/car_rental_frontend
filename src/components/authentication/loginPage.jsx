@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Modal, Row } from "react-bootstrap";
 import "./authentication.css";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
@@ -10,7 +10,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import SuccessGifWebP from "../images/auth-gif-after-edited.gif";
 import "../Pages/OtherPages/toastStyle.css";
 
-const LoginPage = ({ onCloseModal, setGif }) => {
+const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -30,8 +30,7 @@ const LoginPage = ({ onCloseModal, setGif }) => {
   }, [navigate, location.pathname, location.search]);
 
   const handleLogin = async (e) => {
-    // setLoading(true);
-    // document.body.classList.add("loadings");
+  
 
     e.preventDefault();
 
@@ -92,10 +91,6 @@ const LoginPage = ({ onCloseModal, setGif }) => {
         },
       });
     }
-    // finally {
-    //   setLoading(false);
-    //   document.body.classList.remove("loadings");
-    // }
   };
 
   return (
@@ -107,19 +102,13 @@ const LoginPage = ({ onCloseModal, setGif }) => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        {/* <link rel="canonical" href="https://milelecarrental.com/login" /> */}
       </Helmet>
-      {/* {loading && (
-        <div className="reloading-icon-free-consultation-form-container text-center">
-          <span className="loader-text">Logging In . . .</span>
-          <div className="lds-dual-ring text-center"></div>
-        </div>
-      )} */}
+
       <ToastContainer />
 
       <section>
         <div className="container">
-          <form action="#" className="signup-form" onSubmit={handleLogin}>
+          <form action="#" className="login-form" onSubmit={handleLogin}>
             <div className="login-form-input-container">
               <label className="login-form-label">
                 <b>Email</b>
@@ -166,12 +155,13 @@ const LoginPage = ({ onCloseModal, setGif }) => {
             <div className="login-button-div">
               <Row className="align-items-center">
                 <Col xl={6} lg={6} md={6} sm={6} xs={12}>
-                  <a href="/forgotpassword" className="forgot-password-heading">
-                    <div className="forgot-password text-left">
-                      {" "}
-                      Forgot Password ?
-                    </div>
-                  </a>
+                  <div
+                    className="forgot-password text-left"
+                    onClick={onForgotPasswordClick}
+                  >
+                    {" "}
+                    Forgot Password ?
+                  </div>
                 </Col>
 
                 <Col

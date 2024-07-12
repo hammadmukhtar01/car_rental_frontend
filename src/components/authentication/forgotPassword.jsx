@@ -1,50 +1,75 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Form } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Col, Row } from "react-bootstrap";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FooterCombination from "../PrivateComponents/footerCombination";
-import HeaderCombination from "../PrivateComponents/headerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import '../Pages/OtherPages/toastStyle.css';
+import "../Pages/OtherPages/toastStyle.css";
 
-const ForgotPasswordPage = () => {
+const ForgotPasswordPage = ({ onClose }) => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const auth = JSON.parse(localStorage?.getItem("user"));
+  const authToken = auth?.token;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
 
-  const handleForgotPasswordClick = async (e) => {
+  useEffect(() => {
+    const auth = localStorage.getItem("user");
+    if (auth) {
+      const lastUrl = localStorage.getItem("lastUrl") || "/";
+      navigate(lastUrl);
+    }
+
+    if (location.pathname) {
+      localStorage.setItem("lastUrl", `${location.pathname}${location.search}`);
+    }
+  }, [navigate, location.pathname, location.search]);
+
+  const handleForgotPassword = async (e) => {
     e.preventDefault();
+
+    let data = { email };
 
     try {
       let result = await axios.post(
         `${process.env.REACT_APP_MILELE_API_URL}/customer/forgotpassword`,
-        { email: email },
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
+        // `http://localhost:8000/api/v1/customer/forgotpassword`,
+        data,
+        config
       );
 
-      console.log("Result in Forgot Pass page is: ", result?.data);
+      let resultedData = result?.data;
+      console.log("Result in Forgot password page is: ", resultedData);
 
-      if (result?.status === 200 && result?.data?.status === "success") {
-        toast.success("Check your email for password reset link.", {
-          autoClose: 2000,
+      if (resultedData.status === "success") {
+        const success_message = resultedData?.message;
+        alert(success_message)
+        onClose();
+
+        toast.success(success_message, {
+          autoClose: 5000,
           style: {
             border: "1px solid #c0c0c0",
             fontWeight: "400",
             fontSize: "14px",
           },
           onClose: () => {
-            navigate("/");
+            onClose();
           },
         });
+
+        console.log(
+          "Result in success success success is: ",
+          resultedData?.message
+        );
       } else {
-        toast.warning("Email not found. Try again with a correct email.", {
+        toast.warning("Email is missing...", {
           autoClose: 2000,
           style: {
             border: "1px solid #c0c0c0",
@@ -54,12 +79,12 @@ const ForgotPasswordPage = () => {
         });
       }
     } catch (error) {
+      alert(`${error?.response?.data?.message}`)
       toast.error(`${error?.response?.data?.message}`, {
         autoClose: 2000,
         style: {
           border: "1px solid #c0c0c0",
           fontWeight: "400",
-          lineHeight: "18px",
           fontSize: "14px",
         },
       });
@@ -75,81 +100,68 @@ const ForgotPasswordPage = () => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        {/* <link rel="canonical" href="https://milelecarrental.com/forgotpassword" /> */}
-
       </Helmet>
-      <HeaderCombination />
-      <section className="ftco-section">
-        <div className="container pt-2">
-          <div className="forgot-row justify-content-center">
-            <div className="col-lg-6 ">
-              <div className="forgot-wrap ">
-                <p className=" have-account-text text-center mb-4 mt-2">
-                  Forgot Password
-                </p>
-                <form
-                  action="#"
-                  className="signin-form"
-                  onSubmit={handleForgotPasswordClick}
-                >
-                  <Form.Group controlId="formKeyword">
-                    <div className="form-group row">
-                      <div className="login-form-label col-lg-4 col-md-4">
-                        <label className="styled-label">
-                          <b>Email </b>
-                        </label>
-                      </div>
-                      <div className="col-lg-7 col-md-7 custom-dropdown-container">
-                        <input
-                          className="form-control-login mt-2 col-12"
-                          id="email_PhoneNum"
-                          name="email"
-                          type="email"
-                          autoComplete="email"
-                          required
-                          placeholder="Email"
-                          value={email}
-                          onChange={(e) => {
-                            setEmail(e.target.value);
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </Form.Group>
+      <ToastContainer />
 
-                  <div className="form-group-3 col-lg-12">
-                    <div className="col-lg-6 d-flex justify-content-center">
-                      <p></p>
-                      <br />
-                      <br />
-                      <button className="middle" id="forgot-password-button" aria-label="Forgot Password">
-                        <span className="animate-button btn4">Submit</span>
-                      </button>
+      <div className="forgotpassword-form-container">
+        <h4 className="text-center">
+          <b className="forgotPassword-heading">Forgot Password</b>
+        </h4>
+        <div className="forgotPassword-form-data mt-4">
+          <section>
+            <div className="container">
+              <form
+                action="#"
+                className="forgotPassword-form"
+                onSubmit={handleForgotPassword}
+              >
+                <div className="forgotPassword-form-input-container d-flex justify-content-evenly">
+                  <label className="forgotPassword-form-label">
+                    <b>Email</b>
+                  </label>
 
-                      <ToastContainer />
-                    </div>
+                  <div className=" custom-dropdown-container col-lg-6 col-md-6 col-sm-12 col-12">
+                    <input
+                      className="form-control-forgotPassword col-12"
+                      id="email"
+                      name="email"
+                      type="text"
+                      autoComplete="email"
+                      placeholder="Email"
+                      required
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
+                    />
                   </div>
-                  <br />
-                  <div className="form-group-0">
-                    <div className="col-lg-12">
-                      <div>
-                        <a href="/login" style={{ color: "#fff" }}>
-                          <div className="forgot-password">
-                            {" "}
-                            Remember Password? Login here.
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </form>
+                </div>
+
                 <br />
-              </div>
+                <div className="forgotPassword-button-div">
+                  <Row className="align-items-center">
+                    <Col
+                      xl={6}
+                      lg={6}
+                      md={6}
+                      sm={6}
+                      xs={12}
+                      className="text-right forgotPassword-button-col"
+                    >
+                      <button
+                        className="forgotPassword-button"
+                        aria-label="Forgot Password"
+                      >
+                        Send
+                      </button>
+                    </Col>
+                  </Row>
+                </div>
+              </form>
             </div>
-          </div>
+          </section>
         </div>
-      </section>
-      <FooterCombination />
+      </div>
     </HelmetProvider>
   );
 };

@@ -62,8 +62,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [driverFlightDateTime, setDriverFlightDateTime] = useState(new Date());
   const [airlineTicketNum, setAirlineTicketNum] = useState("");
 
-  const [pickupLocationId, setPickupLocationId] = useState(null);
-  const [dropoffLocationId, setDropoffLocationId] = useState(null);
+  const [pickupLocationId, setPickupLocationId] = useState("");
+  const [dropoffLocationId, setDropoffLocationId] = useState("");
   const [newCustomerDetail, setNewCustomerDetail] = useState("");
   const [customerIdFromSpeed, setCustomerIdFromSpeed] = useState();
   const [paymentUrl, setPaymentUrl] = useState("");

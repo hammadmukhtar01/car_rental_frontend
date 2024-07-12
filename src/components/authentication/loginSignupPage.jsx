@@ -8,7 +8,7 @@ import InitialGifWebP from "../images/auth-gif-before-edited.gif";
 import SignupPage from "./signupPage";
 import LoginPage from "./loginPage";
 
-const LoginSignupPage = ({ onCloseModal }) => {
+const LoginSignupPage = ({ onCloseModal, onForgotPasswordClick }) => {
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [gif, setGif] = useState(InitialGifWebP);
 
@@ -29,14 +29,8 @@ const LoginSignupPage = ({ onCloseModal }) => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        {/* <link rel="canonical" href="https://milelecarrental.com/login" /> */}
       </Helmet>
-      {/* {loading && (
-        <div className="reloading-icon-free-consultation-form-container text-center">
-          <span className="loader-text">Logging In . . .</span>
-          <div className="lds-dual-ring text-center"></div>
-        </div>
-      )} */}
+ 
       <div className="login-signup-main-container">
         <Row>
           <Col xl={7} lg={7} md={12} sm={12}>
@@ -77,16 +71,20 @@ const LoginSignupPage = ({ onCloseModal }) => {
               {showLoginForm ? (
                 <div className="login-form-container">
                   <h4 className="text-center">
-                    <b>Log In</b>
+                    <b className="login-heading">Log In</b>
                   </h4>
                   <div className="login-form-data">
-                    <LoginPage onCloseModal={onCloseModal} setGif={setGif} />
+                    <LoginPage
+                      onCloseModal={onCloseModal}
+                      setGif={setGif}
+                      onForgotPasswordClick={onForgotPasswordClick}
+                    />
                   </div>
                 </div>
               ) : (
                 <div className="signup-form-container ">
                   <h4 className="text-center">
-                    <b>Sign Up</b>
+                    <b className="signup-heading">Sign Up</b>
                   </h4>
 
                   <div className="signup-form-data">
