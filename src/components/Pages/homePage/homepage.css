@@ -194,8 +194,9 @@
 
 .search-box-search-button-div {
   display: flex;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  align-content: center;
+  align-content: flex-end;
 }
 
 .search-box-search-button {
@@ -273,6 +274,12 @@
   .only-car-banner-container-2 {
     display: none;
   }
+  .search-box-search-button {
+    align-content: flex-end;
+  }
+  .bg-img-banner-main {
+    height: 300px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -281,6 +288,7 @@
   }
   .bg-img-banner-main {
     position: relative;
+    height: 400px;
   }
 }
 
@@ -463,10 +471,6 @@
   border-radius: 6px;
 }
 
-.css-1nmdiq5-menu {
-  margin-left: -10px;
-}
-
 .css-t3ipsp-control {
   box-shadow: none !important;
 }
@@ -479,6 +483,12 @@
 .nationality-dropdown .css-1nmdiq5-menu .css-1n6sfyn-MenuList {
   max-height: 165px !important;
 }
+
+.css-1n6sfyn-MenuList {
+  padding-top: 0px !important;
+  cursor: pointer !important;
+}
+
 .css-1n6sfyn-MenuList::selection {
   background-color: white !important;
 }
@@ -582,6 +592,9 @@
 .offers-car-container-row {
   display: flex;
   align-items: center;
+}
+.pick-drop-date-icon {
+  padding-right: 1px;
 }
 
 .single-car-container-div {
@@ -956,15 +969,6 @@ option:disabled {
     position: relative;
     height: 500px;
   }
-  .home-page-horizontal-line-2-text {
-    /* font-size: 27px; */
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .home-page-horizontal-line-2-text {
-    /* font-size: 18px; */
-  }
 }
 
 @media screen and (max-width: 425px) {
@@ -977,9 +981,6 @@ option:disabled {
     position: relative;
     object-fit: contain;
     aspect-ratio: 2/1;
-  }
-  .home-page-horizontal-line-2-text {
-    /* font-size: 18px; */
   }
 }
 
