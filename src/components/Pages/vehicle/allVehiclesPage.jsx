@@ -17,30 +17,23 @@ import {
   BsTags,
   BsPerson,
   BsSuitcase,
+  BsFilter,
 } from "react-icons/bs";
 import { BiSolidMapPin } from "react-icons/bi";
-
 import { GiGearStickPattern } from "react-icons/gi";
 import { LuSnowflake } from "react-icons/lu";
 import "./vehicleDetails.css";
-import PickupLocationModal from "../homePage/pickupSearchBoxDropDown";
-import DropoffLocationModal from "../homePage/dropoffSearchBoxDropDown";
 import Pagination from "./pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 import { DateRange } from "react-date-range";
-// import { useReload } from "../../PrivateComponents/utils";
-// import ReloadingComponent from "../../PrivateComponents/reloadingComponent";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMinusCircle } from "react-icons/ai";
-import { AiOutlinePlusCircle, AiOutlineCloseCircle } from "react-icons/ai";
-import { BsFilter } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import Select from "react-select";
 import axios from "axios";
 import makeAnimated from "react-select/animated";
-import UseGlobalFormFields from "../Utils/useGlobalFormFields";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
@@ -48,47 +41,113 @@ import "../OtherPages/toastStyle.css";
 
 const PageSize = 8;
 const animatedComponents = makeAnimated();
+const locations = [
+  { value: "FUJAIRAH", label: "FUJAIRAH" },
+  { value: "ABU_DHABI", label: "ABU DHABI" },
+  { value: "DUBAI", label: "DUBAI" },
+  { value: "RAS_AL_KHAIMAH", label: "RAS AL KHAIMAH" },
+  { value: "SHARJAH", label: "SHARJAH" },
+  { value: "AJMAN", label: "AJMAN" },
+  { value: "UMM_AL_QUWAIN", label: "Umm Al Quwain" },
+];
+
+const generateTimeSlots = () => {
+  const timeSlots = [];
+  let hour = 7;
+  let minute = 0;
+  let ampm = "AM";
+  while (!(hour === 23 && minute === 30)) {
+    let formattedHour;
+    if (hour <= 12) {
+      formattedHour = hour.toString().padStart(2, "0");
+    } else {
+      const newhour = hour - 12;
+      formattedHour = newhour.toString().padStart(2, "0");
+    }
+
+    const formattedMinute = minute.toString().padStart(2, "0");
+    const time = `${formattedHour}:${formattedMinute} ${ampm}`;
+    timeSlots.push({ label: time, value: time });
+
+    minute += 30;
+    if (minute === 60) {
+      hour++;
+      minute = 0;
+    }
+    if (hour === 12 && minute === 0) {
+      ampm = "PM";
+    }
+  }
+
+  return timeSlots;
+};
+
+const timeOptions = generateTimeSlots();
 
 const VehiclesPage = () => {
+  const navigate = useNavigate();
   const carTypeInURL = useLocation();
   const queryParams = useMemo(
     () => new URLSearchParams(carTypeInURL.search),
     [carTypeInURL.search]
   );
+
   const pickupLocParam = queryParams?.get("pickupLoc");
   const dropoffLocParam = queryParams?.get("dropoffLoc");
   const startDateParam = queryParams?.get("startDate");
   const endDateParam = queryParams?.get("endDate");
   const carCategoryParam = queryParams?.get("carCategory");
+  const pickupTimeParam = queryParams?.get("pickupTime");
+  const dropoffTimeParam = queryParams?.get("dropoffTime");
 
-  const pickupLocStateParam = queryParams?.get("pickupLocState");
-  const dropoffLocStateParam = queryParams?.get("dropoffLocState");
-  const pickupLocTabValueParam = queryParams?.get("pickupLocSelectedTab");
-  const DropoffLocTabValueParam = queryParams?.get("dropoffLocSelectedTab");
+  const [activeSelection, setActiveSelection] = useState({
+    startDate: false,
+    endDate: false,
+  });
 
-  const [pickupLocation, setPickupLocation] = useState("");
-  const [dropoffLocation, setDropoffLocation] = useState("");
-  const [showDropoff, setShowDropoff] = useState(false);
-  const [pickUpDate, setPickUpDate] = useState("");
-  const [pickupSelectedTab, setPickupSelectedTab] = useState(
-    pickupLocTabValueParam || ""
-  );
-  const [dropoffSelectedTab, setDropoffSelectedTab] = useState(
-    DropoffLocTabValueParam || ""
-  );
-  const [pickupStateValueProp, setPickupStateValueProp] = useState(
-    pickupLocStateParam || "DUBAI"
-  );
-  const [dropoffStateValueProp, setDropoffStateValueProp] = useState(
-    dropoffLocStateParam || "DUBAI"
+  const storedUserData = useMemo(
+    () => JSON.parse(localStorage.getItem("userLocationData")) || {},
+    []
   );
 
-  const [loading, setLoading] = useState(true);
-  const [validPrice, setValidPrice] = useState(false);
+  const [pickupLocation, setPickupLocation] = useState(
+    storedUserData?.userData?.pickupLocation || pickupLocParam || ""
+  );
+  const [dropoffLocation, setDropoffLocation] = useState(
+    storedUserData?.userData?.dropoffLocation || dropoffLocParam || ""
+  );
+  const [showDropoff, setShowDropoff] = useState(
+    storedUserData?.userData?.showDropoff || false
+  );
 
-  const [pickUpTime, setPickUpTime] = useState("");
-  const [dropOffDate, setDropOffDate] = useState("");
-  const [dropOffTime, setDropOffTime] = useState("");
+  const defaultStartDate = new Date();
+  const defaultEndDate = new Date(
+    defaultStartDate.getTime() + 24 * 60 * 60 * 1000
+  );
+
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: new Date(
+        storedUserData?.userData?.dateRange?.startDate ||
+          startDateParam ||
+          defaultStartDate
+      ),
+      endDate: new Date(
+        storedUserData?.userData?.dateRange?.endDate ||
+          endDateParam ||
+          defaultEndDate
+      ),
+      key: "selection",
+    },
+  ]);
+
+  const [pickUpTime, setPickUpTime] = useState(
+    storedUserData?.userData?.pickUpTime || pickupTimeParam || ""
+  );
+  const [dropOffTime, setDropOffTime] = useState(
+    storedUserData?.userData?.dropOffTime || dropoffTimeParam || ""
+  );
+
   const [numberOfDays, setNumberOfDays] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
@@ -100,260 +159,110 @@ const VehiclesPage = () => {
   const [carCategoriesData, setCarCategoriesData] = useState([]);
   const [tariffLines, setTariffLines] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pickupLocationMessage, setPickupLocationMessage] = useState(
-    pickupLocParam ?? ""
-  );
-  const [dropoffLocationMessage, setDropoffLocationMessage] = useState(
-    dropoffLocParam ?? ""
-  );
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
-
-  const [showPickupModal, setShowPickupModal] = useState(false);
-  const [showDropoffModal, setShowDropoffModal] = useState(false);
-  const [inputPickupFieldValue, setPickupInputFieldValue] = useState("");
-  const [inputDropoffFieldValue, setDropoffInputFieldValue] = useState("");
-  const [activeSelection, setActiveSelection] = useState({
-    startDate: false,
-    endDate: false,
-  });
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [isCarCategoriesOpen, setIsCarCategoriesOpen] = useState(
-    true
-    // window.innerWidth > 430 ? true : false
-  );
-  const [isCarTypeOpen, setIsCarTypeOpen] = useState(
-    // window.innerWidth > 430 ? true : false
-    true
-  );
-
   const [isLocationDataOpen, setIsLocationDataOpen] = useState(false);
-  const [isCarPriceRangeOpen, setIsCarPriceRangeOpen] = useState(
-    true
-    // window.innerWidth > 430 ? true : false
-  );
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const localStorageDataCalculation = () => {
-    const reqLocalStorageData = localStorage?.getItem("formFields");
-    if (reqLocalStorageData) {
-      const storedFormFields = JSON.parse(reqLocalStorageData);
-      let storedStartDateRange, storedEndDateRange;
+  const updateLocalStorage = (newUserData) => {
+    localStorage.setItem("userLocationData", JSON.stringify(newUserData));
+  };
 
-      if (storedFormFields) {
-        console.log(
-          `storedFormFields?.showDropoffV1 ${storedFormFields?.showDropoffV1}`
-        );
-        setShowDropoff(storedFormFields?.showDropoffV1 === 1);
+  const handleDropoffCheckboxChange = () => {
+    const newShowDropoff = !showDropoff;
+    setShowDropoff(newShowDropoff);
+    const updatedUserData = {
+      ...storedUserData,
+      userData: {
+        ...storedUserData.userData,
+        showDropoff: newShowDropoff,
+        dropoffLocation: newShowDropoff ? dropoffLocation : "",
+      },
+    };
+    setDropoffLocation(newShowDropoff ? dropoffLocation : "");
+    updateLocalStorage(updatedUserData);
+  };
 
-        const pickupLocTabV1 = storedFormFields?.selectedTabPickUp;
-        const dropoffLocTabV1 = storedFormFields?.selectedTabDropOff;
+  const handleDateClick = () => {
+    setActiveSelection({ startDate: false, endDate: false });
+  };
 
-        if (storedFormFields?.dateRangeV1) {
-          storedStartDateRange = new Date(
-            storedFormFields?.dateRangeV1?.startDate
-          );
-          storedEndDateRange = new Date(storedFormFields?.dateRangeV1?.endDate);
-          if (
-            isNaN(storedStartDateRange.getTime()) ||
-            isNaN(storedEndDateRange.getTime())
-          ) {
-            storedStartDateRange = new Date();
-            storedEndDateRange = new Date(
-              new Date().getTime() + 24 * 60 * 60 * 1000
-            );
-          }
-        }
+  const handleDateChange = (ranges) => {
+    const { startDate, endDate } = ranges.selection;
 
-        if (pickupLocTabV1 === "pick") {
-          setPickupLocationMessage(
-            storedFormFields?.pickupInputMessageV1 || ""
-          );
-        } else if (pickupLocTabV1 === "deliver") {
-          setPickupLocationMessage(
-            storedFormFields?.deliveryMapLocPickUp || ""
-          );
-        }
+    setActiveSelection((prev) => ({
+      startDate: true,
+      endDate: prev.startDate ? true : false,
+    }));
 
-        if (dropoffLocTabV1 === "pick") {
-          setDropoffLocationMessage(
-            storedFormFields?.dropoffInputMessageV1 || ""
-          );
-        } else if (dropoffLocTabV1 === "deliver") {
-          setDropoffLocationMessage(
-            storedFormFields?.deliveryMapLocDropOff || ""
-          );
-        }
-        setDropoffInputFieldValue(
-          storedFormFields?.inputDropoffFieldValue || ""
-        );
-        setPickupInputFieldValue(storedFormFields?.inputPickupFieldValue || "");
-        setPickUpTime(storedFormFields?.pickTimeV1 || "");
-        setDropOffTime(storedFormFields?.dropTimeV1 || "");
-        setPickupSelectedTab(
-          storedFormFields?.selectedTabPickUp || pickupLocTabValueParam || ""
-        );
-        setDropoffSelectedTab(
-          storedFormFields?.selectedTabDropOff || DropoffLocTabValueParam || ""
-        );
-        setPickupStateValueProp(
-          storedFormFields?.pickupLocationStateV1 ||
-            pickupLocStateParam ||
-            "DUBAI"
-        );
-        setDropoffStateValueProp(
-          storedFormFields?.dropoffLocationStateV1 ||
-            dropoffLocStateParam ||
-            "DUBAI"
-        );
-      }
+    if (activeSelection?.startDate && endDate) {
+      setShowDateRangeModal(false);
+    }
 
-      setDateRange([
-        {
-          startDate: storedStartDateRange || new Date(),
-          endDate:
-            storedEndDateRange ||
-            new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-          key: "selection",
+    setDateRange([ranges.selection]);
+
+    if (startDate && endDate) {
+      console.log("dateRange -----222222----", startDate);
+      updateLocalStorage({
+        ...storedUserData,
+        userData: {
+          ...storedUserData.userData,
+          dateRange: { startDate, endDate },
         },
-      ]);
+      });
     }
   };
 
-  useEffect(() => {
-    localStorageDataCalculation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const navigate = useNavigate();
-
-  const { formFields, handleFieldChange } = UseGlobalFormFields({
-    pickTimeV1: pickUpTime || "",
-    dropTimeV1: dropOffTime || "",
-    dateRangeV1: "",
-    showDropoffV1: 0,
-  });
-
-  // useEffect(() => {}, [dropoffLocationMessage]);
-
-  useEffect(() => {
-    const pickupTimeParam = queryParams?.get("pickupTime");
-    if (pickupTimeParam && !pickUpTime) {
-      setPickUpTime(pickupTimeParam);
-    }
-    if (showDropoff === false) {
-      // setDropoffLocationMessage(dropoffLocationMessage);
-    }
-  }, [queryParams, pickUpTime, showDropoff, dropoffLocationMessage]);
-
-  const handlePickUpTimeChange = (selectedOption) => {
-    setPickUpTime(selectedOption?.value);
-    handleFieldChange("pickTimeV1", selectedOption?.value);
-  };
-
-  const handleDropOffTimeChange = (selectedOption) => {
-    setDropOffTime(selectedOption?.value);
-    handleFieldChange("dropTimeV1", selectedOption?.value);
-  };
-
-  const handlePickupInputFieldChange = (value) => {
-    setPickupInputFieldValue(value);
-  };
-
-  const handleDropoffInputFieldChange = (value) => {
-    setDropoffInputFieldValue(value);
-  };
-
-  const defaultStartDate = new Date();
-  const defaultEndDate = new Date(
-    defaultStartDate.getTime() + 24 * 60 * 60 * 1000
-  );
-
-  const [dateRange, setDateRange] = useState([
-    {
-      startDate: startDateParam ? new Date(startDateParam) : defaultStartDate,
-      endDate: endDateParam ? new Date(endDateParam) : defaultEndDate,
-      key: "selection",
-    },
-  ]);
-
-  const startDate = useMemo(() => dateRange[0].startDate, [dateRange]);
-  const endDate = useMemo(() => dateRange[0].endDate, [dateRange]);
-
-  const startDateFunc = new Date(startDate);
-  if (
-    startDateFunc.toISOString().split("T")[0] ===
-      new Date().toISOString().split("T")[0] ||
-    startDateFunc.toISOString().split("T")[0] === startDateParam
-  ) {
-    startDateFunc.setDate(startDateFunc.getDate());
-  } else startDateFunc.setDate(startDateFunc.getDate() + 1);
-
-  const endDateFunc = new Date(endDate);
-  if (
-    endDateFunc.toISOString().split("T")[0] ===
-      new Date(defaultStartDate.getTime() + 24 * 60 * 60 * 1000)
-        .toISOString()
-        .split("T")[0] ||
-    endDateFunc.toISOString().split("T")[0] === endDateParam
-  ) {
-    endDateFunc.setDate(endDateFunc.getDate());
-  } else endDateFunc.setDate(endDateFunc.getDate() + 1);
-
-  const datePickerStartDate = encodeURIComponent(
-    startDateFunc.toISOString()
-  ).split("T")[0];
-  const datePickerEndDate = encodeURIComponent(endDateFunc.toISOString()).split(
-    "T"
-  )[0];
-
-  useEffect(() => {
-    if (pickUpDate && dropOffDate) {
-    }
-  }, [pickUpDate, dropOffDate]);
-
-  const validateTimeDifference = (
-    pickUpDateV,
-    dropOffDateV,
+  const calculateNumberOfDays = (
+    startDate,
+    endDate,
     pickUpTime,
     dropOffTime
   ) => {
-    const pickUpDateObj = new Date(pickUpDateV);
-    const dropOffDateObj = new Date(dropOffDateV);
+    const [startHour, startMinute] = pickUpTime?.split(/[: ]/);
+    const [endHour, endMinute] = dropOffTime?.split(/[: ]/);
 
-    if (pickUpDateObj.toDateString() !== dropOffDateObj.toDateString()) {
-      return true;
-    }
+    const start = new Date(startDate);
+    const end = new Date(endDate);
 
-    const [pickUpHour, pickUpMinute, pickUpPeriod] = pickUpTime.split(/[: ]/);
-    const [dropOffHour, dropOffMinute, dropOffPeriod] =
-      dropOffTime.split(/[: ]/);
-
-    const pickUpDateWithTime = new Date(pickUpDateV);
-    const dropOffDateWithTime = new Date(dropOffDateV);
-
-    pickUpDateWithTime.setHours(
-      pickUpPeriod === "PM" && pickUpHour !== "12"
-        ? parseInt(pickUpHour) + 12
-        : pickUpPeriod === "AM" && pickUpHour === "12"
-        ? 0
-        : parseInt(pickUpHour)
+    start.setHours(
+      pickUpTime.includes("PM") && startHour !== "12"
+        ? parseInt(startHour) + 12
+        : parseInt(startHour),
+      parseInt(startMinute)
     );
-    pickUpDateWithTime.setMinutes(parseInt(pickUpMinute));
 
-    dropOffDateWithTime.setHours(
-      dropOffPeriod === "PM" && dropOffHour !== "12"
-        ? parseInt(dropOffHour) + 12
-        : dropOffPeriod === "AM" && dropOffHour === "12"
-        ? 0
-        : parseInt(dropOffHour)
+    end.setHours(
+      dropOffTime.includes("PM") && endHour !== "12"
+        ? parseInt(endHour) + 12
+        : parseInt(endHour),
+      parseInt(endMinute)
     );
-    dropOffDateWithTime.setMinutes(parseInt(dropOffMinute));
 
-    const timeDifference =
-      (dropOffDateWithTime - pickUpDateWithTime) / (1000 * 60);
+    const timeDifference = end - start;
+    const totalHours = timeDifference / (1000 * 60 * 60);
+    const totalDays = Math.ceil(totalHours / 24);
 
-    return timeDifference >= 60;
+    return totalDays;
   };
+
+  useEffect(() => {
+    if (
+      dateRange[0].startDate &&
+      dateRange[0].endDate &&
+      pickUpTime &&
+      dropOffTime
+    ) {
+      const totalDays = calculateNumberOfDays(
+        dateRange[0].startDate,
+        dateRange[0].endDate,
+        pickUpTime,
+        dropOffTime
+      );
+      setNumberOfDays(totalDays);
+    }
+  }, [dateRange, pickUpTime, dropOffTime]);
 
   const fetchVehicleRentRates = useCallback(async (tariffGroupId) => {
     try {
@@ -387,12 +296,34 @@ const VehiclesPage = () => {
         "Content-Type": "application/json",
       };
 
-      const startDate = encodeURIComponent(
-        dateRange[0].startDate.toISOString()
-      );
-      const endDate = encodeURIComponent(dateRange[0].endDate.toISOString());
-      const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/SearchVehicleRates?startDate=${startDate}&endDate=${endDate}`;
+      const startDate = new Date(
+        dateRange[0].startDate.getTime() -
+          dateRange[0].startDate.getTimezoneOffset() * 60000
+      )
+        .toISOString()
+        .split("T")[0];
+      const endDate = new Date(
+        dateRange[0].endDate.getTime() -
+          dateRange[0].endDate.getTimezoneOffset() * 60000
+      )
+        .toISOString()
+        .split("T")[0];
 
+      const userData = {
+        pickupLocation,
+        dropoffLocation,
+        pickUpTime,
+        dropOffTime,
+        showDropoff,
+        dateRange: {
+          startDate,
+          endDate,
+        },
+      };
+
+      updateLocalStorage({ ...storedUserData, userData });
+
+      const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/SearchVehicleRates?startDate=${startDate}&endDate=${endDate}`;
       const response = await axios.post(url, {}, { headers });
       const titles = response?.data?.result?.items?.map((item) => item?.title);
       setCarType(titles);
@@ -411,11 +342,6 @@ const VehiclesPage = () => {
       });
 
       setTariffLines(tariffMap);
-
-      const allPricesValid = cars?.every(
-        (car) => renderVehiclePrices(car?.tariffGroupId) > 0
-      );
-      setValidPrice(allPricesValid);
 
       setLoading(false);
     } catch (error) {
@@ -581,18 +507,11 @@ const VehiclesPage = () => {
       value: null,
       featureIcon: BsPerson,
     },
-
-    // {
-    //   name: "Doors",
-    //   value: 5,
-    //   featureIcon: GiCarDoor,
-    // },
     {
       name: "Automatic",
       value: "A",
       featureIcon: GiGearStickPattern,
     },
-
     {
       name: "Air Bags",
       value: 2,
@@ -627,82 +546,26 @@ const VehiclesPage = () => {
     { label: "High to Low", value: "HighToLow" },
   ];
 
-  const generateTimeSlots = () => {
-    const timeSlots = [];
-    let hour = 7;
-    let minute = 0;
-    let ampm = "AM";
-    while (!(hour === 23 && minute === 30)) {
-      let formattedHour;
-      if (hour <= 12) {
-        formattedHour = hour.toString().padStart(2, "0");
-      } else {
-        const newhour = hour - 12;
-        formattedHour = newhour.toString().padStart(2, "0");
-      }
-
-      const formattedMinute = minute.toString().padStart(2, "0");
-      const time = `${formattedHour}:${formattedMinute} ${ampm}`;
-      timeSlots.push({ label: time, value: time });
-
-      minute += 30;
-      if (minute === 60) {
-        hour++;
-        minute = 0;
-      }
-      if (hour === 12 && minute === 0) {
-        ampm = "PM";
-      }
-    }
-
-    return timeSlots;
+  const handlePickUpTimeChange = (selectedOption) => {
+    setPickUpTime(selectedOption?.value);
+    updateLocalStorage({
+      ...storedUserData,
+      userData: {
+        ...storedUserData.userData,
+        pickUpTime: selectedOption?.value,
+      },
+    });
   };
 
-  const timeOptions = generateTimeSlots();
-
-  const handlePickUpButtonClick = (option) => {
-    if (option === "Deliver") {
-      console.log("In delivery");
-    } else if (option === "Pick") {
-      console.log("In pick");
-    }
-    setPickupLocation(option);
-    setShowPickupModal(false);
-  };
-
-  const handleDropOffButtonClick = (option) => {
-    if (option === "Deliver") {
-      console.log("In deliver drop off");
-    } else if (option === "Pick") {
-      console.log("In drop off pick");
-    }
-    setDropoffLocation(option);
-    setShowDropoffModal(false);
-  };
-
-  const handleDropoffCheckboxChange = () => {
-    setShowDropoff(!showDropoff);
-    handleFieldChange("showDropoffV1", !showDropoff ? 1 : 0);
-  };
-
-  const onPickupSelectTabChange = (tab) => {
-    console.log("pickupSelectedTab Tab in all vehciles page is :", tab);
-    setPickupSelectedTab(tab);
-  };
-
-  const onDropoffSelectTabChange = (tab) => {
-    console.log("dropoffSelectedTab Tab in all vehciles page is :", tab);
-    setDropoffSelectedTab(tab);
-  };
-
-  const handlePickupStateChange = (stateName) => {
-    setPickupStateValueProp(stateName);
-    console.log("Pickup state changed to:", stateName);
-  };
-
-  const handleDropoffStateChange = (stateName) => {
-    setDropoffStateValueProp(stateName);
-    console.log("Dropoff state changed to:", stateName);
+  const handleDropOffTimeChange = (selectedOption) => {
+    setDropOffTime(selectedOption?.value);
+    updateLocalStorage({
+      ...storedUserData,
+      userData: {
+        ...storedUserData.userData,
+        dropOffTime: selectedOption?.value,
+      },
+    });
   };
 
   const allCarsBookingButton = (
@@ -713,7 +576,7 @@ const VehiclesPage = () => {
     calculatedVehiclePrice
   ) => {
     const missingFields = [];
-    if (!pickupLocationMessage) {
+    if (!pickupLocation) {
       missingFields.push("Pickup location");
     }
     if (!pickUpTime) {
@@ -722,7 +585,7 @@ const VehiclesPage = () => {
     if (!dropOffTime) {
       missingFields.push("Dropoff time");
     }
-    if (showDropoff && !dropoffLocationMessage) {
+    if (showDropoff && !dropoffLocation) {
       missingFields.push("Dropoff location");
     }
     const timeDiffChecker = validateTimeDifference(
@@ -731,7 +594,7 @@ const VehiclesPage = () => {
       pickUpTime,
       dropOffTime
     );
-    if (timeDiffChecker === false) {
+    if (!timeDiffChecker) {
       toast.error(
         "The difference between pickup and dropoff time should be at least 60 minutes.",
         {
@@ -761,14 +624,57 @@ const VehiclesPage = () => {
       return;
     }
 
-    localStorageDataCalculation();
+    // navigate(
+    //   `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}-${inputPickupFieldValue}&dropoffLoc=${dropoffLocationMessage}-${inputDropoffFieldValue}&pickupLocState=${pickupStateValueProp}&dropoffLocState=${dropoffStateValueProp}&pickupLocSelectedTab=${pickupSelectedTab}&dropoffLocSelectedTab=${dropoffSelectedTab}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}&vehiclePrice=${calculatedVehiclePrice}`
+    // );
+  };
 
-    console.log("Pickup state value prop is:", pickupStateValueProp);
-    console.log("Dropoff State Value Prop state is: ", dropoffStateValueProp);
+  const validateTimeDifference = (
+    pickUpDateV,
+    dropOffDateV,
+    pickUpTime,
+    dropOffTime
+  ) => {
+    const pickUpDateObj = new Date(pickUpDateV);
+    const dropOffDateObj = new Date(dropOffDateV);
 
-    navigate(
-      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}-${inputPickupFieldValue}&dropoffLoc=${dropoffLocationMessage}-${inputDropoffFieldValue}&pickupLocState=${pickupStateValueProp}&dropoffLocState=${dropoffStateValueProp}&pickupLocSelectedTab=${pickupSelectedTab}&dropoffLocSelectedTab=${dropoffSelectedTab}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}&vehiclePrice=${calculatedVehiclePrice}`
+    if (pickUpDateObj.toDateString() !== dropOffDateObj.toDateString()) {
+      return true;
+    }
+
+    const [pickUpHour, pickUpMinute, pickUpPeriod] = pickUpTime.split(/[: ]/);
+    const [dropOffHour, dropOffMinute, dropOffPeriod] =
+      dropOffTime.split(/[: ]/);
+
+    const pickUpDateWithTime = new Date(pickUpDateV);
+    const dropOffDateWithTime = new Date(dropOffDateV);
+
+    pickUpDateWithTime.setHours(
+      pickUpPeriod === "PM" && pickUpHour !== "12"
+        ? parseInt(pickUpHour) + 12
+        : pickUpPeriod === "AM" && pickUpHour === "12"
+        ? 0
+        : parseInt(pickUpHour)
     );
+    pickUpDateWithTime.setMinutes(parseInt(pickUpMinute));
+
+    dropOffDateWithTime.setHours(
+      dropOffPeriod === "PM" && dropOffHour !== "12"
+        ? parseInt(dropOffHour) + 12
+        : dropOffPeriod === "AM" && dropOffHour === "12"
+        ? 0
+        : parseInt(dropOffHour)
+    );
+    dropOffDateWithTime.setMinutes(parseInt(dropOffMinute));
+
+    const timeDifference =
+      (dropOffDateWithTime - pickUpDateWithTime) / (1000 * 60);
+
+    return timeDifference >= 60;
+  };
+
+  const toggleLocationData = () => {
+    setIsLocationDataOpen(!isLocationDataOpen);
   };
 
   const filterCars = useMemo(() => {
@@ -911,127 +817,6 @@ const VehiclesPage = () => {
     setMaxPrice("");
   };
 
-  const dateInputRef = useRef(null);
-
-  const handleDateClick = () => {
-    setActiveSelection({ startDate: false, endDate: false });
-    setShowDatePicker(true);
-  };
-
-  const handleDateChange = (ranges) => {
-    const { startDate, endDate } = ranges.selection;
-
-    const pickupDate = startDate ? startDate?.toLocaleDateString() : null;
-    const dropoffDate = endDate ? endDate?.toLocaleDateString() : null;
-
-    setPickUpDate(pickupDate);
-    setDropOffDate(dropoffDate);
-
-    setActiveSelection((prev) => ({
-      startDate: true,
-      endDate: prev.startDate ? true : false,
-    }));
-
-    if (activeSelection.startDate && endDate) {
-      setShowDateRangeModal(false);
-    }
-
-    const updatedStartDate = startDate
-      ? new Date(startDate.getTime() + 24 * 60 * 60 * 1000)
-      : null;
-    const updatedEndDate = endDate
-      ? new Date(endDate.getTime() + 24 * 60 * 60 * 1000)
-      : null;
-
-    const dateRangeObject = {
-      startDate: updatedStartDate.toISOString().split("T")[0],
-      endDate: updatedEndDate.toISOString().split("T")[0],
-    };
-
-    handleFieldChange("dateRangeV1", dateRangeObject);
-
-    setDateRange([ranges.selection]);
-  };
-
-  const calculateNumberOfDays = (
-    startDate,
-    endDate,
-    pickUpTime,
-    dropOffTime
-  ) => {
-    const [startHour, startMinute] = pickUpTime?.split(/[: ]/);
-    const [endHour, endMinute] = dropOffTime?.split(/[: ]/);
-
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
-    start.setHours(
-      pickUpTime.includes("PM") && startHour !== "12"
-        ? parseInt(startHour) + 12
-        : parseInt(startHour),
-      parseInt(startMinute)
-    );
-
-    end.setHours(
-      dropOffTime.includes("PM") && endHour !== "12"
-        ? parseInt(endHour) + 12
-        : parseInt(endHour),
-      parseInt(endMinute)
-    );
-
-    const timeDifference = end - start;
-    const totalHours = timeDifference / (1000 * 60 * 60);
-    const totalDays = Math.ceil(totalHours / 24);
-
-    return totalDays;
-  };
-
-  useEffect(() => {
-    if (startDate && endDate && pickUpTime && dropOffTime) {
-      const totalDays = calculateNumberOfDays(
-        startDate,
-        endDate,
-        pickUpTime,
-        dropOffTime
-      );
-
-      setNumberOfDays(totalDays);
-    }
-  }, [startDate, endDate, pickUpTime, dropOffTime]);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        showDatePicker &&
-        dateInputRef.current &&
-        !dateInputRef.current.contains(event.target)
-      ) {
-        setShowDatePicker(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [showDatePicker]);
-
-  const toggleLocationData = () => {
-    setIsLocationDataOpen(!isLocationDataOpen);
-  };
-
-  const toggleCarCategories = () => {
-    setIsCarCategoriesOpen(!isCarCategoriesOpen);
-  };
-
-  const toggleCarType = () => {
-    setIsCarTypeOpen(!isCarTypeOpen);
-  };
-
-  const toggleCarPriceRange = () => {
-    setIsCarPriceRangeOpen(!isCarPriceRangeOpen);
-  };
   const handleFiltersToggle = () => setFiltersOpen(!filtersOpen);
   const handleFiltersClose = () => setFiltersOpen(false);
 
@@ -1042,8 +827,8 @@ const VehiclesPage = () => {
       border: "1px solid rgb(184, 184, 184)",
       boxShadow: "none",
       lineHeight: "32px",
-      marginLeft: "-13px",
-      marginRight: "-14px",
+      // marginLeft: "-13px",
+      // marginRight: "-14px",
       borderRadius: "6px",
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
@@ -1117,7 +902,9 @@ const VehiclesPage = () => {
                             <div>
                               <header
                                 className="card-header styled-label title location-data-heading pt-3 pb-3"
-                                onClick={toggleLocationData}
+                                onClick={() =>
+                                  setIsLocationDataOpen(!isLocationDataOpen)
+                                }
                               >
                                 <div className="d-flex justify-content-between align-items-center">
                                   <div>
@@ -1146,27 +933,17 @@ const VehiclesPage = () => {
                                   <Form.Group controlId="formDropoffDateTime">
                                     <div className="date-label">
                                       <label className="styled-label">
-                                        <BsCalendar2Check className="mr-2" />
+                                        <BsCalendar2Check className="mr-2 pick-drop-date-icon" />
                                         <b>Pickup-Dropoff Date *</b>
                                       </label>
                                     </div>
-                                    <div
-                                      onClick={handleDateClick}
-                                      ref={dateInputRef}
-                                    >
+                                    <div onClick={handleDateClick}>
                                       <input
                                         className="form-control-date mt-2 col-12"
                                         type="text"
-                                        value={
-                                          formFields?.dateRangeV1?.startDate &&
-                                          formFields?.dateRangeV1?.endDate
-                                            ? `${new Date(
-                                                formFields?.dateRangeV1?.startDate
-                                              ).toLocaleDateString()} - ${new Date(
-                                                formFields?.dateRangeV1?.endDate
-                                              ).toLocaleDateString()}`
-                                            : "Select date range"
-                                        }
+                                        id="searchboxInputDate"
+                                        required
+                                        value={`${dateRange[0].startDate.toLocaleDateString()} - ${dateRange[0].endDate.toLocaleDateString()}`}
                                         onClick={() =>
                                           setShowDateRangeModal(true)
                                         }
@@ -1190,7 +967,6 @@ const VehiclesPage = () => {
                                     disabledDay={(date) =>
                                       date < new Date().setHours(0, 0, 0, 0)
                                     }
-                                    onClose={() => setShowDatePicker(false)}
                                   />
                                 </Modal>
                                 <Col
@@ -1221,22 +997,23 @@ const VehiclesPage = () => {
                                           </label>
                                         </div>
                                         <div className="custom-dropdown-container">
-                                          <input
-                                            className="form-control-location mt-2 col-12"
-                                            type="text"
-                                            placeholder="Enter pickup location"
-                                            value={
-                                              pickupLocationMessage &&
-                                              inputPickupFieldValue
-                                                ? `${pickupLocationMessage} - ${inputPickupFieldValue}`
-                                                : pickupLocationMessage
-                                            }
-                                            onChange={() =>
-                                              console.log("On change in pickup")
-                                            }
-                                            onClick={() =>
-                                              setShowPickupModal(true)
-                                            }
+                                          <Select
+                                            className="mt-2"
+                                            id="searchboxInputPickUpLoc"
+                                            options={locations}
+                                            value={pickupLocation}
+                                            onChange={(option) => {
+                                              setPickupLocation(option);
+                                              updateLocalStorage({
+                                                ...storedUserData,
+                                                userData: {
+                                                  ...storedUserData.userData,
+                                                  pickupLocation: option,
+                                                },
+                                              });
+                                            }}
+                                            placeholder="Pickup Loc"
+                                            styles={selectStyles}
                                           />
                                         </div>
                                       </Form.Group>
@@ -1252,29 +1029,30 @@ const VehiclesPage = () => {
                                             </label>
                                           </div>
                                           <div className="custom-dropdown-container">
-                                            <input
-                                              className="form-control-location mt-2 col-12"
-                                              type="text"
-                                              placeholder="Enter dropoff location"
-                                              value={
-                                                dropoffLocationMessage &&
-                                                inputDropoffFieldValue
-                                                  ? `${dropoffLocationMessage} - ${inputDropoffFieldValue}`
-                                                  : dropoffLocationMessage
-                                              }
-                                              onChange={() =>
-                                                console.log(
-                                                  "On change in dropoff"
-                                                )
-                                              }
-                                              onClick={() =>
-                                                setShowDropoffModal(true)
-                                              }
+                                            <Select
+                                              className="mt-2"
+                                              id="searchboxInputDropOffLoc"
+                                              options={locations}
+                                              value={dropoffLocation}
+                                              onChange={(option) => {
+                                                setDropoffLocation(option);
+                                                updateLocalStorage({
+                                                  ...storedUserData,
+                                                  userData: {
+                                                    ...storedUserData.userData,
+                                                    dropoffLocation: option,
+                                                  },
+                                                });
+                                              }}
+                                              placeholder="Dropoff Loc"
+                                              styles={selectStyles}
                                             />
                                           </div>
                                         </Form.Group>
                                       </Col>
-                                    ) : null}
+                                    ) : (
+                                      ""
+                                    )}
                                   </Row>
                                   <Row>
                                     <div className="mt-2">
@@ -1288,94 +1066,6 @@ const VehiclesPage = () => {
                                   </Row>
                                 </Col>
 
-                                <Modal
-                                  show={showPickupModal}
-                                  onHide={() => setShowPickupModal(false)}
-                                  size="xl"
-                                  centered
-                                >
-                                  <Modal.Header closeButton>
-                                    <Modal.Title>
-                                      <span className="modal-heading">
-                                        {" "}
-                                        Pickup Location{" "}
-                                      </span>
-                                    </Modal.Title>
-                                  </Modal.Header>
-                                  <Modal.Body>
-                                    <PickupLocationModal
-                                      show={showPickupModal}
-                                      handleButtonClick={
-                                        handlePickUpButtonClick
-                                      }
-                                      updatePickupLocationMessage={
-                                        setPickupLocationMessage
-                                      }
-                                      initialSelectedLocation={pickupLocation}
-                                      pickupInitialInputFieldValue={
-                                        pickupLocationMessage
-                                      }
-                                      inputPickupFieldValue={
-                                        inputPickupFieldValue
-                                      }
-                                      setPickupInputFieldValue={
-                                        setPickupInputFieldValue
-                                      }
-                                      handlePickupInputFieldChange={
-                                        handlePickupInputFieldChange
-                                      }
-                                      onSelectTabChange={
-                                        onPickupSelectTabChange
-                                      }
-                                      onStateChange={handlePickupStateChange}
-                                    />
-                                  </Modal.Body>
-                                </Modal>
-
-                                <Modal
-                                  show={showDropoffModal}
-                                  onHide={() => setShowDropoffModal(false)}
-                                  size="xl"
-                                  centered
-                                >
-                                  <Modal.Header closeButton>
-                                    <Modal.Title>
-                                      {" "}
-                                      <span className="modal-heading">
-                                        DropOff Location{" "}
-                                      </span>
-                                    </Modal.Title>
-                                  </Modal.Header>
-                                  <Modal.Body>
-                                    <DropoffLocationModal
-                                      show={showDropoffModal}
-                                      handleButtonClick={
-                                        handleDropOffButtonClick
-                                      }
-                                      updateDropoffLocationMessage={
-                                        setDropoffLocationMessage
-                                      }
-                                      initialSelectedLocation={dropoffLocation}
-                                      dropoffInitialInputFieldValue={
-                                        dropoffLocationMessage
-                                      }
-                                      inputDropoffFieldValue={
-                                        inputDropoffFieldValue
-                                      }
-                                      setDropoffInputFieldValue={
-                                        setDropoffInputFieldValue
-                                      }
-                                      handleDropoffInputFieldChange={
-                                        handleDropoffInputFieldChange
-                                      }
-                                      onSelectTabChange={
-                                        onDropoffSelectTabChange
-                                      }
-                                      onStateChange={handleDropoffStateChange}
-                                    />
-                                  </Modal.Body>
-                                </Modal>
-
                                 <Col xxl={2} lg={2} md={3} sm={6} xs={6}>
                                   <Form.Group controlId="formKeyword">
                                     <div className="location-label">
@@ -1388,9 +1078,7 @@ const VehiclesPage = () => {
                                       required
                                       className="form-control-pickup-time col-12"
                                       value={timeOptions?.find(
-                                        (option) =>
-                                          option?.value ===
-                                          formFields?.pickTimeV1
+                                        (option) => option?.value === pickUpTime
                                       )}
                                       onChange={handlePickUpTimeChange}
                                       styles={selectStyles}
@@ -1411,8 +1099,7 @@ const VehiclesPage = () => {
                                       className="form-control-dropoff-time col-12"
                                       value={timeOptions.find(
                                         (option) =>
-                                          option?.value ===
-                                          formFields?.dropTimeV1
+                                          option?.value === dropOffTime
                                       )}
                                       onChange={handleDropOffTimeChange}
                                       styles={selectStyles}
@@ -1446,9 +1133,9 @@ const VehiclesPage = () => {
                   <div
                     className={`filters-content ${filtersOpen ? "open" : ""}`}
                   >
-                    <Row>
-                    <Col className="d-flex justify-content-start">
-                    <button
+                    <Row className="filters-cross-button-row">
+                      <Col className="d-flex justify-content-start">
+                        <button
                           className="apply-filters-button mb-3"
                           aria-label="Apply Filters"
                           onClick={handleFiltersClose}
@@ -1488,193 +1175,154 @@ const VehiclesPage = () => {
                     <div className="card search-filters-card">
                       <article className="card-group-item">
                         <div className="car-categories-label">
-                          <header
-                            className="card-header styled-label pt-3 pb-3"
-                            // onClick={toggleCarCategories}
-                          >
+                          <header className="card-header styled-label pt-3 pb-3">
                             <div className="car-categories-filter-container d-flex justify-content-between align-items-center">
                               <div className="car-categories-icon-title">
                                 <BsCarFrontFill className="mr-2" />
                                 <b>Car Categories</b>
                               </div>
-                              <div className="car-categories-open-close-modal">
-                                {isCarCategoriesOpen ? (
-                                  <AiOutlineMinusCircle className="text-right" />
-                                ) : (
-                                  <AiOutlinePlusCircle className="text-right" />
-                                )}
-                              </div>
                             </div>
                           </header>
                         </div>
-                        {isCarCategoriesOpen && (
-                          <div className="filter-content">
-                            <div className="card-body">
-                              <article className="card-group-item">
-                                <div className="car-card">
-                                  <Select
-                                    isMulti
-                                    components={animatedComponents}
-                                    options={carCategoriesData?.map(
-                                      (category) => ({
-                                        value: category?.id,
-                                        label: category?.name,
-                                      })
-                                    )}
-                                    value={selectedCategories}
-                                    onChange={handleCategoryChange}
-                                    styles={selectCategoriesStyles}
-                                    getOptionLabel={(option) => (
-                                      <div
-                                        id={`${option.label.replace(
-                                          /\s+/g,
-                                          "-"
-                                        )}-category-button`}
-                                      >
-                                        {option.label}
-                                      </div>
-                                    )}
-                                  />
-                                </div>
-                              </article>
-                            </div>
+
+                        <div className="filter-content">
+                          <div className="card-body">
+                            <article className="card-group-item">
+                              <div className="car-card">
+                                <Select
+                                  isMulti
+                                  components={animatedComponents}
+                                  options={carCategoriesData?.map(
+                                    (category) => ({
+                                      value: category?.id,
+                                      label: category?.name,
+                                    })
+                                  )}
+                                  value={selectedCategories}
+                                  onChange={handleCategoryChange}
+                                  styles={selectCategoriesStyles}
+                                  getOptionLabel={(option) => (
+                                    <div
+                                      id={`${option.label.replace(
+                                        /\s+/g,
+                                        "-"
+                                      )}-category-button`}
+                                    >
+                                      {option.label}
+                                    </div>
+                                  )}
+                                />
+                              </div>
+                            </article>
                           </div>
-                        )}
+                        </div>
                       </article>
                     </div>
 
                     <div className="card search-filters-card checkbox-container">
                       <article className="card-group-item">
                         <div className="car-type-filter-label">
-                          <header
-                            className="card-header styled-label title car-type-filter-heading pt-3 pb-3"
-                            // onClick={toggleCarType}
-                          >
+                          <header className="card-header styled-label title car-type-filter-heading pt-3 pb-3">
                             <div className="car-type-filter-container d-flex justify-content-between align-items-center">
                               <div className="car-type-icon-title">
                                 <BsJustify className="mr-2" />
                                 <b>Models</b>
                               </div>
-                              <div className="car-type-open-close-modal">
-                                {isCarTypeOpen ? (
-                                  <AiOutlineMinusCircle className="text-right" />
-                                ) : (
-                                  <AiOutlinePlusCircle className="text-right" />
-                                )}
-                              </div>
                             </div>
                           </header>
                         </div>
-                        {isCarTypeOpen && (
-                          <div className="filter-content">
-                            <div className="card-body car-type-filter">
-                              {filteredCarTypes?.map((type, index) => (
-                                <label
-                                  className="form-check flipBox"
-                                  aria-label={`Checkbox ${index}`}
-                                  key={`${type}-type`}
-                                >
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    id={`${type}-type`}
-                                    value={type}
-                                    checked={selectedCarTypes.includes(type)}
-                                    onChange={() =>
-                                      handleCarTypeCheckboxChange(type)
-                                    }
-                                  />
-                                  <span className="form-check-label">
-                                    {type}
-                                  </span>
-                                  <div className="flipBox_boxOuter">
-                                    <div className="flipBox_box">
-                                      <div></div>
-                                      <div></div>
-                                      <div></div>
-                                      <div></div>
-                                      <div></div>
-                                      <div></div>
-                                    </div>
+
+                        <div className="filter-content">
+                          <div className="card-body car-type-filter">
+                            {filteredCarTypes?.map((type, index) => (
+                              <label
+                                className="form-check flipBox"
+                                aria-label={`Checkbox ${index}`}
+                                key={`${type}-type`}
+                              >
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  id={`${type}-type`}
+                                  value={type}
+                                  checked={selectedCarTypes.includes(type)}
+                                  onChange={() =>
+                                    handleCarTypeCheckboxChange(type)
+                                  }
+                                />
+                                <span className="form-check-label">{type}</span>
+                                <div className="flipBox_boxOuter">
+                                  <div className="flipBox_box">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
                                   </div>
-                                </label>
-                              ))}
-                            </div>
+                                </div>
+                              </label>
+                            ))}
                           </div>
-                        )}
+                        </div>
                       </article>
 
                       <article className="card-group-item">
                         <div className="car-price-filter-label">
-                          <header
-                            className="card-header styled-label price-filter-heading pt-3 pb-3"
-                            // onClick={toggleCarPriceRange}
-                          >
+                          <header className="card-header styled-label price-filter-heading pt-3 pb-3">
                             <div className="car-type-filter-container d-flex justify-content-between align-items-center">
                               <div className="car-type-icon-title">
                                 <BsTags className="mr-2" />
                                 <b>Price Range ( </b>per day <b>)</b>
                               </div>
-                              <div className="car-price-range-open-close-modal">
-                                {isCarPriceRangeOpen ? (
-                                  <AiOutlineMinusCircle className="text-right" />
-                                ) : (
-                                  <AiOutlinePlusCircle className="text-right" />
-                                )}
-                              </div>
                             </div>
                           </header>
                         </div>
-                        {isCarPriceRangeOpen && (
-                          <div className="filter-content">
-                            <div className="card-body">
-                              <div className="">
-                                <div className="form-group-price-min col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
-                                  <label
-                                    htmlFor="minPrice"
-                                    className="price-range-label"
-                                  >
-                                    Minimum Price
-                                  </label>
-                                  <input
-                                    className="form-control-login"
-                                    name="minPrice"
-                                    autoComplete="off"
-                                    type="number"
-                                    min={0}
-                                    value={minPrice}
-                                    onChange={(e) =>
-                                      setMinPrice(e.target.value)
-                                    }
-                                    placeholder="Minimum"
-                                  />
-                                </div>
 
-                                <div className="form-group-price-max col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
-                                  <label
-                                    htmlFor="maxPrice"
-                                    className="price-range-label"
-                                  >
-                                    Maximum Price
-                                  </label>
+                        <div className="filter-content">
+                          <div className="card-body">
+                            <div className="">
+                              <div className="form-group-price-min col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
+                                <label
+                                  htmlFor="minPrice"
+                                  className="price-range-label"
+                                >
+                                  Minimum Price
+                                </label>
+                                <input
+                                  className="form-control-login"
+                                  name="minPrice"
+                                  autoComplete="off"
+                                  type="number"
+                                  min={0}
+                                  value={minPrice}
+                                  onChange={(e) => setMinPrice(e.target.value)}
+                                  placeholder="Minimum"
+                                />
+                              </div>
 
-                                  <input
-                                    className="form-control-login"
-                                    name="maxPrice"
-                                    autoComplete="off"
-                                    type="number"
-                                    value={maxPrice}
-                                    onChange={(e) =>
-                                      setMaxPrice(e.target.value)
-                                    }
-                                    placeholder="Maximum"
-                                    min={minPrice}
-                                  />
-                                </div>
+                              <div className="form-group-price-max col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
+                                <label
+                                  htmlFor="maxPrice"
+                                  className="price-range-label"
+                                >
+                                  Maximum Price
+                                </label>
+
+                                <input
+                                  className="form-control-login"
+                                  name="maxPrice"
+                                  autoComplete="off"
+                                  type="number"
+                                  value={maxPrice}
+                                  onChange={(e) => setMaxPrice(e.target.value)}
+                                  placeholder="Maximum"
+                                  min={minPrice}
+                                />
                               </div>
                             </div>
                           </div>
-                        )}
+                        </div>
                       </article>
                     </div>
                   </div>
@@ -1842,6 +1490,14 @@ const VehiclesPage = () => {
                                                     renderVehiclePrices(
                                                       car.tariffGroupId
                                                     );
+                                                  const datePickerStartDate =
+                                                    dateRange[0].startDate
+                                                      .toISOString()
+                                                      .split("T")[0];
+                                                  const datePickerEndDate =
+                                                    dateRange[0].endDate
+                                                      .toISOString()
+                                                      .split("T")[0];
                                                   allCarsBookingButton(
                                                     car?.tariffGroupId,
                                                     `${car?.title} - ${
