@@ -57,8 +57,10 @@ const VehicleDetails = ({ nextStep }) => {
   const dropoffLocStateParam = queryParams?.get("dropoffLocState");
   const checkBoxValueParam = queryParams?.get("checkBoxValue");
   const numberOfDays = queryParams?.get("noOfDays");
-  const pickupLocTabValue = queryParams?.get("pickupLocSelectedTab");
-  const DropoffLocTabValue = queryParams?.get("dropoffLocSelectedTab");
+  // const pickupLocTabValue = queryParams?.get("pickupLocSelectedTab");
+  const pickupLocTabValue = "DELIVER";
+  // const DropoffLocTabValue = queryParams?.get("dropoffLocSelectedTab");
+  const DropoffLocTabValue = "DELIVER";
   const calculatedVehiclePrice = parseInt(queryParams?.get("vehiclePrice"));
   const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
 

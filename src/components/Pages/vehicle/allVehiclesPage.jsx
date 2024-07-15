@@ -624,9 +624,11 @@ const VehiclesPage = () => {
       return;
     }
 
-    // navigate(
-    //   `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocationMessage}-${inputPickupFieldValue}&dropoffLoc=${dropoffLocationMessage}-${inputDropoffFieldValue}&pickupLocState=${pickupStateValueProp}&dropoffLocState=${dropoffStateValueProp}&pickupLocSelectedTab=${pickupSelectedTab}&dropoffLocSelectedTab=${dropoffSelectedTab}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}&vehiclePrice=${calculatedVehiclePrice}`
-    // );
+    // console.log("pickup loc", pickupLocation)
+
+    navigate(
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocation?.label}&dropoffLoc=${dropoffLocation?.label}&pickupLocState=${pickupLocation?.label}&dropoffLocState=${dropoffLocation?.label}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}&vehiclePrice=${calculatedVehiclePrice}`
+    );
   };
 
   const validateTimeDifference = (
@@ -1116,7 +1118,6 @@ const VehiclesPage = () => {
                 </div>
               </div>
             </div>
-            <ToastContainer />
 
             <Container fluid className="all-cars-container">
               <Row>
@@ -1591,6 +1592,8 @@ const VehiclesPage = () => {
           </div>
         </>
       </div>
+      <ToastContainer />
+
       <FooterCombination />
     </HelmetProvider>
   );

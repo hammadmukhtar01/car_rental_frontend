@@ -15,7 +15,7 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const auth = localStorage.getItem("user");
@@ -30,13 +30,12 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
   }, [navigate, location.pathname, location.search]);
 
   const handleLogin = async (e) => {
-  
-
     e.preventDefault();
 
     console.warn("Data: ", email, password);
     let data = { email, password };
-
+    setLoading(true);
+    document.body.classList.add("loadings");
     try {
       let result = await axios.post(
         `${process.env.REACT_APP_MILELE_API_URL}/customer/login`,
@@ -90,6 +89,9 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
           fontSize: "14px",
         },
       });
+    } finally {
+      setLoading(false);
+      document.body.classList.remove("loadings");
     }
   };
 
@@ -105,6 +107,13 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
       </Helmet>
 
       <ToastContainer />
+
+      {loading && (
+        <div className="reloading-icon-free-consultation-form-container text-center">
+          <span className="loader-text">Logging In . . .</span>
+          <div className="lds-dual-ring text-center"></div>
+        </div>
+      )}
 
       <section>
         <div className="container">
