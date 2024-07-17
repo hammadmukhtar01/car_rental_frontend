@@ -18,8 +18,7 @@ body {
 } */
 
 .contact-buttons-container
-/* , .lease-car-buttons-container */
- {
+/* , .lease-car-buttons-container */ {
   position: fixed;
   bottom: 30px;
   display: flex;
@@ -30,8 +29,7 @@ body {
 }
 
 .contact-button
-/* , .lease-car-button  */
-{
+/* , .lease-car-button  */ {
   display: flex;
   align-items: center;
   margin-bottom: 11px;
@@ -85,8 +83,7 @@ body {
 } */
 
 .contact-button::before
-/* , .lease-car-button::before */
- {
+/* , .lease-car-button::before */ {
   content: "";
   position: absolute;
   width: 100%;
@@ -96,8 +93,7 @@ body {
 }
 
 .contact-button:hover::before
-/* , .lease-car-button:hover::before  */
-{
+/* , .lease-car-button:hover::before  */ {
   left: 0;
   animation: identifier 1s ease-out infinite;
   border-radius: 50px;
@@ -157,6 +153,10 @@ body {
   background-color: #e87a28;
 }
 
+.gm-style div {
+  cursor: pointer !important;
+}
+
 .spin-the-wheel-link {
   background-color: #e87a28;
 }
@@ -177,8 +177,7 @@ body {
 } */
 
 .single-feature-container
-/* , .lease-page-single-feature-container  */
-{
+/* , .lease-page-single-feature-container  */ {
   box-shadow: 1px 1px 3px 0px #aba8a7;
   border-radius: 43px;
   margin: 0px 7px;
@@ -192,7 +191,6 @@ body {
 /* .lease-page-single-feature-container {
   padding: 3px 10px 7px 9px;
 } */
-
 
 /* .footer_widgets_wrapper .widget_socials li a:hover {
   background-color: #e87a28 !important;

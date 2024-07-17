@@ -6,6 +6,7 @@ const libraries = ["places"];
 const mapContainerStyle = {
   //   width: "100vw",
   height: "50vh",
+  overFlow: "auto",
 };
 const center = {
   lat: 25.1673265,
@@ -28,7 +29,6 @@ function Map() {
 
   const onMapClick = useCallback(async (event) => {
     alert("Touch event");
-    console.log("Touch event detected:", event);
 
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
@@ -89,9 +89,6 @@ function Map() {
         options={options}
         onClick={onMapClick}
         onTouchEnd={onMapClick}
-        onTouchStart={(e) => console.log("Touch start:", e)}
-        onTouchMove={(e) => console.log("Touch move:", e)}
-        style={{ cursor: "pointer" }}
       >
         {selectedPlace && (
           <Marker
