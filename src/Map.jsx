@@ -14,7 +14,7 @@ const center = {
 const options = {
   disableDefaultUI: true,
   zoomControl: true,
-  mapTypeId: "hybrid", 
+  mapTypeId: "hybrid",
 };
 
 function Map() {
@@ -123,7 +123,7 @@ function Map() {
       <form className="container mt-5">
         <div className="form-group row">
           <label htmlFor="locationName" className="col-3 col-form-label">
-            Location Name:
+            <b> Location Name:</b>
           </label>
           <div className="col-9">
             <input
@@ -142,7 +142,7 @@ function Map() {
         <Row>
           <Col className="form-group row">
             <label htmlFor="district" className="col-12 col-form-label">
-              District:
+              <b>District:</b>
             </label>
             <div className="col-12">
               <input
@@ -161,7 +161,7 @@ function Map() {
 
           <Col className="form-group row">
             <label htmlFor="city" className="col-12 col-form-label">
-              City:
+              <b> City:</b>
             </label>
             <div className="col-12">
               <input
@@ -177,11 +177,10 @@ function Map() {
           </Col>
         </Row>
 
-       
         <Row>
           <Col className="form-group row">
             <label htmlFor="buildingNumber" className="col-12 col-form-label">
-              Building Number:
+              <b> Building Number:</b>
             </label>
             <div className="col-12">
               <input
@@ -194,7 +193,7 @@ function Map() {
           </Col>
           <Col className="form-group row">
             <label htmlFor="flatNumber" className="col-12 col-form-label">
-              Flat Number:
+              <b> Flat Number:</b>
             </label>
             <div className="col-12">
               <input
@@ -208,7 +207,7 @@ function Map() {
         </Row>
         <div className="form-group row">
           <label htmlFor="addressDetails" className="col-sm-2 col-form-label">
-            Additional Details:
+            <b> Additional Details:</b>
           </label>
           <div className="col-sm-10">
             <input
