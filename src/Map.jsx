@@ -28,43 +28,51 @@ function Map() {
 
   const onMapClick = useCallback(async (event) => {
     alert("Touch event");
+    console.log("Touch event detected:", event);
+
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
+    console.log("Coordinates:", { lat, lng });
 
     // Fetch place details using OpenCage Data API
-    const response = await fetch(
-      `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${process.env.REACT_APP_OPENCAGE_KEY}&no_annotations=1&language=en`
-    );
-    const data = await response.json();
+    try {
+      const response = await fetch(
+        `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${process.env.REACT_APP_OPENCAGE_KEY}&no_annotations=1&language=en`
+      );
+      const data = await response.json();
 
-    if (data.results && data.results.length > 0) {
-      const result = data.results[0];
-      const { components, formatted } = result;
-      const formattedParts = formatted.split(", ");
+      if (data.results && data.results.length > 0) {
+        const result = data.results[0];
+        const { components, formatted } = result;
+        const formattedParts = formatted.split(", ");
 
-      let city = components.state;
+        let city = components.state;
 
-      if (!city && formattedParts.length > 2) {
-        city = formattedParts[formattedParts.length - 3];
-        if (city.includes(" ")) {
-          city = city.split(" ")[0];
+        if (!city && formattedParts.length > 2) {
+          city = formattedParts[formattedParts.length - 3];
+          if (city.includes(" ")) {
+            city = city.split(" ")[0];
+          }
         }
+
+        setSelectedPlace({ lat, lng });
+        setLocationDetails({
+          name: formatted,
+          city: components.state,
+          district: components.suburb || components.neighbourhood,
+          country: components.country,
+        });
+
+        console.log("Selected Place:", { lat, lng });
+        console.log("Location Details:", {
+          name: formatted,
+          city: components.state,
+          district: components.suburb || components.neighbourhood,
+          country: components.country,
+        });
       }
-
-      setSelectedPlace({ lat, lng });
-      setLocationDetails({
-        name: formatted,
-        city: components.state,
-        district: components.suburb || components.neighbourhood,
-        country: components.country,
-      });
-
-      console.log({
-        name: formatted,
-        city: components.state,
-        district: components.suburb || components.neighbourhood,
-        country: components.country,
-      });
+    } catch (error) {
+      console.error("Error fetching location details:", error);
     }
   }, []);
 
