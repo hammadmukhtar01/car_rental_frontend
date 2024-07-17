@@ -24,6 +24,7 @@ jobs:
           REACT_APP_INSTAGRAM_TOKEN_KEY: ${{ secrets.REACT_APP_INSTAGRAM_TOKEN_KEY }}
           REACT_APP_SPEED_API_BEARER_TOKEN: ${{ secrets.REACT_APP_SPEED_API_BEARER_TOKEN }}
           REACT_APP_MILELE_API_URL: ${{ secrets.REACT_APP_MILELE_API_URL }}
+          REACT_APP_OPENCAGE_KEY: ${{ secrets.REACT_APP_OPENCAGE_KEY }}
         run: npm install
 
       - name: Build project
@@ -32,6 +33,7 @@ jobs:
           REACT_APP_INSTAGRAM_TOKEN_KEY: ${{ secrets.REACT_APP_INSTAGRAM_TOKEN_KEY }}
           REACT_APP_SPEED_API_BEARER_TOKEN: ${{ secrets.REACT_APP_SPEED_API_BEARER_TOKEN }}
           REACT_APP_MILELE_API_URL: ${{ secrets.REACT_APP_MILELE_API_URL }}
+          REACT_APP_OPENCAGE_KEY: ${{ secrets.REACT_APP_OPENCAGE_KEY }}
         run: npm run build
 
       - name: Deploy to cPanel via FTP
@@ -49,8 +51,10 @@ jobs:
           echo $REACT_APP_INSTAGRAM_TOKEN_KEY
           echo $REACT_APP_SPEED_API_BEARER_TOKEN
           echo $REACT_APP_MILELE_API_URL
+          echo $REACT_APP_OPENCAGE_KEY
         env:
           REACT_APP_GOOGLE_MAPS_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_KEY }}
           REACT_APP_INSTAGRAM_TOKEN_KEY: ${{ secrets.REACT_APP_INSTAGRAM_TOKEN_KEY }}
           REACT_APP_SPEED_API_BEARER_TOKEN: ${{ secrets.REACT_APP_SPEED_API_BEARER_TOKEN }}
           REACT_APP_MILELE_API_URL: ${{ secrets.REACT_APP_MILELE_API_URL }}
+          REACT_APP_OPENCAGE_KEY: ${{ secrets.REACT_APP_OPENCAGE_KEY }}
