@@ -27,6 +27,7 @@ import GlobalLoader from "./components/PrivateComponents/globalLoader";
 import EmailTemplate from "./components/images/icons/emailTemplate";
 import UpdatePasswordPage from "./components/authentication/updatePassword";
 import PrivateComponent from "./components/PrivateComponents/privateComponent";
+import Map from "./Map";
 
 const App = () => {
   const location = useLocation();
@@ -63,6 +64,7 @@ const App = () => {
             <Route path="/blogPage1/1" element={<BlogPage1 />} />
             <Route path="/blogPage2/2" element={<BlogPage2 />} />
             <Route path="/blogPage3/3" element={<BlogPage3 />} />
+            <Route path="/map" element={<Map />} />
 
            <Route element={<PrivateComponent />}>
               <Route path="/myProfile/:id" element={<ContactusPage />} />
