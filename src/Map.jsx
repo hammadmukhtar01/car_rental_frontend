@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import { Col, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 const libraries = ["places"];
 const mapContainerStyle = {
-  width: "100vw",
+//   width: "100vw",
   height: "50vh",
 };
 const center = {
@@ -19,7 +19,7 @@ const options = {
 
 function Map() {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyAePasC96mT2mWIMAGi0aPUIAL5hKRnhOg",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
     libraries,
   });
 
@@ -32,7 +32,7 @@ function Map() {
 
     // Fetch place details using OpenCage Data API
     const response = await fetch(
-      `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=03c48dae07364cabb7f121d8c1519492&no_annotations=1&language=en`
+      `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${process.env.REACT_APP_OPENCAGE_KEY}&no_annotations=1&language=en`
     );
     const data = await response.json();
 
@@ -41,34 +41,10 @@ function Map() {
       console.log("OpenCage Data Result: ", result);
 
       const { components, formatted } = result;
-      const addressParts = [];
-
-      if (components.house_number) {
-        addressParts.push(components.house_number);
-      }
-      if (components.road) {
-        addressParts.push(components.road);
-      }
-      if (components.neighbourhood) {
-        addressParts.push(components.neighbourhood);
-      }
-      if (components.suburb) {
-        addressParts.push(components.suburb);
-      }
-      if (components.city) {
-        addressParts.push(components.city);
-      }
-      if (components.state) {
-        addressParts.push(components.state);
-      }
-      if (components.country) {
-        addressParts.push(components.country);
-      }
-
-      const detailedAddress = addressParts.join(", ");
+      
 
       const formattedParts = formatted.split(", ");
-      console.log("formattedParts : ", formattedParts);
+      console.log("formattedParts : ", formatted);
 
       let city = components.state;
 
@@ -83,7 +59,6 @@ function Map() {
       setSelectedPlace({ lat, lng });
       setLocationDetails({
         name: formatted,
-        detailedAddress,
         city: components.state,
         district: components.suburb || components.neighbourhood,
         country: components.country,
@@ -91,7 +66,6 @@ function Map() {
 
       console.log({
         name: formatted,
-        detailedAddress,
         city: components.state,
         district: components.suburb || components.neighbourhood,
         country: components.country,
@@ -103,7 +77,7 @@ function Map() {
   if (!isLoaded) return <div>Loading Maps</div>;
 
   return (
-    <div>
+    <Container>
       <br />
       <br />
       <GoogleMap
@@ -112,6 +86,8 @@ function Map() {
         center={center}
         options={options}
         onClick={onMapClick}
+        onTouchEnd={onMapClick}
+        style={{ cursor: "pointer" }}
       >
         {selectedPlace && (
           <Marker
@@ -131,10 +107,9 @@ function Map() {
               className="form-control p-3"
               id="locationName"
               placeholder="Enter location name"
+              readOnly
               value={
-                selectedPlace && locationDetails
-                  ? locationDetails.detailedAddress
-                  : ""
+                selectedPlace && locationDetails ? locationDetails?.name : ""
               }
             />
           </div>
@@ -150,9 +125,10 @@ function Map() {
                 className="form-control p-3"
                 id="district"
                 placeholder="Enter district"
+                readOnly
                 value={
                   selectedPlace && locationDetails
-                    ? locationDetails.district
+                    ? locationDetails?.district
                     : ""
                 }
               />
@@ -169,8 +145,9 @@ function Map() {
                 className="form-control p-3"
                 id="city"
                 placeholder="Enter city"
+                readOnly
                 value={
-                  selectedPlace && locationDetails ? locationDetails.city : ""
+                  selectedPlace && locationDetails ? locationDetails?.city : ""
                 }
               />
             </div>
@@ -219,7 +196,7 @@ function Map() {
           </div>
         </div>
       </form>
-    </div>
+    </Container>
   );
 }
 
