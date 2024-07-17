@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 
 const libraries = ["places"];
 const mapContainerStyle = {
-//   width: "100vw",
+  //   width: "100vw",
   height: "50vh",
 };
 const center = {
@@ -27,6 +27,7 @@ function Map() {
   const [locationDetails, setLocationDetails] = useState(null);
 
   const onMapClick = useCallback(async (event) => {
+    alert("Touch event");
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
 
@@ -38,17 +39,11 @@ function Map() {
 
     if (data.results && data.results.length > 0) {
       const result = data.results[0];
-      console.log("OpenCage Data Result: ", result);
-
       const { components, formatted } = result;
-      
-
       const formattedParts = formatted.split(", ");
-      console.log("formattedParts : ", formatted);
 
       let city = components.state;
 
-      console.log("city : ", city);
       if (!city && formattedParts.length > 2) {
         city = formattedParts[formattedParts.length - 3];
         if (city.includes(" ")) {
@@ -79,7 +74,6 @@ function Map() {
   return (
     <Container>
       <br />
-      <br />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={12}
@@ -87,6 +81,8 @@ function Map() {
         options={options}
         onClick={onMapClick}
         onTouchEnd={onMapClick}
+        onTouchStart={(e) => console.log("Touch start:", e)}
+        onTouchMove={(e) => console.log("Touch move:", e)}
         style={{ cursor: "pointer" }}
       >
         {selectedPlace && (
