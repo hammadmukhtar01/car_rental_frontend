@@ -29,6 +29,12 @@ import axios from "axios";
 import "../OtherPages/toastStyle.css";
 
 const VehicleDetails = ({ nextStep }) => {
+  const storedUserData = useMemo(
+    () => JSON.parse(localStorage.getItem("userLocationData")) || {},
+    []
+  );
+  const userLocData = storedUserData?.userData;
+
   const [couponCode, setCouponCode] = useState("");
   const [isCouponApplied, setIsCouponApplied] = useState(false);
   const [appliedCoupon, setAppliedCoupon] = useState(null);
@@ -48,21 +54,26 @@ const VehicleDetails = ({ nextStep }) => {
     [carTypeInURL?.search]
   );
   const TariffGroupId = queryParams?.get("tariffGroupId");
-  const StartDateTime = queryParams?.get("startDate");
-  const ReturnDateTime = queryParams?.get("endDate");
-  const pickupTimeParam = queryParams?.get("pickupTime");
-  const dropoffTimeParam = queryParams?.get("dropoffTime");
-  const pickupLocParam = queryParams?.get("pickupLoc");
-  const pickupLocStateParam = queryParams?.get("pickupLocState");
-  const dropoffLocStateParam = queryParams?.get("dropoffLocState");
-  const checkBoxValueParam = queryParams?.get("checkBoxValue");
+  const StartDateTime =
+    userLocData?.dateRange?.startDate || queryParams?.get("startDate");
+  const ReturnDateTime =
+    userLocData?.dateRange?.endDate || queryParams?.get("endDate");
+  const pickupTimeParam =
+    userLocData?.pickUpTime || queryParams?.get("pickupTime");
+  const dropoffTimeParam =
+    userLocData?.dropOffTime || queryParams?.get("dropoffTime");
+  const pickupLocParam =
+    userLocData?.pickupLocation?.label || queryParams?.get("pickupLoc");
+  const dropoffLocParam =
+    userLocData?.dropoffLocation?.label || queryParams?.get("dropoffLoc");
+  const checkBoxValueParam =
+    String(userLocData?.showDropoff) || queryParams?.get("checkBoxValue");
+
   const numberOfDays = queryParams?.get("noOfDays");
-  // const pickupLocTabValue = queryParams?.get("pickupLocSelectedTab");
   const pickupLocTabValue = "DELIVER";
-  // const DropoffLocTabValue = queryParams?.get("dropoffLocSelectedTab");
   const DropoffLocTabValue = "DELIVER";
   const calculatedVehiclePrice = parseInt(queryParams?.get("vehiclePrice"));
-  const [dropoffLocParam, setDropoffLocParam] = useState("DUBAI");
+  // const [dropoffLocParamState, setDropoffLocParamState] = useState("DUBAI");
 
   const fetchSingleCarDetails = useCallback(async () => {
     let data = { TariffGroupId, StartDateTime, ReturnDateTime };
@@ -182,22 +193,6 @@ const VehicleDetails = ({ nextStep }) => {
           ).toFixed(2)
         );
 
-  // const totalAPIResponseCharges =
-  //   calculatedVehiclePrice ?? totalPrice * numberOfDays;
-  // const singleDayPriceCalculation =
-  //   parseFloat(calculatedVehiclePrice / numberOfDays).toFixed(2) ?? totalPrice;
-
-  // let singleDayPriceCalculation;
-  // if (parseInt(singleDayPriceValue) === 0) {
-  //   singleDayPriceCalculation = parseFloat(
-  //     (renderVehiclePriceAPI(numberOfDays) / numberOfDays).toFixed(2)
-  //   );
-  // } else {
-  //   singleDayPriceCalculation = singleDayPriceValue;
-  // }
-
-  // return singleDayPriceCalculation;
-
   const carPassengerCapacity = baseAPIResponsePath?.passengerCapacity;
   const carManualAutomaticType =
     baseAPIResponsePath?.acrissTransDrive?.name?.split("/")[0];
@@ -214,9 +209,6 @@ const VehicleDetails = ({ nextStep }) => {
 
   const auth = JSON.parse(localStorage.getItem("user"));
   const authToken = auth?.token;
-
-  // const additionalFeaturesList = [...additionalFeaturesArray];
-  // console.log(`additionalFeaturesList ${additionalFeaturesList}`);
 
   const carFeaturesWithIcons = [
     {
@@ -459,14 +451,6 @@ const VehicleDetails = ({ nextStep }) => {
     }, 0);
   };
 
-  useEffect(() => {
-    if (checkBoxValueParam === "false") {
-      setDropoffLocParam(pickupLocParam);
-    } else {
-      setDropoffLocParam(queryParams?.get("dropoffLoc"));
-    }
-  }, [checkBoxValueParam, pickupLocParam, queryParams]);
-
   const deliveryCharges = {
     FUJAIRAH: 250,
     "AL AIN": 250,
@@ -486,7 +470,7 @@ const VehicleDetails = ({ nextStep }) => {
       locIcon: FaTelegramPlane,
     },
     {
-      locName: dropoffLocParam,
+      locName: checkBoxValueParam === "true" ? dropoffLocParam : pickupLocParam,
       locDate: ReturnDateTime,
       locTime: dropoffTimeParam,
       locIcon: FaMapMarkerAlt,
@@ -501,8 +485,8 @@ const VehicleDetails = ({ nextStep }) => {
   };
 
   const getDeliveryCharge = () => {
-    const selectedStatePickup = pickupLocStateParam?.toUpperCase();
-    const selectedStateDropoff = dropoffLocStateParam?.toUpperCase();
+    const selectedStatePickup = pickupLocParam?.toUpperCase();
+    const selectedStateDropoff = dropoffLocParam?.toUpperCase();
 
     let pickupCharge = 0;
     let dropoffCharge = 0;
@@ -522,10 +506,6 @@ const VehicleDetails = ({ nextStep }) => {
     }
 
     let sumPickDropCharges = pickupCharge + dropoffCharge;
-
-    if (checkBoxValueParam === "false") {
-      sumPickDropCharges = 2 * sumPickDropCharges;
-    }
 
     return sumPickDropCharges;
   };

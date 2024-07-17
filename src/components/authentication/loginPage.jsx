@@ -150,7 +150,7 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
                   className="form-control-login col-12"
                   name="password"
                   type="password"
-                  autoComplete="current-password"
+                  autoComplete="currentPassword"
                   required
                   placeholder="Password"
                   value={password}

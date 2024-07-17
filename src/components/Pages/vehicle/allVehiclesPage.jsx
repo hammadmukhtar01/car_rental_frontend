@@ -162,7 +162,6 @@ const VehiclesPage = () => {
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [isLocationDataOpen, setIsLocationDataOpen] = useState(false);
-  const [showDatePicker, setShowDatePicker] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const updateLocalStorage = (newUserData) => {
@@ -624,10 +623,8 @@ const VehiclesPage = () => {
       return;
     }
 
-    // console.log("pickup loc", pickupLocation)
-
     navigate(
-      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocation?.label}&dropoffLoc=${dropoffLocation?.label}&pickupLocState=${pickupLocation?.label}&dropoffLocState=${dropoffLocation?.label}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}&vehiclePrice=${calculatedVehiclePrice}`
+      `/bookingPage/1?tariffGroupId=${tariffGroupId}&vehicleName=${vehicleName}&startDate=${startDate}&endDate=${endDate}&pickupTime=${pickUpTime}&dropoffTime=${dropOffTime}&pickupLoc=${pickupLocation?.label}&dropoffLoc=${dropoffLocation?.label}&checkBoxValue=${showDropoff}&noOfDays=${numberOfDays}&vehiclePrice=${calculatedVehiclePrice}`
     );
   };
 

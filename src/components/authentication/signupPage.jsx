@@ -16,7 +16,7 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 const SignupPage = ({ onCloseModal, setGif }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [nationalityOptions, setNationalityOptions] = useState([]);
   const [selectedNationality, setSelectedNationality] = useState(null);
 
@@ -76,10 +76,6 @@ const SignupPage = ({ onCloseModal, setGif }) => {
     }
     document.body.classList.add("loadings");
 
-    const headers = {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    };
     const formData = {
       fName,
       lName,
@@ -90,12 +86,20 @@ const SignupPage = ({ onCloseModal, setGif }) => {
       passwordConfirm,
     };
     console.log("form data is: ", formData);
+    setLoading(true);
+    document.body.classList.add("loadings");
 
     try {
       const response = await axios.post(
         // `http://localhost:8000/api/v1/customer/create`,
         `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
       );
 
       if (response?.data?.status === "success") {
@@ -124,6 +128,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
         });
       }
     } catch (error) {
+      console.log("Error : ", error)
       toast.error(error?.response?.data?.message || "Some fields are missing", {
         autoClose: 2000,
         style: {
@@ -133,6 +138,9 @@ const SignupPage = ({ onCloseModal, setGif }) => {
           fontSize: "14px",
         },
       });
+    } finally {
+      setLoading(false);
+      document.body.classList.remove("loadings");
     }
   };
 
@@ -197,8 +205,15 @@ const SignupPage = ({ onCloseModal, setGif }) => {
             content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
           />
           <meta name="keywords" content="keywords" />
-          {/* <link rel="canonical" href="https://milelecarrental.com/signup" /> */}
         </Helmet>
+        <ToastContainer />
+
+        {loading && (
+          <div className="reloading-icon-free-consultation-form-container text-center">
+            <span className="loader-text">Creating Account . . .</span>
+            <div className="lds-dual-ring text-center"></div>
+          </div>
+        )}
 
         <div className="container mt-3">
           <form action="#" className="signup-form" onSubmit={handleSubmit}>
@@ -321,7 +336,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
                   className="form-control-signup col-12"
                   name="password"
                   type="password"
-                  autoComplete="current-password"
+                  autoComplete="currentPassword"
                   required
                   placeholder="Password"
                   value={password}
@@ -342,7 +357,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
                   className="form-control-signup col-12"
                   name="confirm-password"
                   type="password"
-                  autoComplete="confirm-password"
+                  autoComplete="confirmPassword"
                   required
                   placeholder="Confirm Password"
                   value={passwordConfirm}
@@ -361,7 +376,6 @@ const SignupPage = ({ onCloseModal, setGif }) => {
                 </button>
               </Col>
             </Row>
-            <ToastContainer />
           </form>
         </div>
       </HelmetProvider>
