@@ -18,12 +18,17 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import "../OtherPages/toastStyle.css";
 
 const AddOnsDocuments = ({ prevStep, nextStep }) => {
+  const storedUserData = useMemo(
+    () => JSON.parse(localStorage.getItem("userLocationData")) || {},
+    []
+  );
+  const userLocData = storedUserData?.userData;
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [contactNum, setContactNum] = useState("");
   const [country, setCountry] = useState({ dialCode: "971", name: "UAE" });
   const [emailAddress, setEmailAddress] = useState("");
-  // const [nationality, setNationality] = useState("");
   const [loadingCustomer, setLoadingCustomer] = useState(false);
   const [loadingBooking, setLoadingBooking] = useState(false);
 
@@ -65,7 +70,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [pickupLocationId, setPickupLocationId] = useState("");
   const [dropoffLocationId, setDropoffLocationId] = useState("");
   const [newCustomerDetail, setNewCustomerDetail] = useState("");
-  const [customerIdFromSpeed, setCustomerIdFromSpeed] = useState();
   const [paymentUrl, setPaymentUrl] = useState("");
   const [bookingStatus, setBookingStatus] = useState("");
 
@@ -80,10 +84,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const addOnsFromUrl = queryParams?.get("addOns").split(",").map(Number);
 
-  const startDateValue = queryParams?.get("startDate");
-  const returnDateValue = queryParams?.get("endDate");
-  const pickupTimeParam = queryParams?.get("pickupTime");
-  const dropoffTimeParam = queryParams?.get("dropoffTime");
+  const startDateValue =
+    userLocData?.dateRange?.startDate || queryParams?.get("startDate");
+  const returnDateValue =
+    userLocData?.dateRange?.endDate || queryParams?.get("endDate");
+  const pickupTimeParam =
+    userLocData?.pickUpTime || queryParams?.get("pickupTime");
+  const dropoffTimeParam =
+    userLocData?.dropOffTime || queryParams?.get("dropoffTime");
 
   const [pickupHour, pickupMinute] = pickupTimeParam?.split(":");
   const startDateTime = new Date(startDateValue);
@@ -116,19 +124,19 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     (totalGrandPriceWithTax - totalGrandPriceWithoutTax).toFixed(2)
   );
 
-  const pickupLocParam = queryParams?.get("pickupLoc");
-  const dropoffLocParam = queryParams?.get("dropoffLoc");
-  const checkBoxValueParam = queryParams?.get("checkBoxValue");
+  const pickupLocParam =
+    userLocData?.pickupLocation?.label || queryParams?.get("pickupLoc");
+  const dropoffLocParam =
+    userLocData?.dropoffLocation?.label || queryParams?.get("dropoffLoc");
+  const checkBoxValueParam =
+    String(userLocData?.showDropoff) || queryParams?.get("checkBoxValue");
 
   let pickdropCombineLoc;
-  if (checkBoxValueParam === true) {
+  if (checkBoxValueParam === "true") {
     pickdropCombineLoc = `pickup: ${pickupLocParam}, dropoff: ${dropoffLocParam}`;
   } else {
     pickdropCombineLoc = `pickup: ${pickupLocParam}, dropoff: ${pickupLocParam}`;
   }
-
-  const pickupLocStateParam = queryParams?.get("pickupLocState");
-  const dropoffLocStateParam = queryParams?.get("dropoffLocState");
 
   const today = new Date();
   const invoiceExpiryDate = new Date(today);
@@ -172,11 +180,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
       const matchedPickupLocation = fetchedAvailableLocations?.find(
         (location) =>
-          location?.name?.toUpperCase() === pickupLocStateParam?.toUpperCase()
+          location?.name?.toUpperCase() === pickupLocParam?.toUpperCase()
       );
       const matchedDropoffLocation = fetchedAvailableLocations?.find(
         (location) =>
-          location?.name?.toUpperCase() === dropoffLocStateParam?.toUpperCase()
+          location?.name?.toUpperCase() === dropoffLocParam?.toUpperCase()
       );
 
       if (matchedPickupLocation) {
@@ -188,7 +196,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     } catch (error) {
       console.error("Error fetching vehicle rates:", error);
     }
-  }, [dropoffLocStateParam, pickupLocStateParam]);
+  }, [dropoffLocParam, pickupLocParam]);
 
   useEffect(() => {
     fetchAvailableLocationsData();
@@ -291,7 +299,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           response?.data?.result
         );
         // alert("alert customer created...");
-       
+
         handleCustomerIdFromSpeed(response?.data?.result);
 
         getCustomerDetails(response?.data?.result);
@@ -649,7 +657,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       startDate: startDateTimeISO,
       endDate: dropoffDateTimeISO,
       charges: charges,
-      closingLocationId: dropoffLocationId,
+      closingLocationId: checkBoxValueParam === "true" ? dropoffLocationId : pickupLocationId,
       customer: {
         id: newId,
         firstName: customerFName,
@@ -1071,11 +1079,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 required
                                 placeholder="First name"
                                 readOnly={auth && user_token}
-                                // value={
-                                //   auth && user_token
-                                //     ? customerDetails?.user?.fName || ""
-                                //     : firstName || ""
-                                // }
                                 value={firstName}
                                 onChange={
                                   !(auth && user_token)
@@ -1100,11 +1103,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 placeholder="Last name"
                                 readOnly={auth && user_token}
                                 value={lastName}
-                                // value={
-                                //   auth && user_token
-                                //     ? customerDetails?.user?.lName || ""
-                                //     : lastName || ""
-                                // }
                                 onChange={
                                   !(auth && user_token)
                                     ? (e) => setLastName(e.target.value)
@@ -1136,11 +1134,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   },
                                 }}
                                 value={contactNum}
-                                // value={
-                                //   auth && user_token
-                                //     ? customerDetails?.user?.phoneNumber || ""
-                                //     : contactNum || ""
-                                // }
                                 onChange={
                                   !(auth && user_token)
                                     ? (phone, country) => {
@@ -1167,11 +1160,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 required
                                 readOnly={auth && user_token}
                                 value={emailAddress}
-                                // value={
-                                //   auth && user_token
-                                //     ? customerDetails?.user?.email || ""
-                                //     : emailAddress || ""
-                                // }
                                 onChange={
                                   !(auth && user_token)
                                     ? (e) => setEmailAddress(e.target.value)
