@@ -96,6 +96,7 @@ function Map() {
         {selectedPlace && (
           <Marker
             position={{ lat: selectedPlace.lat, lng: selectedPlace.lng }}
+            optimize={false}
           />
         )}
       </GoogleMap>
