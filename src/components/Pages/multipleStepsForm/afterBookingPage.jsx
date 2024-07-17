@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../OtherPages/errorPage.css";
 import { useNavigate } from "react-router";
 import { Helmet, HelmetProvider } from "react-helmet-async";
@@ -7,6 +7,16 @@ import "./thankyouPage.css";
 
 const AfterBookingPage = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const auth = localStorage.getItem("user");
+    console.log("auth-");
+    if (!auth) {
+      console.log("No auth");
+      navigate("/");
+    }
+  }, [navigate]);
+
   const thankYouPageBackButton = () => {
     navigate("/");
   };
