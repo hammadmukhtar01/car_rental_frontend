@@ -24,7 +24,6 @@ import BlogPage1 from "./components/Pages/Blog/blogPage1";
 import BlogPage2 from "./components/Pages/Blog/blogPage2";
 import BlogPage3 from "./components/Pages/Blog/blogPage3";
 import GlobalLoader from "./components/PrivateComponents/globalLoader";
-import EmailTemplate from "./components/images/icons/emailTemplate";
 import UpdatePasswordPage from "./components/authentication/updatePassword";
 import PrivateComponent from "./components/PrivateComponents/privateComponent";
 import Map from "./Map";
@@ -66,7 +65,7 @@ const App = () => {
             <Route path="/blogPage3/3" element={<BlogPage3 />} />
             <Route path="/map" element={<Map />} />
 
-           <Route element={<PrivateComponent />}>
+            <Route element={<PrivateComponent />}>
               <Route path="/myProfile/:id" element={<ContactusPage />} />
               <Route path="/myBookings/:id" element={<CustomerBookingPage />} />
               <Route path="/updatepassword" element={<UpdatePasswordPage />} />

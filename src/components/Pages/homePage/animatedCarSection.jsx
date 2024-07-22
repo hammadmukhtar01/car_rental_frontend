@@ -1,153 +1,57 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
+import SedanFleetCarImg1PNG from "../../images/sedan-fleet-car.jpg";
+import SUVFleetCarImg1PNG from "../../images/suv-fleet-car.jpg";
+import SevenSeaterFleetCarImg1PNG from "../../images/sevenseater-fleet-car.jpg";
+import HatchBackFleetCarImg1PNG from "../../images/hatchback-fleet-car.jpg";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 import { useNavigate } from "react-router";
-import "owl.carousel";
-import "owl.carousel/dist/assets/owl.carousel.min.css";
-import "owl.carousel/dist/assets/owl.theme.default.min.css";
-import "owl.carousel/dist/owl.carousel.min.js";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
-import "owl.carousel/dist/assets/owl.theme.green.css";
-import axios from "axios";
 
-const AnimatedCarSection = () => {
+const Carousel = () => {
   const navigate = useNavigate();
-  const [sedanImg, setSedanImg] = useState("");
-  const [suvImg, setSUVImg] = useState("");
-  const [hatchBackImg, setHatchBackImg] = useState("");
-  const [stationWagonImg, setStationWagonImg] = useState("");
-
-  const [carsData] = useState([]);
-
-  useEffect(() => {
-    window.$(".owl-carousel").owlCarousel({
-      loop: true,
-      margin: 10,
-      nav: true,
-      autoplay: true,
-      autoplayTimeout: 3000000,
-      autoplayHoverPause: true,
-      autoplaySpeed: 3000,
-      center: true,
-      navText: [
-        "<span class='nav-btn prev-slide' aria-label='Previous Slide'><</span>",
-        "<span class='nav-btn next-slide' aria-label='Next Slide'>></span>",
-      ],
-      responsive: {
-        0: {
-          items: 1,
-        },
-        600: {
-          items: 3,
-        },
-        1000: {
-          items: 3,
-        },
-      },
-    });
-  }, []);
-
-  const fetchCarsData = useCallback(async () => {
-    try {
-      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
-
-      const startDate = new Date().toISOString();
-      const endDate = new Date(
-        new Date().getTime() + 24 * 60 * 60 * 1000
-      ).toISOString();
-      const url = `https://app.speedautosystems.com/api/services/app/bookingPluginSearch/SearchVehicleRates?startDate=${startDate}&endDate=${endDate}`;
-
-      const response = await axios.post(url, {}, { headers });
-
-      response?.data?.result?.items?.forEach((car) => {
-        switch (car.acrissCategory?.name) {
-          case "Standard":
-            setSedanImg(car?.displayImageUrl);
-            break;
-          case "Small SUV 5 Seater":
-            setSUVImg(car?.displayImageUrl);
-            break;
-          case "Compact":
-            setHatchBackImg(car?.displayImageUrl);
-            break;
-          case "Fullsize":
-            setStationWagonImg(car?.displayImageUrl);
-            break;
-          default:
-            break;
-        }
-      });
-    } catch (error) {
-      console.error("Error fetching vehicle rates:", error);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchCarsData();
-  }, [fetchCarsData]);
-
-  useEffect(() => {
-    if (sedanImg && suvImg && hatchBackImg && stationWagonImg) {
-      window.$(".owl-carousel").trigger("refresh.owl.carousel");
-    }
-  }, [sedanImg, suvImg, hatchBackImg, stationWagonImg]);
 
   const imagesData = [
-    {
-      displayImageUrl: sedanImg,
-      acrissCategory: "Standard",
-    },
-    {
-      displayImageUrl: suvImg,
-      acrissCategory: "Small SUV 5 Seater",
-    },
-    {
-      displayImageUrl: hatchBackImg,
-      acrissCategory: "Compact",
-    },
-    {
-      displayImageUrl: stationWagonImg,
-      acrissCategory: "Fullsize",
-    },
+    { vehicleCategory: "Sedan", vehicleImage: SedanFleetCarImg1PNG },
+    { vehicleCategory: "SUV", vehicleImage: SUVFleetCarImg1PNG },
+    { vehicleCategory: "7 Seater", vehicleImage: SevenSeaterFleetCarImg1PNG },
+    { vehicleCategory: "Hatchback", vehicleImage: HatchBackFleetCarImg1PNG },
   ];
 
-  carsData?.forEach((car) => {
-    const existingIndex = imagesData?.findIndex(
-      (item) => item?.acrissCategory === car?.acrissCategory?.name
-    );
-    if (existingIndex !== -1) {
-      imagesData[existingIndex].displayImageUrl = car?.displayImageUrl;
-    }
-  });
-
-  const mapCategoryToNavigationValue = (category) => {
-    switch (category) {
-      case "Standard":
-        return "Sedan";
-      case "Small SUV 5 Seater":
-        return "SUV";
-      case "Compact":
-        return "HatchBack";
-      case "Fullsize":
-        return "7 Seater";
-      default:
-        return category;
-    }
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   const handleImageClick = (carType) => {
-    const navigationValue = mapCategoryToNavigationValue(carType);
-    const nextUrl = `/vehicles?carCategory=${navigationValue}`;
-    console.log("Car type clicked is: ", navigationValue);
+    console.log("Car type clicked is: ", carType);
+    const nextUrl = `/vehicles?carCategory=${carType}`;
 
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: "carTypeClick",
       carType: carType,
-      navigationValue: navigationValue,
+      navigationValue: carType,
       nextUrl: nextUrl,
     });
 
@@ -155,64 +59,36 @@ const AnimatedCarSection = () => {
   };
 
   return (
-    <div>
-      <section id="slider" className="pt-5">
+    <div className="pt-4 fleet-car-main-section pb-5">
+      <div className="offers-car-container pb-3">
         <div className="container">
-          <div className="bg-white">
-            <h2 className="offer-heading pl-3 bg-white">
-              <div className="styled-label text-center">
-                <div className="insta-testimonial-heading-icon-container-div">
-                  <span>
-                    <b className="fs-3">Fleet Cars</b>
-                  </span>
-                </div>
+          <h2 className="our-fleet-heading-home-page text-center">
+            <span>
+              <b className="fs-1">OUR FLEET</b>
+            </span>
+          </h2>
+
+          <Slider {...settings}>
+            {imagesData.map((image, index) => (
+              <div key={index} className="each-slide-effect p-3">
+                <img
+                  src={image?.vehicleImage}
+                  alt={`${image?.vehicleCategory}`}
+                  className="fleet-vehicles-images"
+                  title={`${image?.vehicleCategory}`}
+                  aria-label={`${image?.vehicleCategory}`}
+                  id={`home-page-${image?.vehicleCategory
+                    .replace(/\s+/g, "-")
+                    .toLowerCase()}-img`}
+                  onClick={() => handleImageClick(image?.vehicleCategory)}
+                />
               </div>
-            </h2>
-            <div className="slider-container">
-              <div className="slider">
-                <div className="owl-carousel owl-carousel-main-container">
-                  {imagesData.map((data, index) => (
-                    <div className="animated-imgs-container" key={index}>
-                      <div className="slider-card slider-imgs">
-                        <h2 className="text-center pt-3">
-                          {mapCategoryToNavigationValue(data?.acrissCategory)}
-                        </h2>
-                        <div className="d-flex justify-content-center align-items-center mb-4">
-                          <div className="animated-car-anchor-tag">
-                            <img
-                              src={data?.displayImageUrl}
-                              title={`${mapCategoryToNavigationValue(
-                                data?.acrissCategory
-                              )}`}
-                              alt={`${mapCategoryToNavigationValue(
-                                data?.acrissCategory
-                              )} Vehicle Category`}
-                              aria-label={`${mapCategoryToNavigationValue(
-                                data?.acrissCategory
-                              )} Vehicle Category`}
-                              className="img-fluid slider-item"
-                              id={`home-page-${mapCategoryToNavigationValue(
-                                data?.acrissCategory
-                              )
-                                .replace(/\s+/g, "-")
-                                .toLowerCase()}-img`}
-                              onClick={() =>
-                                handleImageClick(data?.acrissCategory)
-                              }
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+            ))}
+          </Slider>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
 
-export default AnimatedCarSection;
+export default Carousel;

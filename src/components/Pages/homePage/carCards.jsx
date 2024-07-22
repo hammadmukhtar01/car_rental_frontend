@@ -1,52 +1,37 @@
-import React, { useState, useEffect } from "react";
-import LargeBanner1PNG from "../../images/web-offer-banner-3.png";
-import LargeBanner1WebP from "../../images/web-offer-banner-3.webp";
-// import SmallBanner2 from "../../images/web-offer-banner-3.jpg";
-
-const LargeBannerPNG = LargeBanner1PNG;
-const SmallBanner = LargeBanner1PNG;
+import React from "react";
+import BannerImg1PNG from "../../images/banner-slider-img1.jpg";
+import BannerImg2PNG from "../../images/banner-slider-img2.jpg";
+import BannerImg3PNG from "../../images/banner-slider-img3.jpg";
+import "react-slideshow-image/dist/styles.css";
+import { Slide } from "react-slideshow-image";
 
 const Carousel = () => {
-  const [bannerImgWebP, setBannerImgWebP] = useState(LargeBanner1WebP);
-  const [bannerImgPNG, setBannerImgPNG] = useState(LargeBannerPNG);
-
-  const changeBanner = () => {
-    if (window.innerWidth <= 767) {
-      setBannerImgPNG(SmallBanner);
-    } else {
-      setBannerImgWebP(LargeBanner1WebP);
-      setBannerImgPNG(LargeBannerPNG);
-    }
-  };
-
-  useEffect(() => {
-    changeBanner();
-
-    window.addEventListener("resize", changeBanner);
-
-    return () => {
-      window.removeEventListener("resize", changeBanner);
-    };
-  }, []);
+  const imagesData = [BannerImg1PNG, BannerImg2PNG, BannerImg3PNG];
 
   return (
     <div className="testimonial-container pt-4 offer-car-main-section">
       <div className="offers-car-container">
         <div className="container">
           <br />
-          <div className="main-banner-img-container">
-            <picture>
-              <source srcSet={bannerImgWebP} type="image/webp" />
-              <source srcSet={bannerImgPNG} type="image/png" />
-              <img
-                className="main-banner-img"
-                id="banner-img"
-                title={`Mille Car Rental Banner`}
-                src={bannerImgPNG}
-                alt="Milele Car Rental Banner"
-              />
-            </picture>
-          </div>
+
+          <Slide
+            scale={0.7}
+            duration={2000}
+            transitionDuration={1000}
+            arrows
+            autoplay={false}
+          >
+            {imagesData.map((image, index) => (
+              <div className="each-slide-effect" key={index}>
+                <img
+                  src={image}
+                  alt={`Milele Car Rental Banner ${index + 1}`}
+                  className="banner-cards-images"
+                  title={`Mille Car Rental Banner`}
+                />
+              </div>
+            ))}
+          </Slide>
         </div>
       </div>
     </div>

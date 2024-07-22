@@ -5,7 +5,7 @@
 
 .insta-feed-template-div {
   padding: 0px 5px !important;
-  margin-bottom: -12%;
+  margin-bottom: -13%;
 }
 
 .instagram-feed-div .col-lg-3.col-md-4.col-sm-6.col-12 {
@@ -14,17 +14,26 @@
 
 .instagram-feed-div a img {
   width: 100%;
-  height: 70%;
+  height: 68%;
   object-fit: cover;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 991px) {
   .insta-feed-template-div {
     padding: 0px 5px !important;
-    margin-bottom: -15%;
+    margin-bottom: -17%;
   }
 
   .instagram-feed-div {
     padding-bottom: 40px;
   }
 }
+
+@media screen and (max-width: 576px) {
+  .insta-feed-template-div {
+    margin-bottom: -15%;
+  }
+
+}
+
