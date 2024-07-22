@@ -1,61 +1,46 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SearchBox from "./searchBox";
 import CarCards from "./carCards";
 import AnimatedCarSection from "./animatedCarSection";
-import NissanLogoWebP from "../../images/lto-images/lto-our-brands-all-icons/Artboard7.webp";
-import CheveroletLogWebP from "../../images/lto-images/lto-our-brands-all-icons/Artboard22.webp";
-import PeugeotLogoWebP from "../../images/lto-images/lto-our-brands-all-icons/Artboard10.webp";
-
-import NissanLogoPNG from "../../images/lto-images/lto-our-brands-all-icons/Artboard7.png";
-import CheveroletLogoPNG from "../../images/lto-images/lto-our-brands-all-icons/Artboard22.png";
-import PeugeotLogoPNG from "../../images/lto-images/lto-our-brands-all-icons/Artboard10.png";
-// import KiaLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard10.png";
-// import HyundaiLogo from "../../images/lto-images/lto-our-brands-all-icons/Artboard11.png";
 import OurBlogs from "../Blog/ourBlogs";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-// import SpinTheWheel from "../spinTheWheel/spinTheWheel";
-
-// Imp TestAutoComInput import for google map locations responsiveness
-import TestAutoComInput from "../../GoogleMap/testSearchInput";
-import { ImSpinner4 } from "react-icons/im";
-import { Modal } from "react-bootstrap";
-import OnlyCarPNG from "../../images/only-car-bg-home-banner.png";
-import OnlyCarWebP from "../../images/only-car-bg-home-banner1.png";
+import { Col, Container, Row } from "react-bootstrap";
 import InstagramFeed from "./instagramFeed";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 import HomePageTopBar from "../navbar/homePageTopBar";
 import MainNavbar from "../navbar/mainNavbar";
 import FooterCombination from "../../PrivateComponents/footerCombination";
+import ZeroSecuirtyDepositImg from "../../images/zero-deposit.png";
+import TabbytImg from "../../images/tabby.png";
+import MoreVehiclesImg from "../../images/vehicles.png";
+import StepperComponent from "./stepperComponent";
 
 const HomePage = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedLocationss, setSelectedLocationss] = useState(null);
+  const rentalExpDataArr = [
+    {
+      id: 1,
+      iconName: ZeroSecuirtyDepositImg,
+      headingName: "Zero Security Deposit",
+      rentalExpDetail:
+        "Enjoy a hassle-free experience without the need for upfront callateral.",
+    },
 
-  const carBrands = [
     {
-      name: "chevrolet",
-      logoWebP: CheveroletLogWebP,
-      logoPNG: CheveroletLogoPNG,
-      title: "Cheverolet",
+      id: 2,
+      iconName: TabbytImg,
+      headingName: "Pay in Installments with Tabby",
+      rentalExpDetail:
+        "Enjoy payment flexibility by spreading the cost of your rental over time with Tabby.",
     },
+
     {
-      name: "peugeot",
-      logoWebP: PeugeotLogoWebP,
-      logoPNG: PeugeotLogoPNG,
-      title: "Peugeot",
-    },
-    {
-      name: "nissan",
-      logoWebP: NissanLogoWebP,
-      logoPNG: NissanLogoPNG,
-      title: "Nissan",
+      id: 3,
+      iconName: MoreVehiclesImg,
+      headingName: "Wide Selection of Vehicles",
+      rentalExpDetail: "From compace to luxury Sedans and spacious SUVs.",
     },
   ];
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
 
   return (
     <HelmetProvider>
@@ -77,54 +62,86 @@ const HomePage = () => {
       <div id="main">
         <div className="homepage-main">
           <div className="search-box-home-page-container">
-            <div className="bg-img-banner-main">
-              <div className="banner-container" />
-              <picture>
-                <source srcSet={OnlyCarWebP} type="image/webp" />
-                <source srcSet={OnlyCarPNG} type="image/png" />
-                <img
-                  className="only-car-banner-container-2"
-                  src={OnlyCarPNG}
-                  title="Rent a Car"
-                  alt="home page top banner"
-                />
-              </picture>
-            </div>
+            <div className="bg-img-banner-main"></div>
             <div className="search-box-home-page mt-3">
               <SearchBox />
             </div>
             <div className="home-page-horizontal-line-2">
               <h1 className="home-page-horizontal-line-2-text">
-                Rent, Drive, Explore Dubai
+                Rent, Drive & Explore Dubai
               </h1>
             </div>
           </div>
-          <div className="text-center pt-2 pb-2 d-none">
-            <h2>Affordable Car Rentals</h2>
-            <p>
-              We offer the best car rental deals. Choose from our wide range of
-              rental vehicles to suit your needs.
-            </p>
-          </div>
+
+          <Container>
+            <section>
+              <div className="home-page-rental-exp-container ">
+                <div className="rental-exp-heading">
+                  <h2>
+                    <strong>
+                      We are ensuring <br />
+                      the best rental eperience.
+                    </strong>
+                  </h2>
+                </div>
+                <div className="rental-exp-data">
+                  <Row>
+                    {rentalExpDataArr?.map((rentalExpData) => (
+                      <Col
+                        xxl={4}
+                        lg={4}
+                        md={12}
+                        sm={12}
+                        xs={12}
+                        className="rental-exp-icon-text-container"
+                        key={rentalExpData?.id}
+                      >
+                        {" "}
+                        <img
+                          src={rentalExpData.iconName}
+                          alt={rentalExpData.headingName}
+                          className="rental-exp-icon"
+                        />{" "}
+                        <Row>
+                          <div className="rental-exp-sub-headings">
+                            {rentalExpData?.headingName}
+                          </div>{" "}
+                          <div className="rental-exp-detail">
+                            {rentalExpData?.rentalExpDetail}
+                          </div>
+                        </Row>
+                      </Col>
+                    ))}
+                  </Row>
+                </div>
+              </div>
+            </section>
+          </Container>
+
           <CarCards />
-
+          <br />
+          <br />
+          <br />
           <AnimatedCarSection />
-
-          <OurBlogs />
+          <br />
+          <div className="stepper-component-home-container">
+            <StepperComponent />
+          </div>
+          <br />
+          <br />
 
           <div className="instagram-feed-home-container container">
             <div className="styled-label text-center">
-              <div className="insta-testimonial-heading-icon-container-div">
+              <h2 className="our-fleet-heading-home-page text-center">
                 <span>
-                  <h2>
-                    {" "}
-                    <b className="fs-3">Instagram Feed</b>
-                  </h2>
+                  <b className="fs-1">INSTAGRAM FEED</b>
                 </span>
-              </div>
+              </h2>
             </div>
             <InstagramFeed />
           </div>
+          <OurBlogs />
+
           <FreeConsultationForm />
         </div>
       </div>

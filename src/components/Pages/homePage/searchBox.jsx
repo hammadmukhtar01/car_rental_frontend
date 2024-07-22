@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Row, Col, Form, Modal } from "react-bootstrap";
-import { BsGeoAltFill, BsGeoAlt, BsCalendar2Check } from "react-icons/bs";
+import { BsGeoAltFill, BsCalendar2CheckFill } from "react-icons/bs";
 import "./homepage.css";
 import { DateRange } from "react-date-range";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +23,6 @@ const SearchBox = () => {
   const [showDropoff, setShowDropoff] = useState(false);
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
-  // const [showDatePicker, setShowDatePicker] = useState(false);
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
 
   const [activeSelection, setActiveSelection] = useState({
@@ -40,28 +38,27 @@ const SearchBox = () => {
     },
   ]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const storedUserData = JSON.parse(localStorage.getItem("userLocationData"));
     if (storedUserData) {
-      setPickupLocation(storedUserData?.userData?.pickupLocation);
-      setDropoffLocation(storedUserData?.userData?.dropoffLocation);
+      setPickupLocation(storedUserData?.userData?.pickupLocation || "");
+      setDropoffLocation(storedUserData?.userData?.dropoffLocation || "");
       setShowDropoff(storedUserData?.userData?.showDropoff || false);
       setDateRange([
         {
-          startDate: new Date(storedUserData?.userData?.dateRange?.startDate),
-          endDate: new Date(storedUserData?.userData?.dateRange?.endDate),
+          startDate:
+            new Date(storedUserData?.userData?.dateRange?.startDate) ||
+            new Date(),
+          endDate:
+            new Date(storedUserData?.userData?.dateRange?.endDate) ||
+            new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
           key: "selection",
         },
       ]);
     }
   }, []);
-
-  const navigate = useNavigate();
-
-  const userDataHandling = useMemo(
-    () => JSON.parse(localStorage.getItem("userLocationData")),
-    []
-  );
 
   const updateLocalStorage = (newUserData) => {
     localStorage.setItem("userLocationData", JSON.stringify(newUserData));
@@ -71,14 +68,16 @@ const SearchBox = () => {
     const newShowDropoff = !showDropoff;
     setShowDropoff(newShowDropoff);
     const updatedUserData = {
-      ...userDataHandling,
       userData: {
-        ...userDataHandling?.userData,
-        showDropoff: newShowDropoff,
+        pickupLocation,
         dropoffLocation: newShowDropoff ? dropoffLocation : "",
+        showDropoff: newShowDropoff,
+        dateRange: {
+          startDate: dateRange[0].startDate,
+          endDate: dateRange[0].endDate,
+        },
       },
     };
-    setDropoffLocation(newShowDropoff ? dropoffLocation : "");
     updateLocalStorage(updatedUserData);
   };
 
@@ -101,11 +100,19 @@ const SearchBox = () => {
     }
 
     setDateRange([ranges?.selection]);
-  };
 
-  const calculateNumberOfDays = (startDate, endDate) => {
-    const oneDay = 24 * 60 * 60 * 1000;
-    return Math.round(Math.abs((startDate - endDate) / oneDay)) + 1;
+    const updatedUserData = {
+      userData: {
+        pickupLocation,
+        dropoffLocation,
+        showDropoff,
+        dateRange: {
+          startDate,
+          endDate,
+        },
+      },
+    };
+    updateLocalStorage(updatedUserData);
   };
 
   const handleSearchClick = () => {
@@ -146,7 +153,6 @@ const SearchBox = () => {
 
     const startDate = startLocalDate?.toISOString()?.split("T")[0];
     const endDate = endLocalDate?.toISOString()?.split("T")[0];
-    const numberOfDays = calculateNumberOfDays(startLocalDate, endLocalDate);
 
     const userData = {
       pickupLocation,
@@ -158,7 +164,7 @@ const SearchBox = () => {
       },
     };
 
-    updateLocalStorage({ ...userDataHandling, userData });
+    updateLocalStorage({ userData });
 
     const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupLoc=${pickupLocation?.value}&dropoffLoc=${dropoffLocation?.value}`;
 
@@ -177,8 +183,6 @@ const SearchBox = () => {
       border: "1px solid rgb(184, 184, 184)",
       boxShadow: "none",
       lineHeight: "32px",
-      // marginLeft: "-13px",
-      // marginRight: "-14px",
       borderRadius: "6px",
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
@@ -207,115 +211,166 @@ const SearchBox = () => {
                   onSubmit={handleSearchVehicleButtonHomePage}
                 >
                   <Row>
-                    <Col xxl={3} lg={3} md={4} sm={10} xs={12}>
-                      <Form.Group controlId="formDropoffDateTime">
-                        <div className="date-label">
-                          <label className="styled-label">
-                            <BsCalendar2Check className="mr-2" />
-                            <b>Pick & Drop Date *</b>
-                          </label>
-                        </div>
-                        <div onClick={handleDateClick} ref={dateInputRef}>
-                          <label
-                            htmlFor="searchboxInputDate"
-                            className="d-none"
-                          >
-                            {" "}
-                            Date Range
-                          </label>
-                          <input
-                            className="form-control-date mt-2 col-12"
-                            type="text"
-                            id="searchboxInputDate"
-                            required
-                            value={`${dateRange[0].startDate.toLocaleDateString()} - ${dateRange[0].endDate.toLocaleDateString()}`}
-                            onClick={() => setShowDateRangeModal(true)}
-                            readOnly
-                          />
-                        </div>
-                      </Form.Group>
-                    </Col>
-                    <Modal
-                      show={showDateRangeModal}
-                      onHide={() => setShowDateRangeModal(false)}
-                      size="sm"
-                      className="search-box-date-picker-modal"
-                    >
-                      <DateRange
-                        editableDateInputs={true}
-                        onChange={handleDateChange}
-                        moveRangeOnFirstSelection={false}
-                        ranges={dateRange}
-                        rangeColors={["#e87a28"]}
-                        disabledDay={(date) =>
-                          date < new Date().setHours(0, 0, 0, 0)
-                        }
-                      />
-                    </Modal>
-
                     <Col
-                      xxl={showDropoff ? 3 : 6}
-                      lg={showDropoff ? 3 : 6}
-                      md={showDropoff ? 4 : 6}
-                      sm={showDropoff ? 6 : 12}
-                      xs={showDropoff ? 12 : 12}
-                      className={` ${
-                        showDropoff ? "dropoff-visible" : "dropoff-hidden"
-                      }`}
+                      xxl={10}
+                      lg={10}
+                      md={10}
+                      sm={12}
+                      xs={12}
+                      id="home-page-search-box-button"
+                      className="search-box-main-div"
                     >
-                      <Form.Group controlId="formKeyword">
-                        <div className="location-label">
-                          <label className="styled-label">
-                            <BsGeoAlt className="mr-2" />
-                            <b>Pick-Up *</b>
-                          </label>
-                        </div>
+                      <Row>
+                        <Col xxl={6} lg={6} md={6} sm={12} xs={12}>
+                          <Form.Group controlId="formDropoffDateTime">
+                            <div className="date-label">
+                              <label className="search-box-label">
+                                <BsCalendar2CheckFill className="mr-2" />
+                                <>Pick & Drop Date *</>
+                              </label>
+                            </div>
+                            <div onClick={handleDateClick} ref={dateInputRef}>
+                              <label
+                                htmlFor="searchboxInputDate"
+                                className="d-none"
+                              >
+                                {" "}
+                                Date Range
+                              </label>
+                              <input
+                                className="form-control-date mt-2 col-12"
+                                type="text"
+                                id="searchboxInputDate"
+                                required
+                                value={`${dateRange[0].startDate.toLocaleDateString()} - ${dateRange[0].endDate.toLocaleDateString()}`}
+                                onClick={() => setShowDateRangeModal(true)}
+                                readOnly
+                              />
+                            </div>
+                          </Form.Group>
+                        </Col>
+                        <Modal
+                          show={showDateRangeModal}
+                          onHide={() => setShowDateRangeModal(false)}
+                          size="sm"
+                          className="search-box-date-picker-modal"
+                        >
+                          <DateRange
+                            editableDateInputs={true}
+                            onChange={handleDateChange}
+                            moveRangeOnFirstSelection={false}
+                            ranges={dateRange}
+                            rangeColors={["#e87a28"]}
+                            disabledDay={(date) =>
+                              date < new Date().setHours(0, 0, 0, 0)
+                            }
+                          />
+                        </Modal>
 
-                        <Select
-                          className="mt-2"
-                          id="searchboxInputPickUpLoc"
-                          options={locations}
-                          value={pickupLocation}
-                          onChange={setPickupLocation}
-                          placeholder="Pickup Loc"
-                          styles={selectStyles}
-                        />
-                      </Form.Group>
-                    </Col>
+                        <Col
+                          xxl={showDropoff ? 3 : 6}
+                          lg={showDropoff ? 3 : 6}
+                          md={showDropoff ? 3 : 6}
+                          sm={showDropoff ? 6 : 12}
+                          xs={showDropoff ? 6 : 12}
+                          className={` ${
+                            showDropoff ? "dropoff-visible" : "dropoff-hidden"
+                          }`}
+                        >
+                          <Form.Group controlId="formKeyword">
+                            <div className="location-label">
+                              <label className="search-box-label">
+                                <BsGeoAltFill className="mr-2" />
+                                <>Pick*</>
+                              </label>
+                            </div>
 
-                    {showDropoff ? (
-                      <Col xxl={3} lg={3} md={4} sm={6} xs={12}>
-                        <Form.Group controlId="formKeyword">
-                          <div className="location-label">
-                            <label className="styled-label">
-                              <BsGeoAltFill className="mr-2" />
-                              <b>Drop-Off *</b>
-                            </label>
-                          </div>
-                          <div className="custom-dropdown-container">
                             <Select
                               className="mt-2"
-                              id="searchboxInputDropOffLoc"
+                              id="searchboxInputPickUpLoc"
                               options={locations}
-                              value={dropoffLocation}
-                              onChange={setDropoffLocation}
-                              placeholder="Dropoff Loc"
+                              value={pickupLocation}
+                              onChange={(location) => {
+                                setPickupLocation(location);
+                                const updatedUserData = {
+                                  userData: {
+                                    pickupLocation: location,
+                                    dropoffLocation,
+                                    showDropoff,
+                                    dateRange: {
+                                      startDate: dateRange[0].startDate,
+                                      endDate: dateRange[0].endDate,
+                                    },
+                                  },
+                                };
+                                updateLocalStorage(updatedUserData);
+                              }}
+                              placeholder="Pickup"
                               styles={selectStyles}
                             />
-                          </div>
-                        </Form.Group>
-                      </Col>
-                    ) : (
-                      ""
-                    )}
+                          </Form.Group>
+                        </Col>
+
+                        {showDropoff ? (
+                          <Col xxl={3} lg={3} md={3} sm={6} xs={6}>
+                            <Form.Group controlId="formKeyword">
+                              <div className="location-label">
+                                <label className="search-box-label">
+                                  <BsGeoAltFill className="mr-2" />
+                                  <>Drop*</>
+                                </label>
+                              </div>
+                              <div className="custom-dropdown-container">
+                                <Select
+                                  className="mt-2"
+                                  id="searchboxInputDropOffLoc"
+                                  options={locations}
+                                  value={dropoffLocation}
+                                  onChange={(location) => {
+                                    setDropoffLocation(location);
+                                    const updatedUserData = {
+                                      userData: {
+                                        pickupLocation,
+                                        dropoffLocation: location,
+                                        showDropoff,
+                                        dateRange: {
+                                          startDate: dateRange[0].startDate,
+                                          endDate: dateRange[0].endDate,
+                                        },
+                                      },
+                                    };
+                                    updateLocalStorage(updatedUserData);
+                                  }}
+                                  placeholder="Dropoff "
+                                  styles={selectStyles}
+                                />
+                              </div>
+                            </Form.Group>
+                          </Col>
+                        ) : (
+                          ""
+                        )}
+
+                        <div className="mt-2 different-loc-checkbox-div">
+                          <Form.Check
+                            type="checkbox"
+                            id="searchboxInputDiffLocCheckbox"
+                            label="Different Dropoff Location"
+                            onChange={handleDropoffCheckboxChange}
+                            checked={showDropoff}
+                          />
+                        </div>
+                      </Row>
+                    </Col>
+
                     <Col
-                      xxl={3}
-                      lg={3}
+                      xxl={2}
+                      lg={2}
                       md={2}
-                      sm={6}
-                      xs={8}
+                      sm={12}
+                      xs={12}
                       id="home-page-search-box-button"
-                      className="search-box-search-button-div"
+                      className="search-box-search-button-div pt-2"
                     >
                       <button
                         type="submit"
@@ -324,23 +379,10 @@ const SearchBox = () => {
                         onClick={handleSearchClick}
                         aria-label="Search Vehicles"
                       >
-                        <span id="home-page-search-box-button">
-                          {/* <LuSearch id="home-page-search-box-button" /> */}
-                          Search
-                        </span>
+                        <span id="home-page-search-box-button">Search</span>
                       </button>
                       <ToastContainer />
                     </Col>
-
-                    <div className="mt-2">
-                      <Form.Check
-                        type="checkbox"
-                        id="searchboxInputDiffLocCheckbox"
-                        label="Different Dropoff Location"
-                        onChange={handleDropoffCheckboxChange}
-                        checked={showDropoff}
-                      />
-                    </div>
                   </Row>
                 </form>
               </Col>
