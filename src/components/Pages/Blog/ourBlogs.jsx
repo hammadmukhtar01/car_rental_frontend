@@ -22,25 +22,25 @@ const OurBlogs = () => {
       id: 1,
       imageUrl: blog1MainImg1,
       imageUrlWebP: blog1MainImg1WebP,
-      title: "1-What's the Difference b/w a Car Rental and Lease?",
+      title: "What's the Difference b/w a Car Rental and Lease?",
     },
     {
       id: 2,
       imageUrl: blog2MainImg1,
       imageUrlWebP: blog2MainImg1WebP,
-      title: "2-Things to do in Dubai for the Ultimate Vacation",
+      title: "Things to do in Dubai for the Ultimate Vacation",
     },
     {
       id: 3,
       imageUrl: blog3MainImg1,
       imageUrlWebP: blog3MainImg1WebP,
-      title: "3-Top Apps that help You Navigate Dubai",
+      title: "Top Apps that help You To Navigate Dubai",
     },
     {
       id: 4,
       imageUrl: blog2MainImg1,
       imageUrlWebP: blog2MainImg1WebP,
-      title: "4-Things to do in Dubai for the Ultimate Vacation",
+      title: "Things to do in Dubai for the Ultimate Vacation",
     },
   ];
 
@@ -108,12 +108,14 @@ const OurBlogs = () => {
                       </picture>
                       <div className="blog-title-container">
                         <h4 className="blog-title">{blogData?.title}</h4>
-                        <button
-                          className="read-more-button"
-                          onClick={() => handleImageClick(blogData?.id)}
-                        >
-                          Read More
-                        </button>
+                        <div className="text-end">
+                          <button
+                            className="read-more-button"
+                            onClick={() => handleImageClick(blogData?.id)}
+                          >
+                            Read More
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>

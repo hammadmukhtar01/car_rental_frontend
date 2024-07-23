@@ -38,12 +38,12 @@
 .read-more-button {
   background: #e87a28;
   color: #fff;
-  border: 1px solid inherit;
+  border: 1px solid #e87a28;
   padding: 5px 10px;
   cursor: pointer;
   margin-top: 5px;
   font-size: 1rem;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .read-more-button:hover {
