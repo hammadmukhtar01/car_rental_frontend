@@ -188,7 +188,7 @@ const FreeConsultationForm = () => {
                         aria-label="Get Free Consutation"
                         className="free-consultation-contactUs-button submit col-lg-12"
                       >
-                        <h5 className="button-text" id="free-consultation-form-heading"><b>Contact Us</b></h5>
+                        <span className="button-text" id="free-consultation-form-heading"><b>Contact Us</b></span>
                       </button>
                     </Col>
                   </Row>

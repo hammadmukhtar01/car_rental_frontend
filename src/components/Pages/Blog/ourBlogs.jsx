@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import AliceCarousel from "react-alice-carousel";
-import "react-alice-carousel/lib/alice-carousel.css";
 import "./blogPage.css";
 import blog1MainImg1WebP from "../../images/blog-images/blog1-main-Img1.webp";
 import blog2MainImg1WebP from "../../images/blog-images/blog2-main-Img1.webp";
@@ -10,123 +8,122 @@ import blog3MainImg1WebP from "../../images/blog-images/blog3-main-Img1.webp";
 import blog1MainImg1 from "../../images/blog-images/blog1-main-Img1.jpg";
 import blog2MainImg1 from "../../images/blog-images/blog2-main-Img1.jpg";
 import blog3MainImg1 from "../../images/blog-images/blog3-main-Img1.jpg";
+import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 const OurBlogs = () => {
+  const navigate = useNavigate();
+
   const blogsData = [
     {
       id: 1,
       imageUrl: blog1MainImg1,
       imageUrlWebP: blog1MainImg1WebP,
-      title: "What's the Difference b/w a Car Rental and Lease?",
-      date: "Mar 23, 2021",
-      text: "More and more consumers are choosing automobile leases and car rentals for their convenience and numerous benefits. These options have become preferred over buying a vehicle outright and dealing with monthly payments. But what's the difference between a car lease and car rental? They're separate services offered by rental firms in places like the Emirate. Despite the popularity of car rentals in Abu Dhabi, many people are unsure about the distinctions between leasing and renting. Here's a list to help you decide which option is best for you. ",
+      title: "1-What's the Difference b/w a Car Rental and Lease?",
     },
-
     {
       id: 2,
       imageUrl: blog2MainImg1,
       imageUrlWebP: blog2MainImg1WebP,
-
-      title: "Things to do in Dubai for the Ultimate Vacation",
-      date: "Apr 23, 2022",
-      text: "Standing 828m high, the Burj Khalifa is the tallest building in the world and one of Dubai's must-visit attractions. The majestic building is located in the heart of the city and is a hub of activity day and night. Just looking up in awe at the sheer scale of this magnificent structure is memorable in itself, but it's definitely worth venturing inside too. You can capture perfect views of the city from the observation deck at levels 124 and 125, or have a bite to eat in the At The Top Sky Lounge. For special occasions, treat yourself to a sunset session at The Lounge, Burj Khalifa, the highest lounge in the world at 585m. .",
+      title: "2-Things to do in Dubai for the Ultimate Vacation",
     },
-
     {
       id: 3,
       imageUrl: blog3MainImg1,
       imageUrlWebP: blog3MainImg1WebP,
-      title: "Top Apps that help You Navigate Dubai",
-      date: "Dec 06, 2023",
-      text: "A cool thing about living in the UAE is get in your car, put on your favourite song and drive. Driving can be fun - if you know where you are going and have a trusty navigation app (you don't want to get lost along the way). In Dubai, five apps can make a difference when on the road; Google Maps, Apple Maps, Waze, Yango Maps, Cafu and RTA Smart Drive.",
+      title: "3-Top Apps that help You Navigate Dubai",
+    },
+    {
+      id: 4,
+      imageUrl: blog2MainImg1,
+      imageUrlWebP: blog2MainImg1WebP,
+      title: "4-Things to do in Dubai for the Ultimate Vacation",
     },
   ];
 
-  const responsive = {
-    0: { items: 1 },
-    568: { items: 2 },
-    1024: { items: 3 },
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
-  const truncateText = (text, maxLength) => {
-    if (text?.length <= maxLength) {
-      return text;
-    }
-    return text?.substring(0, maxLength) + "...";
+  const handleImageClick = (blogId) => {
+    const nextUrl = `/blogPage${blogId}/${blogId}`;
+    navigate(nextUrl);
   };
-
-  const generateBlogItem = (blogData) => (
-    <a
-      key={blogData?.id}
-      className="blog-item"
-      title={`${blogData?.title}`}
-      href={`/blogPage${blogData?.id}/${blogData?.id}`}
-    >
-      <div className="container">
-        <div
-          className="single-blog blog-style-one"
-          id={`${blogData?.title} title`}
-        >
-          <div className="blog-image pb-3">
-            <picture>
-              <source srcSet={blogData?.imageUrlWebP} type="image/webp" />
-              <source srcSet={blogData?.imageUrl} type="image/png" />
-              <img
-                src={blogData?.imageUrl}
-                title={`${blogData?.title}`}
-                alt={blogsData?.title ? blogsData.title : "Featured Blog Post"}
-              />
-            </picture>
-          </div>
-          <div className="blog-content">
-            <h5 className="blog-title">
-              <div className="blog-title">{blogData?.title}</div>
-            </h5>
-            <span className="blog-date">
-              <i className="lni lni-calendar"></i> {blogData?.date}
-            </span>
-            <p className="text">{truncateText(blogData?.text, 210)}</p>
-
-            <div
-              href={`/blogPage${blogData?.id}/${blogData?.id}`}
-              className="read-more"
-            >
-              READ MORE
-            </div>
-          </div>
-        </div>
-      </div>
-    </a>
-  );
 
   return (
-    <div>
-      <section className="blog-area mt-4">
-        <div className="container">
-          <div className="styled-label text-center">
-            <div className="blogs-heading-icon-container-div">
-              <span>
-                <h2>
-                  <b className="fs-3">Blogs</b>
-                </h2>
-              </span>
+    <>
+      <div className="pt-4 blogs-main-div pb-5">
+        <Container>
+          <div className="pb-3">
+            <div>
+              <h2 className="blogs-heading-home-page text-center">
+                <span>
+                  <b className="fs-1">BLOGS</b>
+                </span>
+              </h2>
+
+              <Slider {...settings}>
+                {blogsData.map((blogData) => (
+                  <div key={blogData?.id} className="each-slide-effect p-3">
+                    <div className="blog-image-container">
+                      <picture>
+                        <source
+                          srcSet={blogData?.imageUrlWebP}
+                          type="image/webp"
+                        />
+                        <source srcSet={blogData?.imageUrl} type="image/png" />
+                        <img
+                          src={blogData?.imageUrl}
+                          alt={`${blogData?.title}`}
+                          className="blogs-images"
+                          title={`${blogData?.title}`}
+                          aria-label={`${blogData?.title}`}
+                          id={`home-page-blog-${blogData?.id}`}
+                          onClick={() => handleImageClick(blogData?.id)}
+                        />
+                      </picture>
+                      <div className="blog-title-container">
+                        <h4 className="blog-title">{blogData?.title}</h4>
+                        <button
+                          className="read-more-button"
+                          onClick={() => handleImageClick(blogData?.id)}
+                        >
+                          Read More
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </Slider>
             </div>
           </div>
-          <br />
-          <AliceCarousel
-            mouseTracking
-            items={blogsData?.map(generateBlogItem)}
-            responsive={responsive}
-            controlsStrategy="alternate"
-            infinite
-            disableDotsControls
-            autoPlay
-            autoPlayInterval="2000"
-            animationDuration="1500"
-          />
-        </div>
-      </section>
-    </div>
+        </Container>
+      </div>
+    </>
   );
 };
 
