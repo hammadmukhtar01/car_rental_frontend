@@ -8,6 +8,11 @@
   margin-bottom: -13%;
 }
 
+.insta-feed-template-div:hover {
+  transform: scale(1.01);
+  transition: 0.4s ease-in-out;
+}
+
 .instagram-feed-div .col-lg-3.col-md-4.col-sm-6.col-12 {
   padding: 5px !important;
 }
@@ -34,6 +39,4 @@
   .insta-feed-template-div {
     margin-bottom: -15%;
   }
-
 }
-

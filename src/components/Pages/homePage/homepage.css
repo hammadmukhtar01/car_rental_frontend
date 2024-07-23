@@ -9,6 +9,12 @@
   background-image: url("../../images/no-car-bg-home-banner-new.jpg");
 }
 
+.each-slide-effect:hover,
+.blog-image-container:hover {
+  transform: scale(1.02);
+  transition: 0.4s ease-in-out;
+}
+
 .home-page-heading-underline {
   border: 1px solid #e87a28;
   opacity: 0.8;
@@ -32,8 +38,7 @@
 }
 
 .heading-icon-container-div,
-.fleet-car-homePage-heading,
-.blog-homePage-heading {
+.fleet-car-homePage-heading {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -226,16 +231,17 @@
 }
 
 .react-slideshow-container .nav:first-of-type {
-  left: 45% !important;
+  left: 88% !important;
   top: 102% !important;
 }
+.react-slideshow-container .default-nav:last-of-type {
+  right: 1% !important;
+  top: 102% !important;
+}
+
 .react-slideshow-container .default-nav:first-of-type {
   border-right: 1px solid #e87a28 !important;
   border-top: 1px solid #e87a28 !important;
-}
-.react-slideshow-container .default-nav:last-of-type {
-  right: 45% !important;
-  top: 102% !important;
 }
 
 .react-slideshow-container .default-nav {
@@ -296,13 +302,13 @@
 .slick-arrow.slick-prev {
   display: block !important ;
   top: 105% !important;
-  left: 45% !important;
+  left: 90% !important;
 }
 
 .slick-arrow.slick-next {
   display: block !important ;
   top: 105% !important;
-  right: 45% !important;
+  right: 3% !important;
 }
 
 .home-page-rental-exp-container {
@@ -376,6 +382,21 @@
   .stepper-comp-headings {
     letter-spacing: 0.1px;
     padding: 5px 13px;
+  }
+
+  .slick-arrow.slick-prev {
+    left: 43% !important;
+  }
+
+  .slick-arrow.slick-next {
+    right: 43% !important;
+  }
+
+  .react-slideshow-container .nav:first-of-type {
+    left: 45% !important;
+  }
+  .react-slideshow-container .default-nav:last-of-type {
+    right: 45% !important;
   }
 }
 
@@ -1051,11 +1072,11 @@ option:disabled {
   }
 
   .slick-arrow.slick-prev {
-    left: 40% !important;
+    left: 38% !important;
   }
 
   .slick-arrow.slick-next {
-    right: 40% !important;
+    right: 38% !important;
   }
 
   .slider-card {
