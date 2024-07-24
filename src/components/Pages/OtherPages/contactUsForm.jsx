@@ -140,7 +140,7 @@ const ContactUsForm = () => {
           onSubmit={handleContactUsSubmitButton}
         >
           {loading && (
-            <div className="reloading-icon-free-consultation-form-container text-center">
+            <div className="reloading-icon-of-form-container text-center">
               <span className="loader-text">Submitting your Request . . .</span>
               <div className="lds-dual-ring text-center"></div>
             </div>
@@ -148,7 +148,7 @@ const ContactUsForm = () => {
 
           <div className="form-group row">
             <div className="col-lg-6 col-md-6 col-sm-6 pt-4">
-              <label className="contact-us-label" htmlFor="lname">
+              <label className="contact-us-label" htmlFor="fname">
                 <h6>
                   {" "}
                   First Name<span className="required-field-star">*</span>

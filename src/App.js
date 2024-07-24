@@ -27,6 +27,7 @@ import GlobalLoader from "./components/PrivateComponents/globalLoader";
 import UpdatePasswordPage from "./components/authentication/updatePassword";
 import PrivateComponent from "./components/PrivateComponents/privateComponent";
 import Map from "./Map";
+import CustomerProfilePage from "./components/customerDashboard/myProfilePage";
 
 const App = () => {
   const location = useLocation();
@@ -67,7 +68,7 @@ const App = () => {
             <Route path="/map" element={<Map />} />
 
             <Route element={<PrivateComponent />}>
-              <Route path="/myProfile/:id" element={<ContactusPage />} />
+              <Route path="/myProfile/:id" element={<CustomerProfilePage />} />
               <Route path="/myBookings/:id" element={<CustomerBookingPage />} />
               <Route path="/updatepassword" element={<UpdatePasswordPage />} />
             </Route>

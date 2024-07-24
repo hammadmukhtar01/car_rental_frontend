@@ -11,7 +11,7 @@ import "../Pages/OtherPages/toastStyle.css";
 
 const ResetPasswordPage = () => {
   const { token } = useParams();
-  const [username, setUsername] = useState(""); // Hidden username field for accessibility
+  const [username, setUsername] = useState(""); 
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();

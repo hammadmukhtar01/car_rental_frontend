@@ -122,7 +122,7 @@ const FreeConsultationForm = () => {
           <Container>
             {
             loading && (
-              <div className="reloading-icon-free-consultation-form-container text-center">
+              <div className="reloading-icon-of-form-container text-center">
                 <span className="loader-text">
                 Submitting your Request . . .
               </span>

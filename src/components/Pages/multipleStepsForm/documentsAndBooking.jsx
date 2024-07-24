@@ -38,6 +38,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const user_id = auth?.data._id;
   const user_customerSpeedId = auth?.data?.customerIdFromSpeed;
   const user_token = auth?.token;
+  const user_nationality = auth?.data?.nationality;
   // const user_token = auth?.token;
   const config = useMemo(
     () => ({
@@ -252,10 +253,10 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
       console.log("response?.data", response?.data);
       setCustomerDetails(response?.data);
-      setFirstName(result?.user?.fName);
-      setLastName(result?.user?.lName);
-      setContactNum(result?.user?.phoneNumber);
-      setEmailAddress(result?.user?.email);
+      setFirstName(result?.customerData?.fName);
+      setLastName(result?.customerData?.lName);
+      setContactNum(result?.customerData?.phoneNumber);
+      setEmailAddress(result?.customerData?.email);
     } catch (error) {
       console.error("Error fetching customer data : ", error);
     }
@@ -657,7 +658,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       startDate: startDateTimeISO,
       endDate: dropoffDateTimeISO,
       charges: charges,
-      closingLocationId: checkBoxValueParam === "true" ? dropoffLocationId : pickupLocationId,
+      closingLocationId:
+        checkBoxValueParam === "true" ? dropoffLocationId : pickupLocationId,
       customer: {
         id: newId,
         firstName: customerFName,
@@ -903,6 +905,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         lastName: lastName,
         mobileNo: contactNum,
         email: emailAddress,
+        nationality: user_nationality,
         identityDocuments: [
           {
             documentNo: drivingLicenseNum,

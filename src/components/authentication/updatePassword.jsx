@@ -120,7 +120,7 @@ const UpdatePasswordPage = () => {
         {/* <link rel="canonical" href="https://milelecarrental.com/updatePassword" /> */}
       </Helmet>
       {loading && (
-        <div className="reloading-icon-free-consultation-form-container text-center">
+        <div className="reloading-icon-of-form-container text-center">
           <span className="loader-text">Updating Password . . .</span>
           <div className="lds-dual-ring text-center"></div>
         </div>

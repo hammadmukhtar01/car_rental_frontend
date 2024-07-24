@@ -250,19 +250,18 @@ function MainNavbar() {
                       <NavDropdown title={`${user_info?.fName}`} className=" ">
                         <NavDropdown.Item
                           as={NavLink}
-                          // to={`/myProfile/${userAuthId}`}
-                          to={"/#1"}
+                          to={`/myProfile/${userAuthId}`}
+                          // to={"/#1"}
                         >
-                          {/* My Profile */}
+                          My Profile
                         </NavDropdown.Item>
 
-                        <NavDropdown.Item
+                        {/* <NavDropdown.Item
                           as={NavLink}
-                          // to={`/myBookings/${userAuthId}`}
-                          to={"/#2"}
+                          to={`/myBookings/${userAuthId}`}
                         >
-                          {/* My Bookings */}
-                        </NavDropdown.Item>
+                          My Bookings
+                        </NavDropdown.Item> */}
                         <NavDropdown.Item as={NavLink} to="/updatePassword">
                           Update Password
                         </NavDropdown.Item>

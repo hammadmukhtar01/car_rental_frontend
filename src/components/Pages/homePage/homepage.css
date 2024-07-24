@@ -577,6 +577,7 @@
   border: 1px solid rgb(184, 184, 184) !important;
   line-height: 32px;
   border-radius: 6px;
+  margin-left: -13px;
 }
 
 .css-t3ipsp-control {
@@ -593,7 +594,7 @@
   box-shadow: none;
 }
 .nationality-dropdown .css-1nmdiq5-menu .css-1n6sfyn-MenuList {
-  max-height: 165px !important;
+  max-height: 170px !important;
 }
 
 .css-1n6sfyn-MenuList {
@@ -633,6 +634,7 @@
 }
 
 .form-control-contact-us,
+.form-control-customer-profile-details,
 .form-control-lto-userDetails {
   border: 1px solid rgb(184, 184, 184) !important;
   border-radius: 6px;
@@ -643,6 +645,7 @@
 }
 
 .contact-us-label h6,
+.customer-profile-details-label h6,
 .lto-userDetails-label h6 {
   font-weight: 600;
   letter-spacing: 1px;
