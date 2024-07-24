@@ -35,7 +35,10 @@
   margin: 0;
 }
 
-.read-more-button {
+.read-more-button,
+.upload-customer-button,
+.save-customer-profile-button,
+.edit-customer-profile-button {
   background: #e87a28;
   color: #fff;
   border: 1px solid #e87a28;
@@ -46,7 +49,26 @@
   border-radius: 5px;
 }
 
-.read-more-button:hover {
+.cancel-customer-profile-button {
+  background: #fff;
+  color: #e87a28;
+  border: 1px solid #e87a28;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-top: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.cancel-customer-profile-button:hover {
+  background: rgba(128, 128, 128, 0.072);
+  color: #e87b28b5;
+}
+
+.read-more-button:hover,
+.upload-customer-button:hover,
+.save-customer-profile-button:hover,
+.edit-customer-profile-button:hover {
   background: #fff;
   color: #e87a28;
   border: 1px solid #e87a28;

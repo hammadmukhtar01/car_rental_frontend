@@ -109,7 +109,7 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
       <ToastContainer />
 
       {loading && (
-        <div className="reloading-icon-free-consultation-form-container text-center">
+        <div className="reloading-icon-of-form-container text-center">
           <span className="loader-text">Logging In . . .</span>
           <div className="lds-dual-ring text-center"></div>
         </div>
