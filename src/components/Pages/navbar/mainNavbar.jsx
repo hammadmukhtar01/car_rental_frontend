@@ -256,12 +256,12 @@ function MainNavbar() {
                           My Profile
                         </NavDropdown.Item>
 
-                        {/* <NavDropdown.Item
+                        <NavDropdown.Item
                           as={NavLink}
                           to={`/myBookings/${userAuthId}`}
                         >
                           My Bookings
-                        </NavDropdown.Item> */}
+                        </NavDropdown.Item>
                         <NavDropdown.Item as={NavLink} to="/updatePassword">
                           Update Password
                         </NavDropdown.Item>

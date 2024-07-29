@@ -31,7 +31,7 @@ const CustomerProfilePage = () => {
   const [loading, setLoading] = useState(false);
   const [isViewProfileOnly, setIsViewProfileOnly] = useState(true);
   const [customerDetails, setCustomerDetails] = useState({});
-  const [customerProfileImg, setCustomerProfileImg] = useState();
+  // const [customerProfileImg, setCustomerProfileImg] = useState();
   // Driving License
   const [drivingLicenseNum, setDrivingLicenseNum] = useState("");
   const [drivingLicenseIssueBy, setDrivingLicenseIssueBy] = useState("");
@@ -82,18 +82,17 @@ const CustomerProfilePage = () => {
     getCustomerUploadedImgUrl(file, "Driving License");
   };
 
-  const handleUploadCustomerProfileImg = (e) => {
-    console.log("File is : ", customerProfileImg);
-    // setCustomerProfileImg(e.target.files[0]);
+  // const handleUploadCustomerProfileImg = (e) => {
+  //   console.log("File is : ", customerProfileImg);
 
-    const formData = new FormData();
-    formData.append("customerProfileImg", customerProfileImg);
+  //   const formData = new FormData();
+  //   formData.append("customerProfileImg", customerProfileImg);
 
-    axios
-      .post("http://localhost:8000/upload", formData)
-      .then((res) => console.log("Response file is: ", res))
-      .catch((err) => console.log("Error in file react js is : ", err));
-  };
+  //   axios
+  //     .post("http://localhost:8000/upload", formData)
+  //     .then((res) => console.log("Response file is: ", res))
+  //     .catch((err) => console.log("Error in file react js is : ", err));
+  // };
 
   // Get Customer's Documents URL
 
@@ -152,7 +151,7 @@ const CustomerProfilePage = () => {
 
         setCustomerDetails(response?.data?.result);
         if (response?.data?.result) {
-          console.log("get customer response-")
+          console.log("get customer response-");
           console.log("get customer response--------:", response?.data?.result);
           const nationality = response?.data?.result?.nationality;
           const issuedBy =
@@ -347,7 +346,7 @@ const CustomerProfilePage = () => {
           user.data.nationality = selectedNationality?.label;
           localStorage.setItem("user", JSON.stringify(user));
         }
-        alert("Profile in Own DB Updated Successfully")
+        alert("Profile in Own DB Updated Successfully");
 
         toast.success("Profile in Own DB Updated Successfully!", {
           autoClose: 2000,
@@ -363,7 +362,7 @@ const CustomerProfilePage = () => {
         });
         setIsViewProfileOnly(true);
       } else {
-        alert("Some fields are miss own DB")
+        alert("Some fields are miss own DB");
 
         toast.warning("Some fields are missing", {
           autoClose: 2000,
@@ -661,8 +660,10 @@ const CustomerProfilePage = () => {
                     </strong>
                   </h4>
                   <span>
-                    Speed:{" "}
-                    {customerSpeedID
+                    {" "}
+                    <strong>Phone Num :  </strong>
+                    
+                    +{customerSpeedID
                       ? customerDetails?.mobileNo
                       : customerDetails?.phoneNumber}
                   </span>
