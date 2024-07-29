@@ -13,5 +13,6 @@
 }
 
 .driving-license-img {
-    max-width: fit-content;
+  /* max-width: -webkit-fill-available; */
+  max-width: 20%;
 }
