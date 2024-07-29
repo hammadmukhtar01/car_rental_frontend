@@ -31,6 +31,7 @@ const CustomerProfilePage = () => {
   const [loading, setLoading] = useState(false);
   const [isViewProfileOnly, setIsViewProfileOnly] = useState(true);
   const [customerDetails, setCustomerDetails] = useState({});
+  const [customerProfileImg, setCustomerProfileImg] = useState();
   // Driving License
   const [drivingLicenseNum, setDrivingLicenseNum] = useState("");
   const [drivingLicenseIssueBy, setDrivingLicenseIssueBy] = useState("");
@@ -43,6 +44,7 @@ const CustomerProfilePage = () => {
   const auth = JSON.parse(localStorage?.getItem("user"));
   const authToken = auth?.token;
   const customerSpeedID = auth?.data?.customerIdFromSpeed;
+  // const customerProfilePhoto = auth?.data?.customerProfileImg;
   // const customerSpeedID = null;
   const user_nationality = auth?.data?.nationality;
 
@@ -80,9 +82,25 @@ const CustomerProfilePage = () => {
     getCustomerUploadedImgUrl(file, "Driving License");
   };
 
+  const handleUploadCustomerProfileImg = (e) => {
+    console.log("File is : ", customerProfileImg);
+    // setCustomerProfileImg(e.target.files[0]);
+
+    const formData = new FormData();
+    formData.append("customerProfileImg", customerProfileImg);
+
+    axios
+      .post("http://localhost:8000/upload", formData)
+      .then((res) => console.log("Response file is: ", res))
+      .catch((err) => console.log("Error in file react js is : ", err));
+  };
+
   // Get Customer's Documents URL
 
   const getCustomerUploadedImgUrl = async (file, documentType) => {
+    setLoading(true);
+    document.body.classList.add("loadings");
+
     try {
       const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
 
@@ -107,6 +125,9 @@ const CustomerProfilePage = () => {
       setDrivingLicenseImg(fetchedRequiredImgUrl);
     } catch (error) {
       console.error("Error while creating img url of documents", error);
+    } finally {
+      setLoading(false);
+      document.body.classList.remove("loadings");
     }
   };
 
@@ -131,6 +152,7 @@ const CustomerProfilePage = () => {
 
         setCustomerDetails(response?.data?.result);
         if (response?.data?.result) {
+          console.log("get customer response-")
           console.log("get customer response--------:", response?.data?.result);
           const nationality = response?.data?.result?.nationality;
           const issuedBy =
@@ -325,6 +347,7 @@ const CustomerProfilePage = () => {
           user.data.nationality = selectedNationality?.label;
           localStorage.setItem("user", JSON.stringify(user));
         }
+        alert("Profile in Own DB Updated Successfully")
 
         toast.success("Profile in Own DB Updated Successfully!", {
           autoClose: 2000,
@@ -340,6 +363,8 @@ const CustomerProfilePage = () => {
         });
         setIsViewProfileOnly(true);
       } else {
+        alert("Some fields are miss own DB")
+
         toast.warning("Some fields are missing", {
           autoClose: 2000,
           style: {
@@ -351,6 +376,7 @@ const CustomerProfilePage = () => {
       }
     } catch (error) {
       console.log("Error : ", error);
+      alert(error?.response?.data?.message || "Some fields are missing");
       toast.error(error?.response?.data?.message || "Some fields are missing", {
         autoClose: 2000,
         style: {
@@ -525,8 +551,18 @@ const CustomerProfilePage = () => {
         return;
       }
     }
-    updateSpeedCustomerProfileDetails();
-    updateCustomerProfileOwnDB();
+
+    const updateProfiles = async () => {
+      try {
+        await updateSpeedCustomerProfileDetails();
+        await updateCustomerProfileOwnDB();
+        window.location.reload();
+      } catch (error) {
+        console.error("Error updating profiles:", error);
+      }
+    };
+
+    updateProfiles();
   };
 
   const selectStyles = {
@@ -580,13 +616,17 @@ const CustomerProfilePage = () => {
                 {isViewProfileOnly ? <FaUser /> : <FaUserEdit />}
               </div>
               <div className="customer-profile-icon-data">
-                {isViewProfileOnly ? (
+                {/* {isViewProfileOnly ? (
                   <>
                     <h4>
                       <strong>
                         {customerSpeedID
                           ? customerDetails?.firstName
                           : customerDetails?.fName}
+                      </strong>  <strong>
+                        {customerSpeedID
+                          ? customerDetails?.lastName
+                          : customerDetails?.lName}
                       </strong>
                     </h4>
                     <span>
@@ -600,14 +640,64 @@ const CustomerProfilePage = () => {
                   <>
                     <button
                       className="upload-customer-button"
-                      // onClick={() => handleImageClick(blogData?.id)}
+                      onClick={() => handleImageClick(blogData?.id)}
                     >
                       Upload Photo
                     </button>
                   </>
-                )}
+                )} */}
+
+                <>
+                  <h4>
+                    <strong>
+                      {customerSpeedID
+                        ? customerDetails?.firstName
+                        : customerDetails?.fName}
+                    </strong>{" "}
+                    <strong>
+                      {customerSpeedID
+                        ? customerDetails?.lastName
+                        : customerDetails?.lName}
+                    </strong>
+                  </h4>
+                  <span>
+                    Speed:{" "}
+                    {customerSpeedID
+                      ? customerDetails?.mobileNo
+                      : customerDetails?.phoneNumber}
+                  </span>
+                </>
               </div>
             </div>
+            {/* {isViewProfileOnly ? (
+              <div className="d-flex flex-column align-items-end">
+                <img
+                  src={
+                    !customerSpeedID
+                      ? customerDetails?.customerProfileImg
+                          ?.url
+                      : " No image Found"
+                  }
+                  alt="Loading..."
+                  className="driving-license-img"
+                  title={"customer Profile Img"}
+                />
+              </div>
+            ) : (
+              <>
+                <input
+                  autoComplete="off"
+                  id="customerProfileImg"
+                  name="customerProfileImg"
+                  className="form-control-fname p-2 col-12 mt-2"
+                  type="file"
+                  placeholder="customer Profile Img"
+                  // value={customerProfileImg}
+                  onChange={(e) => handleUploadCustomerProfileImg(e)}
+                  disabled={isViewProfileOnly}
+                />
+              </>
+            )} */}
             <div className="customer-profile-form">
               <h3 className="personal-detail-heading">
                 <strong>Personal Details</strong>
