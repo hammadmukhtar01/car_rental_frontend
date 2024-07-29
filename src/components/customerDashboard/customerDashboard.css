@@ -4,11 +4,12 @@
   padding: 8px;
   box-shadow: none;
   border-radius: 6px;
+  border: 1px solid #e87a28;
 }
 
 .booking-details-button:hover {
-  background-color: #e87a28;
-  /* color: white; */
+  background-color: white;
+  color: #e87a28;
 }
 
 .customer-bookings-status-container {
@@ -18,7 +19,8 @@
 }
 
 .table th {
-  font-size: 16px;
+  font-size: large;
+  font-weight: 200 !important;
   text-transform: capitalize;
   background-color: #e87a28;
   color: white;
@@ -28,7 +30,7 @@
 .table td,
 .table th {
   text-align: center;
-  font-size: 14px
+  font-size: 14px;
 }
 
 .card-section {
@@ -40,7 +42,25 @@
   border: 1px;
   padding: 7px 10px;
   border-radius: 6px;
-  background-color: #e87a28;
   color: white;
   opacity: 0.9;
+  display: inline-block;
+}
+
+.customer-payment-status.bg-green,
+.customer-booking-status.bg-green {
+  background-color: green;
+}
+
+.customer-payment-status.bg-orange,
+.customer-booking-status.bg-orange {
+  background-color: #e87a28;
+}
+
+.customer-booking-status.bg-purple {
+  background-color: purple;
+}
+
+.customer-booking-status.bg-red {
+  background-color: red;
 }
