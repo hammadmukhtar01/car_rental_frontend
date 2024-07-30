@@ -26,8 +26,11 @@ import BlogPage3 from "./components/Pages/Blog/blogPage3";
 import GlobalLoader from "./components/PrivateComponents/globalLoader";
 import UpdatePasswordPage from "./components/authentication/updatePassword";
 import PrivateComponent from "./components/PrivateComponents/privateComponent";
-import Map from "./Map";
 import CustomerProfilePage from "./components/customerDashboard/myProfilePage";
+import Map from "./Map";
+const LazyAbout = React.lazy(() =>
+  import("./components/Pages/OtherPages/aboutusPage")
+);
 
 const App = () => {
   const location = useLocation();
@@ -52,7 +55,14 @@ const App = () => {
               element={<HomePage />}
             />
             <Route path="/vehicles" element={<VehiclesPage />} />
-            <Route path="/aboutus" element={<AboutusPage />} />
+            <Route
+              path="/aboutus"
+              element={
+                <React.Suspense fallback="loading about us...">
+                  <LazyAbout />
+                </React.Suspense>
+              }
+            />
             <Route path="/faqs" element={<FaqsPage />} />
             <Route path="/terms&Conditions" element={<TermsConditionsPage />} />
             <Route path="/contactus" element={<ContactusPage />} />

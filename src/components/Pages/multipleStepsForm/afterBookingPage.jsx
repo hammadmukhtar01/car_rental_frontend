@@ -10,7 +10,6 @@ const AfterBookingPage = () => {
 
   useEffect(() => {
     const auth = localStorage.getItem("user");
-    console.log("auth-");
     if (!auth) {
       console.log("No auth");
       navigate("/");
