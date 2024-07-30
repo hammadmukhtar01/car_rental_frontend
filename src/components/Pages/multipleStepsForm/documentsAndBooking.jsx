@@ -252,6 +252,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       const result = response?.data;
 
       console.log("response?.data", response?.data);
+
       setCustomerDetails(response?.data);
       setFirstName(result?.customerData?.fName);
       setLastName(result?.customerData?.lName);
@@ -1398,13 +1399,20 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   className="form-control-nationality col-12 nationality-dropdown"
                                   value={
                                     auth && user_token
-                                      ? customerDetails?.user?.nationality
+                                      ? {
+                                          label:
+                                            customerDetails?.customerData
+                                              ?.nationality?.label,
+                                          value:
+                                            customerDetails?.customerData
+                                              ?.nationality?.value,
+                                        }
                                       : selectedNationality
                                   }
                                   onChange={
                                     !(auth && user_token)
                                       ? handleNationalityChange
-                                      : undefined
+                                      : ""
                                   }
                                   isDisabled={auth && user_token}
                                   styles={selectStyles}

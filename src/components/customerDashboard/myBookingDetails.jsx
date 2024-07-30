@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useMemo } from "react";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
@@ -11,12 +12,7 @@ import SingleBookingDetails from "./singleBookingDetails";
 const ResponsiveExample = () => {
   const [bookingsIDs, setBookingsIDs] = useState([]);
   const [bookings, setBookings] = useState([]);
-  const [bookingsStatusValue, setBookingsStatusValue] = useState([
-    "Cancelled",
-    "Closed",
-    "NoShow",
-    "New",
-  ]);
+  const [bookingsStatusValue, setBookingsStatusValue] = useState([]);
   // const [selectedBookingId, setSelectedBookingId] = useState(null);
   const [visibleDetails, setVisibleDetails] = useState({});
 
@@ -47,7 +43,7 @@ const ResponsiveExample = () => {
         const resultedBookingStatus = response?.data?.result?.items?.map(
           (bookingsData) => bookingsData?.bookingStatus
         );
-        // setBookingsStatusValue(resultedBookingStatus);
+        setBookingsStatusValue(resultedBookingStatus);
 
         const bookingIds = resultedaData?.items?.map((item) => item.id);
 
