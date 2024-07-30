@@ -1001,8 +1001,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       border: "1px solid rgb(184, 184, 184)",
       boxShadow: "none",
       lineHeight: "32px",
-      marginLeft: "-13px",
-      marginRight: "-14px",
       borderRadius: "6px",
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
@@ -1273,7 +1271,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   <Form.Group controlId="formKeyword">
                                     <div className="location-label">
                                       <label className="styled-label">
-                                        <b>Driving Lisence Photo *</b>
+                                        <b>Driving License Photo *</b>
                                       </label>
                                     </div>
                                     <input

@@ -663,7 +663,7 @@ const CustomerProfilePage = () => {
                     {" "}
                     <strong>Phone Num :  </strong>
                     
-                    +{customerSpeedID
+                    {customerSpeedID
                       ? customerDetails?.mobileNo
                       : customerDetails?.phoneNumber}
                   </span>
