@@ -161,7 +161,7 @@ const ResponsiveExample = () => {
           <meta name="keywords" content="keywords" />
           {/* <link rel="canonical" href="https://milelecarrental.com/login" /> */}
         </Helmet>
-        <HeaderCombination />
+        <HeaderCombination />{" "}
         <div className="customer-bookings-status-main-container p-5">
           <div className="myBookings-heading pb-4">
             <center>
@@ -169,6 +169,7 @@ const ResponsiveExample = () => {
                 <strong>MY BOOKINGS</strong>
               </h3>
             </center>
+
             <div
               className="elementor-element elementor-element-5224060 elementor-widget elementor-widget-stm-colored-separator"
               data-id="5224060"
@@ -195,85 +196,102 @@ const ResponsiveExample = () => {
                   ))}
                 </tr>
               </thead>
-              <tbody>
-                {bookings?.map((booking, index) => (
-                  <React.Fragment key={index}>
-                    <tr>
-                      <td className="align-middle">
-                        <b>{index + 1}.</b>
-                      </td>
-                      <td className="align-middle">
-                        {booking?.tariffGroup?.title}
-                      </td>
-                      <td className="align-middle">{booking?.agreementNo}</td>
-                      <td className="align-middle">
-                        <span
-                          className={`customer-payment-status ${
-                            booking?.paymentStatus === "Pending"
-                              ? "bg-orange"
-                              : "bg-green"
-                          }`}
-                        >
-                          Done
-                        </span>
-                      </td>
-                      <td className="align-middle">{booking?.totalCharges}</td>
-                      <td className="align-middle">
-                        <div
-                          className={`customer-booking-status ${
-                            transformBookingStatus(bookingsStatusValue[index])
-                              .cssClass
-                          }`}
-                        >
-                          <span>
-                            {" "}
-                            {
-                              transformBookingStatus(bookingsStatusValue[index])
-                                .displayStatus
-                            }
-                          </span>
-                        </div>
-                      </td>
 
-                      <td className="align-middle">
-                        {new Date(booking?.creationTime).toLocaleDateString()}
-                      </td>
-
-                      <td className="align-middle">
-                        {booking?.totalCharges * 1}
-                      </td>
-
-                      <td className="align-middle">
-                        {new Date(booking?.startDate).toLocaleDateString()} -{" "}
-                        {new Date(booking?.endDate).toLocaleDateString()}
-                      </td>
-
-                      <td className="d-flex justify-content-center">
-                        <button
-                          className="booking-details-button"
-                          id="my-booking-buton"
-                          aria-label="My Bookings"
-                          onClick={() => handleViewDetailsClick(booking.id)}
-                        >
-                          {visibleDetails[booking.id]
-                            ? "Hide Details"
-                            : "View Details"}
-                        </button>
-                      </td>
-                    </tr>
-
-                    {visibleDetails[booking.id] && (
+              {bookings.length > 0 && (
+                <tbody>
+                  {bookings?.map((booking, index) => (
+                    <React.Fragment key={index}>
                       <tr>
-                        <td colSpan={bookingStatusTableHeadings?.length}>
-                          <SingleBookingDetails className="bg-white" />
+                        <td className="align-middle">
+                          <b>{index + 1}.</b>
+                        </td>
+                        <td className="align-middle">
+                          {booking?.tariffGroup?.title}
+                        </td>
+                        <td className="align-middle">{booking?.agreementNo}</td>
+                        <td className="align-middle">
+                          <span
+                            className={`customer-payment-status ${
+                              booking?.paymentStatus === "Pending"
+                                ? "bg-orange"
+                                : "bg-green"
+                            }`}
+                          >
+                            Done
+                          </span>
+                        </td>
+                        <td className="align-middle">
+                          {booking?.totalCharges}
+                        </td>
+                        <td className="align-middle">
+                          <div
+                            className={`customer-booking-status ${
+                              transformBookingStatus(bookingsStatusValue[index])
+                                .cssClass
+                            }`}
+                          >
+                            <span>
+                              {" "}
+                              {
+                                transformBookingStatus(
+                                  bookingsStatusValue[index]
+                                ).displayStatus
+                              }
+                            </span>
+                          </div>
+                        </td>
+
+                        <td className="align-middle">
+                          {new Date(booking?.creationTime).toLocaleDateString()}
+                        </td>
+
+                        <td className="align-middle">
+                          {booking?.totalCharges * 1}
+                        </td>
+
+                        <td className="align-middle">
+                          {new Date(booking?.startDate).toLocaleDateString()} -{" "}
+                          {new Date(booking?.endDate).toLocaleDateString()}
+                        </td>
+
+                        <td className="d-flex justify-content-center">
+                          <button
+                            className="booking-details-button"
+                            id="my-booking-buton"
+                            aria-label="My Bookings"
+                            onClick={() => handleViewDetailsClick(booking.id)}
+                          >
+                            {visibleDetails[booking.id]
+                              ? "Hide Details"
+                              : "View Details"}
+                          </button>
                         </td>
                       </tr>
-                    )}
-                  </React.Fragment>
-                ))}
-              </tbody>
+
+                      {visibleDetails[booking.id] && (
+                        <tr>
+                          <td colSpan={bookingStatusTableHeadings?.length}>
+                            <SingleBookingDetails className="bg-white" />
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              )}
             </Table>
           </div>
+          {bookings.length <= 0 && (
+            <>
+              {" "}
+              <center>
+                <h4>
+                  <p>Loading...</p>
+                  <>No Booking Record Found!</>
+                </h4>
+              </center>
+            </>
+          )}
         </div>
         <FooterCombination />
       </HelmetProvider>
