@@ -2,12 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, Toaster } from "react-hot-toast";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import FooterCombination from "../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import "../Pages/OtherPages/toastStyle.css";
 
 const ResetPasswordPage = () => {
   const { token } = useParams();
@@ -171,7 +169,7 @@ const ResetPasswordPage = () => {
                       >
                         Save
                       </button>
-                    <ToastContainer />
+                    <Toaster/>
                   </div>
                 </form>
 

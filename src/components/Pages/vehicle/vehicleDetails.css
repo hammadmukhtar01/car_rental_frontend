@@ -344,8 +344,8 @@ span.select2-selection_arrow b {
 }
 
 .single-car-container-div:hover .car-image {
-  transform: scale(1.1);
-  transition: 0.4s ease-in-out;
+  transform: scale(1.05);
+  transition: 0.5s ease-in-out;
 }
 
 #hr-value-allcars-1 {

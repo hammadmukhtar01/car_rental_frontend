@@ -60,7 +60,7 @@ const Carousel = () => {
 
   return (
     <div className="pt-4 fleet-car-main-section pb-5">
-      <div className="offers-car-container pb-3">
+      <div className="animated-car-container pb-3">
         <div className="container">
           <h2 className="our-fleet-heading-home-page text-center">
             <span>

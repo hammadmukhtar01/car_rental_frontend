@@ -13,8 +13,7 @@ import { LuSnowflake } from "react-icons/lu";
 import { TiTick } from "react-icons/ti";
 import Modals from "./imageEnlarger";
 import { RxCross2 } from "react-icons/rx";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-hot-toast";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -26,7 +25,6 @@ import "./verticalSliderCarDetails.css";
 import { useLocation } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import axios from "axios";
-import "../OtherPages/toastStyle.css";
 
 const VehicleDetails = ({ nextStep }) => {
   const storedUserData = useMemo(
@@ -537,13 +535,8 @@ const VehicleDetails = ({ nextStep }) => {
 
   const handleStartBookingClick = () => {
     if (!auth || !authToken) {
-      toast.error("Please log in to start booking.", {
-        autoClose: 1000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          fontSize: "14px",
-        },
+      toast("Please log in to start booking.", {
+        autoClose: 2000,
       });
       return;
     }
@@ -606,34 +599,25 @@ const VehicleDetails = ({ nextStep }) => {
     );
 
     if (couponCode?.trim() === "") {
-      toast.warning("Please enter a coupon code", {
-        autoClose: 2000,
-        style: { border: "1px solid #c0c0c0", fontSize: "14px" },
+      toast("Please enter a coupon code", {
+        duration: 3000,
       });
 
       return;
     }
 
     if (!foundCoupon) {
-      toast.error("Invalid coupon code. Please enter a valid one.", {
+      toast("Invalid coupon code. Please enter a valid one.", {
         autoClose: 2000,
-        style: {
-          lineHeight: "20px",
-          border: "1px solid #c0c0c0",
-          fontSize: "14px",
-        },
       });
       return;
     }
+    console.log("carCategory.toUpperCase() : ", carCategory.toUpperCase());
+    console.log("cfoundCoupon: ", foundCoupon?.name);
 
-    if (carCategory.toUpperCase() !== "SUV") {
-      toast.error("This coupon code is valid for SUV only.", {
+    if (carCategory.toUpperCase() !== "SUV" && foundCoupon?.name === "RENTSUV20") {
+      toast("This coupon code is valid for SUV only.", {
         autoClose: 2000,
-        style: {
-          lineHeight: "20px",
-          border: "1px solid #c0c0c0",
-          fontSize: "14px",
-        },
       });
       return;
     }
@@ -1194,7 +1178,6 @@ const VehicleDetails = ({ nextStep }) => {
                                             <TiTick />
                                           </button>
                                         )}
-                                        <ToastContainer />
                                       </div>
                                     </Col>
                                   </Row>

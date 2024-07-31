@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import "react-toastify/dist/ReactToastify.css";
 import ContactUsForm from "./contactUsForm";
 import { BiSolidPhone } from "react-icons/bi";
 import { BsGeoAltFill } from "react-icons/bs";

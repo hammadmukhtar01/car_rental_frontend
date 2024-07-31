@@ -3,9 +3,18 @@ import BannerImg1PNG from "../../images/banner-slider-img1.jpg";
 import BannerImg2PNG from "../../images/banner-slider-img2.jpg";
 import BannerImg3PNG from "../../images/banner-slider-img3.jpg";
 import "react-slideshow-image/dist/styles.css";
-import { Slide } from "react-slideshow-image";
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 const Carousel = () => {
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+  };
+
   const imagesData = [BannerImg1PNG, BannerImg2PNG, BannerImg3PNG];
 
   return (
@@ -14,24 +23,20 @@ const Carousel = () => {
         <div className="container">
           <br />
 
-          <Slide
-            scale={0.7}
-            duration={2000}
-            transitionDuration={1000}
-            arrows
-            autoplay={false}
-          >
+          <Slider {...settings}>
             {imagesData.map((image, index) => (
-              <div className="each-slide-effect" key={index}>
+              <div key={index} className="each-slide-effect p-3">
                 <img
                   src={image}
-                  alt={`Milele Car Rental Banner ${index + 1}`}
+                  alt={`${image}`}
                   className="banner-cards-images"
-                  title={`Milele Car Rental Banner`}
+                  title={`offers-${index}`}
+                  aria-label={`offers-${index}`}
+                  id={`home-page-offers-card-${index}`}
                 />
               </div>
             ))}
-          </Slide>
+          </Slider>
         </div>
       </div>
     </div>

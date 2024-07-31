@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, Toaster } from "react-hot-toast";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import "../Pages/OtherPages/toastStyle.css";
 
 const ForgotPasswordPage = ({ onClose }) => {
   const [email, setEmail] = useState("");
@@ -49,7 +47,7 @@ const ForgotPasswordPage = ({ onClose }) => {
 
       if (resultedData.status === "success") {
         const success_message = resultedData?.message;
-        alert(success_message)
+        alert(success_message);
         onClose();
 
         toast.success(success_message, {
@@ -79,7 +77,7 @@ const ForgotPasswordPage = ({ onClose }) => {
         });
       }
     } catch (error) {
-      alert(`${error?.response?.data?.message}`)
+      alert(`${error?.response?.data?.message}`);
       toast.error(`${error?.response?.data?.message}`, {
         autoClose: 2000,
         style: {
@@ -101,7 +99,6 @@ const ForgotPasswordPage = ({ onClose }) => {
         />
         <meta name="keywords" content="keywords" />
       </Helmet>
-      <ToastContainer />
 
       <div className="forgotpassword-form-container">
         <h4 className="text-center">
@@ -162,6 +159,7 @@ const ForgotPasswordPage = ({ onClose }) => {
           </section>
         </div>
       </div>
+      <Toaster />
     </HelmetProvider>
   );
 };

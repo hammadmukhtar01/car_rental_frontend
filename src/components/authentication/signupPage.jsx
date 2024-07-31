@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./authentication.css";
 import { useNavigate, useLocation } from "react-router";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, Toaster } from "react-hot-toast";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Col, Row } from "react-bootstrap";
 import Select from "react-select";
@@ -206,7 +205,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
           />
           <meta name="keywords" content="keywords" />
         </Helmet>
-        <ToastContainer />
+        <Toaster/>
 
         {loading && (
           <div className="reloading-icon-of-form-container text-center">

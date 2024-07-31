@@ -8,12 +8,10 @@ import { HelmetProvider, Helmet } from "react-helmet-async";
 import HomePageTopBar from "./../Pages/navbar/homePageTopBar";
 import MainNavbar from "./../Pages/navbar/mainNavbar";
 import FooterCombination from "./../PrivateComponents/footerCombination";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, Toaster } from "react-hot-toast";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import "../Pages/OtherPages/toastStyle.css";
 import { FaUserEdit } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import "./myProfile.css";
@@ -1201,7 +1199,7 @@ const CustomerProfilePage = () => {
               </>
             </div>
           </div>
-          <ToastContainer />
+          <Toaster/>
         </Container>
         <FooterCombination />
       </HelmetProvider>
