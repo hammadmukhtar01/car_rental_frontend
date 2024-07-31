@@ -47,17 +47,15 @@ const SignupPage = ({ onCloseModal, setGif }) => {
     e.preventDefault();
 
     if (!isEmailValid(email)) {
-      toast.error("Please enter a valid email address.", {
-        position: "top-right",
-        autoClose: 1500,
+      toast("Please enter a valid email address.", {
+        duration: 1500,
       });
       return;
     }
 
     if (password !== passwordConfirm) {
-      toast.error("Passwords do not match!", {
-        position: "top-right",
-        autoClose: 1500,
+      toast("Passwords do not match!", {
+        duration: 1500,
       });
       return;
     }
@@ -67,9 +65,8 @@ const SignupPage = ({ onCloseModal, setGif }) => {
       country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
-      toast.error("Please enter a valid phone number.", {
-        position: "top-right",
-        autoClose: 1500,
+      toast("Please enter a valid phone number.", {
+        duration: 1500,
       });
       return;
     }
@@ -103,13 +100,9 @@ const SignupPage = ({ onCloseModal, setGif }) => {
 
       if (response?.data?.status === "success") {
         setGif(SuccessGifWebP);
-        toast.success("Account Created Successfully!", {
-          autoClose: 2000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            fontSize: "14px",
-          },
+        toast("Account Created Successfully!", {
+          duration: 2000,
+
           onClose: () => {
             const lastUrl = localStorage.getItem("lastUrl") || "/";
             navigate(lastUrl);
@@ -117,25 +110,14 @@ const SignupPage = ({ onCloseModal, setGif }) => {
           },
         });
       } else {
-        toast.warning("Some fields are missing", {
-          autoClose: 2000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            fontSize: "14px",
-          },
+        toast("Some fields are missing", {
+          duration: 2000,
         });
       }
     } catch (error) {
-      console.log("Error : ", error)
-      toast.error(error?.response?.data?.message || "Some fields are missing", {
-        autoClose: 2000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          lineHeight: "18px",
-          fontSize: "14px",
-        },
+      console.log("Error : ", error);
+      toast(error?.response?.data?.message || "Some fields are missing", {
+        duration: 2000,
       });
     } finally {
       setLoading(false);
@@ -205,7 +187,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
           />
           <meta name="keywords" content="keywords" />
         </Helmet>
-        <Toaster/>
+        <Toaster />
 
         {loading && (
           <div className="reloading-icon-of-form-container text-center">

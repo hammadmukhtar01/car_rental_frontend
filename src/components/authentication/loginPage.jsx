@@ -55,13 +55,9 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
         localStorage.setItem("user", JSON.stringify(resultedData));
         setGif(SuccessGifWebP);
 
-        toast.success("Logged In Successfully!", {
-          autoClose: 3000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            fontSize: "14px",
-          },
+        toast("Logged In Successfully!", {
+          duration: 3000,
+
           onClose: () => {
             const lastUrl = localStorage.getItem("lastUrl") || "/";
             navigate(lastUrl);
@@ -69,23 +65,13 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
           },
         });
       } else {
-        toast.warning("Email/Password missing...", {
-          autoClose: 2000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            fontSize: "14px",
-          },
+        toast("Email/Password missing...", {
+          duration: 2000,
         });
       }
     } catch (error) {
-      toast.error(`${error?.response?.data?.message}`, {
-        autoClose: 2000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          fontSize: "14px",
-        },
+      toast(`${error?.response?.data?.message}`, {
+        duration: 2000,
       });
     } finally {
       setLoading(false);
@@ -104,7 +90,7 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
         <meta name="keywords" content="keywords" />
       </Helmet>
 
-      <Toaster/>
+      <Toaster />
 
       {loading && (
         <div className="reloading-icon-of-form-container text-center">

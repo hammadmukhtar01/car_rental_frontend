@@ -27,9 +27,8 @@ const ContactUsForm = () => {
     console.log(`Phone numbe ris : ${formData?.phoneNumber}`);
 
     if (!emailRegex.test(formData?.email)) {
-      toast.error("Please enter a valid email address.", {
-        position: "top-right",
-        autoClose: 2000,
+      toast("Please enter a valid email address.", {
+        duration: 2000,
       });
       return false;
     }
@@ -39,9 +38,8 @@ const ContactUsForm = () => {
       country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
-      toast.error("Please enter a valid phone number.", {
-        position: "top-right",
-        autoClose: 2000,
+      toast("Please enter a valid phone number.", {
+        duration: 2000,
       });
       return;
     }
@@ -72,8 +70,8 @@ const ContactUsForm = () => {
       console.log("Contact Us response is: --- ", response?.data);
 
       if (response?.data?.status === "success") {
-        toast.success("Thank You for Contacting Us.", {
-          autoClose: 2000,
+        toast("Thank You for Contacting Us.", {
+          duration: 2000,
           style: { border: "1px solid #c0c0c0", fontSize: "14px" },
         });
         setFormData({
@@ -89,9 +87,8 @@ const ContactUsForm = () => {
           event: "contactUsPageLeadForm",
         });
       } else {
-        toast.error("Failed to send your message. Please try again.", {
-          position: "top-right",
-          autoClose: 2000,
+        toast("Failed to send your message. Please try again.", {
+          duration: 2000,
         });
       }
     } catch (error) {
@@ -106,21 +103,18 @@ const ContactUsForm = () => {
         console.log("Error:", error?.response?.data?.error);
 
         if (errors?.email) {
-          toast.error(errors?.email?.message, {
-            position: "top-right",
-            autoClose: 2000,
+          toast(errors?.email?.message, {
+            duration: 2000,
           });
         }
         if (errors?.phoneNumber) {
-          toast.error(errors?.phoneNumber?.message, {
-            position: "top-right",
-            autoClose: 2000,
+          toast(errors?.phoneNumber?.message, {
+            duration: 2000,
           });
         }
       } else {
-        toast.error(`Submission failed: ${error?.message}`, {
-          position: "top-right",
-          autoClose: 2000,
+        toast(`Submission failed: ${error?.message}`, {
+          duration: 2000,
         });
       }
     } finally {

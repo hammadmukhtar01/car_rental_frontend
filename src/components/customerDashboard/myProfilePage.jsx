@@ -291,9 +291,8 @@ const CustomerProfilePage = () => {
   // Update Customer Profile of Own Backend DB
   const updateCustomerProfileOwnDB = async () => {
     if (!isEmailValid(email)) {
-      toast.error("Please enter a valid email address.", {
-        position: "top-right",
-        autoClose: 1500,
+      toast("Please enter a valid email address.", {
+        duration: 1500,
       });
       return;
     }
@@ -304,9 +303,8 @@ const CustomerProfilePage = () => {
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
       console.log("Phne Number: ", phoneNumber);
-      toast.error("Please enter a valid phone number.", {
-        position: "top-right",
-        autoClose: 1500,
+      toast("Please enter a valid phone number.", {
+        duration: 2500,
       });
       return;
     }
@@ -344,15 +342,10 @@ const CustomerProfilePage = () => {
           user.data.nationality = selectedNationality?.label;
           localStorage.setItem("user", JSON.stringify(user));
         }
-        alert("Profile in Own DB Updated Successfully");
 
-        toast.success("Profile in Own DB Updated Successfully!", {
-          autoClose: 2000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            fontSize: "14px",
-          },
+        toast("Profile Updated Successfully!", {
+          duration: 2000,
+         
           onClose: () => {
             const lastUrl = localStorage.getItem("lastUrl") || "/";
             navigate(lastUrl);
@@ -362,26 +355,17 @@ const CustomerProfilePage = () => {
       } else {
         alert("Some fields are miss own DB");
 
-        toast.warning("Some fields are missing", {
-          autoClose: 2000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            fontSize: "14px",
-          },
+        toast("Some fields are missing", {
+          duration: 2000,
+         
         });
       }
     } catch (error) {
       console.log("Error : ", error);
       alert(error?.response?.data?.message || "Some fields are missing");
-      toast.error(error?.response?.data?.message || "Some fields are missing", {
-        autoClose: 2000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          lineHeight: "18px",
-          fontSize: "14px",
-        },
+      toast(error?.response?.data?.message || "Some fields are missing", {
+        duration: 2000,
+       
       });
     } finally {
       setLoading(false);
@@ -448,18 +432,12 @@ const CustomerProfilePage = () => {
           "Update customer success if method console - - - - - -- done",
           response?.data?.result
         );
-        toast.success(
-          "Customer Profile in Speed Software Updated Successfully.",
-          {
-            position: "top-right",
-            autoClose: 1500,
-          }
-        );
+        
         // alert("alert customer created...");
       } else {
         const errorMessage = response?.data?.error?.message;
-        toast.error(errorMessage, {
-          autoClose: 5000,
+        toast(errorMessage, {
+          duration: 5000,
           style: {
             border: "1px solid #c0c0c0",
             fontWeight: "400",
@@ -501,14 +479,8 @@ const CustomerProfilePage = () => {
       const errorMessage = `${customerDetailsMissingFields?.join(
         ", "
       )} field(s) are missing.`;
-      toast.error(errorMessage, {
-        autoClose: 5000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          lineHeight: "18px",
-          fontSize: "14px",
-        },
+      toast(errorMessage, {
+        
       });
       return;
     }
@@ -529,21 +501,16 @@ const CustomerProfilePage = () => {
       }
 
       console.log(
-        "2-------customerDetailsMissingFields",
+        "2--customerDetailsMissingFields",
         customerDocumentsMissingFields
       );
       if (customerDocumentsMissingFields?.length > 0) {
         const errorMessage = `${customerDocumentsMissingFields?.join(
           ", "
         )} field(s) are missing.`;
-        toast.error(errorMessage, {
-          autoClose: 5000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            lineHeight: "18px",
-            fontSize: "14px",
-          },
+        toast(errorMessage, {
+          duration: 5000,
+         
         });
         return;
       }
@@ -659,8 +626,7 @@ const CustomerProfilePage = () => {
                   </h4>
                   <span>
                     {" "}
-                    <strong>Phone Num :  </strong>
-                    
+                    <strong>Phone Num : </strong>
                     {customerSpeedID
                       ? customerDetails?.mobileNo
                       : customerDetails?.phoneNumber}
@@ -1199,7 +1165,7 @@ const CustomerProfilePage = () => {
               </>
             </div>
           </div>
-          <Toaster/>
+          <Toaster />
         </Container>
         <FooterCombination />
       </HelmetProvider>

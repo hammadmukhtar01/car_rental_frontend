@@ -41,9 +41,8 @@ const UpdatePasswordPage = () => {
     e.preventDefault();
 
     if (password !== passwordConfirm) {
-      toast.error("New & Confirm Passwords do not match.", {
-        position: "top-right",
-        autoClose: 1500,
+      toast("New & Confirm Passwords do not match.", {
+        duration: 2500,
       });
       return;
     }
@@ -68,35 +67,21 @@ const UpdatePasswordPage = () => {
       if (resultedData.status === "success" && resultedData?.token) {
         localStorage.setItem("user", JSON.stringify(resultedData));
 
-        toast.success("Password Updated Successfully!", {
-          autoClose: 2000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            fontSize: "14px",
-          },
+        toast("Password Updated Successfully!", {
+          duration: 2000,
+
           onClose: () => {
             navigate("/");
           },
         });
       } else {
-        toast.warning("Invalid Password...", {
-          autoClose: 2000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            fontSize: "14px",
-          },
+        toast("Invalid Password...", {
+          duration: 2000,
         });
       }
     } catch (error) {
-      toast.error(`${error}`, {
-        autoClose: 2000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          fontSize: "14px",
-        },
+      toast(`${error}`, {
+        duration: 2000,
       });
     } finally {
       setLoading(false);
@@ -123,7 +108,7 @@ const UpdatePasswordPage = () => {
           <div className="lds-dual-ring text-center"></div>
         </div>
       )}
-      <Toaster/>
+      <Toaster />
 
       <section className="mb-5 mt-5">
         <div className="container">

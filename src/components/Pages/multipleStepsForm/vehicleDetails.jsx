@@ -536,7 +536,7 @@ const VehicleDetails = ({ nextStep }) => {
   const handleStartBookingClick = () => {
     if (!auth || !authToken) {
       toast("Please log in to start booking.", {
-        autoClose: 2000,
+        duration: 2000,
       });
       return;
     }
@@ -608,7 +608,7 @@ const VehicleDetails = ({ nextStep }) => {
 
     if (!foundCoupon) {
       toast("Invalid coupon code. Please enter a valid one.", {
-        autoClose: 2000,
+        duration: 2000,
       });
       return;
     }
@@ -617,7 +617,7 @@ const VehicleDetails = ({ nextStep }) => {
 
     if (carCategory.toUpperCase() !== "SUV" && foundCoupon?.name === "RENTSUV20") {
       toast("This coupon code is valid for SUV only.", {
-        autoClose: 2000,
+        duration: 2000,
       });
       return;
     }

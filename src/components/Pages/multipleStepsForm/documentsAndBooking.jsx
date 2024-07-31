@@ -705,7 +705,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
       updateLocalStorage(updatedUserData);
     } catch (error) {
-      toast.error(`${error}`, {
+      toast(`${error}`, {
         duration: 3000,
       });
     }
@@ -745,7 +745,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         // alert("Booking status is: ", bookingStatus);
         console.log("booking done successfully. Time for Payment");
 
-        toast.success("Booking Done Successfully", {
+        toast("Booking Done Successfully", {
           duration: 3000,
         });
         window.dataLayer = window.dataLayer || [];
