@@ -50,13 +50,9 @@ const ForgotPasswordPage = ({ onClose }) => {
         alert(success_message);
         onClose();
 
-        toast.success(success_message, {
-          autoClose: 5000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            fontSize: "14px",
-          },
+        toast(success_message, {
+          duration: 5000,
+         
           onClose: () => {
             onClose();
           },
@@ -67,24 +63,16 @@ const ForgotPasswordPage = ({ onClose }) => {
           resultedData?.message
         );
       } else {
-        toast.warning("Email is missing...", {
-          autoClose: 2000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            fontSize: "14px",
-          },
+        toast("Email is missing...", {
+          duration: 2000,
+         
         });
       }
     } catch (error) {
       alert(`${error?.response?.data?.message}`);
-      toast.error(`${error?.response?.data?.message}`, {
-        autoClose: 2000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          fontSize: "14px",
-        },
+      toast(`${error?.response?.data?.message}`, {
+        duration: 2000,
+        
       });
     }
   };

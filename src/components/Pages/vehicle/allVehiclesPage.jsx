@@ -1274,7 +1274,7 @@ const VehiclesPage = () => {
                             <div className="car-type-filter-container d-flex justify-content-between align-items-center">
                               <div className="car-type-icon-title">
                                 <BsTags className="mr-2" />
-                                <b>Price Range ( </b>per day <b>)</b>
+                                <b>Price Range </b>
                               </div>
                             </div>
                           </header>

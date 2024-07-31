@@ -57,10 +57,14 @@
   background-color: #e87a28;
 }
 
-.customer-booking-status.bg-purple {
-  background-color: purple;
+.customer-booking-status.bg-blue {
+  background-color: rgb(67, 67, 222)
 }
 
 .customer-booking-status.bg-red {
   background-color: red;
+}
+
+.booking-details-label {
+  color: rgba(128, 128, 128, 0.845);
 }

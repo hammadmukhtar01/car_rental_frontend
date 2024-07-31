@@ -9,7 +9,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const ResetPasswordPage = () => {
   const { token } = useParams();
-  const [username, setUsername] = useState(""); 
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();
@@ -32,13 +32,9 @@ const ResetPasswordPage = () => {
       console.log("Result in reset password page is: ", result);
 
       if (result?.status === 201) {
-        toast.success("Password Updated successfully.", {
-          autoClose: 2000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            fontSize: "14px",
-          },
+        toast("Password Updated successfully.", {
+          duration: 2000,
+
           onClose: () => {
             localStorage?.removeItem("user");
             setTimeout(() => {
@@ -50,14 +46,8 @@ const ResetPasswordPage = () => {
         });
       }
     } catch (error) {
-      toast.error(`${error?.response?.data?.message}`, {
-        autoClose: 2000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          lineHeight: "18px",
-          fontSize: "14px",
-        },
+      toast(`${error?.response?.data?.message}`, {
+        duration: 2000,
       });
     }
   };
@@ -163,13 +153,13 @@ const ResetPasswordPage = () => {
                   </Form.Group>
 
                   <div className="form-group-3 col-lg-12 mt-5 justify-content-center">
-                  <button
-                        className="resetPassword-button"
-                        aria-label="Reset Password"
-                      >
-                        Save
-                      </button>
-                    <Toaster/>
+                    <button
+                      className="resetPassword-button"
+                      aria-label="Reset Password"
+                    >
+                      Save
+                    </button>
+                    <Toaster />
                   </div>
                 </form>
 

@@ -116,21 +116,16 @@ const SearchBox = () => {
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
     if (!pickupLocation || (showDropoff && !dropoffLocation)) {
-      toast.error("Some inputs are missing1.", {
+      toast("Some inputs are missing1.", {
         duration: 2000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          fontSize: "16px",
-        },
+        
       });
       return;
     }
 
     if (!dateRange[0]?.startDate || !dateRange[0]?.endDate) {
-      toast.warn("Date must be chosen", {
+      toast("Date must be chosen", {
         duration: 2000,
-        style: { border: "1px solid #c0c0c0", fontSize: "14px" },
       });
       return;
     }

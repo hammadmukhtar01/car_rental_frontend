@@ -3,17 +3,15 @@ import React, { useState, useEffect, useMemo } from "react";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
 import "./customerDashboard.css";
-import CustomerProfilePage from "./myProfilePage";
 import FooterCombination from "../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import SingleBookingDetails from "./singleBookingDetails";
 
-const ResponsiveExample = () => {
+const CustomerBookings = () => {
   const [bookingsIDs, setBookingsIDs] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [bookingsStatusValue, setBookingsStatusValue] = useState([]);
-  // const [selectedBookingId, setSelectedBookingId] = useState(null);
   const [visibleDetails, setVisibleDetails] = useState({});
 
   const auth = JSON.parse(localStorage?.getItem("user"));
@@ -103,14 +101,13 @@ const ResponsiveExample = () => {
   const bookingStatusTableHeadings = [
     "#",
     "Car Name",
-    "Booking Number",
+    "Booking No.",
     "Payment Status",
     "Paid Amount",
     "Booking Status",
     "Booking Created",
     "Earned Credit pts",
-    "Booking Date Range",
-    "View Booking Details",
+    "",
   ];
 
   const handleViewDetailsClick = (bookingId) => {
@@ -139,7 +136,7 @@ const ResponsiveExample = () => {
         break;
       case "New":
         displayStatus = "In Progress";
-        cssClass = "bg-purple";
+        cssClass = "bg-blue";
         break;
       default:
         cssClass = status === "Pending" ? "bg-danger" : "bg-success";
@@ -162,7 +159,7 @@ const ResponsiveExample = () => {
           {/* <link rel="canonical" href="https://milelecarrental.com/login" /> */}
         </Helmet>
         <HeaderCombination />{" "}
-        <div className="customer-bookings-status-main-container p-5">
+        <div className="customer-bookings-status-main-container p-3">
           <div className="myBookings-heading pb-4">
             <center>
               <h3>
@@ -249,29 +246,28 @@ const ResponsiveExample = () => {
                           {booking?.totalCharges * 1}
                         </td>
 
-                        <td className="align-middle">
-                          {new Date(booking?.startDate).toLocaleDateString()} -{" "}
-                          {new Date(booking?.endDate).toLocaleDateString()}
-                        </td>
+                       
 
                         <td className="d-flex justify-content-center">
                           <button
                             className="booking-details-button"
                             id="my-booking-buton"
                             aria-label="My Bookings"
-                            onClick={() => handleViewDetailsClick(booking.id)}
+                            onClick={() => handleViewDetailsClick(booking?.id)}
                           >
-                            {visibleDetails[booking.id]
+                            {visibleDetails[booking?.id]
                               ? "Hide Details"
                               : "View Details"}
                           </button>
                         </td>
                       </tr>
 
-                      {visibleDetails[booking.id] && (
+                      {visibleDetails[booking?.id] && (
                         <tr>
                           <td colSpan={bookingStatusTableHeadings?.length}>
-                            <SingleBookingDetails className="bg-white" />
+                    
+                            <SingleBookingDetails bookingData={booking} className="bg-white" />
+
                           </td>
                         </tr>
                       )}
@@ -299,4 +295,4 @@ const ResponsiveExample = () => {
   );
 };
 
-export default ResponsiveExample;
+export default CustomerBookings;
