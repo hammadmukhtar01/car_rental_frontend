@@ -3,17 +3,14 @@ import { Container, Row, Col } from "react-bootstrap";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-hot-toast";
 import "../homePage/homepage.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import '../OtherPages/toastStyle.css';
 
 const FreeConsultationForm = () => {
   const [customerName, setCustomerName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState({ dialCode: "971", name: "UAE" });
-  const [loading, setLoading] = useState(false);
 
   const handleFreeConsultationForm = async (e) => {
     e.preventDefault();
@@ -24,9 +21,16 @@ const FreeConsultationForm = () => {
       country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
-      toast.error("Please enter a valid phone number.", {
-        position: "top-right",
-        autoClose: 1500,
+      toast("Please enter a valid phone number.", {
+        duration: 2000,
+        style: {
+          border: "1.3px solid white",
+          boxShadow: "1px 1px 15px 1px #e87a28",
+          color: "white",
+          backgroundColor: "#e87a28",
+          fontSize: "16px",
+          maxWidth: "600px",
+        },
       });
       return;
     }
@@ -39,33 +43,51 @@ const FreeConsultationForm = () => {
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
-    setLoading(true);
-    document.body.classList.add("loadings");
 
     const headers = {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     };
 
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_MILELE_API_URL}/freeConsultationForm/create`,
-        { customerName, phoneNumber },
-        { headers }
-      );
-      console.log(
-        "freeConsultationForm response is: --- ",
-        response?.data?.message
-      );
+    toast
+      .promise(
+        axios.post(
+          `${process.env.REACT_APP_MILELE_API_URL}/freeConsultationForm/create`,
+          { customerName, phoneNumber },
+          { headers }
+        ),
+        {
+          loading: "Submitting your request...",
+          success:
+            "Thank you for seeking our consultation. We will get back to you soon.",
+          error: (err) => {
+            console.log("Error:", err?.response?.data || err);
 
-      if (response?.data?.status === "success") {
-        toast.success(
-          "Thank you for seeking our consultation. We will get back to you soon at the provided number.",
-          {
-            autoClose: 3000,
-            style: { border: "1px solid #c0c0c0", fontSize: "14px" },
-          }
-        );
+            if (err?.response?.data?.error) {
+              const errors = err.response.data.error.errors;
+              if (errors?.email) {
+                return errors.email.message;
+              }
+              if (errors?.phoneNumber) {
+                return errors.phoneNumber.message;
+              }
+            }
+            return `Submission failed: ${err.message}`;
+          },
+        },
+        {
+          duration: 2000,
+          style: {
+            border: "1.3px solid white",
+            boxShadow: "1px 1px 15px 1px #e87a28",
+            color: "white",
+            backgroundColor: "#e87a28",
+            fontSize: "16px",
+            maxWidth: "600px",
+          },
+        }
+      )
+      .then(() => {
         setCustomerName("");
         setPhoneNumber("+971");
 
@@ -73,68 +95,15 @@ const FreeConsultationForm = () => {
         window.dataLayer.push({
           event: "homePageLeadForm",
         });
-      } else {
-        toast.error("Failed to contact. Please try again.", {
-          position: "top-right",
-          autoClose: 2000,
-        });
-      }
-    } catch (error) {
-      console.log("Error:", error?.response?.data || error);
-
-      if (
-        error?.response &&
-        error?.response?.data &&
-        error?.response?.data?.error
-      ) {
-        const errors = error?.response?.data?.error?.errors;
-        console.log("Error:", error?.response?.data);
-
-        if (errors?.email) {
-          toast.error(errors?.email?.message, {
-            position: "top-right",
-            autoClose: 2000,
-          });
-        }
-        if (errors?.phoneNumber) {
-          toast.error(errors?.phoneNumber?.message, {
-            position: "top-right",
-            autoClose: 2000,
-          });
-        }
-      } else {
-        toast.error(`Submission failed: ${error?.message}`, {
-          position: "top-right",
-          autoClose: 2000,
-        });
-      }
-    } finally {
-      setLoading(false);
-      document.body.classList.remove("loadings");
-    }
+      });
   };
-  
 
   return (
     <div id="main">
       <div className="free-consultation-main-container">
         <div className="free-consultation-main-div">
           <Container>
-            {
-            loading && (
-              <div className="reloading-icon-of-form-container text-center">
-                <span className="loader-text">
-                Submitting your Request . . .
-              </span>
-                <div className="lds-dual-ring text-center"></div>
-              </div>
-            )}
-
-            <form
-              action="#"
-              className="free-consultation-form"
-              onSubmit={handleFreeConsultationForm}
-            >
+            <form action="#2" className="free-consultation-form">
               <div className="free-consultation-text">
                 <h2 className="free-consultation-heading">
                   GET FREE CONSULTATION FROM OUR SALESMEN RIGHT NOW
@@ -187,14 +156,19 @@ const FreeConsultationForm = () => {
                         id="free-consultation-form-button"
                         aria-label="Get Free Consutation"
                         className="free-consultation-contactUs-button submit col-lg-12"
+                        onClick={handleFreeConsultationForm}
                       >
-                        <span className="button-text" id="free-consultation-form-heading"><b>CONTACT US</b></span>
+                        <span
+                          className="button-text"
+                          id="free-consultation-form-heading"
+                        >
+                          <b>CONTACT US</b>
+                        </span>
                       </button>
                     </Col>
                   </Row>
                 </div>
               </div>
-              <ToastContainer />
             </form>
           </Container>
         </div>

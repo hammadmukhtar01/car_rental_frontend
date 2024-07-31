@@ -4,12 +4,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import "./authentication.css";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, Toaster } from "react-hot-toast";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import FooterCombination from "../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import "../Pages/OtherPages/toastStyle.css";
 
 const UpdatePasswordPage = () => {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -125,7 +123,7 @@ const UpdatePasswordPage = () => {
           <div className="lds-dual-ring text-center"></div>
         </div>
       )}
-      <ToastContainer />
+      <Toaster/>
 
       <section className="mb-5 mt-5">
         <div className="container">

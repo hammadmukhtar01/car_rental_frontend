@@ -26,8 +26,7 @@ import "./vehicleDetails.css";
 import Pagination from "./pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 import { DateRange } from "react-date-range";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
@@ -37,7 +36,7 @@ import makeAnimated from "react-select/animated";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import "../OtherPages/toastStyle.css";
+import { toast, Toaster } from "react-hot-toast";
 
 const PageSize = 8;
 const animatedComponents = makeAnimated();
@@ -594,10 +593,10 @@ const VehiclesPage = () => {
       dropOffTime
     );
     if (!timeDiffChecker) {
-      toast.error(
+      toast(
         "The difference between pickup and dropoff time should be at least 60 minutes.",
         {
-          autoClose: 1000,
+          duration: 2000,
           style: {
             border: "1px solid #c0c0c0",
             fontWeight: "400",
@@ -610,9 +609,11 @@ const VehiclesPage = () => {
     }
 
     if (missingFields.length > 0) {
-      const errorMessage = `${missingFields.join(", ")} field(s) are missing.`;
-      toast.error(errorMessage, {
-        autoClose: 2000,
+      const errorMessage = `[${missingFields.join(
+        ", "
+      )}] field(s) are missing.`;
+      toast(errorMessage, {
+        duration: 4000,
         style: {
           border: "1px solid #c0c0c0",
           fontWeight: "400",
@@ -670,10 +671,6 @@ const VehiclesPage = () => {
       (dropOffDateWithTime - pickUpDateWithTime) / (1000 * 60);
 
     return timeDifference >= 60;
-  };
-
-  const toggleLocationData = () => {
-    setIsLocationDataOpen(!isLocationDataOpen);
   };
 
   const filterCars = useMemo(() => {
@@ -819,6 +816,14 @@ const VehiclesPage = () => {
   const handleFiltersToggle = () => setFiltersOpen(!filtersOpen);
   const handleFiltersClose = () => setFiltersOpen(false);
 
+  const showToast = () => {
+    toast("Vehicle Img clicked");
+  };
+  const handleVehicleImg = () => {
+    showToast();
+    console.log("Img is clicked ");
+  };
+
   const selectStyles = {
     control: (provided, { hasValue }) => ({
       ...provided,
@@ -826,8 +831,6 @@ const VehiclesPage = () => {
       border: "1px solid rgb(184, 184, 184)",
       boxShadow: "none",
       lineHeight: "32px",
-      // marginLeft: "-13px",
-      // marginRight: "-14px",
       borderRadius: "6px",
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
@@ -1368,7 +1371,7 @@ const VehiclesPage = () => {
                         </div>
                       ) : (
                         <>
-                          {currentTableData ? (
+                          {currentTableData && currentTableData.length > 0 ? (
                             <>
                               <Row className="offers-car-container-row">
                                 {currentTableData?.map((car, index) => {
@@ -1402,6 +1405,7 @@ const VehiclesPage = () => {
                                             title={`${car?.title}`}
                                             alt={`Rent ${car?.title}`}
                                             className="car-image"
+                                            onClick={handleVehicleImg}
                                             // id={`pay-now-for-${car?.title
                                             //   .replace(/\s+/g, "-")
                                             //   .toLowerCase()}-button`}
@@ -1589,7 +1593,6 @@ const VehiclesPage = () => {
           </div>
         </>
       </div>
-      <ToastContainer />
 
       <FooterCombination />
     </HelmetProvider>

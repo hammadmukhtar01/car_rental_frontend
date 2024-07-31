@@ -4,10 +4,8 @@ import { BsGeoAltFill, BsCalendar2CheckFill } from "react-icons/bs";
 import "./homepage.css";
 import { DateRange } from "react-date-range";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-hot-toast";
 import Select from "react-select";
-import "../OtherPages/toastStyle.css";
 
 const locations = [
   { value: "FUJAIRAH", label: "FUJAIRAH" },
@@ -115,16 +113,11 @@ const SearchBox = () => {
     updateLocalStorage(updatedUserData);
   };
 
-  const handleSearchClick = () => {
-    console.log("Search button is clicked");
-  };
-
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
-    handleSearchClick();
     if (!pickupLocation || (showDropoff && !dropoffLocation)) {
-      toast.error("Some inputs are missing.", {
-        autoClose: 1000,
+      toast.error("Some inputs are missing1.", {
+        duration: 2000,
         style: {
           border: "1px solid #c0c0c0",
           fontWeight: "400",
@@ -136,7 +129,7 @@ const SearchBox = () => {
 
     if (!dateRange[0]?.startDate || !dateRange[0]?.endDate) {
       toast.warn("Date must be chosen", {
-        autoClose: 1000,
+        duration: 2000,
         style: { border: "1px solid #c0c0c0", fontSize: "14px" },
       });
       return;
@@ -285,7 +278,7 @@ const SearchBox = () => {
                             <div className="location-label">
                               <label className="search-box-label">
                                 <BsGeoAltFill className="mr-2" />
-                                <>Pick*</>
+                                <>Pick-Up*</>
                               </label>
                             </div>
 
@@ -321,7 +314,7 @@ const SearchBox = () => {
                               <div className="location-label">
                                 <label className="search-box-label">
                                   <BsGeoAltFill className="mr-2" />
-                                  <>Drop*</>
+                                  <>Drop-Off *</>
                                 </label>
                               </div>
                               <div className="custom-dropdown-container">
@@ -380,12 +373,10 @@ const SearchBox = () => {
                         type="submit"
                         className="search-box-search-button"
                         id="home-page-search-box-button"
-                        onClick={handleSearchClick}
                         aria-label="Search Vehicles"
                       >
                         <span id="home-page-search-box-button">Search</span>
                       </button>
-                      <ToastContainer />
                     </Col>
                   </Row>
                 </form>

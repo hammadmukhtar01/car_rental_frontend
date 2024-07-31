@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import "./authentication.css";
-import "react-toastify/dist/ReactToastify.css";
-import "../Pages/OtherPages/toastStyle.css";
 import InitialGifWebP from "../images/auth-gif-before-edited.gif";
 import SignupPage from "./signupPage";
 import LoginPage from "./loginPage";

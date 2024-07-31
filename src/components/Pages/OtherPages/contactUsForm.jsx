@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, Toaster } from "react-hot-toast";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import '../OtherPages/toastStyle.css';
 
 const ContactUsForm = () => {
   const [formData, setFormData] = useState({
@@ -268,7 +266,7 @@ const ContactUsForm = () => {
               <button className="middle" aria-label="Contact Us Form Submission">
                 <span className="animate-button btn4" id="contact-us-submit">Submit</span>
               </button>
-              <ToastContainer />
+              <Toaster/>
             </div>
           </div>
         </form>

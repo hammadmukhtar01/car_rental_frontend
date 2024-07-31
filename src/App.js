@@ -28,6 +28,7 @@ import UpdatePasswordPage from "./components/authentication/updatePassword";
 import PrivateComponent from "./components/PrivateComponents/privateComponent";
 import CustomerProfilePage from "./components/customerDashboard/myProfilePage";
 import Map from "./Map";
+import ToasterWrapper from "./components/Pages/Utils/toastWrapper";
 const LazyAbout = React.lazy(() =>
   import("./components/Pages/OtherPages/aboutusPage")
 );
@@ -47,6 +48,7 @@ const App = () => {
     <>
       <GlobalLoader>
         <div className="App">
+        <ToasterWrapper />
           <Routes>
             <Route
               path="/"

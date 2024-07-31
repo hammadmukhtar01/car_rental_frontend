@@ -4,9 +4,7 @@ import "./pickupdropoffModal.css";
 import { Form } from "react-bootstrap";
 import SearchLocationInput from "../../GoogleMap/googleAutoCompleteAPI";
 import UseGlobalFormFields from "../Utils/useGlobalFormFields";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import '../../Pages/OtherPages/toastStyle.css';
+import { toast, Toaster } from "react-hot-toast";
 
 function DropoffLocationModal({
   show,
@@ -217,7 +215,7 @@ function DropoffLocationModal({
                           Start Booking
                         </span>
                       </button>
-                      <ToastContainer />
+                      <Toaster/>
                     </div>
                   </div>
                 </div>

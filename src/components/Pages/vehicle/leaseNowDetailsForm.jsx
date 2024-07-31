@@ -2,12 +2,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, Toaster } from "react-hot-toast";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import '../OtherPages/toastStyle.css';
 
 const LeaseNowFormDetails = ({
   estCarPrice,
@@ -298,7 +296,7 @@ const LeaseNowFormDetails = ({
               <button className="middle" id="lease-now-form-button" aria-label="Lease To Own Form Submission">
                 <span className="animate-button btn4">Submit</span>
               </button>
-              <ToastContainer />
+              <Toaster/>
             </div>
           </div>
         </form>

@@ -2,8 +2,7 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import { BsPersonCircle, BsFileEarmarkArrowUp } from "react-icons/bs";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-hot-toast";
 import Select from "react-select";
 import { useLocation } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
@@ -15,7 +14,6 @@ import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import "../OtherPages/toastStyle.css";
 
 const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const storedUserData = useMemo(
@@ -62,17 +60,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [isInternationalLicense, setIsInternationalLicense] = useState("");
   // Passport
   const [nationalityOptions, setNationalityOptions] = useState([]);
-  const [selectedNationality, setSelectedNationality] = useState(null);
-
-  // const [selectedNationality, setSelectedNationality] = useState("");
-  const [driverFlightDateTime, setDriverFlightDateTime] = useState(new Date());
-  const [airlineTicketNum, setAirlineTicketNum] = useState("");
 
   const [pickupLocationId, setPickupLocationId] = useState("");
   const [dropoffLocationId, setDropoffLocationId] = useState("");
   const [newCustomerDetail, setNewCustomerDetail] = useState("");
   const [paymentUrl, setPaymentUrl] = useState("");
-  const [bookingStatus, setBookingStatus] = useState("");
 
   const bookingDocURL = useLocation();
   const queryParams = useMemo(
@@ -81,7 +73,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   );
   const TariffGroupIdParam = parseInt(queryParams?.get("tariffGroupId"));
   const TariffVehicleNameParam = queryParams?.get("vehicleName");
-  const vehicleType = TariffVehicleNameParam.split("-")[1]?.trim();
+  // const vehicleType = TariffVehicleNameParam.split("-")[1]?.trim();
 
   const addOnsFromUrl = queryParams?.get("addOns").split(",").map(Number);
 
@@ -307,14 +299,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         getCustomerDetails(response?.data?.result);
       } else {
         const errorMessage = response?.data?.error?.message;
-        toast.error(errorMessage, {
-          autoClose: 5000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            lineHeight: "18px",
-            fontSize: "14px",
-          },
+        toast(errorMessage, {
+          duration: 3000,
         });
         console.error("Unexpected response structure:", response?.data);
       }
@@ -674,8 +660,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         id: newId,
       },
       driverId: newId,
-      flightDateTime: driverFlightDateTime?.toISOString(),
-      flightNo: airlineTicketNum,
       locationId: pickupLocationId,
       notes: pickdropCombineLoc,
       tariffGroupId: TariffGroupIdParam,
@@ -722,12 +706,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       updateLocalStorage(updatedUserData);
     } catch (error) {
       toast.error(`${error}`, {
-        autoClose: 5000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          fontSize: "14px",
-        },
+        duration: 3000,
       });
     }
   };
@@ -760,22 +739,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         newCustomerDetail
       );
 
-      setBookingStatus(response?.data?.success);
       const responseResult = response?.data?.success;
 
       if (responseResult === true) {
-        const bookingStatus = "success";
         // alert("Booking status is: ", bookingStatus);
         console.log("booking done successfully. Time for Payment");
 
         toast.success("Booking Done Successfully", {
-          autoClose: 2000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            lineHeight: "18px",
-            fontSize: "14px",
-          },
+          duration: 3000,
         });
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
@@ -794,10 +765,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       setLoadingBooking(false);
       document.body.classList.remove("loadings");
     }
-  };
-
-  const handleNationalityChange = (selectedOption) => {
-    setSelectedNationality(selectedOption);
   };
 
   const handleDrivingLicenseChange = (selectedOption) => {
@@ -820,14 +787,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       const errorMessage = `${customerDetailsMissingFields?.join(
         ", "
       )} field(s) are missing.`;
-      toast.error(errorMessage, {
-        autoClose: 5000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          lineHeight: "18px",
-          fontSize: "14px",
-        },
+      toast(errorMessage, {
+        duration: 5000,
       });
       return;
     }
@@ -858,14 +819,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         const errorMessage = `${customerDocumentsMissingFields?.join(
           ", "
         )} field(s) are missing.`;
-        toast.error(errorMessage, {
-          autoClose: 5000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            lineHeight: "18px",
-            fontSize: "14px",
-          },
+        toast(errorMessage, {
+          duration: 5000,
         });
         return;
       }
@@ -880,7 +835,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       lastName,
       contactNum,
       emailAddress,
-      airlineTicketNum,
       drivingLicenseNum
     );
     console.log("parsedPhoneNumber ");
@@ -892,9 +846,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       );
       if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
         console.log("parsedPhoneNumber parsedPhoneNumberparsedPhoneNumber");
-        toast.error("Please enter a valid phone number.", {
-          position: "top-right",
-          autoClose: 5000,
+        toast("Please enter a valid phone number.", {
+          duration: 5000,
         });
         return;
       }
@@ -975,14 +928,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       console.log(`response of payment API is: `, response?.data);
 
       if (response?.data && response?.data?.status === "success") {
-        await toast.info("Generating Payment link", {
-          autoClose: 5000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            lineHeight: "18px",
-            fontSize: "14px",
-          },
+        toast("Generating Payment link", {
+          duration: 5000,
         });
         console.log("Invoice Created, Payment URL:", response?.data?.status);
         setPaymentUrl(response?.data?.status);
@@ -1175,12 +1122,12 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                     </div>
                   </div>
                 </div>
-
-                <br />
                 <br />
 
                 {(user_customerSpeedId === null || !auth) && (
                   <>
+                    <br />
+
                     <div className="step1-car-details p-4">
                       <div className="location-label">
                         <div className="booking-doc-headings styled-label">
@@ -1333,109 +1280,25 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                         </div>
                       </div>
                     </div>
-                    <br />
                   </>
                 )}
 
-                <>
-                  <div className="step1-location-details p-4">
-                    <div className="location-label">
-                      <div className="booking-doc-headings styled-label">
-                        <BsPersonCircle className="mr-2 heading-icon" />
-                        <h2 className="booking-page-h1">
-                          <b>Driver's Details </b>
-                        </h2>
-                      </div>
-                    </div>
-                    <br />
-                    <div className="driver-details-form-container">
-                      <div className=" form-group  pr-4">
-                        <div className="">
-                          <Row>
-                            <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Airline Ticket No.</b>
-                                  </label>
-                                </div>
-                                <input
-                                  className="form-control-location mt-2 col-12"
-                                  type="text"
-                                  placeholder="Enter ticket number"
-                                  value={airlineTicketNum}
-                                  onChange={(e) =>
-                                    setAirlineTicketNum(e.target.value)
-                                  }
-                                />
-                              </Form.Group>
-                            </Col>
-
-                            <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label">
-                                    <b>Flight DateTime</b>
-                                  </label>
-                                </div>
-                                <DateTimePicker
-                                  className="form-control-age mt-2 col-12"
-                                  onChange={setDriverFlightDateTime}
-                                  value={driverFlightDateTime}
-                                />
-                              </Form.Group>
-                            </Col>
-                            <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
-                              <Form.Group controlId="formKeyword">
-                                <div className="location-label">
-                                  <label className="styled-label mb-3">
-                                    <b>Nationality </b>
-                                  </label>
-                                </div>
-                                <Select
-                                  options={nationalityOptions}
-                                  className="form-control-nationality col-12 nationality-dropdown"
-                                  value={
-                                    auth && user_token
-                                      ? {
-                                          label:
-                                            customerDetails?.customerData
-                                              ?.nationality?.label,
-                                          value:
-                                            customerDetails?.customerData
-                                              ?.nationality?.value,
-                                        }
-                                      : selectedNationality
-                                  }
-                                  onChange={
-                                    !(auth && user_token)
-                                      ? handleNationalityChange
-                                      : ""
-                                  }
-                                  isDisabled={auth && user_token}
-                                  styles={selectStyles}
-                                />
-                              </Form.Group>
-                            </Col>
-                          </Row>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <br />
-                </>
-
-                <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
-                  <Col lg={3} md={4} sm={6} xs={8} className="d-flex just">
+                <div className="booking-button-main-div-step1 d-flex justify-content-center">
+                  <Col
+                    lg={3}
+                    md={4}
+                    sm={6}
+                    xs={12}
+                    className="d-flex justify-content-center"
+                  >
                     <button
                       onClick={handleNextStep}
-                      className="map-loc-middle py-3"
+                      className="map-loc-middle "
                       id="book-pay-final-button"
                       aria-label="Booking & Payment"
                     >
                       <span className="animate-button btn4">Book & Pay</span>
                     </button>
-                    <ToastContainer />
                   </Col>
                 </div>
               </div>

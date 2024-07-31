@@ -4,11 +4,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Col, Form, Modal, Row } from "react-bootstrap";
 import "./authentication.css";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, Toaster } from "react-hot-toast";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import SuccessGifWebP from "../images/auth-gif-after-edited.gif";
-import "../Pages/OtherPages/toastStyle.css";
 
 const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
   const [email, setEmail] = useState("");
@@ -106,7 +104,7 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
         <meta name="keywords" content="keywords" />
       </Helmet>
 
-      <ToastContainer />
+      <Toaster/>
 
       {loading && (
         <div className="reloading-icon-of-form-container text-center">
