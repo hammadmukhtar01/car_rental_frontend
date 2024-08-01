@@ -8,8 +8,8 @@
 }
 
 .rental-exps-icon {
-  width: 20%;
-  height: auto;
+  max-width: 20%;
+  max-height: auto;
   border: 1px solid #e87a28;
   padding: 10px;
   margin: 10px 0px;
@@ -50,13 +50,13 @@
   position: absolute;
   background-color: #e87a28;
   z-index: 0;
+  height: 2px;
 }
 
 @media screen and (min-width: 1400px) {
   .divider {
     top: 30%;
-    width: calc(100% - 84px);
-    height: 2px;
+    max-width: calc(100% - 84px);
     transform: translateY(-50%);
   }
 
@@ -70,8 +70,7 @@
 @media screen and (min-width: 1200px) and (max-width: 1399px) {
   .divider {
     top: 30%;
-    width: calc(100% - 72px);
-    height: 2px;
+    max-width: calc(100% - 72px);
     transform: translateY(-50%);
   }
 
@@ -85,8 +84,7 @@
 @media screen and (min-width: 992px) and (max-width: 1199px) {
   .divider {
     top: 22%;
-    width: calc(100% - 58px);
-    height: 2px;
+    max-width: calc(100% - 58px);
     transform: translateY(-50%);
   }
 
@@ -100,8 +98,7 @@
 @media screen and (max-width: 991px) {
   .divider {
     left: 9%;
-    width: 2px;
-    height: calc(100% - 62px);
+    max-height: calc(100% - 62px);
     transform: translateX(-50%);
   }
 
@@ -116,8 +113,8 @@
   }
 
   .rental-exps-icon {
-    width: 9%;
-    height: fit-content;
+    max-width: 9%;
+    max-height: fit-content;
     border: 1px solid #e87a28;
     padding: 10px;
     margin: 10px 20px;
@@ -141,14 +138,13 @@
 @media screen and (max-width: 767px) {
   .divider {
     left: 11%;
-    width: 2px;
-    height: calc(100% - 57px);
+    max-height: calc(100% - 57px);
     transform: translateX(-50%);
   }
 
   .rental-exps-icon {
-    width: 11%;
-    height: fit-content;
+    max-width: 11%;
+    max-height: fit-content;
     border: 1px solid #e87a28;
     padding: 10px;
     margin: 10px 20px;
@@ -164,8 +160,7 @@
 @media screen and (max-width: 520px) {
   .divider {
     left: 11.3%;
-    width: 2px;
-    height: calc(100% - 54px);
+    max-height: calc(100% - 54px);
     transform: translateX(-50%);
   }
 
@@ -188,7 +183,7 @@
   }
 
   .rental-exps-icon {
-    width: 14%;
+    max-width: 14%;
   }
 
   .rental-exps-detail {
@@ -197,8 +192,7 @@
 
   .divider {
     left: 14%;
-    width: 2px;
-    height: calc(100% - 53px);
+    max-height: calc(100% - 53px);
     transform: translateX(-50%);
   }
 
@@ -209,12 +203,12 @@
 
 @media screen and (max-width: 375px) {
   .rental-exps-icon {
-    width: 18%;
+    max-width: 18%;
   }
 
   .divider {
     left: 17.5%;
-    height: calc(100% - 60px);
+    max-height: calc(100% - 60px);
   }
   .rental-exps-icon-text-container:not(:last-child) .divider {
     top: 40%;
