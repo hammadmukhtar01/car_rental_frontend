@@ -11,7 +11,6 @@ import {
 import { GiGearStickPattern, GiCarDoor } from "react-icons/gi";
 import { LuSnowflake } from "react-icons/lu";
 import { TiTick } from "react-icons/ti";
-import Modals from "./imageEnlarger";
 import { RxCross2 } from "react-icons/rx";
 import { toast } from "react-hot-toast";
 import { FaArrowTrendUp } from "react-icons/fa6";
@@ -25,6 +24,95 @@ import "./verticalSliderCarDetails.css";
 import { useLocation } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import axios from "axios";
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from "react-image-gallery";
+
+const importAll = (r) => {
+  return r.keys().map(r);
+};
+
+const captivaImages = importAll(
+  require.context(
+    "../../images/allVehicleImages/captiva-imgs",
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+);
+const altoImages = importAll(
+  require.context(
+    "../../images/allVehicleImages/alto-imgs",
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+);
+
+const nissanImages = importAll(
+  require.context(
+    "../../images/allVehicleImages/nissan-imgs",
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+);
+const peugeotImages = importAll(
+  require.context(
+    "../../images/allVehicleImages/peugeot-imgs",
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+);
+
+const celerioImages = importAll(
+  require.context(
+    "../../images/allVehicleImages/celerio-imgs",
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+);
+const ciazImages = importAll(
+  require.context(
+    "../../images/allVehicleImages/ciaz-imgs",
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+);
+
+const corollaImages = importAll(
+  require.context(
+    "../../images/allVehicleImages/corolla-imgs",
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+);
+const ertigaImages = importAll(
+  require.context(
+    "../../images/allVehicleImages/ertiga-imgs",
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+);
+
+const swiftImages = importAll(
+  require.context(
+    "../../images/allVehicleImages/swift-imgs",
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+);
+const vitaraImages = importAll(
+  require.context(
+    "../../images/allVehicleImages/vitara-imgs",
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+);
+
+const balenoImages = importAll(
+  require.context(
+    "../../images/allVehicleImages/baleno-imgs",
+    false,
+    /\.(png|jpe?g|svg)$/
+  )
+);
 
 const VehicleDetails = ({ nextStep }) => {
   const storedUserData = useMemo(
@@ -36,14 +124,12 @@ const VehicleDetails = ({ nextStep }) => {
   const [couponCode, setCouponCode] = useState("");
   const [isCouponApplied, setIsCouponApplied] = useState(false);
   const [appliedCoupon, setAppliedCoupon] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [singleVehicleDetails, setSingleVehicleDetails] = useState({});
   const [addOnsValuesData, setAddOnsValuesData] = useState([]);
   const [selectedAddOn, setSelectedAddOn] = useState(null);
   const [selectedAddOns, setSelectedAddOns] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [tariffLines, setTariffLines] = useState([]);
-
   // const [mileageInput, setMileageInput] = useState("");
 
   const carTypeInURL = useLocation();
@@ -72,6 +158,68 @@ const VehicleDetails = ({ nextStep }) => {
   const DropoffLocTabValue = "DELIVER";
   const calculatedVehiclePrice = parseInt(queryParams?.get("vehiclePrice"));
   // const [dropoffLocParamState, setDropoffLocParamState] = useState("DUBAI");
+
+  const createImagesArray = (images, prefix) => {
+    return images.map((image, index) => ({
+      original: image,
+      thumbnail: image,
+    }));
+  };
+
+  const vehicleImages = [
+    {
+      tariffGroupId: "8965",
+      imagesArray: createImagesArray(captivaImages, "captiva-car-rental-img"),
+    },
+    {
+      tariffGroupId: "8966",
+      imagesArray: createImagesArray(nissanImages, "nissan-car-rental-img"),
+    },
+    {
+      tariffGroupId: "8990",
+      imagesArray: createImagesArray(peugeotImages, "peugeot-car-rental-img"),
+    },
+    {
+      tariffGroupId: "8991",
+      imagesArray: createImagesArray(altoImages, "alto-car-rental-img"),
+    },
+
+    {
+      tariffGroupId: "8992",
+      imagesArray: createImagesArray(celerioImages, "celerio-car-rental-img"),
+    },
+    {
+      tariffGroupId: "8993",
+      imagesArray: createImagesArray(ciazImages, "ciaz-car-rental-img"),
+    },
+    {
+      tariffGroupId: "8994",
+      imagesArray: createImagesArray(corollaImages, "corolla-car-rental-img"),
+    },
+    {
+      tariffGroupId: "8996",
+      imagesArray: createImagesArray(ertigaImages, "ertiga-car-rental-img"),
+    },
+    {
+      tariffGroupId: "8997",
+      imagesArray: createImagesArray(swiftImages, "swift-car-rental-img"),
+    },
+    {
+      tariffGroupId: "8998",
+      imagesArray: createImagesArray(vitaraImages, "vitara-car-rental-img"),
+    },
+    {
+      tariffGroupId: "8999",
+      imagesArray: createImagesArray(balenoImages, "baleno-car-rental-img"),
+    },
+    {
+      tariffGroupId: "9246",
+      imagesArray: createImagesArray(corollaImages, "corolla-car-rental-img"),
+    },
+  ];
+  const selectedVehicleImages = vehicleImages.find(
+    (vehicle) => vehicle?.tariffGroupId === TariffGroupId
+  );
 
   const fetchSingleCarDetails = useCallback(async () => {
     let data = { TariffGroupId, StartDateTime, ReturnDateTime };
@@ -175,7 +323,7 @@ const VehicleDetails = ({ nextStep }) => {
   const carCategory =
     categoryMap[baseAPIResponsePath?.acrissCategory?.name] ||
     baseAPIResponsePath?.acrissCategory?.name;
-  const carImg = baseAPIResponsePath?.displayImage?.url;
+  // const carImg = baseAPIResponsePath?.displayImage?.url;
 
   const totalAPIResponseCharges =
     parseInt(calculatedVehiclePrice) !== 0
@@ -524,12 +672,7 @@ const VehicleDetails = ({ nextStep }) => {
   const grandTotalPriceWithDiscount =
     grandTotalPrice - grandTotalDiscountedValue();
 
-  const handleImageClick = () => {
-    setIsModalOpen(true);
-  };
-
   const handleCloseModal = () => {
-    setIsModalOpen(false);
     setShowModal(false);
   };
 
@@ -709,17 +852,16 @@ const VehicleDetails = ({ nextStep }) => {
                           >
                             <div className="pt-3 text-center">
                               <div className="carousel-container">
-                                <img
-                                  src={carImg}
-                                  alt="Loading..."
-                                  className="car-image-1"
-                                  onClick={handleImageClick}
-                                  title={
-                                    carTypeName
-                                      ? `${carTypeName} - ${carCategory}`
-                                      : "Vehicle"
-                                  }
-                                />
+                                {selectedVehicleImages ? (
+                                  <ImageGallery
+                                    showBullets={true}
+                                    showNav={false}
+                                    showIndex={true}
+                                    items={selectedVehicleImages.imagesArray}
+                                  />
+                                ) : (
+                                  <p>No images available for this vehicle.</p>
+                                )}
                               </div>
                             </div>
                           </Col>
@@ -1280,14 +1422,6 @@ const VehicleDetails = ({ nextStep }) => {
                   </button>
                 </Col>
               </div>
-            </div>
-            <div className="car-img-modal-class">
-              <Modals
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
-                imageSrc={carImg}
-                alt="large-view"
-              />
             </div>
           </>
         </Container>
