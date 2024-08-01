@@ -31,7 +31,7 @@ const StepperComponent = () => {
       id: 3,
       iconName: BookVehicleIcon,
       webPIcon: BookVehicleWebPIcon,
-      headingName: "Book your car...",
+      headingName: "Book your car",
       rentalStepsDetail:
         "Finally, browse our extensive fleet and select the one that best suits your needs.",
     },
@@ -76,20 +76,6 @@ const StepperComponent = () => {
                     </picture>
                   </div>
 
-                  {/* <div
-                    href="#map"
-                    title="Find Our Location"
-                    className={`rental-exps-icon ${
-                      index === 1 ? "date-picker-icon" : ""
-                    }`}
-                    id="location-map-icon"
-                  >
-                    <rentalStepsData.iconName
-                      className={`stepper-icon fs-3 ${
-                        index === 1 ? "text-white" : "primary-color-icon-stepper"
-                      } `}
-                    />
-                  </div> */}
                   {index < rentalStepsDataArr.length - 1 && (
                     <div className="divider"></div>
                   )}
