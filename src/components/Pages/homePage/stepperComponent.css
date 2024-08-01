@@ -50,13 +50,14 @@
   position: absolute;
   background-color: #e87a28;
   z-index: 0;
-  height: 2px;
+  /* height: 2px; */
 }
 
 @media screen and (min-width: 1400px) {
   .divider {
     top: 30%;
     max-width: calc(100% - 84px);
+    height: 2px;
     transform: translateY(-50%);
   }
 
@@ -71,6 +72,7 @@
   .divider {
     top: 30%;
     max-width: calc(100% - 72px);
+    height: 2px;
     transform: translateY(-50%);
   }
 
@@ -85,6 +87,7 @@
   .divider {
     top: 22%;
     max-width: calc(100% - 58px);
+    height: 2px;
     transform: translateY(-50%);
   }
 
@@ -99,6 +102,7 @@
   .divider {
     left: 9%;
     max-height: calc(100% - 62px);
+    width: 2px;
     transform: translateX(-50%);
   }
 
@@ -139,6 +143,7 @@
   .divider {
     left: 11%;
     max-height: calc(100% - 57px);
+    width: 2px;
     transform: translateX(-50%);
   }
 
@@ -161,6 +166,7 @@
   .divider {
     left: 11.3%;
     max-height: calc(100% - 54px);
+    width: 2px;
     transform: translateX(-50%);
   }
 
@@ -193,6 +199,7 @@
   .divider {
     left: 14%;
     max-height: calc(100% - 53px);
+    width: 2px;
     transform: translateX(-50%);
   }
 
