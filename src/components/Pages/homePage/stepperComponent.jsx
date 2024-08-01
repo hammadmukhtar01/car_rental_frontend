@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "./stepperComponent.css";
@@ -27,7 +28,7 @@ const StepperComponent = () => {
     {
       id: 3,
       iconName: FaCarRear,
-      headingName: "Book your car..",
+      headingName: "Book your car...",
       rentalStepsDetail:
         "Finally, browse our extensive fleet and select the one that best suits your needs.",
     },
@@ -63,7 +64,7 @@ const StepperComponent = () => {
                   <div
                     href="#map"
                     title="Find Our Location"
-                    className={`${
+                    className={`rental-exps-icon ${
                       index === 1 ? "date-picker-icon" : ""
                     }`}
                     id="location-map-icon"
