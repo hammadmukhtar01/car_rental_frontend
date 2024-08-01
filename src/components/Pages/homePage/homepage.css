@@ -203,8 +203,8 @@
 }
 
 .rental-exp-icon {
-  width: 20%;
-  height: auto;
+  max-width: 20%;
+  max-height: auto;
   border: 1px solid #e87a28;
   padding: 10px;
   margin: 10px 0px;
@@ -369,8 +369,8 @@
   }
 
   .rental-exp-icon {
-    width: 12%;
-    height: fit-content;
+    max-width: 12%;
+    max-height: fit-content;
     border: 1px solid #e87a28;
     padding: 10px;
     margin: 10px 20px;
@@ -430,8 +430,8 @@
   }
 
   .rental-exp-icon {
-    width: 17%;
-    height: fit-content;
+    max-width: 17%;
+    max-height: fit-content;
     border: 1px solid #e87a28;
     padding: 8px;
     margin: 10px 15px;
