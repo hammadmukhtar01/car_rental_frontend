@@ -27,7 +27,7 @@ const StepperComponent = () => {
     {
       id: 3,
       iconName: FaCarRear,
-      headingName: "Book your car",
+      headingName: "Book your car..",
       rentalStepsDetail:
         "Finally, browse our extensive fleet and select the one that best suits your needs.",
     },
@@ -63,7 +63,7 @@ const StepperComponent = () => {
                   <div
                     href="#map"
                     title="Find Our Location"
-                    className={`rental-exps-icon ${
+                    className={`${
                       index === 1 ? "date-picker-icon" : ""
                     }`}
                     id="location-map-icon"
