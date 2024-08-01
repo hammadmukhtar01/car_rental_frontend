@@ -291,6 +291,8 @@ const CustomerProfilePage = () => {
   // Update Customer Profile of Own Backend DB
   const updateCustomerProfileOwnDB = async () => {
     if (!isEmailValid(email)) {
+
+      toast.dismiss();
       toast("Please enter a valid email address.", {
         duration: 1500,
       });
@@ -303,6 +305,8 @@ const CustomerProfilePage = () => {
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
       console.log("Phne Number: ", phoneNumber);
+
+      toast.dismiss();
       toast("Please enter a valid phone number.", {
         duration: 2500,
       });
@@ -343,6 +347,8 @@ const CustomerProfilePage = () => {
           localStorage.setItem("user", JSON.stringify(user));
         }
 
+
+        toast.dismiss();
         toast("Profile Updated Successfully!", {
           duration: 2000,
          
@@ -355,6 +361,8 @@ const CustomerProfilePage = () => {
       } else {
         alert("Some fields are miss own DB");
 
+
+        toast.dismiss();
         toast("Some fields are missing", {
           duration: 2000,
          
@@ -363,6 +371,8 @@ const CustomerProfilePage = () => {
     } catch (error) {
       console.log("Error : ", error);
       alert(error?.response?.data?.message || "Some fields are missing");
+
+      toast.dismiss();
       toast(error?.response?.data?.message || "Some fields are missing", {
         duration: 2000,
        
@@ -436,6 +446,8 @@ const CustomerProfilePage = () => {
         // alert("alert customer created...");
       } else {
         const errorMessage = response?.data?.error?.message;
+
+        toast.dismiss();
         toast(errorMessage, {
           duration: 5000,
           style: {
@@ -479,6 +491,7 @@ const CustomerProfilePage = () => {
       const errorMessage = `${customerDetailsMissingFields?.join(
         ", "
       )} field(s) are missing.`;
+      toast.dismiss();
       toast(errorMessage, {
         
       });
@@ -508,6 +521,8 @@ const CustomerProfilePage = () => {
         const errorMessage = `${customerDocumentsMissingFields?.join(
           ", "
         )} field(s) are missing.`;
+
+        toast.dismiss();
         toast(errorMessage, {
           duration: 5000,
          

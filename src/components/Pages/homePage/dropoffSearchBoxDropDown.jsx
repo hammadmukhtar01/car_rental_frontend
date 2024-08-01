@@ -82,6 +82,7 @@ function DropoffLocationModal({
     if (selectedTab === "deliver") {
       if (!formFields?.deliveryMapLocDropOff?.trim()) {
         const errorMessage = "Please fill the required field.";
+        toast.dismiss();
         toast(errorMessage, {
           duration: 2000,
          

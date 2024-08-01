@@ -52,6 +52,10 @@
   z-index: 0;
 }
 
+.primary-color-icon-stepper {
+    color: #e87a28;
+}
+
 @media screen and (min-width: 1400px) {
   .divider {
     top: 30%;
@@ -126,7 +130,7 @@
   .rental-exps-icon-text-container {
     flex-direction: row;
     text-align: left;
-    padding-left: 10px;
+    padding-left: 15px;
     padding-bottom: 30px;
     align-items: center;
   }
@@ -199,6 +203,6 @@
   }
 
   .rental-exps-icon-text-container:not(:last-child) .divider {
-    top: 45%;
+    top: 47%;
   }
 }

@@ -4,26 +4,29 @@ import "./stepperComponent.css";
 import LocationIcon from "../../images/pin-home-page-icon.png";
 import DatePickerIcon from "../../images/pick-drop-date-icon.png";
 import BookVehicleIcon from "../../images/car-booking-icon.png";
+import { FaCarRear } from "react-icons/fa6";
+import { BsCalendar2DateFill } from "react-icons/bs";
+import { ImLocation } from "react-icons/im";
 
 const StepperComponent = () => {
   const rentalStepsDataArr = [
     {
       id: 1,
-      iconName: LocationIcon,
+      iconName: ImLocation,
       headingName: "Choose a location",
       rentalStepsDetail:
         "Start by selecting the most convenient pick-up location for you.",
     },
     {
       id: 2,
-      iconName: DatePickerIcon,
+      iconName: BsCalendar2DateFill,
       headingName: "Choose pick-up date",
       rentalStepsDetail:
         "Next, choose your desired pick-up date with our flexible scheduling.",
     },
     {
       id: 3,
-      iconName: BookVehicleIcon,
+      iconName: FaCarRear,
       headingName: "Book your car",
       rentalStepsDetail:
         "Finally, browse our extensive fleet and select the one that best suits your needs.",
@@ -52,11 +55,25 @@ const StepperComponent = () => {
                   className="rental-exps-icon-text-container"
                   key={rentalStepsData.id}
                 >
-                  <img
+                  {/* <img
                     src={rentalStepsData.iconName}
                     alt={rentalStepsData.headingName}
                     className={`rental-exps-icon ${index === 1 ? 'date-picker-icon' : ''}`}
-                  />
+                  /> */}
+                  <div
+                    href="#map"
+                    title="Find Our Location"
+                    className={`rental-exps-icon ${
+                      index === 1 ? "date-picker-icon" : ""
+                    }`}
+                    id="location-map-icon"
+                  >
+                    <rentalStepsData.iconName
+                      className={`stepper-icon fs-3 ${
+                        index === 1 ? "text-white" : "primary-color-icon-stepper"
+                      } `}
+                    />
+                  </div>
                   {index < rentalStepsDataArr.length - 1 && (
                     <div className="divider"></div>
                   )}

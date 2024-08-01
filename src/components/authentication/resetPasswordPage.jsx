@@ -32,6 +32,7 @@ const ResetPasswordPage = () => {
       console.log("Result in reset password page is: ", result);
 
       if (result?.status === 201) {
+        toast.dismiss(); 
         toast("Password Updated successfully.", {
           duration: 2000,
 
@@ -46,6 +47,7 @@ const ResetPasswordPage = () => {
         });
       }
     } catch (error) {
+      toast.dismiss(); 
       toast(`${error?.response?.data?.message}`, {
         duration: 2000,
       });

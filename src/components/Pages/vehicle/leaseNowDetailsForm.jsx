@@ -37,6 +37,7 @@ const LeaseNowFormDetails = ({
       country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
+      toast.dismiss();
       toast("Please enter a valid phone number.", {
         duration: 2000,
       });
@@ -46,6 +47,7 @@ const LeaseNowFormDetails = ({
     console.log(`Phone numbe ris : ${formData?.phoneNumber}`);
 
     if (!emailRegex.test(formData?.email)) {
+      toast.dismiss();
       toast("Please enter a valid email address.", {
         duration: 2000,
       });
@@ -89,6 +91,7 @@ const LeaseNowFormDetails = ({
       );
 
       if (response?.data?.status === "success") {
+        toast.dismiss();
         toast(
           "Thank You for Contacting Us for leasing. We will get back to you soon!",
           {
@@ -107,6 +110,7 @@ const LeaseNowFormDetails = ({
           }
         );
       } else {
+        toast.dismiss();
         toast("Failed to send your message. Please try again.", {
           duration: 2000,
         });
@@ -127,16 +131,19 @@ const LeaseNowFormDetails = ({
         console.log("Error console 2:", error?.response?.data?.error);
 
         if (errors?.email) {
+          toast.dismiss();
           toast(errors?.email?.message, {
             duration: 2000,
           });
         }
         if (errors?.phoneNumber) {
+          toast.dismiss();
           toast(errors?.phoneNumber?.message, {
             duration: 2000,
           });
         }
       } else {
+        toast.dismiss();
         toast(`Submission failed: ${error?.message}`, {
           duration: 2000,
         });
@@ -286,10 +293,14 @@ const LeaseNowFormDetails = ({
           </div>
           <div className="form-group-3 col-lg-12 pt-2 pb-3">
             <div className="col-lg-12 col-md-6 d-flex justify-content-center">
-              <button className="middle" id="lease-now-form-button" aria-label="Lease To Own Form Submission">
+              <button
+                className="middle"
+                id="lease-now-form-button"
+                aria-label="Lease To Own Form Submission"
+              >
                 <span className="animate-button btn4">Submit</span>
               </button>
-              <Toaster/>
+              <Toaster />
             </div>
           </div>
         </form>

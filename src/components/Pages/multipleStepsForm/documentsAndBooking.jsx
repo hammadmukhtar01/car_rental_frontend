@@ -299,6 +299,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         getCustomerDetails(response?.data?.result);
       } else {
         const errorMessage = response?.data?.error?.message;
+        toast.dismiss();
         toast(errorMessage, {
           duration: 3000,
         });
@@ -705,6 +706,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
       updateLocalStorage(updatedUserData);
     } catch (error) {
+      toast.dismiss();
       toast(`${error}`, {
         duration: 3000,
       });
@@ -744,6 +746,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       if (responseResult === true) {
         // alert("Booking status is: ", bookingStatus);
         console.log("booking done successfully. Time for Payment");
+        toast.dismiss();
 
         toast("Booking Done Successfully", {
           duration: 3000,
@@ -787,6 +790,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       const errorMessage = `${customerDetailsMissingFields?.join(
         ", "
       )} field(s) are missing.`;
+      toast.dismiss();
       toast(errorMessage, {
         duration: 5000,
       });
@@ -819,6 +823,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         const errorMessage = `${customerDocumentsMissingFields?.join(
           ", "
         )} field(s) are missing.`;
+        toast.dismiss();
         toast(errorMessage, {
           duration: 5000,
         });
@@ -846,6 +851,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       );
       if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
         console.log("parsedPhoneNumber parsedPhoneNumberparsedPhoneNumber");
+        toast.dismiss();
         toast("Please enter a valid phone number.", {
           duration: 5000,
         });
@@ -928,6 +934,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       console.log(`response of payment API is: `, response?.data);
 
       if (response?.data && response?.data?.status === "success") {
+        toast.dismiss();
         toast("Generating Payment link", {
           duration: 5000,
         });

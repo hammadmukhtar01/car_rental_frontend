@@ -98,6 +98,7 @@ function PickupLocationModal({
     if (selectedTab === "deliver") {
       if (!formFields?.deliveryMapLocPickUp?.trim()) {
         const errorMessage = "Please fill the required field.";
+        toast.dismiss();
         toast(errorMessage, {
           duration: 2000,
          
