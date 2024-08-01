@@ -52,10 +52,6 @@
   z-index: 0;
 }
 
-.primary-color-icon-stepper {
-    color: #e87a28;
-}
-
 @media screen and (min-width: 1400px) {
   .divider {
     top: 30%;
@@ -103,14 +99,14 @@
 
 @media screen and (max-width: 991px) {
   .divider {
-    left: 10%;
+    left: 9%;
     width: 2px;
-    height: calc(100% - 79px);
+    height: calc(100% - 62px);
     transform: translateX(-50%);
   }
 
   .rental-exps-icon-text-container:not(:last-child) .divider {
-    top: 49%;
+    top: 42%;
     bottom: 0;
     transform: translateX(-50%) translateY(50%);
   }
@@ -120,7 +116,7 @@
   }
 
   .rental-exps-icon {
-    width: 12%;
+    width: 9%;
     height: fit-content;
     border: 1px solid #e87a28;
     padding: 10px;
@@ -130,7 +126,7 @@
   .rental-exps-icon-text-container {
     flex-direction: row;
     text-align: left;
-    padding-left: 15px;
+    padding-left: 10px;
     padding-bottom: 30px;
     align-items: center;
   }
@@ -146,12 +142,20 @@
   .divider {
     left: 11%;
     width: 2px;
-    height: calc(100% - 61px);
+    height: calc(100% - 57px);
     transform: translateX(-50%);
   }
 
+  .rental-exps-icon {
+    width: 11%;
+    height: fit-content;
+    border: 1px solid #e87a28;
+    padding: 10px;
+    margin: 10px 20px;
+  }
+
   .rental-exps-icon-text-container:not(:last-child) .divider {
-    top: 42%;
+    top: 38%;
     bottom: 0;
     transform: translateX(-50%) translateY(50%);
   }
@@ -159,14 +163,14 @@
 
 @media screen and (max-width: 520px) {
   .divider {
-    left: 12%;
+    left: 11.3%;
     width: 2px;
-    height: calc(100% - 53px);
+    height: calc(100% - 54px);
     transform: translateX(-50%);
   }
 
   .rental-exps-icon-text-container:not(:last-child) .divider {
-    top: 46%;
+    top: 38%;
   }
 
   .rental-exps-detail {
@@ -184,11 +188,7 @@
   }
 
   .rental-exps-icon {
-    width: 15%;
-    height: fit-content;
-    border: 1px solid #e87a28;
-    padding: 10px;
-    margin: 10px 15px;
+    width: 14%;
   }
 
   .rental-exps-detail {
@@ -196,13 +196,27 @@
   }
 
   .divider {
-    left: 13%;
+    left: 14%;
     width: 2px;
-    height: calc(100% - 63px);
+    height: calc(100% - 53px);
     transform: translateX(-50%);
   }
 
   .rental-exps-icon-text-container:not(:last-child) .divider {
-    top: 47%;
+    top: 37%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .rental-exps-icon {
+    width: 18%;
+  }
+
+  .divider {
+    left: 17.5%;
+    height: calc(100% - 60px);
+  }
+  .rental-exps-icon-text-container:not(:last-child) .divider {
+    top: 40%;
   }
 }

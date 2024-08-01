@@ -230,6 +230,10 @@
   font-weight: bold;
 }
 
+.rent-exp-pic-container {
+  display: contents;
+}
+
 .react-slideshow-container .nav:first-of-type {
   left: 88% !important;
   top: 102% !important;
@@ -405,6 +409,13 @@
     position: relative;
     height: 425px;
   }
+}
+
+@media screen and (max-width: 576px) {
+  .search-box-label {
+    font-size: 14px;
+  }
+
 }
 
 @media screen and (max-width: 476px) {

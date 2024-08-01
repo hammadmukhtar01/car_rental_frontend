@@ -2,32 +2,35 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "./stepperComponent.css";
-import LocationIcon from "../../images/pin-home-page-icon.png";
-import DatePickerIcon from "../../images/pick-drop-date-icon.png";
-import BookVehicleIcon from "../../images/car-booking-icon.png";
-import { FaCarRear } from "react-icons/fa6";
-import { BsCalendar2DateFill } from "react-icons/bs";
-import { ImLocation } from "react-icons/im";
+import LocationIcon from "../../images/pin-home-page-icon.svg";
+import DatePickerIcon from "../../images/pick-drop-date-icon.svg";
+import BookVehicleIcon from "../../images/car-booking-icon.svg";
+import LocationWebPIcon from "../../images/pin-home-page-icon.webp";
+import DatePickerWebPIcon from "../../images/pick-drop-date-icon.webp";
+import BookVehicleWebPIcon from "../../images/car-booking-icon.webp";
 
 const StepperComponent = () => {
   const rentalStepsDataArr = [
     {
       id: 1,
-      iconName: ImLocation,
+      iconName: LocationIcon,
+      webPIcon: LocationWebPIcon,
       headingName: "Choose a location",
       rentalStepsDetail:
         "Start by selecting the most convenient pick-up location for you.",
     },
     {
       id: 2,
-      iconName: BsCalendar2DateFill,
+      iconName: DatePickerIcon,
+      webPIcon: DatePickerWebPIcon,
       headingName: "Choose pick-up date",
       rentalStepsDetail:
         "Next, choose your desired pick-up date with our flexible scheduling.",
     },
     {
       id: 3,
-      iconName: FaCarRear,
+      iconName: BookVehicleIcon,
+      webPIcon: BookVehicleWebPIcon,
       headingName: "Book your car...",
       rentalStepsDetail:
         "Finally, browse our extensive fleet and select the one that best suits your needs.",
@@ -56,12 +59,22 @@ const StepperComponent = () => {
                   className="rental-exps-icon-text-container"
                   key={rentalStepsData.id}
                 >
-                  {/* <img
-                    src={rentalStepsData.iconName}
-                    alt={rentalStepsData.headingName}
-                    className={`rental-exps-icon ${index === 1 ? 'date-picker-icon' : ''}`}
-                  /> */}
-                  <div
+                  <picture className="rent-exp-pic-container">
+                    <source
+                      srcSet={rentalStepsData?.webPIcon}
+                      type="image/webp"
+                    />
+                    <img
+                      src={rentalStepsData.iconName}
+                      alt={rentalStepsData.headingName}
+                      className={`rental-exps-icon ${
+                        index === 1 ? "date-picker-icon" : ""
+                      }`}
+                      title="steps to rent a car"
+                    />
+                  </picture>
+
+                  {/* <div
                     href="#map"
                     title="Find Our Location"
                     className={`rental-exps-icon ${
@@ -74,7 +87,7 @@ const StepperComponent = () => {
                         index === 1 ? "text-white" : "primary-color-icon-stepper"
                       } `}
                     />
-                  </div>
+                  </div> */}
                   {index < rentalStepsDataArr.length - 1 && (
                     <div className="divider"></div>
                   )}
