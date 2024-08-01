@@ -275,7 +275,6 @@ const VehiclesPage = () => {
         { TariffGroupId: tariffGroupId },
         { headers }
       );
-
       const tariffLines =
         response?.data?.result?.tariffLines?.items.slice(0, 3) || [];
 
@@ -1395,7 +1394,7 @@ const VehiclesPage = () => {
                                         <div className="car-name-div">
                                           <span className="car-name text-end">
                                             {" "}
-                                            <b>{car?.title}</b> | (
+                                            <b>{car?.title}</b> <b>{car?.tariffGroupId}</b>  | (
                                             {categoryMap[
                                               car?.acrissCategory?.name
                                             ] || car?.acrissCategory?.name}{" "}
