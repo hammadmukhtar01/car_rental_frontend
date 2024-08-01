@@ -11,16 +11,20 @@ import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 import HomePageTopBar from "../navbar/homePageTopBar";
 import MainNavbar from "../navbar/mainNavbar";
 import FooterCombination from "../../PrivateComponents/footerCombination";
-import ZeroSecuirtyDepositImg from "../../images/zero-deposit.png";
-import TabbytImg from "../../images/tabby.png";
-import MoreVehiclesImg from "../../images/vehicles.png";
+import ZeroSecuirtyDepositImg from "../../images/zero-deposit.svg";
+import TabbytImg from "../../images/tabby.svg";
+import MoreVehiclesImg from "../../images/vehicles.svg";
 import StepperComponent from "./stepperComponent";
+import ZeroSecuirtyDepositWebPImg from "../../images/zero-deposit.webp";
+import TabbytWebPImg from "../../images/tabby.webp";
+import MoreVehiclesWebPImg from "../../images/vehicles.webp";
 
 const HomePage = () => {
   const rentalExpDataArr = [
     {
       id: 1,
       iconName: ZeroSecuirtyDepositImg,
+      webPIcon: ZeroSecuirtyDepositWebPImg,
       headingName: "Zero Security Deposit",
       rentalExpDetail:
         "Enjoy a hassle-free experience without the need for upfront callateral.",
@@ -29,6 +33,7 @@ const HomePage = () => {
     {
       id: 2,
       iconName: TabbytImg,
+      webPIcon: TabbytWebPImg,
       headingName: "Pay in Installments with Tabby",
       rentalExpDetail:
         "Enjoy payment flexibility by spreading the cost of your rental over time with Tabby.",
@@ -37,6 +42,7 @@ const HomePage = () => {
     {
       id: 3,
       iconName: MoreVehiclesImg,
+      webPIcon: MoreVehiclesWebPImg,
       headingName: "Wide Selection of Vehicles",
       rentalExpDetail: "From compace to luxury Sedans and spacious SUVs.",
     },
@@ -97,19 +103,28 @@ const HomePage = () => {
                         key={rentalExpData?.id}
                       >
                         {" "}
-                        <img
-                          src={rentalExpData.iconName}
-                          alt={rentalExpData.headingName}
-                          className="rental-exp-icon"
-                        />{" "}
-                        <Row>
-                          <div className="rental-exp-sub-headings">
-                            {rentalExpData?.headingName}
-                          </div>{" "}
-                          <div className="rental-exp-detail">
-                            {rentalExpData?.rentalExpDetail}
-                          </div>
-                        </Row>
+                        <div className="rent-exp-pic-container">
+                          <picture className="rent-exp-pic-container">
+                            <source
+                              srcSet={rentalExpData?.webPIcon}
+                              type="image/webp"
+                            />
+                            <img
+                              src={rentalExpData?.iconName}
+                              alt={rentalExpData?.headingName}
+                              className="rental-exp-icon"
+                              title="rental-exp"
+                            />{" "}
+                          </picture>
+                          <Row>
+                            <div className="rental-exp-sub-headings">
+                              {rentalExpData?.headingName}
+                            </div>{" "}
+                            <div className="rental-exp-detail">
+                              {rentalExpData?.rentalExpDetail}
+                            </div>
+                          </Row>
+                        </div>
                       </Col>
                     ))}
                   </Row>
