@@ -81,7 +81,7 @@ const StepperComponent = () => {
                   )}
                   <Row>
                     <div className="rental-exps-sub-headings">
-                      {rentalStepsData.headingName}
+                      <b> {rentalStepsData.headingName}</b>
                     </div>
                     <div className="rental-exps-detail">
                       {rentalStepsData.rentalStepsDetail}

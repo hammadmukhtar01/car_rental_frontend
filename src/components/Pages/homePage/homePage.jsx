@@ -118,7 +118,7 @@ const HomePage = () => {
                           </picture>
                           <Row>
                             <div className="rental-exp-sub-headings">
-                              {rentalExpData?.headingName}
+                              <b>{rentalExpData?.headingName}</b>
                             </div>{" "}
                             <div className="rental-exp-detail">
                               {rentalExpData?.rentalExpDetail}
