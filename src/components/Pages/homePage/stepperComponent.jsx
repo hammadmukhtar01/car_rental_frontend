@@ -59,20 +59,22 @@ const StepperComponent = () => {
                   className="rental-exps-icon-text-container"
                   key={rentalStepsData.id}
                 >
-                  <picture className="rent-exp-pic-container">
-                    <source
-                      srcSet={rentalStepsData?.webPIcon}
-                      type="image/webp"
-                    />
-                    <img
-                      src={rentalStepsData.iconName}
-                      alt={rentalStepsData.headingName}
-                      className={`rental-exps-icon ${
-                        index === 1 ? "date-picker-icon" : ""
-                      }`}
-                      title="steps to rent a car"
-                    />
-                  </picture>
+                  <div className="rent-exp-pic-container">
+                    <picture className="rent-exp-pic-container">
+                      <source
+                        srcSet={rentalStepsData?.webPIcon}
+                        type="image/webp"
+                      />
+                      <img
+                        src={rentalStepsData.iconName}
+                        alt={rentalStepsData.headingName}
+                        className={`rental-exps-icon ${
+                          index === 1 ? "date-picker-icon" : ""
+                        }`}
+                        title="steps to rent a car"
+                      />
+                    </picture>
+                  </div>
 
                   {/* <div
                     href="#map"
