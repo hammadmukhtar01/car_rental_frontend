@@ -21,16 +21,9 @@ const FreeConsultationForm = () => {
       country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
+      toast.dismiss(); 
       toast("Please enter a valid phone number.", {
         duration: 2000,
-        style: {
-          border: "1.3px solid white",
-          boxShadow: "1px 1px 15px 1px #e87a28",
-          color: "white",
-          backgroundColor: "#e87a28",
-          fontSize: "16px",
-          maxWidth: "600px",
-        },
       });
       return;
     }
@@ -49,6 +42,7 @@ const FreeConsultationForm = () => {
       "Access-Control-Allow-Origin": "*",
     };
 
+    toast.dismiss(); 
     toast
       .promise(
         axios.post(
@@ -77,14 +71,6 @@ const FreeConsultationForm = () => {
         },
         {
           duration: 2000,
-          style: {
-            border: "1.3px solid white",
-            boxShadow: "1px 1px 15px 1px #e87a28",
-            color: "white",
-            backgroundColor: "#e87a28",
-            fontSize: "16px",
-            maxWidth: "600px",
-          },
         }
       )
       .then(() => {

@@ -116,6 +116,7 @@ const SearchBox = () => {
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
     if (!pickupLocation || (showDropoff && !dropoffLocation)) {
+      toast.dismiss();
       toast("Some inputs are missing1.", {
         duration: 2000,
         
@@ -124,6 +125,7 @@ const SearchBox = () => {
     }
 
     if (!dateRange[0]?.startDate || !dateRange[0]?.endDate) {
+      toast.dismiss();
       toast("Date must be chosen", {
         duration: 2000,
       });

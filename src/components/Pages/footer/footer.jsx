@@ -16,6 +16,7 @@ import { IoMailSharp } from "react-icons/io5";
 const Footer = () => {
   const footerSubscriptionButton = (e) => {
     e.preventDefault();
+    toast.dismiss();
     toast("Thank You for Subscribing Milele.", {
       duration: 2000,
       

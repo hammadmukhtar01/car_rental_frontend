@@ -593,6 +593,7 @@ const VehiclesPage = () => {
       dropOffTime
     );
     if (!timeDiffChecker) {
+      toast.dismiss();
       toast(
         "The difference between pickup and dropoff time should be at least 60 minutes.",
         {
@@ -612,6 +613,7 @@ const VehiclesPage = () => {
       const errorMessage = `[${missingFields.join(
         ", "
       )}] field(s) are missing.`;
+      toast.dismiss();
       toast(errorMessage, {
         duration: 4000,
         style: {
@@ -817,6 +819,7 @@ const VehiclesPage = () => {
   const handleFiltersClose = () => setFiltersOpen(false);
 
   const showToast = () => {
+    toast.dismiss();
     toast("Vehicle Img clicked");
   };
   const handleVehicleImg = () => {

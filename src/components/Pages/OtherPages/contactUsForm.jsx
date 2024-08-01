@@ -27,6 +27,7 @@ const ContactUsForm = () => {
     console.log(`Phone numbe ris : ${formData?.phoneNumber}`);
 
     if (!emailRegex.test(formData?.email)) {
+      toast.dismiss();
       toast("Please enter a valid email address.", {
         duration: 2000,
       });
@@ -38,6 +39,7 @@ const ContactUsForm = () => {
       country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
+      toast.dismiss();
       toast("Please enter a valid phone number.", {
         duration: 2000,
       });
@@ -70,6 +72,7 @@ const ContactUsForm = () => {
       console.log("Contact Us response is: --- ", response?.data);
 
       if (response?.data?.status === "success") {
+        toast.dismiss();
         toast("Thank You for Contacting Us.", {
           duration: 2000,
           style: { border: "1px solid #c0c0c0", fontSize: "14px" },
@@ -87,6 +90,7 @@ const ContactUsForm = () => {
           event: "contactUsPageLeadForm",
         });
       } else {
+        toast.dismiss();
         toast("Failed to send your message. Please try again.", {
           duration: 2000,
         });
@@ -103,16 +107,19 @@ const ContactUsForm = () => {
         console.log("Error:", error?.response?.data?.error);
 
         if (errors?.email) {
+          toast.dismiss();
           toast(errors?.email?.message, {
             duration: 2000,
           });
         }
         if (errors?.phoneNumber) {
+          toast.dismiss();
           toast(errors?.phoneNumber?.message, {
             duration: 2000,
           });
         }
       } else {
+        toast.dismiss();
         toast(`Submission failed: ${error?.message}`, {
           duration: 2000,
         });
@@ -257,10 +264,15 @@ const ContactUsForm = () => {
           </div>
           <div className="form-group-3 col-lg-12 pb-4">
             <div className="col-lg-12 col-md-6 d-flex justify-content-end">
-              <button className="middle" aria-label="Contact Us Form Submission">
-                <span className="animate-button btn4" id="contact-us-submit">Submit</span>
+              <button
+                className="middle"
+                aria-label="Contact Us Form Submission"
+              >
+                <span className="animate-button btn4" id="contact-us-submit">
+                  Submit
+                </span>
               </button>
-              <Toaster/>
+              <Toaster />
             </div>
           </div>
         </form>

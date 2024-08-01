@@ -54,9 +54,9 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
       if (resultedData.status === "success" && resultedData?.token) {
         localStorage.setItem("user", JSON.stringify(resultedData));
         setGif(SuccessGifWebP);
-
+        toast.dismiss(); 
         toast("Logged In Successfully!", {
-          duration: 3000,
+          duration: 1000,
 
           onClose: () => {
             const lastUrl = localStorage.getItem("lastUrl") || "/";
@@ -65,11 +65,13 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
           },
         });
       } else {
+        toast.dismiss(); 
         toast("Email/Password missing...", {
           duration: 2000,
         });
       }
     } catch (error) {
+      toast.dismiss(); 
       toast(`${error?.response?.data?.message}`, {
         duration: 2000,
       });

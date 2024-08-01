@@ -49,7 +49,7 @@ const ForgotPasswordPage = ({ onClose }) => {
         const success_message = resultedData?.message;
         alert(success_message);
         onClose();
-
+        toast.dismiss(); 
         toast(success_message, {
           duration: 5000,
          
@@ -63,6 +63,7 @@ const ForgotPasswordPage = ({ onClose }) => {
           resultedData?.message
         );
       } else {
+        toast.dismiss(); 
         toast("Email is missing...", {
           duration: 2000,
          
@@ -70,6 +71,7 @@ const ForgotPasswordPage = ({ onClose }) => {
       }
     } catch (error) {
       alert(`${error?.response?.data?.message}`);
+      toast.dismiss(); 
       toast(`${error?.response?.data?.message}`, {
         duration: 2000,
         

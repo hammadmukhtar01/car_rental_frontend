@@ -41,6 +41,7 @@ const UpdatePasswordPage = () => {
     e.preventDefault();
 
     if (password !== passwordConfirm) {
+      toast.dismiss();
       toast("New & Confirm Passwords do not match.", {
         duration: 2500,
       });
@@ -66,7 +67,7 @@ const UpdatePasswordPage = () => {
 
       if (resultedData.status === "success" && resultedData?.token) {
         localStorage.setItem("user", JSON.stringify(resultedData));
-
+        toast.dismiss();
         toast("Password Updated Successfully!", {
           duration: 2000,
 
@@ -75,11 +76,13 @@ const UpdatePasswordPage = () => {
           },
         });
       } else {
+        toast.dismiss();
         toast("Invalid Password...", {
           duration: 2000,
         });
       }
     } catch (error) {
+      toast.dismiss();
       toast(`${error}`, {
         duration: 2000,
       });

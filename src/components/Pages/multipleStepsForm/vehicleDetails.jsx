@@ -535,6 +535,7 @@ const VehicleDetails = ({ nextStep }) => {
 
   const handleStartBookingClick = () => {
     if (!auth || !authToken) {
+      toast.dismiss();
       toast("Please log in to start booking.", {
         duration: 2000,
       });
@@ -599,6 +600,7 @@ const VehicleDetails = ({ nextStep }) => {
     );
 
     if (couponCode?.trim() === "") {
+      toast.dismiss();
       toast("Please enter a coupon code", {
         duration: 3000,
       });
@@ -607,6 +609,7 @@ const VehicleDetails = ({ nextStep }) => {
     }
 
     if (!foundCoupon) {
+      toast.dismiss();
       toast("Invalid coupon code. Please enter a valid one.", {
         duration: 2000,
       });
@@ -615,7 +618,11 @@ const VehicleDetails = ({ nextStep }) => {
     console.log("carCategory.toUpperCase() : ", carCategory.toUpperCase());
     console.log("cfoundCoupon: ", foundCoupon?.name);
 
-    if (carCategory.toUpperCase() !== "SUV" && foundCoupon?.name === "RENTSUV20") {
+    if (
+      carCategory.toUpperCase() !== "SUV" &&
+      foundCoupon?.name === "RENTSUV20"
+    ) {
+      toast.dismiss();
       toast("This coupon code is valid for SUV only.", {
         duration: 2000,
       });

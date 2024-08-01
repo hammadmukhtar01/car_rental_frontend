@@ -47,6 +47,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
     e.preventDefault();
 
     if (!isEmailValid(email)) {
+      toast.dismiss(); 
       toast("Please enter a valid email address.", {
         duration: 1500,
       });
@@ -54,6 +55,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
     }
 
     if (password !== passwordConfirm) {
+      toast.dismiss(); 
       toast("Passwords do not match!", {
         duration: 1500,
       });
@@ -65,6 +67,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
       country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
+      toast.dismiss(); 
       toast("Please enter a valid phone number.", {
         duration: 1500,
       });
@@ -100,6 +103,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
 
       if (response?.data?.status === "success") {
         setGif(SuccessGifWebP);
+        toast.dismiss(); 
         toast("Account Created Successfully!", {
           duration: 2000,
 
@@ -110,12 +114,14 @@ const SignupPage = ({ onCloseModal, setGif }) => {
           },
         });
       } else {
+        toast.dismiss(); 
         toast("Some fields are missing", {
           duration: 2000,
         });
       }
     } catch (error) {
       console.log("Error : ", error);
+      toast.dismiss(); 
       toast(error?.response?.data?.message || "Some fields are missing", {
         duration: 2000,
       });
