@@ -14,21 +14,22 @@ import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { getWithExpiry } from "../Utils/localStorageUtils";
 
 const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const storedUserData = useMemo(
-    () => JSON.parse(localStorage.getItem("userLocationData")) || {},
+    () => getWithExpiry("userLocationData") || {},
     []
   );
   const userLocData = storedUserData?.userData;
+  const [errorFields, setErrorFields] = useState({});
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [contactNum, setContactNum] = useState("");
   const [country, setCountry] = useState({ dialCode: "971", name: "UAE" });
   const [emailAddress, setEmailAddress] = useState("");
-  const [loadingCustomer, setLoadingCustomer] = useState(false);
-  const [loadingBooking, setLoadingBooking] = useState(false);
+  const [selectedNationality, setSelectedNationality] = useState(null);
 
   // Customer Data
   const [customerDetails, setCustomerDetails] = useState("");
@@ -60,7 +61,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [isInternationalLicense, setIsInternationalLicense] = useState("");
   // Passport
   const [nationalityOptions, setNationalityOptions] = useState([]);
-
   const [pickupLocationId, setPickupLocationId] = useState("");
   const [dropoffLocationId, setDropoffLocationId] = useState("");
   const [newCustomerDetail, setNewCustomerDetail] = useState("");
@@ -204,31 +204,44 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   // Get Customer's Documents URL
 
   const getCustomerUploadedImgUrl = async (file, documentType) => {
-    try {
-      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+    const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    };
 
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-      };
+    const formData = new FormData();
+    formData.append("file", file);
 
-      const formData = new FormData();
-      formData.append("file", file);
+    const url = `https://app.speedautosystems.com/api/UploadFile`;
 
-      const url = `https://app.speedautosystems.com/api/UploadFile`;
+    toast.dismiss();
+    toast.promise(
+      (async () => {
+        try {
+          const response = await axios.post(url, formData, { headers });
+          const fetchedRequiredImgUrl = response?.data?.Result?.url;
 
-      const response = await axios.post(url, formData, { headers });
-      const fetchedRequiredImgUrl = response?.data?.Result?.url;
-
-      console.log(
-        `fetchedRequiredImgUrl response for ${documentType} is: -- ${JSON.stringify(
-          fetchedRequiredImgUrl
-        )}`
-      );
-      setDrivingLicenseImg(fetchedRequiredImgUrl);
-    } catch (error) {
-      console.error("Error while creating img url of documents", error);
-    }
+          console.log(
+            `fetchedRequiredImgUrl response for ${documentType} is: -- ${JSON.stringify(
+              fetchedRequiredImgUrl
+            )}`
+          );
+          setDrivingLicenseImg(fetchedRequiredImgUrl);
+        } catch (error) {
+          console.error("Error while creating img url of documents", error);
+          throw error;
+        }
+      })(),
+      {
+        loading: `Uploading ${documentType} image...`,
+        success: `Successfully uploaded ${documentType} image!`,
+        error: `Failed to upload ${documentType} image.`,
+      },
+      {
+        duration: 3000,
+      }
+    );
   };
 
   // Get Customer Data From Mongo DB backend
@@ -250,10 +263,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       setLastName(result?.customerData?.lName);
       setContactNum(result?.customerData?.phoneNumber);
       setEmailAddress(result?.customerData?.email);
+      setSelectedNationality({
+        label: user_nationality,
+        value: user_nationality,
+      });
     } catch (error) {
       console.error("Error fetching customer data : ", error);
     }
-  }, [config, user_id]);
+  }, [config, user_id, user_nationality]);
 
   useEffect(() => {
     if (auth) {
@@ -261,95 +278,180 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     }
   }, [auth, fetchMongoDBCustomerData]);
 
-  // Create Customer API
+  // Create Speed Customer API
 
   const createCustomer = async (data) => {
-    console.log("creatingg customer", data);
-    setLoadingCustomer(true);
-    document.body.classList.add("loadings");
+    console.log("creating customer", data);
 
-    try {
-      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
+    const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
 
-      const url =
-        "https://app.speedautosystems.com/api/services/app/person/CreateOrUpdatePerson";
-      const payload = {
-        person: data,
-      };
+    const url =
+      "https://app.speedautosystems.com/api/services/app/person/CreateOrUpdatePerson";
+    const payload = {
+      person: data,
+    };
+    toast.dismiss();
+    toast.promise(
+      (async () => {
+        try {
+          const response = await axios.post(url, payload, { headers });
+          console.log(
+            "===created customer response--------:",
+            response?.data?.result
+          );
 
-      const response = await axios.post(url, payload, { headers });
-      console.log(
-        "===createddddd customer response--------:",
-        response?.data?.result
-      );
+          if (
+            response?.data &&
+            response?.data?.success === true &&
+            response?.data?.result
+          ) {
+            console.log(
+              "create customer success if method console - - - - - -- done",
+              response?.data?.result
+            );
 
-      if (response?.data && response?.data?.success && response?.data?.result) {
-        console.log(
-          "create customer success if method console - - - - - -- done",
-          response?.data?.result
-        );
-        // alert("alert customer created...");
+            getCustomerDetails();
+            await createOwnDBCustomer(response?.data?.result);
 
-        handleCustomerIdFromSpeed(response?.data?.result);
-
-        getCustomerDetails(response?.data?.result);
-      } else {
-        const errorMessage = response?.data?.error?.message;
-        toast.dismiss();
-        toast(errorMessage, {
-          duration: 3000,
-        });
-        console.error("Unexpected response structure:", response?.data);
+            return response?.data?.result;
+          } else {
+            const errorMessage =
+              response?.data?.error?.message ||
+              "An error occurred while creating the customer.";
+            console.error("Unexpected response structure:", response?.data);
+            throw new Error(errorMessage);
+          }
+        } catch (error) {
+          console.error("Error creating/updating customer:", error);
+          throw error;
+        }
+      })(),
+      {
+        loading: "Creating customer...",
+        success: "Customer created successfully!",
+        error: "Failed to create customer.",
+      },
+      {
+        duration: 3000,
       }
-    } catch (error) {
-      console.error("Error creating/updating customer:", error);
-    } finally {
-      setLoadingCustomer(false);
-      document.body.classList.remove("loadings");
-    }
+    );
+  };
+
+  // Create Own Customer API
+
+  const createOwnDBCustomer = async (idFromSpeed) => {
+    const last4Digits = contactNum.slice(-4);
+    const password = `${firstName}${last4Digits}`;
+
+    const formData = {
+      fName: firstName,
+      lName: lastName,
+      phoneNumber: `+${contactNum}`,
+      email: emailAddress,
+      password,
+      passwordConfirm: password,
+      nationality: selectedNationality,
+      customerIdFromSpeed: idFromSpeed,
+    };
+
+    console.log("formData : ", formData);
+
+    toast.dismiss();
+    toast.promise(
+      (async () => {
+        try {
+          const response = await axios.post(
+            // `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
+            `http://localhost:8000/api/v1/customer/create`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+            }
+          );
+          console.log("Customer created successfully:", response.data);
+          return response.data;
+        } catch (error) {
+          console.error(
+            "Error creating customer:",
+            error.response ? error.response.data : error.message
+          );
+          throw error;
+        }
+      })(),
+      {
+        loading: "Creating customer...",
+        success: "Customer created successfully!",
+        error: "Failed to create customer.",
+      },
+      {
+        duration: 3000,
+      }
+    );
   };
 
   // get Customer Detail API
 
   const getCustomerDetails = async (customerID) => {
-    try {
-      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
-      const url =
-        "https://app.speedautosystems.com/api/services/app/person/GetPersonForEdit";
-      const requestNewCustomerId = {
-        id: customerID,
-      };
+    const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+    const url =
+      "https://app.speedautosystems.com/api/services/app/person/GetPersonForEdit";
+    const requestNewCustomerId = {
+      id: customerID,
+    };
 
-      const response = await axios.post(url, requestNewCustomerId, { headers });
+    toast.dismiss();
+    toast.promise(
+      (async () => {
+        try {
+          const response = await axios.post(url, requestNewCustomerId, {
+            headers,
+          });
 
-      setNewCustomerDetail(response?.data?.result);
-      if (response?.data?.success) {
-        // alert("alert customer get details...");
-        console.log("get customer response--------:", response?.data?.result);
+          setNewCustomerDetail();
+          if (response?.data?.success) {
+            console.log(
+              "get customer response--------:",
+              response?.data?.result
+            );
 
-        createBooking(
-          response?.data?.result?.id,
-          response?.data?.result?.firstName,
-          response?.data?.result?.lastName,
-          response?.data?.result?.mobileNo,
-          response?.data?.result?.email
-        );
-      } else {
-        console.log("User ID is incorrect");
+            createBooking(
+              response?.data?.result?.id,
+              response?.data?.result?.firstName,
+              response?.data?.result?.lastName,
+              response?.data?.result?.mobileNo,
+              response?.data?.result?.email
+            );
+            return response?.data?.result;
+          } else {
+            console.log("User ID is incorrect");
+            throw new Error("User ID is incorrect");
+          }
+        } catch (error) {
+          console.error("Error fetching customer details:", error);
+          throw error;
+        }
+      })(),
+      {
+        loading: "Fetching customer details...",
+        success: "Customer details fetched successfully!",
+        error: "Failed to fetch customer details.",
+      },
+      {
+        duration: 3000,
       }
-    } catch (error) {
-      console.error("Error creating/updating customer:", error);
-    }
+    );
   };
-
   const createBooking = async (
     newId,
     customerFName,
@@ -675,116 +777,100 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     submitBooking(bookingData);
   };
 
-  // handle customer ID
-
-  const handleCustomerIdFromSpeed = async (speedCusId) => {
-    try {
-      console.log("handleCustomerIdFromSpeed, speedCusId : ", speedCusId);
-      console.log("user_id, user_id : ", user_id);
-
-      let data = { customerIdFromSpeed: speedCusId };
-
-      console.log("data, data : ", data);
-
-      let result = await axios.patch(
-        `${process.env.REACT_APP_MILELE_API_URL}/customer/updateprofile/${user_id}`,
-        // `http://localhost:8000/api/v1/customer/updateprofile/${user_id}`,
-        data,
-        config
-      );
-
-      let resultedData = result?.data;
-      console.log("Result in update customer id page is: ", resultedData);
-
-      const updatedUserData = {
-        ...auth,
-        data: {
-          ...auth.data,
-          customerIdFromSpeed: speedCusId,
-        },
-      };
-
-      updateLocalStorage(updatedUserData);
-    } catch (error) {
-      toast.dismiss();
-      toast(`${error}`, {
-        duration: 3000,
-      });
-    }
-  };
-
   // Booking API
 
   const submitBooking = async (data) => {
     console.log("submit booking start");
-    setLoadingBooking(true);
-    document.body.classList.add("loadings");
 
-    try {
-      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
+    const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
 
-      const url =
-        "https://app.speedautosystems.com/api/services/app/BookingPluginCreation/CreateOrUpdateWebBookingForPlugin";
-      const payload = {
-        booking: data,
-      };
+    const url =
+      "https://app.speedautosystems.com/api/services/app/BookingPluginCreation/CreateOrUpdateWebBookingForPlugin";
+    const payload = {
+      booking: data,
+    };
 
-      console.log("Before exact booking, payload data is: ", payload);
-      const response = await axios.post(url, payload, { headers });
-      console.log("Finallll Booking response--------:", response?.data);
-      console.log(
-        "After Booking checking customer detail response--------:",
-        newCustomerDetail
-      );
+    toast.dismiss();
+    toast.promise(
+      (async () => {
+        try {
+          console.log("Before exact booking, payload data is: ", payload);
+          const response = await axios.post(url, payload, { headers });
+          console.log("Finallll Booking response--------:", response?.data);
+          console.log(
+            "After Booking checking customer detail response--------:",
+            newCustomerDetail
+          );
 
-      const responseResult = response?.data?.success;
+          const responseResult = response?.data?.success;
 
-      if (responseResult === true) {
-        // alert("Booking status is: ", bookingStatus);
-        console.log("booking done successfully. Time for Payment");
-        toast.dismiss();
+          if (responseResult === true) {
+            console.log("booking done successfully. Time for Payment");
 
-        toast("Booking Done Successfully", {
-          duration: 3000,
-        });
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: "purchase",
-          carTypeName: TariffVehicleNameParam,
-          numberOfDays: numberOfDays,
-          deliveryCharge: deliveryChargesParam,
-          grandTotalPrice: totalGrandPriceParam,
-        });
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: "purchase",
+              carTypeName: TariffVehicleNameParam,
+              numberOfDays: numberOfDays,
+              deliveryCharge: deliveryChargesParam,
+              grandTotalPrice: totalGrandPriceParam,
+            });
 
-        createInvoice();
+            createInvoice();
+            return response?.data;
+          } else {
+            throw new Error("Booking failed.");
+          }
+        } catch (error) {
+          console.error("Error creating/updating booking:", error);
+          throw error;
+        }
+      })(),
+      {
+        loading: "Submitting booking...",
+        success: "Booking submitted successfully!",
+        error: "Failed to submit booking.",
+      },
+      {
+        duration: 3000,
       }
-    } catch (error) {
-      console.error("Error creating/updating booking:", error);
-    } finally {
-      setLoadingBooking(false);
-      document.body.classList.remove("loadings");
-    }
+    );
   };
 
   const handleDrivingLicenseChange = (selectedOption) => {
     setDrivingLicenseIssueBy(selectedOption);
   };
 
+  const handleNationalityChange = (selectedOption) => {
+    console.log("selectedOption", selectedOption);
+    setSelectedNationality(selectedOption);
+  };
+
   const handleNextStep = () => {
+    const newErrorFields = {};
     const customerDetailsMissingFields = [];
     if (!firstName) {
+      newErrorFields.firstName = true;
       customerDetailsMissingFields?.push("First Name");
     }
     if (!contactNum) {
+      newErrorFields.contactNum = true;
       customerDetailsMissingFields?.push("Contact Number");
     }
     if (!emailAddress) {
+      newErrorFields.emailAddress = true;
       customerDetailsMissingFields?.push("Email Address");
     }
+
+    if (!selectedNationality) {
+      newErrorFields.selectedNationality = true;
+      customerDetailsMissingFields?.push("Nationality");
+    }
+    setErrorFields(newErrorFields);
 
     if (customerDetailsMissingFields?.length > 0) {
       const errorMessage = `${customerDetailsMissingFields?.join(
@@ -798,33 +884,39 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     }
 
     if (!user_customerSpeedId) {
+      const newErrorFields = {};
       const customerDocumentsMissingFields = [];
       if (!drivingLicenseNum) {
+        newErrorFields.drivingLicenseNum = true;
         customerDocumentsMissingFields?.push("Driving License Number");
       }
       if (!drivingLicenseIssueBy) {
+        newErrorFields.drivingLicenseIssueBy = true;
         customerDocumentsMissingFields?.push("Driving License Issued Country");
       }
       if (!drivingLicenseIssueDate) {
+        newErrorFields.drivingLicenseIssueDate = true;
         customerDocumentsMissingFields?.push("Driving License Issued Date");
       }
       if (!drivingLicenseExpiryDate) {
+        newErrorFields.drivingLicenseExpiryDate = true;
         customerDocumentsMissingFields?.push("Driving License Expiry Date");
       }
-      if (!drivingLicenseImg) {
-        customerDocumentsMissingFields?.push("Driving License Image");
+      if (!isInternationalLicense) {
+        newErrorFields.isInternationalLicense = true;
+        customerDocumentsMissingFields?.push(
+          "Driving License International or not"
+        );
       }
 
-      console.log(
-        "2-------customerDetailsMissingFields",
-        customerDocumentsMissingFields
-      );
+      setErrorFields(newErrorFields);
+
       if (customerDocumentsMissingFields?.length > 0) {
         const errorMessage = `${customerDocumentsMissingFields?.join(
           ", "
         )} field(s) are missing.`;
         toast.dismiss();
-        toast(errorMessage, {
+        toast("Required fiels are missing.", {
           duration: 5000,
         });
         return;
@@ -834,38 +926,41 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const handleAddOnsDocumentStepForm = async (e) => {
     e.preventDefault();
-    console.log(
-      "Data: ",
-      firstName,
-      lastName,
-      contactNum,
-      emailAddress,
-      drivingLicenseNum
-    );
-    console.log("parsedPhoneNumber ");
 
-    if (!auth) {
-      const parsedPhoneNumber = parsePhoneNumberFromString(
-        `+${contactNum}`,
-        country?.name
-      );
-      if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
-        console.log("parsedPhoneNumber parsedPhoneNumberparsedPhoneNumber");
-        toast.dismiss();
-        toast("Please enter a valid phone number.", {
-          duration: 5000,
-        });
-        return;
-      }
+    const isEmailValid = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
+    if (!isEmailValid(emailAddress)) {
+      toast.dismiss();
+      toast("Please enter a valid email address.", {
+        duration: 2500,
+      });
+      return;
     }
+
+    const parsedPhoneNumber = parsePhoneNumberFromString(
+      `${contactNum}`,
+      country?.name
+    );
+    if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
+      console.log(" phone numbe - ", parsedPhoneNumber);
+      toast.dismiss();
+      toast("Please enter a valid phone number.", {
+        duration: 2500,
+      });
+      return;
+    }
+
     if (!user_customerSpeedId) {
-      // Creating Customer Data
+      // Creating Customer Data in Speed
       const createCustomerData = {
         firstName: firstName,
         lastName: lastName,
-        mobileNo: contactNum,
+        mobileNo: `+${contactNum}`,
         email: emailAddress,
-        nationality: user_nationality,
+        nationality: selectedNationality?.label || user_nationality,
         identityDocuments: [
           {
             documentNo: drivingLicenseNum,
@@ -888,10 +983,13 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         ],
       };
 
-      await createCustomer(createCustomerData);
+      const customerId = await createCustomer(createCustomerData);
+      if (customerId) {
+        getCustomerDetails(customerId);
+      }
+    } else {
+      getCustomerDetails(user_customerSpeedId);
     }
-
-    getCustomerDetails(user_customerSpeedId);
   };
 
   // Payment APIs
@@ -929,23 +1027,60 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     };
 
     console.log(`before hitting API, body is: `, body);
-    try {
-      const response = await axios.post(url, body, { headers });
-      console.log(`response of payment API is: `, response?.data);
+    toast.dismiss();
+    toast.promise(
+      (async () => {
+        try {
+          const response = await axios.post(url, body, { headers });
+          console.log(`response of payment API is: `, response?.data);
 
-      if (response?.data && response?.data?.status === "success") {
-        toast.dismiss();
-        toast("Generating Payment link", {
-          duration: 5000,
-        });
-        console.log("Invoice Created, Payment URL:", response?.data?.status);
-        setPaymentUrl(response?.data?.status);
-        const nextStepUrl = `/bookingPage/3&booking-success`;
-        window.location.href = nextStepUrl;
+          if (response?.data && response?.data?.status === "success") {
+            console.log(
+              "Invoice Created, Payment URL:",
+              response?.data?.status
+            );
+            setPaymentUrl(response?.data?.status);
+            const nextStepUrl = `/bookingPage/3&booking-success`;
+            window.location.href = nextStepUrl;
+          } else {
+            throw new Error("Failed to generate payment link.");
+          }
+        } catch (error) {
+          console.error("Failed to create invoice:", error);
+          throw error;
+        }
+      })(),
+      {
+        loading: "Generating Payment link...",
+        success: "Payment link generated successfully!",
+        error: "Failed to generate payment link.",
+      },
+      {
+        duration: 5000,
       }
-    } catch (error) {
-      console.error("Failed to create invoice:", error);
-    }
+    );
+  };
+
+  const selectStylesError = {
+    control: (provided, { hasValue }) => ({
+      ...provided,
+      cursor: "pointer",
+      border: "1px solid white",
+      boxShadow: "none",
+      lineHeight: "32px",
+      borderRadius: "6px",
+      ":hover": {
+        border: "1px solid rgb(184, 184, 184)",
+      },
+    }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      cursor: "pointer",
+      backgroundColor: isSelected ? "#e87a28" : "white",
+      ":hover": {
+        backgroundColor: isSelected ? "#e87a28" : "rgb(229, 229, 229)",
+      },
+    }),
   };
 
   const selectStyles = {
@@ -991,20 +1126,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               className="booking-documents-form"
               onSubmit={handleAddOnsDocumentStepForm}
             >
-              {loadingCustomer && (
-                <div className="reloading-icon-booking-page-container text-center">
-                  <span className="loader-text">
-                    Customer Verification . . .
-                  </span>
-                  <div className="lds-dual-ring text-center"></div>
-                </div>
-              )}
-              {loadingBooking && (
-                <div className="reloading-icon-booking-page-container text-center">
-                  <span className="loader-text">Create Booking . . .</span>
-                  <div className="lds-dual-ring text-center"></div>
-                </div>
-              )}
               <h1 className="text-center d-none">Booking Data Form</h1>
               <div className="step1-car-location-details-container">
                 <div className="step1-location-details p-4">
@@ -1026,21 +1147,39 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>First Name *</b>
+                                  <b>
+                                    <span
+                                      className={` ${
+                                        errorFields?.firstName
+                                          ? "select-error-label"
+                                          : ""
+                                      }`}
+                                    >
+                                      First Name *
+                                    </span>
+                                  </b>
                                 </label>
                               </div>
                               <input
-                                className="form-control-location mt-2 col-12"
+                                className={`form-control-location mt-2 col-12 ${
+                                  errorFields?.firstName ? "border-red" : ""
+                                }`}
                                 type="text"
                                 required
                                 placeholder="First name"
                                 readOnly={auth && user_token}
                                 value={firstName}
-                                onChange={
-                                  !(auth && user_token)
-                                    ? (e) => setFirstName(e.target.value)
-                                    : undefined
-                                }
+                                onChange={(e) => {
+                                  if (!(auth && user_token)) {
+                                    setFirstName(e.target.value);
+                                    if (errorFields?.firstName) {
+                                      setErrorFields((prev) => ({
+                                        ...prev,
+                                        firstName: false,
+                                      }));
+                                    }
+                                  }
+                                }}
                               />
                             </Form.Group>
                           </Col>
@@ -1049,13 +1188,24 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>Last Name</b>
+                                  <b>
+                                    <span
+                                      className={` ${
+                                        errorFields?.lastName
+                                          ? "select-error-label"
+                                          : ""
+                                      }`}
+                                    >
+                                      Last Name
+                                    </span>
+                                  </b>
                                 </label>
                               </div>
                               <input
-                                className="form-control-location mt-2 col-12"
+                                className={`form-control-location mt-2 col-12 ${
+                                  errorFields?.lastName ? "border-red" : ""
+                                }`}
                                 type="text"
-                                required
                                 placeholder="Last name"
                                 readOnly={auth && user_token}
                                 value={lastName}
@@ -1072,11 +1222,25 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>Contact Number *</b>
+                                  <b>
+                                    <span
+                                      className={` ${
+                                        errorFields?.contactNum
+                                          ? "select-error-label"
+                                          : ""
+                                      }`}
+                                    >
+                                      Contact Number *
+                                    </span>
+                                  </b>
                                 </label>
                               </div>
                               <PhoneInput
-                                className="form-control-customer-number mt-2 col-12"
+                                className={`form-control-customer-number  mt-2 col-12 ${
+                                  errorFields?.contactNum
+                                    ? "select-error border-red"
+                                    : ""
+                                }`}
                                 country={"ae"}
                                 name="phoneNumber"
                                 placeholder="00 000 0000"
@@ -1090,14 +1254,18 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   },
                                 }}
                                 value={contactNum}
-                                onChange={
-                                  !(auth && user_token)
-                                    ? (phone, country) => {
-                                        setContactNum(phone);
-                                        setCountry(country);
-                                      }
-                                    : undefined
-                                }
+                                onChange={(phone, country) => {
+                                  if (!(auth && user_token)) {
+                                    setContactNum(phone);
+                                    setCountry(country);
+                                    if (errorFields?.contactNum) {
+                                      setErrorFields((prev) => ({
+                                        ...prev,
+                                        contactNum: false,
+                                      }));
+                                    }
+                                  }
+                                }}
                               />
                             </Form.Group>
                           </Col>
@@ -1106,21 +1274,83 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                             <Form.Group controlId="formKeyword">
                               <div className="location-label">
                                 <label className="styled-label">
-                                  <b>Email *</b>
+                                  <b>
+                                    <span
+                                      className={` ${
+                                        errorFields?.emailAddress
+                                          ? "select-error-label"
+                                          : ""
+                                      }`}
+                                    >
+                                      Email *
+                                    </span>
+                                  </b>
                                 </label>
                               </div>
                               <input
-                                className="form-control-location mt-2 col-12"
+                                className={`form-control-location mt-2 col-12 ${
+                                  errorFields?.emailAddress ? "border-red" : ""
+                                }`}
                                 type="email"
                                 placeholder="Email address"
                                 required
                                 readOnly={auth && user_token}
                                 value={emailAddress}
-                                onChange={
-                                  !(auth && user_token)
-                                    ? (e) => setEmailAddress(e.target.value)
-                                    : undefined
+                                onChange={(e) => {
+                                  if (!(auth && user_token)) {
+                                    setEmailAddress(e.target.value);
+                                    if (errorFields?.emailAddress) {
+                                      setErrorFields((prev) => ({
+                                        ...prev,
+                                        emailAddress: false,
+                                      }));
+                                    }
+                                  }
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+
+                          <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
+                            <Form.Group controlId="formKeyword">
+                              <div className="location-label">
+                                <label className="styled-label">
+                                  <b>
+                                    <span
+                                      className={` ${
+                                        errorFields?.selectedNationality
+                                          ? "select-error-label"
+                                          : ""
+                                      }`}
+                                    >
+                                      Nationality *
+                                    </span>
+                                  </b>
+                                </label>
+                              </div>
+                              <Select
+                                options={nationalityOptions}
+                                className={`form-control-nationality col-12 nationality-dropdown ${
+                                  errorFields?.selectedNationality
+                                    ? "select-error border-red"
+                                    : ""
+                                }`}
+                                value={selectedNationality}
+                                onChange={(value) => {
+                                  handleNationalityChange(value);
+                                  if (errorFields?.selectedNationality) {
+                                    setErrorFields((prev) => ({
+                                      ...prev,
+                                      selectedNationality: false,
+                                    }));
+                                  }
+                                }}
+                                styles={
+                                  errorFields?.selectedNationality
+                                    ? selectStylesError
+                                    : selectStyles
                                 }
+                                isDisabled={auth && user_token}
                               />
                             </Form.Group>
                           </Col>
@@ -1153,18 +1383,38 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   <Form.Group controlId="formKeyword">
                                     <div className="location-label">
                                       <label className="styled-label">
-                                        <b>Driving License No. *</b>
+                                        <b>
+                                          <span
+                                            className={` ${
+                                              errorFields?.drivingLicenseNum
+                                                ? "select-error-label"
+                                                : ""
+                                            }`}
+                                          >
+                                            Driving License No. *
+                                          </span>
+                                        </b>
                                       </label>
                                     </div>
                                     <input
-                                      className="form-control-location mt-2 col-12"
+                                      className={`form-control-location mt-2 col-12 ${
+                                        errorFields?.drivingLicenseNum
+                                          ? "border-red"
+                                          : ""
+                                      }`}
                                       required
                                       type="text"
                                       placeholder="Driving license no."
                                       value={drivingLicenseNum}
-                                      onChange={(e) =>
-                                        setDrivingLicenseNum(e.target.value)
-                                      }
+                                      onChange={(e) => {
+                                        setDrivingLicenseNum(e.target.value);
+                                        if (errorFields?.drivingLicenseNum) {
+                                          setErrorFields((prev) => ({
+                                            ...prev,
+                                            drivingLicenseNum: false,
+                                          }));
+                                        }
+                                      }}
                                     />
                                   </Form.Group>
                                 </Col>
@@ -1172,16 +1422,44 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   <Form.Group controlId="formKeyword">
                                     <div className="location-label">
                                       <label className="styled-label mb-3">
-                                        <b>Driving License Issued By *</b>
+                                        <b>
+                                          <span
+                                            className={` ${
+                                              errorFields?.drivingLicenseIssueBy
+                                                ? "select-error-label"
+                                                : ""
+                                            }`}
+                                          >
+                                            Driving License Issued By *
+                                          </span>
+                                        </b>
                                       </label>
                                     </div>
                                     <Select
                                       options={nationalityOptions}
                                       required
-                                      className="form-control-nationality col-12"
+                                      className={`form-control-nationality col-12 ${
+                                        errorFields?.drivingLicenseIssueBy
+                                          ? "select-error border-red"
+                                          : ""
+                                      }`}
                                       value={drivingLicenseIssueBy}
-                                      onChange={handleDrivingLicenseChange}
-                                      styles={selectStyles}
+                                      onChange={(value) => {
+                                        handleDrivingLicenseChange(value);
+                                        if (
+                                          errorFields?.drivingLicenseIssueBy
+                                        ) {
+                                          setErrorFields((prev) => ({
+                                            ...prev,
+                                            drivingLicenseIssueBy: false,
+                                          }));
+                                        }
+                                      }}
+                                      styles={
+                                        errorFields?.drivingLicenseIssueBy
+                                          ? selectStylesError
+                                          : selectStyles
+                                      }
                                     />
                                   </Form.Group>
                                 </Col>
@@ -1190,14 +1468,38 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   <Form.Group controlId="formKeyword">
                                     <div className="location-label">
                                       <label className="styled-label">
-                                        <b>Driving License Issue Date *</b>
+                                        <b>
+                                          <span
+                                            className={` ${
+                                              errorFields?.drivingLicenseIssueDate
+                                                ? "select-error-label"
+                                                : ""
+                                            }`}
+                                          >
+                                            Driving License Issue Date *
+                                          </span>
+                                        </b>
                                       </label>
                                     </div>
 
                                     <DateTimePicker
-                                      className="form-control-age mt-2 col-12"
+                                      className={`form-control-age mt-2 col-12 ${
+                                        errorFields?.drivingLicenseIssueDate
+                                          ? "select-error border-red"
+                                          : ""
+                                      }`}
                                       value={drivingLicenseIssueDate}
-                                      onChange={setDrivingLicenseIssueDate}
+                                      onChange={(date) => {
+                                        setDrivingLicenseIssueDate(date);
+                                        if (
+                                          errorFields?.drivingLicenseIssueDate
+                                        ) {
+                                          setErrorFields((prev) => ({
+                                            ...prev,
+                                            drivingLicenseIssueDate: false,
+                                          }));
+                                        }
+                                      }}
                                       maxDate={
                                         new Date(
                                           new Date().setHours(0, 0, 0, 0)
@@ -1210,13 +1512,37 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   <Form.Group controlId="formKeyword">
                                     <div className="location-label">
                                       <label className="styled-label">
-                                        <b>Driving License Expiry Date *</b>
+                                        <b>
+                                          <span
+                                            className={` ${
+                                              errorFields?.drivingLicenseExpiryDate
+                                                ? "select-error-label"
+                                                : ""
+                                            }`}
+                                          >
+                                            Driving License Expiry Date *
+                                          </span>
+                                        </b>
                                       </label>
                                     </div>
                                     <DateTimePicker
-                                      className="form-control-age mt-2 col-12"
+                                      className={`form-control-age mt-2 col-12 ${
+                                        errorFields?.drivingLicenseExpiryDate
+                                          ? "border-red"
+                                          : ""
+                                      }`}
                                       value={drivingLicenseExpiryDate}
-                                      onChange={setDrivingLicenseExpiryDate}
+                                      onChange={(date) => {
+                                        setDrivingLicenseExpiryDate(date);
+                                        if (
+                                          errorFields?.drivingLicenseExpiryDate
+                                        ) {
+                                          setErrorFields((prev) => ({
+                                            ...prev,
+                                            drivingLicenseExpiryDate: false,
+                                          }));
+                                        }
+                                      }}
                                       minDate={new Date(new Date())}
                                     />
                                   </Form.Group>
@@ -1225,7 +1551,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   <Form.Group controlId="formKeyword">
                                     <div className="location-label">
                                       <label className="styled-label">
-                                        <b>Driving License Photo *</b>
+                                        <b>
+                                          <span
+                                            className={` ${
+                                              errorFields?.pickupLocation
+                                                ? "select-error-label"
+                                                : ""
+                                            }`}
+                                          >
+                                            Driving License Photo
+                                          </span>
+                                        </b>
                                       </label>
                                     </div>
                                     <input
@@ -1245,7 +1581,15 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     <div className="location-label">
                                       <label className="styled-label">
                                         <b>
-                                          Is Driving License International? *
+                                          <span
+                                            className={` ${
+                                              errorFields?.isInternationalLicense
+                                                ? "select-error-label"
+                                                : ""
+                                            }`}
+                                          >
+                                            Is Driving License International? *
+                                          </span>
                                         </b>
                                       </label>
                                     </div>
@@ -1260,9 +1604,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                         checked={
                                           isInternationalLicense === "true"
                                         }
-                                        onChange={() =>
-                                          setIsInternationalLicense("true")
-                                        }
+                                        onChange={() => {
+                                          setIsInternationalLicense("true");
+                                          if (
+                                            errorFields?.isInternationalLicense
+                                          ) {
+                                            setErrorFields((prev) => ({
+                                              ...prev,
+                                              isInternationalLicense: false,
+                                            }));
+                                          }
+                                        }}
                                       />
                                       <Form.Check
                                         className="mb-1 col-4"
@@ -1274,9 +1626,17 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                         checked={
                                           isInternationalLicense === "false"
                                         }
-                                        onChange={() =>
-                                          setIsInternationalLicense("false")
-                                        }
+                                        onChange={() => {
+                                          setIsInternationalLicense("false");
+                                          if (
+                                            errorFields?.isInternationalLicense
+                                          ) {
+                                            setErrorFields((prev) => ({
+                                              ...prev,
+                                              isInternationalLicense: false,
+                                            }));
+                                          }
+                                        }}
                                       />
                                     </div>
                                   </Form.Group>

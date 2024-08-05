@@ -370,6 +370,20 @@ h2.terms-conditions-headings-main {
   padding: 20px;
 }
 
+.border-red {
+  border: 1px solid red !important;
+  border-radius: 6px;
+}
+/* .select-error .css-1jqq78o-placeholder, */
+.select-error-label {
+  color: red !important;
+}
+
+.form-control-customer-number.select-error.border-red {
+  border-color: red !important;
+}
+
+
 .additional-comments {
   border: 1px solid #ccc;
   border-radius: 8px;

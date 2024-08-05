@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import HeaderCombination from "../PrivateComponents/headerCombination";
 import FooterCombination from "../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
@@ -12,46 +13,79 @@ const ResetPasswordPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [errorFields, setErrorFields] = useState({});
   const navigate = useNavigate();
 
   const handleForgotPasswordClick = async (e) => {
     e.preventDefault();
 
-    let data = { username, password, passwordConfirm };
+    const newErrorFields = {};
+    if (!password) {
+      newErrorFields.password = true;
+    }
+    if (!passwordConfirm) {
+      newErrorFields.passwordConfirm = true;
+    }
+
+    setErrorFields(newErrorFields);
+
+    if (!password || !passwordConfirm) {
+      toast.dismiss();
+      toast("Please fill in all required fields.", {
+        duration: 2500,
+      });
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      toast.dismiss();
+      toast("New & Confirm Passwords do not match.", {
+        duration: 2500,
+      });
+      return;
+    }
+
+    const data = { username, password, passwordConfirm };
     const headers = {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     };
-    try {
-      let result = await axios.patch(
-        `${process.env.REACT_APP_MILELE_API_URL}/customer/resetpassword/${token}`,
-        data,
-        { headers }
-      );
 
-      console.log("Result in reset password page is: ", result);
-
-      if (result?.status === 201) {
-        toast.dismiss(); 
-        toast("Password Updated successfully.", {
-          duration: 2000,
-
-          onClose: () => {
-            localStorage?.removeItem("user");
-            setTimeout(() => {
-              window.location.reload();
-            }, 100);
-
-            navigate("/");
+    toast.dismiss();
+    toast
+      .promise(
+        axios.patch(
+          `${process.env.REACT_APP_MILELE_API_URL}/customer/resetpassword/${token}`,
+          data,
+          { headers }
+        ),
+        {
+          loading: "Updating your password...",
+          success: (result) => {
+            console.log("Reset Password: ", result);
+            if (result?.status === 201) {
+              localStorage?.removeItem("user");
+              return "Password Updated successfully.";
+            } else {
+              throw new Error("Failed to update password.");
+            }
           },
-        });
-      }
-    } catch (error) {
-      toast.dismiss(); 
-      toast(`${error?.response?.data?.message}`, {
-        duration: 2000,
+          error: (error) => {
+            const errorMessage =
+              error?.response?.data?.message || "Failed to update password.";
+            return `${errorMessage}`;
+          },
+        },
+        {
+          duration: 2000,
+        }
+      )
+      .then(() => {
+        navigate("/");
+      })
+      .catch((err) => {
+        console.error("Error while updating password: ", err);
       });
-    }
   };
 
   return (
@@ -105,21 +139,38 @@ const ResetPasswordPage = () => {
                     <div className="form-group row">
                       <div className="login-form-label col-lg-4 col-md-4">
                         <label htmlFor="password" className="styled-label">
-                          <b>Password</b>
+                          <b>
+                            <span
+                              className={` ${
+                                errorFields?.password
+                                  ? "select-error-label"
+                                  : ""
+                              }`}
+                            >
+                              Password*
+                            </span>
+                          </b>
                         </label>
                       </div>
                       <div className="col-lg-7 col-md-7 custom-dropdown-container">
                         <input
-                          className="form-control-login mt-2 col-12"
+                          className={`form-control-login mt-2 col-12 ${
+                            errorFields.password ? "border-red" : ""
+                          }`}
                           id="password"
                           name="password"
                           type="password"
                           autoComplete="new-password"
-                          required
                           placeholder="Password"
                           value={password}
                           onChange={(e) => {
                             setPassword(e.target.value);
+                            if (errorFields.password) {
+                              setErrorFields((prev) => ({
+                                ...prev,
+                                password: false,
+                              }));
+                            }
                           }}
                         />
                       </div>
@@ -133,21 +184,38 @@ const ResetPasswordPage = () => {
                           htmlFor="passwordConfirm"
                           className="styled-label"
                         >
-                          <b>Confirm Password</b>
+                          <b>
+                            <span
+                              className={` ${
+                                errorFields?.passwordConfirm
+                                  ? "select-error-label"
+                                  : ""
+                              }`}
+                            >
+                              Current Password*
+                            </span>
+                          </b>
                         </label>
                       </div>
                       <div className="col-lg-7 col-md-7 custom-dropdown-container">
                         <input
-                          className="form-control-login mt-2 col-12"
+                          className={`form-control-login mt-2 col-12 ${
+                            errorFields.passwordConfirm ? "border-red" : ""
+                          }`}
                           id="passwordConfirm"
                           name="passwordConfirm"
                           type="password"
                           autoComplete="new-password"
-                          required
                           placeholder="Confirm Password"
                           value={passwordConfirm}
                           onChange={(e) => {
                             setPasswordConfirm(e.target.value);
+                            if (errorFields.passwordConfirm) {
+                              setErrorFields((prev) => ({
+                                ...prev,
+                                passwordConfirm: false,
+                              }));
+                            }
                           }}
                         />
                       </div>
@@ -161,7 +229,6 @@ const ResetPasswordPage = () => {
                     >
                       Save
                     </button>
-                    <Toaster />
                   </div>
                 </form>
 

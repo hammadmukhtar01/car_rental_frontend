@@ -415,7 +415,6 @@
   .search-box-label {
     font-size: 14px;
   }
-
 }
 
 @media screen and (max-width: 476px) {
@@ -501,7 +500,7 @@
 .form-control-signup,
 .form-control-update-password,
 .form-control-age {
-  border: 1px solid rgb(184, 184, 184) !important;
+  border: 1px solid rgb(184, 184, 184);
 }
 
 .form-control-consultation-number {

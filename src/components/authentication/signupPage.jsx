@@ -15,9 +15,9 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 const SignupPage = ({ onCloseModal, setGif }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
   const [nationalityOptions, setNationalityOptions] = useState([]);
   const [selectedNationality, setSelectedNationality] = useState(null);
+  const [errorFields, setErrorFields] = useState({});
 
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
@@ -43,21 +43,62 @@ const SignupPage = ({ onCloseModal, setGif }) => {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSignupFormSubmit = async (e) => {
     e.preventDefault();
+    const newErrorFields = {};
+    const signupFormMissingFields = [];
+
+    if (!fName) {
+      newErrorFields.fName = true;
+      signupFormMissingFields.push("First Name ");
+    }
+    if (!email) {
+      newErrorFields.email = true;
+      signupFormMissingFields.push("Email ");
+    }
+    if (!phoneNumber) {
+      newErrorFields.phoneNumber = true;
+      signupFormMissingFields.push("Phone Number");
+    }
+    if (!selectedNationality) {
+      newErrorFields.selectedNationality = true;
+      signupFormMissingFields.push("Nationality ");
+    }
+    if (!password) {
+      newErrorFields.password = true;
+      signupFormMissingFields.push("Password");
+    }
+    if (!passwordConfirm) {
+      newErrorFields.passwordConfirm = true;
+      signupFormMissingFields.push("Password Confirm ");
+    }
+
+    setErrorFields(newErrorFields);
+
+    console.log("signupFormMissingFields : ", signupFormMissingFields);
+    if (signupFormMissingFields?.length > 0) {
+      const errorMessage1 = `${signupFormMissingFields?.join(
+        ", "
+      )} field(s) are missing.`;
+      toast.dismiss();
+      toast(errorMessage1, {
+        duration: 3000,
+      });
+      return;
+    }
 
     if (!isEmailValid(email)) {
-      toast.dismiss(); 
+      toast.dismiss();
       toast("Please enter a valid email address.", {
-        duration: 1500,
+        duration: 2500,
       });
       return;
     }
 
     if (password !== passwordConfirm) {
-      toast.dismiss(); 
+      toast.dismiss();
       toast("Passwords do not match!", {
-        duration: 1500,
+        duration: 2500,
       });
       return;
     }
@@ -67,67 +108,69 @@ const SignupPage = ({ onCloseModal, setGif }) => {
       country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
-      toast.dismiss(); 
+      toast.dismiss();
       toast("Please enter a valid phone number.", {
-        duration: 1500,
+        duration: 2500,
       });
       return;
     }
-    document.body.classList.add("loadings");
 
-    const formData = {
-      fName,
-      lName,
-      phoneNumber: `+${phoneNumber}`,
-      nationality: selectedNationality,
-      email,
-      password,
-      passwordConfirm,
-    };
-    console.log("form data is: ", formData);
-    setLoading(true);
-    document.body.classList.add("loadings");
+    if (signupFormMissingFields.length <= 0) {
+      const formData = {
+        fName,
+        lName,
+        phoneNumber: `+${phoneNumber}`,
+        nationality: selectedNationality,
+        email,
+        password,
+        passwordConfirm,
+      };
+      console.log("form data is: ", formData);
 
-    try {
-      const response = await axios.post(
-        // `http://localhost:8000/api/v1/customer/create`,
-        `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+      toast.dismiss();
+
+      toast
+        .promise(
+          axios.post(
+            `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
+            // `http://localhost:8000/api/v1/customer/create`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+            }
+          ),
+          {
+            loading: "Creating your account...",
+            success: (response) => {
+              if (response?.data?.status === "success") {
+                setGif(SuccessGifWebP);
+                setTimeout(() => {
+                  const lastUrl = localStorage.getItem("lastUrl") || "/";
+                  navigate(lastUrl);
+                  onCloseModal();
+                }, 3200);
+                return "Account created successfully!";
+              } else {
+                throw new Error("Some fields are missing");
+              }
+            },
+            error: (error) => {
+              console.log("Error : ", error);
+              const errorMessage =
+                error?.response?.data?.message || "Some fields are missing";
+              return `${errorMessage}`;
+            },
           },
-        }
-      );
-
-      if (response?.data?.status === "success") {
-        setGif(SuccessGifWebP);
-        toast.dismiss(); 
-        toast("Account Created Successfully!", {
-          duration: 2000,
-
-          onClose: () => {
-            const lastUrl = localStorage.getItem("lastUrl") || "/";
-            navigate(lastUrl);
-            onCloseModal();
-          },
+          {
+            duration: 2000,
+          }
+        )
+        .catch((err) => {
+          console.error("Error while creating account : ", err);
         });
-      } else {
-        toast.dismiss(); 
-        toast("Some fields are missing", {
-          duration: 2000,
-        });
-      }
-    } catch (error) {
-      console.log("Error : ", error);
-      toast.dismiss(); 
-      toast(error?.response?.data?.message || "Some fields are missing", {
-        duration: 2000,
-      });
-    } finally {
-      setLoading(false);
-      document.body.classList.remove("loadings");
     }
   };
 
@@ -157,6 +200,27 @@ const SignupPage = ({ onCloseModal, setGif }) => {
     console.log("selectedOption", selectedOption);
     setSelectedNationality(selectedOption);
   };
+  const selectStylesError = {
+    control: (provided, { hasValue }) => ({
+      ...provided,
+      cursor: "pointer",
+      border: "1px solid white",
+      boxShadow: "none",
+      lineHeight: "32px",
+      borderRadius: "6px",
+      ":hover": {
+        border: "1px solid rgb(184, 184, 184)",
+      },
+    }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      cursor: "pointer",
+      backgroundColor: isSelected ? "#e87a28" : "white",
+      ":hover": {
+        backgroundColor: isSelected ? "#e87a28" : "rgb(229, 229, 229)",
+      },
+    }),
+  };
 
   const selectStyles = {
     control: (provided, { hasValue }) => ({
@@ -165,8 +229,6 @@ const SignupPage = ({ onCloseModal, setGif }) => {
       border: "1px solid rgb(184, 184, 184)",
       boxShadow: "none",
       lineHeight: "32px",
-      marginLeft: "-13px",
-      marginRight: "-14px",
       borderRadius: "6px",
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
@@ -193,34 +255,45 @@ const SignupPage = ({ onCloseModal, setGif }) => {
           />
           <meta name="keywords" content="keywords" />
         </Helmet>
-        <Toaster />
-
-        {loading && (
-          <div className="reloading-icon-of-form-container text-center">
-            <span className="loader-text">Creating Account . . .</span>
-            <div className="lds-dual-ring text-center"></div>
-          </div>
-        )}
 
         <div className="container mt-3">
-          <form action="#" className="signup-form" onSubmit={handleSubmit}>
+          <form
+            action="#"
+            className="signup-form"
+            onSubmit={handleSignupFormSubmit}
+          >
             <div className="form-group row">
               <div className=" col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <label className="signup-form-label">
-                  <b>First Name</b>
+                  <b>
+                    <span
+                      className={` ${
+                        errorFields?.fName ? "select-error-label" : ""
+                      }`}
+                    >
+                      First Name*
+                    </span>
+                  </b>
                 </label>
 
                 <div className=" custom-dropdown-container">
                   <input
-                    className="form-control-signup col-12"
+                    className={`form-control-signup col-12 ${
+                      errorFields?.fName ? "border-red" : ""
+                    }`}
                     name="fName"
                     type="text"
                     autoComplete="fName"
-                    required
                     placeholder="First Name"
                     value={fName}
                     onChange={(e) => {
                       setFName(e.target.value);
+                      if (errorFields?.fName) {
+                        setErrorFields((prev) => ({
+                          ...prev,
+                          fName: false,
+                        }));
+                      }
                     }}
                   />
                 </div>
@@ -238,7 +311,6 @@ const SignupPage = ({ onCloseModal, setGif }) => {
                     name="lName"
                     type="text"
                     autoComplete="lName"
-                    required
                     placeholder="Last Name"
                     value={lName}
                     onChange={(e) => {
@@ -252,20 +324,35 @@ const SignupPage = ({ onCloseModal, setGif }) => {
             <div className="form-group row">
               <div className=" col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <label className="signup-form-label">
-                  <b>Email</b>
+                  <b>
+                    <span
+                      className={` ${
+                        errorFields?.email ? "select-error-label" : ""
+                      }`}
+                    >
+                      Email*
+                    </span>
+                  </b>
                 </label>
 
                 <div className=" custom-dropdown-container">
                   <input
-                    className="form-control-signup col-12"
+                    className={`form-control-signup col-12 ${
+                      errorFields?.email ? "border-red" : ""
+                    }`}
                     name="email"
                     type="email"
                     autoComplete="email"
-                    required
                     placeholder="Email"
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
+                      if (errorFields?.email) {
+                        setErrorFields((prev) => ({
+                          ...prev,
+                          email: false,
+                        }));
+                      }
                     }}
                   />
                 </div>
@@ -274,16 +361,42 @@ const SignupPage = ({ onCloseModal, setGif }) => {
               <div className=" col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <br className="br-for-small-screen" />
                 <label className="signup-form-label">
-                  <b>Nationality</b>
+                  <b>
+                    <span
+                      className={` ${
+                        errorFields?.selectedNationality
+                          ? "select-error-label"
+                          : ""
+                      }`}
+                    >
+                      Nationality*
+                    </span>
+                  </b>
                 </label>
 
                 <div className=" custom-dropdown-container">
                   <Select
                     options={nationalityOptions}
-                    className="form-control-nationality col-12 nationality-dropdown"
+                    className={`form-control-nationality col-12 nationality-dropdown ${
+                      errorFields?.selectedNationality
+                        ? "select-error border-red"
+                        : ""
+                    }`}
                     value={selectedNationality}
-                    onChange={handleNationalityChange}
-                    styles={selectStyles}
+                    onChange={(value) => {
+                      handleNationalityChange(value);
+                      if (errorFields?.selectedNationality) {
+                        setErrorFields((prev) => ({
+                          ...prev,
+                          selectedNationality: false,
+                        }));
+                      }
+                    }}
+                    styles={
+                      errorFields?.selectedNationality
+                        ? selectStylesError
+                        : selectStyles
+                    }
                   />
                 </div>
               </div>
@@ -291,12 +404,22 @@ const SignupPage = ({ onCloseModal, setGif }) => {
 
             <div>
               <label className="signup-form-label">
-                <b>Phone Number</b>
+                <b>
+                  <span
+                    className={` ${
+                      errorFields?.phoneNumber ? "select-error-label" : ""
+                    }`}
+                  >
+                    Contact No. *
+                  </span>
+                </b>
               </label>
 
               <div className=" custom-dropdown-container">
                 <PhoneInput
-                  className="form-control form-control-contact-us-phone-input form-control-consultation-number col-12"
+                  className={`form-control form-control-contact-us-phone-input form-control-consultation-number col-12 ${
+                    errorFields?.phoneNumber ? "select-error border-red" : ""
+                  }`}
                   country={"ae"}
                   name="phoneNumber"
                   value={phoneNumber}
@@ -307,6 +430,12 @@ const SignupPage = ({ onCloseModal, setGif }) => {
                   onChange={(phone, country) => {
                     setPhoneNumber(phone);
                     setCountry(country);
+                    if (errorFields?.phoneNumber) {
+                      setErrorFields((prev) => ({
+                        ...prev,
+                        phoneNumber: false,
+                      }));
+                    }
                   }}
                 />
               </div>
@@ -315,20 +444,35 @@ const SignupPage = ({ onCloseModal, setGif }) => {
 
             <div className="signup-form-input-container">
               <label className="signup-form-label">
-                <b>Password</b>
+                <b>
+                  <span
+                    className={` ${
+                      errorFields?.password ? "select-error-label" : ""
+                    }`}
+                  >
+                    Password*
+                  </span>
+                </b>
               </label>
 
               <div className=" custom-dropdown-container">
                 <input
-                  className="form-control-signup col-12"
+                  className={`form-control-signup col-12 ${
+                    errorFields?.password ? "border-red" : ""
+                  }`}
                   name="password"
                   type="password"
                   autoComplete="currentPassword"
-                  required
                   placeholder="Password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
+                    if (errorFields?.password) {
+                      setErrorFields((prev) => ({
+                        ...prev,
+                        password: false,
+                      }));
+                    }
                   }}
                 />
               </div>
@@ -336,20 +480,35 @@ const SignupPage = ({ onCloseModal, setGif }) => {
             <br />
             <div className="signup-form-input-container">
               <label className="signup-form-label">
-                <b>Confirm Password</b>
+                <b>
+                  <span
+                    className={` ${
+                      errorFields?.passwordConfirm ? "select-error-label" : ""
+                    }`}
+                  >
+                    Confirm Password*
+                  </span>
+                </b>
               </label>
 
               <div className=" custom-dropdown-container">
                 <input
-                  className="form-control-signup col-12"
+                  className={`form-control-signup col-12 ${
+                    errorFields?.passwordConfirm ? "border-red" : ""
+                  }`}
                   name="confirm-password"
                   type="password"
                   autoComplete="confirmPassword"
-                  required
                   placeholder="Confirm Password"
                   value={passwordConfirm}
                   onChange={(e) => {
                     setPasswordConfirm(e.target.value);
+                    if (errorFields?.passwordConfirm) {
+                      setErrorFields((prev) => ({
+                        ...prev,
+                        passwordConfirm: false,
+                      }));
+                    }
                   }}
                 />
               </div>

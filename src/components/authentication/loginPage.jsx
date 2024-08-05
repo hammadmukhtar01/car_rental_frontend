@@ -9,11 +9,10 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import SuccessGifWebP from "../images/auth-gif-after-edited.gif";
 
 const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
-  const [email, setEmail] = useState("");
+  const [emailPhoneNum, setEmailPhoneNum] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const auth = localStorage.getItem("user");
@@ -30,55 +29,53 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    console.warn("Data: ", email, password);
-    let data = { email, password };
-    setLoading(true);
-    document.body.classList.add("loadings");
-    try {
-      let result = await axios.post(
-        `${process.env.REACT_APP_MILELE_API_URL}/customer/login`,
-        // `http://localhost:8000/api/v1/customer/login`,
-        data,
+    console.warn("Data: ", emailPhoneNum, password);
+    let data = { emailPhoneNum, password };
 
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    };
+
+    toast.dismiss();
+    toast
+      .promise(
+        axios.post(
+          `${process.env.REACT_APP_MILELE_API_URL}/customer/login`,
+          // `http://localhost:8000/api/v1/customer/login`,
+          data,
+          { headers }
+        ),
         {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+          loading: "Logging in...",
+          success: (result) => {
+            let resultedData = result?.data;
+            console.log("Result in login page is: ", resultedData);
+
+            if (resultedData.status === "success" && resultedData?.token) {
+              localStorage.setItem("user", JSON.stringify(resultedData));
+              setGif(SuccessGifWebP);
+              setTimeout(() => {
+                const lastUrl = localStorage.getItem("lastUrl") || "/";
+                navigate(lastUrl);
+                onCloseModal();
+              }, 3200);
+              return "Logged In Successfully!";
+            } else {
+              throw new Error("Email/Password missing...");
+            }
           },
-        }
-      );
-
-      let resultedData = result?.data;
-      console.log("Result in login page is: ", resultedData);
-
-      if (resultedData.status === "success" && resultedData?.token) {
-        localStorage.setItem("user", JSON.stringify(resultedData));
-        setGif(SuccessGifWebP);
-        toast.dismiss(); 
-        toast("Logged In Successfully!", {
-          duration: 1000,
-
-          onClose: () => {
-            const lastUrl = localStorage.getItem("lastUrl") || "/";
-            navigate(lastUrl);
-            onCloseModal();
+          error: (error) => {
+            return `${error?.response?.data?.message}`;
           },
-        });
-      } else {
-        toast.dismiss(); 
-        toast("Email/Password missing...", {
+        },
+        {
           duration: 2000,
-        });
-      }
-    } catch (error) {
-      toast.dismiss(); 
-      toast(`${error?.response?.data?.message}`, {
-        duration: 2000,
+        }
+      )
+      .catch((err) => {
+        console.error("Error while login: ", err);
       });
-    } finally {
-      setLoading(false);
-      document.body.classList.remove("loadings");
-    }
   };
 
   return (
@@ -92,35 +89,26 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
         <meta name="keywords" content="keywords" />
       </Helmet>
 
-      <Toaster />
-
-      {loading && (
-        <div className="reloading-icon-of-form-container text-center">
-          <span className="loader-text">Logging In . . .</span>
-          <div className="lds-dual-ring text-center"></div>
-        </div>
-      )}
-
       <section>
         <div className="container">
           <form action="#" className="login-form" onSubmit={handleLogin}>
             <div className="login-form-input-container">
               <label className="login-form-label">
-                <b>Email</b>
+                <b>Email/Phone No.</b>
               </label>
 
               <div className=" custom-dropdown-container">
                 <input
-                  className="form-control-login  col-12"
-                  id="email"
-                  name="email"
-                  type="text"
-                  autoComplete="email"
-                  placeholder="Email"
+                  className="form-control-login col-12"
+                  id="emailPhoneNum"
+                  name="emailPhoneNum"
+                  type="string"
+                  autoComplete="emailPhoneNum"
+                  placeholder="Email / Phone No."
                   required
-                  value={email}
+                  value={emailPhoneNum}
                   onChange={(e) => {
-                    setEmail(e.target.value);
+                    setEmailPhoneNum(e.target.value);
                   }}
                 />
               </div>

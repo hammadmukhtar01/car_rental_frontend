@@ -36,7 +36,8 @@ import makeAnimated from "react-select/animated";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import { getWithExpiry, setWithExpiry } from "../Utils/localStorageUtils";
 
 const PageSize = 8;
 const animatedComponents = makeAnimated();
@@ -105,7 +106,7 @@ const VehiclesPage = () => {
   });
 
   const storedUserData = useMemo(
-    () => JSON.parse(localStorage.getItem("userLocationData")) || {},
+    () => getWithExpiry("userLocationData") || {},
     []
   );
 
@@ -162,9 +163,10 @@ const VehiclesPage = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [isLocationDataOpen, setIsLocationDataOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [errorFields, setErrorFields] = useState({});
 
   const updateLocalStorage = (newUserData) => {
-    localStorage.setItem("userLocationData", JSON.stringify(newUserData));
+    setWithExpiry("userLocationData", newUserData, 24 * 60 * 60 * 1000);
   };
 
   const handleDropoffCheckboxChange = () => {
@@ -572,19 +574,47 @@ const VehiclesPage = () => {
     endDate,
     calculatedVehiclePrice
   ) => {
+    const newErrorFields = {};
     const missingFields = [];
+    console.log("dropoff value is:dsd ", dropoffLocation);
+
     if (!pickupLocation) {
+      newErrorFields.pickupLocation = true;
       missingFields.push("Pickup location");
     }
     if (!pickUpTime) {
+      newErrorFields.pickUpTime = true;
       missingFields.push("Pickup time");
     }
     if (!dropOffTime) {
+      newErrorFields.dropOffTime = true;
       missingFields.push("Dropoff time");
     }
     if (showDropoff && !dropoffLocation) {
+      newErrorFields.dropoffLocation = true;
       missingFields.push("Dropoff location");
     }
+
+    setErrorFields(newErrorFields);
+
+    if (missingFields.length > 0) {
+      setIsLocationDataOpen(true);
+      const errorMessage = `[${missingFields.join(
+        ", "
+      )}] field(s) are missing.`;
+      toast.dismiss();
+      toast(errorMessage, {
+        duration: 4000,
+        style: {
+          border: "1px solid #c0c0c0",
+          fontWeight: "400",
+          lineHeight: "18px",
+          fontSize: "14px",
+        },
+      });
+      return;
+    }
+
     const timeDiffChecker = validateTimeDifference(
       startDate,
       endDate,
@@ -605,23 +635,6 @@ const VehiclesPage = () => {
           },
         }
       );
-      return;
-    }
-
-    if (missingFields.length > 0) {
-      const errorMessage = `[${missingFields.join(
-        ", "
-      )}] field(s) are missing.`;
-      toast.dismiss();
-      toast(errorMessage, {
-        duration: 4000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          lineHeight: "18px",
-          fontSize: "14px",
-        },
-      });
       return;
     }
 
@@ -848,6 +861,28 @@ const VehiclesPage = () => {
     }),
   };
 
+  const selectStylesError = {
+    control: (provided, { hasValue }) => ({
+      ...provided,
+      cursor: "pointer",
+      border: "1px solid white",
+      boxShadow: "none",
+      lineHeight: "32px",
+      borderRadius: "6px",
+      ":hover": {
+        border: "1px solid rgb(184, 184, 184)",
+      },
+    }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      cursor: "pointer",
+      backgroundColor: isSelected ? "#e87a28" : "white",
+      ":hover": {
+        backgroundColor: isSelected ? "#e87a28" : "rgb(229, 229, 229)",
+      },
+    }),
+  };
+
   const selectCategoriesStyles = {
     control: (provided, { hasValue }) => ({
       ...provided,
@@ -943,7 +978,11 @@ const VehiclesPage = () => {
                                     </div>
                                     <div onClick={handleDateClick}>
                                       <input
-                                        className="form-control-date mt-2 col-12"
+                                        className={`form-control-date mt-2 col-12 ${
+                                          errorFields.dateRange
+                                            ? "border-red"
+                                            : ""
+                                        }`}
                                         type="text"
                                         id="searchboxInputDate"
                                         required
@@ -997,17 +1036,35 @@ const VehiclesPage = () => {
                                         <div className="location-label">
                                           <label className="styled-label">
                                             <BsGeoAlt className="mr-2" />
-                                            <b>Pick-Up *</b>
+                                            <b>
+                                              <span
+                                                className={` ${
+                                                  errorFields?.pickupLocation
+                                                    ? "select-error-label"
+                                                    : ""
+                                                }`}
+                                              >
+                                                Pickup*
+                                              </span>
+                                            </b>
                                           </label>
                                         </div>
                                         <div className="custom-dropdown-container">
                                           <Select
-                                            className="mt-2"
+                                            className={`mt-2 ${
+                                              errorFields?.pickupLocation
+                                                ? "select-error border-red"
+                                                : ""
+                                            }`}
                                             id="searchboxInputPickUpLoc"
                                             options={locations}
                                             value={pickupLocation}
                                             onChange={(option) => {
                                               setPickupLocation(option);
+                                              setErrorFields((prev) => ({
+                                                ...prev,
+                                                pickupLocation: false,
+                                              }));
                                               updateLocalStorage({
                                                 ...storedUserData,
                                                 userData: {
@@ -1017,7 +1074,11 @@ const VehiclesPage = () => {
                                               });
                                             }}
                                             placeholder="Pickup Loc"
-                                            styles={selectStyles}
+                                            styles={
+                                              errorFields?.pickupLocation
+                                                ? selectStylesError
+                                                : selectStyles
+                                            }
                                           />
                                         </div>
                                       </Form.Group>
@@ -1029,17 +1090,36 @@ const VehiclesPage = () => {
                                           <div className="location-label">
                                             <label className="styled-label">
                                               <BsGeoAltFill className="mr-2" />
-                                              <b>Drop-Off *</b>
+                                              <b>
+                                                {" "}
+                                                <span
+                                                  className={` ${
+                                                    errorFields?.dropoffLocation
+                                                      ? "select-error-label"
+                                                      : ""
+                                                  }`}
+                                                >
+                                                  Dropoff*
+                                                </span>
+                                              </b>
                                             </label>
                                           </div>
                                           <div className="custom-dropdown-container">
                                             <Select
-                                              className="mt-2"
+                                              className={`mt-2 ${
+                                                errorFields?.dropoffLocation
+                                                  ? "select-error border-red"
+                                                  : ""
+                                              }`}
                                               id="searchboxInputDropOffLoc"
                                               options={locations}
                                               value={dropoffLocation}
                                               onChange={(option) => {
                                                 setDropoffLocation(option);
+                                                setErrorFields((prev) => ({
+                                                  ...prev,
+                                                  dropoffLocation: false,
+                                                }));
                                                 updateLocalStorage({
                                                   ...storedUserData,
                                                   userData: {
@@ -1049,7 +1129,11 @@ const VehiclesPage = () => {
                                                 });
                                               }}
                                               placeholder="Dropoff Loc"
-                                              styles={selectStyles}
+                                              styles={
+                                                errorFields?.dropoffLocation
+                                                  ? selectStylesError
+                                                  : selectStyles
+                                              }
                                             />
                                           </div>
                                         </Form.Group>
@@ -1074,18 +1158,42 @@ const VehiclesPage = () => {
                                   <Form.Group controlId="formKeyword">
                                     <div className="location-label">
                                       <label className="styled-label mb-3">
-                                        <b>Pickup Time *</b>
+                                        <b>
+                                          <span
+                                            className={` ${
+                                              errorFields?.pickUpTime
+                                                ? "select-error-label"
+                                                : ""
+                                            }`}
+                                          >
+                                            Pickup Time*
+                                          </span>
+                                        </b>
                                       </label>
                                     </div>
                                     <Select
                                       options={timeOptions}
                                       required
-                                      className="form-control-pickup-time col-12"
+                                      className={`form-control-pickup-time col-12 ${
+                                        errorFields?.pickUpTime
+                                          ? "select-error border-red"
+                                          : ""
+                                      }`}
                                       value={timeOptions?.find(
                                         (option) => option?.value === pickUpTime
                                       )}
-                                      onChange={handlePickUpTimeChange}
-                                      styles={selectStyles}
+                                      onChange={(time) => {
+                                        handlePickUpTimeChange(time);
+                                        setErrorFields((prev) => ({
+                                          ...prev,
+                                          pickUpTime: false,
+                                        }));
+                                      }}
+                                      styles={
+                                        errorFields?.pickUpTime
+                                          ? selectStylesError
+                                          : selectStyles
+                                      }
                                     />
                                   </Form.Group>
                                 </Col>
@@ -1094,19 +1202,43 @@ const VehiclesPage = () => {
                                   <Form.Group controlId="formKeyword">
                                     <div className="location-label">
                                       <label className="styled-label mb-3">
-                                        <b>Dropoff Time *</b>
+                                        <b>
+                                          <span
+                                            className={` ${
+                                              errorFields?.dropOffTime
+                                                ? "select-error-label"
+                                                : ""
+                                            }`}
+                                          >
+                                            Dropoff Time*
+                                          </span>
+                                        </b>
                                       </label>
                                     </div>
                                     <Select
                                       options={timeOptions}
                                       required
-                                      className="form-control-dropoff-time col-12"
+                                      className={`form-control-dropoff-time col-12 ${
+                                        errorFields?.dropOffTime
+                                          ? "select-error border-red"
+                                          : ""
+                                      }`}
                                       value={timeOptions.find(
                                         (option) =>
                                           option?.value === dropOffTime
                                       )}
-                                      onChange={handleDropOffTimeChange}
-                                      styles={selectStyles}
+                                      onChange={(time) => {
+                                        handleDropOffTimeChange(time);
+                                        setErrorFields((prev) => ({
+                                          ...prev,
+                                          dropOffTime: false,
+                                        }));
+                                      }}
+                                      styles={
+                                        errorFields?.dropOffTime
+                                          ? selectStylesError
+                                          : selectStyles
+                                      }
                                     />
                                   </Form.Group>
                                 </Col>
@@ -1394,7 +1526,8 @@ const VehiclesPage = () => {
                                         <div className="car-name-div">
                                           <span className="car-name text-end">
                                             {" "}
-                                            <b>{car?.title}</b> <b>{car?.tariffGroupId}</b>  | (
+                                            <b>{car?.title}</b>{" "}
+                                            <b>{car?.tariffGroupId}</b> | (
                                             {categoryMap[
                                               car?.acrissCategory?.name
                                             ] || car?.acrissCategory?.name}{" "}

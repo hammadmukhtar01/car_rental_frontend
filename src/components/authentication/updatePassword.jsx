@@ -13,6 +13,8 @@ const UpdatePasswordPage = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [errorFields, setErrorFields] = useState({});
+
   const navigate = useNavigate();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -40,6 +42,28 @@ const UpdatePasswordPage = () => {
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
 
+    const newErrorFields = {};
+
+    if (!currentPassword) {
+      newErrorFields.currentPassword = true;
+    }
+    if (!password) {
+      newErrorFields.password = true;
+    }
+    if (!passwordConfirm) {
+      newErrorFields.passwordConfirm = true;
+    }
+
+    setErrorFields(newErrorFields);
+
+    if (!currentPassword || !password || !passwordConfirm) {
+      toast.dismiss();
+      toast("Please fill in all required fields.", {
+        duration: 2500,
+      });
+      return;
+    }
+
     if (password !== passwordConfirm) {
       toast.dismiss();
       toast("New & Confirm Passwords do not match.", {
@@ -48,48 +72,45 @@ const UpdatePasswordPage = () => {
       return;
     }
 
-    setLoading(true);
-    document.body.classList.add("loadings");
+    const data = { currentPassword, password, passwordConfirm };
 
-    let data = { currentPassword, password, passwordConfirm };
+    toast.dismiss();
 
-    try {
-      console.log("config : ", config);
-      let result = await axios.patch(
-        `${process.env.REACT_APP_MILELE_API_URL}/customer/updatepassword`,
-        // `http://localhost:8000/api/v1/customer/updatepassword`,
-        data,
-        config
-      );
-
-      let resultedData = result?.data;
-      console.log("Result in updatepassword page is: ", resultedData);
-
-      if (resultedData.status === "success" && resultedData?.token) {
-        localStorage.setItem("user", JSON.stringify(resultedData));
-        toast.dismiss();
-        toast("Password Updated Successfully!", {
-          duration: 2000,
-
-          onClose: () => {
-            navigate("/");
+    toast
+      .promise(
+        axios.patch(
+          `${process.env.REACT_APP_MILELE_API_URL}/customer/updatepassword`,
+          data,
+          config
+        ),
+        {
+          loading: "Updating your password...",
+          success: (response) => {
+            const resultedData = response?.data;
+            if (resultedData?.status === "success" && resultedData?.token) {
+              localStorage.setItem("user", JSON.stringify(resultedData));
+              setTimeout(() => {
+                navigate("/");
+              }, 2000);
+              return "Password Updated Successfully!";
+            } else {
+              throw new Error("Invalid Password...");
+            }
           },
-        });
-      } else {
-        toast.dismiss();
-        toast("Invalid Password...", {
+          error: (error) => {
+            console.log("Error : ", error);
+            const errorMessage =
+              error?.response?.data?.message || "Invalid Password...";
+            return `${errorMessage}`;
+          },
+        },
+        {
           duration: 2000,
-        });
-      }
-    } catch (error) {
-      toast.dismiss();
-      toast(`${error}`, {
-        duration: 2000,
+        }
+      )
+      .catch((err) => {
+        console.error("Error while updating password: ", err);
       });
-    } finally {
-      setLoading(false);
-      document.body.classList.remove("loadings");
-    }
   };
 
   return (
@@ -105,13 +126,6 @@ const UpdatePasswordPage = () => {
         <meta name="keywords" content="keywords" />
         {/* <link rel="canonical" href="https://milelecarrental.com/updatePassword" /> */}
       </Helmet>
-      {loading && (
-        <div className="reloading-icon-of-form-container text-center">
-          <span className="loader-text">Updating Password . . .</span>
-          <div className="lds-dual-ring text-center"></div>
-        </div>
-      )}
-      <Toaster />
 
       <section className="mb-5 mt-5">
         <div className="container">
@@ -129,20 +143,37 @@ const UpdatePasswordPage = () => {
                 </div>
                 <Row className="update-password-form-input-container">
                   <label className="update-password-form-label">
-                    <b>Current Password</b>
+                    <b>
+                      <span
+                        className={` ${
+                          errorFields?.currentPassword
+                            ? "select-error-label"
+                            : ""
+                        }`}
+                      >
+                        Current Password*
+                      </span>
+                    </b>
                   </label>
 
                   <div className=" custom-dropdown-container">
                     <input
-                      className="form-control-update-password col-12"
+                      className={`form-control-update-password col-12 ${
+                        errorFields?.currentPassword ? "border-red" : ""
+                      }`}
                       name="currentPassword"
                       type="password"
                       autoComplete="current-password"
-                      required
                       placeholder="Current password"
                       value={currentPassword}
                       onChange={(e) => {
                         setCurrentPassword(e.target.value);
+                        if (errorFields?.currentPassword) {
+                          setErrorFields((prev) => ({
+                            ...prev,
+                            currentPassword: false,
+                          }));
+                        }
                       }}
                     />
                   </div>
@@ -150,20 +181,35 @@ const UpdatePasswordPage = () => {
                 <br />
                 <Row className="update-password-form-input-container pt-4">
                   <label className="update-password-form-label">
-                    <b>New Password</b>
+                    <b>
+                      <span
+                        className={` ${
+                          errorFields?.password ? "select-error-label" : ""
+                        }`}
+                      >
+                        New Password*
+                      </span>
+                    </b>
                   </label>
 
                   <div className=" custom-dropdown-container">
                     <input
-                      className="form-control-update-password col-12"
+                      className={`form-control-update-password col-12 ${
+                        errorFields?.password ? "border-red" : ""
+                      }`}
                       name="newPassword"
                       type="password"
                       autoComplete="new-password"
-                      required
                       placeholder="New password"
                       value={password}
                       onChange={(e) => {
                         setPassword(e.target.value);
+                        if (errorFields?.password) {
+                          setErrorFields((prev) => ({
+                            ...prev,
+                            password: false,
+                          }));
+                        }
                       }}
                     />
                   </div>
@@ -171,20 +217,37 @@ const UpdatePasswordPage = () => {
                 <br />
                 <Row className="update-password-form-input-container pt-4">
                   <label className="update-password-form-label">
-                    <b>Confirm Password</b>
+                    <b>
+                      <span
+                        className={` ${
+                          errorFields?.passwordConfirm
+                            ? "select-error-label"
+                            : ""
+                        }`}
+                      >
+                        Confirm Password*
+                      </span>
+                    </b>
                   </label>
 
                   <div className=" custom-dropdown-container">
                     <input
-                      className="form-control-update-password col-12"
+                      className={`form-control-update-password col-12 ${
+                        errorFields?.passwordConfirm ? "border-red" : ""
+                      }`}
                       name="confirmPassword"
                       type="password"
                       autoComplete="confirm-password"
-                      required
                       placeholder="Confirm password"
                       value={passwordConfirm}
                       onChange={(e) => {
                         setPasswordConfirm(e.target.value);
+                        if (errorFields?.passwordConfirm) {
+                          setErrorFields((prev) => ({
+                            ...prev,
+                            passwordConfirm: false,
+                          }));
+                        }
                       }}
                     />
                   </div>
