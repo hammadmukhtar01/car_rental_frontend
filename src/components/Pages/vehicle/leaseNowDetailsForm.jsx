@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
@@ -300,7 +300,6 @@ const LeaseNowFormDetails = ({
               >
                 <span className="animate-button btn4">Submit</span>
               </button>
-              <Toaster />
             </div>
           </div>
         </form>

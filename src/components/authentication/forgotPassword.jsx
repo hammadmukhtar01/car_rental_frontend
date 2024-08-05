@@ -1,12 +1,14 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import axios from "axios";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const ForgotPasswordPage = ({ onClose }) => {
   const [email, setEmail] = useState("");
+  const [errorFields, setErrorFields] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
   const auth = JSON.parse(localStorage?.getItem("user"));
@@ -32,51 +34,54 @@ const ForgotPasswordPage = ({ onClose }) => {
   const handleForgotPassword = async (e) => {
     e.preventDefault();
 
+    if (!email) {
+      setErrorFields({ email: true });
+      toast.dismiss();
+      toast("Email is required.", {
+        duration: 2000,
+      });
+      return;
+    }
+
     let data = { email };
 
-    try {
-      let result = await axios.post(
-        `${process.env.REACT_APP_MILELE_API_URL}/customer/forgotpassword`,
-        // `http://localhost:8000/api/v1/customer/forgotpassword`,
-        data,
-        config
-      );
-
-      let resultedData = result?.data;
-      console.log("Result in Forgot password page is: ", resultedData);
-
-      if (resultedData.status === "success") {
-        const success_message = resultedData?.message;
-        alert(success_message);
-        onClose();
-        toast.dismiss(); 
-        toast(success_message, {
-          duration: 5000,
-         
-          onClose: () => {
-            onClose();
+    toast.dismiss();
+    toast
+      .promise(
+        axios.post(
+          `${process.env.REACT_APP_MILELE_API_URL}/customer/forgotpassword`,
+          data,
+          config
+        ),
+        {
+          loading: "Sending reset link...",
+          success: (result) => {
+            let resultedData = result?.data;
+            if (resultedData.status === "success") {
+              const success_message = resultedData?.message;
+              return success_message;
+            } else {
+              throw new Error("Email is missing...");
+            }
           },
-        });
+          error: (error) => {
+            console.log("Forgot Password (error) : ", error)
+            const errorMessage =
+              error?.response?.data?.message || "Something went wrong.";
+            return errorMessage;
+          },
+        },
+        {
+          duration: 3000,
+        }
+      )
+      .then(() => {
+        onClose();
+      })
 
-        console.log(
-          "Result in success success success is: ",
-          resultedData?.message
-        );
-      } else {
-        toast.dismiss(); 
-        toast("Email is missing...", {
-          duration: 2000,
-         
-        });
-      }
-    } catch (error) {
-      alert(`${error?.response?.data?.message}`);
-      toast.dismiss(); 
-      toast(`${error?.response?.data?.message}`, {
-        duration: 2000,
-        
+      .catch((err) => {
+        console.error("Error while forgot password: ", err);
       });
-    }
   };
 
   return (
@@ -104,7 +109,16 @@ const ForgotPasswordPage = ({ onClose }) => {
               >
                 <div className="forgotPassword-form-input-container d-flex justify-content-evenly">
                   <label className="forgotPassword-form-label">
-                    <b>Email</b>
+                    <b>
+                      {" "}
+                      <span
+                        className={` ${
+                          errorFields?.emailAddress ? "select-error-label" : ""
+                        }`}
+                      >
+                        Email *
+                      </span>
+                    </b>
                   </label>
 
                   <div className=" custom-dropdown-container col-lg-6 col-md-6 col-sm-12 col-12">
@@ -149,7 +163,6 @@ const ForgotPasswordPage = ({ onClose }) => {
           </section>
         </div>
       </div>
-      <Toaster />
     </HelmetProvider>
   );
 };

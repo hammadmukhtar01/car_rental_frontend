@@ -54,7 +54,9 @@ const FreeConsultationForm = () => {
     toast
       .promise(
         axios.post(
-          `${process.env.REACT_APP_MILELE_API_URL}/freeConsultationForm/create`,
+          // `${process.env.REACT_APP_MILELE_API_URL}/freeConsultationForm/create`,
+          `http://localhost:8000/api/v1/freeConsultationForm/create`,
+
           { customerName, phoneNumber },
           { headers }
         ),
@@ -64,17 +66,8 @@ const FreeConsultationForm = () => {
             "Thank you for seeking our consultation. We will get back to you soon.",
           error: (err) => {
             console.log("Error:", err?.response?.data || err);
-
-            if (err?.response?.data?.error) {
-              const errors = err.response.data.error.errors;
-              if (errors?.email) {
-                return errors.email.message;
-              }
-              if (errors?.phoneNumber) {
-                return errors.phoneNumber.message;
-              }
-            }
-            return `Submission failed: ${err.message}`;
+            const errorMessage = err?.response?.data?.message;
+            return `Submission failed: ${errorMessage}`;
           },
         },
         {
@@ -97,6 +90,9 @@ const FreeConsultationForm = () => {
         window.dataLayer.push({
           event: "homePageLeadForm",
         });
+      })
+      .catch((err) => {
+        console.error("Error during form submission:", err);
       });
   };
 

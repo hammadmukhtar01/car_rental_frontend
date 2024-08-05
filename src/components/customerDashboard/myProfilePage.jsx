@@ -8,7 +8,7 @@ import { HelmetProvider, Helmet } from "react-helmet-async";
 import HomePageTopBar from "./../Pages/navbar/homePageTopBar";
 import MainNavbar from "./../Pages/navbar/mainNavbar";
 import FooterCombination from "./../PrivateComponents/footerCombination";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
@@ -1180,7 +1180,6 @@ const CustomerProfilePage = () => {
               </>
             </div>
           </div>
-          <Toaster />
         </Container>
         <FooterCombination />
       </HelmetProvider>

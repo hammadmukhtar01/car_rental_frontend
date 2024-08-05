@@ -6,6 +6,7 @@ import { DateRange } from "react-date-range";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Select from "react-select";
+import { setWithExpiry, getWithExpiry } from "../Utils/localStorageUtils";
 
 const locations = [
   { value: "FUJAIRAH", label: "FUJAIRAH" },
@@ -22,6 +23,7 @@ const SearchBox = () => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
   const [showDateRangeModal, setShowDateRangeModal] = useState(false);
+  const [errorFields, setErrorFields] = useState({});
 
   const [activeSelection, setActiveSelection] = useState({
     startDate: false,
@@ -39,7 +41,7 @@ const SearchBox = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("userLocationData"));
+    const storedUserData = getWithExpiry("userLocationData");
     if (storedUserData) {
       setPickupLocation(storedUserData?.userData?.pickupLocation || "");
       setDropoffLocation(storedUserData?.userData?.dropoffLocation || "");
@@ -59,7 +61,8 @@ const SearchBox = () => {
   }, []);
 
   const updateLocalStorage = (newUserData) => {
-    localStorage.setItem("userLocationData", JSON.stringify(newUserData));
+    console.log("in pikup updated data ", newUserData);
+    setWithExpiry("userLocationData", newUserData, 24 * 60 * 60 * 1000);
   };
 
   const handleDropoffCheckboxChange = () => {
@@ -68,7 +71,7 @@ const SearchBox = () => {
     const updatedUserData = {
       userData: {
         pickupLocation,
-        dropoffLocation: newShowDropoff ? dropoffLocation : "",
+        dropoffLocation: dropoffLocation,
         showDropoff: newShowDropoff,
         dateRange: {
           startDate: dateRange[0].startDate,
@@ -111,27 +114,47 @@ const SearchBox = () => {
       },
     };
     updateLocalStorage(updatedUserData);
+    setErrorFields((prev) => ({ ...prev, dateRange: false }));
   };
 
   const handleSearchVehicleButtonHomePage = async (e) => {
     e.preventDefault();
-    if (!pickupLocation || (showDropoff && !dropoffLocation)) {
-      toast.dismiss();
-      toast("Some inputs are missing1.", {
-        duration: 2000,
-        
-      });
-      return;
-    }
 
+    const newErrorFields = {};
+    if (!pickupLocation) {
+      newErrorFields.pickupLocation = true;
+    }
+    if (showDropoff && !dropoffLocation) {
+      newErrorFields.dropoffLocation = true;
+    }
     if (!dateRange[0]?.startDate || !dateRange[0]?.endDate) {
+      newErrorFields.dateRange = true;
+    }
+
+    setErrorFields(newErrorFields);
+
+    if (Object.keys(newErrorFields).length > 0) {
+      const missingFields = Object.keys(newErrorFields)
+        .map((field) => {
+          switch (field) {
+            case "pickupLocation":
+              return "Pickup Location";
+            case "dropoffLocation":
+              return "Dropoff Location";
+            case "dateRange":
+              return "Date Range";
+            default:
+              return "";
+          }
+        })
+        .join(", ");
+
       toast.dismiss();
-      toast("Date must be chosen", {
+      toast(`${missingFields} field(s) missingFields.`, {
         duration: 2000,
       });
       return;
     }
-
     const startLocalDate = new Date(
       dateRange[0]?.startDate?.getTime() -
         dateRange[0]?.startDate?.getTimezoneOffset() * 60000
@@ -158,9 +181,7 @@ const SearchBox = () => {
 
     const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupLoc=${
       pickupLocation?.value
-    }&dropoffLoc=${
-      showDropoff === false ? pickupLocation?.value : dropoffLocation?.value
-    }`;
+    }&dropoffLoc=${showDropoff === false ? "" : dropoffLocation?.value}`;
 
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
@@ -175,6 +196,28 @@ const SearchBox = () => {
       ...provided,
       cursor: "pointer",
       border: "1px solid rgb(184, 184, 184)",
+      boxShadow: "none",
+      lineHeight: "32px",
+      borderRadius: "6px",
+      ":hover": {
+        border: "1px solid rgb(184, 184, 184)",
+      },
+    }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      cursor: "pointer",
+      backgroundColor: isSelected ? "#e87a28" : "white",
+      ":hover": {
+        backgroundColor: isSelected ? "#e87a28" : "rgb(229, 229, 229)",
+      },
+    }),
+  };
+
+  const selectStylesError = {
+    control: (provided, { hasValue }) => ({
+      ...provided,
+      cursor: "pointer",
+      border: "1px solid white",
       boxShadow: "none",
       lineHeight: "32px",
       borderRadius: "6px",
@@ -232,7 +275,9 @@ const SearchBox = () => {
                                 Date Range
                               </label>
                               <input
-                                className="form-control-date mt-2 col-12"
+                                className={`form-control-date mt-2 col-12 ${
+                                  errorFields.dateRange ? "border-red" : ""
+                                }`}
                                 type="text"
                                 id="searchboxInputDate"
                                 required
@@ -275,17 +320,33 @@ const SearchBox = () => {
                             <div className="location-label">
                               <label className="search-box-label">
                                 <BsGeoAltFill className="mr-2" />
-                                <>Pick-Up*</>
+                                <span
+                                  className={` ${
+                                    errorFields?.pickupLocation
+                                      ? "select-error-label"
+                                      : ""
+                                  }`}
+                                >
+                                  Pickup*
+                                </span>
                               </label>
                             </div>
 
                             <Select
-                              className="mt-2"
+                              className={`mt-2 ${
+                                errorFields?.pickupLocation
+                                  ? "select-error border-red"
+                                  : ""
+                              }`}
                               id="searchboxInputPickUpLoc"
                               options={locations}
                               value={pickupLocation}
                               onChange={(location) => {
                                 setPickupLocation(location);
+                                setErrorFields((prev) => ({
+                                  ...prev,
+                                  pickupLocation: false,
+                                }));
                                 const updatedUserData = {
                                   userData: {
                                     pickupLocation: location,
@@ -300,7 +361,11 @@ const SearchBox = () => {
                                 updateLocalStorage(updatedUserData);
                               }}
                               placeholder="Pickup"
-                              styles={selectStyles}
+                              styles={
+                                errorFields?.pickupLocation
+                                  ? selectStylesError
+                                  : selectStyles
+                              }
                             />
                           </Form.Group>
                         </Col>
@@ -311,17 +376,33 @@ const SearchBox = () => {
                               <div className="location-label">
                                 <label className="search-box-label">
                                   <BsGeoAltFill className="mr-2" />
-                                  <>Drop-Off *</>
+                                  <span
+                                    className={` ${
+                                      errorFields?.dropoffLocation
+                                        ? "select-error-label"
+                                        : ""
+                                    }`}
+                                  >
+                                    Dropoff*
+                                  </span>
                                 </label>
                               </div>
                               <div className="custom-dropdown-container">
                                 <Select
-                                  className="mt-2"
+                                  className={`mt-2 ${
+                                    errorFields?.dropoffLocation
+                                      ? "select-error border-red"
+                                      : ""
+                                  }`}
                                   id="searchboxInputDropOffLoc"
                                   options={locations}
                                   value={dropoffLocation}
                                   onChange={(location) => {
                                     setDropoffLocation(location);
+                                    setErrorFields((prev) => ({
+                                      ...prev,
+                                      dropoffLocation: false,
+                                    }));
                                     const updatedUserData = {
                                       userData: {
                                         pickupLocation,
@@ -336,7 +417,11 @@ const SearchBox = () => {
                                     updateLocalStorage(updatedUserData);
                                   }}
                                   placeholder="Dropoff "
-                                  styles={selectStyles}
+                                  styles={
+                                    errorFields?.dropoffLocation
+                                      ? selectStylesError
+                                      : selectStyles
+                                  }
                                 />
                               </div>
                             </Form.Group>

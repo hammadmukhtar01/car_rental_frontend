@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { Container, Row, Col, Modal, Form } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -26,6 +27,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import axios from "axios";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
+import { getWithExpiry } from "../Utils/localStorageUtils";
 
 const importAll = (r) => {
   return r.keys().map(r);
@@ -115,10 +117,8 @@ const balenoImages = importAll(
 );
 
 const VehicleDetails = ({ nextStep }) => {
-  const storedUserData = useMemo(
-    () => JSON.parse(localStorage.getItem("userLocationData")) || {},
-    []
-  );
+  const storedUserData = useMemo(() => getWithExpiry("userLocationData") || {}, []);
+
   const userLocData = storedUserData?.userData;
 
   const [couponCode, setCouponCode] = useState("");
@@ -677,13 +677,13 @@ const VehicleDetails = ({ nextStep }) => {
   };
 
   const handleStartBookingClick = () => {
-    if (!auth || !authToken) {
-      toast.dismiss();
-      toast("Please log in to start booking.", {
-        duration: 2000,
-      });
-      return;
-    }
+    // if (!auth || !authToken) {
+    //   toast.dismiss();
+    //   toast("Please log in to start booking.", {
+    //     duration: 2000,
+    //   });
+    //   return;
+    // }
 
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
