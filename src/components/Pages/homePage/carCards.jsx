@@ -30,7 +30,7 @@ const Carousel = () => {
                   src={image}
                   alt={`${image}`}
                   className="banner-cards-images"
-                  title={`offers-${index}`}
+                  title={`Milele-car-rental-offers`}
                   aria-label={`offers-${index}`}
                   id={`home-page-offers-card-${index}`}
                 />

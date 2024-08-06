@@ -842,9 +842,18 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     setErrorFields(newErrorFields);
 
     if (customerDetailsMissingFields?.length > 0) {
-      const errorMessage = `${customerDetailsMissingFields?.join(
+      const errorMessageMultiple = `${customerDetailsMissingFields.join(
         ", "
-      )} field(s) are missing.`;
+      )} fields are missing.`;
+      const errorMessageSingle = `${customerDetailsMissingFields.join(
+        ", "
+      )} field is missing.`;
+
+      const errorMessage =
+        customerDetailsMissingFields?.length === 1
+          ? errorMessageSingle
+          : errorMessageMultiple;
+
       toast.dismiss();
       toast(errorMessage, {
         duration: 3000,
@@ -881,9 +890,18 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       setErrorFields(newErrorFields);
 
       if (customerDocumentsMissingFields?.length > 0) {
-        const errorMessage = `${customerDocumentsMissingFields?.join(
+        const errorMessageMultiple = `${customerDocumentsMissingFields.join(
           ", "
-        )} field(s) are missing.`;
+        )} fields are missing.`;
+        const errorMessageSingle = `${customerDocumentsMissingFields.join(
+          ", "
+        )} field is missing.`;
+
+        const errorMessage =
+          customerDocumentsMissingFields?.length === 1
+            ? errorMessageSingle
+            : errorMessageMultiple;
+
         toast.dismiss();
         toast("Required fiels are missing.", {
           duration: 3000,
