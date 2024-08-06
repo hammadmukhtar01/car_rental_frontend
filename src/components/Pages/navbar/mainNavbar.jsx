@@ -61,9 +61,6 @@ function MainNavbar() {
 
   const handleConfirmLogout = () => {
     localStorage?.removeItem("user");
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
     const lastUrl = localStorage.getItem("lastUrl") || "/";
     console.log("lastUrl : ", lastUrl);
     navigate(lastUrl);

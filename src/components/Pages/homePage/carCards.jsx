@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import BannerImg1PNG from "../../images/banner-slider-img1.jpg";
 import BannerImg2PNG from "../../images/banner-slider-img2.jpg";
@@ -6,7 +7,10 @@ import "react-slideshow-image/dist/styles.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 const Carousel = () => {
+  const screenWidth = window.innerWidth;
+
   const settings = {
     infinite: true,
     speed: 500,
@@ -19,13 +23,12 @@ const Carousel = () => {
 
   return (
     <div className="testimonial-container pt-4 offer-car-main-section">
-      <div className="offers-car-container">
-        <div className="container">
+      <div className={`offers-car-container ${screenWidth > 992 ? "container" : ""}`}>
           <br />
 
           <Slider {...settings}>
             {imagesData.map((image, index) => (
-              <div key={index} className="each-slide-effect p-3">
+              <div key={index} className="each-slide-effect p-1">
                 <img
                   src={image}
                   alt={`${image}`}
@@ -37,7 +40,6 @@ const Carousel = () => {
               </div>
             ))}
           </Slider>
-        </div>
       </div>
     </div>
   );

@@ -326,10 +326,13 @@ span.select2-selection_arrow b {
 }
 
 .price-filter-heading,
-.car-type-filter-heading,
-.location-data-heading {
+.car-type-filter-heading {
   border-radius: 0px !important;
   border-top: 1px solid rgba(0, 0, 0, 0.175);
+}
+
+.location-data-heading {
+  border: 1px solid #6e6e6e13;
 }
 
 .single-car-container-div {
