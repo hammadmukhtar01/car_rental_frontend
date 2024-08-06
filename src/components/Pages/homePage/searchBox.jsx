@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from "react";
 import { Row, Col, Form, Modal } from "react-bootstrap";
 import { BsGeoAltFill, BsCalendar2CheckFill } from "react-icons/bs";
@@ -149,8 +150,16 @@ const SearchBox = () => {
         })
         .join(", ");
 
+      const errorMessageMultiple = `${missingFields} fields are missing.`;
+      const errorMessageSingle = `${missingFields} field is missing.`;
+
+      const errorMessage =
+        Object.keys(newErrorFields).length === 1
+          ? errorMessageSingle
+          : errorMessageMultiple;
+
       toast.dismiss();
-      toast(`${missingFields} field(s) missingFields.`, {
+      toast(errorMessage, {
         duration: 2000,
       });
       return;

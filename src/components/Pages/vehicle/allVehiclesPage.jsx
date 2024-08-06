@@ -597,20 +597,22 @@ const VehiclesPage = () => {
 
     setErrorFields(newErrorFields);
 
-    if (missingFields.length > 0) {
+    if (missingFields?.length > 0) {
       setIsLocationDataOpen(true);
-      const errorMessage = `[${missingFields.join(
+
+      const errorMessageMultiple = `${missingFields.join(
         ", "
-      )}] field(s) are missing.`;
+      )} fields are missing.`;
+      const errorMessageSingle = `${missingFields.join(
+        ", "
+      )} field is missing.`;
+
+      const errorMessage =
+        missingFields?.length === 1 ? errorMessageSingle : errorMessageMultiple;
+
       toast.dismiss();
       toast(errorMessage, {
-        duration: 4000,
-        style: {
-          border: "1px solid #c0c0c0",
-          fontWeight: "400",
-          lineHeight: "18px",
-          fontSize: "14px",
-        },
+        duration: 3000,
       });
       return;
     }
@@ -829,7 +831,6 @@ const VehiclesPage = () => {
 
   const handleFiltersToggle = () => setFiltersOpen(!filtersOpen);
   const handleFiltersClose = () => setFiltersOpen(false);
-
 
   const selectStyles = {
     control: (provided, { hasValue }) => ({
@@ -1549,10 +1550,8 @@ const VehiclesPage = () => {
                                                 car?.tariffGroupId,
                                                 `${car?.title} - ${
                                                   categoryMap[
-                                                    car?.acrissCategory
-                                                      ?.name
-                                                  ] ||
-                                                  car?.acrissCategory?.name
+                                                    car?.acrissCategory?.name
+                                                  ] || car?.acrissCategory?.name
                                                 }`,
                                                 datePickerStartDate,
                                                 datePickerEndDate,

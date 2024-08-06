@@ -117,7 +117,10 @@ const balenoImages = importAll(
 );
 
 const VehicleDetails = ({ nextStep }) => {
-  const storedUserData = useMemo(() => getWithExpiry("userLocationData") || {}, []);
+  const storedUserData = useMemo(
+    () => getWithExpiry("userLocationData") || {},
+    []
+  );
 
   const userLocData = storedUserData?.userData;
 

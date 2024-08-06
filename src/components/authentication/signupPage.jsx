@@ -77,11 +77,20 @@ const SignupPage = ({ onCloseModal, setGif }) => {
 
     console.log("signupFormMissingFields : ", signupFormMissingFields);
     if (signupFormMissingFields?.length > 0) {
-      const errorMessage1 = `${signupFormMissingFields?.join(
+      const errorMessageMultiple = `${signupFormMissingFields.join(
         ", "
-      )} field(s) are missing.`;
+      )} fields are missing.`;
+      const errorMessageSingle = `${signupFormMissingFields.join(
+        ", "
+      )} field is missing.`;
+
+      const errorMessage =
+        signupFormMissingFields?.length === 1
+          ? errorMessageSingle
+          : errorMessageMultiple;
+
       toast.dismiss();
-      toast(errorMessage1, {
+      toast(errorMessage, {
         duration: 3000,
       });
       return;
