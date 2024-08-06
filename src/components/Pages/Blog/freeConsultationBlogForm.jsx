@@ -14,10 +14,13 @@ const FreeConsultationForm = () => {
 
   const handleFreeConsultationForm = async (e) => {
     e.preventDefault();
-    console.log(`1---- Free cons form number: +${phoneNumber}`);
+
+    const normalizedPhoneNumber = phoneNumber.startsWith("+")
+      ? phoneNumber
+      : `+${phoneNumber}`;
 
     const parsedPhoneNumber = parsePhoneNumberFromString(
-      `+${phoneNumber}`,
+      normalizedPhoneNumber,
       country?.name
     );
     if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
@@ -54,8 +57,8 @@ const FreeConsultationForm = () => {
     toast
       .promise(
         axios.post(
-          // `${process.env.REACT_APP_MILELE_API_URL}/freeConsultationForm/create`,
-          `http://localhost:8000/api/v1/freeConsultationForm/create`,
+          `${process.env.REACT_APP_MILELE_API_URL}/freeConsultationForm/create`,
+          // `http://localhost:8000/api/v1/freeConsultationForm/create`,
 
           { customerName, phoneNumber },
           { headers }

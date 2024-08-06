@@ -283,10 +283,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     const last4Digits = contactNum.slice(-4);
     const password = `${firstName}${last4Digits}`;
 
+    const normalizedContactNum = contactNum.startsWith("+")
+      ? contactNum
+      : `+${contactNum}`;
+
     const formData = {
       fName: firstName,
       lName: lastName,
-      phoneNumber: `+${contactNum}`,
+      phoneNumber: normalizedContactNum,
       email: emailAddress,
       password,
       passwordConfirm: password,
@@ -298,7 +302,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/customer/create`,
+        `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
+        // `http://localhost:8000/api/v1/customer/create`,
         formData,
         {
           headers: {
@@ -905,10 +910,15 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         return;
       }
 
+      const normalizedContactNum = contactNum.startsWith("+")
+        ? contactNum
+        : `+${contactNum}`;
+
       const parsedPhoneNumber = parsePhoneNumberFromString(
-        `${contactNum}`,
+        normalizedContactNum,
         country?.name
       );
+
       if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
         console.log(" phone numbe - ", contactNum);
         toast.dismiss();
@@ -922,7 +932,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       const createCustomerData = {
         firstName: firstName,
         lastName: lastName,
-        mobileNo: `+${contactNum}`,
+        mobileNo: normalizedContactNum,
         email: emailAddress,
         nationality: selectedNationality?.label || user_nationality,
         identityDocuments: [
@@ -1199,7 +1209,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                           : ""
                                       }`}
                                     >
-                                      Contact Number *
+                                      Contact No. *
                                     </span>
                                   </b>
                                 </label>

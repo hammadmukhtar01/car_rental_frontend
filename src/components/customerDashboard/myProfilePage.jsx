@@ -299,11 +299,15 @@ const CustomerProfilePage = () => {
 
   // Update Customer Profile of Own Backend DB
   const updateCustomerProfileOwnDB = async () => {
+    const normalizedContactNum = phoneNumber.startsWith("+")
+      ? phoneNumber
+      : `+${phoneNumber}`;
+
     const formData = {
       fName,
       lName,
       email,
-      phoneNumber: phoneNumber,
+      phoneNumber: normalizedContactNum,
       nationality: selectedNationality,
     };
     console.log("form data is: ", formData);
@@ -351,10 +355,14 @@ const CustomerProfilePage = () => {
   // Update Customer Profile in Speed System
 
   const updateSpeedCustomerProfileDetails = async () => {
+    const normalizedContactNum = phoneNumber.startsWith("+")
+      ? phoneNumber
+      : `+${phoneNumber}`;
+
     const createCustomerData = {
       firstName: fName,
       lastName: lName,
-      mobileNo: phoneNumber,
+      mobileNo: normalizedContactNum,
       email: email,
       id: customerSpeedID,
       nationality: selectedNationality?.label,
@@ -509,10 +517,15 @@ const CustomerProfilePage = () => {
       return;
     }
 
+    const normalizedContactNum = phoneNumber.startsWith("+")
+      ? phoneNumber
+      : `+${phoneNumber}`;
+
     const parsedPhoneNumber = parsePhoneNumberFromString(
-      `${phoneNumber}`,
+      normalizedContactNum,
       country?.name
     );
+
     if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
       console.log("Phne Number: ", phoneNumber);
 

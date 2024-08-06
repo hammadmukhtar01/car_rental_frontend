@@ -34,10 +34,15 @@ const ContactUsForm = () => {
       return false;
     }
 
+    const normalizedPhoneNumber = formData?.phoneNumber.startsWith("+")
+      ? formData?.phoneNumber
+      : `+${formData?.phoneNumber}`;
+
     const parsedPhoneNumber = parsePhoneNumberFromString(
-      `+${formData?.phoneNumber}`,
+      normalizedPhoneNumber,
       country?.name
     );
+
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
       toast.dismiss();
       toast("Please enter a valid phone number.", {
