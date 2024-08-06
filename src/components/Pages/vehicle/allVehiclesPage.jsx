@@ -830,14 +830,6 @@ const VehiclesPage = () => {
   const handleFiltersToggle = () => setFiltersOpen(!filtersOpen);
   const handleFiltersClose = () => setFiltersOpen(false);
 
-  const showToast = () => {
-    toast.dismiss();
-    toast("Vehicle Img clicked");
-  };
-  const handleVehicleImg = () => {
-    showToast();
-    console.log("Img is clicked ");
-  };
 
   const selectStyles = {
     control: (provided, { hasValue }) => ({
@@ -1540,10 +1532,36 @@ const VehiclesPage = () => {
                                             title={`${car?.title}`}
                                             alt={`Rent ${car?.title}`}
                                             className="car-image"
-                                            onClick={handleVehicleImg}
-                                            // id={`pay-now-for-${car?.title
-                                            //   .replace(/\s+/g, "-")
-                                            //   .toLowerCase()}-button`}
+                                            onClick={() => {
+                                              const vehiclePrice =
+                                                renderVehiclePrices(
+                                                  car.tariffGroupId
+                                                );
+                                              const datePickerStartDate =
+                                                dateRange[0].startDate
+                                                  .toISOString()
+                                                  .split("T")[0];
+                                              const datePickerEndDate =
+                                                dateRange[0].endDate
+                                                  .toISOString()
+                                                  .split("T")[0];
+                                              allCarsBookingButton(
+                                                car?.tariffGroupId,
+                                                `${car?.title} - ${
+                                                  categoryMap[
+                                                    car?.acrissCategory
+                                                      ?.name
+                                                  ] ||
+                                                  car?.acrissCategory?.name
+                                                }`,
+                                                datePickerStartDate,
+                                                datePickerEndDate,
+                                                vehiclePrice
+                                              );
+                                            }}
+                                            id={`${car?.title
+                                              .replace(/\s+/g, "-")
+                                              .toLowerCase()}-vehicle`}
                                           />
                                         </div>
                                         <div className="all-vehicles-features-icons text-center">

@@ -278,8 +278,48 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     }
   }, [auth, fetchMongoDBCustomerData]);
 
-  // Create Speed Customer API
+  // Create Own Customer API
+  const createOwnDBCustomer = async (idFromSpeed) => {
+    const last4Digits = contactNum.slice(-4);
+    const password = `${firstName}${last4Digits}`;
 
+    const formData = {
+      fName: firstName,
+      lName: lastName,
+      phoneNumber: `+${contactNum}`,
+      email: emailAddress,
+      password,
+      passwordConfirm: password,
+      nationality: selectedNationality,
+      customerIdFromSpeed: idFromSpeed,
+    };
+
+    console.log("formData : ", formData);
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/customer/create`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      console.log("Customer created successfully:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error creating customer:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(
+        error.response ? error.response.data.message : error.message
+      );
+    }
+  };
+  // Create Speed Customer API
   const createCustomer = async (data) => {
     console.log("creating customer", data);
 
@@ -314,9 +354,22 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               response?.data?.result
             );
 
-            getCustomerDetails();
-            await createOwnDBCustomer(response?.data?.result);
+            try {
+              await createOwnDBCustomer(response?.data?.result);
+            } catch (createDBError) {
+              console.error(
+                "Error creating customer in own DB:",
+                createDBError
+              );
+              throw new Error(
+                createDBError.response
+                  ? createDBError.response.data.message
+                  : createDBError.message
+              );
+            }
 
+            // Only proceed if no error occurs
+            getCustomerDetails(response?.data?.result);
             return response?.data?.result;
           } else {
             const errorMessage =
@@ -327,68 +380,15 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           }
         } catch (error) {
           console.error("Error creating/updating customer:", error);
-          throw error;
+          throw new Error(
+            error.response ? error.response.data.message : error.message
+          );
         }
       })(),
       {
         loading: "Creating customer...",
         success: "Customer created successfully!",
-        error: "Failed to create customer.",
-      },
-      {
-        duration: 3000,
-      }
-    );
-  };
-
-  // Create Own Customer API
-
-  const createOwnDBCustomer = async (idFromSpeed) => {
-    const last4Digits = contactNum.slice(-4);
-    const password = `${firstName}${last4Digits}`;
-
-    const formData = {
-      fName: firstName,
-      lName: lastName,
-      phoneNumber: `+${contactNum}`,
-      email: emailAddress,
-      password,
-      passwordConfirm: password,
-      nationality: selectedNationality,
-      customerIdFromSpeed: idFromSpeed,
-    };
-
-    console.log("formData : ", formData);
-
-    toast.dismiss();
-    toast.promise(
-      (async () => {
-        try {
-          const response = await axios.post(
-            // `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
-            `http://localhost:8000/api/v1/customer/create`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-              },
-            }
-          );
-          console.log("Customer created successfully:", response.data);
-          return response.data;
-        } catch (error) {
-          console.error(
-            "Error creating customer:",
-            error.response ? error.response.data : error.message
-          );
-          throw error;
-        }
-      })(),
-      {
-        loading: "Creating customer...",
-        success: "Customer created successfully!",
-        error: "Failed to create customer.",
+        error: (error) => `Failed: ${error.message || error}`,
       },
       {
         duration: 3000,
@@ -410,48 +410,40 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       id: customerID,
     };
 
-    toast.dismiss();
-    toast.promise(
-      (async () => {
-        try {
-          const response = await axios.post(url, requestNewCustomerId, {
-            headers,
-          });
-
-          setNewCustomerDetail();
-          if (response?.data?.success) {
-            console.log(
-              "get customer response--------:",
-              response?.data?.result
-            );
-
-            createBooking(
-              response?.data?.result?.id,
-              response?.data?.result?.firstName,
-              response?.data?.result?.lastName,
-              response?.data?.result?.mobileNo,
-              response?.data?.result?.email
-            );
-            return response?.data?.result;
-          } else {
-            console.log("User ID is incorrect");
-            throw new Error("User ID is incorrect");
-          }
-        } catch (error) {
-          console.error("Error fetching customer details:", error);
-          throw error;
-        }
-      })(),
-      {
-        loading: "Fetching customer details...",
-        success: "Customer details fetched successfully!",
-        error: "Failed to fetch customer details.",
-      },
-      {
-        duration: 3000,
-      }
+    console.log(
+      "requested id in Speed get customer is: ",
+      requestNewCustomerId
     );
+
+    try {
+      const response = await axios.post(url, requestNewCustomerId, { headers });
+
+      setNewCustomerDetail();
+
+      if (response?.data?.success) {
+        console.log("get customer response--------:", response?.data?.result);
+
+        createBooking(
+          response?.data?.result?.id,
+          response?.data?.result?.firstName,
+          response?.data?.result?.lastName,
+          response?.data?.result?.mobileNo,
+          response?.data?.result?.email
+        );
+
+        return response?.data?.result;
+      } else {
+        console.log("User ID is incorrect");
+        throw new Error("User ID is incorrect");
+      }
+    } catch (error) {
+      console.error("Error fetching customer details:", error);
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch customer details"
+      );
+    }
   };
+
   const createBooking = async (
     newId,
     customerFName,
@@ -459,74 +451,44 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     customerMobileNo,
     customerEmail
   ) => {
-    console.log(
-      "before setting value to booking data, newId is:",
-      newId,
-      "\nand first name --- is: ",
-      customerFName,
-      "\ntotal charges are: ",
-      totalGrandPriceWithTax
-    );
-
     const getUpdatedPrice = (addOn, numberOfDays, carCategory) => {
       switch (addOn?.addOnsName) {
         case "CDW (Collision Damage Waiver)":
-          console.log("In CDW add on numberOfDays", numberOfDays);
           if (numberOfDays > 0 && numberOfDays < 7) {
-            console.log(
-              `carCategory === "HatchBack" ? 20 : 30; ${carCategory}`
-            );
             return carCategory === "HatchBack" ? 20 : 30;
           } else if (numberOfDays >= 7 && numberOfDays <= 21) {
-            console.log(
-              `carCategory === "HatchBack" ? 20 : 30; ${carCategory}`
-            );
-
             return carCategory === "HatchBack" ? 15 : 20;
           } else if (numberOfDays > 21) {
-            console.log(
-              `carCategory === "HatchBack" ? 20 : 30; ${carCategory}`
-            );
-
             return carCategory === "HatchBack" ? 10 : 15;
           }
           break;
         case "Baby Seat":
-          console.log("In baby seat add on", numberOfDays);
           if (numberOfDays > 0 && numberOfDays < 7) return 20;
           if (numberOfDays >= 7 && numberOfDays <= 21)
             return Math.round((120 / 7) * numberOfDays);
           if (numberOfDays > 21) return Math.round((400 / 30) * numberOfDays);
           break;
         case "Mobile Holder":
-          console.log("In mobile holder add on", numberOfDays);
           if (numberOfDays > 0 && numberOfDays < 7) return 5;
           if (numberOfDays >= 7 && numberOfDays <= 21)
             return Math.round((10 / 7) * numberOfDays);
           if (numberOfDays > 21) return Math.round((20 / 30) * numberOfDays);
           break;
         case "Sunshades":
-          console.log("In sunshade add on");
           if (numberOfDays > 0 && numberOfDays < 7) return 10;
           if (numberOfDays >= 7 && numberOfDays <= 21)
             return Math.round((30 / 7) * numberOfDays);
           if (numberOfDays > 21) return Math.round((50 / 30) * numberOfDays);
           break;
         case "PAI (Personal Accident Insurance)":
-          console.log("In PAI add on", numberOfDays);
           if (numberOfDays >= 1 && numberOfDays < 7) {
             console.log(`PAI === ; ${numberOfDays}`);
-
             return 15;
           }
           if (numberOfDays >= 7 && numberOfDays <= 21) {
-            console.log(`PAI === ; ${numberOfDays}`);
-
             return 10;
           }
           if (numberOfDays > 21) {
-            console.log(`PAI === ; ${numberOfDays}`);
-
             return 5;
           }
           break;
@@ -833,7 +795,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       {
         loading: "Submitting booking...",
         success: "Booking submitted successfully!",
-        error: "Failed to submit booking.",
+        error: (error) =>
+          `Failed to submit booking: ${error?.message || error}`,
       },
       {
         duration: 3000,
@@ -878,7 +841,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       )} field(s) are missing.`;
       toast.dismiss();
       toast(errorMessage, {
-        duration: 5000,
+        duration: 3000,
       });
       return;
     }
@@ -917,7 +880,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         )} field(s) are missing.`;
         toast.dismiss();
         toast("Required fiels are missing.", {
-          duration: 5000,
+          duration: 3000,
         });
         return;
       }
@@ -927,33 +890,33 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const handleAddOnsDocumentStepForm = async (e) => {
     e.preventDefault();
 
-    const isEmailValid = (email) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
-    };
-
-    if (!isEmailValid(emailAddress)) {
-      toast.dismiss();
-      toast("Please enter a valid email address.", {
-        duration: 2500,
-      });
-      return;
-    }
-
-    const parsedPhoneNumber = parsePhoneNumberFromString(
-      `${contactNum}`,
-      country?.name
-    );
-    if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
-      console.log(" phone numbe - ", parsedPhoneNumber);
-      toast.dismiss();
-      toast("Please enter a valid phone number.", {
-        duration: 2500,
-      });
-      return;
-    }
-
     if (!user_customerSpeedId) {
+      const isEmailValid = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      };
+
+      if (!isEmailValid(emailAddress)) {
+        toast.dismiss();
+        toast("Please enter a valid email address.", {
+          duration: 2500,
+        });
+        return;
+      }
+
+      const parsedPhoneNumber = parsePhoneNumberFromString(
+        `+${contactNum}`,
+        country?.name
+      );
+      if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
+        console.log(" phone numbe - ", contactNum);
+        toast.dismiss();
+        toast("Please enter a valid phone number.", {
+          duration: 2500,
+        });
+        return;
+      }
+
       // Creating Customer Data in Speed
       const createCustomerData = {
         firstName: firstName,
@@ -984,10 +947,13 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       };
 
       const customerId = await createCustomer(createCustomerData);
+      console.log("Create customer id : ", customerId);
       if (customerId) {
+        console.log("in if of create customer");
         getCustomerDetails(customerId);
       }
     } else {
+      console.log("in Else of create customer");
       getCustomerDetails(user_customerSpeedId);
     }
   };
@@ -1056,7 +1022,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         error: "Failed to generate payment link.",
       },
       {
-        duration: 5000,
+        duration: 3000,
       }
     );
   };
@@ -1068,6 +1034,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       border: "1px solid white",
       boxShadow: "none",
       lineHeight: "32px",
+      marginLeft: "-13px",
+      marginRight: "-13px",
       borderRadius: "6px",
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
