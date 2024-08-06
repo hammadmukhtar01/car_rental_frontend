@@ -103,10 +103,15 @@ const SignupPage = ({ onCloseModal, setGif }) => {
       return;
     }
 
+    const normalizedPhoneNumber = phoneNumber.startsWith("+")
+      ? phoneNumber
+      : `+${phoneNumber}`;
+
     const parsedPhoneNumber = parsePhoneNumberFromString(
-      `+${phoneNumber}`,
+      normalizedPhoneNumber,
       country?.name
     );
+
     if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
       toast.dismiss();
       toast("Please enter a valid phone number.", {
@@ -119,7 +124,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
       const formData = {
         fName,
         lName,
-        phoneNumber: `+${phoneNumber}`,
+        phoneNumber: phoneNumber,
         nationality: selectedNationality,
         email,
         password,
