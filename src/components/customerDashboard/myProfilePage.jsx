@@ -26,10 +26,10 @@ const CustomerProfilePage = () => {
   const [country, setCountry] = useState({ dialCode: "971", name: "UAE" });
   const [nationalityOptions, setNationalityOptions] = useState([]);
   const [selectedNationality, setSelectedNationality] = useState("");
-  const [loading, setLoading] = useState(false);
   const [isViewProfileOnly, setIsViewProfileOnly] = useState(true);
   const [customerDetails, setCustomerDetails] = useState({});
   // const [customerProfileImg, setCustomerProfileImg] = useState();
+
   // Driving License
   const [drivingLicenseNum, setDrivingLicenseNum] = useState("");
   const [drivingLicenseIssueBy, setDrivingLicenseIssueBy] = useState("");
@@ -93,39 +93,48 @@ const CustomerProfilePage = () => {
   // };
 
   // Get Customer's Documents URL
-
   const getCustomerUploadedImgUrl = async (file, documentType) => {
-    setLoading(true);
-    document.body.classList.add("loadings");
+    const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    };
 
-    try {
-      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+    const formData = new FormData();
+    formData.append("file", file);
 
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-      };
+    const url = `https://app.speedautosystems.com/api/UploadFile`;
 
-      const formData = new FormData();
-      formData.append("file", file);
+    toast.dismiss();
+    toast.promise(
+      (async () => {
+        try {
+          const response = await axios.post(url, formData, { headers });
+          const fetchedRequiredImgUrl = response?.data?.Result?.url;
 
-      const url = `https://app.speedautosystems.com/api/UploadFile`;
+          console.log(
+            `fetchedRequiredImgUrl response for ${documentType} is: -- ${JSON.stringify(
+              fetchedRequiredImgUrl
+            )}`
+          );
 
-      const response = await axios.post(url, formData, { headers });
-      const fetchedRequiredImgUrl = response?.data?.Result?.url;
-
-      console.log(
-        `fetchedRequiredImgUrl response for ${documentType} is: -- ${JSON.stringify(
-          fetchedRequiredImgUrl
-        )}`
-      );
-      setDrivingLicenseImg(fetchedRequiredImgUrl);
-    } catch (error) {
-      console.error("Error while creating img url of documents", error);
-    } finally {
-      setLoading(false);
-      document.body.classList.remove("loadings");
-    }
+          setDrivingLicenseImg(fetchedRequiredImgUrl);
+          return fetchedRequiredImgUrl;
+        } catch (error) {
+          console.error("Error while creating img url of documents", error);
+          throw error;
+        }
+      })(),
+      {
+        loading: `Uploading ${documentType}...`,
+        success: `${documentType} uploaded successfully!`,
+        error: (error) =>
+          `Failed to upload ${documentType}: ${error.message || error}`,
+      },
+      {
+        duration: 3000,
+      }
+    );
   };
 
   // Get Customer Profile from Speed
@@ -149,7 +158,6 @@ const CustomerProfilePage = () => {
 
         setCustomerDetails(response?.data?.result);
         if (response?.data?.result) {
-          console.log("get customer response-");
           console.log("get customer response--------:", response?.data?.result);
           const nationality = response?.data?.result?.nationality;
           const issuedBy =
@@ -201,6 +209,7 @@ const CustomerProfilePage = () => {
     fetchSpeedCustomerProfileDetails,
   ]);
 
+  // get List of all Nationalities API
   const fetchNationalities = async () => {
     let allCountries = [];
     let offset = 0;
@@ -290,44 +299,17 @@ const CustomerProfilePage = () => {
 
   // Update Customer Profile of Own Backend DB
   const updateCustomerProfileOwnDB = async () => {
-    if (!isEmailValid(email)) {
-
-      toast.dismiss();
-      toast("Please enter a valid email address.", {
-        duration: 1500,
-      });
-      return;
-    }
-
-    const parsedPhoneNumber = parsePhoneNumberFromString(
-      `+${phoneNumber}`,
-      country?.name
-    );
-    if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
-      console.log("Phne Number: ", phoneNumber);
-
-      toast.dismiss();
-      toast("Please enter a valid phone number.", {
-        duration: 2500,
-      });
-      return;
-    }
-    document.body.classList.add("loadings");
-
     const formData = {
       fName,
       lName,
       email,
-      phoneNumber: `+${phoneNumber}`,
+      phoneNumber: phoneNumber,
       nationality: selectedNationality,
     };
     console.log("form data is: ", formData);
-    setLoading(true);
-    document.body.classList.add("loadings");
 
     try {
       const response = await axios.patch(
-        // `http://localhost:8000/api/v1/customer/updateprofile/${id}`,
         `${process.env.REACT_APP_MILELE_API_URL}/customer/updateprofile/${id}`,
         formData,
         {
@@ -337,7 +319,7 @@ const CustomerProfilePage = () => {
           },
         }
       );
-
+      console.log("Update customer in DB: ", response?.data);
       if (response?.data?.status === "success") {
         const user = JSON.parse(localStorage.getItem("user"));
         if (user && user?.data) {
@@ -347,39 +329,22 @@ const CustomerProfilePage = () => {
           localStorage.setItem("user", JSON.stringify(user));
         }
 
-
-        toast.dismiss();
-        toast("Profile Updated Successfully!", {
-          duration: 2000,
-         
-          onClose: () => {
-            const lastUrl = localStorage.getItem("lastUrl") || "/";
-            navigate(lastUrl);
-          },
-        });
         setIsViewProfileOnly(true);
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+        console.log("Profile Updated in DB Successfully!");
+        return "Profile Updated in DB Successfully!";
       } else {
-        alert("Some fields are miss own DB");
-
-
-        toast.dismiss();
-        toast("Some fields are missing", {
-          duration: 2000,
-         
-        });
+        console.error("Unexpected response structure:", response?.data);
+        throw new Error("Unexpected response structure");
       }
     } catch (error) {
-      console.log("Error : ", error);
-      alert(error?.response?.data?.message || "Some fields are missing");
-
-      toast.dismiss();
-      toast(error?.response?.data?.message || "Some fields are missing", {
-        duration: 2000,
-       
-      });
-    } finally {
-      setLoading(false);
-      document.body.classList.remove("loadings");
+      console.error("Error (DB): ", error);
+      throw new Error(
+        error?.response?.data?.message ||
+          "Network Error or Some fields are missing"
+      );
     }
   };
 
@@ -414,57 +379,65 @@ const CustomerProfilePage = () => {
         },
       ],
     };
-    console.log("Update custome create data is: ", createCustomerData);
-    setLoading(true);
-    document.body.classList.add("loadings");
+    console.log(
+      "Before Update custome in Speed, data is: ",
+      createCustomerData
+    );
 
-    try {
-      const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
+    const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
 
-      const url =
-        "https://app.speedautosystems.com/api/services/app/person/CreateOrUpdatePerson";
-      const payload = {
-        person: createCustomerData,
-      };
+    const url =
+      "https://app.speedautosystems.com/api/services/app/person/CreateOrUpdatePerson";
+    const payload = {
+      person: createCustomerData,
+    };
 
-      const response = await axios.post(url, payload, { headers });
-      console.log(
-        "===createddddd customer response--------:",
-        response?.data?.result
-      );
+    toast.dismiss();
+    toast.promise(
+      (async () => {
+        try {
+          const response = await axios.post(url, payload, { headers });
+          console.log("updated customer data:", response?.data?.result);
 
-      if (response?.data && response?.data?.success && response?.data?.result) {
-        console.log(
-          "Update customer success if method console - - - - - -- done",
-          response?.data?.result
-        );
-        
-        // alert("alert customer created...");
-      } else {
-        const errorMessage = response?.data?.error?.message;
+          if (
+            response?.data &&
+            response?.data?.success &&
+            response?.data?.result
+          ) {
+            console.log(
+              "Update customer success if method console - - - - - -- done",
+              response?.data?.result
+            );
 
-        toast.dismiss();
-        toast(errorMessage, {
-          duration: 5000,
-          style: {
-            border: "1px solid #c0c0c0",
-            fontWeight: "400",
-            lineHeight: "18px",
-            fontSize: "14px",
-          },
-        });
-        console.error("Unexpected response structure:", response?.data);
+            return response?.data?.result;
+          } else {
+            const errorMessage =
+              response?.data?.error?.message ||
+              "An error occurred during the update.";
+            console.error("Unexpected response structure:", response?.data);
+            throw new Error(errorMessage);
+          }
+        } catch (error) {
+          console.error("Error creating/updating customer:", error);
+          throw new Error(
+            error.response ? error.response.data.message : error.message
+          );
+        }
+      })(),
+      {
+        loading: "Updating Speed profile...",
+        success: "Speed Profile Updated Successfully!",
+        error: (error) =>
+          `Failed to update customer profile: ${error.message || error}`,
+      },
+      {
+        duration: 3000,
       }
-    } catch (error) {
-      console.error("Error creating/updating customer:", error);
-    } finally {
-      setLoading(false);
-      document.body.classList.remove("loadings");
-    }
+    );
   };
 
   const handleCustomerProfileSaveButton = (e) => {
@@ -492,9 +465,7 @@ const CustomerProfilePage = () => {
         ", "
       )} field(s) are missing.`;
       toast.dismiss();
-      toast(errorMessage, {
-        
-      });
+      toast(errorMessage, {});
       return;
     }
 
@@ -525,23 +496,72 @@ const CustomerProfilePage = () => {
         toast.dismiss();
         toast(errorMessage, {
           duration: 5000,
-         
         });
         return;
       }
     }
 
+    if (!isEmailValid(email)) {
+      toast.dismiss();
+      toast.error("Please enter a valid email address.", {
+        duration: 1500,
+      });
+      return;
+    }
+
+    const parsedPhoneNumber = parsePhoneNumberFromString(
+      `${phoneNumber}`,
+      country?.name
+    );
+    if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
+      console.log("Phne Number: ", phoneNumber);
+
+      toast.dismiss();
+      toast.error("Please enter a valid phone number.", {
+        duration: 2500,
+      });
+      return;
+    }
+
     const updateProfiles = async () => {
       try {
-        await updateSpeedCustomerProfileDetails();
+        const speedCustomerUpdatedDataRes =
+          await updateSpeedCustomerProfileDetails();
+        console.log(
+          " speedCustomerUpdatedDataRes ",
+          speedCustomerUpdatedDataRes
+        );
         await updateCustomerProfileOwnDB();
-        window.location.reload();
       } catch (error) {
         console.error("Error updating profiles:", error);
       }
     };
 
     updateProfiles();
+  };
+
+  const selectStylesViewOnly = {
+    control: (provided, { hasValue }) => ({
+      ...provided,
+      cursor: "pointer",
+      border: "1px solid rgb(184, 184, 184)",
+      boxShadow: "none",
+      lineHeight: "32px",
+      borderRadius: "6px",
+      ":hover": {
+        border: "1px solid rgb(184, 184, 184)",
+      },
+      marginLeft: "-13px",
+      marginRight: "-13px",
+    }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      cursor: "pointer",
+      backgroundColor: isSelected ? "#e87a28" : "white",
+      ":hover": {
+        backgroundColor: isSelected ? "#e87a28" : "rgb(229, 229, 229)",
+      },
+    }),
   };
 
   const selectStyles = {
@@ -551,8 +571,6 @@ const CustomerProfilePage = () => {
       border: "1px solid rgb(184, 184, 184)",
       boxShadow: "none",
       lineHeight: "32px",
-      marginLeft: "-13px",
-      marginRight: "-14px",
       borderRadius: "6px",
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
@@ -688,15 +706,6 @@ const CustomerProfilePage = () => {
                   className="customer-details-profile-form"
                   // onSubmit={handleContactUsSubmitButton}
                 >
-                  {loading && (
-                    <div className="reloading-icon-of-form-container text-center">
-                      <span className="loader-text">
-                        Updating your Account . . .
-                      </span>
-                      <div className="lds-dual-ring text-center"></div>
-                    </div>
-                  )}
-
                   <div className="form-group customer-personal-detail-div row">
                     <Form.Group className="col-lg-6 col-md-6 col-sm-6 pt-4">
                       <label
@@ -816,7 +825,11 @@ const CustomerProfilePage = () => {
                           // }
                           value={selectedNationality}
                           onChange={handleNationalityChange}
-                          styles={selectStyles}
+                          styles={
+                            isViewProfileOnly
+                              ? selectStylesViewOnly
+                              : selectStyles
+                          }
                           isDisabled={isViewProfileOnly}
                         />
                       </div>
@@ -857,7 +870,7 @@ const CustomerProfilePage = () => {
                         onChange={
                           !isViewProfileOnly
                             ? (phone, country) => {
-                                setPhoneNumber(phone);
+                                setPhoneNumber(`+${phone}`);
                                 setCountry(country);
                               }
                             : undefined
@@ -943,7 +956,11 @@ const CustomerProfilePage = () => {
                             className="form-control-nationality col-12"
                             value={drivingLicenseIssueBy}
                             onChange={handleDrivingLicenseChange}
-                            styles={selectStyles}
+                            styles={
+                              isViewProfileOnly
+                                ? selectStylesViewOnly
+                                : selectStyles
+                            }
                             isDisabled={isViewProfileOnly}
                           />
                         </Form.Group>
