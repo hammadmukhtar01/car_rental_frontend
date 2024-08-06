@@ -354,21 +354,22 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               response?.data?.result
             );
 
-            try {
-              await createOwnDBCustomer(response?.data?.result);
-            } catch (createDBError) {
-              console.error(
-                "Error creating customer in own DB:",
-                createDBError
-              );
-              throw new Error(
-                createDBError.response
-                  ? createDBError.response.data.message
-                  : createDBError.message
-              );
+            if (!auth && !auth?.data) {
+              try {
+                await createOwnDBCustomer(response?.data?.result);
+              } catch (createDBError) {
+                console.error(
+                  "Error creating customer in own DB:",
+                  createDBError
+                );
+                throw new Error(
+                  createDBError.response
+                    ? createDBError.response.data.message
+                    : createDBError.message
+                );
+              }
             }
 
-            // Only proceed if no error occurs
             getCustomerDetails(response?.data?.result);
             return response?.data?.result;
           } else {
@@ -905,7 +906,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       }
 
       const parsedPhoneNumber = parsePhoneNumberFromString(
-        `+${contactNum}`,
+        `${contactNum}`,
         country?.name
       );
       if (!parsedPhoneNumber || !parsedPhoneNumber?.isValid()) {
