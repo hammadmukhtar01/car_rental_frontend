@@ -28,14 +28,14 @@ const ContactusPage = () => {
             data-elementor-id="3104"
             className="elementor elementor-3104 pt-xl-4"
           >
-            <div className="styled-label text-center pt-3 pb-2">
+            <div className="styled-label text-center pt-3">
               <span className="contactUs-form-heading">
                 <h1>
                   <b className="fs-3">Contact Us</b>
                 </h1>
               </span>
             </div>
-            <section className="contact-us-section-2 pt-5 pb-4">
+            <section className="contact-us-section-2 pt-3 pb-2">
               <div className="contact-us-form-container">
                 <ContactUsForm />
               </div>

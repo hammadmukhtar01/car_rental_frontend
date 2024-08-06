@@ -799,7 +799,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         }
       })(),
       {
-        loading: "Submitting booking...",
+        loading: "Submit Booking...",
         success: "Booking submitted successfully!",
         error: (error) =>
           `Failed to submit booking: ${error?.message || error}`,
@@ -819,7 +819,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     setSelectedNationality(selectedOption);
   };
 
-  const handleNextStep = () => {
+  const handleAddOnsDocumentStepForm = async (e) => {
+    e.preventDefault();
+
     const newErrorFields = {};
     const customerDetailsMissingFields = [];
     if (!firstName) {
@@ -903,16 +905,12 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             : errorMessageMultiple;
 
         toast.dismiss();
-        toast("Required fiels are missing.", {
+        toast(errorMessage, {
           duration: 3000,
         });
         return;
       }
     }
-  };
-
-  const handleAddOnsDocumentStepForm = async (e) => {
-    e.preventDefault();
 
     if (!user_customerSpeedId) {
       const isEmailValid = (email) => {
@@ -1063,12 +1061,36 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       border: "1px solid white",
       boxShadow: "none",
       lineHeight: "32px",
-      marginLeft: "-13px",
-      marginRight: "-13px",
+      // marginLeft: "-13px",
+      // marginRight: "-13px",
       borderRadius: "6px",
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
       },
+    }),
+    option: (provided, { isSelected, isFocused }) => ({
+      ...provided,
+      cursor: "pointer",
+      backgroundColor: isSelected ? "#e87a28" : "white",
+      ":hover": {
+        backgroundColor: isSelected ? "#e87a28" : "rgb(229, 229, 229)",
+      },
+    }),
+  };
+
+  const selectStylesVisibleOnly = {
+    control: (provided, { hasValue }) => ({
+      ...provided,
+      cursor: "pointer",
+      border: "1px solid rgb(184, 184, 184)",
+      boxShadow: "none",
+      lineHeight: "32px",
+      borderRadius: "6px",
+      ":hover": {
+        border: "1px solid rgb(184, 184, 184)",
+      },
+      marginLeft: "-13px",
+      marginRight: "-13px",
     }),
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
@@ -1162,7 +1184,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   errorFields?.firstName ? "border-red" : ""
                                 }`}
                                 type="text"
-                                required
                                 placeholder="First name"
                                 readOnly={auth && user_token}
                                 value={firstName}
@@ -1177,6 +1198,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     }
                                   }
                                 }}
+                                disabled={auth && user_token}
                               />
                             </Form.Group>
                           </Col>
@@ -1211,6 +1233,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     ? (e) => setLastName(e.target.value)
                                     : undefined
                                 }
+                                disabled={auth && user_token}
                               />
                             </Form.Group>
                           </Col>
@@ -1263,6 +1286,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     }
                                   }
                                 }}
+                                disabled={auth && user_token}
                               />
                             </Form.Group>
                           </Col>
@@ -1290,7 +1314,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 }`}
                                 type="email"
                                 placeholder="Email address"
-                                required
                                 readOnly={auth && user_token}
                                 value={emailAddress}
                                 onChange={(e) => {
@@ -1304,6 +1327,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     }
                                   }
                                 }}
+                                disabled={auth && user_token}
                               />
                             </Form.Group>
                           </Col>
@@ -1343,7 +1367,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   }
                                 }}
                                 styles={
-                                  errorFields?.selectedNationality
+                                  auth && user_token
+                                    ? selectStylesVisibleOnly
+                                    : errorFields?.selectedNationality
                                     ? selectStylesError
                                     : selectStyles
                                 }
@@ -1399,7 +1425,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                           ? "border-red"
                                           : ""
                                       }`}
-                                      required
                                       type="text"
                                       placeholder="Driving license no."
                                       value={drivingLicenseNum}
@@ -1434,8 +1459,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     </div>
                                     <Select
                                       options={nationalityOptions}
-                                      required
-                                      className={`form-control-nationality col-12 ${
+                                      className={`form-control-nationality col-12 nationality-dropdown ${
                                         errorFields?.drivingLicenseIssueBy
                                           ? "select-error border-red"
                                           : ""
@@ -1563,7 +1587,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     </div>
                                     <input
                                       className="form-control-fname p-2 col-12 mt-2"
-                                      required
                                       type="file"
                                       placeholder="driving license"
                                       // value={drivingLicenseImg}
@@ -1656,7 +1679,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                     className="d-flex justify-content-center"
                   >
                     <button
-                      onClick={handleNextStep}
                       className="map-loc-middle "
                       id="book-pay-final-button"
                       aria-label="Booking & Payment"

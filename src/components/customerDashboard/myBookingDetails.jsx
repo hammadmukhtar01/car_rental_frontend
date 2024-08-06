@@ -13,6 +13,7 @@ const CustomerBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [bookingsStatusValue, setBookingsStatusValue] = useState([]);
   const [visibleDetails, setVisibleDetails] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const auth = JSON.parse(localStorage?.getItem("user"));
   const customerSpeedID = auth?.data?.customerIdFromSpeed;
@@ -20,6 +21,8 @@ const CustomerBookings = () => {
   const fetchCustomerBookingsIDs = useMemo(
     () => async (customerSpeedID) => {
       try {
+        console.log("fetchCustomerBookingsIDs");
+
         const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
         const headers = {
           Authorization: `Bearer ${token}`,
@@ -47,11 +50,13 @@ const CustomerBookings = () => {
 
         setBookingsIDs(bookingIds);
         if (bookingIds) {
+          setIsLoading(false);
         } else {
           console.log("Fetching Customer Bookings ID is incorrect!");
         }
       } catch (error) {
         console.error("Error Fetching Customer Bookings Data: ", error);
+        setIsLoading(false);
       }
     },
     []
@@ -60,6 +65,7 @@ const CustomerBookings = () => {
   const fetchCustomerBookingsData = useMemo(
     () => async (bookingIds) => {
       try {
+        console.log("fetchCustomerBookingsData");
         const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
         const headers = {
           Authorization: `Bearer ${token}`,
@@ -76,11 +82,13 @@ const CustomerBookings = () => {
 
         setBookings(bookingsData);
         if (bookingsData) {
+          setIsLoading(false);
         } else {
           console.log("Fetching Customer Bookings Data is incorrect");
         }
       } catch (error) {
         console.error("Error Fetching Customer Bookings Data: ", error);
+        setIsLoading(false);
       }
     },
     []
@@ -246,8 +254,6 @@ const CustomerBookings = () => {
                           {booking?.totalCharges * 1}
                         </td>
 
-                       
-
                         <td className="d-flex justify-content-center">
                           <button
                             className="booking-details-button"
@@ -265,9 +271,10 @@ const CustomerBookings = () => {
                       {visibleDetails[booking?.id] && (
                         <tr>
                           <td colSpan={bookingStatusTableHeadings?.length}>
-                    
-                            <SingleBookingDetails bookingData={booking} className="bg-white" />
-
+                            <SingleBookingDetails
+                              bookingData={booking}
+                              className="bg-white"
+                            />
                           </td>
                         </tr>
                       )}
@@ -277,7 +284,7 @@ const CustomerBookings = () => {
               )}
             </Table>
           </div>
-          {bookings.length <= 0 && (
+          {/* {bookings.length <= 0 && (
             <>
               {" "}
               <center>
@@ -287,7 +294,21 @@ const CustomerBookings = () => {
                 </h4>
               </center>
             </>
-          )}
+          )} */}
+
+          {isLoading ? (
+            <center>
+              <h4>
+                <p>Loading...</p>
+              </h4>
+            </center>
+          ) : bookings.length === 0 ? (
+            <center>
+              <h4>
+                <>No Booking Record Found!</>
+              </h4>
+            </center>
+          ) : null}
         </div>
         <FooterCombination />
       </HelmetProvider>

@@ -57,7 +57,7 @@ const StepperComponent = () => {
                   sm={12}
                   xs={12}
                   className="rental-exps-icon-text-container"
-                  key={rentalStepsData.id}
+                  key={rentalStepsData?.id}
                 >
                   <div className="rent-exp-pic-container">
                     <picture className="rent-exp-pic-container">
@@ -66,12 +66,12 @@ const StepperComponent = () => {
                         type="image/webp"
                       />
                       <img
-                        src={rentalStepsData.iconName}
-                        alt={rentalStepsData.headingName}
+                        src={rentalStepsData?.iconName}
+                        alt={rentalStepsData?.headingName}
                         className={`rental-exps-icon ${
                           index === 1 ? "date-picker-icon" : ""
                         }`}
-                        title="steps to rent a car"
+                        title={rentalStepsData?.headingName}
                       />
                     </picture>
                   </div>
@@ -81,10 +81,10 @@ const StepperComponent = () => {
                   )}
                   <Row>
                     <div className="rental-exps-sub-headings">
-                      <b> {rentalStepsData.headingName}</b>
+                      <b> {rentalStepsData?.headingName}</b>
                     </div>
                     <div className="rental-exps-detail">
-                      {rentalStepsData.rentalStepsDetail}
+                      {rentalStepsData?.rentalStepsDetail}
                     </div>
                   </Row>
                 </Col>

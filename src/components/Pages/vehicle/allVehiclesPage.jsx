@@ -917,7 +917,7 @@ const VehiclesPage = () => {
       <div id="main" className="pb-2 ">
         <>
           <div className="all-cars-main-container-div container">
-            <div className="vehicles-page-main-container">
+            <div className="vehicles-page-main-container container">
               <div className="searchbox-container">
                 <div className="form-group pb-2 pt-4">
                   <div className=" d-flex justify-content-center">
@@ -1731,7 +1731,7 @@ const VehiclesPage = () => {
                           ) : (
                             <>
                               <div className="text-center">
-                                No Vehicle available for the selected filters
+                                No Vehicle available.
                               </div>
                             </>
                           )}

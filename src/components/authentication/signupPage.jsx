@@ -133,7 +133,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
       const formData = {
         fName,
         lName,
-        phoneNumber: phoneNumber,
+        phoneNumber: normalizedPhoneNumber,
         nationality: selectedNationality,
         email,
         password,

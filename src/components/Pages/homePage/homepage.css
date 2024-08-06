@@ -174,7 +174,7 @@
 
 .search-box-container {
   border-radius: 30px;
-  padding: 10px 20px;
+  padding: 10px 60px;
   /* box-shadow: 3px 1px 9px #e87a2861; */
   margin: 10px 20px 20px 20px;
   border: 1px solid #e87a285e;
@@ -184,13 +184,13 @@
 
 .search-box-search-button-div {
   display: flex;
-  flex-wrap: wrap;
-  align-content: center;
   justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .search-box-search-button {
-  margin-top: 20px;
+  margin-top: 23px;
   border: 1px solid #e87a28;
   border-radius: 10px;
   padding: 10px 15px;
@@ -327,7 +327,7 @@
   border-radius: 6px;
   padding: 0px !important;
   background-color: white;
-  box-shadow: 2px 1px 18px #a39f9f;
+  /* box-shadow: 2px 1px 18px #a39f9f; */
 }
 
 .total-days {
@@ -420,6 +420,9 @@
 @media screen and (max-width: 476px) {
   .search-box-label {
     font-size: 14px;
+  }
+  .search-box-container {
+    padding: 10px 20px;
   }
 }
 
@@ -706,6 +709,10 @@
 .offers-car-container-row {
   display: flex;
   align-items: center;
+}
+
+.offers-cars-container {
+  display: contents;
 }
 
 .banner-cards-images,
@@ -1053,6 +1060,9 @@ option:disabled {
   }
   .react-slideshow-container .default-nav:last-of-type {
     right: 40% !important;
+  }
+  .banner-cards-images {
+    border-radius: 0px;
   }
 }
 @media screen and (min-width: 767px) and (max-width: 991px) {
