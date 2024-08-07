@@ -339,6 +339,8 @@ span.select2-selection_arrow b {
   border: 1px solid rgb(217, 217, 217);
   border-radius: 4px;
   padding: 10px 10px;
+  /* background: url("../../images//vehicleBg.png");
+  background-position: right */
 }
 
 .single-car-container-div:hover {

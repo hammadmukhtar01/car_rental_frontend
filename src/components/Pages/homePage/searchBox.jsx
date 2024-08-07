@@ -189,8 +189,8 @@ const SearchBox = () => {
     updateLocalStorage({ userData });
 
     const url = `/vehicles?startDate=${startDate}&endDate=${endDate}&pickupLoc=${
-      pickupLocation?.value
-    }&dropoffLoc=${showDropoff === false ? "" : dropoffLocation?.value}`;
+      pickupLocation?.label
+    }&dropoffLoc=${showDropoff === false ? "" : dropoffLocation?.label}`;
 
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
