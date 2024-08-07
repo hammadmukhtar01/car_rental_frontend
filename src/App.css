@@ -59,124 +59,11 @@ h2.terms-conditions-headings-main {
   margin: 1rem 36% !important;
 }
 
-.smiley {
-  width: 8em;
-  height: 8em;
-}
-.smiley__eye1,
-.smiley__eye2,
-.smiley__mouth1,
-.smiley__mouth2 {
-  animation: eye1 3s ease-in-out infinite;
-}
-.smiley__eye1,
-.smiley__eye2 {
-  transform-origin: 64px 64px;
-}
-.smiley__eye2 {
-  animation-name: eye2;
-}
-.smiley__mouth1 {
-  animation-name: mouth1;
-}
-.smiley__mouth2 {
-  animation-name: mouth2;
-  visibility: hidden;
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: hsl(var(--hue), 90%, 10%);
     --fg: hsl(var(--hue), 90%, 90%);
   }
-}
-
-/* Animations */
-@keyframes eye1 {
-  from {
-    transform: rotate(-260deg) translate(0, -56px);
-  }
-  50%,
-  60% {
-    animation-timing-function: cubic-bezier(0.17, 0, 0.58, 1);
-    transform: rotate(-40deg) translate(0, -56px) scale(1);
-  }
-  to {
-    transform: rotate(225deg) translate(0, -56px) scale(0.35);
-  }
-}
-@keyframes eye2 {
-  from {
-    transform: rotate(-260deg) translate(0, -56px);
-  }
-  50% {
-    transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1);
-  }
-  52.5% {
-    transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1, 0);
-  }
-  55%,
-  70% {
-    animation-timing-function: cubic-bezier(0, 0, 0.28, 1);
-    transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1);
-  }
-  to {
-    transform: rotate(150deg) translate(0, -56px) scale(0.4);
-  }
-}
-@keyframes eyeBlink {
-  from,
-  25%,
-  75%,
-  to {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(0);
-  }
-}
-@keyframes mouth1 {
-  from {
-    animation-timing-function: ease-in;
-    stroke-dasharray: 0 351.86;
-    stroke-dashoffset: 0;
-  }
-  25% {
-    animation-timing-function: ease-out;
-    stroke-dasharray: 175.93 351.86;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    animation-timing-function: steps(1, start);
-    stroke-dasharray: 175.93 351.86;
-    stroke-dashoffset: -175.93;
-    visibility: visible;
-  }
-  75%,
-  to {
-    visibility: hidden;
-  }
-}
-@keyframes mouth2 {
-  from {
-    animation-timing-function: steps(1, end);
-    visibility: hidden;
-  }
-  50% {
-    animation-timing-function: ease-in-out;
-    visibility: visible;
-    stroke-dashoffset: 0;
-  }
-  to {
-    stroke-dashoffset: -351.86;
-  }
-}
-
-.loader-container-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
 }
 
 .top-bar-without-container,
@@ -276,37 +163,6 @@ h2.terms-conditions-headings-main {
   padding: 20px 0px;
 }
 
-.top-horizontal-line-text {
-  font-size: 20px;
-  font-weight: 900;
-  line-height: 3px;
-  word-spacing: 2px;
-  background-image: linear-gradient(
-    to bottom right,
-    violet,
-    indigo,
-    green,
-    white
-  );
-  background-size: 200% 200%;
-  color: transparent;
-  background-position: 50% 100%;
-  -moz-background-clip: text;
-  -webkit-background-clip: text;
-  text-transform: uppercase;
-  margin: 10px 0;
-  animation: rainbowAnimation 10s infinite backwards;
-}
-
-@keyframes rainbowAnimation {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: -100% 100%;
-  }
-}
-
 .booking-details-container {
   background-color: #dedede;
 }
@@ -382,7 +238,6 @@ h2.terms-conditions-headings-main {
 .form-control-customer-number.select-error.border-red {
   border-color: red !important;
 }
-
 
 .additional-comments {
   border: 1px solid #ccc;
