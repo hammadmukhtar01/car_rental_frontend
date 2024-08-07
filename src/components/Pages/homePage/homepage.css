@@ -684,7 +684,7 @@
 }
 
 .car-image {
-  width: 100%;
+  width: 90%;
   object-fit: contain;
   border-radius: 6px;
 }

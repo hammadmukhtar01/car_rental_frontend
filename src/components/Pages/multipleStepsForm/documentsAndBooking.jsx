@@ -21,9 +21,18 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     () => getWithExpiry("userLocationData") || {},
     []
   );
-  const userLocData = storedUserData?.userData;
-  const [errorFields, setErrorFields] = useState({});
 
+  const userLocData = storedUserData?.userData;
+  const bookingDocURL = useLocation();
+  const queryParams = useMemo(
+    () => new URLSearchParams(bookingDocURL?.search),
+    [bookingDocURL?.search]
+  );
+
+  const checkBoxValueParam =
+    String(userLocData?.showDropoff) || queryParams?.get("checkBoxValue");
+
+  const [errorFields, setErrorFields] = useState({});
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [contactNum, setContactNum] = useState("");
@@ -39,6 +48,19 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const user_token = auth?.token;
   const user_nationality = auth?.data?.nationality;
   // const user_token = auth?.token;
+
+  const customerLocationLocalStorage = useMemo(
+    () => JSON.parse(localStorage.getItem("userLocationData")),
+    []
+  );
+  const locationData = customerLocationLocalStorage?.value?.userData;
+  const pickUpLocData = locationData?.pickupLocation?.label;
+  const dropOffLocValue = locationData?.dropoffLocation?.label;
+  const dropOffLocData = checkBoxValueParam === "false" ? pickUpLocData : dropOffLocValue
+
+  console.log("PickupLoc loal storage value is: ---:", pickUpLocData);
+  console.log("dropOffLocData loal storage value is: ---:", dropOffLocData);
+
   const config = useMemo(
     () => ({
       headers: {
@@ -66,11 +88,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [newCustomerDetail, setNewCustomerDetail] = useState("");
   const [paymentUrl, setPaymentUrl] = useState("");
 
-  const bookingDocURL = useLocation();
-  const queryParams = useMemo(
-    () => new URLSearchParams(bookingDocURL?.search),
-    [bookingDocURL?.search]
-  );
   const TariffGroupIdParam = parseInt(queryParams?.get("tariffGroupId"));
   const TariffVehicleNameParam = queryParams?.get("vehicleName");
   // const vehicleType = TariffVehicleNameParam.split("-")[1]?.trim();
@@ -121,8 +138,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     userLocData?.pickupLocation?.label || queryParams?.get("pickupLoc");
   const dropoffLocParam =
     userLocData?.dropoffLocation?.label || queryParams?.get("dropoffLoc");
-  const checkBoxValueParam =
-    String(userLocData?.showDropoff) || queryParams?.get("checkBoxValue");
 
   let pickdropCombineLoc;
   if (checkBoxValueParam === "true") {
@@ -179,6 +194,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         (location) =>
           location?.name?.toUpperCase() === dropoffLocParam?.toUpperCase()
       );
+      console.log("matchedPickupLocation ", matchedPickupLocation);
+      console.log("matchedDropoffLocation ", matchedDropoffLocation);
 
       if (matchedPickupLocation) {
         setPickupLocationId(matchedPickupLocation?.id);
@@ -392,12 +409,12 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         }
       })(),
       {
-        loading: "Creating customer...",
+        loading: "Creating...",
         success: "Customer created successfully!",
         error: (error) => `Failed: ${error.message || error}`,
       },
       {
-        duration: 3000,
+        duration: 2000,
       }
     );
   };
@@ -805,7 +822,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           `Failed to submit booking: ${error?.message || error}`,
       },
       {
-        duration: 3000,
+        duration: 2000,
       }
     );
   };
@@ -858,7 +875,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
       toast.dismiss();
       toast(errorMessage, {
-        duration: 3000,
+        duration: 2000,
       });
       return;
     }
@@ -906,7 +923,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
         toast.dismiss();
         toast(errorMessage, {
-          duration: 3000,
+          duration: 2000,
         });
         return;
       }
@@ -1049,7 +1066,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         error: "Failed to generate payment link.",
       },
       {
-        duration: 3000,
+        duration: 2000,
       }
     );
   };
