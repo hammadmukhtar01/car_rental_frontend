@@ -60,6 +60,7 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
                 navigate(lastUrl);
                 onCloseModal();
               }, 3200);
+              window.location.reload();
               return "Logged In Successfully!";
             } else {
               throw new Error("Email/Password missing...");

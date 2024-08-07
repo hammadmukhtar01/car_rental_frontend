@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700|Raleway:400,300,700);
+/* @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700|Raleway:400,300,700);
 @font-face {
   font-family: "codropsicons";
   src: url("https://tympanus.net/Development/IconHoverEffects/fonts/codropsicons/codropsicons.eot");
@@ -12,74 +12,7 @@
       format("svg");
   font-weight: normal;
   font-style: normal;
-}
-
-@keyframes animate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.loader-container {
-  height: 100vh;
-  position: relative;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  -webkit-box-reflect: below 0
-    linear-gradient(transparent, transparent, #e87a28);
-}
-.loader-container .loader {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  animation: animate 2s linear infinite;
-}
-.loader-container .loader:nth-child(1):before,
-.loader-container .loader:nth-child(2):before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to top, transparent, rgba(0, 255, 249, 0.4));
-  background-size: 100px 180px;
-  background-repeat: no-repeat;
-  border-top-left-radius: 100px;
-  border-bottom-left-radius: 100px;
-}
-.loader-container .loader:nth-child(2),
-.loader-container .loader:nth-child(4) {
-  animation-delay: -1s;
-  filter: hue-rotate(290deg);
-}
-.loader-container .loader i {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translatex(-50%);
-  width: 20px;
-  height: 20px;
-  background: #00fff9;
-  border-radius: 50%;
-  z-index: 100;
-  box-shadow: 0 0 10px #00fff9, 0 0 20px #00fff9, 0 0 30px #00fff9,
-    0 0 40px #00fff9, 0 0 50px #00fff9, 0 0 60px #00fff9, 0 0 70px #00fff9,
-    0 0 80px #00fff9, 0 0 90px #00fff9, 0 0 100px #00fff9;
-}
-.loader-container .loader span {
-  position: absolute;
-  inset: 25px;
-  background: white;
-  border-radius: 50%;
-  z-index: 1;
-}
+} */
 
 .navbar-toggler .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
@@ -285,6 +218,29 @@
 div.col-lg-10.navbar-nav {
   padding: 0px 0px 0px 0px !important;
   margin: 0px !important;
+}
+
+.cancel-logout-button {
+  background-color: gray !important;
+  border: 1px solid gray !important;
+}
+.success-logout-button {
+  border: 1px solid #e87a28 !important;
+}
+
+.cancel-logout-button:focus,
+.success-logout-button:focus {
+  background-color: transparent !important;
+  color: #e87a28 !important;
+  border: 1px solid #e87a28 !important;
+  box-shadow: none !important;
+}
+
+.cancel-logout-button:hover,
+.success-logout-button:hover {
+  background-color: transparent !important;
+  color: #e87a28;
+  border: 1px solid #e87a28 !important;
 }
 
 .navbar-menus {

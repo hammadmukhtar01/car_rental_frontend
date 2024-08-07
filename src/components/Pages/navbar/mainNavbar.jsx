@@ -1,36 +1,42 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Image from "react-bootstrap/Image";
 import Coloredlogo from "../../images/car-rental-logo.png";
 import ColoredlogoWebP from "../../images/car-rental-logo.webp";
-import { Col } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import "./navbar.css";
 import { FaUserCircle } from "react-icons/fa";
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { Modal } from "react-bootstrap";
+import { Modal as BootstrapModal } from "react-bootstrap";
 import LoginSignupPage from "../../authentication/loginSignupPage";
 import ForgotPasswordPage from "../../authentication/forgotPassword";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "1px solid gray",
+  boxShadow: 24,
+  p: 4,
+};
 
 function MainNavbar() {
   const [isHomePage, setIsHomePage] = useState(false);
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const toggleOffCanvas = () => setShowOffCanvas(!showOffCanvas);
-  const [open, setOpen] = React.useState(false);
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [showLoginSignupModal, setShowLoginSignupModal] = useState(false);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [openMuiModal, setOpenMuiModal] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -55,19 +61,21 @@ function MainNavbar() {
     }
   }, [navigate, location.pathname, location.search]);
 
-  const handleLogout = () => {
-    setOpen(true);
-  };
-
   const handleConfirmLogout = () => {
+    setOpenMuiModal(false);
     localStorage?.removeItem("user");
     const lastUrl = localStorage.getItem("lastUrl") || "/";
+    window.location.reload();
     console.log("lastUrl : ", lastUrl);
     navigate(lastUrl);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleOpenMuiModal = () => {
+    setOpenMuiModal(true);
+  };
+
+  const handleCloseMuiModal = () => {
+    setOpenMuiModal(false);
   };
 
   const handleCloseModal = () => {
@@ -263,7 +271,7 @@ function MainNavbar() {
                           Update Password
                         </NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item onClick={handleLogout}>
+                        <NavDropdown.Item onClick={handleOpenMuiModal}>
                           Logout
                         </NavDropdown.Item>
                       </NavDropdown>
@@ -302,50 +310,55 @@ function MainNavbar() {
         }
       `}</style>
 
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-        maxWidth="sm"
-        fullWidth={true}
-      >
-        <DialogTitle id="responsive-dialog-title">
-          {"Logout Confirmation!"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to log out?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={handleClose}
-            autoFocus
-            aria-label="Cancel Logout Session"
-          >
-            Cancel
-          </Button>
-          <Button aria-label="Logout Confirm" onClick={handleConfirmLogout}>
-            Logout
-          </Button>
-        </DialogActions>
-      </Dialog>
-
       <Modal
+        keepMounted
+        open={openMuiModal}
+        onClose={handleCloseMuiModal}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="keep-mounted-modal-title" variant="p" sx={{ mb: 3 }}>
+            Are you sure you want to log out?
+            {/* </Typography> */}
+            <Row className="d-flex justify-content-end pt-4">
+              <Col></Col>
+              <Col className="d-flex">
+                <button
+                  className="btn btn-secondary cancel-logout-button"
+                  onClick={handleCloseMuiModal}
+                  aria-label="Close Authentication Modal"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  className="btn btn-secondary success-logout-button ml-3"
+                  onClick={handleConfirmLogout}
+                  aria-label="Close Authentication Modal"
+                >
+                  Logout
+                </button>
+              </Col>
+            </Row>
+          </Typography>
+        </Box>
+      </Modal>
+
+      <BootstrapModal
         show={showLoginSignupModal}
         onHide={handleCloseModal}
         size="xl"
         centered
       >
-        <Modal.Body className="login-signup-modal">
+        <BootstrapModal.Body className="login-signup-modal">
           {" "}
           <LoginSignupPage
             onCloseModal={handleCloseModal}
             onForgotPasswordClick={handleForgotPasswordClick}
           />{" "}
-        </Modal.Body>
-        <Modal.Footer>
+        </BootstrapModal.Body>
+        <BootstrapModal.Footer>
           <button
             className="btn btn-secondary"
             onClick={handleCloseModal}
@@ -353,22 +366,22 @@ function MainNavbar() {
           >
             Close
           </button>
-        </Modal.Footer>
-      </Modal>
+        </BootstrapModal.Footer>
+      </BootstrapModal>
 
-      <Modal
+      <BootstrapModal
         show={showForgotPasswordModal}
         onHide={handleCloseForgotPasswordModal}
         size="xl"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Forgot Password</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+        <BootstrapModal.Header closeButton>
+          <BootstrapModal.Title>Forgot Password</BootstrapModal.Title>
+        </BootstrapModal.Header>
+        <BootstrapModal.Body>
           <ForgotPasswordPage onClose={handleCloseForgotPasswordModal} />
-        </Modal.Body>
-        <Modal.Footer>
+        </BootstrapModal.Body>
+        <BootstrapModal.Footer>
           <button
             className="btn btn-secondary"
             onClick={handleCloseForgotPasswordModal}
@@ -376,8 +389,8 @@ function MainNavbar() {
           >
             Close
           </button>
-        </Modal.Footer>
-      </Modal>
+        </BootstrapModal.Footer>
+      </BootstrapModal>
     </>
   );
 }
