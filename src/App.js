@@ -29,6 +29,7 @@ import PrivateComponent from "./components/PrivateComponents/privateComponent";
 import CustomerProfilePage from "./components/customerDashboard/myProfilePage";
 import Map from "./Map";
 import ToasterWrapper from "./components/Pages/Utils/toastWrapper";
+import EventCalculation from "./components/Pages/Utils/eventCalculation";
 const LazyAbout = React.lazy(() =>
   import("./components/Pages/OtherPages/aboutusPage")
 );
@@ -78,6 +79,7 @@ const App = () => {
             <Route path="/blogPage3/3" element={<BlogPage3 />} />
             <Route path="/blogPage4/4" element={<BlogPage2 />} />
             <Route path="/map" element={<Map />} />
+            <Route path="/expenseCalculator" element={<EventCalculation />} />
 
             <Route element={<PrivateComponent />}>
               <Route path="/myProfile/:id" element={<CustomerProfilePage />} />

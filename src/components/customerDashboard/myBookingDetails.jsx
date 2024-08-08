@@ -111,7 +111,7 @@ const CustomerBookings = () => {
     "Car Name",
     "Booking No.",
     "Payment Status",
-    "Paid Amount",
+    "Paid Amount (AED)",
     "Booking Status",
     "Booking Created",
     "Earned Credit pts",
@@ -131,7 +131,7 @@ const CustomerBookings = () => {
 
     switch (status) {
       case "NoShow":
-        displayStatus = "No Customer Response";
+        displayStatus = "Voided";
         cssClass = "bg-orange";
         break;
       case "Closed":
@@ -141,6 +141,10 @@ const CustomerBookings = () => {
       case "Cancelled":
         displayStatus = "Cancelled";
         cssClass = "bg-red";
+        break;
+      case "Confirmed":
+        displayStatus = "Accepted";
+        cssClass = "bg-green";
         break;
       case "New":
         displayStatus = "In Progress";

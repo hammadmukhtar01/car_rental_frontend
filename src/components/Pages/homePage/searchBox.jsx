@@ -369,7 +369,7 @@ const SearchBox = () => {
                                 };
                                 updateLocalStorage(updatedUserData);
                               }}
-                              placeholder="Pickup"
+                              placeholder="Location"
                               styles={
                                 errorFields?.pickupLocation
                                   ? selectStylesError
@@ -425,7 +425,7 @@ const SearchBox = () => {
                                     };
                                     updateLocalStorage(updatedUserData);
                                   }}
-                                  placeholder="Dropoff "
+                                  placeholder="Location "
                                   styles={
                                     errorFields?.dropoffLocation
                                       ? selectStylesError
