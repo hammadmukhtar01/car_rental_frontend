@@ -506,20 +506,16 @@ const VehiclesPage = () => {
       value: null,
       featureIcon: BsPerson,
     },
-    {
-      name: "Automatic",
-      value: "A",
-      featureIcon: GiGearStickPattern,
-    },
+
     {
       name: "Air Bags",
       value: 2,
       featureIcon: BsSuitcase,
     },
     {
-      name: "AC",
-      value: "AC",
-      featureIcon: LuSnowflake,
+      name: "Automatic",
+      value: "A",
+      featureIcon: GiGearStickPattern,
     },
   ];
 
@@ -1066,7 +1062,7 @@ const VehiclesPage = () => {
                                                 },
                                               });
                                             }}
-                                            placeholder="Pickup Loc"
+                                            placeholder="Location"
                                             styles={
                                               errorFields?.pickupLocation
                                                 ? selectStylesError
@@ -1121,7 +1117,7 @@ const VehiclesPage = () => {
                                                   },
                                                 });
                                               }}
-                                              placeholder="Dropoff Loc"
+                                              placeholder="Location"
                                               styles={
                                                 errorFields?.dropoffLocation
                                                   ? selectStylesError
@@ -1527,6 +1523,7 @@ const VehiclesPage = () => {
                                             )
                                           </span>
                                         </div>
+
                                         <div className="car-image-container ">
                                           <img
                                             src={car?.displayImageUrl}
@@ -1581,22 +1578,20 @@ const VehiclesPage = () => {
                                                         value =
                                                           carData?.passengerCapacity;
                                                         break;
-                                                      case "Automatic":
-                                                        value =
-                                                          carData?.transmission
-                                                            ? carData?.transmission
-                                                                .split("/")[0]
-                                                                .charAt(0)
-                                                            : "N";
-                                                        break;
                                                       case "Air Bags":
                                                         value =
                                                           carData?.smallBagsCapacity +
                                                           carData?.largeBagsCapacity;
                                                         break;
-                                                      case "AC":
-                                                        value = "AC";
+                                                      case "Automatic":
+                                                        value =
+                                                          carData?.transmission
+                                                            ? carData?.transmission.split(
+                                                                "/"
+                                                              )[0]
+                                                            : "N";
                                                         break;
+
                                                       default:
                                                         value =
                                                           carData[
@@ -1630,7 +1625,6 @@ const VehiclesPage = () => {
                                             )
                                           )}
                                         </div>
-
                                         <hr className="discount-line" />
 
                                         <div className="d-flex justify-content-center">

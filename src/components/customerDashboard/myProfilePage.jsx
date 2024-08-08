@@ -17,6 +17,7 @@ import { FaUser } from "react-icons/fa";
 import "./myProfile.css";
 import Select from "react-select";
 import DateTimePicker from "react-datetime-picker";
+import { PiPhoneCallFill } from "react-icons/pi";
 
 const CustomerProfilePage = () => {
   const [fName, setFName] = useState("");
@@ -689,7 +690,9 @@ const CustomerProfilePage = () => {
                   </h4>
                   <span>
                     {" "}
-                    <strong>Phone Num : </strong>
+                    <strong>
+                      <PiPhoneCallFill /> :{" "}
+                    </strong>
                     {customerSpeedID
                       ? customerDetails?.mobileNo
                       : customerDetails?.phoneNumber}
@@ -909,284 +912,295 @@ const CustomerProfilePage = () => {
                     </Form.Group>
                   </div>
 
-                  <br />
-                  <br />
+                  {drivingLicenseNum !== "0" && (
+                    <>
+                      <br />
+                      <br />
 
-                  <h3 className="personal-detail-heading">
-                    <strong>Driving License Details</strong>
-                  </h3>
-                  <div className="form-group customer-personal-detail-div ">
-                    <Row>
-                      <Col
-                        xxl={6}
-                        lg={6}
-                        md={6}
-                        sm={6}
-                        xs={12}
-                        className="pt-4"
-                      >
-                        <Form.Group controlId="formKeyword">
-                          <label
-                            className="customer-profile-details-label"
-                            htmlFor="drivingLicenseNum"
+                      <h3 className="personal-detail-heading">
+                        <strong>Driving License Details</strong>
+                      </h3>
+                      <div className="form-group customer-personal-detail-div ">
+                        <Row>
+                          <Col
+                            xxl={6}
+                            lg={6}
+                            md={6}
+                            sm={6}
+                            xs={12}
+                            className="pt-4"
                           >
-                            <h6>
-                              {" "}
-                              Driving License Number
-                              <span className="required-field-star">*</span>
-                            </h6>
-                          </label>
-                          <input
-                            autoComplete="off"
-                            id="drivingLicenseNum"
-                            name="drivingLicenseNum"
-                            className="form-control-location mt-2 col-12"
-                            required
-                            type="text"
-                            placeholder="Driving license no."
-                            // value={
-                            //   customerSpeedID
-                            //     ? customerDetails?.identityDocuments?.[0]
-                            //         ?.documentNo
-                            //     : ""
-                            // }
-                            value={drivingLicenseNum}
-                            onChange={(e) =>
-                              setDrivingLicenseNum(e.target.value)
-                            }
-                            readOnly={isViewProfileOnly}
-                          />
-                        </Form.Group>
-                      </Col>
-                      <Col
-                        xxl={6}
-                        lg={6}
-                        md={6}
-                        sm={6}
-                        xs={12}
-                        className="pt-4"
-                      >
-                        <Form.Group controlId="formKeyword">
-                          <label
-                            className="customer-profile-details-label"
-                            htmlFor="drivingLicenseIssueBy"
-                          >
-                            <h6>
-                              {" "}
-                              Issued By
-                              <span className="required-field-star">*</span>
-                            </h6>
-                          </label>
-                          <Select
-                            autoComplete="off"
-                            id="drivingLicenseIssueBy"
-                            name="drivingLicenseIssueBy"
-                            options={nationalityOptions}
-                            required
-                            className="form-control-nationality col-12"
-                            value={drivingLicenseIssueBy}
-                            onChange={handleDrivingLicenseChange}
-                            styles={
-                              isViewProfileOnly
-                                ? selectStylesViewOnly
-                                : selectStyles
-                            }
-                            isDisabled={isViewProfileOnly}
-                          />
-                        </Form.Group>
-                      </Col>
-
-                      <Col
-                        xxl={6}
-                        lg={6}
-                        md={6}
-                        sm={6}
-                        xs={12}
-                        className="pt-4"
-                      >
-                        <Form.Group controlId="formKeyword">
-                          <label
-                            className="customer-profile-details-label"
-                            htmlFor="drivingLicenseIssueDate"
-                          >
-                            <h6>
-                              {" "}
-                              Issue Date
-                              <span className="required-field-star">*</span>
-                            </h6>
-                          </label>
-
-                          <DateTimePicker
-                            autoComplete="off"
-                            id="drivingLicenseIssueDate"
-                            name="drivingLicenseIssueDate"
-                            className="form-control-age mt-2 col-12"
-                            // value={
-                            //   customerSpeedID
-                            //     ? customerDetails?.identityDocuments?.[0]
-                            //         ?.issueDate
-                            //     : " "
-                            // }
-                            value={drivingLicenseIssueDate}
-                            onChange={setDrivingLicenseIssueDate}
-                            maxDate={new Date(new Date().setHours(0, 0, 0, 0))}
-                            disabled={isViewProfileOnly}
-                          />
-                        </Form.Group>
-                      </Col>
-                      <Col
-                        xxl={6}
-                        lg={6}
-                        md={6}
-                        sm={6}
-                        xs={12}
-                        className="pt-4"
-                      >
-                        <Form.Group controlId="formKeyword">
-                          <label
-                            className="customer-profile-details-label"
-                            htmlFor="drivingLicenseExpiryDate"
-                          >
-                            <h6>
-                              {" "}
-                              Expiry Date
-                              <span className="required-field-star">*</span>
-                            </h6>
-                          </label>
-                          <DateTimePicker
-                            autoComplete="off"
-                            id="drivingLicenseExpiryDate"
-                            name="drivingLicenseExpiryDate"
-                            className="form-control-age mt-2 col-12"
-                            // value={
-                            //   customerSpeedID
-                            //     ? customerDetails?.identityDocuments?.[0]
-                            //         ?.expiryDate
-                            //     : " "
-                            // }
-                            value={drivingLicenseExpiryDate}
-                            onChange={setDrivingLicenseExpiryDate}
-                            minDate={!customerSpeedID && new Date(new Date())}
-                            disabled={isViewProfileOnly}
-                          />
-                        </Form.Group>
-                      </Col>
-                      <Col
-                        xxl={6}
-                        lg={6}
-                        md={6}
-                        sm={6}
-                        xs={12}
-                        className="pt-4"
-                      >
-                        <Form.Group controlId="formKeyword">
-                          <label
-                            className="customer-profile-details-label"
-                            htmlFor="drivingLicenseImg"
-                          >
-                            <h6>
-                              {" "}
-                              Driving License Photo
-                              <span className="required-field-star">*</span>
-                            </h6>
-                          </label>
-
-                          {isViewProfileOnly ? (
-                            <div className="d-flex flex-column align-items-end">
-                              <img
-                                src={
-                                  customerSpeedID
-                                    ? customerDetails?.identityDocuments?.[0]
-                                        ?.images?.[0]?.url
-                                    : " No image Found"
-                                }
-                                alt="Loading..."
-                                className="driving-license-img"
-                                title={"Driving License"}
-                              />
-                            </div>
-                          ) : (
-                            <>
+                            <Form.Group controlId="formKeyword">
+                              <label
+                                className="customer-profile-details-label"
+                                htmlFor="drivingLicenseNum"
+                              >
+                                <h6>
+                                  {" "}
+                                  Driving License Number
+                                  <span className="required-field-star">*</span>
+                                </h6>
+                              </label>
                               <input
                                 autoComplete="off"
-                                id="drivingLicenseImg"
-                                name="drivingLicenseImg"
-                                className="form-control-fname p-2 col-12 mt-2"
-                                type="file"
-                                placeholder="driving license"
-                                // value={drivingLicenseImg}
+                                id="drivingLicenseNum"
+                                name="drivingLicenseNum"
+                                className="form-control-location mt-2 col-12"
+                                required
+                                type="text"
+                                placeholder="Driving license no."
+                                // value={
+                                //   customerSpeedID
+                                //     ? customerDetails?.identityDocuments?.[0]
+                                //         ?.documentNo
+                                //     : ""
+                                // }
+                                value={drivingLicenseNum}
                                 onChange={(e) =>
-                                  handleDrivingLicenseImgChange(e)
+                                  setDrivingLicenseNum(e.target.value)
+                                }
+                                readOnly={isViewProfileOnly}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col
+                            xxl={6}
+                            lg={6}
+                            md={6}
+                            sm={6}
+                            xs={12}
+                            className="pt-4"
+                          >
+                            <Form.Group controlId="formKeyword">
+                              <label
+                                className="customer-profile-details-label"
+                                htmlFor="drivingLicenseIssueBy"
+                              >
+                                <h6>
+                                  {" "}
+                                  Issued By
+                                  <span className="required-field-star">*</span>
+                                </h6>
+                              </label>
+                              <Select
+                                autoComplete="off"
+                                id="drivingLicenseIssueBy"
+                                name="drivingLicenseIssueBy"
+                                options={nationalityOptions}
+                                required
+                                className="form-control-nationality col-12"
+                                value={drivingLicenseIssueBy}
+                                onChange={handleDrivingLicenseChange}
+                                styles={
+                                  isViewProfileOnly
+                                    ? selectStylesViewOnly
+                                    : selectStyles
+                                }
+                                isDisabled={isViewProfileOnly}
+                              />
+                            </Form.Group>
+                          </Col>
+
+                          <Col
+                            xxl={6}
+                            lg={6}
+                            md={6}
+                            sm={6}
+                            xs={12}
+                            className="pt-4"
+                          >
+                            <Form.Group controlId="formKeyword">
+                              <label
+                                className="customer-profile-details-label"
+                                htmlFor="drivingLicenseIssueDate"
+                              >
+                                <h6>
+                                  {" "}
+                                  Issue Date
+                                  <span className="required-field-star">*</span>
+                                </h6>
+                              </label>
+
+                              <DateTimePicker
+                                autoComplete="off"
+                                id="drivingLicenseIssueDate"
+                                name="drivingLicenseIssueDate"
+                                className="form-control-age mt-2 col-12"
+                                // value={
+                                //   customerSpeedID
+                                //     ? customerDetails?.identityDocuments?.[0]
+                                //         ?.issueDate
+                                //     : " "
+                                // }
+                                value={drivingLicenseIssueDate}
+                                onChange={setDrivingLicenseIssueDate}
+                                maxDate={
+                                  new Date(new Date().setHours(0, 0, 0, 0))
                                 }
                                 disabled={isViewProfileOnly}
                               />
-                            </>
-                          )}
-                        </Form.Group>
-                      </Col>
-                      <Col
-                        xxl={6}
-                        lg={6}
-                        md={6}
-                        sm={6}
-                        xs={12}
-                        className="pt-4"
-                      >
-                        <Form.Group controlId="formKeyword">
-                          <label
-                            className="customer-profile-details-label"
-                            htmlFor="internationalLicense"
+                            </Form.Group>
+                          </Col>
+                          <Col
+                            xxl={6}
+                            lg={6}
+                            md={6}
+                            sm={6}
+                            xs={12}
+                            className="pt-4"
                           >
-                            <h6>
-                              {" "}
-                              Is Driving License International?
-                              <span className="required-field-star">*</span>
-                            </h6>
-                          </label>
-                          <div className="mt-2 d-flex justify-content-center">
-                            <Form.Check
-                              autoComplete="off"
-                              id="internationalLicenseTrue"
-                              name="internationalLicense"
-                              className="mb-1 col-4"
-                              type="radio"
-                              label="Yes"
-                              value="true"
-                              checked={isInternationalLicense === "true"}
-                              // checked={
-                              //   customerSpeedID
-                              //     ? customerDetails?.identityDocuments?.[0]
-                              //         ?.isInternational === true
-                              //     : false
-                              // }
-                              onChange={() => setIsInternationalLicense("true")}
-                              disabled={isViewProfileOnly}
-                            />
-                            <Form.Check
-                              autoComplete="off"
-                              className="mb-1 col-4"
-                              id="internationalLicenseFalse"
-                              type="radio"
-                              label="No"
-                              name="internationalLicense"
-                              value="false"
-                              checked={isInternationalLicense === "false"}
-                              // checked={
-                              //   customerSpeedID
-                              //     ? customerDetails?.identityDocuments?.[0]
-                              //         ?.isInternational === false
-                              //     : true
-                              // }
-                              onChange={() =>
-                                setIsInternationalLicense("false")
-                              }
-                              disabled={isViewProfileOnly}
-                            />
-                          </div>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                  </div>
+                            <Form.Group controlId="formKeyword">
+                              <label
+                                className="customer-profile-details-label"
+                                htmlFor="drivingLicenseExpiryDate"
+                              >
+                                <h6>
+                                  {" "}
+                                  Expiry Date
+                                  <span className="required-field-star">*</span>
+                                </h6>
+                              </label>
+                              <DateTimePicker
+                                autoComplete="off"
+                                id="drivingLicenseExpiryDate"
+                                name="drivingLicenseExpiryDate"
+                                className="form-control-age mt-2 col-12"
+                                // value={
+                                //   customerSpeedID
+                                //     ? customerDetails?.identityDocuments?.[0]
+                                //         ?.expiryDate
+                                //     : " "
+                                // }
+                                value={drivingLicenseExpiryDate}
+                                onChange={setDrivingLicenseExpiryDate}
+                                minDate={
+                                  !customerSpeedID && new Date(new Date())
+                                }
+                                disabled={isViewProfileOnly}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col
+                            xxl={6}
+                            lg={6}
+                            md={6}
+                            sm={6}
+                            xs={12}
+                            className="pt-4"
+                          >
+                            <Form.Group controlId="formKeyword">
+                              <label
+                                className="customer-profile-details-label"
+                                htmlFor="drivingLicenseImg"
+                              >
+                                <h6>
+                                  {" "}
+                                  Driving License Photo
+                                  <span className="required-field-star">*</span>
+                                </h6>
+                              </label>
+
+                              {isViewProfileOnly ? (
+                                <div className="d-flex flex-column align-items-end">
+                                  <img
+                                    src={
+                                      customerSpeedID
+                                        ? customerDetails
+                                            ?.identityDocuments?.[0]
+                                            ?.images?.[0]?.url
+                                        : " No image Found"
+                                    }
+                                    alt="Loading..."
+                                    className="driving-license-img"
+                                    title={"Driving License"}
+                                  />
+                                </div>
+                              ) : (
+                                <>
+                                  <input
+                                    autoComplete="off"
+                                    id="drivingLicenseImg"
+                                    name="drivingLicenseImg"
+                                    className="form-control-fname p-2 col-12 mt-2"
+                                    type="file"
+                                    placeholder="driving license"
+                                    // value={drivingLicenseImg}
+                                    onChange={(e) =>
+                                      handleDrivingLicenseImgChange(e)
+                                    }
+                                    disabled={isViewProfileOnly}
+                                  />
+                                </>
+                              )}
+                            </Form.Group>
+                          </Col>
+                          <Col
+                            xxl={6}
+                            lg={6}
+                            md={6}
+                            sm={6}
+                            xs={12}
+                            className="pt-4"
+                          >
+                            <Form.Group controlId="formKeyword">
+                              <label
+                                className="customer-profile-details-label"
+                                htmlFor="internationalLicense"
+                              >
+                                <h6>
+                                  {" "}
+                                  Is Driving License International?
+                                  <span className="required-field-star">*</span>
+                                </h6>
+                              </label>
+                              <div className="mt-2 d-flex justify-content-center">
+                                <Form.Check
+                                  autoComplete="off"
+                                  id="internationalLicenseTrue"
+                                  name="internationalLicense"
+                                  className="mb-1 col-4"
+                                  type="radio"
+                                  label="Yes"
+                                  value="true"
+                                  checked={isInternationalLicense === "true"}
+                                  // checked={
+                                  //   customerSpeedID
+                                  //     ? customerDetails?.identityDocuments?.[0]
+                                  //         ?.isInternational === true
+                                  //     : false
+                                  // }
+                                  onChange={() =>
+                                    setIsInternationalLicense("true")
+                                  }
+                                  disabled={isViewProfileOnly}
+                                />
+                                <Form.Check
+                                  autoComplete="off"
+                                  className="mb-1 col-4"
+                                  id="internationalLicenseFalse"
+                                  type="radio"
+                                  label="No"
+                                  name="internationalLicense"
+                                  value="false"
+                                  checked={isInternationalLicense === "false"}
+                                  // checked={
+                                  //   customerSpeedID
+                                  //     ? customerDetails?.identityDocuments?.[0]
+                                  //         ?.isInternational === false
+                                  //     : true
+                                  // }
+                                  onChange={() =>
+                                    setIsInternationalLicense("false")
+                                  }
+                                  disabled={isViewProfileOnly}
+                                />
+                              </div>
+                            </Form.Group>
+                          </Col>
+                        </Row>
+                      </div>
+                    </>
+                  )}
 
                   <div className="form-group-3 col-lg-12 pb-4">
                     <div className="col-lg-12 col-md-6 d-flex justify-content-end">

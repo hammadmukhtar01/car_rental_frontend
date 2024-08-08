@@ -56,7 +56,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const locationData = customerLocationLocalStorage?.value?.userData;
   const pickUpLocData = locationData?.pickupLocation?.label;
   const dropOffLocValue = locationData?.dropoffLocation?.label;
-  const dropOffLocData = checkBoxValueParam === "false" ? pickUpLocData : dropOffLocValue
+  const dropOffLocData =
+    checkBoxValueParam === "false" ? pickUpLocData : dropOffLocValue;
 
   console.log("PickupLoc loal storage value is: ---:", pickUpLocData);
   console.log("dropOffLocData loal storage value is: ---:", dropOffLocData);
@@ -75,13 +76,13 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   };
 
   // Driving License
-  const [drivingLicenseNum, setDrivingLicenseNum] = useState("");
-  const [drivingLicenseIssueBy, setDrivingLicenseIssueBy] = useState("");
-  const [drivingLicenseIssueDate, setDrivingLicenseIssueDate] = useState("");
-  const [drivingLicenseExpiryDate, setDrivingLicenseExpiryDate] = useState("");
-  const [drivingLicenseImg, setDrivingLicenseImg] = useState("");
-  const [isInternationalLicense, setIsInternationalLicense] = useState("");
-  // Passport
+  // const [drivingLicenseNum, setDrivingLicenseNum] = useState("");
+  // const [drivingLicenseIssueBy, setDrivingLicenseIssueBy] = useState("");
+  // const [drivingLicenseIssueDate, setDrivingLicenseIssueDate] = useState("");
+  // const [drivingLicenseExpiryDate, setDrivingLicenseExpiryDate] = useState("");
+  // const [drivingLicenseImg, setDrivingLicenseImg] = useState("");
+  // const [isInternationalLicense, setIsInternationalLicense] = useState("");
+  // Other Fields
   const [nationalityOptions, setNationalityOptions] = useState([]);
   const [pickupLocationId, setPickupLocationId] = useState("");
   const [dropoffLocationId, setDropoffLocationId] = useState("");
@@ -153,18 +154,29 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   useEffect(() => {
     const fetchNationalities = async () => {
+      let allCountries = [];
+      let offset = 0;
+      const limit = 1000;
+      let hasMore = true;
+
       try {
-        const response = await axios.get(
-          "https://api.first.org/data/v1/countries"
-        );
-        const data = response?.data?.data;
-        const options = Object.keys(data)
-          .map((key) => ({
-            label: data[key]?.country,
-            value: key,
-          }))
-          .sort((a, b) => a.label.localeCompare(b.label));
-        setNationalityOptions(options);
+        while (hasMore) {
+          const response = await axios.get(
+            `https://api.first.org/data/v1/countries?limit=${limit}&offset=${offset}`
+          );
+          const data = response?.data?.data;
+          allCountries = [
+            ...allCountries,
+            ...Object.keys(data).map((key) => ({
+              label: data[key]?.country,
+              value: key,
+            })),
+          ];
+          offset += limit;
+          hasMore = response?.data?.total > offset;
+        }
+        allCountries.sort((a, b) => a.label.localeCompare(b.label));
+        setNationalityOptions(allCountries);
       } catch (error) {
         console.error("Failed to fetch nationalities:", error);
       }
@@ -212,54 +224,54 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     fetchAvailableLocationsData();
   }, [fetchAvailableLocationsData]);
 
-  const handleDrivingLicenseImgChange = (e) => {
-    const file = e.target.files[0];
-    console.log(`handleDrivingLicenseImgChange --- `, file?.name);
-    getCustomerUploadedImgUrl(file, "Driving License");
-  };
+  // const handleDrivingLicenseImgChange = (e) => {
+  //   const file = e.target.files[0];
+  //   console.log(`handleDrivingLicenseImgChange --- `, file?.name);
+  //   getCustomerUploadedImgUrl(file, "Driving License");
+  // };
 
   // Get Customer's Documents URL
 
-  const getCustomerUploadedImgUrl = async (file, documentType) => {
-    const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
-    const headers = {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "multipart/form-data",
-    };
+  // const getCustomerUploadedImgUrl = async (file, documentType) => {
+  //   const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
+  //   const headers = {
+  //     Authorization: `Bearer ${token}`,
+  //     "Content-Type": "multipart/form-data",
+  //   };
 
-    const formData = new FormData();
-    formData.append("file", file);
+  //   const formData = new FormData();
+  //   formData.append("file", file);
 
-    const url = `https://app.speedautosystems.com/api/UploadFile`;
+  //   const url = `https://app.speedautosystems.com/api/UploadFile`;
 
-    toast.dismiss();
-    toast.promise(
-      (async () => {
-        try {
-          const response = await axios.post(url, formData, { headers });
-          const fetchedRequiredImgUrl = response?.data?.Result?.url;
+  //   toast.dismiss();
+  //   toast.promise(
+  //     (async () => {
+  //       try {
+  //         const response = await axios.post(url, formData, { headers });
+  //         const fetchedRequiredImgUrl = response?.data?.Result?.url;
 
-          console.log(
-            `fetchedRequiredImgUrl response for ${documentType} is: -- ${JSON.stringify(
-              fetchedRequiredImgUrl
-            )}`
-          );
-          setDrivingLicenseImg(fetchedRequiredImgUrl);
-        } catch (error) {
-          console.error("Error while creating img url of documents", error);
-          throw error;
-        }
-      })(),
-      {
-        loading: `Uploading ${documentType} image...`,
-        success: `Successfully uploaded ${documentType} image!`,
-        error: `Failed to upload ${documentType} image.`,
-      },
-      {
-        duration: 3000,
-      }
-    );
-  };
+  //         console.log(
+  //           `fetchedRequiredImgUrl response for ${documentType} is: -- ${JSON.stringify(
+  //             fetchedRequiredImgUrl
+  //           )}`
+  //         );
+  //         setDrivingLicenseImg(fetchedRequiredImgUrl);
+  //       } catch (error) {
+  //         console.error("Error while creating img url of documents", error);
+  //         throw error;
+  //       }
+  //     })(),
+  //     {
+  //       loading: `Uploading ${documentType} image...`,
+  //       success: `Successfully uploaded ${documentType} image!`,
+  //       error: `Failed to upload ${documentType} image.`,
+  //     },
+  //     {
+  //       duration: 3000,
+  //     }
+  //   );
+  // };
 
   // Get Customer Data From Mongo DB backend
 
@@ -827,9 +839,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     );
   };
 
-  const handleDrivingLicenseChange = (selectedOption) => {
-    setDrivingLicenseIssueBy(selectedOption);
-  };
+  // const handleDrivingLicenseChange = (selectedOption) => {
+  //   setDrivingLicenseIssueBy(selectedOption);
+  // };
 
   const handleNationalityChange = (selectedOption) => {
     console.log("selectedOption", selectedOption);
@@ -880,54 +892,54 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       return;
     }
 
-    if (!user_customerSpeedId) {
-      const newErrorFields = {};
-      const customerDocumentsMissingFields = [];
-      if (!drivingLicenseNum) {
-        newErrorFields.drivingLicenseNum = true;
-        customerDocumentsMissingFields?.push("Driving License Number");
-      }
-      if (!drivingLicenseIssueBy) {
-        newErrorFields.drivingLicenseIssueBy = true;
-        customerDocumentsMissingFields?.push("Driving License Issued Country");
-      }
-      if (!drivingLicenseIssueDate) {
-        newErrorFields.drivingLicenseIssueDate = true;
-        customerDocumentsMissingFields?.push("Driving License Issued Date");
-      }
-      if (!drivingLicenseExpiryDate) {
-        newErrorFields.drivingLicenseExpiryDate = true;
-        customerDocumentsMissingFields?.push("Driving License Expiry Date");
-      }
-      if (!isInternationalLicense) {
-        newErrorFields.isInternationalLicense = true;
-        customerDocumentsMissingFields?.push(
-          "Driving License International or not"
-        );
-      }
+    // if (!user_customerSpeedId) {
+    //   const newErrorFields = {};
+    //   const customerDocumentsMissingFields = [];
+    //   if (!drivingLicenseNum) {
+    //     newErrorFields.drivingLicenseNum = true;
+    //     customerDocumentsMissingFields?.push("Driving License Number");
+    //   }
+    //   if (!drivingLicenseIssueBy) {
+    //     newErrorFields.drivingLicenseIssueBy = true;
+    //     customerDocumentsMissingFields?.push("Driving License Issued Country");
+    //   }
+    //   if (!drivingLicenseIssueDate) {
+    //     newErrorFields.drivingLicenseIssueDate = true;
+    //     customerDocumentsMissingFields?.push("Driving License Issued Date");
+    //   }
+    //   if (!drivingLicenseExpiryDate) {
+    //     newErrorFields.drivingLicenseExpiryDate = true;
+    //     customerDocumentsMissingFields?.push("Driving License Expiry Date");
+    //   }
+    //   if (!isInternationalLicense) {
+    //     newErrorFields.isInternationalLicense = true;
+    //     customerDocumentsMissingFields?.push(
+    //       "Driving License International or not"
+    //     );
+    //   }
 
-      setErrorFields(newErrorFields);
+    //   setErrorFields(newErrorFields);
 
-      if (customerDocumentsMissingFields?.length > 0) {
-        const errorMessageMultiple = `${customerDocumentsMissingFields.join(
-          ", "
-        )} fields are missing.`;
-        const errorMessageSingle = `${customerDocumentsMissingFields.join(
-          ", "
-        )} field is missing.`;
+    //   if (customerDocumentsMissingFields?.length > 0) {
+    //     const errorMessageMultiple = `${customerDocumentsMissingFields.join(
+    //       ", "
+    //     )} fields are missing.`;
+    //     const errorMessageSingle = `${customerDocumentsMissingFields.join(
+    //       ", "
+    //     )} field is missing.`;
 
-        const errorMessage =
-          customerDocumentsMissingFields?.length === 1
-            ? errorMessageSingle
-            : errorMessageMultiple;
+    //     const errorMessage =
+    //       customerDocumentsMissingFields?.length === 1
+    //         ? errorMessageSingle
+    //         : errorMessageMultiple;
 
-        toast.dismiss();
-        toast(errorMessage, {
-          duration: 2000,
-        });
-        return;
-      }
-    }
+    //     toast.dismiss();
+    //     toast(errorMessage, {
+    //       duration: 2000,
+    //     });
+    //     return;
+    //   }
+    // }
 
     if (!user_customerSpeedId) {
       const isEmailValid = (email) => {
@@ -970,22 +982,22 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         nationality: selectedNationality?.label || user_nationality,
         identityDocuments: [
           {
-            documentNo: drivingLicenseNum,
-            expiryDate: drivingLicenseExpiryDate,
+            documentNo: "0",
+            // expiryDate: drivingLicenseExpiryDate,
             identityDocumentType: 4,
-            isInternational: isInternationalLicense,
-            issueDate: drivingLicenseIssueDate,
-            gallaryImages: [
-              {
-                url: drivingLicenseImg,
-              },
-            ],
-            images: [
-              {
-                url: drivingLicenseImg,
-              },
-            ],
-            issuedBy: drivingLicenseIssueBy?.label,
+            // isInternational: isInternationalLicense,
+            // issueDate: drivingLicenseIssueDate,
+            // gallaryImages: [
+            //   {
+            //     url: drivingLicenseImg,
+            //   },
+            // ],
+            // images: [
+            //   {
+            //     url: drivingLicenseImg,
+            //   },
+            // ],
+            issuedBy: "United Arab Emirates (the)",
           },
         ],
       };
@@ -1401,7 +1413,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                 </div>
                 <br />
 
-                {(user_customerSpeedId === null || !auth) && (
+                {/* {(user_customerSpeedId === null || !auth) && (
                   <>
                     <br />
 
@@ -1685,7 +1697,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                       </div>
                     </div>
                   </>
-                )}
+                )} */}
 
                 <div className="booking-button-main-div-step1 d-flex justify-content-center">
                   <Col
