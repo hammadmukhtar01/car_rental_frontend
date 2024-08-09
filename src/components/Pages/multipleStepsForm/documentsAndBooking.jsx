@@ -1412,6 +1412,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     : selectStyles
                                 }
                                 isDisabled={auth && user_token}
+                                menuIsOpen= {true}
                               />
                             </Form.Group>
                           </Col>
