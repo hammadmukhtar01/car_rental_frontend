@@ -56,11 +56,11 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
               localStorage.setItem("user", JSON.stringify(resultedData));
               setGif(SuccessGifWebP);
               setTimeout(() => {
-                const lastUrl = localStorage.getItem("lastUrl") || "/";
+                const lastUrl = localStorage.getItem("lastUrl");
                 navigate(lastUrl);
                 onCloseModal();
+                window.location.reload();
               }, 3200);
-              window.location.reload();
               return "Logged In Successfully!";
             } else {
               throw new Error("Email/Password missing...");
@@ -71,7 +71,7 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
           },
         },
         {
-          duration: 2000,
+          duration: 3000,
         }
       )
       .catch((err) => {

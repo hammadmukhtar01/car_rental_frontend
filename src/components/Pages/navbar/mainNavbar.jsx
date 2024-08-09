@@ -16,6 +16,7 @@ import ForgotPasswordPage from "../../authentication/forgotPassword";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
+import { useAuthModal } from "../Utils/AuthContext";
 
 const style = {
   position: "absolute",
@@ -34,7 +35,7 @@ function MainNavbar() {
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const toggleOffCanvas = () => setShowOffCanvas(!showOffCanvas);
   const theme = useTheme();
-  const [showLoginSignupModal, setShowLoginSignupModal] = useState(false);
+  // const [showLoginSignupModal, setShowLoginSignupModal] = useState(false);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [openMuiModal, setOpenMuiModal] = useState(false);
 
@@ -51,6 +52,7 @@ function MainNavbar() {
   }, [location?.pathname]);
 
   const isExactHomePage = location?.pathname === "/";
+  const { showLoginSignupModal, setShowLoginSignupModal } = useAuthModal();
 
   // const logoImage = isExactHomePage ? Whitelogo : Coloredlogo;
   const logoImage = Coloredlogo;
