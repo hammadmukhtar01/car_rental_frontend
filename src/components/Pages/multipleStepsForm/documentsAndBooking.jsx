@@ -1389,7 +1389,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 options={nationalityOptions}
                                 className={`form-control-nationality ${
                                   auth && user_token ? "col-12" : ""
-                                }  nationality-dropdown ${
+                                }  nationality-dropdown mt-2 ${
                                   errorFields?.selectedNationality
                                     ? "select-error border-red"
                                     : ""
@@ -1412,7 +1412,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     : selectStyles
                                 }
                                 isDisabled={auth && user_token}
-                                menuIsOpen= {true}
+                                // menuIsOpen= {true}
                               />
                             </Form.Group>
                           </Col>
