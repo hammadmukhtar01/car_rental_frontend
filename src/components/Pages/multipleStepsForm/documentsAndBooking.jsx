@@ -15,6 +15,7 @@ import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { getWithExpiry } from "../Utils/localStorageUtils";
+import { useAuthModal } from "../Utils/AuthContext";
 
 const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const storedUserData = useMemo(
@@ -31,6 +32,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const checkBoxValueParam =
     String(userLocData?.showDropoff) || queryParams?.get("checkBoxValue");
+  const { setShowLoginSignupModal } = useAuthModal();
 
   const [errorFields, setErrorFields] = useState({});
   const [firstName, setFirstName] = useState("");
@@ -411,6 +413,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               response?.data?.error?.message ||
               "An error occurred while creating the customer.";
             console.error("Unexpected response structure:", response?.data);
+            if (
+              errorMessage.includes("Similar record exists with this email")
+            ) {
+              setShowLoginSignupModal(true);
+            }
             throw new Error(errorMessage);
           }
         } catch (error) {
@@ -818,7 +825,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             });
 
             createInvoice();
-            return response?.data;
+            return ;
           } else {
             throw new Error("Booking failed.");
           }
@@ -1380,7 +1387,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                               </div>
                               <Select
                                 options={nationalityOptions}
-                                className={`form-control-nationality col-12 nationality-dropdown ${
+                                className={`form-control-nationality ${
+                                  auth && user_token ? "col-12" : ""
+                                }  nationality-dropdown ${
                                   errorFields?.selectedNationality
                                     ? "select-error border-red"
                                     : ""
@@ -1698,7 +1707,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                     </div>
                   </>
                 )} */}
-
+                <br />
                 <div className="booking-button-main-div-step1 d-flex justify-content-center">
                   <Col
                     lg={3}
@@ -1716,6 +1725,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                     </button>
                   </Col>
                 </div>
+                <br />
               </div>
             </form>
           </>

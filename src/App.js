@@ -30,6 +30,7 @@ import CustomerProfilePage from "./components/customerDashboard/myProfilePage";
 import Map from "./Map";
 import ToasterWrapper from "./components/Pages/Utils/toastWrapper";
 import EventCalculation from "./components/Pages/Utils/eventCalculation";
+import { AuthModalProvider } from "./components/Pages/Utils/AuthContext";
 const LazyAbout = React.lazy(() =>
   import("./components/Pages/OtherPages/aboutusPage")
 );
@@ -48,47 +49,61 @@ const App = () => {
   return (
     <>
       <GlobalLoader>
-        <div className="App">
-        <ToasterWrapper />
-          <Routes>
-            <Route
-              path="/"
-              exact
-              title="home-page-link"
-              element={<HomePage />}
-            />
-            <Route path="/vehicles" element={<VehiclesPage />} />
-            <Route
-              path="/aboutus"
-              element={
-                <React.Suspense fallback="loading about us...">
-                  <LazyAbout />
-                </React.Suspense>
-              }
-            />
-            <Route path="/faqs" element={<FaqsPage />} />
-            <Route path="/terms&Conditions" element={<TermsConditionsPage />} />
-            <Route path="/contactus" element={<ContactusPage />} />
-            <Route
-              path="/resetpassword/:token"
-              element={<ResetPasswordPage />}
-            />
-            <Route path="/bookingPage/:step" element={<VerificationForm />} />
-            <Route path="/blogPage1/1" element={<BlogPage1 />} />
-            <Route path="/blogPage2/2" element={<BlogPage2 />} />
-            <Route path="/blogPage3/3" element={<BlogPage3 />} />
-            <Route path="/blogPage4/4" element={<BlogPage2 />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/expenseCalculator" element={<EventCalculation />} />
+        <AuthModalProvider>
+          <div className="App">
+            <ToasterWrapper />
+            <Routes>
+              <Route
+                path="/"
+                exact
+                title="home-page-link"
+                element={<HomePage />}
+              />
+              <Route path="/vehicles" element={<VehiclesPage />} />
+              <Route
+                path="/aboutus"
+                element={
+                  <React.Suspense fallback="loading about us...">
+                    <LazyAbout />
+                  </React.Suspense>
+                }
+              />
+              <Route path="/faqs" element={<FaqsPage />} />
+              <Route
+                path="/terms&Conditions"
+                element={<TermsConditionsPage />}
+              />
+              <Route path="/contactus" element={<ContactusPage />} />
+              <Route
+                path="/resetpassword/:token"
+                element={<ResetPasswordPage />}
+              />
+              <Route path="/bookingPage/:step" element={<VerificationForm />} />
+              <Route path="/blogPage1/1" element={<BlogPage1 />} />
+              <Route path="/blogPage2/2" element={<BlogPage2 />} />
+              <Route path="/blogPage3/3" element={<BlogPage3 />} />
+              <Route path="/blogPage4/4" element={<BlogPage2 />} />
+              <Route path="/map" element={<Map />} />
+              <Route path="/expenseCalculator" element={<EventCalculation />} />
 
-            <Route element={<PrivateComponent />}>
-              <Route path="/myProfile/:id" element={<CustomerProfilePage />} />
-              <Route path="/myBookings/:id" element={<CustomerBookingPage />} />
-              <Route path="/updatepassword" element={<UpdatePasswordPage />} />
-            </Route>
-            <Route path="*" element={<PageNotFound />} status={404} />
-          </Routes>
-        </div>
+              <Route element={<PrivateComponent />}>
+                <Route
+                  path="/myProfile/:id"
+                  element={<CustomerProfilePage />}
+                />
+                <Route
+                  path="/myBookings/:id"
+                  element={<CustomerBookingPage />}
+                />
+                <Route
+                  path="/updatepassword"
+                  element={<UpdatePasswordPage />}
+                />
+              </Route>
+              <Route path="*" element={<PageNotFound />} status={404} />
+            </Routes>
+          </div>
+        </AuthModalProvider>
       </GlobalLoader>
     </>
   );
