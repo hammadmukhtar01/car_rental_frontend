@@ -15,7 +15,7 @@ const ContactusPage = () => {
         <title>Contact Us | Get in Touch with Us | Milele Car Rental  </title>
         <meta
           name="description"
-          content="Visit Milele Car Rental at Showroom 11, Al Aweer Auto Market, Ras Al Khor, UAE. Call +971 56 329 8330. Enjoy 24/7 customer support for a seamless rental experience."
+          content="Visit Milele Car Rental at Showroom 11, Al Aweer Auto Market, Ras Al Khor, UAE. Call +971 54 451 9432. Enjoy 24/7 customer support for a seamless rental experience."
         />
         <meta name="keywords" content="keywords" />
         <link rel="canonical" href="https:/www.milelecarrental.com/contactus" />
@@ -69,7 +69,7 @@ const ContactusPage = () => {
                           <h4 className="title heading-font">Phone Number</h4>
                           <div className="content">
                             <p className="contact-us-address-text">
-                              +971 56 329 8330
+                              +971 54 451 9432
                             </p>
                           </div>
                         </div>

@@ -45,7 +45,7 @@ const EmailTemplate = ({ fname, lname }) => {
               <p><b>If This Cannot Wait, Get In Touch With Us!</b></p>
               <p>
                 <a
-                  href="https://wa.me/971563298330"
+                  href="https://wa.me/971544519432"
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                   <img
@@ -56,7 +56,7 @@ const EmailTemplate = ({ fname, lname }) => {
                   />
                 </a>
                 <a
-                  href="tel:+971563298330"
+                  href="tel:+971544519432"
                   style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                   <img
@@ -66,7 +66,7 @@ const EmailTemplate = ({ fname, lname }) => {
                     style={{ verticalAlign: 'middle', marginRight: '8px' }}
                   />
                 </a>
-                <b> +971 56 329 8330</b>
+                <b> +971 54 451 9432</b>
               </p>
             </td>
           </tr>
