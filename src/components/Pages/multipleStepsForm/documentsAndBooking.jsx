@@ -1097,8 +1097,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       border: "1px solid white",
       boxShadow: "none",
       lineHeight: "32px",
-      marginLeft: "-13px",
-      marginRight: "-13px",
+      // marginLeft: "-13px",
+      // marginRight: "-13px",
       borderRadius: "6px",
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
@@ -1125,8 +1125,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
       },
-      marginLeft: "-13px",
-      marginRight: "-13px",
+      // marginLeft: "-13px",
+      // marginRight: "-13px",
     }),
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
@@ -1145,8 +1145,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       border: "1px solid rgb(184, 184, 184)",
       boxShadow: "none",
       lineHeight: "32px",
-      borderRadius: "6px",marginLeft: "-13px",
-      marginRight: "-13px",
+      borderRadius: "6px",
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
       },
@@ -1413,7 +1412,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                     : selectStyles
                                 }
                                 isDisabled={auth && user_token}
-                                // menuIsOpen= {true}
+                                menuIsOpen= {true}
                               />
                             </Form.Group>
                           </Col>
