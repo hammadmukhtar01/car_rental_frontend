@@ -1388,7 +1388,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                               <Select
                                 options={nationalityOptions}
                                 className={`form-control-nationality ${
-                                  auth && user_token ? "col-12" : ""
+                                  auth && user_token ? " " : ""
                                 }  nationality-dropdown mt-2 ${
                                   errorFields?.selectedNationality
                                     ? "select-error border-red"
