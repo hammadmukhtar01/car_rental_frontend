@@ -825,7 +825,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             });
 
             createInvoice();
-            return ;
           } else {
             throw new Error("Booking failed.");
           }
