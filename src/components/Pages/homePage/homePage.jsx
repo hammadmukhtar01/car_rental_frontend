@@ -15,6 +15,7 @@ import ZeroSecuirtyDepositImg from "../../images/zero-deposit.svg";
 import TabbytImg from "../../images/tabby.svg";
 import MoreVehiclesImg from "../../images/vehicles.svg";
 import StepperComponent from "./stepperComponent";
+
 import ZeroSecuirtyDepositWebPImg from "../../images/zero-deposit.webp";
 import TabbytWebPImg from "../../images/tabby.webp";
 import MoreVehiclesWebPImg from "../../images/vehicles.webp";

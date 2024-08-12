@@ -5,6 +5,7 @@ import "./stepperComponent.css";
 import LocationIcon from "../../images/pin-home-page-icon.svg";
 import DatePickerIcon from "../../images/pick-drop-date-icon.svg";
 import BookVehicleIcon from "../../images/car-booking-icon.svg";
+
 import LocationWebPIcon from "../../images/pin-home-page-icon.webp";
 import DatePickerWebPIcon from "../../images/pick-drop-date-icon.webp";
 import BookVehicleWebPIcon from "../../images/car-booking-icon.webp";

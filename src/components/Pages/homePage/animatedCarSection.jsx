@@ -1,8 +1,14 @@
 import React from "react";
+import SedanFleetCarImg1WebP from "../../images/sedan-fleet-car.webp";
+import SUVFleetCarImg1WebP from "../../images/suv-fleet-car.webp";
+import SevenSeaterFleetCarImg1WebP from "../../images/sevenseater-fleet-car.webp";
+import HatchBackFleetCarImg1WebP from "../../images/hatchback-fleet-car.webp";
+
 import SedanFleetCarImg1PNG from "../../images/sedan-fleet-car.jpg";
 import SUVFleetCarImg1PNG from "../../images/suv-fleet-car.jpg";
 import SevenSeaterFleetCarImg1PNG from "../../images/sevenseater-fleet-car.jpg";
 import HatchBackFleetCarImg1PNG from "../../images/hatchback-fleet-car.jpg";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -12,10 +18,26 @@ const Carousel = () => {
   const navigate = useNavigate();
 
   const imagesData = [
-    { vehicleCategory: "Sedan", vehicleImage: SedanFleetCarImg1PNG },
-    { vehicleCategory: "SUV", vehicleImage: SUVFleetCarImg1PNG },
-    { vehicleCategory: "7 Seater", vehicleImage: SevenSeaterFleetCarImg1PNG },
-    { vehicleCategory: "Hatchback", vehicleImage: HatchBackFleetCarImg1PNG },
+    {
+      vehicleCategory: "Sedan",
+      vehicleImgWebP: SedanFleetCarImg1WebP,
+      vehicleImage: SedanFleetCarImg1PNG,
+    },
+    {
+      vehicleCategory: "SUV",
+      vehicleImgWebP: SUVFleetCarImg1WebP,
+      vehicleImage: SUVFleetCarImg1PNG,
+    },
+    {
+      vehicleCategory: "7 Seater",
+      vehicleImgWebP: SevenSeaterFleetCarImg1WebP,
+      vehicleImage: SevenSeaterFleetCarImg1PNG,
+    },
+    {
+      vehicleCategory: "Hatchback",
+      vehicleImgWebP: HatchBackFleetCarImg1WebP,
+      vehicleImage: HatchBackFleetCarImg1PNG,
+    },
   ];
 
   const settings = {
@@ -71,17 +93,20 @@ const Carousel = () => {
           <Slider {...settings}>
             {imagesData.map((image, index) => (
               <div key={index} className="each-slide-effect p-3">
-                <img
-                  src={image?.vehicleImage}
-                  alt={`${image?.vehicleCategory}`}
-                  className="fleet-vehicles-images"
-                  title={`${image?.vehicleCategory}`}
-                  aria-label={`${image?.vehicleCategory}`}
-                  id={`home-page-${image?.vehicleCategory
-                    .replace(/\s+/g, "-")
-                    .toLowerCase()}-img`}
-                  onClick={() => handleImageClick(image?.vehicleCategory)}
-                />
+                <picture className="rent-exp-pic-container">
+                  <source srcSet={image?.vehicleImgWebP} type="image/webp" />
+                  <img
+                    src={image?.vehicleImage}
+                    alt={`${image?.vehicleCategory}`}
+                    className="fleet-vehicles-images"
+                    title={`${image?.vehicleCategory}`}
+                    aria-label={`${image?.vehicleCategory}`}
+                    id={`home-page-${image?.vehicleCategory
+                      .replace(/\s+/g, "-")
+                      .toLowerCase()}-img`}
+                    onClick={() => handleImageClick(image?.vehicleCategory)}
+                  />
+                </picture>
               </div>
             ))}
           </Slider>
