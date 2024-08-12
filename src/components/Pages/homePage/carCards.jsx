@@ -1,8 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import BannerImg1WebP from "../../images/banner-slider-img1.webp";
+import BannerImg2WebP from "../../images/banner-slider-img2.webp";
+import BannerImg3WebP from "../../images/banner-slider-img3.webp";
+
 import BannerImg1PNG from "../../images/banner-slider-img1.jpg";
 import BannerImg2PNG from "../../images/banner-slider-img2.jpg";
 import BannerImg3PNG from "../../images/banner-slider-img3.jpg";
+
 import "react-slideshow-image/dist/styles.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -19,27 +24,50 @@ const Carousel = () => {
     arrows: true,
   };
 
-  const imagesData = [BannerImg1PNG, BannerImg2PNG, BannerImg3PNG];
+  const imagesData = [
+    {
+      BannerImgPng: BannerImg1PNG,
+      BannerImgWebP: BannerImg1WebP,
+    },
+
+    {
+      BannerImgPng: BannerImg2PNG,
+      BannerImgWebP: BannerImg2WebP,
+    },
+
+    {
+      BannerImgPng: BannerImg3PNG,
+      BannerImgWebP: BannerImg3WebP,
+    },
+  ];
+  const imagesDataWebP = [BannerImg1WebP, BannerImg2WebP, BannerImg3WebP];
 
   return (
     <div className="testimonial-container pt-4 offer-car-main-section">
-      <div className={`offers-car-container ${screenWidth > 992 ? "container" : ""}`}>
-          <br />
+      <div
+        className={`offers-car-container ${
+          screenWidth > 992 ? "container" : ""
+        }`}
+      >
+        <br />
 
-          <Slider {...settings}>
-            {imagesData.map((image, index) => (
-              <div key={index} className="each-slide-effect p-1">
+        <Slider {...settings}>
+          {imagesData.map((image, index) => (
+            <div key={index} className="each-slide-effect p-1">
+              <picture className="rent-exp-pic-container">
+                <source srcSet={image?.BannerImgWebP} type="image/webp" />
                 <img
-                  src={image}
+                  src={image?.BannerImgPng}
                   alt={`${image}`}
                   className="banner-cards-images"
                   title={`Milele-car-rental-offers`}
                   aria-label={`offers-${index}`}
                   id={`home-page-offers-card-${index}`}
                 />
-              </div>
-            ))}
-          </Slider>
+              </picture>
+            </div>
+          ))}
+        </Slider>
       </div>
     </div>
   );

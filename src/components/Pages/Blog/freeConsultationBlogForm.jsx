@@ -74,7 +74,7 @@ const FreeConsultationForm = () => {
           },
         },
         {
-          duration: 2000,
+          duration: 5000,
           style: {
             border: "1.3px solid white",
             boxShadow: "1px 1px 15px 1px black",

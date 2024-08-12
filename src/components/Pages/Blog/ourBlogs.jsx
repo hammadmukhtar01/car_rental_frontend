@@ -95,7 +95,6 @@ const OurBlogs = () => {
                           srcSet={blogData?.imageUrlWebP}
                           type="image/webp"
                         />
-                        <source srcSet={blogData?.imageUrl} type="image/png" />
                         <img
                           src={blogData?.imageUrl}
                           alt={`${blogData?.title}`}
