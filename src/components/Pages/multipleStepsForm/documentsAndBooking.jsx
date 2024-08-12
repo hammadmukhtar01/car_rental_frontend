@@ -1125,8 +1125,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
       },
-      marginLeft: "-13px",
-      marginRight: "-13px",
+      // marginLeft: "-13px",
+      // marginRight: "-13px",
     }),
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
@@ -1388,7 +1388,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                               <Select
                                 options={nationalityOptions}
                                 className={`form-control-nationality ${
-                                  auth && user_token ? " " : ""
+                                  auth && user_token ? "col-12" : ""
                                 }  nationality-dropdown mt-2 ${
                                   errorFields?.selectedNationality
                                     ? "select-error border-red"
