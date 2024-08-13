@@ -58,7 +58,7 @@ const Carousel = () => {
                 <source srcSet={image?.BannerImgWebP} type="image/webp" />
                 <img
                   src={image?.BannerImgPng}
-                  alt={`${image}`}
+                  alt={"offers-banner"}
                   className="banner-cards-images"
                   title={`Milele-car-rental-offers`}
                   aria-label={`offers-${index}`}

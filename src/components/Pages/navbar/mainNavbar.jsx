@@ -146,13 +146,16 @@ function MainNavbar() {
                     id="navbar-logo-to-home-page-sm"
                     onClick={() => setShowOffCanvas(false)}
                   >
-                    <Image
-                      // src={logoImage}
-                      src={Coloredlogo}
-                      title="Milele Car Rental"
-                      alt="Main Logo Sm"
-                      fluid
-                    />
+                    <picture>
+                      <source srcSet={ColoredlogoWebP} type="image/webp" />
+                      <source srcSet={Coloredlogo} type="image/png" />
+                      <Image
+                        src={Coloredlogo}
+                        title="Milele Car Rental"
+                        alt="Main Logo sm"
+                        fluid
+                      />
+                    </picture>
                   </a>
                 </div>
                 <button
@@ -254,7 +257,7 @@ function MainNavbar() {
                     <div className="nav-item d-flex align-items-center user-name-icon-div">
                       <FaUserCircle className="fa-user-circle" />
 
-                      <NavDropdown title={`${user_info?.fName}`} className=" ">
+                      <NavDropdown title={user_info?.fName} className=" ">
                         <NavDropdown.Item
                           as={NavLink}
                           to={`/myProfile/${userAuthId}`}

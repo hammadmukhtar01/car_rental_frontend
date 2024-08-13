@@ -97,10 +97,10 @@ const Carousel = () => {
                   <source srcSet={image?.vehicleImgWebP} type="image/webp" />
                   <img
                     src={image?.vehicleImage}
-                    alt={`${image?.vehicleCategory}`}
+                    alt={image?.vehicleCategory}
                     className="fleet-vehicles-images"
-                    title={`${image?.vehicleCategory}`}
-                    aria-label={`${image?.vehicleCategory}`}
+                    title={image?.vehicleCategory}
+                    aria-label={image?.vehicleCategory}
                     id={`home-page-${image?.vehicleCategory
                       .replace(/\s+/g, "-")
                       .toLowerCase()}-img`}

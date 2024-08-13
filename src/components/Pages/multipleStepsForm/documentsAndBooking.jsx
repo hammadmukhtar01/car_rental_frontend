@@ -61,9 +61,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const dropOffLocData =
     checkBoxValueParam === "false" ? pickUpLocData : dropOffLocValue;
 
-  console.log("PickupLoc loal storage value is: ---:", pickUpLocData);
-  console.log("dropOffLocData loal storage value is: ---:", dropOffLocData);
-
   const config = useMemo(
     () => ({
       headers: {
@@ -208,8 +205,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         (location) =>
           location?.name?.toUpperCase() === dropoffLocParam?.toUpperCase()
       );
-      console.log("matchedPickupLocation ", matchedPickupLocation);
-      console.log("matchedDropoffLocation ", matchedDropoffLocation);
 
       if (matchedPickupLocation) {
         setPickupLocationId(matchedPickupLocation?.id);
@@ -309,8 +304,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     }
   }, [auth, fetchMongoDBCustomerData]);
 
-  // Create Own Customer API
-  const createOwnDBCustomer = async (idFromSpeed) => {
+  // Create or Get Customer API in Own DB
+  const createOrGetOwnDBCustomer = async (idFromSpeed) => {
     const last4Digits = contactNum.slice(-4);
     const password = `${firstName}${last4Digits}`;
 
@@ -332,10 +327,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     console.log("formData : ", formData);
 
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
-        // `http://localhost:8000/api/v1/customer/create`,
-        formData,
+      const existingCustomerResponse = await axios.get(
+        `${
+          process.env.REACT_APP_MILELE_API_URL
+        }/customer/findByMail?email=${encodeURIComponent(emailAddress)}`,
+        // `http://localhost:8000/api/v1/customer/findByMail?email=${encodeURIComponent(emailAddress)}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -343,11 +339,40 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           },
         }
       );
-      console.log("Customer created successfully:", response.data);
-      return response.data;
+
+      if (
+        existingCustomerResponse?.data &&
+        existingCustomerResponse?.data?.customer
+      ) {
+        console.log(
+          "Customer already exists:",
+          existingCustomerResponse?.data?.customer
+        );
+
+        const updatedData = { ...formData, customerIdFromSpeed: idFromSpeed };
+
+        return updateOwnDBCustomer(
+          updatedData,
+          existingCustomerResponse.data.customer.id
+        );
+      } else {
+        // Create customer if not exists
+        const response = await axios.post(
+          `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application.json",
+            },
+          }
+        );
+        console.log("Customer created successfully:", response.data);
+        return response.data;
+      }
     } catch (error) {
       console.error(
-        "Error creating customer:",
+        "Error processing customer:",
         error.response ? error.response.data : error.message
       );
       throw new Error(
@@ -355,6 +380,40 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       );
     }
   };
+
+  // Create Own Customer API
+  const updateOwnDBCustomer = async (updatedData, customerIdFromOwnDB) => {
+    console.log(
+      "updateOwnDBCustomer : formData : ",
+      updatedData?.customerIdFromSpeed
+    );
+    console.log("customerIdFromOwnDB : ", customerIdFromOwnDB);
+
+    try {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_MILELE_API_URL}/customer/updateprofile/${customerIdFromOwnDB}`,
+        // `http://localhost:8000/api/v1/customer/updateprofile/${customerIdFromOwnDB}`,
+        { customerIdFromSpeed: updatedData?.customerIdFromSpeed },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      console.log("Customer data updated successfully:", response?.data);
+      return response?.data;
+    } catch (error) {
+      console.error(
+        "Error updating customer:",
+        error.response ? error.response.data : error.message
+      );
+      throw new Error(
+        error.response ? error.response.data.message : error.message
+      );
+    }
+  };
+
   // Create Speed Customer API
   const createCustomer = async (data) => {
     console.log("creating customer", data);
@@ -392,7 +451,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
             if (!auth && !auth?.data) {
               try {
-                await createOwnDBCustomer(response?.data?.result);
+                await createOrGetOwnDBCustomer(response?.data?.result);
               } catch (createDBError) {
                 console.error(
                   "Error creating customer in own DB:",
@@ -825,7 +884,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             });
 
             createInvoice();
-            return ;
+            return;
           } else {
             throw new Error("Booking failed.");
           }
@@ -1069,8 +1128,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               response?.data?.status
             );
             setPaymentUrl(response?.data?.status);
-            const nextStepUrl = `/bookingPage/3&booking-success`;
-            window.location.href = nextStepUrl;
+            // const nextStepUrl = `/bookingPage/3&booking-success`;
+            // window.location.href = nextStepUrl;
           } else {
             throw new Error("Failed to generate payment link.");
           }
@@ -1125,8 +1184,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
       },
-      // marginLeft: "-13px",
-      // marginRight: "-13px",
+      marginLeft: "-13px",
+      marginRight: "-13px",
     }),
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
