@@ -97,10 +97,10 @@ const OurBlogs = () => {
                         />
                         <img
                           src={blogData?.imageUrl}
-                          alt={`${blogData?.title}`}
+                          alt={blogData?.title}
                           className="blogs-images"
-                          title={`${blogData?.title}`}
-                          aria-label={`${blogData?.title}`}
+                          title={blogData?.title}
+                          aria-label={blogData?.title}
                           id={`home-page-blog-${blogData?.id}`}
                           onClick={() => handleImageClick(blogData?.id)}
                         />

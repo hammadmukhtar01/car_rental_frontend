@@ -1527,7 +1527,7 @@ const VehiclesPage = () => {
                                         <div className="car-image-container ">
                                           <img
                                             src={car?.displayImageUrl}
-                                            title={`${car?.title}`}
+                                            title={car?.title}
                                             alt={`Rent ${car?.title}`}
                                             className="car-image"
                                             onClick={() => {

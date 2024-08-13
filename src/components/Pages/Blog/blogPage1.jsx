@@ -30,7 +30,7 @@ const BlogPage1 = () => {
         <link
           rel="canonical"
           href="https://www.milelecarrental.com/blogPage1/1"
-          title={`${blogsData?.title}`}
+          title={blogsData?.title}
         />
       </Helmet>
       <>

@@ -152,7 +152,7 @@ const Footer = () => {
                         <div
                           className="footer-info-list pt-2 pb-2"
                           key={index}
-                          id={`${footerContactUsList?.idValue}`}
+                          id={footerContactUsList?.idValue}
                         >
                           <span>
                             {" "}
