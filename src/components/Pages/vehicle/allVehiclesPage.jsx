@@ -1700,7 +1700,7 @@ const VehiclesPage = () => {
                                                       </span>
                                                       <span className="pay-now-price-md-lg">
                                                         <span>|</span>{" "}
-                                                        {car?.rate} Aed Per{" "}
+                                                        {car?.rate} AED Per{" "}
                                                         {numberOfDays} Day
                                                       </span>
                                                     </span>

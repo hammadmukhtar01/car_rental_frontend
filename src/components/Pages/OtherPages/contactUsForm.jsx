@@ -182,6 +182,7 @@ const ContactUsForm = () => {
               <input
                 type="text"
                 autoComplete="off"
+                placeholder="first name"
                 className={`form-control form-control-contact-us ${
                   errorFields?.fName ? "border-red" : ""
                 }`}
@@ -217,6 +218,7 @@ const ContactUsForm = () => {
               <input
                 type="text"
                 autoComplete="off"
+                placeholder="last name"
                 className="form-control form-control-contact-us"
                 id="lname"
                 name="lname"
@@ -257,6 +259,7 @@ const ContactUsForm = () => {
                     id="email1"
                     name="email"
                     type="email"
+                    placeholder="email"
                     autoComplete="off"
                     value={formData?.email}
                     onChange={(e) => {
