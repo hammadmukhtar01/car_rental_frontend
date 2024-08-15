@@ -29,7 +29,6 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    console.warn("Data: ", emailPhoneNum, password);
     let data = { emailPhoneNum, password };
 
     const headers = {
