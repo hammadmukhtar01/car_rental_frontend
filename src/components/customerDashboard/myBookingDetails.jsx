@@ -255,7 +255,8 @@ const CustomerBookings = () => {
                         </td>
 
                         <td className="align-middle">
-                          {booking?.totalCharges * 1}
+                          {/* {booking?.totalCharges * 1} */}
+                          0
                         </td>
 
                         <td className="d-flex justify-content-center">
