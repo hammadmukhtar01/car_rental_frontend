@@ -17,8 +17,8 @@ const LeaseNowFormDetails = ({
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    fname: "",
-    lname: "",
+    fName: "",
+    lName: "",
     email: "",
     phoneNumber: "",
     comment: "",
@@ -98,8 +98,8 @@ const LeaseNowFormDetails = ({
             duration: 1000,
             onClose: () => {
               setFormData({
-                fname: "",
-                lname: "",
+                fName: "",
+                lName: "",
                 email: "",
                 phoneNumber: "+971",
                 comment: "",
@@ -186,7 +186,7 @@ const LeaseNowFormDetails = ({
                 id="fname"
                 name="fname"
                 required
-                value={formData?.fname}
+                value={formData?.fName}
                 onChange={handleChange}
               />
             </div>
