@@ -962,7 +962,7 @@ const VehiclesPage = () => {
                                     <div className="date-label">
                                       <label className="styled-label">
                                         <BsCalendar2Check className="mr-2 pick-drop-date-icon" />
-                                        <b>Pickup-Dropoff Date *</b>
+                                        <b>Pick & Drop Date *</b>
                                       </label>
                                     </div>
                                     <div onClick={handleDateClick}>
@@ -989,6 +989,7 @@ const VehiclesPage = () => {
                                   show={showDateRangeModal}
                                   onHide={() => setShowDateRangeModal(false)}
                                   size="sm"
+                                  className="search-box-date-picker-modal"
                                 >
                                   <DateRange
                                     editableDateInputs={true}
