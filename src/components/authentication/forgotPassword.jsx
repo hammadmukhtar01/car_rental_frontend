@@ -8,6 +8,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const ForgotPasswordPage = ({ onClose }) => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const [errorFields, setErrorFields] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,7 +45,7 @@ const ForgotPasswordPage = ({ onClose }) => {
     }
 
     let data = { email };
-
+    setLoading(true);
     toast.dismiss();
     toast
       .promise(
@@ -65,7 +66,7 @@ const ForgotPasswordPage = ({ onClose }) => {
             }
           },
           error: (error) => {
-            console.log("Forgot Password (error) : ", error)
+            console.log("Forgot Password (error) : ", error);
             const errorMessage =
               error?.response?.data?.message || "Something went wrong.";
             return errorMessage;
@@ -81,6 +82,9 @@ const ForgotPasswordPage = ({ onClose }) => {
 
       .catch((err) => {
         console.error("Error while forgot password: ", err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -142,18 +146,19 @@ const ForgotPasswordPage = ({ onClose }) => {
                 <div className="forgotPassword-button-div">
                   <Row className="align-items-center">
                     <Col
-                      xl={6}
-                      lg={6}
-                      md={6}
-                      sm={6}
+                      xl={12}
+                      lg={12}
+                      md={12}
+                      sm={12}
                       xs={12}
-                      className="text-right forgotPassword-button-col"
+                      className="text-right forgotPassword-button-col d-flex justify-content-center"
                     >
                       <button
                         className="forgotPassword-button"
                         aria-label="Forgot Password"
+                        disabled={loading}
                       >
-                        Send
+                        {loading ? "Submit..." : "Send"}
                       </button>
                     </Col>
                   </Row>

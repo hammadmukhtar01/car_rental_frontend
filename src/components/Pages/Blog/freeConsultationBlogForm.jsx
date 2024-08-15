@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import PhoneInput from "react-phone-input-2";
@@ -11,6 +12,7 @@ const FreeConsultationForm = () => {
   const [customerName, setCustomerName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [country, setCountry] = useState({ dialCode: "971", name: "UAE" });
+  const [loading, setLoading] = useState(false);
 
   const handleFreeConsultationForm = async (e) => {
     e.preventDefault();
@@ -47,6 +49,8 @@ const FreeConsultationForm = () => {
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
+
+    setLoading(true);
 
     const headers = {
       "Content-Type": "application/json",
@@ -96,6 +100,9 @@ const FreeConsultationForm = () => {
       })
       .catch((err) => {
         console.error("Error during form submission:", err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -157,13 +164,14 @@ const FreeConsultationForm = () => {
                         id="free-consultation-form-button"
                         aria-label="Get Free Consutation"
                         className="free-consultation-contactUs-button submit col-lg-12"
+                        disabled={loading}
                         onClick={handleFreeConsultationForm}
                       >
                         <span
                           className="button-text"
                           id="free-consultation-form-heading"
                         >
-                          <b>CONTACT US</b>
+                          <b> {loading ? "Submitting..." : "Contact US"}</b>
                         </span>
                       </button>
                     </Col>

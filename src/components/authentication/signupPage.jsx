@@ -26,6 +26,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const auth = localStorage.getItem("user");
@@ -140,7 +141,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
         passwordConfirm,
       };
       console.log("form data is: ", formData);
-
+      setLoading(true);
       toast.dismiss();
 
       toast
@@ -184,6 +185,9 @@ const SignupPage = ({ onCloseModal, setGif }) => {
         )
         .catch((err) => {
           console.error("Error while creating account : ", err);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   };
@@ -531,8 +535,12 @@ const SignupPage = ({ onCloseModal, setGif }) => {
 
             <Row className="align-items-center">
               <Col className="text-right">
-                <button className="signup-button" aria-label="Create Account">
-                  Create Account
+                <button
+                  className="signup-button"
+                  aria-label="Create Account"
+                  disabled={loading}
+                >
+                  {loading ? "Creating..." : "Create Account"}
                 </button>
               </Col>
             </Row>

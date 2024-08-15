@@ -4,13 +4,14 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Col, Form, Modal, Row } from "react-bootstrap";
 import "./authentication.css";
 import axios from "axios";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import SuccessGifWebP from "../images/auth-gif-after-edited.gif";
 
 const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
   const [emailPhoneNum, setEmailPhoneNum] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -30,7 +31,7 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
     e.preventDefault();
 
     let data = { emailPhoneNum, password };
-
+    setLoading(true);
     const headers = {
       "Content-Type": "application/json",
       Accept: "application/json",
@@ -75,6 +76,9 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
       )
       .catch((err) => {
         console.error("Error while login: ", err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -155,8 +159,12 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
                   xs={12}
                   className="text-right login-button-col"
                 >
-                  <button className="login-button" aria-label="Log In">
-                    Login
+                  <button
+                    className="login-button"
+                    aria-label="Log In"
+                    disabled={loading}
+                  >
+                    {loading ? "Logging In..." : "Login"}
                   </button>
                 </Col>
               </Row>

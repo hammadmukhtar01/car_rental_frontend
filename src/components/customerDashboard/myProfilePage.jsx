@@ -39,6 +39,7 @@ const CustomerProfilePage = () => {
   const [drivingLicenseImg, setDrivingLicenseImg] = useState("");
   const [isInternationalLicense, setIsInternationalLicense] = useState("");
 
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const auth = JSON.parse(localStorage?.getItem("user"));
   const authToken = auth?.token;
@@ -312,7 +313,7 @@ const CustomerProfilePage = () => {
       nationality: selectedNationality,
     };
     console.log("form data is: ", formData);
-
+    setLoading(true);
     try {
       const response = await axios.patch(
         `${process.env.REACT_APP_MILELE_API_URL}/customer/updateprofile/${id}`,
@@ -339,13 +340,17 @@ const CustomerProfilePage = () => {
           window.location.reload();
         }, 3000);
         console.log("Profile Updated in DB Successfully!");
+        setLoading(false);
+
         return "Profile Updated in DB Successfully!";
       } else {
         console.error("Unexpected response structure:", response?.data);
+        setLoading(false);
         throw new Error("Unexpected response structure");
       }
     } catch (error) {
       console.error("Error (DB): ", error);
+      setLoading(false);
       throw new Error(
         error?.response?.data?.message ||
           "Network Error or Some fields are missing"
@@ -959,7 +964,7 @@ const CustomerProfilePage = () => {
                                 onChange={(e) =>
                                   setDrivingLicenseNum(e.target.value)
                                 }
-                                readOnly={isViewProfileOnly}
+                                readOnly
                               />
                             </Form.Group>
                           </Col>
@@ -996,7 +1001,7 @@ const CustomerProfilePage = () => {
                                     ? selectStylesViewOnly
                                     : selectStyles
                                 }
-                                isDisabled={isViewProfileOnly}
+                                isDisabled
                               />
                             </Form.Group>
                           </Col>
@@ -1037,7 +1042,7 @@ const CustomerProfilePage = () => {
                                 maxDate={
                                   new Date(new Date().setHours(0, 0, 0, 0))
                                 }
-                                disabled={isViewProfileOnly}
+                                disabled
                               />
                             </Form.Group>
                           </Col>
@@ -1076,7 +1081,7 @@ const CustomerProfilePage = () => {
                                 minDate={
                                   !customerSpeedID && new Date(new Date())
                                 }
-                                disabled={isViewProfileOnly}
+                                disabled
                               />
                             </Form.Group>
                           </Col>
@@ -1128,7 +1133,7 @@ const CustomerProfilePage = () => {
                                     onChange={(e) =>
                                       handleDrivingLicenseImgChange(e)
                                     }
-                                    disabled={isViewProfileOnly}
+                                    disabled
                                   />
                                 </>
                               )}
@@ -1172,7 +1177,7 @@ const CustomerProfilePage = () => {
                                   onChange={() =>
                                     setIsInternationalLicense("true")
                                   }
-                                  disabled={isViewProfileOnly}
+                                  disabled
                                 />
                                 <Form.Check
                                   autoComplete="off"
@@ -1192,7 +1197,7 @@ const CustomerProfilePage = () => {
                                   onChange={() =>
                                     setIsInternationalLicense("false")
                                   }
-                                  disabled={isViewProfileOnly}
+                                  disabled
                                 />
                               </div>
                             </Form.Group>
@@ -1209,6 +1214,7 @@ const CustomerProfilePage = () => {
                           <button
                             className="edit-customer-profile-button"
                             onClick={() => handleEditProfileButton()}
+                            disabled={loading}
                           >
                             <strong> Edit Profile</strong>
                           </button>
@@ -1220,6 +1226,7 @@ const CustomerProfilePage = () => {
                               <button
                                 className="cancel-customer-profile-button"
                                 onClick={() => handleCancelProfileButton()}
+                                disabled={loading}
                               >
                                 <strong>Cancel</strong>
                               </button>
@@ -1228,8 +1235,9 @@ const CustomerProfilePage = () => {
                               <button
                                 className="save-customer-profile-button"
                                 onClick={handleCustomerProfileSaveButton}
+                                disabled={loading}
                               >
-                                <strong>Save</strong>
+                                <strong> {loading ? "Saving..." : "Save"}</strong>
                               </button>
                             </Col>
                           </Row>

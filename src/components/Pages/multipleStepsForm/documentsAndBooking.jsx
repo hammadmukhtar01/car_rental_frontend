@@ -54,6 +54,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     () => JSON.parse(localStorage.getItem("userLocationData")),
     []
   );
+  const [loading, setLoading] = useState(false);
+
   const locationData = customerLocationLocalStorage?.value?.userData;
   const pickUpLocData = locationData?.pickupLocation?.label;
   const dropOffLocValue = locationData?.dropoffLocation?.label;
@@ -219,57 +221,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     fetchAvailableLocationsData();
   }, [fetchAvailableLocationsData]);
 
-  // const handleDrivingLicenseImgChange = (e) => {
-  //   const file = e.target.files[0];
-  //   console.log(`handleDrivingLicenseImgChange --- `, file?.name);
-  //   getCustomerUploadedImgUrl(file, "Driving License");
-  // };
-
-  // Get Customer's Documents URL
-
-  // const getCustomerUploadedImgUrl = async (file, documentType) => {
-  //   const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
-  //   const headers = {
-  //     Authorization: `Bearer ${token}`,
-  //     "Content-Type": "multipart/form-data",
-  //   };
-
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   const url = `https://app.speedautosystems.com/api/UploadFile`;
-
-  //   toast.dismiss();
-  //   toast.promise(
-  //     (async () => {
-  //       try {
-  //         const response = await axios.post(url, formData, { headers });
-  //         const fetchedRequiredImgUrl = response?.data?.Result?.url;
-
-  //         console.log(
-  //           `fetchedRequiredImgUrl response for ${documentType} is: -- ${JSON.stringify(
-  //             fetchedRequiredImgUrl
-  //           )}`
-  //         );
-  //         setDrivingLicenseImg(fetchedRequiredImgUrl);
-  //       } catch (error) {
-  //         console.error("Error while creating img url of documents", error);
-  //         throw error;
-  //       }
-  //     })(),
-  //     {
-  //       loading: `Uploading ${documentType} image...`,
-  //       success: `Successfully uploaded ${documentType} image!`,
-  //       error: `Failed to upload ${documentType} image.`,
-  //     },
-  //     {
-  //       duration: 3000,
-  //     }
-  //   );
-  // };
-
-  // Get Customer Data From Mongo DB backend
-
   const fetchMongoDBCustomerData = useCallback(async () => {
     try {
       const response = await axios.get(
@@ -318,7 +269,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       passwordConfirm: password,
       nationality: selectedNationality,
     };
-
+    setLoading(true);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
@@ -335,6 +286,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         "createOwnDBCustomer created successfully in both DB:",
         response?.data
       );
+      setLoading(false); 
       return response?.data;
     } catch (error) {
       console.error(
@@ -355,13 +307,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       }
 
       toast.error(`Error: ${errorMessage}`);
+      setLoading(false); 
       throw error;
     }
   };
 
   const handleCreateCustomer = async () => {
     const toastId = toast.loading("Creating customer...");
-
+    setLoading(true); 
     try {
       const data = await createOwnDBCustomer();
       console.log("handleCreateCustomer created successfully:", data);
@@ -371,7 +324,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     } catch (error) {
       console.error("Failed:", error.response ? error.response.data : error);
       toast.dismiss(toastId);
-
+      setLoading(false); 
       throw error;
     }
   };
@@ -722,7 +675,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const submitBooking = async (data) => {
     console.log("submit booking start");
-
+    setLoading(true); 
     const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -759,7 +712,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               deliveryCharge: deliveryChargesParam,
               grandTotalPrice: totalGrandPriceParam,
             });
-
+            setLoading(false); 
             createInvoice();
             return;
           } else {
@@ -767,6 +720,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           }
         } catch (error) {
           console.error("Error creating/updating booking:", error);
+          setLoading(false); 
           throw error;
         }
       })(),
@@ -925,6 +879,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     toast.dismiss();
     toast.promise(
       (async () => {
+        setLoading(true); 
         try {
           const response = await axios.post(url, body, { headers });
           console.log(`response of payment API is: `, response?.data);
@@ -935,6 +890,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               response?.data?.status
             );
             setPaymentUrl(response?.data?.status);
+            setLoading(false); 
             const nextStepUrl = `/bookingPage/3&booking-success`;
             window.location.href = nextStepUrl;
           } else {
@@ -942,6 +898,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           }
         } catch (error) {
           console.error("Failed to create invoice:", error);
+          setLoading(false); 
           throw error;
         }
       })(),
@@ -991,7 +948,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
       },
-
     }),
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
@@ -1302,8 +1258,11 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                       className="map-loc-middle "
                       id="book-pay-final-button"
                       aria-label="Booking & Payment"
+                      disabled={loading}
                     >
-                      <span className="animate-button btn4">Book & Pay</span>
+                      <span className="animate-button btn4">
+                        {loading ? "Submitting..." : " Book & Pay"}
+                      </span>
                     </button>
                   </Col>
                 </div>
