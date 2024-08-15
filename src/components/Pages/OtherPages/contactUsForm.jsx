@@ -265,7 +265,7 @@ const ContactUsForm = () => {
                     onChange={(e) => {
                       setFormData((prev) => ({
                         ...prev,
-                        email: e.target.value,
+                        email: e.target.value.trim(),
                       }));
                       if (errorFields?.email) {
                         setErrorFields((prev) => ({

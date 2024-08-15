@@ -136,7 +136,7 @@ const ForgotPasswordPage = ({ onClose }) => {
                       required
                       value={email}
                       onChange={(e) => {
-                        setEmail(e.target.value);
+                        setEmail(e.target.value.trim());
                       }}
                     />
                   </div>

@@ -842,7 +842,7 @@ const CustomerProfilePage = () => {
                         //     : customerDetails?.email
                         // }
                         onChange={(e) => {
-                          setEmail(e.target.value);
+                          setEmail(e.target.value.trim());
                         }}
                         disabled
                         readOnly
