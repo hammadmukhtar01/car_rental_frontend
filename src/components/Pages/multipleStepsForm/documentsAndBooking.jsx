@@ -991,8 +991,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       ":hover": {
         border: "1px solid rgb(184, 184, 184)",
       },
-      marginLeft: "-13px",
-      marginRight: "-13px",
+
     }),
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
@@ -1251,34 +1250,36 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   </b>
                                 </label>
                               </div>
-                              <Select
-                                options={nationalityOptions}
-                                className={`form-control-nationality ${
-                                  auth && user_token ? "col-12" : ""
-                                }  nationality-dropdown mt-2 ${
-                                  errorFields?.selectedNationality
-                                    ? "select-error border-red"
-                                    : ""
-                                }`}
-                                value={selectedNationality}
-                                onChange={(value) => {
-                                  handleNationalityChange(value);
-                                  if (errorFields?.selectedNationality) {
-                                    setErrorFields((prev) => ({
-                                      ...prev,
-                                      selectedNationality: false,
-                                    }));
+                              <div className="custom-dropdown-container">
+                                <Select
+                                  options={nationalityOptions}
+                                  className={`form-control-nationality ${
+                                    auth && user_token ? "" : "col-12"
+                                  }  nationality-dropdown mt-2 ${
+                                    errorFields?.selectedNationality
+                                      ? "select-error border-red"
+                                      : ""
+                                  }`}
+                                  value={selectedNationality}
+                                  onChange={(value) => {
+                                    handleNationalityChange(value);
+                                    if (errorFields?.selectedNationality) {
+                                      setErrorFields((prev) => ({
+                                        ...prev,
+                                        selectedNationality: false,
+                                      }));
+                                    }
+                                  }}
+                                  styles={
+                                    auth && user_token
+                                      ? selectStylesVisibleOnly
+                                      : errorFields?.selectedNationality
+                                      ? selectStylesError
+                                      : selectStyles
                                   }
-                                }}
-                                styles={
-                                  auth && user_token
-                                    ? selectStylesVisibleOnly
-                                    : errorFields?.selectedNationality
-                                    ? selectStylesError
-                                    : selectStyles
-                                }
-                                isDisabled={auth && user_token}
-                              />
+                                  isDisabled={auth && user_token}
+                                />
+                              </div>
                             </Form.Group>
                           </Col>
                         </Row>

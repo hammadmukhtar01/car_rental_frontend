@@ -833,12 +833,12 @@ const CustomerProfilePage = () => {
                         onChange={(e) => {
                           setEmail(e.target.value);
                         }}
+                        disabled
                         readOnly
                       />
                     </Form.Group>
 
                     <Form.Group className=" col-lg-6 col-md-6 col-sm-6 col-xs-12 pt-4">
-                      <br className="br-for-small-screen" />
                       <label className="customer-profile-details-label">
                         <b>Nationality</b>{" "}
                         <span className="required-field-star">*</span>
