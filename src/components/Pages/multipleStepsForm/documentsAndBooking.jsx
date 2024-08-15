@@ -40,6 +40,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [country, setCountry] = useState({ dialCode: "971", name: "UAE" });
   const [emailAddress, setEmailAddress] = useState("");
   const [selectedNationality, setSelectedNationality] = useState(null);
+  const [additionalAddress, setAdditionalAddress] = useState("");
 
   // Customer Data
   const [customerDetails, setCustomerDetails] = useState("");
@@ -286,7 +287,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         "createOwnDBCustomer created successfully in both DB:",
         response?.data
       );
-      setLoading(false); 
+      setLoading(false);
       return response?.data;
     } catch (error) {
       console.error(
@@ -307,14 +308,14 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       }
 
       toast.error(`Error: ${errorMessage}`);
-      setLoading(false); 
+      setLoading(false);
       throw error;
     }
   };
 
   const handleCreateCustomer = async () => {
     const toastId = toast.loading("Creating customer...");
-    setLoading(true); 
+    setLoading(true);
     try {
       const data = await createOwnDBCustomer();
       console.log("handleCreateCustomer created successfully:", data);
@@ -324,7 +325,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     } catch (error) {
       console.error("Failed:", error.response ? error.response.data : error);
       toast.dismiss(toastId);
-      setLoading(false); 
+      setLoading(false);
       throw error;
     }
   };
@@ -658,7 +659,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       },
       driverId: newId,
       locationId: pickupLocationId,
-      notes: pickdropCombineLoc,
+      notes: additionalAddress,
       tariffGroupId: TariffGroupIdParam,
       isTaxApplicable: false,
       isTaxExempted: false,
@@ -675,7 +676,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
   const submitBooking = async (data) => {
     console.log("submit booking start");
-    setLoading(true); 
+    setLoading(true);
     const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -712,7 +713,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               deliveryCharge: deliveryChargesParam,
               grandTotalPrice: totalGrandPriceParam,
             });
-            setLoading(false); 
+            setLoading(false);
             createInvoice();
             return;
           } else {
@@ -720,7 +721,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           }
         } catch (error) {
           console.error("Error creating/updating booking:", error);
-          setLoading(false); 
+          setLoading(false);
           throw error;
         }
       })(),
@@ -879,7 +880,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     toast.dismiss();
     toast.promise(
       (async () => {
-        setLoading(true); 
+        setLoading(true);
         try {
           const response = await axios.post(url, body, { headers });
           console.log(`response of payment API is: `, response?.data);
@@ -890,7 +891,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               response?.data?.status
             );
             setPaymentUrl(response?.data?.status);
-            setLoading(false); 
+            setLoading(false);
             const nextStepUrl = `/bookingPage/3&booking-success`;
             window.location.href = nextStepUrl;
           } else {
@@ -898,7 +899,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           }
         } catch (error) {
           console.error("Failed to create invoice:", error);
-          setLoading(false); 
+          setLoading(false);
           throw error;
         }
       })(),
@@ -1236,6 +1237,27 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                   isDisabled={auth && user_token}
                                 />
                               </div>
+                            </Form.Group>
+                          </Col>
+
+                          <Col xxl={3} lg={4} md={6} sm={6} xs={12}>
+                            <Form.Group controlId="formKeyword">
+                              <div className="location-label">
+                                <label className="styled-label">
+                                  <b>
+                                    <span>Address (Optional)</span>
+                                  </b>
+                                </label>
+                              </div>
+                              <input
+                                className={`form-control-location mt-2 col-12 `}
+                                type="text"
+                                placeholder="Additional address details"
+                                value={additionalAddress}
+                                onChange={(e) =>
+                                  setAdditionalAddress(e.target.value)
+                                }
+                              />
                             </Form.Group>
                           </Col>
                         </Row>
