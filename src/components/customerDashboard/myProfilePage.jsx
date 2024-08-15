@@ -438,8 +438,8 @@ const CustomerProfilePage = () => {
         }
       })(),
       {
-        loading: "Updating Speed profile...",
-        success: "Speed Profile Updated Successfully!",
+        loading: "Updating profile...",
+        success: "Profile Updated Successfully!",
         error: (error) =>
           `Failed to update customer profile: ${error.message || error}`,
       },
@@ -833,7 +833,7 @@ const CustomerProfilePage = () => {
                         onChange={(e) => {
                           setEmail(e.target.value);
                         }}
-                        readOnly={isViewProfileOnly}
+                        readOnly
                       />
                     </Form.Group>
 

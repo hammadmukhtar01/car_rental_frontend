@@ -919,10 +919,13 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     };
 
     console.log(`before hitting API, body is: `, body);
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
     toast.dismiss();
     toast.promise(
       (async () => {
         try {
+          
           const response = await axios.post(url, body, { headers });
           console.log(`response of payment API is: `, response?.data);
 
