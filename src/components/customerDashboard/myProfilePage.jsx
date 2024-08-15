@@ -398,6 +398,8 @@ const CustomerProfilePage = () => {
       createCustomerData
     );
 
+    setLoading(true);
+
     const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -411,47 +413,51 @@ const CustomerProfilePage = () => {
     };
 
     toast.dismiss();
-    toast.promise(
-      (async () => {
-        try {
-          const response = await axios.post(url, payload, { headers });
-          console.log("updated customer data:", response?.data?.result);
+    toast
+      .promise(
+        (async () => {
+          try {
+            const response = await axios.post(url, payload, { headers });
+            console.log("updated customer data:", response?.data?.result);
 
-          if (
-            response?.data &&
-            response?.data?.success &&
-            response?.data?.result
-          ) {
-            console.log(
-              "Update customer success if method console - - - - - -- done",
+            if (
+              response?.data &&
+              response?.data?.success &&
               response?.data?.result
-            );
+            ) {
+              console.log(
+                "Update customer success if method console - - - - - -- done",
+                response?.data?.result
+              );
 
-            return response?.data?.result;
-          } else {
-            const errorMessage =
-              response?.data?.error?.message ||
-              "An error occurred during the update.";
-            console.error("Unexpected response structure:", response?.data);
-            throw new Error(errorMessage);
+              return response?.data?.result;
+            } else {
+              const errorMessage =
+                response?.data?.error?.message ||
+                "An error occurred during the update.";
+              console.error("Unexpected response structure:", response?.data);
+              throw new Error(errorMessage);
+            }
+          } catch (error) {
+            console.error("Error creating/updating customer:", error);
+            throw new Error(
+              error.response ? error.response.data.message : error.message
+            );
           }
-        } catch (error) {
-          console.error("Error creating/updating customer:", error);
-          throw new Error(
-            error.response ? error.response.data.message : error.message
-          );
+        })(),
+        {
+          loading: "Updating profile...",
+          success: "Profile Updated Successfully!",
+          error: (error) =>
+            `Failed to update customer profile: ${error.message || error}`,
+        },
+        {
+          duration: 3000,
         }
-      })(),
-      {
-        loading: "Updating profile...",
-        success: "Profile Updated Successfully!",
-        error: (error) =>
-          `Failed to update customer profile: ${error.message || error}`,
-      },
-      {
-        duration: 3000,
-      }
-    );
+      )
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleCustomerProfileSaveButton = (e) => {
@@ -1237,7 +1243,10 @@ const CustomerProfilePage = () => {
                                 onClick={handleCustomerProfileSaveButton}
                                 disabled={loading}
                               >
-                                <strong> {loading ? "Saving..." : "Save"}</strong>
+                                <strong>
+                                  {" "}
+                                  {loading ? "Saving..." : "Save"}
+                                </strong>
                               </button>
                             </Col>
                           </Row>
