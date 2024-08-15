@@ -9,7 +9,6 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import axios from "axios";
-import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
@@ -85,7 +84,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   const [nationalityOptions, setNationalityOptions] = useState([]);
   const [pickupLocationId, setPickupLocationId] = useState("");
   const [dropoffLocationId, setDropoffLocationId] = useState("");
-  const [newCustomerDetail, setNewCustomerDetail] = useState("");
   const [paymentUrl, setPaymentUrl] = useState("");
 
   const TariffGroupIdParam = parseInt(queryParams?.get("tariffGroupId"));
@@ -304,11 +302,9 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     }
   }, [auth, fetchMongoDBCustomerData]);
 
-  // Create or Get Customer API in Own DB
-  const createOrGetOwnDBCustomer = async (idFromSpeed) => {
+  const createOwnDBCustomer = async () => {
     const last4Digits = contactNum.slice(-4);
     const password = `${firstName}${last4Digits}`;
-
     const normalizedContactNum = contactNum.startsWith("+")
       ? contactNum
       : `+${contactNum}`;
@@ -321,17 +317,12 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       password,
       passwordConfirm: password,
       nationality: selectedNationality,
-      customerIdFromSpeed: idFromSpeed,
     };
 
-    console.log("formData : ", formData);
-
     try {
-      const existingCustomerResponse = await axios.get(
-        `${
-          process.env.REACT_APP_MILELE_API_URL
-        }/customer/findByMail?email=${encodeURIComponent(emailAddress)}`,
-        // `http://localhost:8000/api/v1/customer/findByMail?email=${encodeURIComponent(emailAddress)}`,
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/customer/create`,
+        formData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -339,162 +330,49 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           },
         }
       );
-
-      if (
-        existingCustomerResponse?.data &&
-        existingCustomerResponse?.data?.customer
-      ) {
-        console.log(
-          "Customer already exists:",
-          existingCustomerResponse?.data?.customer
-        );
-
-        const updatedData = { ...formData, customerIdFromSpeed: idFromSpeed };
-
-        return updateOwnDBCustomer(
-          updatedData,
-          existingCustomerResponse.data.customer.id
-        );
-      } else {
-        // Create customer if not exists
-        const response = await axios.post(
-          `${process.env.REACT_APP_MILELE_API_URL}/customer/create`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application.json",
-            },
-          }
-        );
-        console.log("Customer created successfully:", response.data);
-        return response.data;
-      }
-    } catch (error) {
-      console.error(
-        "Error processing customer:",
-        error.response ? error.response.data : error.message
+      console.log(
+        "createOwnDBCustomer created successfully in both DB:",
+        response?.data
       );
-      throw new Error(
-        error.response ? error.response.data.message : error.message
-      );
-    }
-  };
-
-  // Create Own Customer API
-  const updateOwnDBCustomer = async (updatedData, customerIdFromOwnDB) => {
-    console.log(
-      "updateOwnDBCustomer : formData : ",
-      updatedData?.customerIdFromSpeed
-    );
-    console.log("customerIdFromOwnDB : ", customerIdFromOwnDB);
-
-    try {
-      const response = await axios.patch(
-        `${process.env.REACT_APP_MILELE_API_URL}/customer/updateprofile/${customerIdFromOwnDB}`,
-        // `http://localhost:8000/api/v1/customer/updateprofile/${customerIdFromOwnDB}`,
-        { customerIdFromSpeed: updatedData?.customerIdFromSpeed },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-      console.log("Customer data updated successfully:", response?.data);
       return response?.data;
     } catch (error) {
       console.error(
-        "Error updating customer:",
-        error.response ? error.response.data : error.message
+        "Error creating customer:",
+        error.response ? error.response.data : error
       );
-      throw new Error(
-        error.response ? error.response.data.message : error.message
-      );
+
+      const errorMessage =
+        error.response?.data?.message || "An unknown error occurred";
+      console.error("Detailed Error:", errorMessage);
+
+      // Specific logic to handle known error types
+      if (
+        errorMessage.includes("Similar record exists with this email") ||
+        errorMessage.includes("This email is already registered")
+      ) {
+        setShowLoginSignupModal(true);
+      }
+
+      toast.error(`Error: ${errorMessage}`);
+      throw error;
     }
   };
 
-  // Create Speed Customer API
-  const createCustomer = async (data) => {
-    console.log("creating customer", data);
+  const handleCreateCustomer = async () => {
+    const toastId = toast.loading("Creating customer...");
 
-    const token = process.env.REACT_APP_SPEED_API_BEARER_TOKEN;
-    const headers = {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    };
+    try {
+      const data = await createOwnDBCustomer();
+      console.log("handleCreateCustomer created successfully:", data);
+      toast.dismiss(toastId);
+      toast.success("Customer created successfully!");
+      return data;
+    } catch (error) {
+      console.error("Failed:", error.response ? error.response.data : error);
+      toast.dismiss(toastId);
 
-    const url =
-      "https://app.speedautosystems.com/api/services/app/person/CreateOrUpdatePerson";
-    const payload = {
-      person: data,
-    };
-    toast.dismiss();
-    toast.promise(
-      (async () => {
-        try {
-          const response = await axios.post(url, payload, { headers });
-          console.log(
-            "===created customer response--------:",
-            response?.data?.result
-          );
-
-          if (
-            response?.data &&
-            response?.data?.success === true &&
-            response?.data?.result
-          ) {
-            console.log(
-              "create customer success if method console - - - - - -- done",
-              response?.data?.result
-            );
-
-            if (!auth && !auth?.data) {
-              try {
-                await createOrGetOwnDBCustomer(response?.data?.result);
-              } catch (createDBError) {
-                console.error(
-                  "Error creating customer in own DB:",
-                  createDBError
-                );
-                throw new Error(
-                  createDBError.response
-                    ? createDBError.response.data.message
-                    : createDBError.message
-                );
-              }
-            }
-
-            getCustomerDetails(response?.data?.result);
-            return response?.data?.result;
-          } else {
-            const errorMessage =
-              response?.data?.error?.message ||
-              "An error occurred while creating the customer.";
-            console.error("Unexpected response structure:", response?.data);
-            if (
-              errorMessage.includes("Similar record exists with this email")
-            ) {
-              setShowLoginSignupModal(true);
-            }
-            throw new Error(errorMessage);
-          }
-        } catch (error) {
-          console.error("Error creating/updating customer:", error);
-          throw new Error(
-            error.response ? error.response.data.message : error.message
-          );
-        }
-      })(),
-      {
-        loading: "Creating...",
-        success: "Customer created successfully!",
-        error: (error) => `Failed: ${error.message || error}`,
-      },
-      {
-        duration: 2000,
-      }
-    );
+      throw error;
+    }
   };
 
   // get Customer Detail API
@@ -517,9 +395,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
     );
 
     try {
+      console.log("Before try ... ");
       const response = await axios.post(url, requestNewCustomerId, { headers });
-
-      setNewCustomerDetail();
 
       if (response?.data?.success) {
         console.log("get customer response--------:", response?.data?.result);
@@ -865,8 +742,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           const response = await axios.post(url, payload, { headers });
           console.log("Finallll Booking response--------:", response?.data);
           console.log(
-            "After Booking checking customer detail response--------:",
-            newCustomerDetail
+            "After Booking checking customer detail response--------:"
           );
 
           const responseResult = response?.data?.success;
@@ -958,55 +834,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       return;
     }
 
-    // if (!user_customerSpeedId) {
-    //   const newErrorFields = {};
-    //   const customerDocumentsMissingFields = [];
-    //   if (!drivingLicenseNum) {
-    //     newErrorFields.drivingLicenseNum = true;
-    //     customerDocumentsMissingFields?.push("Driving License Number");
-    //   }
-    //   if (!drivingLicenseIssueBy) {
-    //     newErrorFields.drivingLicenseIssueBy = true;
-    //     customerDocumentsMissingFields?.push("Driving License Issued Country");
-    //   }
-    //   if (!drivingLicenseIssueDate) {
-    //     newErrorFields.drivingLicenseIssueDate = true;
-    //     customerDocumentsMissingFields?.push("Driving License Issued Date");
-    //   }
-    //   if (!drivingLicenseExpiryDate) {
-    //     newErrorFields.drivingLicenseExpiryDate = true;
-    //     customerDocumentsMissingFields?.push("Driving License Expiry Date");
-    //   }
-    //   if (!isInternationalLicense) {
-    //     newErrorFields.isInternationalLicense = true;
-    //     customerDocumentsMissingFields?.push(
-    //       "Driving License International or not"
-    //     );
-    //   }
-
-    //   setErrorFields(newErrorFields);
-
-    //   if (customerDocumentsMissingFields?.length > 0) {
-    //     const errorMessageMultiple = `${customerDocumentsMissingFields.join(
-    //       ", "
-    //     )} fields are missing.`;
-    //     const errorMessageSingle = `${customerDocumentsMissingFields.join(
-    //       ", "
-    //     )} field is missing.`;
-
-    //     const errorMessage =
-    //       customerDocumentsMissingFields?.length === 1
-    //         ? errorMessageSingle
-    //         : errorMessageMultiple;
-
-    //     toast.dismiss();
-    //     toast(errorMessage, {
-    //       duration: 2000,
-    //     });
-    //     return;
-    //   }
-    // }
-
     if (!user_customerSpeedId) {
       const isEmailValid = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1039,43 +866,20 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         return;
       }
 
-      // Creating Customer Data in Speed
-      const createCustomerData = {
-        firstName: firstName,
-        lastName: lastName,
-        mobileNo: normalizedContactNum,
-        email: emailAddress,
-        nationality: selectedNationality?.label || user_nationality,
-        identityDocuments: [
-          {
-            documentNo: "0",
-            // expiryDate: drivingLicenseExpiryDate,
-            identityDocumentType: 4,
-            // isInternational: isInternationalLicense,
-            // issueDate: drivingLicenseIssueDate,
-            // gallaryImages: [
-            //   {
-            //     url: drivingLicenseImg,
-            //   },
-            // ],
-            // images: [
-            //   {
-            //     url: drivingLicenseImg,
-            //   },
-            // ],
-            issuedBy: "United Arab Emirates (the)",
-          },
-        ],
-      };
-
-      const customerId = await createCustomer(createCustomerData);
-      console.log("Create customer id : ", customerId);
-      if (customerId) {
-        console.log("in if of create customer");
-        getCustomerDetails(customerId);
+      try {
+        const customerData = await handleCreateCustomer();
+        const customerID =
+          customerData?.data?.updatedUserData?.customerIdFromSpeed;
+        console.log("Create customer id --- : ", customerID);
+        if (true) {
+          console.log("Customer data received: ", customerID);
+          getCustomerDetails(customerID);
+        }
+      } catch (error) {
+        console.error("Error in creating customer:", error);
       }
     } else {
-      console.log("in Else of create customer");
+      console.log("Using existing customer ID:", user_customerSpeedId);
       getCustomerDetails(user_customerSpeedId);
     }
   };
@@ -1128,8 +932,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               response?.data?.status
             );
             setPaymentUrl(response?.data?.status);
-            // const nextStepUrl = `/bookingPage/3&booking-success`;
-            // window.location.href = nextStepUrl;
+            const nextStepUrl = `/bookingPage/3&booking-success`;
+            window.location.href = nextStepUrl;
           } else {
             throw new Error("Failed to generate payment link.");
           }
@@ -1144,7 +948,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         error: "Failed to generate payment link.",
       },
       {
-        duration: 2000,
+        duration: 3000,
       }
     );
   };
