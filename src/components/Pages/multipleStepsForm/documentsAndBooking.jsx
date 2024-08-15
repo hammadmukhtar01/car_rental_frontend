@@ -1176,7 +1176,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                                 value={emailAddress}
                                 onChange={(e) => {
                                   if (!(auth && user_token)) {
-                                    setEmailAddress(e.target.value);
+                                    setEmailAddress(e.target.value.trim());
                                     if (errorFields?.emailAddress) {
                                       setErrorFields((prev) => ({
                                         ...prev,

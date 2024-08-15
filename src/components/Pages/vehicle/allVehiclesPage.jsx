@@ -1517,7 +1517,7 @@ const VehiclesPage = () => {
                                           <span className="car-name text-end">
                                             {" "}
                                             <b>{car?.title}</b>{" "}
-                                            <b>{car?.tariffGroupId}</b> | (
+                                             | (
                                             {categoryMap[
                                               car?.acrissCategory?.name
                                             ] || car?.acrissCategory?.name}{" "}

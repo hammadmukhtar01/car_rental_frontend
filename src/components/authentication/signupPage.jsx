@@ -131,12 +131,14 @@ const SignupPage = ({ onCloseModal, setGif }) => {
     }
 
     if (signupFormMissingFields.length <= 0) {
+    let trimmedEmail = email.trim();
+      
       const formData = {
         fName,
         lName,
         phoneNumber: normalizedPhoneNumber,
         nationality: selectedNationality,
-        email,
+        email: trimmedEmail,
         password,
         passwordConfirm,
       };

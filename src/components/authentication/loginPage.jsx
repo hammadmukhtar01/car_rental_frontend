@@ -29,8 +29,9 @@ const LoginPage = ({ onCloseModal, setGif, onForgotPasswordClick }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    let trimmedEmailPhoneNum = emailPhoneNum.trim();
 
-    let data = { emailPhoneNum, password };
+    let data = { emailPhoneNum: trimmedEmailPhoneNum, password };
     setLoading(true);
     const headers = {
       "Content-Type": "application/json",
