@@ -8,131 +8,155 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const ContactUsForm = () => {
   const [formData, setFormData] = useState({
-    fname: "",
-    lname: "",
+    fName: "",
+    lName: "",
     email: "",
     phoneNumber: "",
     comment: "",
   });
   const [country, setCountry] = useState("ae");
   const [loading, setLoading] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [errorFields, setErrorFields] = useState({});
 
   const validateInput = () => {
+    let isValid = true;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let newErrorFields = {};
 
-    console.log(`Phone numbe ris : ${formData?.phoneNumber}`);
-
-    if (!emailRegex.test(formData?.email)) {
-      toast.dismiss();
-      toast("Please enter a valid email address.", {
-        duration: 2000,
-      });
-      return false;
+    if (!emailRegex.test(formData.email)) {
+      newErrorFields.email = true;
+      isValid = false;
     }
 
-    const normalizedPhoneNumber = formData?.phoneNumber.startsWith("+")
-      ? formData?.phoneNumber
-      : `+${formData?.phoneNumber}`;
-
+    const normalizedPhoneNumber = formData.phoneNumber.startsWith("+")
+      ? formData.phoneNumber
+      : `+${formData.phoneNumber}`;
     const parsedPhoneNumber = parsePhoneNumberFromString(
       normalizedPhoneNumber,
-      country?.name
+      country.name
     );
 
     if (!parsedPhoneNumber || !parsedPhoneNumber.isValid()) {
+      newErrorFields.phoneNumber = true;
+      isValid = false;
+    }
+
+    setErrorFields(newErrorFields);
+    return isValid;
+  };
+  const handleContactUsSubmitButton = async (e) => {
+    e.preventDefault();
+
+    const newErrorFields = {};
+    const contactusFormMissingFields = [];
+
+    if (!formData?.fName) {
+      newErrorFields.fName = true;
+      contactusFormMissingFields.push("First Name ");
+    }
+    if (!formData?.lName) {
+      newErrorFields.lName = true;
+      contactusFormMissingFields.push("Last Name");
+    }
+
+    if (!formData?.email) {
+      newErrorFields.email = true;
+      contactusFormMissingFields.push("Email ");
+    }
+    if (!formData?.phoneNumber) {
+      newErrorFields.phoneNumber = true;
+      contactusFormMissingFields.push("Phone Number");
+    }
+    if (!formData?.comment) {
+      newErrorFields.comment = true;
+      contactusFormMissingFields.push("Comment");
+    }
+
+    setErrorFields(newErrorFields);
+
+    console.log(
+      "Contact Us Form Missing Fields are : ",
+      contactusFormMissingFields
+    );
+    if (contactusFormMissingFields?.length > 0) {
+      const errorMessageMultiple = `${contactusFormMissingFields.join(
+        ", "
+      )} fields are missing.`;
+      const errorMessageSingle = `${contactusFormMissingFields.join(
+        ", "
+      )} field is missing.`;
+
+      const errorMessage =
+        contactusFormMissingFields?.length === 1
+          ? errorMessageSingle
+          : errorMessageMultiple;
+
       toast.dismiss();
-      toast("Please enter a valid phone number.", {
-        duration: 2000,
+      toast(errorMessage, {
+        duration: 3000,
       });
       return;
     }
 
-    return true;
-  };
-
-  const handleContactUsSubmitButton = async (e) => {
-    e.preventDefault();
-
     if (!validateInput()) {
-      console.log("Invalid Input.");
+      toast.dismiss();
+      toast("Invalid data entered.", {
+        duration: 3000,
+      });
       return;
     }
+
+    setLoading(true);
+
     const headers = {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     };
-    setLoading(true);
-    document.body.classList.add("loadings");
 
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_MILELE_API_URL}/contactUsForm/create`,
-        formData,
-        { headers }
-      );
-      console.log("Contact Us response is: --- ", response?.data);
-
-      if (response?.data?.status === "success") {
-        toast.dismiss();
-        toast("Thank You for Contacting Us.", {
-          duration: 2000,
-          style: { border: "1px solid #c0c0c0", fontSize: "14px" },
-        });
-        setFormData({
-          fname: "",
-          lname: "",
-          email: "",
-          phoneNumber: "+971",
-          comment: "",
-        });
-
+    toast
+      .promise(
+        axios.post(
+          `${process.env.REACT_APP_MILELE_API_URL}/contactUsForm/create`,
+          formData,
+          { headers }
+        ),
+        {
+          loading: "Submitting your Request...",
+          success: (response) => {
+            setFormData({
+              fName: "",
+              lName: "",
+              email: "",
+              phoneNumber: "+971",
+              comment: "",
+            });
+            return "Thank You for Contacting Us. We will get back to you soon";
+          },
+          error: (error) => {
+            if (error.response?.data?.error?.errors) {
+              const firstError = Object.values(
+                error.response.data.error.errors
+              )[0].message;
+              return Promise.reject(firstError);
+            }
+            return Promise.reject(
+              "Failed to send your message. Please try again."
+            );
+          },
+        }
+      )
+      .then(() => {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "contactUsPageLeadForm",
         });
-      } else {
-        toast.dismiss();
-        toast("Failed to send your message. Please try again.", {
-          duration: 2000,
-        });
-      }
-    } catch (error) {
-      console.log("Error:", error?.response);
-
-      if (
-        error?.response &&
-        error?.response?.data &&
-        error?.response?.data?.error
-      ) {
-        const errors = error?.response?.data?.error?.errors;
-        console.log("Error:", error?.response?.data?.error);
-
-        if (errors?.email) {
-          toast.dismiss();
-          toast(errors?.email?.message, {
-            duration: 2000,
-          });
-        }
-        if (errors?.phoneNumber) {
-          toast.dismiss();
-          toast(errors?.phoneNumber?.message, {
-            duration: 2000,
-          });
-        }
-      } else {
-        toast.dismiss();
-        toast(`Submission failed: ${error?.message}`, {
-          duration: 2000,
-        });
-      }
-    } finally {
-      setLoading(false);
-      document.body.classList.remove("loadings");
-    }
+      })
+      .catch((error) => {
+        toast.error(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -143,17 +167,14 @@ const ContactUsForm = () => {
           className="contactUs-form"
           onSubmit={handleContactUsSubmitButton}
         >
-          {loading && (
-            <div className="reloading-icon-of-form-container text-center">
-              <span className="loader-text">Submitting your Request . . .</span>
-              <div className="lds-dual-ring text-center"></div>
-            </div>
-          )}
-
           <div className="form-group row">
             <div className="col-lg-6 col-md-6 col-sm-6 pt-4">
               <label className="contact-us-label" htmlFor="fname">
-                <h6>
+                <h6
+                  className={` ${
+                    errorFields?.fName ? "select-error-label" : ""
+                  }`}
+                >
                   {" "}
                   First Name<span className="required-field-star">*</span>
                 </h6>
@@ -161,18 +182,34 @@ const ContactUsForm = () => {
               <input
                 type="text"
                 autoComplete="off"
-                className="form-control form-control-contact-us"
+                className={`form-control form-control-contact-us ${
+                  errorFields?.fName ? "border-red" : ""
+                }`}
                 id="fname"
                 name="fname"
-                required
-                value={formData?.fname}
-                onChange={handleChange}
+                value={formData?.fName}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    fName: e.target.value,
+                  }));
+                  if (errorFields?.fName) {
+                    setErrorFields((prev) => ({
+                      ...prev,
+                      fName: false,
+                    }));
+                  }
+                }}
               />
             </div>
 
             <div className="col-lg-6 col-md-6 col-sm-6 pt-4">
               <label className="contact-us-label" htmlFor="lname">
-                <h6>
+                <h6
+                  className={` ${
+                    errorFields?.lName ? "select-error-label" : ""
+                  }`}
+                >
                   {" "}
                   Last Name<span className="required-field-star">*</span>
                 </h6>
@@ -183,9 +220,19 @@ const ContactUsForm = () => {
                 className="form-control form-control-contact-us"
                 id="lname"
                 name="lname"
-                required
-                value={formData?.lname}
-                onChange={handleChange}
+                value={formData?.lName}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    lName: e.target.value,
+                  }));
+                  if (errorFields?.lName) {
+                    setErrorFields((prev) => ({
+                      ...prev,
+                      lName: false,
+                    }));
+                  }
+                }}
               />
             </div>
           </div>
@@ -195,7 +242,11 @@ const ContactUsForm = () => {
               <div className="row ">
                 <div>
                   <label className="contact-us-label" htmlFor="email">
-                    <h6>
+                    <h6
+                      className={` ${
+                        errorFields?.email ? "select-error-label" : ""
+                      }`}
+                    >
                       {" "}
                       Email<span className="required-field-star">*</span>
                     </h6>
@@ -207,9 +258,19 @@ const ContactUsForm = () => {
                     name="email"
                     type="email"
                     autoComplete="off"
-                    required
                     value={formData?.email}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        email: e.target.value,
+                      }));
+                      if (errorFields?.email) {
+                        setErrorFields((prev) => ({
+                          ...prev,
+                          email: false,
+                        }));
+                      }
+                    }}
                   />
                 </div>
               </div>
@@ -217,7 +278,11 @@ const ContactUsForm = () => {
               <div className="row">
                 <div className="pt-4">
                   <label className="contact-us-label" htmlFor="phoneNumber ">
-                    <h6>
+                    <h6
+                      className={` ${
+                        errorFields?.phoneNumber ? "select-error-label" : ""
+                      }`}
+                    >
                       {" "}
                       Phone Number<span className="required-field-star">*</span>
                     </h6>
@@ -238,6 +303,13 @@ const ContactUsForm = () => {
                         phoneNumber: phone,
                       });
                       setCountry(country);
+
+                      if (errorFields?.phoneNumber) {
+                        setErrorFields((prev) => ({
+                          ...prev,
+                          phoneNumber: false,
+                        }));
+                      }
                     }}
                   />
                 </div>
@@ -245,7 +317,11 @@ const ContactUsForm = () => {
             </div>
             <div className=" col-lg-6 col-md-6 col-sm-6 pt-4">
               <label className="contact-us-label" htmlFor="comment">
-                <h6>
+                <h6
+                  className={` ${
+                    errorFields?.comment ? "select-error-label" : ""
+                  }`}
+                >
                   {" "}
                   Additional Comments{" "}
                   <span className="required-field-star">*</span>
@@ -261,9 +337,19 @@ const ContactUsForm = () => {
                 type="checkbox"
                 autoComplete="off"
                 placeholder="Comment"
-                required
                 value={formData?.comment}
-                onChange={handleChange}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    comment: e.target.value,
+                  }));
+                  if (errorFields?.comment) {
+                    setErrorFields((prev) => ({
+                      ...prev,
+                      comment: false,
+                    }));
+                  }
+                }}
               />
             </div>
           </div>
@@ -272,9 +358,10 @@ const ContactUsForm = () => {
               <button
                 className="middle"
                 aria-label="Contact Us Form Submission"
+                disabled={loading}
               >
                 <span className="animate-button btn4" id="contact-us-submit">
-                  Submit
+                  {loading ? "Submitting..." : "Submit"}
                 </span>
               </button>
             </div>
