@@ -1442,7 +1442,7 @@ const VehiclesPage = () => {
                                   Minimum Price
                                 </label>
                                 <input
-                                  className="form-control-login"
+                                  className="form-control-price-filter"
                                   name="minPrice"
                                   autoComplete="off"
                                   type="text"
@@ -1462,7 +1462,7 @@ const VehiclesPage = () => {
                                 </label>
 
                                 <input
-                                  className="form-control-login"
+                                  className="form-control-price-filter"
                                   name="maxPrice"
                                   autoComplete="off"
                                   type="text"
@@ -1475,7 +1475,7 @@ const VehiclesPage = () => {
                               {priceRangeErrorMessage && (
                                 <div style={{ color: "red" }}>
                                   {" "}
-                                  <b>{priceRangeErrorMessage}</b>{" "}
+                                  <b><span className="price-range-error-message">{priceRangeErrorMessage}</span></b>{" "}
                                 </div>
                               )}
                             </div>

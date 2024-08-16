@@ -487,6 +487,8 @@
 .form-control-login,
 .form-control-signup,
 .form-control-update-password,
+.form-control-coupon,
+.form-control-price-filter,
 .form-control-consultation,
 .form-control-age,
 .form-control-lto-input {
@@ -502,11 +504,13 @@
 .form-control-login,
 .form-control-signup,
 .form-control-update-password,
+.form-control-coupon,
+.form-control-price-filter,
 .form-control-age {
   border: 1px solid rgb(184, 184, 184);
 }
 
-.form-control-consultation-number {
+.form-control-phone-number {
   height: 45px !important;
   border: 1px solid #e87a28 !important;
   border-radius: 6px;
@@ -635,15 +639,20 @@
   color: #e87a28 !important;
 }
 
+.form-control-consultation:focus {
+  outline: 1px solid #e87b286f !important;
+}
+
 .form-control-location:focus,
-.form-control-consultation:focus,
 .form-control-forgotPassword:focus,
 .form-control-login:focus,
 .form-control-signup:focus,
 .form-control-update-password:focus,
+.form-control-coupon:focus,
+.form-control-price-filter:focus,
 .form-control-age:focus,
 .form-control-lto-input:focus {
-  outline: none;
+  outline: 1px solid rgba(0, 0, 0, 0.246) !important;
 }
 
 .form-control-contact-us,

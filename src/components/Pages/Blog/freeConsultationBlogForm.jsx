@@ -136,7 +136,7 @@ const FreeConsultationForm = () => {
 
                     <Col xl={4} lg={4} md={6} sm={12} xs={12}>
                       <PhoneInput
-                        className="form-control-consultation-number mt-2 col-12"
+                        className="form-control-phone-number mt-2 col-12"
                         country={"ae"}
                         name="phoneNumber"
                         value={phoneNumber}

@@ -292,7 +292,7 @@ const ContactUsForm = () => {
                   </label>
 
                   <PhoneInput
-                    className="form-control form-control-contact-us-phone-input form-control-consultation-number col-12"
+                    className="form-control form-control-contact-us-phone-input form-control-phone-number col-12"
                     country={"ae"}
                     name="phoneNumber"
                     value={formData?.phoneNumber}

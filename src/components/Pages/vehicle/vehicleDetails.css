@@ -75,6 +75,10 @@
   padding-bottom: 20px;
 }
 
+.price-range-error-message {
+  font-size: small;
+}
+
 /* Pagination */
 
 ul.pagination-container.pagination-bar {

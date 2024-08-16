@@ -1298,7 +1298,7 @@ const VehicleDetails = ({ nextStep }) => {
                                     <Col>
                                       <div className="input-group">
                                         <input
-                                          className="form-control-login col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8"
+                                          className="form-control-coupon col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8"
                                           name="couponCode"
                                           autoComplete="off"
                                           type="text"
