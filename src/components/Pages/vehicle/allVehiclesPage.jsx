@@ -1462,7 +1462,7 @@ const VehiclesPage = () => {
                                 </label>
 
                                 <input
-                                  className="form-control-price-filter"
+                                  className={`form-control-price-filter ${priceRangeErrorMessage ? "price-range-error" : ""}`}
                                   name="maxPrice"
                                   autoComplete="off"
                                   type="text"
