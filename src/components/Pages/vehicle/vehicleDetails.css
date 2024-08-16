@@ -856,7 +856,8 @@ h1.vehicle-details-heading {
 }
 
 .filters-section .filters-button,
-.apply-filters-button {
+.apply-filters-button,
+.cancel-filters-button {
   display: none;
 }
 
@@ -932,23 +933,32 @@ h1.vehicle-details-heading {
 
   .no-scroll {
     overflow: hidden;
-    height: 100%; 
+    height: 100%;
   }
-  
-  .filters-content.open {
-    overflow-y: auto; 
-    max-height: 90vh; 
-  }
-  
 
-  .apply-filters-button {
+  .filters-content.open {
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+
+  .apply-filters-button,
+  .cancel-filters-button {
     display: block;
   }
 
-  .apply-filters-button {
+  .apply-filters-button,
+  .cancel-filters-button {
     padding: 5px 20px;
     background-color: #e87a28;
     color: white;
+    border: 1px solid #e87a28;
+    border-radius: 5px;
+  }
+
+  .cancel-filters-button {
+    padding: 5px 20px;
+    background-color: white;
+    color: #e87a28;
     border: 1px solid #e87a28;
     border-radius: 5px;
   }
@@ -963,7 +973,8 @@ h1.vehicle-details-heading {
     border-radius: 50px;
   }
 
-  .apply-filters-button:hover {
+  .apply-filters-button:hover,
+  .cancel-filters-button:hover {
     background-color: white;
     color: #e87a28;
   }
