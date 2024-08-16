@@ -165,6 +165,10 @@ const VehiclesPage = () => {
   const [loading, setLoading] = useState(true);
   const [errorFields, setErrorFields] = useState({});
   const [priceRangeErrorMessage, setPriceRangeErrorMessage] = useState("");
+  const [inputMinPriceErrorMessage, setInputMinPriceErrorMessage] =
+    useState("");
+  const [inputMaxPriceErrorMessage, setInputMaxPriceErrorMessage] =
+    useState("");
 
   const updateLocalStorage = (newUserData) => {
     setWithExpiry("userLocationData", newUserData, 24 * 60 * 60 * 1000);
@@ -216,8 +220,12 @@ const VehiclesPage = () => {
   };
 
   const validatePrices = (min, max) => {
-    if (parseInt(min, 10) > parseInt(max, 10)) {
-      setPriceRangeErrorMessage("Min. price should be less than max. price");
+    if (min !== "" && max !== "" && parseInt(min, 10) > parseInt(max, 10)) {
+      setPriceRangeErrorMessage(
+        "Max. price should be greater than min. price."
+      );
+      setInputMinPriceErrorMessage("");
+      setInputMaxPriceErrorMessage("");
     } else {
       setPriceRangeErrorMessage("");
     }
@@ -228,6 +236,9 @@ const VehiclesPage = () => {
     if (/^\d*$/.test(value)) {
       setMinPrice(value);
       validatePrices(value, maxPrice);
+      setInputMinPriceErrorMessage("");
+    } else {
+      setInputMinPriceErrorMessage("Only numbers are allowed");
     }
   };
 
@@ -236,6 +247,9 @@ const VehiclesPage = () => {
     if (/^\d*$/.test(value)) {
       setMaxPrice(value);
       validatePrices(minPrice, value);
+      setInputMaxPriceErrorMessage("");
+    } else {
+      setInputMaxPriceErrorMessage("Only numbers are allowed");
     }
   };
 
@@ -1442,7 +1456,12 @@ const VehiclesPage = () => {
                                   Minimum Price
                                 </label>
                                 <input
-                                  className="form-control-price-filter"
+                                  className={`form-control-price-filter ${
+                                    priceRangeErrorMessage ||
+                                    inputMinPriceErrorMessage
+                                      ? "price-range-error"
+                                      : ""
+                                  } `}
                                   name="minPrice"
                                   autoComplete="off"
                                   type="text"
@@ -1451,8 +1470,12 @@ const VehiclesPage = () => {
                                   onChange={handleMinPriceChange}
                                   placeholder="Minimum"
                                 />
+                                {inputMinPriceErrorMessage && (
+                                  <div className="mt-1" style={{ color: "red" }}>
+                                    <>{inputMinPriceErrorMessage}</>
+                                  </div>
+                                )}
                               </div>
-
                               <div className="form-group-price-max col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0">
                                 <label
                                   htmlFor="maxPrice"
@@ -1462,7 +1485,12 @@ const VehiclesPage = () => {
                                 </label>
 
                                 <input
-                                  className={`form-control-price-filter ${priceRangeErrorMessage ? "price-range-error" : ""}`}
+                                  className={`form-control-price-filter ${
+                                    priceRangeErrorMessage ||
+                                    inputMaxPriceErrorMessage
+                                      ? "price-range-error"
+                                      : ""
+                                  }`}
                                   name="maxPrice"
                                   autoComplete="off"
                                   type="text"
@@ -1471,11 +1499,20 @@ const VehiclesPage = () => {
                                   placeholder="Maximum"
                                   min={minPrice}
                                 />
+                                {inputMaxPriceErrorMessage && (
+                                  <div className="mt-" style={{ color: "red" }}>
+                                    <>{inputMaxPriceErrorMessage}</>
+                                  </div>
+                                )}
                               </div>
                               {priceRangeErrorMessage && (
                                 <div style={{ color: "red" }}>
                                   {" "}
-                                  <b><span className="price-range-error-message">{priceRangeErrorMessage}</span></b>{" "}
+                                 
+                                    <span className="price-range-error-message">
+                                      {priceRangeErrorMessage}
+                                    </span>
+                                
                                 </div>
                               )}
                             </div>
