@@ -111,21 +111,25 @@ const ForgotPasswordPage = ({ onClose }) => {
                 className="forgotPassword-form"
                 onSubmit={handleForgotPassword}
               >
-                <div className="forgotPassword-form-input-container d-flex justify-content-evenly">
-                  <label className="forgotPassword-form-label">
-                    <b>
-                      {" "}
-                      <span
-                        className={` ${
-                          errorFields?.emailAddress ? "select-error-label" : ""
-                        }`}
-                      >
-                        Email *
-                      </span>
-                    </b>
-                  </label>
+                <Row className="forgotPassword-form-input-container d-flex justify-content-center align-items-center">
+                  <div className="col-xl-2 col-lg-2 col-md-3 col-sm-12 col-12">
+                    <label className="forgotPassword-form-label ">
+                      <b>
+                        {" "}
+                        <span
+                          className={` ${
+                            errorFields?.emailAddress
+                              ? "select-error-label"
+                              : ""
+                          }`}
+                        >
+                          Email *
+                        </span>
+                      </b>
+                    </label>
+                  </div>
 
-                  <div className=" custom-dropdown-container col-lg-6 col-md-6 col-sm-12 col-12">
+                  <div className=" custom-dropdown-container col-xl-4 col-lg-6 col-md-7 col-sm-12 col-12">
                     <input
                       className="form-control-forgotPassword col-12"
                       id="email"
@@ -140,7 +144,7 @@ const ForgotPasswordPage = ({ onClose }) => {
                       }}
                     />
                   </div>
-                </div>
+                </Row>
 
                 <br />
                 <div className="forgotPassword-button-div">
