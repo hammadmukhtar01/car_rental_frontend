@@ -437,7 +437,7 @@ const SignupPage = ({ onCloseModal, setGif }) => {
 
               <div className=" custom-dropdown-container">
                 <PhoneInput
-                  className={`form-control form-control-contact-us-phone-input form-control-consultation-number col-12 ${
+                  className={`form-control form-control-contact-us-phone-input form-control-phone-number col-12 ${
                     errorFields?.phoneNumber ? "select-error border-red" : ""
                   }`}
                   country={"ae"}
