@@ -75,6 +75,12 @@
   padding-bottom: 20px;
 }
 
+.price-range-error {
+  border-color: red;
+}
+.price-range-error:focus {
+  outline: none !important;
+}
 .price-range-error-message {
   font-size: small;
 }
