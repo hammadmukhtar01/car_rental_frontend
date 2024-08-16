@@ -1311,14 +1311,14 @@ const VehiclesPage = () => {
                     <Row className="filters-cross-button-row">
                       <Col className="d-flex justify-content-start"></Col>
                       <Col className="d-flex justify-content-end">
-                        <button
-                          className="cross-filters-button mb-3"
-                          aria-label="Apply Filters"
-                          onClick={handleFiltersClose}
-                        >
-                          {" "}
-                          <RxCross2 />
-                        </button>
+                      <button
+                        className="cancel-filters-button mb-3"
+                        aria-label="Cancel Filters"
+                        onClick={handleFiltersClose}
+                      >
+                        {" "}
+                        Cancel <RxCross2/>
+                      </button>
                       </Col>
                     </Row>
 
