@@ -164,6 +164,7 @@ const VehiclesPage = () => {
   const [isLocationDataOpen, setIsLocationDataOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [errorFields, setErrorFields] = useState({});
+  const [priceRangeErrorMessage, setPriceRangeErrorMessage] = useState("");
 
   const updateLocalStorage = (newUserData) => {
     setWithExpiry("userLocationData", newUserData, 24 * 60 * 60 * 1000);
@@ -211,6 +212,30 @@ const VehiclesPage = () => {
           dateRange: { startDate, endDate },
         },
       });
+    }
+  };
+
+  const validatePrices = (min, max) => {
+    if (parseInt(min, 10) > parseInt(max, 10)) {
+      setPriceRangeErrorMessage("Min. price should be less than max. price");
+    } else {
+      setPriceRangeErrorMessage("");
+    }
+  };
+
+  const handleMinPriceChange = (e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setMinPrice(value);
+      validatePrices(value, maxPrice);
+    }
+  };
+
+  const handleMaxPriceChange = (e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setMaxPrice(value);
+      validatePrices(minPrice, value);
     }
   };
 
@@ -825,8 +850,19 @@ const VehiclesPage = () => {
     setMaxPrice("");
   };
 
-  const handleFiltersToggle = () => setFiltersOpen(!filtersOpen);
-  const handleFiltersClose = () => setFiltersOpen(false);
+  const handleFiltersToggle = () => {
+    setFiltersOpen(!filtersOpen);
+    if (!filtersOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  };
+
+  const handleFiltersClose = () => {
+    setFiltersOpen(false);
+    document.body.classList.remove("no-scroll");
+  };
 
   const selectStyles = {
     control: (provided, { hasValue }) => ({
@@ -1259,16 +1295,7 @@ const VehiclesPage = () => {
                     className={`filters-content ${filtersOpen ? "open" : ""}`}
                   >
                     <Row className="filters-cross-button-row">
-                      <Col className="d-flex justify-content-start">
-                        <button
-                          className="apply-filters-button mb-3"
-                          aria-label="Apply Filters"
-                          onClick={handleFiltersClose}
-                        >
-                          {" "}
-                          Apply
-                        </button>
-                      </Col>
+                      <Col className="d-flex justify-content-start"></Col>
                       <Col className="d-flex justify-content-end">
                         <button
                           className="cross-filters-button mb-3"
@@ -1398,7 +1425,7 @@ const VehiclesPage = () => {
                             <div className="car-type-filter-container d-flex justify-content-between align-items-center">
                               <div className="car-type-icon-title">
                                 <BsTags className="mr-2" />
-                                <b>Price Range </b>
+                                <b>Price Range (AED) </b>
                               </div>
                             </div>
                           </header>
@@ -1418,10 +1445,10 @@ const VehiclesPage = () => {
                                   className="form-control-login"
                                   name="minPrice"
                                   autoComplete="off"
-                                  type="number"
+                                  type="text"
                                   min={0}
                                   value={minPrice}
-                                  onChange={(e) => setMinPrice(e.target.value)}
+                                  onChange={handleMinPriceChange}
                                   placeholder="Minimum"
                                 />
                               </div>
@@ -1438,17 +1465,35 @@ const VehiclesPage = () => {
                                   className="form-control-login"
                                   name="maxPrice"
                                   autoComplete="off"
-                                  type="number"
+                                  type="text"
                                   value={maxPrice}
-                                  onChange={(e) => setMaxPrice(e.target.value)}
+                                  onChange={handleMaxPriceChange}
                                   placeholder="Maximum"
                                   min={minPrice}
                                 />
                               </div>
+                              {priceRangeErrorMessage && (
+                                <div style={{ color: "red" }}>
+                                  {" "}
+                                  <b>{priceRangeErrorMessage}</b>{" "}
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
                       </article>
+                    </div>
+                    <br />
+                    <div className="d-flex justify-content-center">
+                      {" "}
+                      <button
+                        className="apply-filters-button mb-3"
+                        aria-label="Apply Filters"
+                        onClick={handleFiltersClose}
+                      >
+                        {" "}
+                        Apply
+                      </button>
                     </div>
                   </div>
                 </Col>
@@ -1516,8 +1561,7 @@ const VehiclesPage = () => {
                                         <div className="car-name-div">
                                           <span className="car-name text-end">
                                             {" "}
-                                            <b>{car?.title}</b>{" "}
-                                             | (
+                                            <b>{car?.title}</b> | (
                                             {categoryMap[
                                               car?.acrissCategory?.name
                                             ] || car?.acrissCategory?.name}{" "}
