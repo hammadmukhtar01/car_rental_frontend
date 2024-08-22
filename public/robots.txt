@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /pageNotFound
+Disallow: /bookingPage/2
 Disallow: /bookingPage/3&booking-success
 Disallow: /myProfile/:${id}
 Disallow: /myBookings/:${id}
@@ -11,5 +12,11 @@ Disallow: /;
 Disallow: /enquires/create
 Disallow: /contact-us
 Disallow: /chevroletdetails
+Disallow: /nissan-kicks-detail
+Disallow: /picantodetails
+Disallow: /faq
+Disallow: /home
+Disallow: /about-us
+Disallow: /enquires/index.html
 
 Sitemap: https://www.milelecarrental.com/sitemap.xml
