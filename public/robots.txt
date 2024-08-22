@@ -3,9 +3,13 @@ Disallow: /pageNotFound
 Disallow: /bookingPage/3&booking-success
 Disallow: /myProfile/:${id}
 Disallow: /myBookings/:${id}
-Disallow: /login
-Disallow: /signup
 Disallow: /forgotpassword
 Disallow: /resetpassword/:${token}
+Disallow: /details
+Disallow: /kia-k5-detail
+Disallow: /;
+Disallow: /enquires/create
+Disallow: /contact-us
+Disallow: /chevroletdetails
 
 Sitemap: https://www.milelecarrental.com/sitemap.xml
