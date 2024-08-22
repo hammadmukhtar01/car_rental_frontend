@@ -35,16 +35,6 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://www.milelecarrental.com/bookingPage/1</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://www.milelecarrental.com/bookingPage/2</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
         <loc>https://www.milelecarrental.com/blogPage1/1</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
@@ -56,6 +46,11 @@
     </url>
     <url>
         <loc>https://www.milelecarrental.com/blogPage3/3</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.milelecarrental.com/bookingPage/1</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
