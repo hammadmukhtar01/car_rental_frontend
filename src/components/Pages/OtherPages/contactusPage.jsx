@@ -18,7 +18,7 @@ const ContactusPage = () => {
           content="Visit Milele Car Rental at Showroom 11, Al Aweer Auto Market, Ras Al Khor, UAE. Call +971 54 451 9432. Enjoy 24/7 customer support for a seamless rental experience."
         />
         <meta name="keywords" content="keywords" />
-        <link rel="canonical" href="https:/www.milelecarrental.com/contactus" />
+        <link rel="canonical" href="https://www.milelecarrental.com/contact-us" />
       </Helmet>
       <HeaderCombination />
       <div id="main" className="">

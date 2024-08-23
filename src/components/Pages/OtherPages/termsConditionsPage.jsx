@@ -9,7 +9,7 @@ const TermsConditionsPage = () => {
   return (
     <HelmetProvider>
       <Helmet>
-        <title>Things to Consider when Renting a Car in UAE </title>
+        <title>Things to Consider when Renting a Car in UAE</title>
         <meta
           name="description"
           content="Read the rental terms of Milele Car Rental: details on rental periods, payment policies, fines for overdue payments, contract extensions, vehicle check-in/out, insurance, and more."
@@ -17,7 +17,7 @@ const TermsConditionsPage = () => {
         <meta name="keywords" content="keywords" />
         <link
           rel="canonical"
-          href="https://www.milelecarrental.com/terms&Conditions"
+          href="https://www.milelecarrental.com/terms-and-conditions"
         />
       </Helmet>
       <HeaderCombination />

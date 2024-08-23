@@ -74,17 +74,17 @@ const Footer = () => {
 
     {
       headingName: "About Us",
-      hrefLink: "/aboutus",
+      hrefLink: "/about-us",
     },
 
     {
       headingName: "Contact Us",
-      hrefLink: "/contactus",
+      hrefLink: "/contact-us",
     },
 
     {
       headingName: "Privacy Policy",
-      hrefLink: "/terms&Conditions",
+      hrefLink: "/terms-and-conditions",
     },
   ];
 

@@ -199,10 +199,10 @@ function MainNavbar() {
                   </li>
                   <li className="nav-item">
                     <a
-                      href="/aboutus"
+                      href="/about-us"
                       title="about us page"
                       className={`navbar-all-menus nav-link ${
-                        location.pathname === "/aboutus" ? "active" : ""
+                        location.pathname === "/about-us" ? "active" : ""
                       }`}
                       onClick={() => setShowOffCanvas(false)}
                       id="about-us-page-url"
@@ -212,10 +212,10 @@ function MainNavbar() {
                   </li>
                   <li className="nav-item">
                     <a
-                      href="/terms&Conditions"
+                      href="/terms-and-conditions"
                       title="terms & Conditions page"
                       className={`navbar-all-menus nav-link ${
-                        location.pathname === "/terms&Conditions"
+                        location.pathname === "/terms-and-conditions"
                           ? "active"
                           : ""
                       }`}
@@ -227,10 +227,10 @@ function MainNavbar() {
                   </li>
                   <li className="nav-item">
                     <a
-                      href="/contactus"
+                      href="/contact-us"
                       title="contact us page"
                       className={`navbar-all-menus nav-link ${
-                        location.pathname === "/contactus" ? "active" : ""
+                        location.pathname === "/contact-us" ? "active" : ""
                       }`}
                       onClick={() => setShowOffCanvas(false)}
                       id="contact-us-page-url"
@@ -260,7 +260,7 @@ function MainNavbar() {
                       <NavDropdown title={user_info?.fName} className=" ">
                         <NavDropdown.Item
                           as={NavLink}
-                          to={`/myProfile/${userAuthId}`}
+                          to={`/my-profile/${userAuthId}`}
                           // to={"/#1"}
                         >
                           My Profile
@@ -268,11 +268,11 @@ function MainNavbar() {
 
                         <NavDropdown.Item
                           as={NavLink}
-                          to={`/myBookings/${userAuthId}`}
+                          to={`/my-bookings/${userAuthId}`}
                         >
                           My Bookings
                         </NavDropdown.Item>
-                        <NavDropdown.Item as={NavLink} to="/updatePassword">
+                        <NavDropdown.Item as={NavLink} to="/update-password">
                           Update Password
                         </NavDropdown.Item>
                         <NavDropdown.Divider />
@@ -286,7 +286,6 @@ function MainNavbar() {
                   <>
                     <div className="login-signup-button">
                       <span
-                        // href="/login"
                         title="Login Sign Up"
                         className="navbar-all-menus nav-link login-signup-button"
                         onClick={handleLoginSignupFunc}

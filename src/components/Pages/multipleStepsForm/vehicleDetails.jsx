@@ -703,7 +703,7 @@ const VehicleDetails = ({ nextStep }) => {
   };
 
   const handleNextStep1 = () => {
-    const baseUrl = `/bookingPage/2`;
+    const baseUrl = `/booking-page/2`;
     const urlParams = new URLSearchParams(window.location.search);
 
     const selectedAddOnsDetails = selectedAddOns?.map((addOn) => ({
@@ -829,10 +829,7 @@ const VehicleDetails = ({ nextStep }) => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        <link
-          rel="canonical"
-          href="https://www.milelecarrental.com/bookingPage/1"
-        />
+
       </Helmet>
       <div className="vehicle-details-location-main-div pb-3 pt-3">
         <Container fluid>
