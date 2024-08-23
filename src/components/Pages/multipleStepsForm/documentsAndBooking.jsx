@@ -990,10 +990,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        <link
-          rel="canonical"
-          href="https://www.milelecarrental.com/bookingPage/2"
-        />
+        <meta name="robots" content="noindex, nofollow" />{" "}
+
       </Helmet>
       <div className="vehicle-details-location-main-div pt-3 pb-3">
         <Container fluid className="pt-4">
