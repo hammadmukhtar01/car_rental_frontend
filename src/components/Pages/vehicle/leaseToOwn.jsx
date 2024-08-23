@@ -266,7 +266,7 @@ const LeaseToOwnVehicles = () => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-        <link rel="canonical" href="https://www.milelecarrental.com/leaseToOwn" />
+        <link rel="canonical" href="https://www.milelecarrental.com/lease-to-own" />
       </Helmet>
       <HeaderCombination />
       <div id="main" className="pb-2 bg-white">

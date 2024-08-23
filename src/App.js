@@ -55,7 +55,7 @@ const App = () => {
               />
               <Route path="/vehicles" element={<VehiclesPage />} />
               <Route
-                path="/aboutus"
+                path="/about-us"
                 element={
                   <React.Suspense fallback="loading about us...">
                     <LazyAbout />
@@ -64,33 +64,33 @@ const App = () => {
               />
               <Route path="/faqs" element={<FaqsPage />} />
               <Route
-                path="/terms&Conditions"
+                path="/terms-and-conditions"
                 element={<TermsConditionsPage />}
               />
-              <Route path="/contactus" element={<ContactusPage />} />
+              <Route path="/contact-us" element={<ContactusPage />} />
               <Route
-                path="/resetpassword/:token"
+                path="/reset-password/:token"
                 element={<ResetPasswordPage />}
               />
-              <Route path="/bookingPage/:step" element={<VerificationForm />} />
-              <Route path="/blogPage1/1" element={<BlogPage1 />} />
-              <Route path="/blogPage2/2" element={<BlogPage2 />} />
-              <Route path="/blogPage3/3" element={<BlogPage3 />} />
-              <Route path="/blogPage4/4" element={<BlogPage2 />} />
+              <Route path="/booking-page/:step" element={<VerificationForm />} />
+              <Route path="/blog/page-1" element={<BlogPage1 />} />
+              <Route path="/blog/page-2" element={<BlogPage2 />} />
+              <Route path="/blog/page-3" element={<BlogPage3 />} />
+              <Route path="/blog/page-4" element={<BlogPage2 />} />
               <Route path="/map" element={<Map />} />
-              <Route path="/expenseCalculator" element={<EventCalculation />} />
+              <Route path="/expense-calculator" element={<EventCalculation />} />
 
               <Route element={<PrivateComponent />}>
                 <Route
-                  path="/myProfile/:id"
+                  path="/my-profile/:id"
                   element={<CustomerProfilePage />}
                 />
                 <Route
-                  path="/myBookings/:id"
+                  path="/my-bookings/:id"
                   element={<CustomerBookingPage />}
                 />
                 <Route
-                  path="/updatepassword"
+                  path="/update-password"
                   element={<UpdatePasswordPage />}
                 />
               </Route>

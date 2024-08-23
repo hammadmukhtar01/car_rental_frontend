@@ -855,7 +855,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
       emailSubject: "Click to Pay: Milele Car Rental Invoice",
       invoiceExpiryDate: paymentLinkExpiryDate,
       paymentAttempts: 3,
-      redirectUrl: "https://milelecarrental.com/bookingPage/3&booking-success",
+      redirectUrl: "https://milelecarrental.com/booking-page/3&booking-success",
       items: [
         {
           description: TariffVehicleNameParam,
@@ -892,7 +892,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
             );
             setPaymentUrl(response?.data?.status);
             setLoading(false);
-            const nextStepUrl = `/bookingPage/3&booking-success`;
+            const nextStepUrl = `/booking-page/3&booking-success`;
             window.location.href = nextStepUrl;
           } else {
             throw new Error("Failed to generate payment link.");

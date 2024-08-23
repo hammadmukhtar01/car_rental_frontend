@@ -16,12 +16,12 @@ function VerificationForm() {
 
   const nextStep = () => {
     const next = currentStep + 1;
-    navigate(`/bookingPage/${next}`);
+    navigate(`/booking-page/${next}`);
   };
 
   const prevStep = () => {
     const prev = currentStep - 1;
-    navigate(`/bookingPage/${prev}`);
+    navigate(`/booking-page/${prev}`);
   };
 
   const renderStep = () => {

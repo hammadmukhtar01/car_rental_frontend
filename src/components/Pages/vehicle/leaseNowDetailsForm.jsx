@@ -105,7 +105,7 @@ const LeaseNowFormDetails = ({
                 comment: "",
               });
               resetLeasingDetails();
-              navigate("/leaseToOwn");
+              navigate("/lease-to-own");
             },
           }
         );

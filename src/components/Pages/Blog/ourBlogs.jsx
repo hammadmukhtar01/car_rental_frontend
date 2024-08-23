@@ -70,7 +70,7 @@ const OurBlogs = () => {
   };
 
   const handleImageClick = (blogId) => {
-    const nextUrl = `/blogPage${blogId}/${blogId}`;
+    const nextUrl = `/blog/page-${blogId}`;
     navigate(nextUrl);
   };
 
