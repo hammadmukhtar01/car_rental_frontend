@@ -20,7 +20,7 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
-import { FaMapMarkerAlt, FaTelegramPlane } from "react-icons/fa";
+import { PiMapPinLine } from "react-icons/pi";
 import "./verticalSliderCarDetails.css";
 import { useLocation } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
@@ -28,6 +28,7 @@ import axios from "axios";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
 import { getWithExpiry } from "../Utils/localStorageUtils";
+import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 
 const importAll = (r) => {
   return r.keys().map(r);
@@ -134,6 +135,15 @@ const VehicleDetails = ({ nextStep }) => {
   const [showModal, setShowModal] = useState(false);
   const [tariffLines, setTariffLines] = useState([]);
   // const [mileageInput, setMileageInput] = useState("");
+  const [isVehicleImagesModalOpen, setIsVehicleImagesModalOpen] =
+    useState(false);
+
+  const openVehicleImagesModal = () => {
+    setIsVehicleImagesModalOpen(true);
+  };
+  const closeVehicleImagesModal = () => {
+    setIsVehicleImagesModalOpen(false);
+  };
 
   const carTypeInURL = useLocation();
   const queryParams = useMemo(
@@ -616,13 +626,13 @@ const VehicleDetails = ({ nextStep }) => {
       locName: pickupLocParam,
       locDate: StartDateTime,
       locTime: pickupTimeParam,
-      locIcon: FaTelegramPlane,
+      locIcon: PiMapPinLine,
     },
     {
       locName: checkBoxValueParam === "true" ? dropoffLocParam : pickupLocParam,
       locDate: ReturnDateTime,
       locTime: dropoffTimeParam,
-      locIcon: FaMapMarkerAlt,
+      locIcon: PiMapPinLine,
     },
   ];
 
@@ -779,6 +789,23 @@ const VehicleDetails = ({ nextStep }) => {
     setIsCouponApplied(true);
   };
 
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      width: "80%",
+      height: "80%",
+      padding: 0,
+    },
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.75)",
+    },
+  };
+
   function CustomStepIcon({ locName, locDate, IconName, locTime }) {
     function formatDate(dateString) {
       const options = { day: "2-digit", month: "short", year: "numeric" };
@@ -798,7 +825,7 @@ const VehicleDetails = ({ nextStep }) => {
                 alignItems: "center",
               }}
             >
-              <IconName className="mr-4" />{" "}
+              <IconName className="loc-detail-icon fs-5" />{" "}
               <div>
                 <Typography
                   variant="body1"
@@ -811,8 +838,7 @@ const VehicleDetails = ({ nextStep }) => {
           </div>
           <div className="loc-name-car-details-page d-flex justify-content-start">
             <Typography variant="body2">
-              {locTime} <span className="text-dark">(</span> {formattedDate}{" "}
-              <span className="text-dark">)</span>
+              {formattedDate} | {locTime}
             </Typography>
           </div>
         </div>
@@ -829,7 +855,6 @@ const VehicleDetails = ({ nextStep }) => {
           content="Affordable and convenient car rental services. Choose from a wide range of vehicles to suit your needs. Book online now for special offers."
         />
         <meta name="keywords" content="keywords" />
-
       </Helmet>
       <div className="vehicle-details-location-main-div pb-3 pt-3">
         <Container fluid>
@@ -838,7 +863,10 @@ const VehicleDetails = ({ nextStep }) => {
               <div className="step1-car-details">
                 <Row className="pl-3 pr-3 pt-3">
                   <h4 className="step1-car-name pl-3">{carTypeName}</h4>
-                  <span className="step1-car-type pl-3">{carCategory} </span>
+                  <span className="step1-car-type pl-3">
+                    {" "}
+                    <strong>{carCategory} </strong>{" "}
+                  </span>
                   <Col lg={8} md={12} sm={12} xs={12}>
                     <div className="car-imgs-details-container">
                       <div className="car-img-container">
@@ -851,14 +879,55 @@ const VehicleDetails = ({ nextStep }) => {
                             className="pl-3 pb-2"
                           >
                             <div className="pt-3 text-center">
-                              <div className="carousel-container">
+                              <div className="vehicle-images-carousel-container">
                                 {selectedVehicleImages ? (
-                                  <ImageGallery
-                                    showBullets={true}
-                                    showNav={false}
-                                    showIndex={true}
-                                    items={selectedVehicleImages.imagesArray}
-                                  />
+                                  <>
+                                    <ImageGallery
+                                      showPlayButton={false}
+                                      showFullscreenButton={false}
+                                      showNav={true}
+                                      showIndex={true}
+                                      items={selectedVehicleImages.imagesArray}
+                                      onClick={openVehicleImagesModal}
+                                    />
+
+                                    <Modal
+                                      show={isVehicleImagesModalOpen}
+                                      onHide={closeVehicleImagesModal}
+                                      size="xl"
+                                      className="vehicle-images-modal-class"
+                                    >
+                                      <Modal.Header closeButton>
+                                        <Modal.Title>
+                                          <span className="modal-heading">
+                                          {carTypeName}{" "}
+                                          </span>
+                                        </Modal.Title>
+                                      </Modal.Header>
+                                      <Modal.Body>
+                                        <ImageGallery
+                                          showPlayButton={false}
+                                          showNav={true}
+                                          showIndex={true}
+                                          items={
+                                            selectedVehicleImages.imagesArray
+                                          }
+                                          startIndex={0}
+                                          showThumbnails={true}
+                                          showFullscreenButton={false}
+                                        />
+                                      </Modal.Body>
+                                      <Modal.Footer>
+                                        <button
+                                          className="btn btn-secondary"
+                                          aria-label="Closing Vehicle Images Pop-up"
+                                          onClick={closeVehicleImagesModal}
+                                        >
+                                          Close
+                                        </button>
+                                      </Modal.Footer>
+                                    </Modal>
+                                  </>
                                 ) : (
                                   <p>No images available for this vehicle.</p>
                                 )}
@@ -958,25 +1027,19 @@ const VehicleDetails = ({ nextStep }) => {
                       </div>
                     </div>
 
-                    <div className="step1-car-details pt-4">
+                    <div className="step1-car-details pt-3">
                       <div className="location-label">
-                        <div className="rental-addons-main-heading styled-label">
-                          <BsFillShieldLockFill className="mr-2 heading-icon" />
-                          <span className="vehicle-details-heading">
-                            {" "}
-                            <b>Rental AddOns</b>
-                          </span>
+                        <div className="rental-addons-main-heading fs-4">
+                          <b> Add-Ons:</b>
                         </div>
-                        <br />
-                        <br />
                         <div className="driver-details-form-container">
                           <Row>
                             <Col lg={12} md={12} sm={12} xs={12}>
                               <div className=" form-group ">
-                                <Row className="d-flex">
+                                <div>
                                   {addOnsValuesData?.map((AddOnsDataValues) => (
                                     <Col
-                                      lg={8}
+                                      lg={12}
                                       md={12}
                                       sm={12}
                                       xs={12}
@@ -987,44 +1050,25 @@ const VehicleDetails = ({ nextStep }) => {
                                         controlId={`formKeyword_${AddOnsDataValues?.chargesTypeId}`}
                                       >
                                         <div className="row d-flex align-items-center">
-                                          {/* <Col lg={1} md={2} sm={2} xs={2}>
-                                            <BsFileEarmarkArrowUp className="mr-2 heading-icon" />
-                                          </Col> */}
                                           <Col lg={9} md={9} sm={9} xs={9}>
                                             <div className="add-ons-label-name p-2">
                                               <label className="add-ons-label">
-                                                <b>
+                                                <>
                                                   {AddOnsDataValues?.addOnsName}
-                                                </b>
-                                                <br />
+                                                </>
                                                 <br />
                                                 <span>
+                                                  AED{" "}
                                                   <b>
-                                                    {" "}
                                                     {
                                                       AddOnsDataValues?.pricePerTrip
                                                     }
                                                   </b>{" "}
-                                                  AED{" "}
                                                   {
                                                     AddOnsDataValues?.rateType
                                                       ?.name
                                                   }
                                                 </span>
-                                                <br />
-                                                <a
-                                                  href={`#${AddOnsDataValues?.chargesTypeId}`}
-                                                  onClick={() =>
-                                                    handleViewDetails(
-                                                      AddOnsDataValues
-                                                    )
-                                                  }
-                                                  className="add-ons-view-details"
-                                                  title={`${AddOnsDataValues?.addOnsName} Add-On`}
-                                                  id={`${AddOnsDataValues?.addOnsName}-add-on-detail-button`}
-                                                >
-                                                  View Details
-                                                </a>
                                               </label>
                                             </div>
                                           </Col>
@@ -1043,6 +1087,19 @@ const VehicleDetails = ({ nextStep }) => {
                                                 onChange={handleMileageChange}
                                               />
                                             ) : ( */}
+                                            <a
+                                              href={`#${AddOnsDataValues?.chargesTypeId}`}
+                                              onClick={() =>
+                                                handleViewDetails(
+                                                  AddOnsDataValues
+                                                )
+                                              }
+                                              className="add-ons-view-details"
+                                              title={`${AddOnsDataValues?.addOnsName} Add-On`}
+                                              id={`${AddOnsDataValues?.addOnsName}-add-on-detail-button`}
+                                            >
+                                              Details
+                                            </a>
                                             <div className="form-check form-switch form-switch-md float-end">
                                               <input
                                                 className="form-check-input add-ons-toggle-input"
@@ -1062,7 +1119,7 @@ const VehicleDetails = ({ nextStep }) => {
                                       </Form.Group>
                                     </Col>
                                   ))}
-                                </Row>
+                                </div>
                               </div>
                             </Col>
                           </Row>
@@ -1108,37 +1165,52 @@ const VehicleDetails = ({ nextStep }) => {
                         sx={{ width: "100%" }}
                         className="customer-icon-stepper-container"
                       >
-                        <div className="pickup-dropoff-heading mb-3 text-center">
-                          <h4>Pick-up & Drop-off</h4>
-                          <hr style={{ opacity: "1" }} />
+                        <div className="pickup-dropoff-heading text-center pb-2">
+                          <h4>Details</h4>
                         </div>
-                        <Stepper
-                          activeStep={steps?.length - 1}
-                          orientation="vertical"
-                          className="pick-drop-data col-11"
-                        >
-                          {steps?.map((label, index) => (
-                            <Step key={index}>
-                              <StepLabel
-                                StepIconComponent={() => (
-                                  <CustomStepIcon
-                                    locName={label?.locName}
-                                    locDate={label?.locDate}
-                                    IconName={label?.locIcon}
-                                    locTime={label?.locTime}
-                                  />
-                                )}
-                              />
-                            </Step>
-                          ))}
-                        </Stepper>
+                        <div className="loc-details-div pt-3">
+                          <span className="step1-car-name pl-4">
+                            <strong>{carTypeName}</strong>
+                          </span>
+                          <br />
+                          <span className="step1-car-type pl-4">
+                            {carCategory}{" "}
+                          </span>
+                          <hr
+                            className="ml-3 mr-3"
+                            style={{ opacity: "0.4" }}
+                          />
+
+                          <Stepper
+                            activeStep={steps?.length - 1}
+                            orientation="vertical"
+                            className="pick-drop-data col-12"
+                          >
+                            {steps?.map((label, index) => (
+                              <Step key={index}>
+                                <StepLabel
+                                  StepIconComponent={() => (
+                                    <CustomStepIcon
+                                      locName={label?.locName}
+                                      locDate={label?.locDate}
+                                      IconName={label?.locIcon}
+                                      locTime={label?.locTime}
+                                    />
+                                  )}
+                                />
+                              </Step>
+                            ))}
+                          </Stepper>
+                        </div>
                       </Box>
                     </div>
                     <br />
                     <div className="car-prices-details-container">
-                      <div className="price-breakdown-heading mb-3 text-center">
-                        <h4>Price Breakdown</h4>
-                        <hr style={{ opacity: "1" }} />
+                      <div className="price-breakdown-heading pb-2 text-center">
+                        <h4>
+                          {" "}
+                          <b>Price Details</b>{" "}
+                        </h4>
                       </div>
                       <div className="price-break-down-container p-3">
                         <div className="total-days-div">
@@ -1150,14 +1222,8 @@ const VehicleDetails = ({ nextStep }) => {
                                   style={{ lineHeight: "100%" }}
                                 >
                                   <span className="price-label">
-                                    Total Days:
+                                    <strong>Rental Charges</strong>
                                   </span>
-                                  <div className="text-right">
-                                    Days{" "}
-                                    <span className="charges-value pl-1">
-                                      {numberOfDays}
-                                    </span>
-                                  </div>
                                 </div>
 
                                 <div
@@ -1165,42 +1231,13 @@ const VehicleDetails = ({ nextStep }) => {
                                   style={{ lineHeight: "100%" }}
                                 >
                                   <span className="price-label">
-                                    Rental Charges per day
+                                    {numberOfDays} Rental Day
+                                    {numberOfDays > 1 && <>s</>} x AED{" "}
+                                    {singleDayPriceCalculation}
                                   </span>
                                   <div className="text-right">
                                     AED{" "}
                                     <span className="charges-value pl-1">
-                                      {/* {parseInt(totalAPIResponseCharges) !== 0
-                                        ? singleDayPriceCalculation
-                                        : parseFloat(
-                                            (
-                                              renderVehiclePriceAPI(
-                                                TariffGroupId,
-                                                numberOfDays
-                                              ) / numberOfDays
-                                            ).toFixed(2)
-                                          )} */}
-                                      {singleDayPriceCalculation}
-                                    </span>
-                                  </div>
-                                </div>
-
-                                <div
-                                  className="price-row p-1"
-                                  style={{ lineHeight: "100%" }}
-                                >
-                                  <span className="price-label">
-                                    Rental Charges / {numberOfDays} days
-                                  </span>
-                                  <div className="text-right">
-                                    AED{" "}
-                                    <span className="charges-value pl-1">
-                                      {/* {parseInt(totalAPIResponseCharges) !== 0
-                                        ? totalAPIResponseCharges
-                                        : renderVehiclePriceAPI(
-                                            TariffGroupId,
-                                            numberOfDays
-                                          )} */}
                                       {totalAPIResponseCharges}
                                     </span>
                                   </div>
@@ -1214,7 +1251,15 @@ const VehicleDetails = ({ nextStep }) => {
                                   style={{ lineHeight: "100%" }}
                                 >
                                   <span className="price-label">
-                                    Delivery Charges:
+                                    <strong>Taxes and Fees</strong>
+                                  </span>
+                                </div>
+                                <div
+                                  className="price-row p-1"
+                                  style={{ lineHeight: "100%" }}
+                                >
+                                  <span className="price-label">
+                                    Delivery Charges
                                   </span>
                                   <div className="text-right">
                                     AED{" "}
@@ -1228,7 +1273,7 @@ const VehicleDetails = ({ nextStep }) => {
                                   style={{ lineHeight: "100%" }}
                                 >
                                   <span className="price-label">
-                                    Add-Ons Total
+                                    Add-ons Total
                                   </span>
                                   <div className="text-right">
                                     AED{" "}
@@ -1237,41 +1282,14 @@ const VehicleDetails = ({ nextStep }) => {
                                     </span>
                                   </div>
                                 </div>
-                                <hr />
-                              </>
-                              <div className="charges-section-2">
+
                                 <div
                                   className="total-price-row p-1"
-                                  style={{
-                                    lineHeight: "100%",
-                                    fontSize: "16px",
-                                  }}
-                                >
-                                  <span className="sub-total-price-label">
-                                    Sub Total
-                                  </span>
-                                  <div className="text-right">
-                                    AED{" "}
-                                    <span className="sub-total-price-value pl-1">
-                                      {" "}
-                                      {subTotalValue}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div
-                                  className="total-price-row p-1"
-                                  style={{
-                                    lineHeight: "100%",
-                                    fontSize: "16px",
-                                  }}
+                                  style={{ lineHeight: "100%" }}
                                 >
                                   <div>
                                     <span className="sub-total-price-label">
-                                      VAT
-                                      <span className="pl-2">
-                                        {" "}
-                                        (5% of {subTotalValue})
-                                      </span>
+                                      VAT <strong> (5%)</strong>
                                     </span>{" "}
                                   </div>
                                   <div className="text-right">
@@ -1331,7 +1349,7 @@ const VehicleDetails = ({ nextStep }) => {
                                     </Col>
                                   </Row>
                                 </div>
-                              </div>
+                              </>
                               <hr />
 
                               {isCouponApplied && appliedCoupon && (
@@ -1344,7 +1362,7 @@ const VehicleDetails = ({ nextStep }) => {
                                     }}
                                   >
                                     <span className="grand-total-price-label">
-                                      Grand Total
+                                      Total Price
                                     </span>
                                     <div className="del-value-main-div pb-3">
                                       AED{" "}
@@ -1382,7 +1400,7 @@ const VehicleDetails = ({ nextStep }) => {
                                 style={{ lineHeight: "100%", fontSize: "16px" }}
                               >
                                 <span className="grand-total-price-label">
-                                  Grand Total Price
+                                  Total (incl. tax)
                                 </span>
                                 <div className="">
                                   AED{" "}
@@ -1392,35 +1410,29 @@ const VehicleDetails = ({ nextStep }) => {
                                   </span>
                                 </div>
                               </div>
-
-                              <hr />
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+
+                    <div className="booking-button-main-div-step2 d-flex flex-column pb-2 pt-3">
+                      <button
+                        onClick={handleStartBookingClick}
+                        className="map-loc-middle py-3"
+                        id="start-booking-button"
+                        aria-label="Start Booking "
+                      >
+                        <span
+                          className="animate-button start-booking-next-button-text btn4 fs-5"
+                          id="start-booking-span"
+                        >
+                          <strong>Next</strong>
+                        </span>
+                      </button>
+                    </div>
                   </Col>
                 </Row>
-              </div>
-              <div className="booking-button-main-div-step1 d-flex justify-content-center pb-2 pt-3">
-                <Col
-                  className="d-flex justify-content-center "
-                  id="start-booking-col"
-                >
-                  <button
-                    onClick={handleStartBookingClick}
-                    className="map-loc-middle py-3"
-                    id="start-booking-button"
-                    aria-label="Start Booking "
-                  >
-                    <span
-                      className="animate-button btn4"
-                      id="start-booking-span"
-                    >
-                      Start Booking
-                    </span>
-                  </button>
-                </Col>
               </div>
             </div>
           </>

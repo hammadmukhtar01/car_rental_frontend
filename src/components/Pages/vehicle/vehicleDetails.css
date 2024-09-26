@@ -14,8 +14,53 @@
   padding: 0px 10px;
 }
 
-.carousel-container {
+.vehicle-images-carousel-container {
   max-width: 100%;
+}
+
+.image-gallery-slides {
+  border: 1px solid #e87a28;
+  padding: 1px;
+}
+
+.image-gallery-slide,
+.image-gallery-image,
+.image-gallery-slides {
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.image-gallery-thumbnail-image {
+  border-radius: 10px !important;
+}
+
+.image-gallery-thumbnail.active,
+.image-gallery-thumbnail:focus,
+.image-gallery-thumbnail:hover {
+  border: 1px solid #e87a28 !important;
+  border-radius: 10px !important;
+}
+
+.image-gallery-left-nav .image-gallery-svg,
+.image-gallery-right-nav .image-gallery-svg {
+  height: 35px !important;
+  width: 35px !important;
+}
+
+.image-gallery-right-nav .image-gallery-svg,
+.image-gallery-left-nav .image-gallery-svg {
+  border: 1px solid white !important;
+  color: #e87a28 !important;
+  background-color: white !important;
+  border-radius: 28px !important;
+}
+
+.image-gallery-right-nav .image-gallery-svg:hover,
+.image-gallery-left-nav .image-gallery-svg:hover {
+  color: white !important;
+  background-color: #e87a28 !important;
+  border-color: #e87a28 !important;
 }
 
 .carousel .thumb.selected,
@@ -62,6 +107,7 @@
 .price-label,
 .coupon-label {
   font-weight: 500;
+  font-size: 14px;
 }
 
 .price-value {
@@ -97,54 +143,40 @@ ul.pagination-container.pagination-bar {
 }
 
 .pagination-item {
-  padding: 0 18px;
-  height: 45px;
+  padding: 13px 15px;
+  height: 38px;
   text-align: center;
   margin: auto 10px;
-  color: rgba(0, 0, 0, 0.87);
+  color: white;
   display: flex;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
   letter-spacing: 0.01071em;
   border-radius: 50px;
-  line-height: 1.43;
-  font-size: 14px;
-  border-right: 0.12em solid white;
-  border-top: 0.12em solid white;
+  line-height: 0.5;
   box-shadow: 1px 0px 3px #e87a28;
-}
+  background-color: #e87a28;
 
-.pagination-item.dots:hover {
-  background-color: transparent;
-  cursor: default;
 }
-
+  
 .pagination-item:hover {
-  background-color: rgb(228, 228, 228);
-  color: black;
   cursor: pointer;
   transform: scale(1.1);
-}
-
-.pagination-item.selected {
-  background-color: #e87a28;
-  color: white;
-  box-shadow: none;
 }
 
 .pagination-item .arrow::before {
   position: relative;
   content: "";
   display: inline-block;
-  width: 0.4em;
-  height: 0.4em;
-  border-right: 0.12em solid rgb(0, 0, 0);
-  border-top: 0.12em solid rgb(0, 0, 0);
+  width: 0.5em;
+  height: 0.5em;
+  border-right: 0.15em solid white;
+  border-top: 0.15em solid white;
 }
 
 .pagination-item .arrow.left {
-  transform: rotate(-135deg) translate(-50%);
+  transform: rotate(-135deg) translate(-20%);
 }
 
 .pagination-item .arrow.right {
@@ -152,24 +184,18 @@ ul.pagination-container.pagination-bar {
 }
 
 .pagination-item.disabled {
-  pointer-events: none;
-  border-right: 0.12em solid white !important;
-  border-top: 0.12em solid white !important;
-}
-
-.pagination-item.disabled .arrow::before {
-  border-right: 0.12em solid rgb(169, 169, 169);
-  border-top: 0.12em solid rgb(169, 169, 169);
+  background-color: rgb(169, 169, 169);
 }
 
 .pagination-item.disabled:hover {
-  background-color: transparent;
-  cursor: default;
+  cursor: not-allowed;
 }
+
 .pagination-bar {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .pagination-item.first {
@@ -200,6 +226,12 @@ ul.pagination-container.pagination-bar {
 
 .vehicle-img-tag img {
   border-radius: 20px;
+}
+
+.vehicle-images-modal-class {
+  top: 50% !important;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .price-day-div {
@@ -258,6 +290,10 @@ img.all-cars-img {
   height: 320px;
 }
 
+.all-cars-container-div {
+  padding: 6px;
+}
+
 .car-detail-price-main-div {
   padding: 50px 0px 30px 10px;
 }
@@ -277,6 +313,13 @@ img.all-cars-img {
 
 .features-icon-name {
   color: gray;
+}
+
+.rental-addons-main-heading {
+  padding: 10px 20px;
+  background-color: #e87a28;
+  color: white;
+  border-radius: 10px;
 }
 
 span.select2-selection_arrow b {
@@ -324,15 +367,13 @@ span.select2-selection_arrow b {
   width: 100% !important;
 }
 
-.all-cars-section {
-  border-radius: 6px;
-  border: 1px solid #cccccc;
-  padding: 10px 20px;
-  background-color: transparent;
-}
-
 .all-cars-hr-tag {
   opacity: 0.9;
+}
+
+.sort-by-div {
+  border-radius: 6px;
+  border: 1px solid #cccccc;
 }
 
 .price-filter-heading,
@@ -347,10 +388,10 @@ span.select2-selection_arrow b {
 
 .single-car-container-div {
   border: 1px solid rgb(217, 217, 217);
-  border-radius: 4px;
-  padding: 10px 10px;
-  /* background: url("../../images//vehicleBg.png");
-  background-size: contain; */
+  border-radius: 15px;
+  padding: 10px 20px;
+  background: url("../../images//vehicleBg.png");
+  background-size: contain;
 }
 
 .single-car-container-div:hover {
@@ -359,8 +400,8 @@ span.select2-selection_arrow b {
 }
 
 .single-car-container-div:hover .car-image {
-  transform: scale(1.05);
-  transition: 0.5s ease-in-out;
+  transform: scale(1.03);
+  transition: 0.3s ease-in-out;
 }
 
 #hr-value-allcars-1 {
@@ -390,9 +431,14 @@ span.select2-selection_arrow b {
   left: 7px;
 }
 
-.car-name-div {
-  display: flex;
-  flex-direction: row-reverse;
+.car-name {
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.car-category {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .car-price-name-container {
@@ -433,10 +479,23 @@ span.select2-selection_arrow b {
   .car-name {
     font-size: smaller;
   }
+  .vehicle-images-modal-class {
+    top: 70% !important;
+  }
 }
 
-.all-car-icons {
-  color: gray;
+.per-day-vehicle-price {
+  color: #ffffffc7;
+}
+
+.all-car-icons,
+.fleet-icons-name,
+.vehicle-per-day-price-value {
+  color: white;
+}
+
+.vehicle-total-price {
+  color: #e87a28;
 }
 
 .filters-main-container {
@@ -831,10 +890,7 @@ h1.vehicle-details-heading {
     font-size: 10px !important;
   }
   .single-car-container-div {
-    padding: 10px 5px;
-  }
-  .all-cars-section {
-    padding: 10px 10px;
+    padding: 10px 15px;
   }
 }
 .pay-now-price-xs {

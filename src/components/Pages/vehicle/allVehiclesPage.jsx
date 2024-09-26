@@ -21,12 +21,10 @@ import {
 } from "react-icons/bs";
 import { BiSolidMapPin } from "react-icons/bi";
 import { GiGearStickPattern } from "react-icons/gi";
-import { LuSnowflake } from "react-icons/lu";
 import "./vehicleDetails.css";
 import Pagination from "./pagination";
 import { useNavigate, useLocation } from "react-router-dom";
 import { DateRange } from "react-date-range";
-import { ToastContainer } from "react-toastify";
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
@@ -39,7 +37,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { toast } from "react-hot-toast";
 import { getWithExpiry, setWithExpiry } from "../Utils/localStorageUtils";
 
-const PageSize = 8;
+const PageSize = 6;
 const animatedComponents = makeAnimated();
 const locations = [
   { value: "FUJAIRAH", label: "FUJAIRAH" },
@@ -1311,14 +1309,14 @@ const VehiclesPage = () => {
                     <Row className="filters-cross-button-row">
                       <Col className="d-flex justify-content-start"></Col>
                       <Col className="d-flex justify-content-end">
-                      <button
-                        className="cancel-filters-button mb-3"
-                        aria-label="Cancel Filters"
-                        onClick={handleFiltersClose}
-                      >
-                        {" "}
-                        Cancel <RxCross2/>
-                      </button>
+                        <button
+                          className="cancel-filters-button mb-3"
+                          aria-label="Cancel Filters"
+                          onClick={handleFiltersClose}
+                        >
+                          {" "}
+                          Cancel <RxCross2 />
+                        </button>
                       </Col>
                     </Row>
 
@@ -1471,7 +1469,10 @@ const VehiclesPage = () => {
                                   placeholder="Minimum"
                                 />
                                 {inputMinPriceErrorMessage && (
-                                  <div className="mt-1" style={{ color: "red" }}>
+                                  <div
+                                    className="mt-1"
+                                    style={{ color: "red" }}
+                                  >
                                     <>{inputMinPriceErrorMessage}</>
                                   </div>
                                 )}
@@ -1508,11 +1509,9 @@ const VehiclesPage = () => {
                               {priceRangeErrorMessage && (
                                 <div style={{ color: "red" }}>
                                   {" "}
-                                 
-                                    <span className="price-range-error-message">
-                                      {priceRangeErrorMessage}
-                                    </span>
-                                
+                                  <span className="price-range-error-message">
+                                    {priceRangeErrorMessage}
+                                  </span>
                                 </div>
                               )}
                             </div>
@@ -1537,33 +1536,32 @@ const VehiclesPage = () => {
 
                 <Col xxl={9} lg={9} md={8}>
                   <div className="all-cars-section ">
-                    <Row className="d-flex justify-content-end">
-                      <Col xxl={4} lg={4} md={6} sm={6} xs={12}>
-                        <div className="sort-by-dropdown">
-                          <Row className="sort-by-row  mb-4">
-                            <Col>
-                              <Form.Group controlId="formSortBy">
-                                <Form.Label className="styled-label mt-2">
-                                  <h5>
-                                    {" "}
-                                    <b>Sort By:</b>
-                                  </h5>
-                                </Form.Label>
-                                <Select
-                                  options={sortByDropDown}
-                                  required
-                                  className="form-control-sort-by col-12"
-                                  setSortBy
-                                  onChange={(selectedOption) => {
-                                    setSortBy(selectedOption?.value);
-                                  }}
-                                  defaultValue={sortByDropDown[0]}
-                                  styles={selectStyles}
-                                />
-                              </Form.Group>
-                            </Col>
-                          </Row>
-                        </div>
+                    <Row className="sort-by-row mb-4">
+                      <Col>
+                        <Form.Group
+                          controlId="formSortBy"
+                          className="sort-by-div p-3 d-flex justify-content-end"
+                        >
+                          <Form.Label className="styled-label mt-2">
+                            <h5>
+                              {" "}
+                              <b>Sort By:</b>
+                            </h5>
+                          </Form.Label>
+                          <Col xxl={4} lg={4} md={6} sm={6} xs={8}>
+                            <Select
+                              options={sortByDropDown}
+                              required
+                              className="form-control-sort-by col-12"
+                              setSortBy
+                              onChange={(selectedOption) => {
+                                setSortBy(selectedOption?.value);
+                              }}
+                              defaultValue={sortByDropDown[0]}
+                              styles={selectStyles}
+                            />
+                          </Col>
+                        </Form.Group>
                       </Col>
                     </Row>
 
@@ -1592,57 +1590,24 @@ const VehiclesPage = () => {
                                       lg={6}
                                       md={12}
                                       sm={12}
-                                      className="all-cars-container-div pb-5"
+                                      className="all-cars-container-div pb-2"
                                     >
-                                      <div className="single-car-container-div pb-3">
-                                        <div className="car-name-div">
-                                          <span className="car-name text-end">
+                                      <div className="single-car-container-div">
+                                        <div>
+                                          <span className="car-name">
                                             {" "}
-                                            <b>{car?.title}</b> | (
+                                            <b>{car?.title}</b>
+                                          </span>
+                                          <br />
+                                          <span className="car-category">
+                                            |
                                             {categoryMap[
                                               car?.acrissCategory?.name
                                             ] || car?.acrissCategory?.name}{" "}
-                                            )
                                           </span>
                                         </div>
 
-                                        <div className="car-image-container ">
-                                          <img
-                                            src={car?.displayImageUrl}
-                                            title={car?.title}
-                                            alt={`Rent ${car?.title}`}
-                                            className="car-image"
-                                            onClick={() => {
-                                              const vehiclePrice =
-                                                renderVehiclePrices(
-                                                  car.tariffGroupId
-                                                );
-                                              const datePickerStartDate =
-                                                dateRange[0].startDate
-                                                  .toISOString()
-                                                  .split("T")[0];
-                                              const datePickerEndDate =
-                                                dateRange[0].endDate
-                                                  .toISOString()
-                                                  .split("T")[0];
-                                              allCarsBookingButton(
-                                                car?.tariffGroupId,
-                                                `${car?.title} - ${
-                                                  categoryMap[
-                                                    car?.acrissCategory?.name
-                                                  ] || car?.acrissCategory?.name
-                                                }`,
-                                                datePickerStartDate,
-                                                datePickerEndDate,
-                                                vehiclePrice
-                                              );
-                                            }}
-                                            id={`${car?.title
-                                              .replace(/\s+/g, "-")
-                                              .toLowerCase()}-vehicle`}
-                                          />
-                                        </div>
-                                        <div className="all-vehicles-features-icons text-center">
+                                        <div className="all-vehicles-features-icons mt-3">
                                           {dataArray?.map(
                                             (carData, dataIndex) => (
                                               <span key={dataIndex}>
@@ -1696,7 +1661,7 @@ const VehiclesPage = () => {
                                                             <carFeature.featureIcon className="all-car-icons" />{" "}
                                                           </>
                                                         )}
-                                                        <span className="">
+                                                        <span className="fleet-icons-name">
                                                           {value}
                                                         </span>
                                                       </span>
@@ -1707,95 +1672,134 @@ const VehiclesPage = () => {
                                             )
                                           )}
                                         </div>
-                                        <hr className="discount-line" />
 
-                                        <div className="d-flex justify-content-center">
-                                          <div className="col-xxl-10 col-lg-11 col-md-12 col-sm-12 col-12 d-flex justify-content-center flex-column">
-                                            <>
-                                              <button
-                                                aria-label="Vehicle rate details"
-                                                className="map-loc-middle"
-                                                onClick={() => {
-                                                  const vehiclePrice =
-                                                    renderVehiclePrices(
-                                                      car.tariffGroupId
-                                                    );
-                                                  const datePickerStartDate =
-                                                    dateRange[0].startDate
-                                                      .toISOString()
-                                                      .split("T")[0];
-                                                  const datePickerEndDate =
-                                                    dateRange[0].endDate
-                                                      .toISOString()
-                                                      .split("T")[0];
-                                                  allCarsBookingButton(
-                                                    car?.tariffGroupId,
-                                                    `${car?.title} - ${
-                                                      categoryMap[
-                                                        car?.acrissCategory
-                                                          ?.name
-                                                      ] ||
-                                                      car?.acrissCategory?.name
-                                                    }`,
-                                                    datePickerStartDate,
-                                                    datePickerEndDate,
-                                                    vehiclePrice
-                                                  );
-                                                }}
-                                              >
-                                                {numberOfDays > 0 ? (
-                                                  <span className="all-cars-animate-button btn4">
-                                                    <span className="label">
-                                                      Pay Now{" "}
-                                                      <span
-                                                        className="pay-now-price-md-lg"
-                                                        id={`pay-now-for-${car?.title
-                                                          .replace(/\s+/g, "-")
-                                                          .toLowerCase()}-button`}
-                                                      >
-                                                        <span>|</span> AED:{" "}
-                                                        {renderVehiclePrices(
-                                                          car?.tariffGroupId
-                                                        )}{" "}
-                                                        | {numberOfDays} day(s)
-                                                      </span>
-                                                      <div className="pay-now-price-xs">
-                                                        AED:{" "}
-                                                        {renderVehiclePrices(
-                                                          car?.tariffGroupId
-                                                        )}{" "}
-                                                        | {numberOfDays} day(s)
-                                                      </div>
-                                                    </span>
-                                                  </span>
-                                                ) : (
-                                                  <>
-                                                    <span className="animate-button btn4">
-                                                      <span
-                                                        className="label"
-                                                        id={`pay-now-for-${car?.title
-                                                          .replace(/\s+/g, "-")
-                                                          .toLowerCase()}-button`}
-                                                      >
-                                                        Pay Now{" "}
-                                                      </span>
-                                                      <span className="pay-now-price-md-lg">
-                                                        <span>|</span>{" "}
-                                                        {car?.rate} AED Per{" "}
-                                                        {numberOfDays} Day
-                                                      </span>
-                                                    </span>
-                                                  </>
-                                                )}
-                                              </button>
-                                            </>
-                                          </div>
+                                        <div className="car-image-container ">
+                                          <img
+                                            src={car?.displayImageUrl}
+                                            title={car?.title}
+                                            alt={`Rent ${car?.title}`}
+                                            className="car-image"
+                                            onClick={() => {
+                                              const vehiclePrice =
+                                                renderVehiclePrices(
+                                                  car.tariffGroupId
+                                                );
+                                              const datePickerStartDate =
+                                                dateRange[0].startDate
+                                                  .toISOString()
+                                                  .split("T")[0];
+                                              const datePickerEndDate =
+                                                dateRange[0].endDate
+                                                  .toISOString()
+                                                  .split("T")[0];
+                                              allCarsBookingButton(
+                                                car?.tariffGroupId,
+                                                `${car?.title} - ${
+                                                  categoryMap[
+                                                    car?.acrissCategory?.name
+                                                  ] || car?.acrissCategory?.name
+                                                }`,
+                                                datePickerStartDate,
+                                                datePickerEndDate,
+                                                vehiclePrice
+                                              );
+                                            }}
+                                            id={`${car?.title
+                                              .replace(/\s+/g, "-")
+                                              .toLowerCase()}-vehicle`}
+                                          />
                                         </div>
+
+                                        <Row className="d-flex align-items-center">
+                                          <Col
+                                            xxl={8}
+                                            lg={7}
+                                            md={8}
+                                            sm={8}
+                                            xs={12}
+                                          >
+                                            <span
+                                              className="per-day-vehicle-price"
+                                              id={`pay-now-for-${car?.title
+                                                .replace(/\s+/g, "-")
+                                                .toLowerCase()}-button`}
+                                            >
+                                              AED{" "}
+                                              <span className="fs-4 vehicle-per-day-price-value">
+                                                <strong>{car?.rate}</strong>
+                                              </span>{" "}
+                                              /day
+                                              {numberOfDays > 0 && (
+                                                <span> | </span>
+                                              )}
+                                            </span>
+
+                                            {numberOfDays > 0 && (
+                                              <span className="vehicle-total-price">
+                                                AED{" "}
+                                                <span className="fs-4">
+                                                  {renderVehiclePrices(
+                                                    car?.tariffGroupId
+                                                  )}
+                                                </span>{" "}
+                                                Total
+                                              </span>
+                                            )}
+                                          </Col>
+
+                                          <Col
+                                            xxl={4}
+                                            lg={5}
+                                            md={4}
+                                            sm={4}
+                                            xs={12}
+                                            className="text-end"
+                                          >
+                                            <button
+                                              className="rent-now-button"
+                                              id={`rent-now-${car?.title}`}
+                                              aria-label="Vehicle rate details"
+                                              onClick={() => {
+                                                const vehiclePrice =
+                                                  renderVehiclePrices(
+                                                    car.tariffGroupId
+                                                  );
+                                                const datePickerStartDate =
+                                                  dateRange[0].startDate
+                                                    .toISOString()
+                                                    .split("T")[0];
+                                                const datePickerEndDate =
+                                                  dateRange[0].endDate
+                                                    .toISOString()
+                                                    .split("T")[0];
+                                                allCarsBookingButton(
+                                                  car?.tariffGroupId,
+                                                  `${car?.title} - ${
+                                                    categoryMap[
+                                                      car?.acrissCategory?.name
+                                                    ] ||
+                                                    car?.acrissCategory?.name
+                                                  }`,
+                                                  datePickerStartDate,
+                                                  datePickerEndDate,
+                                                  vehiclePrice
+                                                );
+                                              }}
+                                            >
+                                              <span
+                                                id={`rent-now-${car?.title}`}
+                                              >
+                                                <strong>Rent Now</strong>
+                                              </span>
+                                            </button>
+                                          </Col>
+                                        </Row>
                                       </div>
                                     </Col>
                                   );
                                 })}
                               </Row>
+                              <br />
                               <Pagination
                                 className="pagination-bar"
                                 currentPage={currentPage}

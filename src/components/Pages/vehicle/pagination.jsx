@@ -1,6 +1,6 @@
 import React from "react";
 import classnames from "classnames";
-import { usePagination, DOTS } from "./usePagination";
+import { usePagination } from "./usePagination";
 import "./vehicleDetails.css";
 
 const Pagination = (props) => {
@@ -25,11 +25,15 @@ const Pagination = (props) => {
   }
 
   const onNext = () => {
-    onPageChange(currentPage + 1);
+    if (currentPage < lastPage) {
+      onPageChange(currentPage + 1);
+    }
   };
 
   const onPrevious = () => {
-    onPageChange(currentPage - 1);
+    if (currentPage > 1) {
+      onPageChange(currentPage - 1);
+    }
   };
 
   let lastPage = paginationRange[paginationRange?.length - 1];
@@ -41,41 +45,22 @@ const Pagination = (props) => {
           [className]: className,
         })}
       >
+        <span>
+          Page <b>{currentPage}</b> of <b>{lastPage}</b>
+        </span>
         <li
           className={classnames("pagination-item first", {
             disabled: currentPage === 1,
           })}
-          onClick={onPrevious}
+          onClick={currentPage > 1 ? onPrevious : null}
         >
           <div className="arrow left" />
         </li>
-        {paginationRange?.map((pageNumber, index) => {
-          if (pageNumber === DOTS) {
-            return (
-              <li key={index} className="pagination-item dots">
-                &#8230;
-              </li>
-            );
-          }
-
-          return (
-            <li
-              key={pageNumber}
-              className={classnames("pagination-item", {
-                selected: pageNumber === currentPage,
-              })}
-              onClick={() => onPageChange(pageNumber)}
-            >
-              {pageNumber}
-            </li>
-          );
-        })}
-
         <li
           className={classnames("pagination-item last", {
             disabled: currentPage === lastPage,
           })}
-          onClick={onNext}
+          onClick={currentPage < lastPage ? onNext : null}
         >
           <div className="arrow right" />
         </li>

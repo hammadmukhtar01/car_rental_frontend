@@ -18,7 +18,7 @@ const BlogPage3 = ({ blogData }) => {
     imageUrl: blog3MainImg1,
     imageUrlWebP: blog3MainImg1WebP,
     title: "Top Apps that help You Navigate Dubai",
-    date: "Aug 23, 2023",
+    date: "Aug 23, 2024",
     text: "A cool thing about living in the UAE is get in your car, put on your favourite song and drive. Driving can be fun - if you know where you are going and have a trusty navigation app (you don't want to get lost along the way). In Dubai, five apps can make a difference when on the road; Google Maps, Apple Maps, Waze, Yango Maps, Cafu and RTA Smart Drive.",
   };
 

@@ -7,18 +7,22 @@ import { BsFillClockFill } from "react-icons/bs";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import InstagramFeed from "../homePage/instagramFeed";
 
 const ContactusPage = () => {
   return (
     <HelmetProvider>
       <Helmet>
-        <title>Contact Us | Get in Touch with Us | Milele Car Rental  </title>
+        <title>Contact Us | Get in Touch with Us | Milele Car Rental </title>
         <meta
           name="description"
           content="Visit Milele Car Rental at Showroom 11, Al Aweer Auto Market, Ras Al Khor, UAE. Call +971 54 451 9432. Enjoy 24/7 customer support for a seamless rental experience."
         />
         <meta name="keywords" content="keywords" />
-        <link rel="canonical" href="https://www.milelecarrental.com/contact-us" />
+        <link
+          rel="canonical"
+          href="https://www.milelecarrental.com/contact-us"
+        />
       </Helmet>
       <HeaderCombination />
       <div id="main" className="">
@@ -108,6 +112,20 @@ const ContactusPage = () => {
                     ></iframe>
                   </div>
                 </div>
+              </div>
+            </section>
+            <br />
+            <br />
+            <section>
+              <div className="instagram-feed-home-container container">
+                <div className="styled-label text-center">
+                  <h2 className="our-fleet-heading-home-page text-center">
+                    <span>
+                      <b className="fs-1">INSTAGRAM FEED</b>
+                    </span>
+                  </h2>
+                </div>
+                <InstagramFeed />
               </div>
             </section>
             <br />

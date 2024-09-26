@@ -178,11 +178,12 @@ body {
 
 .single-feature-container
 /* , .lease-page-single-feature-container  */ {
-  box-shadow: 1px 1px 3px 0px #aba8a7;
-  border-radius: 43px;
+  box-shadow: 0.5px 0.5px 2px 0.5px #e87a28;
+  border-radius: 5px;
   margin: 0px 7px;
   display: ruby;
   padding: 6px 10px 7px 9px;
+  border: 1px solid #e87b2840;
 }
 .row {
   margin: 0px 0px 0px -10px;
