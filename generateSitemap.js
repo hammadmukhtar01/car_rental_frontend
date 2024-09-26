@@ -11,9 +11,21 @@ async function generateSitemap() {
     { url: "/faqs", changefreq: "monthly", priority: 0.5 },
     { url: "/terms-and-conditions", changefreq: "monthly", priority: 0.5 },
     { url: "/contact-us", changefreq: "monthly", priority: 0.5 },
-    { url: "/blog/page-1", changefreq: "monthly", priority: 0.5 },
-    { url: "/blog/page-2", changefreq: "monthly", priority: 0.5 },
-    { url: "/blog/page-3", changefreq: "monthly", priority: 0.5 },
+    {
+      url: "/blog/difference-between-car-rental-and-lease",
+      changefreq: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: "/blog/things-to-do-in-dubai",
+      changefreq: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: "/blog/top-apps-that-help-you-to-navigate-in-dubai",
+      changefreq: "monthly",
+      priority: 0.5,
+    },
   ];
 
   const hostname = "https://www.milelecarrental.com";

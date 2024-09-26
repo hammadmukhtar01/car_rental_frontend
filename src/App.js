@@ -72,13 +72,31 @@ const App = () => {
                 path="/reset-password/:token"
                 element={<ResetPasswordPage />}
               />
-              <Route path="/booking-page/:step" element={<VerificationForm />} />
-              <Route path="/blog/page-1" element={<BlogPage1 />} />
-              <Route path="/blog/page-2" element={<BlogPage2 />} />
-              <Route path="/blog/page-3" element={<BlogPage3 />} />
-              <Route path="/blog/page-4" element={<BlogPage2 />} />
+              <Route
+                path="/booking-page/:step"
+                element={<VerificationForm />}
+              />
+              <Route
+                path="/blog/difference-between-car-rental-and-lease"
+                element={<BlogPage1 />}
+              />
+              <Route
+                path="/blog/things-to-do-in-dubai"
+                element={<BlogPage2 />}
+              />
+              <Route
+                path="/blog/top-apps-that-help-you-to-navigate-in-dubai"
+                element={<BlogPage3 />}
+              />
+              <Route
+                path="/blog/things-to-do-in-dubai"
+                element={<BlogPage2 />}
+              />
               <Route path="/map" element={<Map />} />
-              <Route path="/expense-calculator" element={<EventCalculation />} />
+              <Route
+                path="/expense-calculator"
+                element={<EventCalculation />}
+              />
 
               <Route element={<PrivateComponent />}>
                 <Route

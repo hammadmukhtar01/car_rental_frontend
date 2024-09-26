@@ -12,15 +12,25 @@ h4 {
   font-weight: 600;
 }
 
-.location-value,
 .step1-car-name {
-  font-weight: bold;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .city-name,
 .step1-car-type {
   color: gray;
-  font-weight: 600;
+}
+.loc-details-div, .price-break-down-container {
+  background-color: #f7f7f7;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.loc-detail-icon {
+  margin-left: 3px;
+  margin-right: 9px;
+  color: #e87a28;
 }
 
 .pickup-location-value,
@@ -33,7 +43,6 @@ h4 {
   padding: 15px;
   border-radius: 6px;
   padding: 10px;
-  background-color: #fbfbfb;
 }
 
 .step1-car-details {
@@ -70,7 +79,7 @@ h4 {
 
 .price-details-div {
   border-radius: 6px;
-  padding: 0px 0px 20px 0px;
+  padding: 0px 0px 5px 0px;
 }
 
 .charges-value,
@@ -82,14 +91,12 @@ h4 {
 }
 
 .sub-total-price-label {
-  font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .grand-total-price-label {
-  color: #e87a28;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .grand-total-price-value,

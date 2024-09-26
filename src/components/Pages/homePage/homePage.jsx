@@ -19,6 +19,7 @@ import StepperComponent from "./stepperComponent";
 import ZeroSecuirtyDepositWebPImg from "../../images/zero-deposit.webp";
 import TabbytWebPImg from "../../images/tabby.webp";
 import MoreVehiclesWebPImg from "../../images/vehicles.webp";
+import FaqsData from "../OtherPages/faqsData";
 
 const HomePage = () => {
   const rentalExpDataArr = [
@@ -146,17 +147,9 @@ const HomePage = () => {
           <br />
           <br />
 
-          <div className="instagram-feed-home-container container">
-            <div className="styled-label text-center">
-              <h2 className="our-fleet-heading-home-page text-center">
-                <span>
-                  <b className="fs-1">INSTAGRAM FEED</b>
-                </span>
-              </h2>
-            </div>
-            <InstagramFeed />
-          </div>
           <OurBlogs />
+
+          <FaqsData/>
 
           <FreeConsultationForm />
         </div>

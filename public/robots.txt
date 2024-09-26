@@ -3,10 +3,10 @@ Disallow: /pageNotFound
 Disallow: /booking-page/1
 Disallow: /booking-page/2
 Disallow: /booking-page/3&booking-success
-Disallow: /my-profile/:${id}
-Disallow: /my-bookings/:${id}
+Disallow: /my-profile/
+Disallow: /my-bookings/
 Disallow: /forgot-password
-Disallow: /reset-password/:${token}
+Disallow: /reset-password/
 Disallow: /details
 Disallow: /kia-k5-detail
 Disallow: /;
@@ -25,6 +25,9 @@ Disallow: /bookingPage/3%26booking-success
 Disallow: /blogPage2/2
 Disallow: /blogPage1/1
 Disallow: /terms%26Conditions
+Disallow: /page-1
+Disallow: /page-2
+Disallow: /page-3
 
 
 Sitemap: https://www.milelecarrental.com/sitemap.xml

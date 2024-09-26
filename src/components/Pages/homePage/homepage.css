@@ -189,15 +189,25 @@
   flex-wrap: wrap;
 }
 
-.search-box-search-button {
-  margin-top: 23px;
+.search-box-search-button,
+.rent-now-button {
   border: 1px solid #e87a28;
   border-radius: 10px;
-  padding: 10px 15px;
   background-color: #e87a28;
   color: white;
 }
-.search-box-search-button:hover {
+
+.search-box-search-button {
+  padding: 10px 15px;
+  margin-top: 23px;
+}
+
+.rent-now-button {
+  padding: 10px;
+}
+
+.search-box-search-button:hover,
+.rent-now-button:hover {
   color: #e87a28;
   background-color: white;
 }
@@ -440,6 +450,10 @@
   }
   .rental-exps-detail {
     font-size: smaller;
+  }
+
+  .rent-now-button {
+    margin-top: 8px;
   }
 }
 

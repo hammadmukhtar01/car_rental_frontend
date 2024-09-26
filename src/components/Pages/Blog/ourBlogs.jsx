@@ -20,24 +20,28 @@ const OurBlogs = () => {
   const blogsData = [
     {
       id: 1,
+      urlTitle: "difference-between-car-rental-and-lease",
       imageUrl: blog1MainImg1,
       imageUrlWebP: blog1MainImg1WebP,
       title: "What's the Difference b/w a Car Rental and Lease?",
     },
     {
       id: 2,
+      urlTitle: "things-to-do-in-dubai",
       imageUrl: blog2MainImg1,
       imageUrlWebP: blog2MainImg1WebP,
       title: "Things to do in Dubai for the Ultimate Vacation",
     },
     {
       id: 3,
+      urlTitle: "top-apps-that-help-you-to-navigate-in-dubai",
       imageUrl: blog3MainImg1,
       imageUrlWebP: blog3MainImg1WebP,
       title: "Top Apps that help You To Navigate Dubai",
     },
     {
       id: 4,
+      urlTitle: "things-to-do-in-dubai",
       imageUrl: blog2MainImg1,
       imageUrlWebP: blog2MainImg1WebP,
       title: "Things to do in Dubai for the Ultimate Vacation",
@@ -70,7 +74,7 @@ const OurBlogs = () => {
   };
 
   const handleImageClick = (blogId) => {
-    const nextUrl = `/blog/page-${blogId}`;
+    const nextUrl = `/blog/${blogId}`;
     navigate(nextUrl);
   };
 
@@ -102,7 +106,7 @@ const OurBlogs = () => {
                           title={blogData?.title}
                           aria-label={blogData?.title}
                           id={`home-page-blog-${blogData?.id}`}
-                          onClick={() => handleImageClick(blogData?.id)}
+                          onClick={() => handleImageClick(blogData?.urlTitle)}
                         />
                       </picture>
                       <div className="blog-title-container">
@@ -110,7 +114,7 @@ const OurBlogs = () => {
                         <div className="text-end">
                           <button
                             className="read-more-button"
-                            onClick={() => handleImageClick(blogData?.id)}
+                            onClick={() => handleImageClick(blogData?.urlTitle)}
                           >
                             Read More
                           </button>

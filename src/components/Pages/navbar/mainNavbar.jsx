@@ -261,7 +261,6 @@ function MainNavbar() {
                         <NavDropdown.Item
                           as={NavLink}
                           to={`/my-profile/${userAuthId}`}
-                          // to={"/#1"}
                         >
                           My Profile
                         </NavDropdown.Item>

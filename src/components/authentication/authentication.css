@@ -361,29 +361,33 @@
   display: block;
   font-size: 14px;
   border: 2px solid #e87a28;
-  /* text-transform: uppercase; */
   overflow: hidden;
-  border-radius: 20px;
   background-color: #e87a28;
   color: white;
 }
 .animate-button {
   padding: 10px 30px;
+  border-radius: 20px;
+}
+.animate-button:hover,
+.all-cars-animate-button:hover {
+  color: #e87a28;
+  background-color: white;
+}
+
+.start-booking-next-button-text {
+  border-radius: 10px;
+
 }
 
 .all-cars-animate-button {
   padding: 10px;
+  border-radius: 20px;
 }
 
 .pay-now-button {
   padding: 10px 20px;
   text-transform: capitalize;
-}
-
-.animate-button:hover,
-.all-cars-animate-button:hover {
-  color: #e87a28;
-  background-color: white;
 }
 
 @media screen and (max-width: 768px) {

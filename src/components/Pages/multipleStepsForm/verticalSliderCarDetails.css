@@ -10,26 +10,28 @@
 }
 
 .loc-name-car-details-page {
-  color: #e87a28;
-  padding-left: 70px;
+  /* color: #e87a28; */
+  padding-left: 40px;
 }
 
 .pick-drop-data {
-  padding: 30px 20px;
+  padding: 10px 20px;
 }
 
 .customer-icon-stepper-container,
 .car-prices-details-container {
-  border: 1px solid #d7d7d7;
   border-radius: 10px;
-  padding-top: 15px;
   background: rgb(255, 255, 255);
 }
 
 .pickup-dropoff-heading,
 .price-breakdown-heading {
-  color: #e87a28;
-  font-weight: 600;
+  color: white;
+  font-weight: 800;
+  background-color: #e87a28;
+  padding-top: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .pick-drop-data {
