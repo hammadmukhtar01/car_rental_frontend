@@ -121,7 +121,7 @@ const ContactusPage = () => {
                 <div className="styled-label text-center">
                   <h2 className="our-fleet-heading-home-page text-center">
                     <span>
-                      <b className="fs-1">INSTAGRAM FEED</b>
+                      <b className="fs-3">Our Community</b>
                     </span>
                   </h2>
                 </div>
