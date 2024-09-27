@@ -14,20 +14,14 @@ Disallow: /enquires/create
 Disallow: /chevroletdetails
 Disallow: /nissan-kicks-detail
 Disallow: /picantodetails
-Disallow: /faq
 Disallow: /home
 Disallow: /enquires/index.html
-Disallow: /contactus
-Disallow: /aboutus
 Disallow: /bookingPage/1
 Disallow: /bookingPage/2
 Disallow: /bookingPage/3%26booking-success
 Disallow: /blogPage2/2
 Disallow: /blogPage1/1
 Disallow: /terms%26Conditions
-Disallow: /page-1
-Disallow: /page-2
-Disallow: /page-3
 
 
 Sitemap: https://www.milelecarrental.com/sitemap.xml
