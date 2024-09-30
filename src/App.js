@@ -77,19 +77,19 @@ const App = () => {
                 element={<VerificationForm />}
               />
               <Route
-                path="/blog/difference-between-car-rental-and-lease"
+                path="/difference-between-car-rental-and-lease"
                 element={<BlogPage1 />}
               />
               <Route
-                path="/blog/things-to-do-in-dubai"
+                path="/things-to-do-in-dubai"
                 element={<BlogPage2 />}
               />
               <Route
-                path="/blog/top-apps-that-help-you-to-navigate-in-dubai"
+                path="/top-apps-that-help-you-to-navigate-in-dubai"
                 element={<BlogPage3 />}
               />
               <Route
-                path="/blog/things-to-do-in-dubai"
+                path="log/things-to-do-in-dubai"
                 element={<BlogPage2 />}
               />
               <Route path="/map" element={<Map />} />
