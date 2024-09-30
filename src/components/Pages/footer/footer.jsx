@@ -19,7 +19,6 @@ const Footer = () => {
     toast.dismiss();
     toast("Thank You for Subscribing Milele.", {
       duration: 2000,
-      
     });
   };
 
@@ -140,7 +139,7 @@ const Footer = () => {
                   md={6}
                   sm={12}
                   xs={12}
-                  className="footer-milele-text-col"
+                  className="footer-milele-text-col footer-contact-us"
                 >
                   <Row className="footer-heading-row align-items-end">
                     <h2 className="footer-heading">Contact Us</h2>

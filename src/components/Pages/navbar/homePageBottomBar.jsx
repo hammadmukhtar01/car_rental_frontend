@@ -36,7 +36,7 @@ const HomePageBottomBar = () => {
       icon: FaTiktok,
     },
     {
-      href: "https://www.linkedin.com/company/99998565/admin/feed/posts/",
+      href: "https://www.linkedin.com/company/milelecarrental/",
       title: "Linkedin",
       icon: FaLinkedin,
     },

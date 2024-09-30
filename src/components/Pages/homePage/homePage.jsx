@@ -29,7 +29,7 @@ const HomePage = () => {
       webPIcon: ZeroSecuirtyDepositWebPImg,
       headingName: "Zero Security Deposit",
       rentalExpDetail:
-        "Enjoy a hassle-free experience without the need for upfront callateral.",
+        "Enjoy a hassle-free experience without the need for upfront collateral.",
     },
 
     {
@@ -46,7 +46,7 @@ const HomePage = () => {
       iconName: MoreVehiclesImg,
       webPIcon: MoreVehiclesWebPImg,
       headingName: "Wide Selection of Vehicles",
-      rentalExpDetail: "From compace to luxury Sedans and spacious SUVs.",
+      rentalExpDetail: "From compact to luxury Sedans and spacious SUVs.",
     },
   ];
 
@@ -88,7 +88,7 @@ const HomePage = () => {
                   <h2>
                     <strong>
                       We are ensuring <br />
-                      the best rental eperience.
+                      the best rental experience.
                     </strong>
                   </h2>
                 </div>
