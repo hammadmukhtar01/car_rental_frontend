@@ -6,7 +6,6 @@ import AnimatedCarSection from "./animatedCarSection";
 import OurBlogs from "../Blog/ourBlogs";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Col, Container, Row } from "react-bootstrap";
-import InstagramFeed from "./instagramFeed";
 import FreeConsultationForm from "../Blog/freeConsultationBlogForm";
 import HomePageTopBar from "../navbar/homePageTopBar";
 import MainNavbar from "../navbar/mainNavbar";
@@ -20,6 +19,7 @@ import ZeroSecuirtyDepositWebPImg from "../../images/zero-deposit.webp";
 import TabbytWebPImg from "../../images/tabby.webp";
 import MoreVehiclesWebPImg from "../../images/vehicles.webp";
 import FaqsData from "../OtherPages/faqsData";
+import TextualDataHomePage from "./textualDataHomePage";
 
 const HomePage = () => {
   const rentalExpDataArr = [
@@ -149,11 +149,14 @@ const HomePage = () => {
 
           <OurBlogs />
 
-          <FaqsData/>
+          <FaqsData />
 
           <FreeConsultationForm />
         </div>
+        <br />
+        <TextualDataHomePage />
       </div>
+      <br />
 
       <FooterCombination />
     </HelmetProvider>
