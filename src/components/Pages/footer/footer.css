@@ -13,6 +13,10 @@
   color: #e87a28;
 }
 
+.footer-contact-us {
+  left: 5%;
+}
+
 .footer-main-container {
   background-color: rgba(242, 242, 242, 0.666);
 }
@@ -34,6 +38,13 @@
     padding-top: 28px;
   }
 }
+
+@media screen and (max-width: 767px) {
+  .footer-contact-us {
+    left: 0%;
+  }
+}
+
 
 @media screen and (max-width: 430px) {
   .footer-info-paragraph {

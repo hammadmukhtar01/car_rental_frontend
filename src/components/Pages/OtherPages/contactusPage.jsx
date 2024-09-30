@@ -91,7 +91,7 @@ const ContactusPage = () => {
                               Monday - Saturday:
                               <br /> 09:00 - 22:00 Hours
                               <br />
-                              Sunday: Closed
+                              Sunday: Open
                             </p>
                           </div>
                         </div>

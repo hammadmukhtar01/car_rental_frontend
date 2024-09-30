@@ -171,7 +171,7 @@ const FreeConsultationForm = () => {
                           className="button-text"
                           id="free-consultation-form-heading"
                         >
-                          <b> {loading ? "Submitting..." : "Contact US"}</b>
+                          <b> {loading ? "Submitting..." : "Contact Us"}</b>
                         </span>
                       </button>
                     </Col>
