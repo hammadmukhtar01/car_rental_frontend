@@ -29,7 +29,7 @@ const BlogPage1 = () => {
         <meta name="keywords" content="keywords" />
         <link
           rel="canonical"
-          href="https://www.milelecarrental.com/blog/difference-between-car-rental-and-lease"
+          href="https://www.milelecarrental.com/difference-between-car-rental-and-lease"
           title={blogsData?.title}
         />
       </Helmet>

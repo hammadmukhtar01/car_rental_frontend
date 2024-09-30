@@ -12,17 +12,17 @@ async function generateSitemap() {
     { url: "/terms-and-conditions", changefreq: "monthly", priority: 0.5 },
     { url: "/contact-us", changefreq: "monthly", priority: 0.5 },
     {
-      url: "/blog/difference-between-car-rental-and-lease",
+      url: "/difference-between-car-rental-and-lease",
       changefreq: "monthly",
       priority: 0.5,
     },
     {
-      url: "/blog/things-to-do-in-dubai",
+      url: "/things-to-do-in-dubai",
       changefreq: "monthly",
       priority: 0.5,
     },
     {
-      url: "/blog/top-apps-that-help-you-to-navigate-in-dubai",
+      url: "/top-apps-that-help-you-to-navigate-in-dubai",
       changefreq: "monthly",
       priority: 0.5,
     },

@@ -39,7 +39,7 @@ const BlogPage3 = ({ blogData }) => {
           <meta name="keywords" content="keywords" />
           <link
             rel="canonical"
-            href="https://www.milelecarrental.com/blog/top-apps-that-help-you-to-navigate-in-dubai"
+            href="https://www.milelecarrental.com/top-apps-that-help-you-to-navigate-in-dubai"
             title={blogsData?.title}
           />
         </Helmet>

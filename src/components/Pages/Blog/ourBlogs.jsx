@@ -74,7 +74,7 @@ const OurBlogs = () => {
   };
 
   const handleImageClick = (blogId) => {
-    const nextUrl = `/blog/${blogId}`;
+    const nextUrl = `/${blogId}`;
     navigate(nextUrl);
   };
 

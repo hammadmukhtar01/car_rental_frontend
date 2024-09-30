@@ -61,7 +61,7 @@ const BlogPage2 = () => {
           <meta name="keywords" content="keywords" />
           <link
             rel="canonical"
-            href="https://www.milelecarrental.com/blog/things-to-do-in-dubai"
+            href="https://www.milelecarrental.com/things-to-do-in-dubai"
             title={blogsData?.title}
           />
         </Helmet>
