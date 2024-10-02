@@ -20,6 +20,7 @@ import TabbytWebPImg from "../../images/tabby.webp";
 import MoreVehiclesWebPImg from "../../images/vehicles.webp";
 import FaqsData from "../OtherPages/faqsData";
 import TextualDataHomePage from "./textualDataHomePage";
+import BannerSection from "./bannerSection";
 
 const HomePage = () => {
   const rentalExpDataArr = [
@@ -135,7 +136,8 @@ const HomePage = () => {
             </section>
           </Container>
 
-          <CarCards />
+          {/* <CarCards /> */}
+          <BannerSection/>
           <br />
           <br />
           <br />
