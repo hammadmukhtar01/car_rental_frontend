@@ -20,9 +20,9 @@ const BlogPage4 = ({ blogData }) => {
       id: 1,
       imageUrlWebP: blog1_MainImg1WebP,
       imageUrlPNG: blog1_MainImg1,
-      title: "What's the Difference b/w a Car Rental and Lease?",
+      title: "What is the difference between a car rental and lease?",
       date: "Mar 23, 2021",
-      text: "More and more consumers are choosing automobile leases and car rentals for their convenience and numerous benefits. These options have become preferred over buying a vehicle outright and dealing with monthly payments. But what's the difference between a car lease and car rental? They're separate services offered by rental firms in places like the Emirate. Despite the popularity of car rentals in Abu Dhabi, many people are unsure about the distinctions between leasing and renting. Here's a list to help you decide which option is best for you. ",
+      text: "More and more consumers are choosing automobile leases and car rentals for their convenience and numerous benefits. These options have become preferred over buying a vehicle outright and dealing with monthly payments. But what's the difference between a car lease and a car rental? They're separate services offered by rental firms in places like the Emirate. Despite the popularity of car rentals in Abu Dhabi, many people are unsure about the distinctions between leasing and renting. Let us take a look at how they differ, their pros and cons, and their requirements.",
     },
 
     {

@@ -62,7 +62,7 @@ const App = () => {
                   </React.Suspense>
                 }
               />
-              <Route path="/faqs" element={<FaqsPage />} />
+              {/* <Route path="/faqs" element={<FaqsPage />} /> */}
               <Route
                 path="/terms-and-conditions"
                 element={<TermsConditionsPage />}

@@ -238,7 +238,7 @@ function MainNavbar() {
                       Contact Us
                     </a>
                   </li>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <a
                       href="/faqs"
                       title="Frequently Asked Questions"
@@ -250,7 +250,7 @@ function MainNavbar() {
                     >
                       FAQs
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
                 {auth && authStatus === "success" ? (
                   <>
