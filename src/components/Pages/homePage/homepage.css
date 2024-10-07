@@ -223,7 +223,10 @@
   background-color: #80808012;
 }
 
-.rental-exp-heading {
+.document-required-home-page-heading,
+.car-rental-in-dubai-heading,
+.rental-exp-heading
+{
   color: #e87a28;
   padding: 30px 1px 20px 1px;
   font-weight: 600;

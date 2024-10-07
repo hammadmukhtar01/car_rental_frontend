@@ -83,6 +83,41 @@ const HomePage = () => {
           </div>
 
           <Container>
+            <br />
+
+            <section>
+              <h2 className="styled-label text-center car-rental-in-dubai-heading">
+                Car Rental in Dubai
+              </h2>
+              <p>
+                Welcome to Milele, your trusted partner for car rental in Dubai,
+                offering an extensive fleet of vehicles suitable for both
+                personal enjoyment and professional use. From the sleek luxury
+                of a Nissan to the practical economy of Suzuki and Toyota
+                models, we have a vehicle to meet every need and budget. Our
+                rental services are designed to be flexible, accommodating
+                customers who need a vehicle for a short day trip or a
+                longer-term arrangement, perfectly suiting both tourists and
+                residents across the UAE. <br /> <br />
+                Our service areas cover several key locations across Dubai,
+                making it convenient to rent a car in Dubai no matter where you
+                are located. Notable areas include Downtown Dubai, Al Barsha,
+                Ras Al Khor, Dubai Marina, Festival City, Dubai Silicon Oasis,
+                Bur Dubai, Al Warqa, Jumeirah Lake Towers, and many more. Each
+                location is catered to with the same high standard of service,
+                ensuring a seamless car rental experience in Dubai. <br />
+                <br />
+                Milele Car Rental is committed to making rent a car simple and
+                stress-free. Our transparent pricing policy means no hidden
+                costs, allowing our customers to plan their expenses accurately.
+                All our vehicles are meticulously maintained and sanitized to
+                ensure your safety and comfort. Whether you need a vehicle for a
+                quick trip around Business Bay or daily commuting from Downtown
+                Dubai, Milele is here to help. Contact us today to secure your
+                ideal rental car in Dubai and enjoy unmatched convenience and
+                service.
+              </p>
+            </section>
             <section>
               <div className="home-page-rental-exp-container ">
                 <div className="rental-exp-heading">
@@ -137,12 +172,13 @@ const HomePage = () => {
           </Container>
 
           {/* <CarCards /> */}
-          <BannerSection/>
-          <br />
-          <br />
+          <BannerSection />
+          <TextualDataHomePage />
+
           <br />
           <AnimatedCarSection />
           <br />
+
           <div className="stepper-component-home-container">
             <StepperComponent />
           </div>
@@ -155,10 +191,7 @@ const HomePage = () => {
 
           <FreeConsultationForm />
         </div>
-        <br />
-        <TextualDataHomePage />
       </div>
-      <br />
 
       <FooterCombination />
     </HelmetProvider>
