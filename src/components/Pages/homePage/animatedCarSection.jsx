@@ -107,6 +107,13 @@ const Carousel = () => {
                     onClick={() => handleImageClick(image?.vehicleCategory)}
                   />
                 </picture>
+                <span
+                  className="visually-hidden"
+                  style={{ display: "none" }}
+                  aria-hidden="true"
+                >
+                  {image.vehicleCategory}
+                </span>
               </div>
             ))}
           </Slider>
