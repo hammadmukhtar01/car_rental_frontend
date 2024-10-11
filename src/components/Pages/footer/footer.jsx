@@ -67,8 +67,8 @@ const Footer = () => {
       hrefLink: "/vehicles",
     },
     {
-      headingName: "FAQ",
-      hrefLink: "/faqs",
+      headingName: "Sharjah",
+      hrefLink: "/rent-a-car-in-sharjah",
     },
 
     {

@@ -84,11 +84,7 @@ const HomePage = () => {
 
           <Container>
             <br />
-
             <section>
-              <h2 className="styled-label text-center car-rental-in-dubai-heading">
-                Car Rental in Dubai
-              </h2>
               <p>
                 Welcome to Milele, your trusted partner for car rental in Dubai,
                 offering an extensive fleet of vehicles suitable for both
@@ -124,7 +120,7 @@ const HomePage = () => {
                   <h2>
                     <strong>
                       We are ensuring <br />
-                      the best rental experience.
+                      the best rental experience in dubai
                     </strong>
                   </h2>
                 </div>

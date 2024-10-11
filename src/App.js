@@ -25,6 +25,7 @@ import Map from "./Map";
 import ToasterWrapper from "./components/Pages/Utils/toastWrapper";
 import EventCalculation from "./components/Pages/Utils/eventCalculation";
 import { AuthModalProvider } from "./components/Pages/Utils/AuthContext";
+import RentCarInSharjah from "./components/Pages/Blog/additionalBlogs/rentACarInSharjah";
 const LazyAbout = React.lazy(() =>
   import("./components/Pages/OtherPages/aboutusPage")
 );
@@ -80,24 +81,22 @@ const App = () => {
                 path="/difference-between-car-rental-and-lease"
                 element={<BlogPage1 />}
               />
-              <Route
-                path="/things-to-do-in-dubai"
-                element={<BlogPage2 />}
-              />
+              <Route path="/things-to-do-in-dubai" element={<BlogPage2 />} />
               <Route
                 path="/top-apps-that-help-you-to-navigate-in-dubai"
                 element={<BlogPage3 />}
               />
-              <Route
-                path="log/things-to-do-in-dubai"
-                element={<BlogPage2 />}
-              />
+              <Route path="log/things-to-do-in-dubai" element={<BlogPage2 />} />
               <Route path="/map" element={<Map />} />
               <Route
                 path="/expense-calculator"
                 element={<EventCalculation />}
               />
 
+              <Route
+                path="/rent-a-car-in-sharjah"
+                element={<RentCarInSharjah />}
+              />
               <Route element={<PrivateComponent />}>
                 <Route
                   path="/my-profile/:id"
