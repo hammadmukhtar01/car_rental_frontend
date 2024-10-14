@@ -28,7 +28,7 @@ const HomePage = () => {
       id: 1,
       iconName: ZeroSecuirtyDepositImg,
       webPIcon: ZeroSecuirtyDepositWebPImg,
-      headingName: "Zero Security Deposit",
+      headingName: "Rent a Car Without Deposit",
       rentalExpDetail:
         "Enjoy a hassle-free experience without the need for upfront collateral.",
     },

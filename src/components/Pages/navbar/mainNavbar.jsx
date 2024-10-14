@@ -238,6 +238,21 @@ function MainNavbar() {
                       Contact Us
                     </a>
                   </li>
+
+                  <div className="nav-item d-flex align-items-center">
+                    <strong>
+                      {" "}
+                      <NavDropdown title="Locations" className="navbar-location-submenus">
+                        <NavDropdown.Item
+                          as={NavLink}
+                          to={`/rent-a-car-in-sharjah`}
+                        >
+                         <span className="location-name"> Sharjah</span>
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                    </strong>
+                  </div>
+
                   {/* <li className="nav-item">
                     <a
                       href="/faqs"

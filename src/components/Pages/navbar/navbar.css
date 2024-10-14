@@ -346,6 +346,9 @@ nav a {
   .user-name-icon-div {
     margin-left: 5px;
   }
+  .navbar-location-submenus {
+    padding-left: 20px;
+  }
 }
 
 @media (max-width: 899px) {
