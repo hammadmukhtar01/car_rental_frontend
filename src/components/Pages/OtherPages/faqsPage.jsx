@@ -23,7 +23,6 @@ const FaqsPage = () => {
           content="Get all the information you need to a smooth car rental experience. Uncover all the answers you are looking for with Milele Car Rental. "
         />
         <meta name="keywords" content="keywords" />
-        <link rel="canonical" href="https://www.milelecarrental.com/faqs" />
       </Helmet>
       <HeaderCombination />
       <FaqsData />

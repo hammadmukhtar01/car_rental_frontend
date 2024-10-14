@@ -638,7 +638,6 @@ const CustomerProfilePage = () => {
             content="Discover the best car rental service in Dubai with zero deposit and flexible payment options. Choose from a wide range of vehicles at Milele Car Rental. Rent now and enjoy special offers!"
           />
           <meta name="keywords" content="keywords" />
-          <link rel="canonical" href="https://www.milelecarrental.com/" />
         </Helmet>
 
         <HomePageTopBar />
