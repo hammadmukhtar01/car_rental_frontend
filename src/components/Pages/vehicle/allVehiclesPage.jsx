@@ -36,6 +36,7 @@ import FooterCombination from "../../PrivateComponents/footerCombination";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { toast } from "react-hot-toast";
 import { getWithExpiry, setWithExpiry } from "../Utils/localStorageUtils";
+import FleetContentSection from "./fleetContentSection";
 
 const PageSize = 6;
 const animatedComponents = makeAnimated();
@@ -1821,6 +1822,7 @@ const VehiclesPage = () => {
                   </div>
                 </Col>
               </Row>
+              <FleetContentSection/>
             </Container>
           </div>
         </>

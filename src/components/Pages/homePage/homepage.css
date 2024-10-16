@@ -233,6 +233,12 @@
   text-transform: uppercase;
 }
 
+.fleet-page-content {
+  color: #e87a28;
+  padding: 30px 1px 20px 1px;
+  font-weight: 400;
+}
+
 .rental-exp-icon-text-container {
   display: block;
 }
