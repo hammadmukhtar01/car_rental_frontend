@@ -53,10 +53,12 @@ const AboutusPage = () => {
   return (
     <HelmetProvider>
       <Helmet>
-        <title>About Us | Know more About who we are | Milele Car Rental  </title>
+        <title>
+          About Us | Know more About who we are | Milele Car Rental{" "}
+        </title>
         <meta
           name="description"
-          content="Experience luxury and reliability with Milele Car Rental. Enjoy top-notch service, an extensive fleet, and a customer-centric approach."
+          content="Discover more about Milele Car Rental, your premier choice for car rentals in Dubai. Learn about our commitment to quality, customer service, and a wide range of vehicle options."
         />
         <meta name="keywords" content="keywords" />
         <link

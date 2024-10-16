@@ -12,7 +12,8 @@ const TermsConditionsPage = () => {
         <title>Things to Consider when Renting a Car in UAE</title>
         <meta
           name="description"
-          content="Read the rental terms of Milele Car Rental: details on rental periods, payment policies, fines for overdue payments, contract extensions, vehicle check-in/out, insurance, and more."
+          content="Review the Terms and Conditions at Milele Car Rental to ensure a smooth rental experience. Understand your rights, responsibilities, and the terms of service when renting a car in Dubai.
+"
         />
         <meta name="keywords" content="keywords" />
         <link
