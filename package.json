@@ -102,6 +102,7 @@
     "@types/jquery": "^3.5.29",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "webpack-bundle-analyzer": "^4.10.2",
+    "workbox-webpack-plugin": "^7.1.0"
   }
 }
