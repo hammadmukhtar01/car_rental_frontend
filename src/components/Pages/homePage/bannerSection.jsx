@@ -19,6 +19,7 @@ const BannerSection = () => {
                 title={`Milele Car Rental Banner`}
                 src={LargeBanner1}
                 alt="Milele Car Rental Banner"
+                loading="lazy"
               />
             </picture>
           </div>
