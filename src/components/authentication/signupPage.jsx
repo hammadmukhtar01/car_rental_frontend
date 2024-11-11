@@ -131,8 +131,8 @@ const SignupPage = ({ onCloseModal, setGif }) => {
     }
 
     if (signupFormMissingFields.length <= 0) {
-    let trimmedEmail = email.trim();
-      
+      let trimmedEmail = email.trim();
+
       const formData = {
         fName,
         lName,
@@ -198,15 +198,18 @@ const SignupPage = ({ onCloseModal, setGif }) => {
     const fetchNationalities = async () => {
       try {
         const response = await axios.get(
-          "https://api.first.org/data/v1/countries"
+          `${process.env.REACT_APP_MILELE_API_URL}/freeConsultationForm/countries`
+          // `http://localhost:8000/api/v1/freeConsultationForm/countries`
         );
         const data = response?.data?.data;
-        const options = Object.keys(data)
-          .map((key) => ({
-            label: data[key]?.country,
-            value: key,
+
+        const options = data
+          .map((country) => ({
+            label: country.label,
+            value: country.value,
           }))
           .sort((a, b) => a.label.localeCompare(b.label));
+
         setNationalityOptions(options);
       } catch (error) {
         console.error("Failed to fetch nationalities:", error);

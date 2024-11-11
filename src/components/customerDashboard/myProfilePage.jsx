@@ -221,7 +221,8 @@ const CustomerProfilePage = () => {
     try {
       while (hasMore) {
         const response = await axios.get(
-          `https://api.first.org/data/v1/countries?limit=${limit}&offset=${offset}`
+          `${process.env.REACT_APP_MILELE_API_URL}/freeConsultationForm/countries`
+          // `http://localhost:8000/api/v1/freeConsultationForm/countries`
         );
         const data = response?.data?.data;
         allCountries = [
