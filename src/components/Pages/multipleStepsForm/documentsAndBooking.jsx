@@ -152,29 +152,48 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   invoiceExpiryDate.setDate(today.getDate() + 5);
   const paymentLinkExpiryDate = invoiceExpiryDate?.toISOString().split("T")[0];
 
+  // useEffect(() => {
+  //   const fetchNationalities = async () => {
+  //     let allCountries = [];
+  //     let offset = 0;
+  //     const limit = 1000;
+  //     let hasMore = true;
+
+  //     try {
+  //       while (hasMore) {
+  //         const response = await axios.get(
+  //           `https://cors-anywhere.herokuapp.com/https://api.first.org/data/v1/countries?limit=${limit}&offset=${offset}`
+  //         );
+  //         const data = response?.data?.data;
+  //         allCountries = [
+  //           ...allCountries,
+  //           ...Object.keys(data).map((key) => ({
+  //             label: data[key]?.country,
+  //             value: key,
+  //           })),
+  //         ];
+  //         offset += limit;
+  //         hasMore = response?.data?.total > offset;
+  //       }
+  //       allCountries.sort((a, b) => a.label.localeCompare(b.label));
+  //       setNationalityOptions(allCountries);
+  //     } catch (error) {
+  //       console.error("Failed to fetch nationalities:", error);
+  //     }
+  //   };
+
+  //   fetchNationalities();
+  // }, []);
+
   useEffect(() => {
     const fetchNationalities = async () => {
-      let allCountries = [];
-      let offset = 0;
-      const limit = 1000;
-      let hasMore = true;
-
       try {
-        while (hasMore) {
-          const response = await axios.get(
-            `https://api.first.org/data/v1/countries?limit=${limit}&offset=${offset}`
-          );
-          const data = response?.data?.data;
-          allCountries = [
-            ...allCountries,
-            ...Object.keys(data).map((key) => ({
-              label: data[key]?.country,
-              value: key,
-            })),
-          ];
-          offset += limit;
-          hasMore = response?.data?.total > offset;
-        }
+        const response = await axios.get(
+          `${process.env.REACT_APP_MILELE_API_URL}/freeConsultationForm/countries`
+          // `http://localhost:8000/api/v1/freeConsultationForm/countries`
+        );
+        const allCountries = response?.data?.data;
+
         allCountries.sort((a, b) => a.label.localeCompare(b.label));
         setNationalityOptions(allCountries);
       } catch (error) {
@@ -991,7 +1010,6 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
         />
         <meta name="keywords" content="keywords" />
         <meta name="robots" content="noindex, nofollow" />{" "}
-
       </Helmet>
       <div className="vehicle-details-location-main-div pt-3 pb-3">
         <Container fluid className="pt-4">
