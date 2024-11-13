@@ -407,7 +407,13 @@ const VehiclesPage = () => {
     (tariffGroupId) => {
       const days = numberOfDays;
 
-      const tariffs = tariffLines[tariffGroupId] || [];
+      let tariffs = tariffLines[tariffGroupId] || [];
+
+      // if (tariffGroupId === 8967) {
+      //   console.log("tariffsdddd ---- is : ", tariffs);
+      // }
+
+      tariffs = tariffs.sort((a, b) => a.rateType.id - b.rateType.id);
 
       let index;
       if (days > 0 && days < 7) {
@@ -417,14 +423,20 @@ const VehiclesPage = () => {
       } else if (days > 21) {
         index = 2;
       }
+      
+      // if (tariffGroupId === 8967) {
+      //   console.log("index ---- is:", index);
+      // }
 
       const line = tariffs[index];
 
       if (!line) {
         return 0;
       }
+      if (tariffGroupId === 8967) {
+        console.log("line ---- is:", line);
+      }
       const totalPrice = calculateRent(line?.rate, line?.rateType?.name, days);
-
       return Math.round(totalPrice);
     },
     [numberOfDays, tariffLines]
@@ -1822,7 +1834,7 @@ const VehiclesPage = () => {
                   </div>
                 </Col>
               </Row>
-              <FleetContentSection/>
+              <FleetContentSection />
             </Container>
           </div>
         </>
