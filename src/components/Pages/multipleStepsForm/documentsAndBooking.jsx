@@ -689,6 +689,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
 
     console.log("Updated Booking Data:", bookingData);
     submitBooking(bookingData);
+    const nextStepUrl = `/booking-page/3&booking-success`;
+    window.location.href = nextStepUrl;
   };
 
   // Booking API
@@ -733,7 +735,8 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
               grandTotalPrice: totalGrandPriceParam,
             });
             setLoading(false);
-            createInvoice();
+            
+            // createInvoice();
             return;
           } else {
             throw new Error("Booking failed.");
@@ -860,78 +863,78 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
   };
 
   // Payment APIs
-  const createInvoice = async () => {
-    const headers = {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    };
-    const url = `${process.env.REACT_APP_MILELE_API_URL}/invoice/createPaymentInvoice`;
-    const body = {
-      firstName: firstName,
-      lastName: lastName,
-      email: emailAddress,
-      transactionType: "PURCHASE",
-      emailSubject: "Click to Pay: Milele Car Rental Invoice",
-      invoiceExpiryDate: paymentLinkExpiryDate,
-      paymentAttempts: 3,
-      redirectUrl: "https://milelecarrental.com/booking-page/3&booking-success",
-      items: [
-        {
-          description: TariffVehicleNameParam,
-          totalPrice: {
-            currencyCode: "AED",
-            value: totalGrandPriceWithTax * 100,
-          },
-          quantity: 1,
-        },
-      ],
-      total: {
-        currencyCode: "AED",
-        value: totalGrandPriceWithTax * 100,
-      },
-      message:
-        "Thank you for booking at Milele Car Rental. By clicking on the below link and processing your payment successful, your booking will be confirmed..",
-    };
+  // const createInvoice = async () => {
+  //   const headers = {
+  //     "Content-Type": "application/json",
+  //     "Access-Control-Allow-Origin": "*",
+  //   };
+  //   const url = `${process.env.REACT_APP_MILELE_API_URL}/invoice/createPaymentInvoice`;
+  //   const body = {
+  //     firstName: firstName,
+  //     lastName: lastName,
+  //     email: emailAddress,
+  //     transactionType: "PURCHASE",
+  //     emailSubject: "Click to Pay: Milele Car Rental Invoice",
+  //     invoiceExpiryDate: paymentLinkExpiryDate,
+  //     paymentAttempts: 3,
+  //     redirectUrl: "https://milelecarrental.com/booking-page/3&booking-success",
+  //     items: [
+  //       {
+  //         description: TariffVehicleNameParam,
+  //         totalPrice: {
+  //           currencyCode: "AED",
+  //           value: totalGrandPriceWithTax * 100,
+  //         },
+  //         quantity: 1,
+  //       },
+  //     ],
+  //     total: {
+  //       currencyCode: "AED",
+  //       value: totalGrandPriceWithTax * 100,
+  //     },
+  //     message:
+  //       "Thank you for booking at Milele Car Rental. By clicking on the below link and processing your payment successful, your booking will be confirmed..",
+  //   };
 
-    console.log(`before hitting API, body is: `, body);
+  //   console.log(`before hitting API, body is: `, body);
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    toast.dismiss();
-    toast.promise(
-      (async () => {
-        setLoading(true);
-        try {
-          const response = await axios.post(url, body, { headers });
-          console.log(`response of payment API is: `, response?.data);
+  //   await new Promise((resolve) => setTimeout(resolve, 2000));
+  //   toast.dismiss();
+  //   toast.promise(
+  //     (async () => {
+  //       setLoading(true);
+  //       try {
+  //         const response = await axios.post(url, body, { headers });
+  //         console.log(`response of payment API is: `, response?.data);
 
-          if (response?.data && response?.data?.status === "success") {
-            console.log(
-              "Invoice Created, Payment URL:",
-              response?.data?.status
-            );
-            setPaymentUrl(response?.data?.status);
-            setLoading(false);
-            const nextStepUrl = `/booking-page/3&booking-success`;
-            window.location.href = nextStepUrl;
-          } else {
-            throw new Error("Failed to generate payment link.");
-          }
-        } catch (error) {
-          console.error("Failed to create invoice:", error);
-          setLoading(false);
-          throw error;
-        }
-      })(),
-      {
-        loading: "Generating Payment link...",
-        success: "Payment link generated successfully!",
-        error: "Failed to generate payment link.",
-      },
-      {
-        duration: 3000,
-      }
-    );
-  };
+  //         if (response?.data && response?.data?.status === "success") {
+  //           console.log(
+  //             "Invoice Created, Payment URL:",
+  //             response?.data?.status
+  //           );
+  //           setPaymentUrl(response?.data?.status);
+  //           setLoading(false);
+  //           const nextStepUrl = `/booking-page/3&booking-success`;
+  //           window.location.href = nextStepUrl;
+  //         } else {
+  //           throw new Error("Failed to generate payment link.");
+  //         }
+  //       } catch (error) {
+  //         console.error("Failed to create invoice:", error);
+  //         setLoading(false);
+  //         throw error;
+  //       }
+  //     })(),
+  //     {
+  //       loading: "Generating Payment link...",
+  //       success: "Payment link generated successfully!",
+  //       error: "Failed to generate payment link.",
+  //     },
+  //     {
+  //       duration: 3000,
+  //     }
+  //   );
+  // };
 
   const selectStylesError = {
     control: (provided, { hasValue }) => ({
