@@ -1302,7 +1302,7 @@ const AddOnsDocuments = ({ prevStep, nextStep }) => {
                       disabled={loading}
                     >
                       <span className="animate-button btn4">
-                        {loading ? "Submitting..." : " Book & Pay"}
+                        {loading ? "Submitting..." : " Submit Booking"}
                       </span>
                     </button>
                   </Col>

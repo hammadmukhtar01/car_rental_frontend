@@ -31,7 +31,8 @@ const AfterBookingPage = () => {
               Booking confirmed! Thank you for choosing Milele Car Rental.
             </span>
           </h5>
-          <p>A payment link has been sent to your email</p>
+          <p>Our rental team will contact you soon.</p>
+          {/* <p>A payment link has been sent to your email</p> */}
           <div>
             <hr className="thank-you-page-small-line" />
           </div>
