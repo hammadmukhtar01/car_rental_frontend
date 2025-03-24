@@ -1,12 +1,14 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import blog1_MainImg1WebP from "../../images/blog-images/blog1_main_Img1.webp";
-import blog2_MainImg1WebP from "../../images/blog-images/blog2_main_Img1.webp";
-import blog3_MainImg1WebP from "../../images/blog-images/blog3_main_Img1.webp";
-import blog1_MainImg1 from "../../images/blog-images/blog1_main_Img1.png";
-import blog2_MainImg1 from "../../images/blog-images/blog2_main_Img1.png";
-import blog3_MainImg1 from "../../images/blog-images/blog3_main_Img1.png";
+import blog1_MainImg1WebP from "../../images/blog-images/blog1-main-Img1.webp";
+import blog2_MainImg1WebP from "../../images/blog-images/blog2-main-Img1.webp";
+import blog3_MainImg1WebP from "../../images/blog-images/blog3-main-Img1.webp";
+import blog4_MainImg1WebP from "../../images/blog-images/blog4-main-Img1.webp";
+import blog1_MainImg1 from "../../images/blog-images/blog1-main-Img1.jpg";
+import blog2_MainImg1 from "../../images/blog-images/blog2-main-Img1.jpg";
+import blog3_MainImg1 from "../../images/blog-images/blog3-main-Img1.jpg";
+import blog4_MainImg1 from "../../images/blog-images/blog4-main-Img1.webp";
 import HeaderCombination from "../../PrivateComponents/headerCombination";
 import FooterCombination from "../../PrivateComponents/footerCombination";
 
@@ -41,6 +43,15 @@ const BlogPage4 = ({ blogData }) => {
       title: "Top Apps that help You Navigate Dubai",
       date: "Aug 23, 2024",
       text: "A cool thing about living in the UAE is get in your car, put on your favourite song and drive. Driving can be fun - if you know where you are going and have a trusty navigation app (you don't want to get lost along the way). In Dubai, five apps can make a difference when on the road; Google Maps, Apple Maps, Waze, Yango Maps, Cafu and RTA Smart Drive.",
+    },
+
+    {
+      id: 4,
+      imageUrlWebP: blog4_MainImg1WebP,
+      imageUrlPNG: blog4_MainImg1,
+      title: "Milele Partners with OneClickDrive to Elevate Your Car Rental Experience",
+      date: "March 23, 2025",
+      text: "Dubai has long been a centre for innovation and luxury, and at Milele, we are committed to revolutionising the automotive experience. As a leading automotive exporter specialising in tax-free vehicle exports across Africa, Asia, and Europe, we have now partnered with ...",
     },
   ];
 

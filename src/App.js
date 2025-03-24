@@ -26,6 +26,7 @@ import ToasterWrapper from "./components/Pages/Utils/toastWrapper";
 import EventCalculation from "./components/Pages/Utils/eventCalculation";
 import { AuthModalProvider } from "./components/Pages/Utils/AuthContext";
 import RentCarInSharjah from "./components/Pages/Blog/additionalBlogs/rentACarInSharjah";
+import BlogPage4 from "./components/Pages/Blog/blogPage4";
 const LazyAbout = React.lazy(() =>
   import("./components/Pages/OtherPages/aboutusPage")
 );
@@ -85,6 +86,10 @@ const App = () => {
               <Route
                 path="/top-apps-that-help-you-to-navigate-in-dubai"
                 element={<BlogPage3 />}
+              />
+              <Route
+                path="/milele-partners-with-oneClickDrive-to-elevate-your-car-rental-experience"
+                element={<BlogPage4 />}
               />
               <Route path="log/things-to-do-in-dubai" element={<BlogPage2 />} />
               <Route path="/map" element={<Map />} />

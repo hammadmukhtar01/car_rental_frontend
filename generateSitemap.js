@@ -26,6 +26,11 @@ async function generateSitemap() {
       changefreq: "monthly",
       priority: 0.5,
     },
+    {
+      url: "/milele-partners-with-oneClickDrive-to-elevate-your-car-rental-experience",
+      changefreq: "monthly",
+      priority: 0.5,
+    },
   ];
 
   const hostname = "https://www.milelecarrental.com";
