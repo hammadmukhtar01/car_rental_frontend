@@ -66,7 +66,7 @@ const BlogPage4 = ({ blogData }) => {
               Milele, we are committed to revolutionising the automotive
               experience. As a leading automotive exporter specialising in
               tax-free vehicle exports across Africa, Asia, and Europe, we have
-              now partnered with <a href="#4">OneClickDrive</a>, the UAE's
+              now partnered with <a href="https://www.oneclickdrive.com">OneClickDrive</a>, the UAE's
               premier car rental marketplace. This collaboration allows us to
               expand our offerings, making car rentals in Dubai more accessible
               and hassle-free. Whether you're seeking a vehicle for a short-term
@@ -92,7 +92,7 @@ const BlogPage4 = ({ blogData }) => {
               industry by providing a marketplace where customers can browse,
               compare, and rent vehicles from a variety of suppliers across the
               UAE. By partnering with Milele, OneClickDrive expands its reach to
-              offer customers even more <a href="#4">options</a>. This
+              offer customers even more <a href="https://www.oneclickdrive.com/company/dubai/milele-car-rental">options</a>. This
               collaboration enhances the rental experience by giving customers
               greater flexibility, affordability, and a wide range of vehicle
               choices.
