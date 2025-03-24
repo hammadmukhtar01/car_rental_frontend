@@ -4,10 +4,13 @@ import "./blogPage.css";
 import blog1MainImg1WebP from "../../images/blog-images/blog1-main-Img1.webp";
 import blog2MainImg1WebP from "../../images/blog-images/blog2-main-Img1.webp";
 import blog3MainImg1WebP from "../../images/blog-images/blog3-main-Img1.webp";
+import blog4MainImg1WebP from "../../images/blog-images/blog4-main-Img1.webp";
 
 import blog1MainImg1 from "../../images/blog-images/blog1-main-Img1.jpg";
 import blog2MainImg1 from "../../images/blog-images/blog2-main-Img1.jpg";
 import blog3MainImg1 from "../../images/blog-images/blog3-main-Img1.jpg";
+import blog4MainImg1 from "../../images/blog-images/blog4-main-Img1.jpg";
+
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import "slick-carousel/slick/slick.css";
@@ -41,10 +44,10 @@ const OurBlogs = () => {
     },
     {
       id: 4,
-      urlTitle: "things-to-do-in-dubai",
-      imageUrl: blog2MainImg1,
-      imageUrlWebP: blog2MainImg1WebP,
-      title: "Things to do in Dubai for the Ultimate Vacation",
+      urlTitle: "milele-partners-with-oneClickDrive-to-elevate-your-car-rental-experience",
+      imageUrl: blog4MainImg1,
+      imageUrlWebP: blog4MainImg1WebP,
+      title: "Milele Partners with OneClickDrive to Elevate Your Car Rental Experience",
     },
   ];
 
