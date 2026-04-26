@@ -4,8 +4,10 @@ import { FaPhone, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 import { Modal } from "react-bootstrap";
 
 const FixedNumLocButtons = () => {
-  const phoneNumber = "971544519432";
-  const whatsappLink = `https://api.whatsapp.com/send?phone=${phoneNumber}`;
+  // Keep "+" for display/tel:, but WhatsApp prefers digits-only (and avoids iOS/Safari "+" query decoding issues).
+  const displayPhoneNumber = "00971544519432";
+  const whatsappPhoneNumber = displayPhoneNumber.replace(/[^\d]/g, "");
+  const whatsappLink = `https://wa.me/${whatsappPhoneNumber}`;
 
   const [showModal, setShowModal] = useState(false);
 
@@ -23,7 +25,7 @@ const FixedNumLocButtons = () => {
     //   event: "conversion",
     //   send_to: "AW-11403132105/qF1YCJP11LYZEMn5t70q",
     // });
-    window.location.href = `tel:${phoneNumber}`;
+    window.location.href = `tel:${displayPhoneNumber}`;
   };
 
   const handleWhatsappClick = (e) => {
@@ -39,7 +41,7 @@ const FixedNumLocButtons = () => {
     <>
       <div className="contact-buttons-container">
         <a
-          href={`tel:${phoneNumber}`}
+          href={`tel:${displayPhoneNumber}`}
           title={"phone Number"}
           className="contact-button phone-call-link"
           target="_blank"
